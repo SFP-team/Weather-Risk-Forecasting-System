@@ -1,50 +1,108 @@
-# Blueberry Weather Forecast Model
+# Weather Risk Forecasting System
 
-**Florida blueberry weather risk forecasting and decision-support prototype.**
+**Florida blueberry weather risk forecasting and decision-support product.**
 
-General weather apps forecast temperature and rain. This project aims to forecast **crop-relevant conditions** and **adverse-event probabilities** for Florida blueberry growers—especially freeze protection, chill accumulation, disease weather risk, and seasonal planning horizons of up to 2–3 months.
+Repository: [SFP-team/Weather-Risk-Forecasting-System](https://github.com/SFP-team/Weather-Risk-Forecasting-System)
 
-## Start here
+General weather apps forecast temperature and rain. This system forecasts **crop-relevant conditions** and **adverse-event probabilities** for Florida blueberry growers—freeze protection, chill accumulation, disease weather risk, and seasonal planning (1–3 months as risk outlooks, not fake daily calendars).
 
-| Document | Purpose |
-|----------|---------|
-| **[PROJECT_PROPOSAL.md](PROJECT_PROPOSAL.md)** | Full project proposal |
-| **[docs/](docs/README.md)** | Architecture, data sources, risk definitions, roadmap |
-
-## Product thesis (short)
+## Product thesis
 
 **Dual-horizon decision support:**
 
-1. **Operations (0–10 days)** — freeze protect/start-stop guidance, disease wetness, harvest weather (highest farmer willingness-to-pay).
-2. **Planning (1–3 months)** — probabilistic chill deficit, freeze-night odds in a window, wet/dry tilt via local ML + NOAA CPC/NMME (not a fake daily 90-day weather calendar).
+1. **Operations (0–10 days)** — Tonight freeze protect / start-stop guidance, 7-day freeze–wetness–harvest risk  
+2. **Planning (1–3 months)** — Chill progress + probabilistic freeze-window / chill cards (LightGBM + climatology)
 
-Data backbone: **FAWN** (UF/IFAS) + NOAA GHCN + NWS + Climate Prediction Center.
+## Quick start
 
-## Status
+### 1. Python backend
 
-| Area | Status |
-|------|--------|
-| Research & proposal | Complete |
-| Documentation | Complete (`PROJECT_PROPOSAL.md` + `docs/`) |
-| Code / data pipeline | Not started (greenfield) |
+```bash
+cd Weather-Risk-Forecasting-System   # or this folder
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Build data, features, models, demo farms
+python pipelines/run_all.py
+
+# API (http://127.0.0.1:8000/docs)
+cd services/api && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### 2. Web dashboard
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+Open **http://localhost:3000**
+
+### 3. Tests
+
+```bash
+source .venv/bin/activate
+pytest -q
+```
+
+## Demo farms
+
+| Farm | County | Station | Focus |
+|------|--------|---------|--------|
+| North Florida Emerald Block | Alachua | ALACHUA | Freeze + chill (deciduous) |
+| Central Florida Star & Avanti | Polk | LAKE_ALFRED | Evergreen / fruit |
+| Highlands Early Evergreen | Highlands | SEBRING | Early harvest |
+
+## API highlights
+
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /health` | Status |
+| `GET /farms` | Demo farms |
+| `GET /farms/{id}/tonight` | Freeze decision card |
+| `GET /farms/{id}/seven-day` | Operational week |
+| `GET /farms/{id}/season` | Chill + 1–3 month risk cards |
+| `GET /farms/{id}/chill` | Chill progress |
+| `PATCH /farms/{id}` | Update phenology / bias |
+| `GET /meta/metrics` | Model skill vs climatology |
+| `GET /docs` | OpenAPI |
+
+## Repository layout
+
+```
+packages/common      schemas, stations, DB, farms
+packages/ingest      synthetic FL history, Open-Meteo, NWS
+packages/features    chill hours, freeze flags
+packages/risk        tonight freeze engine, seasonal cards
+packages/models      LightGBM seasonal train/predict
+services/api         FastAPI
+apps/web             Next.js farmer dashboard
+pipelines/run_all.py end-to-end batch
+docs/                product & architecture docs
+PROJECT_PROPOSAL.md  full proposal
+```
+
+## Data notes
+
+- **Training corpus:** multi-year synthetic Florida blueberry-belt climatology (realistic freeze/chill/precip patterns) for offline reliability.
+- **Live overlay:** Open-Meteo archive/forecast + NWS point forecast when network allows.
+- **Stations:** Alachua, Putnam Hall, Citra, Ocklawaha, Lake Alfred, Sebring (FAWN-oriented).
 
 ## Honest scope
 
-| We will build | We will not claim |
-|---------------|-------------------|
-| Near-term freeze & risk alerts | Deterministic daily weather 90 days out |
-| Seasonal risk probabilities & ranges | Exact freeze dates months ahead |
-| Farmer dashboard in blueberry language | Replacement for official NWS warnings |
+| We build | We do not claim |
+|----------|-----------------|
+| Near-term freeze decision support | Deterministic daily weather 90 days out |
+| Seasonal risk probabilities | Exact freeze dates months ahead |
+| Farmer dashboard in blueberry language | Replacement for NWS warnings |
 
-## Next implementation steps
+## Documentation
 
-See [docs/roadmap.md](docs/roadmap.md). Summary:
-
-1. Scaffold monorepo and FAWN ingest for blueberry-belt stations  
-2. Chill / freeze feature baselines  
-3. Short-range rules + seasonal LightGBM event models  
-4. FastAPI + Next.js farmer dashboard  
+- [PROJECT_PROPOSAL.md](PROJECT_PROPOSAL.md)
+- [docs/](docs/README.md)
 
 ## Disclaimer
 
-This project is **decision support research/prototype**, not a substitute for National Weather Service warnings or University of Florida IFAS Extension freeze and crop advice.
+Decision support prototype only. Not a substitute for National Weather Service warnings or University of Florida IFAS Extension freeze and crop advice.
