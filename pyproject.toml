@@ -23,6 +23,7 @@ dependencies = [
   "aiosqlite>=0.20.0",
   "joblib>=1.4.0",
   "python-multipart>=0.0.9",
+  "pyyaml>=6.0.0",
 ]
 
 [project.optional-dependencies]
@@ -31,10 +32,11 @@ dev = ["pytest>=8.0.0", "ruff>=0.5.0"]
 [project.scripts]
 blueberry-pipeline = "pipelines.run_all:main"
 blueberry-api = "services.api.app.main:run"
+blueberry-analogue = "blueberry_analogue.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["packages/common", "packages/ingest", "packages/features", "packages/risk", "packages/models", "services", "."]
-include = ["blueberry_common*", "blueberry_ingest*", "blueberry_features*", "blueberry_risk*", "blueberry_models*", "api*", "pipelines*"]
+where = ["packages/common", "packages/ingest", "packages/features", "packages/risk", "packages/models", "packages/analogue", "services", "."]
+include = ["blueberry_common*", "blueberry_ingest*", "blueberry_features*", "blueberry_risk*", "blueberry_models*", "blueberry_analogue*", "api*", "pipelines*"]
 
 [tool.setuptools.package-dir]
 "" = "."
@@ -43,3 +45,7 @@ include = ["blueberry_common*", "blueberry_ingest*", "blueberry_features*", "blu
 "blueberry_features" = "packages/features/blueberry_features"
 "blueberry_risk" = "packages/risk/blueberry_risk"
 "blueberry_models" = "packages/models/blueberry_models"
+"blueberry_analogue" = "packages/analogue/blueberry_analogue"
+
+[tool.setuptools.package-data]
+blueberry_analogue = ["data/*.yaml", "data/*.csv", "data/*.py"]

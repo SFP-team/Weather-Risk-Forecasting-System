@@ -40,6 +40,19 @@ npm run dev
 
 Open **http://localhost:3000**
 
+### 4. Blueberry Analogue (site selection)
+
+A separate product. Shortlist the next trial geography for a variety and system. It is not bolted onto the Florida farm demo.
+
+```bash
+source .venv/bin/activate
+python -m blueberry_analogue.cli build          # offline climate fallback
+python -m blueberry_analogue.cli build --live   # NASA POWER point climatology
+python -m blueberry_analogue.cli serve          # http://127.0.0.1:8010
+```
+
+See [docs/analogue/README.md](docs/analogue/README.md). Shortlist only. Book the flight. Do not plant 20 ha.
+
 ### 3. Tests
 
 ```bash

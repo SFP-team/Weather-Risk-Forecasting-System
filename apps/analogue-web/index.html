@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blueberry Analogue</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #14201b;
+      --muted: #5c6b64;
+      --paper: #f4efe4;
+      --card: #fffdf8;
+      --line: #d7cfc0;
+      --accent: #1f6b4a;
+      --warn: #9a4a16;
+      --fail: #8b1e1e;
+      --ok: #1f6b4a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; color: var(--ink); background: var(--paper); }
+    body { display: grid; grid-template-rows: auto 1fr; }
+    header {
+      display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start;
+      padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--line); background: var(--card);
+    }
+    header h1 { margin: 0; font-size: 1.25rem; letter-spacing: 0.01em; }
+    header p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.92rem; max-width: 46rem; }
+    .layout { display: grid; grid-template-columns: 340px 1fr 380px; min-height: 0; }
+    aside, .detail { overflow: auto; background: var(--card); padding: 1rem; }
+    aside { border-right: 1px solid var(--line); }
+    .detail { border-left: 1px solid var(--line); }
+    #map { min-height: 0; }
+    label { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.7rem 0 0.25rem; }
+    select, input, button { width: 100%; font: inherit; padding: 0.45rem 0.5rem; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+    button { background: var(--accent); color: #fff; border: 0; cursor: pointer; margin-top: 0.9rem; }
+    button:disabled { opacity: 0.5; cursor: wait; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.75rem; margin: 0.55rem 0; background: #fff; }
+    .card h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+    .meta { color: var(--muted); font-size: 0.86rem; }
+    .sim { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); }
+    .fail { color: var(--fail); }
+    .warn { color: var(--warn); }
+    .pill { display: inline-block; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 999px; border: 1px solid var(--line); }
+    .pill.low { background: #f3d4d0; }
+    .pill.med { background: #f3e6c8; }
+    .pill.high { background: #d8eadc; }
+    ol { padding-left: 1.2rem; }
+    li { margin: 0.35rem 0; }
+    .disclaimer { background: #f8e8d8; border: 1px solid #e2c39a; padding: 0.7rem; border-radius: 8px; font-size: 0.9rem; }
+    a { color: var(--accent); }
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; grid-template-rows: auto 50vh auto; }
+      aside, .detail { border: 0; border-bottom: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Blueberry Analogue</h1>
+      <p>Given a farm that works, or a variety and system card, this returns places worth testing. It does not say plant 20 hectares. Similarity is not identity.</p>
+    </div>
+    <div class="meta" id="health"></div>
+  </header>
+  <div class="layout">
+    <aside>
+      <label>Reference operation</label>
+      <select id="reference"></select>
+      <label>Variety card (optional override)</label>
+      <select id="cultivar"><option value="">Use the reference cultivar</option></select>
+      <div class="row">
+        <div>
+          <label>Media</label>
+          <select id="media">
+            <option value="open_soil">open soil</option>
+            <option value="pine_bark">pine bark</option>
+            <option value="substrate">substrate</option>
+          </select>
+        </div>
+        <div>
+          <label>Structure</label>
+          <select id="structure">
+            <option value="open">open</option>
+            <option value="tunnel">tunnel</option>
+            <option value="greenhouse">greenhouse</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Cover</label>
+          <select id="cover">
+            <option value="none">none</option>
+            <option value="net">net</option>
+            <option value="woven">woven</option>
+            <option value="ldpe">LDPE</option>
+          </select>
+        </div>
+        <div>
+          <label>Habit</label>
+          <select id="habit">
+            <option value="deciduous">deciduous</option>
+            <option value="evergreen">evergreen</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Market week start</label>
+          <input id="mw0" type="number" min="1" max="53" placeholder="any" />
+        </div>
+        <div>
+          <label>Market week end</label>
+          <input id="mw1" type="number" min="1" max="53" placeholder="any" />
+        </div>
+      </div>
+      <label><input id="hcn" type="checkbox" style="width:auto" /> Hydrogen cyanamide</label>
+      <label>Pollinator</label>
+      <select id="pollinator">
+        <option value="apis">Apis</option>
+        <option value="bombus">Bombus</option>
+        <option value="mixed">mixed</option>
+        <option value="none">none</option>
+      </select>
+      <button id="run">Build shortlist</button>
+      <p class="meta" style="margin-top:0.8rem">Market window is a filter before climate search. Covers change UV, PAR, and rain-crack. They do not restore chill.</p>
+    </aside>
+    <div id="map"></div>
+    <section class="detail" id="detail">
+      <div class="disclaimer">This map compares known operations and caution sites. It is not a 1 km globe of empty land. Book the flight. Do not plant 20 ha.</div>
+    </section>
+  </div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const map = new maplibregl.Map({
+      container: "map",
+      style: "https://tiles.openfreemap.org/styles/liberty",
+      center: [-40, 20],
+      zoom: 2.1
+    });
+    let popup = new maplibregl.Popup({ closeButton: false });
+    let markers = [];
+
+    function colorFor(outcome, similarity) {
+      if (outcome === "known_failure") return "#8b1e1e";
+      if (outcome === "horticultural_absence") return "#7a7a7a";
+      if (outcome === "commercial_caution") return "#9a4a16";
+      if (similarity == null) return "#1f6b4a";
+      if (similarity > 0.7) return "#145c3a";
+      if (similarity > 0.45) return "#3d7a4c";
+      return "#8aa38b";
+    }
+
+    async function boot() {
+      const health = await fetch("/api/health").then(r => r.json());
+      document.getElementById("health").textContent = health.sites + " sites · " + health.disclaimer;
+      const sites = await fetch("/api/sites").then(r => r.json());
+      const cards = await fetch("/api/cards").then(r => r.json());
+      const ref = document.getElementById("reference");
+      const cult = document.getElementById("cultivar");
+      sites.filter(s => s.outcome === "commercial_success").forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.site_id;
+        opt.textContent = s.name + " · " + s.cultivar;
+        ref.appendChild(opt);
+      });
+      cards.cultivars.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c.id;
+        opt.textContent = c.label + " (" + c.class_id + ")";
+        cult.appendChild(opt);
+      });
+      const prefer = sites.find(s => s.site_id === "us-mi-grand-junction");
+      if (prefer) ref.value = prefer.site_id;
+      drawSites(sites, {});
+      syncSystemFromRef(sites);
+      ref.addEventListener("change", () => syncSystemFromRef(sites));
+    }
+
+    function syncSystemFromRef(sites) {
+      const s = sites.find(x => x.site_id === document.getElementById("reference").value);
+      if (!s) return;
+      document.getElementById("media").value = s.media;
+      document.getElementById("structure").value = s.structure;
+      document.getElementById("cover").value = s.cover;
+      document.getElementById("habit").value = s.habit;
+    }
+
+    function clearMarkers() {
+      markers.forEach(m => m.remove());
+      markers = [];
+    }
+
+    function addDot(lon, lat, color, title, onClick) {
+      const el = document.createElement("div");
+      el.style.width = "10px";
+      el.style.height = "10px";
+      el.style.borderRadius = "50%";
+      el.style.background = color;
+      el.style.border = "2px solid #fff";
+      el.style.boxShadow = "0 0 0 1px rgba(0,0,0,0.25)";
+      el.style.cursor = "pointer";
+      const marker = new maplibregl.Marker({ element: el }).setLngLat([lon, lat]).addTo(map);
+      el.addEventListener("mouseenter", () => popup.setLngLat([lon, lat]).setText(title).addTo(map));
+      el.addEventListener("mouseleave", () => popup.remove());
+      if (onClick) el.addEventListener("click", onClick);
+      markers.push(marker);
+    }
+
+    function drawSites(sites, simById) {
+      clearMarkers();
+      sites.forEach(s => {
+        addDot(s.lon, s.lat, colorFor(s.outcome, simById[s.site_id]), s.name + " · " + s.outcome);
+      });
+    }
+
+    function renderResult(data, sites) {
+      const simById = {};
+      data.shortlist.forEach(s => { simById[s.site_id] = s.similarity; });
+      drawSites(sites, simById);
+      const ref = sites.find(s => s.site_id === data.reference_id);
+      if (ref) addDot(ref.lon, ref.lat, "#111", "Reference: " + ref.name);
+      const box = document.getElementById("detail");
+      const cards = data.shortlist.map(s => {
+        const trouble = (s.trouble || []).map(t => "<li><strong>" + t.stage + " / " + t.variable + ".</strong> " + t.message + "</li>").join("");
+        const gates = (s.gates || []).filter(g => !g.passed).map(g => g.name).join(", ") || "none";
+        return `<article class="card">
+          <h3>${s.name} <span class="sim">${(s.similarity * 100).toFixed(0)}</span></h3>
+          <div class="meta">${s.country} · ${s.region} · ${s.cultivar} · lag ${s.monthly.lag} mo · ${s.system}</div>
+          <div class="meta">Monthly sim ${(s.monthly.similarity*100).toFixed(0)} · phenology sim ${(s.pheno.similarity*100).toFixed(0)} · hard fails ${s.hard_fail_count} (${gates})</div>
+          <div><span class="pill ${s.trust.flag}">data ${s.trust.flag}</span> <span class="pill">${s.outcome}</span></div>
+          ${trouble ? "<ol>" + trouble + "</ol>" : "<p class='meta'>No gate failures. Still walk the land.</p>"}
+        </article>`;
+      }).join("");
+      const killed = (data.killed || []).slice(0, 5).map(s =>
+        `<div class="meta fail">${s.name}: ${s.trouble.map(t => t.variable).join(", ") || "hard gates"}</div>`
+      ).join("");
+      const steps = data.investigation.map(s => "<li>" + s + "</li>").join("");
+      box.innerHTML = `
+        <div class="disclaimer">${data.disclaimer}</div>
+        <p class="meta">Compared ${data.n_compared} sites. Claim: ${data.claim}. Cutoff for no-analogue: ${data.no_analogue_cutoff}.</p>
+        <h2 style="margin:0.8rem 0 0.3rem;font-size:1.05rem">Shortlist</h2>
+        ${cards || "<p>No analogues passed the mask.</p>"}
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Kill list</h2>
+        ${killed || "<p class='meta'>No extra kills beyond the shortlist filters.</p>"}
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Investigation pack</h2>
+        <ol>${steps}</ol>
+      `;
+    }
+
+    document.getElementById("run").addEventListener("click", async () => {
+      const btn = document.getElementById("run");
+      btn.disabled = true;
+      btn.textContent = "Scoring…";
+      const sites = await fetch("/api/sites").then(r => r.json());
+      const body = {
+        reference_id: document.getElementById("reference").value,
+        cultivar_id: document.getElementById("cultivar").value || null,
+        media: document.getElementById("media").value,
+        structure: document.getElementById("structure").value,
+        cover: document.getElementById("cover").value,
+        habit: document.getElementById("habit").value,
+        hcn: document.getElementById("hcn").checked,
+        pollinator: document.getElementById("pollinator").value,
+        top_n: 12
+      };
+      const a = document.getElementById("mw0").value;
+      const b = document.getElementById("mw1").value;
+      if (a && b) {
+        body.market_start_week = Number(a);
+        body.market_end_week = Number(b);
+      }
+      const data = await fetch("/api/shortlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }).then(r => r.json());
+      renderResult(data, sites);
+      btn.disabled = false;
+      btn.textContent = "Build shortlist";
+    });
+
+    boot();
+  </script>
+</body>
+</html>

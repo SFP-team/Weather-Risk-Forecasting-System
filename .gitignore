@@ -21,6 +21,18 @@ data/processed/**
 !data/processed/.gitkeep
 data/sample/**
 !data/sample/.gitkeep
+data/analogue/climatology/**
+!data/analogue/climatology/.gitkeep
+data/analogue/features/**
+!data/analogue/features/.gitkeep
+!data/analogue/features/site_features.json
+!data/analogue/features/site_features.csv
+data/analogue/land/**
+!data/analogue/land/.gitkeep
+data/analogue/chelsa/**
+!data/analogue/chelsa/.gitkeep
+data/analogue/chirps/**
+!data/analogue/chirps/.gitkeep
 *.db
 *.sqlite3
 
