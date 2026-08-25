@@ -125,7 +125,7 @@
         <option value="none">none</option>
       </select>
       <button id="run">Build shortlist</button>
-      <p class="meta" style="margin-top:0.8rem">Market window is a filter before climate search. Covers change UV, PAR, and rain-crack. They do not restore chill.</p>
+      <p class="meta" style="margin-top:0.8rem">Market week is a filter before climate search. Leave it blank to keep opposite-hemisphere twins (Chile can still match Michigan). Covers change UV, PAR, and rain-crack. They do not restore chill.</p>
     </aside>
     <div id="map"></div>
     <section class="detail" id="detail">
@@ -240,7 +240,8 @@
       const steps = data.investigation.map(s => "<li>" + s + "</li>").join("");
       box.innerHTML = `
         <div class="disclaimer">${data.disclaimer}</div>
-        <p class="meta">Compared ${data.n_compared} sites. Claim: ${data.claim}. Cutoff for no-analogue: ${data.no_analogue_cutoff}.</p>
+        <p class="meta">Compared ${data.n_compared} sites${data.n_market_dropped ? " · " + data.n_market_dropped + " dropped for market week" : ""}. Claim: ${data.claim}. Cutoff for no-analogue: ${data.no_analogue_cutoff}.</p>
+        ${data.market_note ? "<p class='meta warn'>" + data.market_note + "</p>" : ""}
         <h2 style="margin:0.8rem 0 0.3rem;font-size:1.05rem">Shortlist</h2>
         ${cards || "<p>No analogues passed the mask.</p>"}
         <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Kill list</h2>

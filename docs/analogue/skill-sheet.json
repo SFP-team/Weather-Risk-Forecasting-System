@@ -1,5 +1,5 @@
 {
-  "loro": [
+  "reconstruction": [
     {
       "region": "AU-NSW",
       "skipped": false,
@@ -8,17 +8,19 @@
       "misses": 2,
       "extra_non_success_in_top": 9,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "AU-QLD",
       "skipped": false,
-      "n_refs": 3,
-      "recall_at_k": 0.3333333333333333,
+      "n_refs": 2,
+      "recall_at_k": 0.0,
       "misses": 2,
-      "extra_non_success_in_top": 12,
+      "extra_non_success_in_top": 10,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "AU-TAS",
@@ -28,7 +30,8 @@
       "misses": 2,
       "extra_non_success_in_top": 2,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "AU-VIC",
@@ -38,7 +41,8 @@
       "misses": 2,
       "extra_non_success_in_top": 5,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "AU-WA",
@@ -48,7 +52,8 @@
       "misses": 3,
       "extra_non_success_in_top": 8,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "BR-S",
@@ -58,7 +63,8 @@
       "misses": 2,
       "extra_non_success_in_top": 3,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "CA-BC",
@@ -68,7 +74,8 @@
       "misses": 1,
       "extra_non_success_in_top": 12,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "CL-CENTRAL",
@@ -78,71 +85,79 @@
       "misses": 2,
       "extra_non_success_in_top": 4,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "CL-SOUTH",
       "skipped": false,
-      "n_refs": 17,
+      "n_refs": 12,
       "recall_at_k": 0.0,
-      "misses": 17,
-      "extra_non_success_in_top": 14,
+      "misses": 12,
+      "extra_non_success_in_top": 10,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "ES-HUELVA",
       "skipped": false,
-      "n_refs": 13,
-      "recall_at_k": 1.0,
-      "misses": 0,
+      "n_refs": 12,
+      "recall_at_k": 0.8333333333333334,
+      "misses": 2,
       "extra_non_success_in_top": 5,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "MA-NORTH",
       "skipped": false,
-      "n_refs": 7,
-      "recall_at_k": 0.8571428571428571,
+      "n_refs": 6,
+      "recall_at_k": 0.8333333333333334,
       "misses": 1,
-      "extra_non_success_in_top": 8,
+      "extra_non_success_in_top": 7,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "MA-SOUTH",
       "skipped": false,
-      "n_refs": 4,
-      "recall_at_k": 0.5,
+      "n_refs": 3,
+      "recall_at_k": 0.3333333333333333,
       "misses": 2,
       "extra_non_success_in_top": 7,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "MX-BCN",
       "skipped": false,
-      "n_refs": 3,
-      "recall_at_k": 0.6666666666666666,
+      "n_refs": 2,
+      "recall_at_k": 0.5,
       "misses": 1,
-      "extra_non_success_in_top": 9,
+      "extra_non_success_in_top": 8,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "MX-COL",
-      "skipped": true
+      "skipped": true,
+      "test": "belt_reconstruction"
     },
     {
       "region": "MX-JAL",
       "skipped": false,
-      "n_refs": 5,
+      "n_refs": 4,
       "recall_at_k": 0.0,
-      "misses": 5,
-      "extra_non_success_in_top": 23,
+      "misses": 4,
+      "extra_non_success_in_top": 20,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "MX-SIN",
@@ -152,7 +167,8 @@
       "misses": 3,
       "extra_non_success_in_top": 6,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "NZ-NORTH",
@@ -162,7 +178,8 @@
       "misses": 0,
       "extra_non_success_in_top": 10,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "NZ-SOUTH",
@@ -172,7 +189,8 @@
       "misses": 1,
       "extra_non_success_in_top": 5,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "PE-CENTRAL",
@@ -182,7 +200,8 @@
       "misses": 0,
       "extra_non_success_in_top": 5,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "PE-NORTH",
@@ -192,7 +211,8 @@
       "misses": 0,
       "extra_non_success_in_top": 14,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "PE-SOUTH",
@@ -202,7 +222,8 @@
       "misses": 1,
       "extra_non_success_in_top": 4,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "PT-ALEN",
@@ -212,17 +233,19 @@
       "misses": 0,
       "extra_non_success_in_top": 0,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "US-MI",
       "skipped": false,
-      "n_refs": 18,
+      "n_refs": 12,
       "recall_at_k": 1.0,
       "misses": 0,
-      "extra_non_success_in_top": 18,
+      "extra_non_success_in_top": 12,
       "k": 8,
-      "claim": "known_cultivar_new_region"
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
     },
     {
       "region": "US-NE",
@@ -232,26 +255,343 @@
       "misses": 4,
       "extra_non_success_in_top": 4,
       "k": 8,
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
+    },
+    {
+      "region": "US-PNW",
+      "skipped": false,
+      "n_refs": 12,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 12,
+      "k": 8,
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
+    },
+    {
+      "region": "US-SE",
+      "skipped": false,
+      "n_refs": 12,
+      "recall_at_k": 0.0,
+      "misses": 12,
+      "extra_non_success_in_top": 32,
+      "k": 8,
+      "test": "belt_reconstruction",
+      "claim": "known_cultivar_known_region"
+    }
+  ],
+  "loro": [
+    {
+      "region": "AU-NSW",
+      "skipped": false,
+      "n_refs": 2,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 9,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "AU-QLD",
+      "skipped": false,
+      "n_refs": 3,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 13,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "AU-TAS",
+      "skipped": false,
+      "n_refs": 4,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 4,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "AU-VIC",
+      "skipped": false,
+      "n_refs": 2,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 5,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "AU-WA",
+      "skipped": false,
+      "n_refs": 3,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 8,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "BR-S",
+      "skipped": false,
+      "n_refs": 2,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 3,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "CA-BC",
+      "skipped": false,
+      "n_refs": 11,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 1,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "CL-CENTRAL",
+      "skipped": false,
+      "n_refs": 2,
+      "n_no_outside_family": 0,
+      "recall_at_k": 0.0,
+      "misses": 2,
+      "extra_non_success_in_top": 3,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "CL-SOUTH",
+      "skipped": false,
+      "n_refs": 12,
+      "n_no_outside_family": 0,
+      "recall_at_k": 0.25,
+      "misses": 9,
+      "extra_non_success_in_top": 10,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "ES-HUELVA",
+      "skipped": false,
+      "n_refs": 12,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 3,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MA-NORTH",
+      "skipped": false,
+      "n_refs": 7,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 6,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MA-SOUTH",
+      "skipped": false,
+      "n_refs": 4,
+      "n_no_outside_family": 0,
+      "recall_at_k": 0.75,
+      "misses": 1,
+      "extra_non_success_in_top": 7,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MX-BCN",
+      "skipped": false,
+      "n_refs": 3,
+      "n_no_outside_family": 0,
+      "recall_at_k": 0.3333333333333333,
+      "misses": 2,
+      "extra_non_success_in_top": 11,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MX-COL",
+      "skipped": false,
+      "n_refs": 1,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 6,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MX-JAL",
+      "skipped": false,
+      "n_refs": 5,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 23,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "MX-SIN",
+      "skipped": false,
+      "n_refs": 3,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 6,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "NZ-NORTH",
+      "skipped": false,
+      "n_refs": 5,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 10,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "NZ-SOUTH",
+      "skipped": false,
+      "n_refs": 6,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 12,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "PE-CENTRAL",
+      "skipped": false,
+      "n_refs": 5,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 9,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "PE-NORTH",
+      "skipped": false,
+      "n_refs": 8,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 10,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "PE-SOUTH",
+      "skipped": false,
+      "n_refs": 3,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 3,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "PT-ALEN",
+      "skipped": false,
+      "n_refs": 2,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 0,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "US-MI",
+      "skipped": false,
+      "n_refs": 12,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 12,
+      "k": 8,
+      "test": "leave_one_region_out",
+      "claim": "known_cultivar_new_region"
+    },
+    {
+      "region": "US-NE",
+      "skipped": false,
+      "n_refs": 4,
+      "n_no_outside_family": 0,
+      "recall_at_k": 1.0,
+      "misses": 0,
+      "extra_non_success_in_top": 4,
+      "k": 8,
+      "test": "leave_one_region_out",
       "claim": "known_cultivar_new_region"
     },
     {
       "region": "US-PNW",
       "skipped": false,
-      "n_refs": 28,
+      "n_refs": 12,
+      "n_no_outside_family": 0,
       "recall_at_k": 1.0,
       "misses": 0,
-      "extra_non_success_in_top": 28,
+      "extra_non_success_in_top": 13,
       "k": 8,
+      "test": "leave_one_region_out",
       "claim": "known_cultivar_new_region"
     },
     {
       "region": "US-SE",
       "skipped": false,
-      "n_refs": 71,
-      "recall_at_k": 0.0,
-      "misses": 71,
-      "extra_non_success_in_top": 159,
+      "n_refs": 9,
+      "n_no_outside_family": 3,
+      "recall_at_k": 0.2222222222222222,
+      "misses": 7,
+      "extra_non_success_in_top": 25,
       "k": 8,
+      "test": "leave_one_region_out",
       "claim": "known_cultivar_new_region"
     }
   ],
@@ -260,14 +600,14 @@
       {
         "cultivar": "emerald",
         "class_id": "low_chill_shb",
-        "same_class_share_top8": 0.5416666666666666,
-        "other_class_share_top8": 0.4583333333333333
+        "same_class_share_top8": 0.6458333333333334,
+        "other_class_share_top8": 0.3541666666666667
       },
       {
         "cultivar": "jewel",
         "class_id": "low_chill_shb",
-        "same_class_share_top8": 0.6964285714285714,
-        "other_class_share_top8": 0.30357142857142855
+        "same_class_share_top8": 0.7291666666666666,
+        "other_class_share_top8": 0.2708333333333333
       },
       {
         "cultivar": "star",
@@ -332,38 +672,38 @@
       {
         "cultivar": "legacy",
         "class_id": "high_chill_shb",
-        "same_class_share_top8": 0.05263157894736842,
-        "other_class_share_top8": 0.9473684210526315
+        "same_class_share_top8": 0.16666666666666666,
+        "other_class_share_top8": 0.8333333333333334
       },
       {
         "cultivar": "biloxi",
         "class_id": "low_chill_shb",
-        "same_class_share_top8": 0.5294117647058824,
-        "other_class_share_top8": 0.47058823529411764
+        "same_class_share_top8": 0.375,
+        "other_class_share_top8": 0.625
       },
       {
         "cultivar": "duke",
         "class_id": "nhb",
-        "same_class_share_top8": 0.96875,
-        "other_class_share_top8": 0.03125
+        "same_class_share_top8": 0.9166666666666666,
+        "other_class_share_top8": 0.08333333333333333
       },
       {
         "cultivar": "bluecrop",
         "class_id": "nhb",
-        "same_class_share_top8": 0.9761904761904762,
-        "other_class_share_top8": 0.023809523809523808
+        "same_class_share_top8": 0.9375,
+        "other_class_share_top8": 0.0625
       },
       {
         "cultivar": "draper",
         "class_id": "nhb",
-        "same_class_share_top8": 0.9861111111111112,
-        "other_class_share_top8": 0.013888888888888888
+        "same_class_share_top8": 0.9583333333333334,
+        "other_class_share_top8": 0.041666666666666664
       },
       {
         "cultivar": "elliott",
         "class_id": "nhb",
-        "same_class_share_top8": 0.9791666666666666,
-        "other_class_share_top8": 0.020833333333333332
+        "same_class_share_top8": 0.9583333333333334,
+        "other_class_share_top8": 0.041666666666666664
       },
       {
         "cultivar": "aurora",
@@ -380,11 +720,37 @@
       {
         "cultivar": "biloxi_evergreen",
         "class_id": "evergreen_zero_chill",
-        "same_class_share_top8": 0.11607142857142858,
-        "other_class_share_top8": 0.8839285714285714
+        "same_class_share_top8": 0.020833333333333332,
+        "other_class_share_top8": 0.9791666666666666
       }
     ],
     "claim": "new_cultivar_known_or_new_region"
+  },
+  "gxe": {
+    "skipped": false,
+    "rows": [
+      {
+        "cell": "known_cultivar_known_region",
+        "n": 8,
+        "mean_similarity": 0.639647202699017
+      },
+      {
+        "cell": "new_cultivar_known_region",
+        "n": 43,
+        "mean_similarity": 0.5524077197388128
+      },
+      {
+        "cell": "known_cultivar_new_region",
+        "n": 26,
+        "mean_similarity": 0.5347437915519749
+      },
+      {
+        "cell": "both_new",
+        "n": 43,
+        "mean_similarity": 0.3989419717054442
+      }
+    ],
+    "note": "A climate analogue only claims known-cultivar / new-region and both-new. Those are the hardest cells and they have no genetics in them."
   },
   "blocked": {
     "skipped": false,

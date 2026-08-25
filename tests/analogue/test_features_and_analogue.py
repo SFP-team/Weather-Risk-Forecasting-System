@@ -7,7 +7,14 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "packages" / "analogue"))
 
-from blueberry_analogue.analogue.engine import ccafs_monthly_distance, score_pair
+from blueberry_analogue.analogue.engine import (
+    ccafs_monthly_distance,
+    score_pair,
+    shift_weeks,
+    site_hits_market,
+    weeks_overlap,
+    _week_plausible,
+)
 from blueberry_analogue.cards import load_cards
 from blueberry_analogue.climate.fetch import fallback_climatology, monthly_to_daily
 from blueberry_analogue.climate.hourly import hourly_curve
@@ -64,6 +71,20 @@ def test_seasonal_lag_prefers_six_months_for_opposite_hemisphere():
     chile = {k: v[6:] + v[:6] for k, v in ref.items()}
     best = ccafs_monthly_distance(ref, chile, {k: 1.0 for k in ref})
     assert best["lag"] in {5, 6, 7}
+
+
+def test_market_week_filter_respects_hemisphere():
+    # Duke is a northern summer fruit. Weeks wrap; 48-6 overlaps 51-5.
+    assert weeks_overlap(25, 32, 26, 30)
+    assert not weeks_overlap(25, 32, 1, 8)
+    assert weeks_overlap(48, 6, 51, 5)
+    assert shift_weeks(25, 32, 26) == (51, 5)
+    assert _week_plausible(25, 32, (25, 30))
+    assert _week_plausible(25, 32, (50, 4))
+    assert not _week_plausible(25, 32, (10, 16))
+    # Michigan Duke cannot hit a Peru Sep-Nov slot. Chilean Duke can.
+    assert not site_hits_market(42.4, (25, 32), (36, 46))
+    assert site_hits_market(-36.6, (25, 32), (50, 6))
 
 
 def test_gates_kill_warm_winter_for_nhb():

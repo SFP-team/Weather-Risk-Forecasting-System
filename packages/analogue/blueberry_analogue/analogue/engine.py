@@ -55,6 +55,46 @@ INVESTIGATION = [
 ]
 
 
+def week_set(w0: int, w1: int) -> set[int]:
+    """ISO weeks 1-53. A wrapping range such as 48-6 is allowed."""
+    a = int(w0)
+    b = int(w1)
+    if a <= b:
+        return set(range(a, b + 1))
+    return set(range(a, 54)) | set(range(1, b + 1))
+
+
+def weeks_overlap(a0: int, a1: int, b0: int, b1: int) -> bool:
+    return bool(week_set(a0, a1) & week_set(b0, b1))
+
+
+def shift_weeks(w0: int, w1: int, lag: int = 26) -> tuple[int, int]:
+    def sh(w: int) -> int:
+        return ((int(w) - 1 + lag) % 53) + 1
+
+    return sh(w0), sh(w1)
+
+
+def site_hits_market(lat: float, cultivar_weeks: tuple[int, int], req: tuple[int, int]) -> bool:
+    """Can this variety, grown at this latitude, hit the buyer's week?
+
+    Southern sites get a 26-week lag so Chile can supply a northern July slot
+    in January. Market week is a filter before climate search (Hortitool).
+    """
+    c0, c1 = cultivar_weeks
+    if lat < 0:
+        c0, c1 = shift_weeks(c0, c1, 26)
+    return weeks_overlap(c0, c1, req[0], req[1])
+
+
+def _week_plausible(c0: int, c1: int, req: tuple[int, int]) -> bool:
+    """The cultivar can hit the week in at least one hemisphere."""
+    if weeks_overlap(c0, c1, req[0], req[1]):
+        return True
+    s0, s1 = shift_weeks(c0, c1, 26)
+    return weeks_overlap(s0, s1, req[0], req[1])
+
+
 def _shift(values: list[float], lag: int) -> list[float]:
     n = len(values)
     return [values[(i + lag) % n] for i in range(n)]
@@ -213,10 +253,15 @@ def hallegatte_gates(
         add("slope", slope_pct <= 12.0, f"Slope {slope_pct:.1f}%", "land")
 
     if market_weeks is not None:
-        # Market window is a filter before climate search. Record whether the cultivar window overlaps.
         c0, c1 = cultivar.market_window
-        overlap = not (c1 < market_weeks[0] and market_weeks[1] < c0)
-        add("market_window", overlap, f"Cultivar weeks {c0}-{c1} vs request {market_weeks[0]}-{market_weeks[1]}", "market")
+        lat = float(cand.get("lat", 0.0))
+        ok = site_hits_market(lat, cultivar.market_window, market_weeks)
+        add(
+            "market_window",
+            ok,
+            f"Cultivar weeks {c0}-{c1} at lat {lat:.1f} vs request {market_weeks[0]}-{market_weeks[1]}",
+            "market",
+        )
 
     return gates
 
@@ -345,14 +390,20 @@ def shortlist_from_reference(
     sys = system or ref_site.system
     ref_feat = features_by_id[ref_id]
     ranked = []
+    n_market_dropped = 0
+    market_note = None
+    if market_weeks is not None and not _week_plausible(*cultivar.market_window, market_weeks):
+        market_note = (
+            f"{cultivar.label} weeks {cultivar.market_window[0]}-{cultivar.market_window[1]} "
+            f"cannot hit request {market_weeks[0]}-{market_weeks[1]} in either hemisphere."
+        )
     for sid, feat in features_by_id.items():
         if sid == ref_id:
             continue
         site = sites_by_id[sid]
         if market_weeks is not None:
-            c0, c1 = cultivar.market_window
-            # Filter before climate search: candidate must be able to hit the week in some lag
-            if not _week_plausible(c0, c1, market_weeks):
+            if market_note or not site_hits_market(site.lat, cultivar.market_window, market_weeks):
+                n_market_dropped += 1
                 continue
         scored = score_pair(ref_feat, feat, climate_by_id.get(sid, {}), cultivar, klass, sys, market_weeks)
         ranked.append(
@@ -387,9 +438,6 @@ def shortlist_from_reference(
         "shortlist": short,
         "killed": [r for r in ranked if r["hard_fail_count"] >= 2][:8],
         "n_compared": len(ranked),
+        "n_market_dropped": n_market_dropped,
+        "market_note": market_note,
     }
-
-
-def _week_plausible(c0: int, c1: int, req: tuple[int, int]) -> bool:
-    # Allow opposite-hemisphere lag: any overlap after ±26 weeks is handled by climate lag, not week math.
-    return True

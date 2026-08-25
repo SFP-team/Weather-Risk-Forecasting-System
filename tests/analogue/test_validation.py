@@ -31,6 +31,75 @@ def test_ecocrop_and_nz_baselines():
     assert baseline2_nz_landcare(cool) > baseline2_nz_landcare(desert)
 
 
+def test_loro_hides_same_region_neighbors():
+    from blueberry_analogue.validation.evaluate import loro_transfer
+    from blueberry_analogue.sites import Site
+
+    def feat(tmin, tmax, precip, chill_p, chill_h, frost=1.0, heat=0.0):
+        return {
+            "monthly_tmin": tmin,
+            "monthly_tmax": tmax,
+            "monthly_precip": precip,
+            "monthly_vpd": [0.6] * 12,
+            "monthly_rsds": [15.0] * 12,
+            "chill_portions": chill_p,
+            "chill_hours": chill_h,
+            "frost_nights_full_bloom": frost,
+            "heat_hours_proxy": heat,
+            "dtr": 10.0,
+            "dli_bloom": 20.0,
+            "vpd_fruit": 0.8,
+            "harvest_rain_days": 2.0,
+            "days_berry_gt_42": 0.0,
+            "igp_fog_events": 0.0,
+            "lat": 42.0,
+        }
+
+    cool = [-6, -5, 0, 6, 12, 16, 19, 18, 13, 7, 1, -4]
+    warm = [12] * 12
+    tmax_c = [0, 2, 8, 16, 22, 27, 29, 28, 23, 16, 8, 2]
+    tmax_w = [28] * 12
+    rain = [50] * 12
+
+    def site(sid, region, cultivar, klass, lat=42.0):
+        return Site(
+            site_id=sid,
+            name=sid,
+            country="US",
+            region=region,
+            admin="",
+            lat=lat,
+            lon=-86.0,
+            cultivar_class=klass,
+            cultivar=cultivar,
+            media="open_soil",
+            structure="open",
+            cover="none",
+            habit="deciduous",
+            outcome="commercial_success",
+            source="test",
+            geocode_precision="district",
+            notes="",
+        )
+
+    sites = {
+        "mi-a": site("mi-a", "US-MI", "duke", "nhb"),
+        "mi-b": site("mi-b", "US-MI", "duke", "nhb"),
+        "pnw-a": site("pnw-a", "US-PNW", "duke", "nhb", lat=45.0),
+        "fl-a": site("fl-a", "US-SE", "snowchaser", "low_chill_shb", lat=29.0),
+    }
+    features = {
+        "mi-a": feat(cool, tmax_c, rain, 70, 900),
+        "mi-b": feat(cool, tmax_c, rain, 68, 880),
+        "pnw-a": feat(cool, tmax_c, rain, 72, 920),
+        "fl-a": feat(warm, tmax_w, rain, 5, 200),
+    }
+    row = loro_transfer(features, {}, sites, "US-MI", top_k=2, ref_cap=2)
+    assert row["skipped"] is False
+    # Neighbors in US-MI are hidden, so the NHB hit has to be PNW.
+    assert row["recall_at_k"] == 1.0
+
+
 def test_offline_build_and_skill_sheet(tmp_path, monkeypatch):
     # Isolate caches so this test cannot overwrite the NASA POWER feature lake.
     from blueberry_analogue import paths, pipeline

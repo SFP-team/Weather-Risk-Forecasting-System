@@ -8,8 +8,9 @@ Presence of blueberries only tests the first claim, and weakly.
 
 ## What we may say
 
-- Leave-one-region-out recall@8 of same-region commercial successes: **0.49** across 25 regions.
-- If that number beats Baseline-0 (monthly T/P only) on known failures, we may say **more transferable than climate distance**.
+- Belt reconstruction recall@8 of same-class neighbors in the same region: **0.46** across 25 regions (Margins 70% shape).
+- Leave-one-region-out recall@8 of same-class successes *outside* the held-out region: **0.87** across 26 regions. Neighbors in the query region are hidden.
+- If phenology kills known failures that Baseline-0 still likes, we may say **more transferable than climate distance**.
 - If we only have presence inside the training continent, we may say **describes where blueberries are grown in this dataset**.
 - We may not say this site will grow like the reference.
 - We may not quote Wang & Dong 0.94. That paper is 17 staple crops with no blueberry and no suitability ground truth.
@@ -42,26 +43,26 @@ Presence of blueberries only tests the first claim, and weakly.
 | Miami-Dade | au-sunshine | 0.85 | 1.00 | 0.03 | 0.88 | 0 | no |
 | Marquette | us-mi-holland | 0.90 | 0.00 | 0.02 | 0.51 | 1 | yes |
 
-## Leave-one-region-out
+## Belt reconstruction
 
-Shape of the Margins 70% blueberry reconstruction, but leave-one-region-out, with precision on extras.
+Shape of the Margins 70% blueberry test: fingerprint one success, recover other same-class successes in that belt. Mixed regions (US-SE is SHB and rabbiteye) are scored class-aware.
 
 | Region | n refs | recall@8 | misses | extra non-success in top |
 |---|---:|---:|---:|---:|
 | AU-NSW | 2 | 0.00 | 2 | 9 |
-| AU-QLD | 3 | 0.33 | 2 | 12 |
+| AU-QLD | 2 | 0.00 | 2 | 10 |
 | AU-TAS | 4 | 0.50 | 2 | 2 |
 | AU-VIC | 2 | 0.00 | 2 | 5 |
 | AU-WA | 3 | 0.00 | 3 | 8 |
 | BR-S | 2 | 0.00 | 2 | 3 |
 | CA-BC | 11 | 0.91 | 1 | 12 |
 | CL-CENTRAL | 2 | 0.00 | 2 | 4 |
-| CL-SOUTH | 17 | 0.00 | 17 | 14 |
-| ES-HUELVA | 13 | 1.00 | 0 | 5 |
-| MA-NORTH | 7 | 0.86 | 1 | 8 |
-| MA-SOUTH | 4 | 0.50 | 2 | 7 |
-| MX-BCN | 3 | 0.67 | 1 | 9 |
-| MX-JAL | 5 | 0.00 | 5 | 23 |
+| CL-SOUTH | 12 | 0.00 | 12 | 10 |
+| ES-HUELVA | 12 | 0.83 | 2 | 5 |
+| MA-NORTH | 6 | 0.83 | 1 | 7 |
+| MA-SOUTH | 3 | 0.33 | 2 | 7 |
+| MX-BCN | 2 | 0.50 | 1 | 8 |
+| MX-JAL | 4 | 0.00 | 4 | 20 |
 | MX-SIN | 3 | 0.00 | 3 | 6 |
 | NZ-NORTH | 5 | 1.00 | 0 | 10 |
 | NZ-SOUTH | 6 | 0.83 | 1 | 5 |
@@ -69,10 +70,43 @@ Shape of the Margins 70% blueberry reconstruction, but leave-one-region-out, wit
 | PE-NORTH | 8 | 1.00 | 0 | 14 |
 | PE-SOUTH | 3 | 0.67 | 1 | 4 |
 | PT-ALEN | 2 | 1.00 | 0 | 0 |
-| US-MI | 18 | 1.00 | 0 | 18 |
+| US-MI | 12 | 1.00 | 0 | 12 |
 | US-NE | 4 | 0.00 | 4 | 4 |
-| US-PNW | 28 | 1.00 | 0 | 28 |
-| US-SE | 71 | 0.00 | 71 | 159 |
+| US-PNW | 12 | 1.00 | 0 | 12 |
+| US-SE | 12 | 0.00 | 12 | 32 |
+
+## Leave-one-region-out
+
+Neighbors in the query region are hidden. Hit if a same-class commercial success from another region is in the top 8. This is known-cultivar / new-region.
+
+| Region | n refs | recall@8 | misses | extra non-success in top | no outside family |
+|---|---:|---:|---:|---:|---:|
+| AU-NSW | 2 | 1.00 | 0 | 9 | 0 |
+| AU-QLD | 3 | 1.00 | 0 | 13 | 0 |
+| AU-TAS | 4 | 1.00 | 0 | 4 | 0 |
+| AU-VIC | 2 | 1.00 | 0 | 5 | 0 |
+| AU-WA | 3 | 1.00 | 0 | 8 | 0 |
+| BR-S | 2 | 1.00 | 0 | 3 | 0 |
+| CA-BC | 11 | 1.00 | 0 | 1 | 0 |
+| CL-CENTRAL | 2 | 0.00 | 2 | 3 | 0 |
+| CL-SOUTH | 12 | 0.25 | 9 | 10 | 0 |
+| ES-HUELVA | 12 | 1.00 | 0 | 3 | 0 |
+| MA-NORTH | 7 | 1.00 | 0 | 6 | 0 |
+| MA-SOUTH | 4 | 0.75 | 1 | 7 | 0 |
+| MX-BCN | 3 | 0.33 | 2 | 11 | 0 |
+| MX-COL | 1 | 1.00 | 0 | 6 | 0 |
+| MX-JAL | 5 | 1.00 | 0 | 23 | 0 |
+| MX-SIN | 3 | 1.00 | 0 | 6 | 0 |
+| NZ-NORTH | 5 | 1.00 | 0 | 10 | 0 |
+| NZ-SOUTH | 6 | 1.00 | 0 | 12 | 0 |
+| PE-CENTRAL | 5 | 1.00 | 0 | 9 | 0 |
+| PE-NORTH | 8 | 1.00 | 0 | 10 | 0 |
+| PE-SOUTH | 3 | 1.00 | 0 | 3 | 0 |
+| PT-ALEN | 2 | 1.00 | 0 | 0 | 0 |
+| US-MI | 12 | 1.00 | 0 | 12 | 0 |
+| US-NE | 4 | 1.00 | 0 | 4 | 0 |
+| US-PNW | 12 | 1.00 | 0 | 13 | 0 |
+| US-SE | 9 | 0.22 | 7 | 25 | 3 |
 
 ## Leave-one-cultivar-out
 
@@ -80,8 +114,8 @@ Duke is not Ochlockonee. Report the share of top-8 analogues that stay in class.
 
 | Cultivar | Class | Same-class share@8 | Other-class share@8 |
 |---|---|---:|---:|
-| emerald | low_chill_shb | 0.54 | 0.46 |
-| jewel | low_chill_shb | 0.70 | 0.30 |
+| emerald | low_chill_shb | 0.65 | 0.35 |
+| jewel | low_chill_shb | 0.73 | 0.27 |
 | star | high_chill_shb | 0.00 | 1.00 |
 | snowchaser_evergreen | evergreen_zero_chill | 0.00 | 1.00 |
 | avanti | evergreen_zero_chill | 0.00 | 1.00 |
@@ -92,14 +126,26 @@ Duke is not Ochlockonee. Report the share of top-8 analogues that stay in class.
 | ochlockonee | rabbiteye | 0.00 | 1.00 |
 | rebel | high_chill_shb | 0.00 | 1.00 |
 | suziblue | high_chill_shb | 0.00 | 1.00 |
-| legacy | high_chill_shb | 0.05 | 0.95 |
-| biloxi | low_chill_shb | 0.53 | 0.47 |
-| duke | nhb | 0.97 | 0.03 |
-| bluecrop | nhb | 0.98 | 0.02 |
-| draper | nhb | 0.99 | 0.01 |
-| elliott | nhb | 0.98 | 0.02 |
+| legacy | high_chill_shb | 0.17 | 0.83 |
+| biloxi | low_chill_shb | 0.38 | 0.62 |
+| duke | nhb | 0.92 | 0.08 |
+| bluecrop | nhb | 0.94 | 0.06 |
+| draper | nhb | 0.96 | 0.04 |
+| elliott | nhb | 0.96 | 0.04 |
 | aurora | nhb | 1.00 | 0.00 |
 | top_shelf | high_chill_shb | 0.00 | 1.00 |
+| biloxi_evergreen | evergreen_zero_chill | 0.02 | 0.98 |
+
+## Malosetti G×E cells
+
+A climate analogue only claims known-cultivar / new-region and both-new. Those are the hardest cells and they have no genetics in them.
+
+| Cell | n pairs | Mean similarity |
+|---|---:|---:|
+| known_cultivar_known_region | 8 | 0.64 |
+| new_cultivar_known_region | 43 | 0.55 |
+| known_cultivar_new_region | 26 | 0.53 |
+| both_new | 43 | 0.40 |
 
 ## Blocked vs random pairs
 

@@ -34,14 +34,116 @@ def _success(site) -> bool:
     return site.outcome == "commercial_success"
 
 
-def reconstruction_recall(
+def _stratified(sites: list, key_fn, cap: int) -> list:
+    """Deterministic sample spread across groups, sorted by site_id."""
+    ordered = sorted(sites, key=lambda s: s.site_id)
+    if len(ordered) <= cap:
+        return ordered
+    by: dict[str, list] = defaultdict(list)
+    for site in ordered:
+        by[str(key_fn(site))].append(site)
+    out: list = []
+    i = 0
+    keys = sorted(by)
+    while len(out) < cap:
+        progressed = False
+        for key in keys:
+            if i < len(by[key]) and len(out) < cap:
+                out.append(by[key][i])
+                progressed = True
+        if not progressed:
+            break
+        i += 1
+    return out
+
+
+def _rank_sites(ref, candidates, features, climate, cultivar, klass) -> list[tuple[str, float, Any]]:
+    ranked = []
+    for site in candidates:
+        if site.site_id == ref.site_id or site.site_id not in features:
+            continue
+        scored = score_pair(
+            features[ref.site_id],
+            features[site.site_id],
+            climate.get(site.site_id, {}),
+            cultivar,
+            klass,
+            ref.system,
+        )
+        ranked.append((site.site_id, scored["similarity"], site))
+    ranked.sort(key=lambda x: -x[1])
+    return ranked
+
+
+def belt_reconstruction(
+    features: dict[str, dict[str, Any]],
+    climate: dict[str, dict[str, Any]],
+    sites_by_id: dict[str, Any],
+    region: str,
+    top_k: int = 8,
+    ref_cap: int = 12,
+) -> dict[str, Any]:
+    """Margins 70% shape: fingerprint one success, recover other same-class successes in the belt."""
+    hold = [
+        s
+        for s in sites_by_id.values()
+        if s.region == region and _success(s) and s.site_id in features
+    ]
+    if len(hold) < 2:
+        return {"region": region, "skipped": True, "test": "belt_reconstruction"}
+
+    cards = load_cards()
+    refs = _stratified(hold, lambda s: s.cultivar_class, ref_cap)
+    recovered = 0
+    extras = 0
+    misses = 0
+    used = 0
+    all_sites = [s for s in sites_by_id.values() if s.site_id in features]
+    for ref in refs:
+        targets = {s.site_id for s in hold if s.site_id != ref.site_id and s.cultivar_class == ref.cultivar_class}
+        if not targets:
+            continue
+        used += 1
+        cultivar = cards.cultivar(ref.cultivar)
+        klass = cards.classes[ref.cultivar_class]
+        top = _rank_sites(ref, all_sites, features, climate, cultivar, klass)[:top_k]
+        if any(sid in targets for sid, _, _ in top):
+            recovered += 1
+        else:
+            misses += 1
+        extras += sum(1 for sid, _, site in top if sid not in targets and not _success(site))
+    if used == 0:
+        return {"region": region, "skipped": True, "test": "belt_reconstruction"}
+    return {
+        "region": region,
+        "skipped": False,
+        "n_refs": used,
+        "recall_at_k": recovered / used,
+        "misses": misses,
+        "extra_non_success_in_top": extras,
+        "k": top_k,
+        "test": "belt_reconstruction",
+        "claim": "known_cultivar_known_region",
+    }
+
+
+def loro_transfer(
     features: dict[str, dict[str, Any]],
     climate: dict[str, dict[str, Any]],
     sites_by_id: dict[str, Any],
     holdout_region: str,
     top_k: int = 8,
+    ref_cap: int = 12,
 ) -> dict[str, Any]:
-    """Margins-shaped test: feed one success in a held-out region, recover the others."""
+    """Leave-one-region-out transfer.
+
+    Fingerprint a success in R. Hide every site in R from the candidate set
+    (the unused train_refs set in the first draft). Hit if a same-class
+    commercial success from another region is in the top 8.
+
+    This is the plan's "train on PNW + Michigan + Chile, test on Georgia":
+    without seeing your neighbors, do you still land in the right climate family?
+    """
     hold = [
         s
         for s in sites_by_id.values()
@@ -52,53 +154,60 @@ def reconstruction_recall(
         for s in sites_by_id.values()
         if s.region != holdout_region and _success(s) and s.site_id in features
     ]
-    if len(hold) < 2 or not train_refs:
-        return {"region": holdout_region, "skipped": True}
+    if not hold or not train_refs:
+        return {"region": holdout_region, "skipped": True, "test": "leave_one_region_out"}
 
     cards = load_cards()
+    refs = _stratified(hold, lambda s: s.cultivar_class, ref_cap)
     recovered = 0
     extras = 0
     misses = 0
     used = 0
-    hold = sorted(hold, key=lambda s: s.site_id)[:8]
-    for ref in hold:
-        if ref.site_id not in features:
+    no_family = 0
+    outside = [s for s in sites_by_id.values() if s.region != holdout_region and s.site_id in features]
+    for ref in refs:
+        family = {s.site_id for s in train_refs if s.cultivar_class == ref.cultivar_class}
+        if not family:
+            no_family += 1
             continue
         used += 1
         cultivar = cards.cultivar(ref.cultivar)
         klass = cards.classes[ref.cultivar_class]
-        ranked = []
-        for sid, feat in features.items():
-            if sid == ref.site_id:
-                continue
-            site = sites_by_id[sid]
-            scored = score_pair(features[ref.site_id], feat, climate.get(sid, {}), cultivar, klass, ref.system)
-            ranked.append((sid, scored["similarity"], site))
-        ranked.sort(key=lambda x: -x[1])
-        top = ranked[:top_k]
-        hold_ids = {s.site_id for s in hold if s.site_id != ref.site_id}
-        hit = sum(1 for sid, _, _ in top if sid in hold_ids)
-        extra = sum(1 for sid, _, site in top if sid not in hold_ids and not _success(site))
-        if hit > 0:
+        top = _rank_sites(ref, outside, features, climate, cultivar, klass)[:top_k]
+        if any(sid in family for sid, _, _ in top):
             recovered += 1
         else:
             misses += 1
-        extras += extra
+        extras += sum(1 for sid, _, site in top if sid not in family and not _success(site))
+    if used == 0:
+        return {
+            "region": holdout_region,
+            "skipped": True,
+            "n_no_outside_family": no_family,
+            "test": "leave_one_region_out",
+        }
     return {
         "region": holdout_region,
         "skipped": False,
         "n_refs": used,
-        "recall_at_k": recovered / used if used else 0.0,
+        "n_no_outside_family": no_family,
+        "recall_at_k": recovered / used,
         "misses": misses,
         "extra_non_success_in_top": extras,
         "k": top_k,
+        "test": "leave_one_region_out",
         "claim": "known_cultivar_new_region",
     }
 
 
+def belt_reconstruction_all(features, climate, sites_by_id) -> list[dict[str, Any]]:
+    regions = sorted({s.region for s in sites_by_id.values() if _success(s)})
+    return [belt_reconstruction(features, climate, sites_by_id, region) for region in regions]
+
+
 def leave_one_region_out(features, climate, sites_by_id) -> list[dict[str, Any]]:
     regions = sorted({s.region for s in sites_by_id.values() if _success(s)})
-    return [reconstruction_recall(features, climate, sites_by_id, region) for region in regions]
+    return [loro_transfer(features, climate, sites_by_id, region) for region in regions]
 
 
 def leave_one_cultivar_out(features, climate, sites_by_id) -> dict[str, Any]:
@@ -117,9 +226,11 @@ def leave_one_cultivar_out(features, climate, sites_by_id) -> dict[str, Any]:
         cultivar = cards.cultivar(cultivar_id)
         same_class_ranks = []
         other_class_ranks = []
-        for ref in members:
+        for ref in _stratified(members, lambda s: s.region, 6):
             scored = []
             for site in others:
+                if site.site_id not in features:
+                    continue
                 sim = score_pair(
                     features[ref.site_id],
                     features[site.site_id],
@@ -258,6 +369,53 @@ def gxe_label(ref_site, cand_site) -> str:
     return GXE_CELLS[3]
 
 
+def gxe_summary(features, climate, sites_by_id, n_pairs: int = 120) -> dict[str, Any]:
+    """Malosetti four cells. A climate analogue only claims the last two."""
+    cards = load_cards()
+    successes = [s for s in sites_by_id.values() if _success(s) and s.site_id in features]
+    if len(successes) < 4:
+        return {"skipped": True}
+    rng = np.random.default_rng(7)
+    buckets: dict[str, list[float]] = {cell: [] for cell in GXE_CELLS}
+    tries = 0
+    while sum(len(v) for v in buckets.values()) < n_pairs and tries < n_pairs * 8:
+        tries += 1
+        i, j = rng.choice(len(successes), size=2, replace=False)
+        a, b = successes[int(i)], successes[int(j)]
+        cell = gxe_label(a, b)
+        if len(buckets[cell]) >= max(12, n_pairs // 3) and min(len(v) for v in buckets.values()) < 8:
+            continue
+        cultivar = cards.cultivar(a.cultivar)
+        klass = cards.classes[a.cultivar_class]
+        sim = score_pair(
+            features[a.site_id],
+            features[b.site_id],
+            climate.get(b.site_id, {}),
+            cultivar,
+            klass,
+            a.system,
+        )["similarity"]
+        buckets[cell].append(sim)
+    rows = []
+    for cell in GXE_CELLS:
+        vals = buckets[cell]
+        rows.append(
+            {
+                "cell": cell,
+                "n": len(vals),
+                "mean_similarity": float(np.mean(vals)) if vals else None,
+            }
+        )
+    return {
+        "skipped": False,
+        "rows": rows,
+        "note": (
+            "A climate analogue only claims known-cultivar / new-region and both-new. "
+            "Those are the hardest cells and they have no genetics in them."
+        ),
+    }
+
+
 def write_skill_sheet(
     report: dict[str, Any],
     path: Path | None = None,
@@ -266,10 +424,14 @@ def write_skill_sheet(
     path.parent.mkdir(parents=True, exist_ok=True)
     loro = report.get("loro") or []
     loro_ok = [r for r in loro if not r.get("skipped")]
-    mean_recall = float(np.mean([r["recall_at_k"] for r in loro_ok])) if loro_ok else 0.0
+    mean_loro = float(np.mean([r["recall_at_k"] for r in loro_ok])) if loro_ok else 0.0
+    recon = report.get("reconstruction") or []
+    recon_ok = [r for r in recon if not r.get("skipped")]
+    mean_recon = float(np.mean([r["recall_at_k"] for r in recon_ok])) if recon_ok else 0.0
     loco = report.get("loco") or {}
     blocked = report.get("blocked") or {}
     base = report.get("baselines") or {}
+    gxe = report.get("gxe") or {}
     lines = [
         "# Blueberry Analogue skill sheet",
         "",
@@ -281,8 +443,9 @@ def write_skill_sheet(
         "",
         "## What we may say",
         "",
-        f"- Leave-one-region-out recall@8 of same-region commercial successes: **{mean_recall:.2f}** across {len(loro_ok)} regions.",
-        "- If that number beats Baseline-0 (monthly T/P only) on known failures, we may say **more transferable than climate distance**.",
+        f"- Belt reconstruction recall@8 of same-class neighbors in the same region: **{mean_recon:.2f}** across {len(recon_ok)} regions (Margins 70% shape).",
+        f"- Leave-one-region-out recall@8 of same-class successes *outside* the held-out region: **{mean_loro:.2f}** across {len(loro_ok)} regions. Neighbors in the query region are hidden.",
+        "- If phenology kills known failures that Baseline-0 still likes, we may say **more transferable than climate distance**.",
         "- If we only have presence inside the training continent, we may say **describes where blueberries are grown in this dataset**.",
         "- We may not say this site will grow like the reference.",
         "- We may not quote Wang & Dong 0.94. That paper is 17 staple crops with no blueberry and no suitability ground truth.",
@@ -311,16 +474,29 @@ def write_skill_sheet(
             )
         lines.append("")
     lines += [
-        "## Leave-one-region-out",
+        "## Belt reconstruction",
         "",
-        "Shape of the Margins 70% blueberry reconstruction, but leave-one-region-out, with precision on extras.",
+        "Shape of the Margins 70% blueberry test: fingerprint one success, recover other same-class successes in that belt. Mixed regions (US-SE is SHB and rabbiteye) are scored class-aware.",
         "",
         "| Region | n refs | recall@8 | misses | extra non-success in top |",
         "|---|---:|---:|---:|---:|",
     ]
-    for row in loro_ok:
+    for row in recon_ok:
         lines.append(
             f"| {row['region']} | {row['n_refs']} | {row['recall_at_k']:.2f} | {row['misses']} | {row['extra_non_success_in_top']} |"
+        )
+    lines += [
+        "",
+        "## Leave-one-region-out",
+        "",
+        "Neighbors in the query region are hidden. Hit if a same-class commercial success from another region is in the top 8. This is known-cultivar / new-region.",
+        "",
+        "| Region | n refs | recall@8 | misses | extra non-success in top | no outside family |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for row in loro_ok:
+        lines.append(
+            f"| {row['region']} | {row['n_refs']} | {row['recall_at_k']:.2f} | {row['misses']} | {row['extra_non_success_in_top']} | {row.get('n_no_outside_family', 0)} |"
         )
     lines += [
         "",
@@ -331,10 +507,24 @@ def write_skill_sheet(
         "| Cultivar | Class | Same-class share@8 | Other-class share@8 |",
         "|---|---|---:|---:|",
     ]
-    for row in (loco.get("rows") or [])[:20]:
+    for row in loco.get("rows") or []:
         lines.append(
             f"| {row['cultivar']} | {row['class_id']} | {row['same_class_share_top8']:.2f} | {row['other_class_share_top8']:.2f} |"
         )
+    if not gxe.get("skipped"):
+        lines += [
+            "",
+            "## Malosetti G×E cells",
+            "",
+            gxe.get("note", ""),
+            "",
+            "| Cell | n pairs | Mean similarity |",
+            "|---|---:|---:|",
+        ]
+        for row in gxe.get("rows") or []:
+            mean = row["mean_similarity"]
+            mean_s = f"{mean:.2f}" if mean is not None else "n/a"
+            lines.append(f"| {row['cell']} | {row['n']} | {mean_s} |")
     if not blocked.get("skipped"):
         lines += [
             "",
@@ -381,8 +571,10 @@ def write_skill_sheet(
 
 def run_validation(features, climate, sites_by_id) -> dict[str, Any]:
     report = {
+        "reconstruction": belt_reconstruction_all(features, climate, sites_by_id),
         "loro": leave_one_region_out(features, climate, sites_by_id),
         "loco": leave_one_cultivar_out(features, climate, sites_by_id),
+        "gxe": gxe_summary(features, climate, sites_by_id),
         "blocked": blocked_vs_random(features, climate, sites_by_id),
         "baselines": baseline_comparison(features, sites_by_id),
     }
