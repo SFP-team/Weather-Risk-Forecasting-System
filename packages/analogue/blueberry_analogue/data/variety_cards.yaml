@@ -1,0 +1,628 @@
+# Blueberry Analogue cultivar × class cards.
+# Hours 0-7.2 C, UF 32-45 F, and Dynamic Model portions are different currencies.
+# Do not convert linearly. Run hours and portions in parallel, plus a negation counter.
+# Sources: UF/IFAS EDIS HS216, MG359, HS1362; Fall Creek / Planasa sheets;
+# González-Villagra 2024; Hao (Duke heat); Yang, Bryla, Strik 2019; O'Neal flower/leaf mismatch;
+# Chilean Legacy blocks; OSU Willamette guidance.
+
+meta:
+  version: 1
+  product: blueberry-analogue
+  license: curated table, not an API
+  notes:
+    - SHB lethal temperatures are still borrowed from NHB in UF HS216.
+    - Inland Michigan winter can kill Legacy/Draper fruit buds.
+    - OSU: do not plant Emerald, Jewel, Star, Biloxi, or Snowchaser in the Willamette.
+    - Legacy is the hybrid exception in the Willamette.
+    - Evergreen is a clock on SHB genetics, not a fifth species.
+
+floral_stages:
+  - id: dormant
+    msu_uga: 2
+    bbch: "00-01"
+    lt_c_low: -20.0
+    lt_c_high: -12.0
+    notes: Resting buds. NHB hardy; SHB and evergreen foliage much less so.
+  - id: tight_cluster
+    msu_uga: 3
+    bbch: "51-55"
+    lt_c_low: -7.0
+    lt_c_high: -5.0
+    notes: UF HS216 tight cluster.
+  - id: pink
+    msu_uga: 5
+    bbch: "57-59"
+    lt_c_low: -4.4
+    lt_c_high: -2.8
+    notes: UF HS216 pink.
+  - id: full_bloom
+    msu_uga: 6
+    bbch: "60-65"
+    lt_c_low: -2.2
+    lt_c_high: -2.2
+    notes: UF HS216 full bloom about -2.2 C.
+  - id: petal_fall
+    msu_uga: 7
+    bbch: "67-69"
+    lt_c_low: -2.2
+    lt_c_high: -1.1
+    notes: Still near bloom sensitivity.
+  - id: green_fruit
+    msu_uga: 8
+    bbch: "71-79"
+    lt_c_low: 0.0
+    lt_c_high: 0.0
+    notes: Green fruit killed at 0 C. Evergreen foliage dies with open flowers.
+  - id: harvest
+    msu_uga: 9
+    bbch: "81-89"
+    lt_c_low: 0.0
+    lt_c_high: 0.0
+    notes: Ripe fruit quality, not plant survival.
+
+classes:
+  nhb:
+    id: nhb
+    label: Northern highbush
+    species: Vaccinium corymbosum
+    chill_hours_min: 800
+    chill_hours_max: 1200
+    chill_portions_min: 55
+    chill_portions_max: 90
+    uf_hours_min: 800
+    uf_hours_max: 1200
+    flower_vs_leaf_ratio: 1.0
+    negation_c: 21.0
+    heat_sensitivity: high
+    optimal_t_c: [25, 30]
+    berry_air_offset_gt_35c: [7, 11]
+    green_berry_damage_c: [42, 48]
+    heat_hours_gate: 80
+    bloom_to_ripe_days: [70, 100]
+    rain_crack_risk: moderate
+    pollenizer_required: false
+    hcn_typical: false
+    default_habit: deciduous
+    analogue_weights:
+      chill_portions: 1.6
+      chill_hours: 1.1
+      frost_nights_bloom: 1.4
+      heat_hours: 1.3
+      dtr: 1.0
+      dli_bloom: 0.8
+      vpd_fruit: 0.9
+      harvest_rain_days: 1.0
+      monthly_tmin: 1.1
+      monthly_tmax: 0.9
+      monthly_precip: 0.7
+      monthly_vpd: 0.6
+      monthly_rsds: 0.5
+    notes: Duke, Bluecrop, Elliott, Aurora, Draper. Duke Pn drops about 32% at 35 C (Hao).
+
+  low_chill_shb:
+    id: low_chill_shb
+    label: Low-chill southern highbush
+    species: Vaccinium corymbosum hybrid
+    chill_hours_min: 100
+    chill_hours_max: 250
+    chill_portions_min: 18
+    chill_portions_max: 40
+    uf_hours_min: 100
+    uf_hours_max: 250
+    flower_vs_leaf_ratio: 0.65
+    negation_c: 21.0
+    heat_sensitivity: moderate
+    optimal_t_c: [25, 30]
+    berry_air_offset_gt_35c: [7, 11]
+    green_berry_damage_c: [42, 48]
+    heat_hours_gate: 140
+    bloom_to_ripe_days: [56, 75]
+    rain_crack_risk: moderate
+    pollenizer_required: false
+    hcn_typical: true
+    default_habit: deciduous
+    analogue_weights:
+      chill_portions: 1.3
+      chill_hours: 0.8
+      frost_nights_bloom: 1.8
+      heat_hours: 1.1
+      dtr: 0.9
+      dli_bloom: 1.0
+      vpd_fruit: 1.0
+      harvest_rain_days: 1.1
+      monthly_tmin: 1.2
+      monthly_tmax: 0.8
+      monthly_precip: 0.8
+      monthly_vpd: 0.7
+      monthly_rsds: 0.6
+    notes: Snowchaser, Biloxi, Emerald, Jewel, Avanti, Kestrel, Arcadia. Early bloom is a freeze magnet.
+
+  high_chill_shb:
+    id: high_chill_shb
+    label: High-chill southern highbush
+    species: Vaccinium corymbosum hybrid
+    chill_hours_min: 350
+    chill_hours_max: 700
+    chill_portions_min: 35
+    chill_portions_max: 65
+    uf_hours_min: 350
+    uf_hours_max: 700
+    flower_vs_leaf_ratio: 0.75
+    negation_c: 21.0
+    heat_sensitivity: high
+    optimal_t_c: [25, 30]
+    berry_air_offset_gt_35c: [7, 11]
+    green_berry_damage_c: [42, 48]
+    heat_hours_gate: 90
+    bloom_to_ripe_days: [60, 83]
+    rain_crack_risk: moderate
+    pollenizer_required: false
+    hcn_typical: false
+    default_habit: deciduous
+    analogue_weights:
+      chill_portions: 1.5
+      chill_hours: 1.0
+      frost_nights_bloom: 1.5
+      heat_hours: 1.4
+      dtr: 1.0
+      dli_bloom: 0.8
+      vpd_fruit: 1.0
+      harvest_rain_days: 1.0
+      monthly_tmin: 1.1
+      monthly_tmax: 1.0
+      monthly_precip: 0.7
+      monthly_vpd: 0.7
+      monthly_rsds: 0.5
+    notes: Star fails south of Ocala. Legacy 500-600 h in Chilean papers, 400-900 in SE lists.
+
+  rabbiteye:
+    id: rabbiteye
+    label: Rabbiteye
+    species: Vaccinium virgatum
+    chill_hours_min: 300
+    chill_hours_max: 700
+    chill_portions_min: 30
+    chill_portions_max: 60
+    uf_hours_min: 300
+    uf_hours_max: 700
+    flower_vs_leaf_ratio: 0.85
+    negation_c: 21.0
+    heat_sensitivity: low
+    optimal_t_c: [26, 32]
+    berry_air_offset_gt_35c: [6, 10]
+    green_berry_damage_c: [44, 50]
+    heat_hours_gate: 160
+    bloom_to_ripe_days: [80, 120]
+    rain_crack_risk: high
+    pollenizer_required: true
+    hcn_typical: false
+    default_habit: deciduous
+    analogue_weights:
+      chill_portions: 1.2
+      chill_hours: 0.9
+      frost_nights_bloom: 1.0
+      heat_hours: 0.8
+      dtr: 0.8
+      dli_bloom: 0.7
+      vpd_fruit: 0.8
+      harvest_rain_days: 1.6
+      monthly_tmin: 0.9
+      monthly_tmax: 0.8
+      monthly_precip: 1.2
+      monthly_vpd: 0.6
+      monthly_rsds: 0.5
+    notes: Later bloom, less frost kit, more postharvest rot. Needs a second RE for pollen. Brightwell cracks if wet at maturity.
+
+  evergreen_zero_chill:
+    id: evergreen_zero_chill
+    label: Evergreen / zero-chill
+    species: Vaccinium corymbosum hybrid (evergreen clock)
+    chill_hours_min: 0
+    chill_hours_max: 80
+    chill_portions_min: 0
+    chill_portions_max: 15
+    uf_hours_min: 0
+    uf_hours_max: 80
+    flower_vs_leaf_ratio: 1.0
+    negation_c: 21.0
+    heat_sensitivity: moderate
+    optimal_t_c: [22, 30]
+    berry_air_offset_gt_35c: [7, 11]
+    green_berry_damage_c: [42, 48]
+    heat_hours_gate: 160
+    bloom_to_ripe_days: [70, 110]
+    rain_crack_risk: low
+    pollenizer_required: false
+    hcn_typical: true
+    default_habit: evergreen
+    analogue_weights:
+      chill_portions: 0.2
+      chill_hours: 0.1
+      frost_nights_bloom: 1.2
+      heat_hours: 1.3
+      dtr: 1.1
+      dli_bloom: 1.8
+      vpd_fruit: 1.4
+      harvest_rain_days: 0.6
+      monthly_tmin: 0.8
+      monthly_tmax: 1.0
+      monthly_precip: 0.4
+      monthly_vpd: 1.2
+      monthly_rsds: 1.6
+    notes: Prune date sets harvest. Peru prune Feb, pick Sep-Nov on first-year wood. Winter DLI, leaf disease, and HCN matter. Chill hours nearly irrelevant.
+
+cultivars:
+  duke:
+    id: duke
+    class_id: nhb
+    label: Duke
+    chill_hours: 800
+    chill_portions: 60
+    flower_hours: 800
+    leaf_hours: 800
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.32
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [25, 32]
+    notes: Heat-sensitive. Hao about 32% Pn drop at 35 C.
+
+  bluecrop:
+    id: bluecrop
+    class_id: nhb
+    label: Bluecrop
+    chill_hours: 800
+    chill_portions: 58
+    flower_hours: 800
+    leaf_hours: 800
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [26, 34]
+    notes: More heat-tolerant than Duke.
+
+  elliott:
+    id: elliott
+    class_id: nhb
+    label: Elliott
+    chill_hours: 1000
+    chill_portions: 72
+    flower_hours: 1000
+    leaf_hours: 1000
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.25
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [32, 40]
+    notes: Late NHB.
+
+  aurora:
+    id: aurora
+    class_id: nhb
+    label: Aurora
+    chill_hours: 1100
+    chill_portions: 80
+    flower_hours: 1100
+    leaf_hours: 1100
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.28
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [34, 42]
+    notes: Very late. High chill.
+
+  draper:
+    id: draper
+    class_id: nhb
+    label: Draper
+    chill_hours: 800
+    chill_portions: 62
+    flower_hours: 800
+    leaf_hours: 800
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.30
+    rain_crack_risk: low
+    hcn_ok: false
+    market_window: [26, 33]
+    notes: Inland Michigan winter can kill fruit buds.
+
+  snowchaser:
+    id: snowchaser
+    class_id: low_chill_shb
+    label: Snowchaser
+    chill_hours: 200
+    chill_portions: 28
+    flower_hours: 150
+    leaf_hours: 250
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.20
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [1, 12]
+    notes: Gainesville bloom early to mid January. Freeze magnet.
+
+  biloxi:
+    id: biloxi
+    class_id: low_chill_shb
+    label: Biloxi
+    chill_hours: 175
+    chill_portions: 25
+    flower_hours: 150
+    leaf_hours: 200
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: low
+    hcn_ok: true
+    market_window: [36, 48]
+    notes: Peru / Mexico / Gulf evergreen workhorse. Often run on the evergreen clock.
+
+  emerald:
+    id: emerald
+    class_id: low_chill_shb
+    label: Emerald
+    chill_hours: 250
+    chill_portions: 32
+    flower_hours: 200
+    leaf_hours: 350
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.20
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [8, 16]
+    notes: Release range 100-400 h. Under 200 h works central FL. About 300 h NE FL. Do not plant in the Willamette.
+
+  jewel:
+    id: jewel
+    class_id: low_chill_shb
+    label: Jewel
+    chill_hours: 225
+    chill_portions: 30
+    flower_hours: 200
+    leaf_hours: 250
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.20
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [8, 16]
+    notes: Rust. HCN injury if the winter is already low-chill.
+
+  avanti:
+    id: avanti
+    class_id: low_chill_shb
+    label: Avanti
+    chill_hours: 150
+    chill_portions: 22
+    flower_hours: 120
+    leaf_hours: 200
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [2, 12]
+    notes: Central / south Florida evergreen.
+
+  kestrel:
+    id: kestrel
+    class_id: low_chill_shb
+    label: Kestrel
+    chill_hours: 150
+    chill_portions: 22
+    flower_hours: 120
+    leaf_hours: 200
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [2, 12]
+    notes: Central / south Florida evergreen.
+
+  arcadia:
+    id: arcadia
+    class_id: low_chill_shb
+    label: Arcadia
+    chill_hours: 150
+    chill_portions: 22
+    flower_hours: 120
+    leaf_hours: 200
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [2, 12]
+    notes: Central / south Florida evergreen.
+
+  oneal:
+    id: oneal
+    class_id: low_chill_shb
+    label: O'Neal
+    chill_hours: 400
+    chill_portions: 40
+    flower_hours: 400
+    leaf_hours: 700
+    heat_sensitivity: low
+    heat_pn_drop_35c: 0.12
+    rain_crack_risk: moderate
+    hcn_ok: true
+    market_window: [10, 18]
+    notes: Flower vs leaf mismatch is the textbook case. More heat-tolerant than Duke.
+
+  star:
+    id: star
+    class_id: high_chill_shb
+    label: Star
+    chill_hours: 400
+    chill_portions: 42
+    flower_hours: 350
+    leaf_hours: 450
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.20
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [12, 20]
+    notes: Fails south of Ocala.
+
+  rebel:
+    id: rebel
+    class_id: high_chill_shb
+    label: Rebel
+    chill_hours: 425
+    chill_portions: 44
+    flower_hours: 400
+    leaf_hours: 450
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [14, 22]
+    notes: Georgia SHB.
+
+  suziblue:
+    id: suziblue
+    class_id: high_chill_shb
+    label: Suziblue
+    chill_hours: 425
+    chill_portions: 44
+    flower_hours: 400
+    leaf_hours: 450
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [14, 22]
+    notes: Georgia SHB.
+
+  legacy:
+    id: legacy
+    class_id: high_chill_shb
+    label: Legacy
+    chill_hours: 550
+    chill_portions: 52
+    flower_hours: 500
+    leaf_hours: 700
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.45
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [4, 16]
+    notes: Chile's largest block historically. González-Villagra 2024 +5 C days, Pn -45%, fruit weight -39%. Willamette hybrid exception.
+
+  climax:
+    id: climax
+    class_id: rabbiteye
+    label: Climax
+    chill_hours: 300
+    chill_portions: 32
+    flower_hours: 300
+    leaf_hours: 350
+    heat_sensitivity: low
+    heat_pn_drop_35c: 0.10
+    rain_crack_risk: high
+    hcn_ok: false
+    market_window: [20, 28]
+    notes: Needs a second rabbiteye for pollen.
+
+  brightwell:
+    id: brightwell
+    class_id: rabbiteye
+    label: Brightwell
+    chill_hours: 425
+    chill_portions: 40
+    flower_hours: 400
+    leaf_hours: 450
+    heat_sensitivity: low
+    heat_pn_drop_35c: 0.10
+    rain_crack_risk: very_high
+    hcn_ok: false
+    market_window: [22, 30]
+    notes: Cracks if wet at maturity. SE losses historically up to about 20%.
+
+  tifblue:
+    id: tifblue
+    class_id: rabbiteye
+    label: Tifblue
+    chill_hours: 650
+    chill_portions: 52
+    flower_hours: 600
+    leaf_hours: 700
+    heat_sensitivity: low
+    heat_pn_drop_35c: 0.10
+    rain_crack_risk: high
+    hcn_ok: false
+    market_window: [24, 32]
+    notes: Later bloom, less frost kit, more postharvest rot.
+
+  ochlockonee:
+    id: ochlockonee
+    class_id: rabbiteye
+    label: Ochlockonee
+    chill_hours: 550
+    chill_portions: 48
+    flower_hours: 500
+    leaf_hours: 600
+    heat_sensitivity: low
+    heat_pn_drop_35c: 0.10
+    rain_crack_risk: high
+    hcn_ok: false
+    market_window: [24, 32]
+    notes: Leave-one-cultivar-out pair versus Duke. Not interchangeable.
+
+  ventura:
+    id: ventura
+    class_id: evergreen_zero_chill
+    label: Ventura
+    chill_hours: 50
+    chill_portions: 8
+    flower_hours: 50
+    leaf_hours: 80
+    heat_sensitivity: high
+    heat_pn_drop_35c: 0.30
+    rain_crack_risk: low
+    hcn_ok: true
+    market_window: [36, 46]
+    notes: Failed flowering in the 2023/24 Peru heat. Being replaced by zero-chill genetics.
+
+  biloxi_evergreen:
+    id: biloxi_evergreen
+    class_id: evergreen_zero_chill
+    label: Biloxi evergreen
+    chill_hours: 0
+    chill_portions: 0
+    flower_hours: 0
+    leaf_hours: 0
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.18
+    rain_crack_risk: low
+    hcn_ok: true
+    market_window: [36, 48]
+    notes: Same genetics as deciduous Biloxi. Prune-to-harvest clock.
+
+  snowchaser_evergreen:
+    id: snowchaser_evergreen
+    class_id: evergreen_zero_chill
+    label: Snowchaser evergreen
+    chill_hours: 0
+    chill_portions: 0
+    flower_hours: 0
+    leaf_hours: 0
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.20
+    rain_crack_risk: low
+    hcn_ok: true
+    market_window: [1, 14]
+    notes: Central/south Florida evergreen.
+
+  top_shelf:
+    id: top_shelf
+    class_id: high_chill_shb
+    label: Top Shelf
+    chill_hours: 500
+    chill_portions: 48
+    flower_hours: 450
+    leaf_hours: 600
+    heat_sensitivity: moderate
+    heat_pn_drop_35c: 0.22
+    rain_crack_risk: moderate
+    hcn_ok: false
+    market_window: [4, 16]
+    notes: Matamala 2023 cover trial with Legacy in Chile.
