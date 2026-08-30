@@ -2,9 +2,9 @@
 
 Shortlist the next trial geography for a blueberry variety and production system. This is not the Florida tonight-freeze product in `apps/web`.
 
-**Job.** You already have a farm that works, or a variety × system card. The tool returns places worth visiting, what will go wrong there, how much the weather data can be trusted, and a checklist that starts at book the flight.
+**Job.** Two modes. Diagnose a coordinate (system, targeted risks, windows, genotypes). Or shortlist similar known operations. See [REDESIGN.md](REDESIGN.md) for the breeding-program brief and why this is not a global hourly cube.
 
-**It does not say plant 20 ha.** Similarity is not identity.
+**It does not say plant 20 ha.** Similarity is not identity. Thresholds are provisional.
 
 ## What is in this tree
 
@@ -17,6 +17,7 @@ Shortlist the next trial geography for a blueberry variety and production system
 | CCAFS lag + Hallegatte gates | `packages/analogue/blueberry_analogue/analogue/engine.py` |
 | Skill sheet | [skill-sheet.md](skill-sheet.md) |
 | Map UI | `apps/analogue-web/` on port 8010 |
+| Queryable daily weather + diagnose | `weather/`, `derive/`, `recommend/` — [REDESIGN.md](REDESIGN.md) |
 
 ## Run it
 
@@ -25,10 +26,12 @@ pip install -e .
 python -m blueberry_analogue.cli sites
 python -m blueberry_analogue.cli build          # offline fallback climate
 python -m blueberry_analogue.cli build --live   # NASA POWER + SoilGrids + DEM points
+python -m blueberry_analogue.cli diagnose --lat 29.79 --lon -82.17
+python -m blueberry_analogue.cli weather --live --ids us-fl-waldo,us-fl-alachua
 python -m blueberry_analogue.cli serve          # http://127.0.0.1:8010
 ```
 
-`--live` pulls **point** climatologies. It does not download a global hourly cube. Stage CHELSA and CHIRPS GeoTIFFs under `data/analogue/chelsa` and `data/analogue/chirps` when you want the 1 km screen.
+`diagnose` accepts any coordinate. `weather --live` stores NASA POWER **daily** 2015–2024 (dated winters). Classic `build --live` still pulls monthly climatology for the 303-site analogue cache. Do not download a global hourly cube on day one. Stage CHELSA and CHIRPS GeoTIFFs under `data/analogue/chelsa` and `data/analogue/chirps` when you want the 1 km screen.
 
 ## Honest claims
 

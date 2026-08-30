@@ -14,6 +14,8 @@ from pydantic import BaseModel, Field
 from blueberry_analogue.analogue.engine import INVESTIGATION, shortlist_from_reference
 from blueberry_analogue.cards import list_classes, list_cultivars, load_cards
 from blueberry_analogue.pipeline import build_all, climate_for_features, load_feature_cache
+from blueberry_analogue.recommend.diagnose import diagnose_coordinate
+from blueberry_analogue.recommend.genotypes import load_advanced_selections
 from blueberry_analogue.sites import load_sites
 from blueberry_analogue.systems import parse_system
 
@@ -32,6 +34,20 @@ class ShortlistRequest(BaseModel):
     market_start_week: int | None = None
     market_end_week: int | None = None
     top_n: int = Field(default=12, ge=3, le=40)
+
+
+class DiagnoseRequest(BaseModel):
+    lat: float = Field(..., ge=-60, le=70)
+    lon: float = Field(..., ge=-180, le=180)
+    media: str = "open_soil"
+    structure: str = "open"
+    cover: str = "none"
+    habit: str | None = None
+    hcn: bool = False
+    pollinator: str = "apis"
+    live: bool = False
+    include_similar: bool = True
+    top_n: int = Field(default=10, ge=3, le=30)
 
 
 @lru_cache(maxsize=1)
@@ -54,7 +70,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="Blueberry Analogue",
         description=(
-            "Shortlist places worth testing for a blueberry variety and system. "
+            "Diagnose a coordinate or shortlist similar blueberry environments. "
             "Not a plant-here button. Not a substitute for a field visit."
         ),
         version="0.1.0",
@@ -75,7 +91,8 @@ def create_app() -> FastAPI:
             "product": "blueberry-analogue",
             "sites": len(st["sites"]),
             "features": len(st["features"]),
-            "disclaimer": "Shortlist only. Book the flight. Do not plant 20 ha.",
+            "modes": ["diagnose", "recommend", "shortlist"],
+            "disclaimer": "Recommendation only. Book the flight. Do not plant 20 ha.",
         }
 
     @app.get("/api/cards")
@@ -157,6 +174,31 @@ def create_app() -> FastAPI:
             top_n=req.top_n,
         )
         return result
+
+    @app.post("/api/diagnose")
+    def diagnose(req: DiagnoseRequest):
+        st = _state()
+        habit = req.habit if req.habit in {"deciduous", "semi_evergreen", "evergreen"} else None
+        return diagnose_coordinate(
+            req.lat,
+            req.lon,
+            media=req.media,
+            structure=req.structure,
+            cover=req.cover,
+            habit_override=habit,
+            hcn=req.hcn,
+            pollinator=req.pollinator,
+            live=req.live,
+            include_similar=req.include_similar,
+            features=st["features"],
+            climate=st["climate"],
+            sites=st["sites"],
+            top_n=req.top_n,
+        )
+
+    @app.get("/api/selections")
+    def selections():
+        return load_advanced_selections()
 
     if WEB_DIR.exists():
         app.mount("/", StaticFiles(directory=str(WEB_DIR), html=True), name="web")

@@ -26,6 +26,17 @@ def main(argv: list[str] | None = None) -> int:
     p_feat.add_argument("--limit", type=int, default=None)
     sub.add_parser("validate", help="Re-run skill sheet from the feature cache")
     sub.add_parser("serve", help="Run the shortlist API + MapLibre UI")
+    p_weather = sub.add_parser("weather", help="Ingest last-decade daily weather for catalog sites")
+    p_weather.add_argument("--live", action="store_true", help="NASA POWER daily (dated winters)")
+    p_weather.add_argument("--limit", type=int, default=8)
+    p_weather.add_argument("--ids", default="", help="Comma-separated site ids")
+    p_diag = sub.add_parser("diagnose", help="Diagnose a lat/lon: system, risks, windows, genotypes")
+    p_diag.add_argument("--lat", type=float, required=True)
+    p_diag.add_argument("--lon", type=float, required=True)
+    p_diag.add_argument("--live", action="store_true")
+    p_diag.add_argument("--structure", default="open")
+    p_diag.add_argument("--media", default="open_soil")
+    p_diag.add_argument("--cover", default="none")
     args = parser.parse_args(argv)
 
     if args.cmd == "cards":
@@ -67,6 +78,58 @@ def main(argv: list[str] | None = None) -> int:
         from blueberry_analogue.api_app import run
 
         run()
+        return 0
+    if args.cmd == "weather":
+        from blueberry_analogue.weather.daily import fetch_nasa_power_daily, fallback_daily_years
+        from blueberry_analogue.weather.store import weather_store
+
+        sites = load_sites()
+        wanted = {x.strip() for x in args.ids.split(",") if x.strip()}
+        use = [s for s in sites if not wanted or s.site_id in wanted][: args.limit]
+        db = weather_store()
+        n_ok = 0
+        for site in use:
+            frame = None
+            source = "fallback_daily"
+            if args.live:
+                frame = fetch_nasa_power_daily(site.lat, site.lon)
+                if frame is not None:
+                    source = "nasa_power_daily"
+            if frame is None:
+                frame = fallback_daily_years(site.lat, site.lon)
+            db.put_series(site.site_id, site.lat, site.lon, frame, source, name=site.name, kind="catalog")
+            n_ok += 1
+            print(f"{site.site_id:24} {source:28} {len(frame)} days")
+        print(f"stored {n_ok} points in {db.path}")
+        return 0
+    if args.cmd == "diagnose":
+        from blueberry_analogue.recommend.diagnose import diagnose_coordinate
+
+        out = diagnose_coordinate(
+            args.lat,
+            args.lon,
+            media=args.media,
+            structure=args.structure,
+            live=args.live,
+            include_similar=False,
+        )
+        print(json.dumps(
+            {
+                "query": out["query"],
+                "weather": out["weather"],
+                "open_field_system": out["open_field_system"],
+                "modified_system": {
+                    k: out["modified_system"][k]
+                    for k in ("open_field_habit", "recommended_habit", "allowed_habits", "notes")
+                    if k in out["modified_system"]
+                },
+                "windows": out["windows"],
+                "leading_risks": out["leading_risks"],
+                "genotypes": out["genotypes"]["genotypes"][:5],
+                "disclaimer": out["disclaimer"],
+            },
+            indent=2,
+        ))
         return 0
     return 1
 

@@ -33,8 +33,11 @@ data/analogue/chelsa/**
 !data/analogue/chelsa/.gitkeep
 data/analogue/chirps/**
 !data/analogue/chirps/.gitkeep
+data/analogue/weather/**
+!data/analogue/weather/.gitkeep
 *.db
 *.sqlite3
+*.sqlite
 
 # Node
 node_modules/

@@ -42,7 +42,7 @@ Open **http://localhost:3000**
 
 ### 4. Blueberry Analogue (site selection)
 
-A separate product. Shortlist the next trial geography for a variety and system. It is not bolted onto the Florida farm demo.
+A separate product. Diagnose a coordinate (production system, harvest-rain and chill risk, windows, genotypes) or shortlist similar operations. It is not bolted onto the Florida farm demo. See [docs/analogue/REDESIGN.md](docs/analogue/REDESIGN.md).
 
 ```bash
 source .venv/bin/activate

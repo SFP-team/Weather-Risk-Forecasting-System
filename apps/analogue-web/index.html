@@ -59,17 +59,37 @@
 <body>
   <header>
     <div>
-      <h1>Blueberry Analogue</h1>
-      <p>Given a farm that works, or a variety and system card, this returns places worth testing. It does not say plant 20 hectares. Similarity is not identity.</p>
+      <h1>Blueberry recommendation</h1>
+      <p>Drop a coordinate to diagnose the land, or start from a farm that already works. This recommends a system, risks, a window, and genotypes. It does not say plant 20 hectares.</p>
     </div>
     <div class="meta" id="health"></div>
   </header>
   <div class="layout">
     <aside>
+      <label>Mode</label>
+      <select id="mode">
+        <option value="diagnose">Diagnose this land</option>
+        <option value="shortlist">Classic: farm to farm</option>
+      </select>
+      <div id="diagnoseFields">
+        <div class="row">
+          <div>
+            <label>Latitude</label>
+            <input id="lat" type="number" step="0.01" value="29.79" />
+          </div>
+          <div>
+            <label>Longitude</label>
+            <input id="lon" type="number" step="0.01" value="-82.17" />
+          </div>
+        </div>
+        <p class="meta">Click the map to set the pin. Default is Waldo, Alachua County.</p>
+      </div>
+      <div id="shortlistFields" hidden>
       <label>Reference operation</label>
       <select id="reference"></select>
       <label>Variety card (optional override)</label>
       <select id="cultivar"><option value="">Use the reference cultivar</option></select>
+      </div>
       <div class="row">
         <div>
           <label>Media</label>
@@ -101,7 +121,9 @@
         <div>
           <label>Habit</label>
           <select id="habit">
+            <option value="">infer from weather</option>
             <option value="deciduous">deciduous</option>
+            <option value="semi_evergreen">semi-evergreen</option>
             <option value="evergreen">evergreen</option>
           </select>
         </div>
@@ -124,8 +146,9 @@
         <option value="mixed">mixed</option>
         <option value="none">none</option>
       </select>
-      <button id="run">Build shortlist</button>
-      <p class="meta" style="margin-top:0.8rem">Market week is a filter before climate search. Leave it blank to keep opposite-hemisphere twins (Chile can still match Michigan). Covers change UV, PAR, and rain-crack. They do not restore chill.</p>
+      <label><input id="liveWx" type="checkbox" style="width:auto" /> Fetch dated NASA POWER daily (slow, first time)</label>
+      <button id="run">Run recommendation</button>
+      <p class="meta" style="margin-top:0.8rem">Habit is inferred from weather unless you override it. Tunnels can open evergreen in a deciduous climate. Covers do not restore chill. Market week is optional on the classic shortlist only — diagnose recommends the window.</p>
     </aside>
     <div id="map"></div>
     <section class="detail" id="detail">
@@ -153,6 +176,13 @@
       return "#8aa38b";
     }
 
+    function syncMode() {
+      const diagnose = document.getElementById("mode").value === "diagnose";
+      document.getElementById("diagnoseFields").hidden = !diagnose;
+      document.getElementById("shortlistFields").hidden = diagnose;
+      document.getElementById("run").textContent = diagnose ? "Diagnose this land" : "Build shortlist";
+    }
+
     async function boot() {
       const health = await fetch("/api/health").then(r => r.json());
       document.getElementById("health").textContent = health.sites + " sites · " + health.disclaimer;
@@ -172,11 +202,19 @@
         opt.textContent = c.label + " (" + c.class_id + ")";
         cult.appendChild(opt);
       });
-      const prefer = sites.find(s => s.site_id === "us-mi-grand-junction");
+      const prefer = sites.find(s => s.site_id === "us-fl-waldo") || sites.find(s => s.site_id === "us-mi-grand-junction");
       if (prefer) ref.value = prefer.site_id;
       drawSites(sites, {});
       syncSystemFromRef(sites);
       ref.addEventListener("change", () => syncSystemFromRef(sites));
+      document.getElementById("mode").addEventListener("change", syncMode);
+      syncMode();
+      map.on("click", (e) => {
+        document.getElementById("lat").value = e.lngLat.lat.toFixed(3);
+        document.getElementById("lon").value = e.lngLat.lng.toFixed(3);
+        document.getElementById("mode").value = "diagnose";
+        syncMode();
+      });
     }
 
     function syncSystemFromRef(sites) {
@@ -216,6 +254,58 @@
       });
     }
 
+    function statusClass(status) {
+      if (status === "extreme" || status === "concerning") return "fail";
+      if (status === "borderline") return "warn";
+      return "";
+    }
+
+    function renderDiagnose(data, sites) {
+      const simById = {};
+      (data.similar && data.similar.shortlist || []).forEach(s => { simById[s.site_id] = s.similarity; });
+      drawSites(sites, simById);
+      addDot(data.query.lon, data.query.lat, "#111", "Query: " + data.query.label);
+      (data.region_pack && data.region_pack.sites || []).forEach(s => {
+        addDot(s.lon, s.lat, "#3d5a80", s.name + " · local pack");
+      });
+      const risks = (data.risk_factors || []).map(r =>
+        `<li class="${statusClass(r.status)}"><strong>${r.label} · ${r.status}.</strong> ${r.message}</li>`
+      ).join("");
+      const gens = ((data.genotypes && data.genotypes.genotypes) || []).map(g =>
+        `<article class="card"><h3>${g.label} <span class="sim">${(g.score * 100).toFixed(0)}</span></h3>
+         <div class="meta">${g.class_id} · crack ${g.rain_crack_risk} · heat ${g.heat_sensitivity}</div>
+         <p class="meta">${(g.why || []).join(" ")}</p></article>`
+      ).join("");
+      const local = ((data.region_pack && data.region_pack.sites) || []).map(s =>
+        `<div class="meta">${s.name} · ${s.km} km · ${s.habit} · ${s.outcome}</div>`
+      ).join("");
+      const similar = ((data.similar && data.similar.shortlist) || []).map(s =>
+        `<article class="card"><h3>${s.name} <span class="sim">${(s.similarity * 100).toFixed(0)}</span></h3>
+         <div class="meta">${s.country} · ${s.region} · ${s.cultivar}</div></article>`
+      ).join("");
+      const w = data.windows || {};
+      const sys = data.open_field_system || {};
+      const mod = data.modified_system || {};
+      document.getElementById("detail").innerHTML = `
+        <div class="disclaimer">${data.disclaimer}</div>
+        <p class="meta">${data.weather.source} · ${data.weather.years[0]}–${data.weather.years[1]} · ${data.weather.n_days} days. ${(data.weather.trust_notes || []).join(" ")}</p>
+        <h2 style="margin:0.8rem 0 0.3rem;font-size:1.05rem">${data.query.label}</h2>
+        <p>Open field: <strong>${sys.habit}</strong> (${Math.round((sys.confidence || 0) * 100)}%). With ${mod.structure || "open"} / ${mod.media || "soil"}: recommend <strong>${mod.recommended_habit}</strong>. Allowed: ${(mod.allowed_habits || []).join(", ")}.</p>
+        <p class="meta">${(sys.reasons || []).join(" ")}</p>
+        <p>Plant ${w.planting && w.planting.start}–${w.planting && w.planting.end}. Flower ${w.flowering && w.flowering.start}–${w.flowering && w.flowering.end}. Harvest ${w.harvest && w.harvest.start}–${w.harvest && w.harvest.end}.</p>
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Risk factors</h2>
+        <ol>${risks}</ol>
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Genotypes (interim cards)</h2>
+        <p class="meta">${data.genotypes && data.genotypes.note || ""}</p>
+        ${gens}
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Local pack</h2>
+        <p class="meta">${data.region_pack && data.region_pack.note || ""}</p>
+        ${local}
+        <h2 style="margin:1rem 0 0.3rem;font-size:1.05rem">Similar operations</h2>
+        ${similar || "<p class='meta'>Similar search needs the feature cache. Classic shortlist still works.</p>"}
+      `;
+    }
+
     function renderResult(data, sites) {
       const simById = {};
       data.shortlist.forEach(s => { simById[s.site_id] = s.similarity; });
@@ -253,18 +343,42 @@
 
     document.getElementById("run").addEventListener("click", async () => {
       const btn = document.getElementById("run");
+      const diagnose = document.getElementById("mode").value === "diagnose";
       btn.disabled = true;
-      btn.textContent = "Scoring…";
+      btn.textContent = diagnose ? "Deriving…" : "Scoring…";
       const sites = await fetch("/api/sites").then(r => r.json());
-      const body = {
-        reference_id: document.getElementById("reference").value,
-        cultivar_id: document.getElementById("cultivar").value || null,
+      const shared = {
         media: document.getElementById("media").value,
         structure: document.getElementById("structure").value,
         cover: document.getElementById("cover").value,
-        habit: document.getElementById("habit").value,
         hcn: document.getElementById("hcn").checked,
-        pollinator: document.getElementById("pollinator").value,
+        pollinator: document.getElementById("pollinator").value
+      };
+      if (diagnose) {
+        const body = {
+          ...shared,
+          lat: Number(document.getElementById("lat").value),
+          lon: Number(document.getElementById("lon").value),
+          habit: document.getElementById("habit").value || null,
+          live: document.getElementById("liveWx").checked,
+          include_similar: true,
+          top_n: 10
+        };
+        const data = await fetch("/api/diagnose", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        }).then(r => r.json());
+        renderDiagnose(data, sites);
+        btn.disabled = false;
+        syncMode();
+        return;
+      }
+      const body = {
+        ...shared,
+        reference_id: document.getElementById("reference").value,
+        cultivar_id: document.getElementById("cultivar").value || null,
+        habit: document.getElementById("habit").value || "deciduous",
         top_n: 12
       };
       const a = document.getElementById("mw0").value;
@@ -280,7 +394,7 @@
       }).then(r => r.json());
       renderResult(data, sites);
       btn.disabled = false;
-      btn.textContent = "Build shortlist";
+      syncMode();
     });
 
     boot();

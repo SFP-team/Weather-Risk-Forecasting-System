@@ -4,7 +4,7 @@ System is a required input:
   media: open_soil | pine_bark | substrate
   structure: open | tunnel | greenhouse
   cover: none | net | woven | ldpe
-  habit: deciduous | evergreen
+  habit: deciduous | semi_evergreen | evergreen
 
 Covers from Matamala et al. 2023 (Top Shelf and Legacy, Chile):
   seasonal UV about 53% net / 42% woven / 10% LDPE
@@ -30,7 +30,7 @@ from pydantic import BaseModel, Field
 Media = Literal["open_soil", "pine_bark", "substrate"]
 Structure = Literal["open", "tunnel", "greenhouse"]
 Cover = Literal["none", "net", "woven", "ldpe"]
-Habit = Literal["deciduous", "evergreen"]
+Habit = Literal["deciduous", "semi_evergreen", "evergreen"]
 
 COVER_UV = {"none": 1.00, "net": 0.53, "woven": 0.42, "ldpe": 0.10}
 COVER_PAR = {"none": 1.00, "net": 0.82, "woven": 0.70, "ldpe": 0.62}
@@ -146,6 +146,8 @@ class ProductionSystem(BaseModel):
     def chill_relevance(self) -> float:
         if self.habit == "evergreen":
             return 0.05
+        if self.habit == "semi_evergreen":
+            return 0.55
         if self.hcn:
             return 0.45
         return 1.0
@@ -192,6 +194,8 @@ def system_effects(system: ProductionSystem) -> SystemEffect:
         notes.append("Covers change UV, PAR, GDD, and rain-crack. They do not restore chill.")
     if system.habit == "evergreen":
         notes.append("Evergreen clock. Chill hours are nearly irrelevant. Winter DLI leads.")
+    if system.habit == "semi_evergreen":
+        notes.append("Semi-evergreen is a gradient, not a third species. Some chill still matters.")
     if system.hcn:
         notes.append("HCN rewrites the chill envelope. Jewel and others can be injured.")
     if system.structure == "greenhouse":
