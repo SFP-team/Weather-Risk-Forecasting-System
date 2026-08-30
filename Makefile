@@ -1,4 +1,4 @@
-.PHONY: setup pipeline api web test
+.PHONY: setup pipeline api web test analogue analogue-serve
 
 setup:
 	python3 -m venv .venv
@@ -16,3 +16,9 @@ web:
 
 test:
 	. .venv/bin/activate && pytest -q
+
+analogue:
+	. .venv/bin/activate && python -m blueberry_analogue.cli build
+
+analogue-serve:
+	. .venv/bin/activate && python -m blueberry_analogue.cli serve

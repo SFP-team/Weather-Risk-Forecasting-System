@@ -1,0 +1,25 @@
+# Advanced selections and cultivars Patricia is willing to recommend.
+# Empty until the breeding program fills it. The engine still ranks
+# public variety cards as an interim list.
+
+meta:
+  version: 1
+  status: awaiting_patricia
+  note: >
+    Stage 4s and current cultivars. Old cultivars Patricia would not
+    send to a collaborator should be marked recommendable: false.
+    Production-system tags are required: deciduous / semi_evergreen /
+    evergreen, and whether tunnels change that.
+
+selections: []
+# Example row (do not treat as real data):
+# - id: FL12-345
+#   kind: advanced_selection
+#   stage: 4
+#   class_id: low_chill_shb
+#   recommendable: true
+#   habits: [evergreen, semi_evergreen]
+#   tunnel_habits: [evergreen, semi_evergreen, deciduous]
+#   rain_crack_risk: low
+#   heat_sensitivity: moderate
+#   notes: Placeholder. Diego / Patricia fill this.
