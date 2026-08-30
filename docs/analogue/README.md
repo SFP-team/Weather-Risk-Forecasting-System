@@ -33,6 +33,8 @@ python -m blueberry_analogue.cli serve          # http://127.0.0.1:8010
 
 `diagnose` accepts any coordinate. `weather --live` stores NASA POWER **daily** 2015–2024 (dated winters). Classic `build --live` still pulls monthly climatology for the 303-site analogue cache. Do not download a global hourly cube on day one. Stage CHELSA and CHIRPS GeoTIFFs under `data/analogue/chelsa` and `data/analogue/chirps` when you want the 1 km screen.
 
+To pull the future daily pack **on a university / Eduroam machine** (not from the Cursor cloud), see [CAMPUS_DOWNLOAD.md](CAMPUS_DOWNLOAD.md).
+
 ## Honest claims
 
 After leave-one-region-out skill on chill or freeze beats Baseline-0, we may say more transferable than climate distance.

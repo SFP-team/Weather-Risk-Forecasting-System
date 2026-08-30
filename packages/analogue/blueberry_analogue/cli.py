@@ -37,6 +37,14 @@ def main(argv: list[str] | None = None) -> int:
     p_diag.add_argument("--structure", default="open")
     p_diag.add_argument("--media", default="open_soil")
     p_diag.add_argument("--cover", default="none")
+    p_dl = sub.add_parser(
+        "download",
+        help="Campus weather bot: NASA POWER daily for a named plan (run on the university machine)",
+    )
+    p_dl.add_argument("--plan", default="tonight", choices=["tonight", "future", "belts"])
+    p_dl.add_argument("--workers", type=int, default=4)
+    p_dl.add_argument("--dry-run", action="store_true")
+    p_dl.add_argument("--live", action="store_true", default=True)
     args = parser.parse_args(argv)
 
     if args.cmd == "cards":
@@ -130,6 +138,12 @@ def main(argv: list[str] | None = None) -> int:
             },
             indent=2,
         ))
+        return 0
+    if args.cmd == "download":
+        from blueberry_analogue.weather.campus_bot import run_campus_download
+
+        out = run_campus_download(args.plan, live=True, workers=args.workers, dry_run=args.dry_run)
+        print(json.dumps({k: out[k] for k in out if k != "estimate"} | {"estimate": out["estimate"]}, indent=2))
         return 0
     return 1
 

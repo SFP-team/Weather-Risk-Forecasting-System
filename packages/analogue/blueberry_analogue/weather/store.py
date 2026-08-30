@@ -178,6 +178,19 @@ class WeatherStore:
             row = con.execute("SELECT COUNT(*) AS n FROM points").fetchone()
         return int(row["n"]) if row else 0
 
+    def known_ids(self) -> set[str]:
+        with self._connect() as con:
+            rows = con.execute("SELECT point_id FROM points").fetchall()
+        return {str(r["point_id"]) for r in rows}
+
+    def complete_ids(self, min_days: int = 300) -> set[str]:
+        with self._connect() as con:
+            rows = con.execute(
+                "SELECT point_id, COUNT(*) AS n FROM daily GROUP BY point_id HAVING n >= ?",
+                (min_days,),
+            ).fetchall()
+        return {str(r["point_id"]) for r in rows}
+
 
 _STORE: WeatherStore | None = None
 

@@ -163,6 +163,8 @@ That is the “sits there, not queried as a 20 TB cube, calculate the rest” de
 
 `python -m blueberry_analogue.cli weather --live --ids us-fl-waldo,us-fl-alachua,us-fl-miami`
 
+To run the full daily pack on a **university machine** (Eduroam), not from Cursor cloud, see [CAMPUS_DOWNLOAD.md](CAMPUS_DOWNLOAD.md). The cloud agent cannot start that job.
+
 ---
 
 ## Formulas (Layer 1, provisional)
