@@ -44,7 +44,7 @@ This is a **breeder decision dashboard** for genotype placement and selection. I
 ## 3. What it is not
 
 - Not a “plant 20 hectares” button. Similarity is not identity. Papanduva was a **managed pilot**, not a plantation.
-- Not the Florida **tonight freeze / FAWN** farmer app already in this repo (`apps/web`, `packages/risk`). That product stays separate.
+- Not the Florida **tonight freeze / FAWN** farmer app. That product is parked on `cursor/florida-weather-risk-2206` (`apps/web`, `packages/risk`). Keep it separate.
 - Not “recommend other countries like this” in **version 1**. That is a later feature. v1 answers **this pin only**.
 - Not a live genomic predict on every click. The heavy model is run **offline** on sampled environments; the app looks up a ranking.
 - Not a 20 TB global hourly cube on day one. Store lean **base weather**; **derive** chill, freeze, harvest rain, windows, and system.
@@ -533,11 +533,12 @@ Leave-one-region and leave-one-cultivar tests are useful later; they are not a s
 
 ## 20. Prior work (parked — do not start from it)
 
-Saved on GitHub so nothing is lost. This branch does **not** continue that UI.
+Saved on GitHub so nothing is lost. **`main` is this spec only.** Do not continue the old UI from here.
 
 | Branch | What is there |
 |---|---|
-| `main` | Florida blueberry **weather risk** prototype (tonight freeze, 7-day, season). Different product. |
+| `main` | **This file only** (`REQUIREMENTS.md`). Clean start. |
+| `cursor/florida-weather-risk-2206` | Original Florida blueberry **weather risk** prototype that used to live on `main` (tonight freeze, 7-day, season). Different product. |
 | `cursor/blueberry-analogue-2206` | Global **farm-to-farm analogue** shortlist (303 sites, MapLibre, variety cards, CCAFS + gates). |
 | `cursor/recommendation-engine-2206` | Diagnose API, SQLite daily store, campus POWER downloader, dual-mode UI. Useful as **reference**, not as the new trunk. |
 
