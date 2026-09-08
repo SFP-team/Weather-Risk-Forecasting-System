@@ -9,7 +9,8 @@ Last updated: 2026-09-08. Current phase: weather-data foundation. **Acquisition 
 - Resumable downloader, checksums, bounded retries/resources, atomic publication, worker locking and coordinate extraction with land/offshore handling.
 - Ten global humidity gaps located. Eighty-nine rainfall cell-days above the 1,000 mm/day investigation threshold identified; original values preserved. Extractions expose a suspect-rain flag and admissibility warning.
 - Station screening plus a 2020 FAWN Citra / INMET Major Vieira and Rio Negrinho pilot. Warm minimum-temperature biases and missed below-zero days are documented; no correction fitted.
-- Last server suite: **35 tests passed**, including six new climate-indicator tests plus downloader and station tests.
+- Last server suite: **38 tests passed**, including indicator, method-reconciliation, downloader and station tests.
+- Paul's method audit and controlled UTC chill sensitivity completed: `docs/weather/PAUL_RECONCILIATION.md`, companion JSON and `pipelines/weather/reconcile_methods.py`. Papanduva mean changes from 178.9 to 199.4 hours when matching the supplied R window/threshold on our data; this is not an exact reproduction of his 209.4-hour report. Time standard, historical period and generating configuration remain unresolved. No R workflow execution or cultivar modelling.
 - Supervisor demonstration implemented: `docs/weather/climate_evidence/climate_evidence.html` and companion JSON. Papanduva/Citra/Waldo monthly climate, annual variability, reference-window chill, dry spells, threshold exposure, hemisphere-aligned seasons and limitations. Offline generation from existing server archives; no new weather download. Opening layout/charts visually inspected.
 
 ## Next actions, in order
@@ -40,4 +41,4 @@ Follow `AGENTS.md` after every completed request: update this file when facts ch
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action: generated and tested the supervisor's three-site climate evidence report. Publication result is reported in the task response, not assumed here.
+Latest action: audited Paul's actual source and report assumptions, ran a 45-site-winter controlled chill comparison, and documented the method decisions requiring confirmation. Next scientific step: confirm authoritative chill/time/phenology settings before implementing a named exploratory stage-risk scenario. Publication result is reported in the task response, not assumed here.

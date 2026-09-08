@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-09-08 — Paul method reconciliation
+
+- Audited executable R definitions and local HTML narrative; original private/reference files remain unpublished.
+- Identified below-only vs bounded chill, six- vs four-month seasons, LST vs UTC, crop-year labels, historical baseline and 50-hour configuration vs 100-hour narrative benchmark differences.
+- Ran controlled sensitivity on three sites ×15 winters. Papanduva mean 178.9 →199.4 h under changed season/definition on identical UTC data; residual relative to reported 209.4 h remains unresolved.
+- Added three known-answer tests; full server suite now 38 passing tests. No downloads, original-data changes, R execution or phenology calibration.
+- Deliverable: `docs/weather/PAUL_RECONCILIATION.md` plus derived JSON and reproducible script.
+
 ## 2026-09-08 — Supervisor climate evidence report implemented
 
 - Generated self-contained HTML and derived JSON for Papanduva, Citra and Waldo from existing daily/global and hourly/pilot archives. Added six charts, seasonal comparison, 15-year tables, coverage and station limitations.

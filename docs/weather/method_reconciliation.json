@@ -1,0 +1,985 @@
+{
+  "method": "controlled-UTC-chill-sensitivity-v1",
+  "summary": [
+    {
+      "site": "Papanduva",
+      "short_bounded_inclusive": 178.93333333333334,
+      "short_below_only_strict": 185.0,
+      "long_bounded_inclusive": 193.33333333333334,
+      "long_below_only_strict": 199.4,
+      "window_effect_bounded": 14.400000000000006,
+      "definition_effect_long": 6.066666666666663
+    },
+    {
+      "site": "Citra",
+      "short_bounded_inclusive": 292.73333333333335,
+      "short_below_only_strict": 318.93333333333334,
+      "long_bounded_inclusive": 322.8666666666667,
+      "long_below_only_strict": 349.53333333333336,
+      "window_effect_bounded": 30.133333333333326,
+      "definition_effect_long": 26.666666666666686
+    },
+    {
+      "site": "Waldo",
+      "short_bounded_inclusive": 342.2,
+      "short_below_only_strict": 380.46666666666664,
+      "long_bounded_inclusive": 381.2,
+      "long_below_only_strict": 420.3333333333333,
+      "window_effect_bounded": 39.0,
+      "definition_effect_long": 39.133333333333326
+    }
+  ],
+  "annual": [
+    {
+      "site": "Citra",
+      "demo_year": 2011,
+      "paul_crop_year_label": 2011,
+      "short_start": "2010-11-01",
+      "short_end_exclusive": "2011-03-01",
+      "long_start": "2010-11-01",
+      "long_end_exclusive": "2011-05-01",
+      "short": {
+        "bounded_inclusive": 527,
+        "below_only_strict": 633,
+        "below_zero": 106,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 552,
+        "below_only_strict": 658,
+        "below_zero": 106,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2012,
+      "paul_crop_year_label": 2012,
+      "short_start": "2011-11-01",
+      "short_end_exclusive": "2012-03-01",
+      "long_start": "2011-11-01",
+      "long_end_exclusive": "2012-05-01",
+      "short": {
+        "bounded_inclusive": 174,
+        "below_only_strict": 199,
+        "below_zero": 25,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 180,
+        "below_only_strict": 205,
+        "below_zero": 25,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2013,
+      "paul_crop_year_label": 2013,
+      "short_start": "2012-11-01",
+      "short_end_exclusive": "2013-03-01",
+      "long_start": "2012-11-01",
+      "long_end_exclusive": "2013-05-01",
+      "short": {
+        "bounded_inclusive": 226,
+        "below_only_strict": 238,
+        "below_zero": 12,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 353,
+        "below_only_strict": 369,
+        "below_zero": 16,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2014,
+      "paul_crop_year_label": 2014,
+      "short_start": "2013-11-01",
+      "short_end_exclusive": "2014-03-01",
+      "long_start": "2013-11-01",
+      "long_end_exclusive": "2014-05-01",
+      "short": {
+        "bounded_inclusive": 340,
+        "below_only_strict": 366,
+        "below_zero": 26,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 387,
+        "below_only_strict": 413,
+        "below_zero": 26,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2015,
+      "paul_crop_year_label": 2015,
+      "short_start": "2014-11-01",
+      "short_end_exclusive": "2015-03-01",
+      "long_start": "2014-11-01",
+      "long_end_exclusive": "2015-05-01",
+      "short": {
+        "bounded_inclusive": 440,
+        "below_only_strict": 474,
+        "below_zero": 34,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 448,
+        "below_only_strict": 482,
+        "below_zero": 34,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2016,
+      "paul_crop_year_label": 2016,
+      "short_start": "2015-11-01",
+      "short_end_exclusive": "2016-03-01",
+      "long_start": "2015-11-01",
+      "long_end_exclusive": "2016-05-01",
+      "short": {
+        "bounded_inclusive": 287,
+        "below_only_strict": 303,
+        "below_zero": 16,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 297,
+        "below_only_strict": 313,
+        "below_zero": 16,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2017,
+      "paul_crop_year_label": 2017,
+      "short_start": "2016-11-01",
+      "short_end_exclusive": "2017-03-01",
+      "long_start": "2016-11-01",
+      "long_end_exclusive": "2017-05-01",
+      "short": {
+        "bounded_inclusive": 127,
+        "below_only_strict": 136,
+        "below_zero": 9,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 157,
+        "below_only_strict": 168,
+        "below_zero": 11,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2018,
+      "paul_crop_year_label": 2018,
+      "short_start": "2017-11-01",
+      "short_end_exclusive": "2018-03-01",
+      "long_start": "2017-11-01",
+      "long_end_exclusive": "2018-05-01",
+      "short": {
+        "bounded_inclusive": 339,
+        "below_only_strict": 406,
+        "below_zero": 67,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 428,
+        "below_only_strict": 495,
+        "below_zero": 67,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2019,
+      "paul_crop_year_label": 2019,
+      "short_start": "2018-11-01",
+      "short_end_exclusive": "2019-03-01",
+      "long_start": "2018-11-01",
+      "long_end_exclusive": "2019-05-01",
+      "short": {
+        "bounded_inclusive": 309,
+        "below_only_strict": 310,
+        "below_zero": 1,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 337,
+        "below_only_strict": 338,
+        "below_zero": 1,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2020,
+      "paul_crop_year_label": 2020,
+      "short_start": "2019-11-01",
+      "short_end_exclusive": "2020-03-01",
+      "long_start": "2019-11-01",
+      "long_end_exclusive": "2020-05-01",
+      "short": {
+        "bounded_inclusive": 203,
+        "below_only_strict": 211,
+        "below_zero": 8,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 220,
+        "below_only_strict": 228,
+        "below_zero": 8,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2021,
+      "paul_crop_year_label": 2021,
+      "short_start": "2020-11-01",
+      "short_end_exclusive": "2021-03-01",
+      "long_start": "2020-11-01",
+      "long_end_exclusive": "2021-05-01",
+      "short": {
+        "bounded_inclusive": 334,
+        "below_only_strict": 352,
+        "below_zero": 18,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 350,
+        "below_only_strict": 368,
+        "below_zero": 18,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2022,
+      "paul_crop_year_label": 2022,
+      "short_start": "2021-11-01",
+      "short_end_exclusive": "2022-03-01",
+      "long_start": "2021-11-01",
+      "long_end_exclusive": "2022-05-01",
+      "short": {
+        "bounded_inclusive": 204,
+        "below_only_strict": 213,
+        "below_zero": 9,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 216,
+        "below_only_strict": 226,
+        "below_zero": 10,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2023,
+      "paul_crop_year_label": 2023,
+      "short_start": "2022-11-01",
+      "short_end_exclusive": "2023-03-01",
+      "long_start": "2022-11-01",
+      "long_end_exclusive": "2023-05-01",
+      "short": {
+        "bounded_inclusive": 178,
+        "below_only_strict": 215,
+        "below_zero": 37,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 197,
+        "below_only_strict": 234,
+        "below_zero": 37,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2024,
+      "paul_crop_year_label": 2024,
+      "short_start": "2023-11-01",
+      "short_end_exclusive": "2024-03-01",
+      "long_start": "2023-11-01",
+      "long_end_exclusive": "2024-05-01",
+      "short": {
+        "bounded_inclusive": 288,
+        "below_only_strict": 295,
+        "below_zero": 7,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 293,
+        "below_only_strict": 300,
+        "below_zero": 7,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Citra",
+      "demo_year": 2025,
+      "paul_crop_year_label": 2025,
+      "short_start": "2024-11-01",
+      "short_end_exclusive": "2025-03-01",
+      "long_start": "2024-11-01",
+      "long_end_exclusive": "2025-05-01",
+      "short": {
+        "bounded_inclusive": 415,
+        "below_only_strict": 433,
+        "below_zero": 18,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 428,
+        "below_only_strict": 446,
+        "below_zero": 18,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2011,
+      "paul_crop_year_label": 2011,
+      "short_start": "2010-11-01",
+      "short_end_exclusive": "2011-03-01",
+      "long_start": "2010-11-01",
+      "long_end_exclusive": "2011-05-01",
+      "short": {
+        "bounded_inclusive": 593,
+        "below_only_strict": 731,
+        "below_zero": 138,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 626,
+        "below_only_strict": 764,
+        "below_zero": 138,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2012,
+      "paul_crop_year_label": 2012,
+      "short_start": "2011-11-01",
+      "short_end_exclusive": "2012-03-01",
+      "long_start": "2011-11-01",
+      "long_end_exclusive": "2012-05-01",
+      "short": {
+        "bounded_inclusive": 223,
+        "below_only_strict": 252,
+        "below_zero": 29,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 231,
+        "below_only_strict": 260,
+        "below_zero": 29,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2013,
+      "paul_crop_year_label": 2013,
+      "short_start": "2012-11-01",
+      "short_end_exclusive": "2013-03-01",
+      "long_start": "2012-11-01",
+      "long_end_exclusive": "2013-05-01",
+      "short": {
+        "bounded_inclusive": 274,
+        "below_only_strict": 291,
+        "below_zero": 17,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 427,
+        "below_only_strict": 452,
+        "below_zero": 25,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2014,
+      "paul_crop_year_label": 2014,
+      "short_start": "2013-11-01",
+      "short_end_exclusive": "2014-03-01",
+      "long_start": "2013-11-01",
+      "long_end_exclusive": "2014-05-01",
+      "short": {
+        "bounded_inclusive": 394,
+        "below_only_strict": 432,
+        "below_zero": 38,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 453,
+        "below_only_strict": 491,
+        "below_zero": 38,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2015,
+      "paul_crop_year_label": 2015,
+      "short_start": "2014-11-01",
+      "short_end_exclusive": "2015-03-01",
+      "long_start": "2014-11-01",
+      "long_end_exclusive": "2015-05-01",
+      "short": {
+        "bounded_inclusive": 516,
+        "below_only_strict": 560,
+        "below_zero": 44,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 540,
+        "below_only_strict": 584,
+        "below_zero": 44,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2016,
+      "paul_crop_year_label": 2016,
+      "short_start": "2015-11-01",
+      "short_end_exclusive": "2016-03-01",
+      "long_start": "2015-11-01",
+      "long_end_exclusive": "2016-05-01",
+      "short": {
+        "bounded_inclusive": 320,
+        "below_only_strict": 351,
+        "below_zero": 31,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 334,
+        "below_only_strict": 365,
+        "below_zero": 31,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2017,
+      "paul_crop_year_label": 2017,
+      "short_start": "2016-11-01",
+      "short_end_exclusive": "2017-03-01",
+      "long_start": "2016-11-01",
+      "long_end_exclusive": "2017-05-01",
+      "short": {
+        "bounded_inclusive": 160,
+        "below_only_strict": 176,
+        "below_zero": 16,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 201,
+        "below_only_strict": 220,
+        "below_zero": 19,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2018,
+      "paul_crop_year_label": 2018,
+      "short_start": "2017-11-01",
+      "short_end_exclusive": "2018-03-01",
+      "long_start": "2017-11-01",
+      "long_end_exclusive": "2018-05-01",
+      "short": {
+        "bounded_inclusive": 386,
+        "below_only_strict": 482,
+        "below_zero": 96,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 475,
+        "below_only_strict": 571,
+        "below_zero": 96,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2019,
+      "paul_crop_year_label": 2019,
+      "short_start": "2018-11-01",
+      "short_end_exclusive": "2019-03-01",
+      "long_start": "2018-11-01",
+      "long_end_exclusive": "2019-05-01",
+      "short": {
+        "bounded_inclusive": 348,
+        "below_only_strict": 354,
+        "below_zero": 6,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 381,
+        "below_only_strict": 387,
+        "below_zero": 6,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2020,
+      "paul_crop_year_label": 2020,
+      "short_start": "2019-11-01",
+      "short_end_exclusive": "2020-03-01",
+      "long_start": "2019-11-01",
+      "long_end_exclusive": "2020-05-01",
+      "short": {
+        "bounded_inclusive": 260,
+        "below_only_strict": 269,
+        "below_zero": 9,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 284,
+        "below_only_strict": 293,
+        "below_zero": 9,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2021,
+      "paul_crop_year_label": 2021,
+      "short_start": "2020-11-01",
+      "short_end_exclusive": "2021-03-01",
+      "long_start": "2020-11-01",
+      "long_end_exclusive": "2021-05-01",
+      "short": {
+        "bounded_inclusive": 383,
+        "below_only_strict": 413,
+        "below_zero": 30,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 414,
+        "below_only_strict": 444,
+        "below_zero": 30,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2022,
+      "paul_crop_year_label": 2022,
+      "short_start": "2021-11-01",
+      "short_end_exclusive": "2022-03-01",
+      "long_start": "2021-11-01",
+      "long_end_exclusive": "2022-05-01",
+      "short": {
+        "bounded_inclusive": 270,
+        "below_only_strict": 281,
+        "below_zero": 11,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 289,
+        "below_only_strict": 302,
+        "below_zero": 13,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2023,
+      "paul_crop_year_label": 2023,
+      "short_start": "2022-11-01",
+      "short_end_exclusive": "2023-03-01",
+      "long_start": "2022-11-01",
+      "long_end_exclusive": "2023-05-01",
+      "short": {
+        "bounded_inclusive": 204,
+        "below_only_strict": 251,
+        "below_zero": 47,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 229,
+        "below_only_strict": 276,
+        "below_zero": 47,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2024,
+      "paul_crop_year_label": 2024,
+      "short_start": "2023-11-01",
+      "short_end_exclusive": "2024-03-01",
+      "long_start": "2023-11-01",
+      "long_end_exclusive": "2024-05-01",
+      "short": {
+        "bounded_inclusive": 349,
+        "below_only_strict": 362,
+        "below_zero": 13,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 359,
+        "below_only_strict": 372,
+        "below_zero": 13,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Waldo",
+      "demo_year": 2025,
+      "paul_crop_year_label": 2025,
+      "short_start": "2024-11-01",
+      "short_end_exclusive": "2025-03-01",
+      "long_start": "2024-11-01",
+      "long_end_exclusive": "2025-05-01",
+      "short": {
+        "bounded_inclusive": 453,
+        "below_only_strict": 502,
+        "below_zero": 49,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 475,
+        "below_only_strict": 524,
+        "below_zero": 49,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2011,
+      "paul_crop_year_label": 2012,
+      "short_start": "2011-05-01",
+      "short_end_exclusive": "2011-09-01",
+      "long_start": "2011-04-01",
+      "long_end_exclusive": "2011-10-01",
+      "short": {
+        "bounded_inclusive": 319,
+        "below_only_strict": 330,
+        "below_zero": 11,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 357,
+        "below_only_strict": 368,
+        "below_zero": 11,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2012,
+      "paul_crop_year_label": 2013,
+      "short_start": "2012-05-01",
+      "short_end_exclusive": "2012-09-01",
+      "long_start": "2012-04-01",
+      "long_end_exclusive": "2012-10-01",
+      "short": {
+        "bounded_inclusive": 142,
+        "below_only_strict": 142,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 170,
+        "below_only_strict": 170,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2013,
+      "paul_crop_year_label": 2014,
+      "short_start": "2013-05-01",
+      "short_end_exclusive": "2013-09-01",
+      "long_start": "2013-04-01",
+      "long_end_exclusive": "2013-10-01",
+      "short": {
+        "bounded_inclusive": 263,
+        "below_only_strict": 281,
+        "below_zero": 18,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 289,
+        "below_only_strict": 307,
+        "below_zero": 18,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2014,
+      "paul_crop_year_label": 2015,
+      "short_start": "2014-05-01",
+      "short_end_exclusive": "2014-09-01",
+      "long_start": "2014-04-01",
+      "long_end_exclusive": "2014-10-01",
+      "short": {
+        "bounded_inclusive": 156,
+        "below_only_strict": 156,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 156,
+        "below_only_strict": 156,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2015,
+      "paul_crop_year_label": 2016,
+      "short_start": "2015-05-01",
+      "short_end_exclusive": "2015-09-01",
+      "long_start": "2015-04-01",
+      "long_end_exclusive": "2015-10-01",
+      "short": {
+        "bounded_inclusive": 63,
+        "below_only_strict": 63,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 78,
+        "below_only_strict": 78,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2016,
+      "paul_crop_year_label": 2017,
+      "short_start": "2016-05-01",
+      "short_end_exclusive": "2016-09-01",
+      "long_start": "2016-04-01",
+      "long_end_exclusive": "2016-10-01",
+      "short": {
+        "bounded_inclusive": 282,
+        "below_only_strict": 308,
+        "below_zero": 26,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 339,
+        "below_only_strict": 365,
+        "below_zero": 26,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2017,
+      "paul_crop_year_label": 2018,
+      "short_start": "2017-05-01",
+      "short_end_exclusive": "2017-09-01",
+      "long_start": "2017-04-01",
+      "long_end_exclusive": "2017-10-01",
+      "short": {
+        "bounded_inclusive": 105,
+        "below_only_strict": 108,
+        "below_zero": 3,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 118,
+        "below_only_strict": 121,
+        "below_zero": 3,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2018,
+      "paul_crop_year_label": 2019,
+      "short_start": "2018-05-01",
+      "short_end_exclusive": "2018-09-01",
+      "long_start": "2018-04-01",
+      "long_end_exclusive": "2018-10-01",
+      "short": {
+        "bounded_inclusive": 182,
+        "below_only_strict": 182,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 188,
+        "below_only_strict": 188,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2019,
+      "paul_crop_year_label": 2020,
+      "short_start": "2019-05-01",
+      "short_end_exclusive": "2019-09-01",
+      "long_start": "2019-04-01",
+      "long_end_exclusive": "2019-10-01",
+      "short": {
+        "bounded_inclusive": 141,
+        "below_only_strict": 152,
+        "below_zero": 11,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 141,
+        "below_only_strict": 152,
+        "below_zero": 11,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2020,
+      "paul_crop_year_label": 2021,
+      "short_start": "2020-05-01",
+      "short_end_exclusive": "2020-09-01",
+      "long_start": "2020-04-01",
+      "long_end_exclusive": "2020-10-01",
+      "short": {
+        "bounded_inclusive": 154,
+        "below_only_strict": 154,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 161,
+        "below_only_strict": 161,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2021,
+      "paul_crop_year_label": 2022,
+      "short_start": "2021-05-01",
+      "short_end_exclusive": "2021-09-01",
+      "long_start": "2021-04-01",
+      "long_end_exclusive": "2021-10-01",
+      "short": {
+        "bounded_inclusive": 204,
+        "below_only_strict": 217,
+        "below_zero": 13,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 204,
+        "below_only_strict": 217,
+        "below_zero": 13,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2022,
+      "paul_crop_year_label": 2023,
+      "short_start": "2022-05-01",
+      "short_end_exclusive": "2022-09-01",
+      "long_start": "2022-04-01",
+      "long_end_exclusive": "2022-10-01",
+      "short": {
+        "bounded_inclusive": 191,
+        "below_only_strict": 192,
+        "below_zero": 1,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 210,
+        "below_only_strict": 211,
+        "below_zero": 1,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2023,
+      "paul_crop_year_label": 2024,
+      "short_start": "2023-05-01",
+      "short_end_exclusive": "2023-09-01",
+      "long_start": "2023-04-01",
+      "long_end_exclusive": "2023-10-01",
+      "short": {
+        "bounded_inclusive": 84,
+        "below_only_strict": 84,
+        "below_zero": 0,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 84,
+        "below_only_strict": 84,
+        "below_zero": 0,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2024,
+      "paul_crop_year_label": 2025,
+      "short_start": "2024-05-01",
+      "short_end_exclusive": "2024-09-01",
+      "long_start": "2024-04-01",
+      "long_end_exclusive": "2024-10-01",
+      "short": {
+        "bounded_inclusive": 168,
+        "below_only_strict": 171,
+        "below_zero": 3,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 168,
+        "below_only_strict": 171,
+        "below_zero": 3,
+        "exact_upper": 0
+      }
+    },
+    {
+      "site": "Papanduva",
+      "demo_year": 2025,
+      "paul_crop_year_label": 2026,
+      "short_start": "2025-05-01",
+      "short_end_exclusive": "2025-09-01",
+      "long_start": "2025-04-01",
+      "long_end_exclusive": "2025-10-01",
+      "short": {
+        "bounded_inclusive": 230,
+        "below_only_strict": 235,
+        "below_zero": 5,
+        "exact_upper": 0
+      },
+      "long": {
+        "bounded_inclusive": 237,
+        "below_only_strict": 242,
+        "below_zero": 5,
+        "exact_upper": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Same stored UTC data and 15 aligned winters; not original LST data or original historical baseline.",
+    "South 2011\u20132025 winters map to Paul crop-year labels 2012\u20132026; do not join by label alone.",
+    "No R execution, Dynamic Model, production classifier or stage-risk replication performed.",
+    "Means are compared with means; supervisor demonstration charts also report medians separately."
+  ]
+}
