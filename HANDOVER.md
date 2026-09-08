@@ -9,14 +9,15 @@ Last updated: 2026-09-08. Current phase: weather-data foundation. **Acquisition 
 - Resumable downloader, checksums, bounded retries/resources, atomic publication, worker locking and coordinate extraction with land/offshore handling.
 - Ten global humidity gaps located. Eighty-nine rainfall cell-days above the 1,000 mm/day investigation threshold identified; original values preserved. Extractions expose a suspect-rain flag and admissibility warning.
 - Station screening plus a 2020 FAWN Citra / INMET Major Vieira and Rio Negrinho pilot. Warm minimum-temperature biases and missed below-zero days are documented; no correction fitted.
-- Last server suite: **29 tests passed**, including interrupted publication, cache reuse, terminal failure persistence, quotas, locks, HTML-with-200 rejection and numeric/HTTP-date Retry-After.
+- Last server suite: **35 tests passed**, including six new climate-indicator tests plus downloader and station tests.
+- Supervisor demonstration implemented: `docs/weather/climate_evidence/climate_evidence.html` and companion JSON. Papanduva/Citra/Waldo monthly climate, annual variability, reference-window chill, dry spells, threshold exposure, hemisphere-aligned seasons and limitations. Offline generation from existing server archives; no new weather download. Opening layout/charts visually inspected.
 
 ## Next actions, in order
 
 Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. Immediate priority is a supervisor-ready demonstration of the downloaded weather and reproducible insights, not cultivar recommendations. Prepare a climate evidence report for Papanduva, Citra and Waldo: acquisition/coverage proof, monthly climate, year-to-year variation, tested chill and cold/heat exposure, dry spells, exploratory seasonal comparisons and station-validation limitations. This is a proposed next deliverable, not yet implemented. Finish the weather core gates alongside it; do not block this work on cultivar data or build the full app yet.
 
 1. Finish corrupted compressed-source response tests.
-2. Implement and test demonstration indicators: bounded chill hours with explicit temporal/season conventions, dry spells and monthly summaries, including diverse global probes. No invented phenology or cultivar rankings.
+2. Extend the implemented three-site indicator demonstration to diverse global probes. No invented phenology or cultivar rankings. The supervisor's initial HTML evidence report is ready; broader scientific validation remains pending.
 3. Ensure derived calculations honor suspect/missing rainfall and incomplete windows.
 4. Audit versions, resource accounting, provenance and completion criteria; write final weather handoff and pause the existing monitor only when those criteria pass.
 
@@ -39,4 +40,4 @@ Follow `AGENTS.md` after every completed request: update this file when facts ch
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action: added persistent handover/progress workflow and prepared the first version-controlled snapshot of weather implementation. Publication result is reported in the task response, not assumed here.
+Latest action: generated and tested the supervisor's three-site climate evidence report. Publication result is reported in the task response, not assumed here.

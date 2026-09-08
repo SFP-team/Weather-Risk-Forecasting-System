@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-08 — Supervisor climate evidence report implemented
+
+- Generated self-contained HTML and derived JSON for Papanduva, Citra and Waldo from existing daily/global and hourly/pilot archives. Added six charts, seasonal comparison, 15-year tables, coverage and station limitations.
+- Tested complete-window chill (inclusive 0–7.2°C), missingness, cross-year/leap boundaries, dry spells and suspect rain refusal. Server suite: 35 passing tests.
+- Reference-window chill medians: Papanduva 168 h, Citra 288 h, Waldo 348 h. These are descriptive estimates under documented UTC windows, not cultivar requirements. No new weather downloads or model fitting.
+- Reviewed the opening HTML layout and charts in a Chrome screenshot. Final core audit and broader probes remain pending.
+
 ## 2026-09-08 — Supervisor demonstration priority
 
 - User relayed supervisor guidance to complete the first part before requesting cultivar data for Part 3.
