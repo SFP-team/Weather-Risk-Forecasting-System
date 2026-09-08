@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-08 — Exploratory seasonal exposure scenarios
+
+- Implemented and ran 50/100-hour Paul-derived UTC scenarios across three sites and 15 winters, with annual assumed flowering/harvest dates, cold exposure, harvest rainfall and production dry spells.
+- Paired harvest rain differences: Citra +44.4 mm, Waldo +35.7 mm (15 winters), Papanduva −12.9 mm (13 winters). Papanduva 2015/2023 never reach 100 hours; no zero-risk substitution.
+- Added seven tests; full server suite 45 passing tests. Existing archives only, no new downloads or calibrated cultivar claims.
+- Delivered offline HTML/JSON in `docs/weather/climate_evidence/stage_scenarios.*`; broader core gates and independent scientific validation remain unfinished.
+
 ## 2026-09-08 — Paul method reconciliation
 
 - Audited executable R definitions and local HTML narrative; original private/reference files remain unpublished.
