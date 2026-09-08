@@ -1,0 +1,131 @@
+{
+  "status": "preliminary",
+  "results": [
+    {
+      "region": "Florida",
+      "station": {
+        "id": "USC00086414",
+        "lat": 29.1639,
+        "lon": -82.0778,
+        "elevation_m": 22.9,
+        "name": "OCALA"
+      },
+      "distance_to_project_site_km": 28.20044457335964,
+      "grid_lat": 29.0,
+      "grid_lon": -81.875,
+      "metrics": {
+        "TMIN": {
+          "pairs": 3694,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 112,
+          "bias_grid_minus_station": 1.4134026494875558,
+          "mae": 1.669488631136429,
+          "rmse": 2.1402803361709126
+        },
+        "TMAX": {
+          "pairs": 3698,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 108,
+          "bias_grid_minus_station": -0.6719849821166001,
+          "mae": 1.5045751543803236,
+          "rmse": 1.9439305270345866
+        },
+        "PRCP": {
+          "pairs": 3738,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 68,
+          "bias_grid_minus_station": -0.5130967598920713,
+          "mae": 3.3054850913548353,
+          "rmse": 8.681245282263976
+        }
+      }
+    },
+    {
+      "region": "Florida",
+      "station": {
+        "id": "USW00012816",
+        "lat": 29.6917,
+        "lon": -82.2761,
+        "elevation_m": 40.5,
+        "name": "GAINESVILLE RGNL AP"
+      },
+      "distance_to_project_site_km": 33.74702916083653,
+      "grid_lat": 29.5,
+      "grid_lon": -82.5,
+      "metrics": {
+        "TMIN": {
+          "pairs": 5479,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 0,
+          "bias_grid_minus_station": 1.5523636502013372,
+          "mae": 1.8264100892327524,
+          "rmse": 2.2697659013615685
+        },
+        "TMAX": {
+          "pairs": 5479,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 0,
+          "bias_grid_minus_station": -0.2606224387291247,
+          "mae": 1.382462187835086,
+          "rmse": 1.7681042155722957
+        },
+        "PRCP": {
+          "pairs": 5479,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 0,
+          "bias_grid_minus_station": -0.1767774564851307,
+          "mae": 3.1159660371382496,
+          "rmse": 7.926356562474872
+        }
+      }
+    },
+    {
+      "region": "Southern Brazil",
+      "station": {
+        "id": "BR002548005",
+        "lat": -25.517,
+        "lon": -48.517,
+        "elevation_m": 5.0,
+        "name": "PARANAGUA"
+      },
+      "distance_to_project_site_km": 179.6600961484036,
+      "grid_lat": -25.5,
+      "grid_lon": -48.75,
+      "metrics": {
+        "TMIN": {
+          "pairs": 178,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 799,
+          "bias_grid_minus_station": -2.176742793736833,
+          "mae": 2.5928108129608503,
+          "rmse": 2.9563492094042583
+        },
+        "TMAX": {
+          "pairs": 56,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 309,
+          "bias_grid_minus_station": -1.935360281808036,
+          "mae": 2.646430315290179,
+          "rmse": 3.5082416184174687
+        },
+        "PRCP": {
+          "pairs": 288,
+          "baseline_days": 5479,
+          "rejected_or_missing_records": 686,
+          "bias_grid_minus_station": 1.8372218237982854,
+          "mae": 6.511248736911351,
+          "rmse": 10.443734224474802
+        }
+      }
+    }
+  ],
+  "selection": "Nearest two stations within 250 km with inventory extent covering 2011\u20132020 for all three fields; compare available 2011\u20132025 records.",
+  "regions_without_matches": [],
+  "limitations": [
+    "Same-date screening only: observation day boundaries may differ from NASA UTC days.",
+    "Station observations are separate from the NASA API, but may not be independent of reanalysis assimilation.",
+    "No gap filling or bias correction performed. Measurement, quality and source flags retained.",
+    "Stations chosen by distance and inventory extent, not by favorable error. Actual valid-pair coverage reported.",
+    "Does not validate site-level frost events or cultivar suitability."
+  ]
+}

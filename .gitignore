@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+env/
+.env
+.env.*
+!.env.example
+.cdsapirc
+data/
+*.partial
+*.sqlite
+*.sqlite-*
+# Supplied reference materials are retained locally, not automatically published.
+/Blueberry_Expansion_Southern_Brazil2.html
+/Blueberry_Expansion_Southern_Brazil_Revised2.html
+/Southern_Brazil_Blueberry_Summary_Report.html
+/Southern_Brazil_Blueberry_Technical_Report.html
+/blueberry_climate_analog_workflow.R

@@ -1,0 +1,458 @@
+{
+  "year": 2020,
+  "results": [
+    {
+      "station": "A864",
+      "metadata": {
+        "file": "INMET_S_SC_A864_MAJOR VIEIRA_01-01-2020_A_31-12-2020.CSV",
+        "distance_km": 29.579941394177773,
+        "header": [
+          "REGIAO:;S",
+          "UF:;SC",
+          "ESTACAO:;MAJOR VIEIRA",
+          "CODIGO (WMO):;A864",
+          "LATITUDE:;-26,3936111",
+          "LONGITUDE:;-50,36333333",
+          "ALTITUDE:;799,58",
+          "DATA DE FUNDACAO:;09/02/09",
+          "Data;Hora UTC;PRECIPITA\u00c7\u00c3O TOTAL, HOR\u00c1RIO (mm);PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB);PRESS\u00c3O ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB);PRESS\u00c3O ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB);RADIACAO GLOBAL (Kj/m\u00b2);TEMPERATURA DO AR - BULBO SECO, HORARIA (\u00b0C);TEMPERATURA DO PONTO DE ORVALHO (\u00b0C);TEMPERATURA M\u00c1XIMA NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA M\u00cdNIMA NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (\u00b0C);UMIDADE REL. MAX. NA HORA ANT. (AUT) (%);UMIDADE REL. MIN. NA HORA ANT. (AUT) (%);UMIDADE RELATIVA DO AR, HORARIA (%);VENTO, DIRE\u00c7\u00c3O HORARIA (gr) (\u00b0 (gr));VENTO, RAJADA MAXIMA (m/s);VENTO, VELOCIDADE HORARIA (m/s);"
+        ],
+        "lat": -26.3936111,
+        "lon": -50.36333333
+      },
+      "hourly_records": 8784,
+      "complete_days": {
+        "tmin_c": 365,
+        "tmax_c": 365,
+        "precip_mm": 89
+      },
+      "temperature_order_failures": 0,
+      "comparison": {
+        "grid_lat": -26.5,
+        "grid_lon": -50.625,
+        "grid_distance_km": 28.61129098500677,
+        "metrics": {
+          "tmin_c": {
+            "days": 365,
+            "bias": 0.9021627849422087,
+            "mae": 1.7021097428831338,
+            "rmse": 2.158365509476933,
+            "below_zero": {
+              "observed": 3,
+              "grid": 1,
+              "hits": 0,
+              "misses": 3,
+              "false_alarms": 1
+            },
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": 0.1338725428427417,
+                "mae": 1.1500031502016128
+              },
+              "2": {
+                "days": 29,
+                "bias": 0.8441380994073278,
+                "mae": 1.3448275862068966
+              },
+              "3": {
+                "days": 31,
+                "bias": 1.2280588457661292,
+                "mae": 1.382899918094758
+              },
+              "4": {
+                "days": 30,
+                "bias": 1.6673299153645833,
+                "mae": 2.0306681315104167
+              },
+              "5": {
+                "days": 31,
+                "bias": 2.2680601058467738,
+                "mae": 2.910000315020161
+              },
+              "6": {
+                "days": 30,
+                "bias": 0.6266670735677081,
+                "mae": 1.9039994303385415
+              },
+              "7": {
+                "days": 31,
+                "bias": 0.4209630166330645,
+                "mae": 1.4564500378024199
+              },
+              "8": {
+                "days": 31,
+                "bias": 1.7064492502520163,
+                "mae": 2.227740675403226
+              },
+              "9": {
+                "days": 30,
+                "bias": 0.9516638183593751,
+                "mae": 1.9363293457031252
+              },
+              "10": {
+                "days": 31,
+                "bias": 0.41355019846270175,
+                "mae": 1.5354882024949594
+              },
+              "11": {
+                "days": 30,
+                "bias": 0.5043343098958332,
+                "mae": 1.2956697591145834
+              },
+              "12": {
+                "days": 30,
+                "bias": 0.033666178385416794,
+                "mae": 1.2243334960937502
+              }
+            }
+          },
+          "tmax_c": {
+            "days": 365,
+            "bias": 0.38350769879066804,
+            "mae": 1.5455865060466611,
+            "rmse": 1.998205455040582,
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": 1.0341891381048394,
+                "mae": 1.698060263356855
+              },
+              "2": {
+                "days": 29,
+                "bias": 0.9872419686153018,
+                "mae": 1.7672434839709052
+              },
+              "3": {
+                "days": 31,
+                "bias": 0.4377437468497983,
+                "mae": 1.062257828251008
+              },
+              "4": {
+                "days": 30,
+                "bias": 0.6566670735677085,
+                "mae": 1.2960005696614583
+              },
+              "5": {
+                "days": 31,
+                "bias": 0.5590347782258065,
+                "mae": 1.1041897681451611
+              },
+              "6": {
+                "days": 30,
+                "bias": -0.18366699218749957,
+                "mae": 1.8409977213541666
+              },
+              "7": {
+                "days": 31,
+                "bias": -0.5090312342489918,
+                "mae": 1.484506127142137
+              },
+              "8": {
+                "days": 31,
+                "bias": 0.22999976373487924,
+                "mae": 1.7777387065272177
+              },
+              "9": {
+                "days": 30,
+                "bias": 0.9829992675781251,
+                "mae": 2.264332275390625
+              },
+              "10": {
+                "days": 31,
+                "bias": 0.142266255040323,
+                "mae": 1.487418094758064
+              },
+              "11": {
+                "days": 30,
+                "bias": 0.10766560872395867,
+                "mae": 1.2363277180989585
+              },
+              "12": {
+                "days": 30,
+                "bias": 0.19066894531249984,
+                "mae": 1.5573323567708333
+              }
+            }
+          },
+          "precip_mm": {
+            "days": 89,
+            "bias": 3.1764053173279496,
+            "mae": 4.178875252370084,
+            "rmse": 7.992128059583013,
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": 1.3425800938760082,
+                "mae": 3.729674505418347
+              },
+              "2": {
+                "days": 28,
+                "bias": 3.4264330182756697,
+                "mae": 3.970000784737723
+              },
+              "12": {
+                "days": 30,
+                "bias": 4.837998860677084,
+                "mae": 4.837998860677084
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "station": "A862",
+      "metadata": {
+        "file": "INMET_S_SC_A862_RIO NEGRINHO_01-01-2020_A_31-12-2020.CSV",
+        "distance_km": 50.35736068765904,
+        "header": [
+          "REGIAO:;S",
+          "UF:;SC",
+          "ESTACAO:;RIO NEGRINHO",
+          "CODIGO (WMO):;A862",
+          "LATITUDE:;-26,248411",
+          "LONGITUDE:;-49,580624",
+          "ALTITUDE:;856,89",
+          "DATA DE FUNDACAO:;22/03/08",
+          "Data;Hora UTC;PRECIPITA\u00c7\u00c3O TOTAL, HOR\u00c1RIO (mm);PRESSAO ATMOSFERICA AO NIVEL DA ESTACAO, HORARIA (mB);PRESS\u00c3O ATMOSFERICA MAX.NA HORA ANT. (AUT) (mB);PRESS\u00c3O ATMOSFERICA MIN. NA HORA ANT. (AUT) (mB);RADIACAO GLOBAL (Kj/m\u00b2);TEMPERATURA DO AR - BULBO SECO, HORARIA (\u00b0C);TEMPERATURA DO PONTO DE ORVALHO (\u00b0C);TEMPERATURA M\u00c1XIMA NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA M\u00cdNIMA NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA ORVALHO MAX. NA HORA ANT. (AUT) (\u00b0C);TEMPERATURA ORVALHO MIN. NA HORA ANT. (AUT) (\u00b0C);UMIDADE REL. MAX. NA HORA ANT. (AUT) (%);UMIDADE REL. MIN. NA HORA ANT. (AUT) (%);UMIDADE RELATIVA DO AR, HORARIA (%);VENTO, DIRE\u00c7\u00c3O HORARIA (gr) (\u00b0 (gr));VENTO, RAJADA MAXIMA (m/s);VENTO, VELOCIDADE HORARIA (m/s);"
+        ],
+        "lat": -26.248411,
+        "lon": -49.580624
+      },
+      "hourly_records": 8784,
+      "complete_days": {
+        "tmin_c": 365,
+        "tmax_c": 365,
+        "precip_mm": 365
+      },
+      "temperature_order_failures": 0,
+      "comparison": {
+        "grid_lat": -26.0,
+        "grid_lon": -49.375,
+        "grid_distance_km": 34.41512950545607,
+        "metrics": {
+          "tmin_c": {
+            "days": 365,
+            "bias": 1.3321903092893834,
+            "mae": 1.6501078900898976,
+            "rmse": 2.146313256168444,
+            "below_zero": {
+              "observed": 3,
+              "grid": 0,
+              "hits": 0,
+              "misses": 3,
+              "false_alarms": 0
+            },
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": 0.6922552293346773,
+                "mae": 1.0438673450100804
+              },
+              "2": {
+                "days": 29,
+                "bias": 1.0606874663254309,
+                "mae": 1.2986185008081894
+              },
+              "3": {
+                "days": 31,
+                "bias": 0.9761277721774195,
+                "mae": 1.3812846522177422
+              },
+              "4": {
+                "days": 30,
+                "bias": 1.5716601562499999,
+                "mae": 1.6909969075520834
+              },
+              "5": {
+                "days": 31,
+                "bias": 2.4470955141129034,
+                "mae": 2.7251614478326616
+              },
+              "6": {
+                "days": 30,
+                "bias": 1.305664469401042,
+                "mae": 1.8836633300781254
+              },
+              "7": {
+                "days": 31,
+                "bias": 1.89031982421875,
+                "mae": 2.0277379189768143
+              },
+              "8": {
+                "days": 31,
+                "bias": 1.894514711441532,
+                "mae": 2.220321950604839
+              },
+              "9": {
+                "days": 30,
+                "bias": 1.0493387858072916,
+                "mae": 1.5300044759114584
+              },
+              "10": {
+                "days": 31,
+                "bias": 0.9629040133568549,
+                "mae": 1.2003213205645162
+              },
+              "11": {
+                "days": 30,
+                "bias": 1.18166748046875,
+                "mae": 1.543002115885417
+              },
+              "12": {
+                "days": 30,
+                "bias": 0.9159956868489584,
+                "mae": 1.2213301595052082
+              }
+            }
+          },
+          "tmax_c": {
+            "days": 365,
+            "bias": -0.8591526648116439,
+            "mae": 1.8333982368364727,
+            "rmse": 2.237508167034596,
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": -1.4487084173387097,
+                "mae": 1.8919315461189519
+              },
+              "2": {
+                "days": 29,
+                "bias": -1.5165535762392235,
+                "mae": 1.92827569369612
+              },
+              "3": {
+                "days": 31,
+                "bias": -2.202579227570565,
+                "mae": 2.463224546370968
+              },
+              "4": {
+                "days": 30,
+                "bias": -0.9236710611979168,
+                "mae": 1.4716707356770837
+              },
+              "5": {
+                "days": 31,
+                "bias": -0.17193564138104836,
+                "mae": 1.5170937815020162
+              },
+              "6": {
+                "days": 30,
+                "bias": -0.12000244140625001,
+                "mae": 1.2966707356770832
+              },
+              "7": {
+                "days": 31,
+                "bias": -1.0145180979082662,
+                "mae": 1.6067701770413307
+              },
+              "8": {
+                "days": 31,
+                "bias": -0.5816185735887094,
+                "mae": 2.350005512852822
+              },
+              "9": {
+                "days": 30,
+                "bias": -0.5226692708333334,
+                "mae": 2.2399991861979163
+              },
+              "10": {
+                "days": 31,
+                "bias": -0.36806286227318574,
+                "mae": 1.7351629441784275
+              },
+              "11": {
+                "days": 30,
+                "bias": -1.054340413411458,
+                "mae": 1.8903373209635417
+              },
+              "12": {
+                "days": 30,
+                "bias": -0.38600219726562496,
+                "mae": 1.5940059407552083
+              }
+            }
+          },
+          "precip_mm": {
+            "days": 365,
+            "bias": 0.7609872979987159,
+            "mae": 3.045752856110873,
+            "rmse": 6.019508873218551,
+            "monthly": {
+              "1": {
+                "days": 31,
+                "bias": 0.9948356382308465,
+                "mae": 3.115482059601815
+              },
+              "2": {
+                "days": 29,
+                "bias": 1.2817252323545254,
+                "mae": 6.925173844962285
+              },
+              "3": {
+                "days": 31,
+                "bias": 0.6993553899949598,
+                "mae": 1.410970183341734
+              },
+              "4": {
+                "days": 30,
+                "bias": 0.07366984049479168,
+                "mae": 0.9229935709635417
+              },
+              "5": {
+                "days": 31,
+                "bias": -0.0970939390120968,
+                "mae": 1.1267735635080645
+              },
+              "6": {
+                "days": 30,
+                "bias": 1.9696695963541668,
+                "mae": 4.6789965820312505
+              },
+              "7": {
+                "days": 31,
+                "bias": -0.18967718308971765,
+                "mae": 1.6193520822832659
+              },
+              "8": {
+                "days": 31,
+                "bias": 0.7087154265372988,
+                "mae": 3.587423213835686
+              },
+              "9": {
+                "days": 30,
+                "bias": 0.1920003255208333,
+                "mae": 1.8513370768229165
+              },
+              "10": {
+                "days": 31,
+                "bias": 0.03096569430443545,
+                "mae": 2.6825809601814523
+              },
+              "11": {
+                "days": 30,
+                "bias": 2.150000406901041,
+                "mae": 3.6720007324218744
+              },
+              "12": {
+                "days": 30,
+                "bias": 1.4156665039062495,
+                "mae": 5.242995605468751
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "2020 pilot only; no bias correction or agronomic validation.",
+    "Source CSV has no per-measurement QC flags; only sentinels, broad bounds and temperature order screened.",
+    "Previous-hour temperature extrema aggregated over 24 complete hourly intervals per UTC day.",
+    "Hourly rainfall is provisionally treated as interval-ending accumulation; confirm provider convention before interpreting daily rainfall errors.",
+    "No filled observations; incomplete days excluded per variable. Rainfall has not received comprehensive outlier screening.",
+    "Nearby stations do not measure the Papanduva field; terrain and elevation differences remain."
+  ]
+}

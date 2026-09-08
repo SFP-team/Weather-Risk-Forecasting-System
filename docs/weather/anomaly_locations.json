@@ -1,0 +1,921 @@
+{
+  "screening_rain_mm_day": 1000,
+  "records": [
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-02-04",
+      "lat": -15.5,
+      "lon": 37.5,
+      "value": 1023.1300048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/135/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -15.0,
+      "lon": 11.25,
+      "value": 1518.5,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.5,
+      "lon": 11.25,
+      "value": 1377.3800048828125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.5,
+      "lon": 11.875,
+      "value": 2875.3798828125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.5,
+      "lon": 12.5,
+      "value": 2500.72998046875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.5,
+      "lon": 13.125,
+      "value": 1060.5699462890625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.0,
+      "lon": 11.875,
+      "value": 1844.260009765625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -14.0,
+      "lon": 12.5,
+      "value": 1712.1300048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -13.0,
+      "lon": 14.375,
+      "value": 1249.93994140625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -13.0,
+      "lon": 15.0,
+      "value": 1433.8599853515625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-03-21",
+      "lat": -12.5,
+      "lon": 14.375,
+      "value": 1299.18994140625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-28",
+      "lat": -11.5,
+      "lon": 38.75,
+      "value": 1503.27001953125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-29",
+      "lat": -10.5,
+      "lon": 40.625,
+      "value": 1038.43994140625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-29",
+      "lat": -10.5,
+      "lon": 41.25,
+      "value": 1482.8399658203125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-29",
+      "lat": -10.0,
+      "lon": 40.0,
+      "value": 1330.1099853515625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-29",
+      "lat": -10.0,
+      "lon": 40.625,
+      "value": 1271.7099609375,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-29",
+      "lat": -10.0,
+      "lon": 41.25,
+      "value": 1334.06005859375,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-02-04",
+      "lat": -15.0,
+      "lon": 36.25,
+      "value": 1309.4100341796875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-02-04",
+      "lat": -15.0,
+      "lon": 36.875,
+      "value": 1252.8299560546875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/150/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-23",
+      "lat": -12.5,
+      "lon": 147.5,
+      "value": 1488.219970703125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/510"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-23",
+      "lat": -12.5,
+      "lon": 148.125,
+      "value": 1707.7900390625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-23",
+      "lat": -11.0,
+      "lon": 148.75,
+      "value": 1011.8900146484375,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-24",
+      "lat": -8.0,
+      "lon": 148.125,
+      "value": 2004.77001953125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-25",
+      "lat": -8.0,
+      "lon": 148.125,
+      "value": 1598.340087890625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/150/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-23",
+      "lat": -6.0,
+      "lon": 148.75,
+      "value": 1279.4200439453125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-24",
+      "lat": -7.5,
+      "lon": 148.125,
+      "value": 1382.1199951171875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-03-24",
+      "lat": -6.5,
+      "lon": 150.625,
+      "value": 1032.1500244140625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-05-20",
+      "lat": -7.5,
+      "lon": 155.625,
+      "value": 1272.75,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-05-20",
+      "lat": -7.5,
+      "lon": 156.25,
+      "value": 1240.780029296875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-05-20",
+      "lat": -7.0,
+      "lon": 155.625,
+      "value": 1417.550048828125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-05-20",
+      "lat": -7.0,
+      "lon": 156.25,
+      "value": 1159.969970703125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/165/525"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-03-22",
+      "lat": 5.5,
+      "lon": -78.125,
+      "value": 1216.5,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/180/150"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-03-22",
+      "lat": 6.0,
+      "lon": -78.125,
+      "value": 1011.7100219726562,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/180/150"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-01-01",
+      "lat": 4.5,
+      "lon": 35.0,
+      "value": 1215.949951171875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/330"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-12-31",
+      "lat": 4.0,
+      "lon": 35.625,
+      "value": 1126.5400390625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-11-27",
+      "lat": 1.5,
+      "lon": 40.625,
+      "value": 1464.489990234375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-11-27",
+      "lat": 1.5,
+      "lon": 41.25,
+      "value": 1405.3800048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-11-27",
+      "lat": 2.0,
+      "lon": 40.625,
+      "value": 1192.260009765625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-11-27",
+      "lat": 2.0,
+      "lon": 41.25,
+      "value": 1548.47998046875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-04-20",
+      "lat": 2.0,
+      "lon": 41.25,
+      "value": 1028.22998046875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/180/345"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-11-02",
+      "lat": 11.0,
+      "lon": -86.875,
+      "value": 1120.5699462890625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/195/135"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-04-11",
+      "lat": 10.0,
+      "lon": 8.75,
+      "value": 1155.1500244140625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-05-23",
+      "lat": 10.0,
+      "lon": 8.125,
+      "value": 1215.570068359375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-05-23",
+      "lat": 10.0,
+      "lon": 9.375,
+      "value": 1185.280029296875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-05-23",
+      "lat": 10.5,
+      "lon": 8.125,
+      "value": 1541.7099609375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-05-23",
+      "lat": 10.5,
+      "lon": 8.75,
+      "value": 1254.7099609375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2022-05-23",
+      "lat": 10.5,
+      "lon": 9.375,
+      "value": 1817.449951171875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/195/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-06-13",
+      "lat": 22.0,
+      "lon": -78.125,
+      "value": 1175.25,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/150"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.0,
+      "lon": -13.75,
+      "value": 2009.6199951171875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.0,
+      "lon": -13.125,
+      "value": 2246.18017578125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.0,
+      "lon": -12.5,
+      "value": 1105.3800048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.0,
+      "lon": -11.875,
+      "value": 1637.820068359375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.5,
+      "lon": -13.75,
+      "value": 2120.1201171875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.5,
+      "lon": -13.125,
+      "value": 2532.2900390625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.5,
+      "lon": -12.5,
+      "value": 1674.5999755859375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 20.5,
+      "lon": -11.875,
+      "value": 1619.580078125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 21.0,
+      "lon": -13.125,
+      "value": 1176.530029296875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-10-12",
+      "lat": 21.0,
+      "lon": -12.5,
+      "value": 1171.1099853515625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-06-23",
+      "lat": 15.0,
+      "lon": -13.75,
+      "value": 1031.760009765625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-06-23",
+      "lat": 15.0,
+      "lon": -13.125,
+      "value": 1070.9300537109375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-03-24",
+      "lat": 15.0,
+      "lon": -8.75,
+      "value": 1226.989990234375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/270"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-05-23",
+      "lat": 18.0,
+      "lon": 12.5,
+      "value": 1030.97998046875,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/210/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2017-07-22",
+      "lat": 20.5,
+      "lon": 91.25,
+      "value": 1038.3399658203125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/210/420"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-10",
+      "lat": 27.5,
+      "lon": -116.25,
+      "value": 1218.030029296875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-10",
+      "lat": 27.5,
+      "lon": -115.625,
+      "value": 1306.22998046875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-10",
+      "lat": 28.0,
+      "lon": -116.25,
+      "value": 1228.8900146484375,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-10",
+      "lat": 28.0,
+      "lon": -115.625,
+      "value": 1441.510009765625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-11",
+      "lat": 28.5,
+      "lon": -115.0,
+      "value": 3024.830078125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-11",
+      "lat": 29.0,
+      "lon": -116.25,
+      "value": 3525.360107421875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-11",
+      "lat": 29.0,
+      "lon": -115.625,
+      "value": 1474.5799560546875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-11",
+      "lat": 29.0,
+      "lon": -115.0,
+      "value": 1711.429931640625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 24.0,
+      "lon": -15.0,
+      "value": 1354.800048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 24.5,
+      "lon": -15.0,
+      "value": 1498.050048828125,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 24.5,
+      "lon": -14.375,
+      "value": 1854.820068359375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 25.0,
+      "lon": -15.0,
+      "value": 1370.300048828125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 25.0,
+      "lon": -14.375,
+      "value": 1545.239990234375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2021-03-26",
+      "lat": 25.5,
+      "lon": -14.375,
+      "value": 1011.1099853515625,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/225/255"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 31.5,
+      "lon": 16.25,
+      "value": 1025.219970703125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/240/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 31.0,
+      "lon": 16.875,
+      "value": 1026.1800537109375,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 31.0,
+      "lon": 17.5,
+      "value": 1042.75,
+      "land_cell_center": true,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 31.5,
+      "lon": 16.875,
+      "value": 1187.52001953125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 31.5,
+      "lon": 17.5,
+      "value": 1084.760009765625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 32.0,
+      "lon": 16.875,
+      "value": 1099.3800048828125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2023-12-04",
+      "lat": 32.0,
+      "lon": 17.5,
+      "value": 1165.06005859375,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/240/315"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-07-25",
+      "lat": 38.0,
+      "lon": 8.75,
+      "value": 1091.9000244140625,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/255/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-07-25",
+      "lat": 38.0,
+      "lon": 9.375,
+      "value": 1797.22998046875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/255/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-07-25",
+      "lat": 38.0,
+      "lon": 10.0,
+      "value": 1288.0799560546875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/255/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-07-25",
+      "lat": 38.5,
+      "lon": 9.375,
+      "value": 1086.47998046875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/255/300"
+    },
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2025-07-25",
+      "lat": 38.5,
+      "lon": 10.0,
+      "value": 1470.1700439453125,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/255/300"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2010-02-09",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2012-01-18",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2012-01-18",
+      "lat": 35.5,
+      "lon": 80.625,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2012-01-19",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2012-01-20",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2012-02-22",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2014-02-07",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2014-02-15",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2023-01-12",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    },
+    {
+      "variable": "RH2M",
+      "date": "2023-01-13",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405"
+    }
+  ],
+  "source_modified": false,
+  "api_checks": [
+    {
+      "variable": "PRECTOTCORR",
+      "date": "2020-06-11",
+      "lat": 29.0,
+      "lon": -116.25,
+      "value": 3525.360107421875,
+      "land_cell_center": false,
+      "tile": "met_daily/PRECTOTCORR/225/90",
+      "api_value": 3525.36,
+      "api_matches": true
+    },
+    {
+      "variable": "RH2M",
+      "date": "2010-02-09",
+      "lat": 35.5,
+      "lon": 77.5,
+      "value": null,
+      "land_cell_center": true,
+      "tile": "met_daily/RH2M/240/405",
+      "api_value": null,
+      "api_matches": true
+    }
+  ]
+}
