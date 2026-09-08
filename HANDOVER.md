@@ -13,6 +13,8 @@ Last updated: 2026-09-08. Current phase: weather-data foundation. **Acquisition 
 
 ## Next actions, in order
 
+Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. Immediate priority is a supervisor-ready demonstration of the downloaded weather and reproducible insights, not cultivar recommendations. Prepare a climate evidence report for Papanduva, Citra and Waldo: acquisition/coverage proof, monthly climate, year-to-year variation, tested chill and cold/heat exposure, dry spells, exploratory seasonal comparisons and station-validation limitations. This is a proposed next deliverable, not yet implemented. Finish the weather core gates alongside it; do not block this work on cultivar data or build the full app yet.
+
 1. Finish corrupted compressed-source response tests.
 2. Implement and test demonstration indicators: bounded chill hours with explicit temporal/season conventions, dry spells and monthly summaries, including diverse global probes. No invented phenology or cultivar rankings.
 3. Ensure derived calculations honor suspect/missing rainfall and incomplete windows.
