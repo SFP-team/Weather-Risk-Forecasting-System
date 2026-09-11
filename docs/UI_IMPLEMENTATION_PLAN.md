@@ -2,6 +2,8 @@
 
 Date: 2026-09-11. **Design specification only: no UI, API or deployment created in this task.** This is the interim Parts 1–2 product; cultivar ranking and production-system classification remain deferred. It narrows the original four-output final-product architecture to the evidence we can actually serve now.
 
+Implementation follow-up on the same date: the first static UI and loopback-only Python API are now implemented. See `UI_RUNBOOK.md` for the actual capability boundary and startup instructions. The queue, framework choices and production endpoints below remain target architecture, not completed functionality.
+
 ## Product decision
 
 Build a web-first location assessment. The page itself is the readable report, with interactive evidence and an export of the same result. Primary inputs remain latitude/longitude (or map pin) and one of four management choices. Default: open ground. Preset Citra, Waldo and Papanduva buttons provide repeatable demonstrations. No market-date input, cultivar selector or chat assistant in this release.

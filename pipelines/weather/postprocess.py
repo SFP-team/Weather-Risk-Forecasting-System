@@ -78,12 +78,20 @@ class LandMask:
             raise RuntimeError('Land-mask checksum mismatch')
         self.geometries = []
         self.repaired = 0
+        self.excluded_placeholders = 0
         for feature in json.loads(data)['features']:
+            # Natural Earth includes an explicitly artificial polygon at 0, 0.
+            # Exclude its source label, not a coordinate box that could hide land.
+            if str((feature.get('properties') or {}).get('featurecla') or '').casefold() == 'null island':
+                self.excluded_placeholders += 1
+                continue
             geometry = shape(feature['geometry'])
             if not geometry.is_valid:
                 geometry = make_valid(geometry)
                 self.repaired += 1
             self.geometries.append(prep(geometry))
+        self.metadata = {**self.metadata, 'processing_version': 'land-mask-v2',
+                         'excluded_null_island_features': self.excluded_placeholders}
 
     def covers(self, lat, lon):
         point = Point((lon+180) % 360-180, lat)

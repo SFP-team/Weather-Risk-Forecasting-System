@@ -1,6 +1,6 @@
 # Project handover — start here
 
-Last updated: 2026-09-11. Current phase: weather-data foundation and management-analysis design. **Acquisition is complete; the core handoff and scientific validation are not complete.**
+Last updated: 2026-09-11. Current phase: first connected climate/soil UI. **Global daily weather acquisition is complete; soil acquisition, the core handoff and scientific validation are not complete.**
 
 ## Implemented and verified
 
@@ -9,7 +9,11 @@ Last updated: 2026-09-11. Current phase: weather-data foundation and management-
 - Resumable downloader, checksums, bounded retries/resources, atomic publication, worker locking and coordinate extraction with land/offshore handling.
 - Ten global humidity gaps located. Eighty-nine rainfall cell-days above the 1,000 mm/day investigation threshold identified; original values preserved. Extractions expose a suspect-rain flag and admissibility warning.
 - Station screening plus a 2020 FAWN Citra / INMET Major Vieira and Rio Negrinho pilot. Warm minimum-temperature biases and missed below-zero days are documented; no correction fitted.
-- Last server suite: **51 tests passed**, including six soil extraction/unit tests plus the prior 45 weather/scenario/station tests.
+- Last server suite: **55 tests passed**, including four location/API-summary and land-mask tests plus the prior 51 weather/soil/scenario/station tests.
+- First UI implemented in `dist/`: coordinate/system inputs, six exposure cards, monthly/annual charts and table, soil profiles, qualitative management notes, provenance and HTML/JSON export controls. Monochrome design follows the user's supplied style reference. Three real derived snapshots: Papanduva, Citra, Waldo. The 225 shared annual indicator values match the previous report exactly. No cultivar rankings or calibrated tunnel effects.
+- Connected prototype implemented in `pipelines/weather/location_api.py` plus `scripts/preview-ui.mjs`: loopback-only API and fixed SSH-forwarded local proxy; a new London coordinate returned 5,479 daily rows with unavailable chill/soil explicitly shown. Static hosting contains saved snapshots only, not private-network access. Startup, scope and remaining production work: `docs/UI_RUNBOOK.md`.
+- UI checks: desktop inspection, 390px layout without page overflow, preset/system interactions, new-coordinate result and invalid WebMCP input. JavaScript syntax checks passed. Export interactions produced no browser console errors, but the embedded browser did not expose a download event; download-file compatibility/parity remains a QA item. This is not production or scientific validation.
+- Found and excluded Natural Earth's explicitly labelled artificial “Null island” polygon; `land-mask-v2` records the exclusion in provenance. Regression includes null-labelled real land; remote snapshots regenerated from unchanged archives.
 - Soil acquisition started: 157/630 records downloaded; Citra/Papanduva/Waldo complete at 45 each, Astin East 22. Five properties, three depths, mean/Q0.05/Q0.95. WCS timed out three times at Astin East sand 5–15 cm Q0.05; worker stopped `blocked_source`, no active soil worker. Do not reset attempts blindly. Raw/normalized soil stays on server. Returned WCS pixels are geographic/reprojected, not asserted native SoilGrids cells; scientific/native-grid validation pending.
 - Consolidated inventory implemented: `pipelines/weather/data_inventory.py`, server `reports/data_inventory.json`; readable map in `docs/weather/DATA_CATALOG.md`. Soil runbook: `docs/weather/SOIL_DATA_RUNBOOK.md`. No weather redownload or bulk-data duplication.
 - Exploratory 50/100-hour stage comparison implemented in `pipelines/weather/stage_scenarios.py`; offline HTML/JSON in `docs/weather/climate_evidence/stage_scenarios.*`. Paul-derived UTC assumptions, not calibrated cultivar predictions. Citra/Waldo have 15 paired winters; Papanduva has 13 because 2015/2023 do not reach 100 hours. Complete-window and suspect-rain refusal enforced; no downloads.
@@ -18,18 +22,18 @@ Last updated: 2026-09-11. Current phase: weather-data foundation and management-
 
 ## Next actions, in order
 
-UI design requested 2026-09-11: `docs/UI_IMPLEMENTATION_PLAN.md` defines a coordinate-first historical climate/soil dashboard, six exposure cards, progressive partial results, four-system comparison and snapshot-matched reports. Plan only; no UI/API/deployment created. First implementation slice should wrap the existing Python science, expose missing hourly/soil explicitly and use private access. "Live" is on-demand historical analysis, not a current-weather forecast.
+UI next: authenticated hosted connectivity to the private archive, durable jobs/cache, granular missing-data states, export compatibility/parity, then stage-scenario integration and supervisor review. The first connected slice exists; the full architecture in `docs/UI_IMPLEMENTATION_PLAN.md` remains staged work. "Live" is on-demand historical analysis, not a current-weather forecast. Sites registration is in `.openai/hosting.json`; publication outcome is verified separately in the task response.
 
 2026-09-11 research refinement: `docs/weather/LOCATION_MANAGEMENT_PLAN.md` specifies six weather exposures × four growing systems, soil screening, evidence-backed management pathways and validation gates. Soil adapter/acquisition has subsequently started as recorded above; ET0 and tunnel models are not implemented. Next: investigate failed soil source without discarding completed files, unify six-factor baseline, then an explicitly conditional four-system report. Cultivar work remains deferred. Continue the weather-core gates below alongside this work.
 
-Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. The three-site climate evidence report and exploratory seasonal comparison are now implemented. Finish the weather core gates alongside supervisor review; do not block this work on cultivar data or build the full app yet.
+Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. The three-site climate evidence report and exploratory seasonal comparison are implemented. The user subsequently requested this initial UI. Finish the weather core gates alongside supervisor review; do not block this work on cultivar data or imply the full app is complete.
 
 1. Finish corrupted compressed-source response tests.
 2. Extend the implemented three-site indicator demonstration to diverse global probes. No invented phenology or cultivar rankings. The supervisor's initial HTML evidence report is ready; broader scientific validation remains pending.
 3. Ensure derived calculations honor suspect/missing rainfall and incomplete windows.
 4. Audit versions, resource accounting, provenance and completion criteria; write final weather handoff and pause the existing monitor only when those criteria pass.
 
-Multi-year station validation and rainfall measurement-convention checks remain research work. Copernicus comparison requires user credentials and accepted terms; do not expose credentials. Soil is optional. No current cultivar recommendation model or application has been built.
+Multi-year station validation and rainfall measurement-convention checks remain research work. Copernicus comparison requires user credentials and accepted terms; do not expose credentials. Soil is optional. A research UI exists; no cultivar recommendation model has been built.
 
 ## Where things live
 
@@ -48,4 +52,4 @@ Follow `AGENTS.md` after every completed request: update this file when facts ch
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action: specified the staged UI/API/report design from existing capabilities. No new downloads or runtime tests this planning turn; prior 51-test result unchanged. Soil acquisition remains source-blocked. Publication result is reported in the task response, not assumed here.
+Latest action: implemented and tested the first climate/soil UI and private read-only coordinate adapter; 55 server tests passed. No new weather/soil acquisition. Soil remains source-blocked. Publication result is reported in the task response, not assumed here.

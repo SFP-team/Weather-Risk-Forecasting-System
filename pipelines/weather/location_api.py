@@ -1,0 +1,107 @@
+"""Private, loopback-only prototype API over existing archives; no downloads."""
+import hashlib
+import json
+import math
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlsplit
+import numpy as np
+import pandas as pd
+from discover import ROOT, write_json
+from evidence_report import complete, chill, dry_spell
+from postprocess import LandMask, extract
+
+METHOD='location-evidence-v1'
+LAND=None
+BUSY=threading.Lock()
+
+
+def avg(values):
+    values=list(values)
+    return float(np.mean(values)) if values and all(v is not None and math.isfinite(v) for v in values) else None
+
+
+def summarize(frame,hourly,lat):
+    annual=[];monthly=[]
+    # Respect the upstream investigation flag without modifying original data.
+    rain=frame.precip_mm.mask(frame.precip_suspect_extreme.fillna(True))
+    for year in range(2011,2026):
+        start,end=f'{year}-01-01',f'{year+1}-01-01'
+        p=complete(rain,start,end,'D');ok=p is not None and not ((p<0)|(p>1000)).any()
+        cold=complete(frame.tmin_c,start,end,'D');hot=complete(frame.tmax_c,start,end,'D')
+        solar=complete(frame.shortwave_mj_m2_day,start,end,'D')
+        cs,ce=(f'{year}-05-01',f'{year}-09-01') if lat<0 else (f'{year-1}-11-01',f'{year}-03-01')
+        annual.append({'year':year,'rain_mm':float(p.sum()) if ok else None,
+            'cold_days':None if cold is None else int((cold<0).sum()),
+            'hot_days':None if hot is None else int((hot>=35).sum()),
+            'dry_spell':dry_spell(rain,start,end),'solar':None if solar is None else float(solar.mean()),
+            'chill_hours':None if hourly is None else chill(hourly,cs,ce),
+            'chill_start':cs,'chill_end_exclusive':ce})
+        for month in range(1,13):
+            a=pd.Timestamp(year,month,1);b=a+pd.offsets.MonthBegin(1)
+            mp=complete(rain,a,b,'D');good=mp is not None and not ((mp<0)|(mp>1000)).any()
+            mt=complete(frame.tmean_c,a,b,'D');ms=complete(frame.shortwave_mj_m2_day,a,b,'D')
+            monthly.append({'year':year,'month':month,'rain_mm':float(mp.sum()) if good else None,
+                            'tmean':None if mt is None else float(mt.mean()),'solar':None if ms is None else float(ms.mean())})
+    climatology={k:[avg(r[k] for r in monthly if r['month']==m) for m in range(1,13)] for k in ('rain_mm','tmean','solar')}
+    return annual,monthly,climatology
+
+
+def analyze(lat,lon):
+    global LAND
+    if not (math.isfinite(lat) and math.isfinite(lon) and -90<=lat<=90 and -180<=lon<=180):
+        raise ValueError('Coordinates must be finite and within latitude/longitude bounds')
+    if LAND is None:LAND=LandMask(ROOT)
+    frame,provenance=extract(ROOT,lat,lon,LAND)
+    if frame is None:return {'error':provenance['reason'],'status':'unsupported_location'}
+    sites=json.loads((ROOT/'config/sites.json').read_text())
+    match=next((s for s in sites if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
+    site=match or {'name':'Selected location','lat':lat,'lon':lon}
+    hourly=None;hourly_hash=None
+    if match:
+        hp=ROOT/'data/normalized/pilot/pilot'/match['id']/'met_hourly.parquet'
+        if hp.exists():
+            hourly=pd.read_parquet(hp).set_index('time').tmean_c
+            hourly_hash=hashlib.sha256(hp.read_bytes()).hexdigest()
+    sp=ROOT/'data/normalized/soilgrids/pilot_soil.json'
+    soil=[r for r in json.loads(sp.read_text())['records']
+          if abs(r['lat']-lat)<1e-7 and abs(r['lon']-lon)<1e-7] if sp.exists() else []
+    # Public, derived point summaries only. Raw paths/requests stay server-side.
+    soil=[{k:r[k] for k in ('property','depth','statistic','value','unit','status','cell_lon','cell_lat','sha256')} for r in soil]
+    annual,monthly,climatology=summarize(frame.set_index('time'),hourly,lat)
+    result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
+        'soil':soil,'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_hash,
+        'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
+    result['analysis_id']=hashlib.sha256(json.dumps(result,sort_keys=True,allow_nan=False).encode()).hexdigest()[:20]
+    return result
+
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self,*args):pass  # Do not log user coordinates.
+    def do_GET(self):
+        parsed=urlsplit(self.path)
+        status=200
+        if parsed.path=='/api/health':result={'status':'ready','mode':'private-read-only-prototype'}
+        elif parsed.path!='/api/analysis':status,result=404,{'error':'Not found'}
+        elif not BUSY.acquire(blocking=False):status,result=503,{'error':'Another analysis is running. Please try again shortly.'}
+        else:
+            try:
+                q=parse_qs(parsed.query)
+                result=analyze(float(q['latitude'][0]),float(q['longitude'][0]))
+            except (ValueError,KeyError,IndexError):status,result=400,{'error':'Invalid coordinate input'}
+            except Exception:status,result=500,{'error':'Archive analysis failed. No substitute result was generated.'}
+            finally:BUSY.release()
+        payload=json.dumps(result,allow_nan=False).encode()
+        self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Cache-Control','no-store')
+        self.send_header('Content-Length',str(len(payload)));self.end_headers();self.wfile.write(payload)
+
+
+if __name__=='__main__':
+    import sys
+    if '--snapshots' in sys.argv:
+        sites=json.loads((ROOT/'config/sites.json').read_text())
+        write_json(ROOT/'reports/ui_snapshots.json',{'sites':{s['name']:analyze(s['lat'],s['lon']) for s in sites if s['name'] in ('Papanduva','Citra','Waldo')}})
+        print('Three derived UI snapshots generated')
+    else:
+        print('Private API: http://127.0.0.1:8787',flush=True)
+        ThreadingHTTPServer(('127.0.0.1',8787),Handler).serve_forever()

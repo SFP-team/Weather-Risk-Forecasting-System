@@ -11,6 +11,8 @@ data/
 *.partial
 *.sqlite
 *.sqlite-*
+.sites-runtime/
+node_modules/
 # Supplied reference materials are retained locally, not automatically published.
 /Blueberry_Expansion_Southern_Brazil2.html
 /Blueberry_Expansion_Southern_Brazil_Revised2.html
