@@ -1,0 +1,17 @@
+{
+  "generated": "2026-09-11T16:56:06.932548+00:00",
+  "worker_status": "blocked_source",
+  "expected_jobs": 630,
+  "audited_jobs": 157,
+  "site_records": {
+    "Citra": 45,
+    "Papanduva": 45,
+    "Waldo": 45,
+    "Astin East": 22
+  },
+  "source_nodata_records": 0,
+  "quantile_pairs_checked": 52,
+  "issues": [],
+  "scope": "Checksums, raster readback and quantile order; not field validation.",
+  "grid_note": "Live WCS outputs EPSG:4326 geographic subsets (~0.0025 degrees here). Stored cell coordinates are returned-grid centers, not native SoilGrids centers."
+}

@@ -1,0 +1,2 @@
+# Install into the existing project environment, never system Python.
+rasterio==1.4.3
