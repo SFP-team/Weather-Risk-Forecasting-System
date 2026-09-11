@@ -2,6 +2,8 @@
 
 Date: 2026-09-11. Research/design refinement, not an implemented management model or a new acquisition run. Extends Sections 6–7 of `IMPLEMENTATION_PLAN.md`. Cultivar data remain deferred to Part 3.
 
+Later supervisor-review amendment: first evaluate the open-ground production-system/calendar/stage-risk chain using the supplied R methods and existing archive. Follow `R_ADAPTATION_PLAN.md` for the revised execution order. Soil acquisition and the first UI have since been implemented as recorded in `../../HANDOVER.md`; the initial status below is historical. Soil scoring and quantitative cover/container adjustments remain subsequent layers, not blockers for the Waldo baseline.
+
 ## Decision and current position
 
 Build a location-based comparison of open-ground, open-pots, tunnel-ground and tunnel-pots. Start with interpretable weather exposures, soil context and explicit management assumptions. Do not train an ML model to imitate arbitrary risk scores or recommend a commercial structure from daily weather alone.

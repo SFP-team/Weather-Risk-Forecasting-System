@@ -1,6 +1,6 @@
 # Blueberry recommendation platform — full requirements
 
-**Status:** requirements only. No UI, no weather archive, no models on this branch.  
+**Status:** long-term requirements with current-phase amendment below. A weather archive and first research UI now exist; production classification/calendar and genotype models are not yet delivered.
 **Date collected:** August–September 2026  
 **Product owner (science):** Patricio (Patricia in speech-to-text) — UF blueberry breeding  
 **Science / methods:** Paul Adunola  
@@ -15,7 +15,15 @@ This file is the single source of truth for what we are building. It is assemble
 - Three stakeholder slides: *How the platform works*, *What the breeder gets*, *What is needed to build it*
 - The existing UF Florida weather-risk repo (a **different** product; do not bolt this onto it)
 
-Older analogue / diagnose UI and cached climate files live on other GitHub branches. They are **not** the starting point. We download weather and write code again against this document.
+Older analogue / diagnose applications live on other GitHub branches. They are **not** the starting point. Reuse the completed archive and current `main` implementation; do not repeat acquisition to implement the next analysis layer.
+
+## Current-phase amendment — 2026-09-11 supervisor review
+
+The immediate scope is **open field + ground**, with three linked outputs: production-system hypothesis, assumption-based production window, and stage-specific weather risks. Start at Waldo, then Citra/Papanduva and a southeastern US evaluation panel. Use the useful functions in the supplied R workflow with our downloaded data, bypassing its acquisition and target-specific reporting sections.
+
+Execution order and acceptance gates are in `docs/weather/R_ADAPTATION_PLAN.md`. Establishment planting dates are distinct from recurring flowering/harvest of bearing plants; the R constants are provisional assumptions. Current annual weather cards are context, not the final stage-risk output. Soil scoring and quantitative tunnel/pot effects follow the open-field evaluation; cultivar/genomic data remain deferred to Part 3. The four-output vision below is the eventual product, not a prerequisite for this milestone.
+
+Do not infer universal evergreen/deciduous feasibility or automatic risk removal from a chill threshold or a management dropdown. Preserve the two different R classifiers as named methods during reconciliation. New hourly downloads require a bounded registry and execution step; this amendment does not launch them.
 
 ---
 
@@ -65,9 +73,9 @@ This is a **breeder decision dashboard** for genotype placement and selection. I
    | Choice | Meaning |
    |---|---|
    | Open field + ground | Exposed climate + native / pine-bark soil. System classifier **matters**. Use soil data. |
-   | Open field + pots | Exposed climate, drainage mostly solved. Fruit split can still happen. |
-   | Tunnel or greenhouse + ground | Protected structure (tunnel ≈ greenhouse in the UI). Freeze and harvest rain largely controlled. |
-   | Tunnel or greenhouse + pots | Most expensive, most control. Almost all highlighted weather risks shrink. Recommend from the model without filtering hard by open-field clock. |
+   | Open field + pots | Exposed climate, managed substrate; drainage and irrigation must be specified. Fruit rain exposure remains. |
+   | Tunnel or greenhouse + ground | Conditional rain interception; native/amended ground remains relevant. No assumed freeze protection or calibrated risk reduction. |
+   | Tunnel or greenhouse + pots | Combine cover and substrate control with heat, light, water and cold constraints. Numerical effects require evaluated structure parameters. |
 
 Tunnel and greenhouse are **one bucket**. Do not ask separately for net / LDPE / woven in v1 unless we later need them.
 

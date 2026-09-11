@@ -2,6 +2,8 @@
 
 Date: 2026-09-08. Scope: source-code/report audit and controlled chill sensitivity on our stored NASA UTC data. **Not a rerun of the complete R workflow, not a reproduced historical report, and not a calibrated phenology model.** No new weather was downloaded. Original report files and R source remain local; only the analysis and derived summaries are published.
 
+2026-09-11 follow-up: new supervisor discussion and a complete R parse informed `R_ADAPTATION_PLAN.md`. Eight local characterization checks now reproduce the northern calendar-anchor mismatch (October summary versus November calculation, −31 days), zero-chill first-date behavior, missing/constant-reference fallback, missing dry-flag behavior and other reviewed assumptions. Run `Rscript --vanilla scripts/audit_paul_reference.R` from repository root with the unchanged private R file present. These tests establish source behavior, not successful biological validation or corrected production modules. The full R workflow was not executed.
+
 ## Executive finding
 
 Our initial climate report and Paul's reports do not calculate the same quantities under the same assumptions. Some discrepancies are now explained by actual executable code, rather than guesses. On identical data, changing the season and chill definition raises Papanduva's mean from 178.9 to 199.4 hours. Paul's report states 209.4 hours. The remaining 10.0-hour numerical difference is **unresolved**, not attributed conclusively to any one cause.

@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-11 — Supervisor review and R adaptation plan
+
+- Reviewed the latest supplied discussion; prioritize open field + ground production strategy, calendar and stage-specific risks, beginning at Waldo. Soil/tunnel scoring and genotype work remain later layers.
+- Parsed the unchanged private 5,759-line R workflow (332 top-level expressions / 51 functions), audited the useful sections and mapped their actual weather inputs to existing archive fields. Identified two classifiers, provisional planting/phenology rules, missingness/score fallbacks and a northern summary-anchor shift of −31 days.
+- Added `scripts/audit_paul_reference.R`; eight local characterization checks passed on synthetic inputs after source fingerprint verification. Only nine reviewed helper definitions evaluated; no workflow download/setup/report code executed. Prior 55 backend tests not rerun; no biological validation claimed.
+- Added `docs/weather/R_ADAPTATION_PLAN.md` with modules, data contract, configuration, validation/acquisition/UI stages and acceptance gates. Updated requirements and existing plans to resolve priority/runtime conflicts. Production R modules and fixes remain next work; no acquisition or deployment this turn. Original R, transcripts and private reports remain unpublished.
+
 ## 2026-09-11 — First connected climate/soil UI
 
 - Built the monochrome coordinate-first dashboard from the supplied style reference: six exposure cards, monthly/annual charts and table, soil uncertainty, four-system qualitative notes, provenance and HTML/JSON export controls.

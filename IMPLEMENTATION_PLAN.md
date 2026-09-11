@@ -8,6 +8,8 @@
 
 **Scope:** build a new product on `main`; do not resume the old Florida risk or analogue application.
 
+**Current execution priority (2026-09-11):** the archive and first UI are implemented. Follow `docs/weather/R_ADAPTATION_PLAN.md` next: isolate reviewed R methods, consume the existing archive, and demonstrate open-ground production strategy, seasonal windows and stage risks at Waldo before expanding soil/tunnel or genotype modelling. The long-term architecture below does not override that milestone or authorize new downloads by itself.
+
 ## 1. Executive recommendation
 
 Build an evidence-aware **genotype × environment × management decision-support system**, not a climate-similarity map with cultivar names attached.
