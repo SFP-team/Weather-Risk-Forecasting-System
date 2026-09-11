@@ -16,6 +16,7 @@ Shortlist the next trial geography for a blueberry variety and production system
 | Dual chill + stage features | `packages/analogue/blueberry_analogue/features/` |
 | CCAFS lag + Hallegatte gates | `packages/analogue/blueberry_analogue/analogue/engine.py` |
 | Skill sheet | [skill-sheet.md](skill-sheet.md) |
+| Structure × weather evidence | [structure-weather.md](structure-weather.md) |
 | Map UI | `apps/analogue-web/` on port 8010 |
 
 ## Run it
@@ -37,3 +38,5 @@ After leave-one-region-out skill on chill or freeze beats Baseline-0, we may say
 If we only have presence AUC inside the training continent, we may say the model describes where blueberries are grown in this dataset.
 
 We may not say this site will grow like Michigan. We may not quote Wang & Dong 0.94.
+
+Tunnels and pots change weather exposure. They do not delete freeze, rain-crack, chill, or flood. See [structure-weather.md](structure-weather.md). Do not encode those as 0/1 multipliers.

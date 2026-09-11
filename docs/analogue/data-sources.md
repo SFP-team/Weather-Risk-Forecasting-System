@@ -36,3 +36,7 @@ Monthly climatology is the globe screen. Hourly temperature is the fingerprint f
 ## Trust rule
 
 If CHELSA or ERA5-Land and the nearest 10-year station disagree on chill or harvest rain by more than the set band, the pixel is **untrusted**, not 85% similar.
+
+## Structure transfer (not climate data)
+
+How tunnels, covers, and pots change weather exposure is in [structure-weather.md](structure-weather.md). Those effects are residual-risk bands, not 0/1 multipliers.
