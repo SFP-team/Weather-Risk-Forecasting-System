@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-11 — Complete R source review
+
+- Read all 5,759 private source lines sequentially, including superseded blocks and optional genotype processing; traced 332 expressions / 51 top-level functions. Added `docs/weather/R_FULL_CODE_REVIEW.md` with full inventory, output dependencies, code defects, scientific limitations and reuse gates.
+- Confirmed single-reference-row suitability scoring, session-dependent analogue classification, incomplete-year schema/group splitting, undefined genotype metadata variable and positional master-answer lookup. Separated these from provisional calendar/system assumptions and uncalibrated relative scores. No original R edits or full workflow execution.
+- Expanded `scripts/audit_paul_reference.R` to 22 passing local source-pinned checks (17 reviewed helpers plus syntax/scalar diagnostics); mismatched-source refusal verified. These characterize behavior, not corrected functionality or biological accuracy. Prior 55-test server suite not rerun; no package installation, download or deployment.
+- Updated the handover/adaptation gates. Existing archives/UI preserved; next implementation remains the network-free R adapter and Waldo open-field calendar/risk packet. Raw source, transcripts, reports and breeding information remain unpublished.
+
 ## 2026-09-11 — Supervisor review and R adaptation plan
 
 - Reviewed the latest supplied discussion; prioritize open field + ground production strategy, calendar and stage-specific risks, beginning at Waldo. Soil/tunnel scoring and genotype work remain later layers.

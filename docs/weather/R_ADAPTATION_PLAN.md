@@ -2,6 +2,8 @@
 
 2026-09-11. **Audit and implementation plan, not an implemented production classifier/calendar.** This revision follows the latest supervisor discussion. It supersedes the earlier priority of expanding soil/tunnel analysis before establishing the open-field baseline. Keep the existing dashboard and downloaded data.
 
+Follow-up: [complete source review](R_FULL_CODE_REVIEW.md) now covers every line and all 51 top-level functions, with 22 passing characterization checks. The original targeted audit below remains historical evidence; additional implementation gates are recorded in section 3.
+
 ## 1. Next deliverable
 
 For **one coordinate, open field + ground**, return three linked outputs:
@@ -35,6 +37,14 @@ Local reference: `blueberry_climate_analog_workflow.R`, 5,759 lines, SHA-256 `5e
 The code chooses dates under specified assumptions; it **does not search all possible planting dates and discover an objectively optimal window**. A future date-search optimizer needs its own objective, feasible strategies and held-out evaluation. It is not part of the first adaptation.
 
 ## 3. Corrections required before reuse
+
+### Additional gates from the complete source review
+
+- **Stable schema and keyed identities:** incomplete site-year returns omit `point_type`, splitting summary groups after row binding; emit a fixed typed row with status/reasons for every year. Master answers must select the target by key, never the source's hard-coded 32nd row. Require one summary per location/scenario.
+- **Explicit classification dependencies:** analogue scoring reads `system_assignment` before this script creates it, allowing missing or stale labels. Do not inherit global R session objects; compute/pass current labels before their consumers. The optional genotype metadata branch also references an unassigned `target_system`; keep genotype execution deferred.
+- **Correct reference population:** directional suitability currently selects only the first reference row, making scores binary/order-dependent. Later adaptation must use whole named columns and pass row-permutation tests. Its separate envelope table currently uses full columns and can disagree with the contribution output.
+- **Separate inference from validation:** detailed chill classification followed by scoring against that same inferred class gives full chill-hours alignment across 0–800 hours; this is not independent evidence of feasibility. Preserve disagreements between broad/detailed classifiers and avoid treating rule-derived confidence as calibrated accuracy.
+- **Do not overinterpret similarity:** query-specific median-distance scaling gives identical kernel scores when all distances grow proportionally. Freeze/calibrate comparison scales before comparing different targets. These analogue/suitability repairs do not block the first raw calendar/stage-risk packet.
 
 ### Calendar and phenology
 
@@ -153,7 +163,7 @@ Dynamic Model/Utah are optional comparison modules until their installed version
 
 ## 8. Completed in this revision versus next work
 
-**Completed:** transcript review; complete R parse and targeted executable-source audit; data-field mapping; updated priorities; source-pinned `scripts/audit_paul_reference.R` with eight passing characterization checks. The audit loads only nine reviewed helper definitions from the unchanged local reference and runs synthetic inputs. It does not source the monolith or establish biological accuracy.
+**Completed:** transcript review; complete R parse and subsequently full sequential source read; data-field mapping; updated priorities; [full review](R_FULL_CODE_REVIEW.md); source-pinned `scripts/audit_paul_reference.R` expanded from eight to **22 passing characterization checks**. The current audit loads only 17 reviewed helper definitions from the unchanged local reference, inspects syntax and runs synthetic inputs. It does not source the monolith or establish biological accuracy. Wrong-source fingerprint refusal was also verified.
 
 **Not completed:** extracted production R library, live R/API connection, corrected production-calendar module, new risk/classifier UI, expanded hourly acquisition or new deployment. The prior 55 backend tests were not rerun in this planning revision. Locally R 4.6.1 is available; dplyr/jsonlite are installed, lubridate/ChillModels are not. Server R dependencies have not been checked this turn.
 
