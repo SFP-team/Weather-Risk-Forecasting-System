@@ -18,6 +18,8 @@ Last updated: 2026-09-11. Current phase: weather-data foundation and management-
 
 ## Next actions, in order
 
+UI design requested 2026-09-11: `docs/UI_IMPLEMENTATION_PLAN.md` defines a coordinate-first historical climate/soil dashboard, six exposure cards, progressive partial results, four-system comparison and snapshot-matched reports. Plan only; no UI/API/deployment created. First implementation slice should wrap the existing Python science, expose missing hourly/soil explicitly and use private access. "Live" is on-demand historical analysis, not a current-weather forecast.
+
 2026-09-11 research refinement: `docs/weather/LOCATION_MANAGEMENT_PLAN.md` specifies six weather exposures × four growing systems, soil screening, evidence-backed management pathways and validation gates. Soil adapter/acquisition has subsequently started as recorded above; ET0 and tunnel models are not implemented. Next: investigate failed soil source without discarding completed files, unify six-factor baseline, then an explicitly conditional four-system report. Cultivar work remains deferred. Continue the weather-core gates below alongside this work.
 
 Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. The three-site climate evidence report and exploratory seasonal comparison are now implemented. Finish the weather core gates alongside supervisor review; do not block this work on cultivar data or build the full app yet.
@@ -46,4 +48,4 @@ Follow `AGENTS.md` after every completed request: update this file when facts ch
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action: started bounded soil acquisition, audited 157 records and assembled the weather/station/soil catalog. Remaining soil acquisition is source-blocked, not complete. No management-model or independent soil validation is implied. Publication result is reported in the task response, not assumed here.
+Latest action: specified the staged UI/API/report design from existing capabilities. No new downloads or runtime tests this planning turn; prior 51-test result unchanged. Soil acquisition remains source-blocked. Publication result is reported in the task response, not assumed here.

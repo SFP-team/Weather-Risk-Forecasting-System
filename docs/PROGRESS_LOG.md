@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-09-11 — Coordinate dashboard implementation design
+
+- Added `docs/UI_IMPLEMENTATION_PLAN.md`: coordinate/system inputs, six exposure cards, historical evidence, soil context, conditional management comparison and consistent on-page/export report.
+- Defined partial-result states, separate evidence/availability labels, durable jobs, versioned cache and private-server access boundary. Reuse existing Python science for the interim slice rather than the earlier unimplemented R-first architecture.
+- Plan only: no frontend, API, deployment, download or new runtime tests. Existing 51-test result unchanged; cultivar work remains deferred.
+
 ## 2026-09-11 — Soil acquisition and consolidated catalog
 
 - Verified server mount and completed global weather state; preserved existing data and unrelated server work.
