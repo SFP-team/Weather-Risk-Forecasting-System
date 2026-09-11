@@ -1,6 +1,6 @@
 # Project handover — start here
 
-Last updated: 2026-09-08. Current phase: weather-data foundation. **Acquisition is complete; the core handoff and scientific validation are not complete.**
+Last updated: 2026-09-11. Current phase: weather-data foundation and management-analysis design. **Acquisition is complete; the core handoff and scientific validation are not complete.**
 
 ## Implemented and verified
 
@@ -15,6 +15,8 @@ Last updated: 2026-09-08. Current phase: weather-data foundation. **Acquisition 
 - Supervisor demonstration implemented: `docs/weather/climate_evidence/climate_evidence.html` and companion JSON. Papanduva/Citra/Waldo monthly climate, annual variability, reference-window chill, dry spells, threshold exposure, hemisphere-aligned seasons and limitations. Offline generation from existing server archives; no new weather download. Opening layout/charts visually inspected.
 
 ## Next actions, in order
+
+2026-09-11 research refinement: `docs/weather/LOCATION_MANAGEMENT_PLAN.md` specifies six weather exposures × four growing systems, soil screening, evidence-backed management pathways and validation gates. This extends the original architecture, not an implemented soil/tunnel model. Three parallel research reviews completed; no new downloads or runtime tests. User requests a location-based infrastructure/soil analysis plan; cultivar work remains deferred. Next analysis implementation: unify six-factor baseline, bounded soil/ET0 adapters, then an explicitly conditional four-system report. Continue the weather-core gates below alongside this work.
 
 Supervisor direction relayed by the user on 2026-09-08: defer cultivar/breeder data to Part 3. The three-site climate evidence report and exploratory seasonal comparison are now implemented. Finish the weather core gates alongside supervisor review; do not block this work on cultivar data or build the full app yet.
 
@@ -42,4 +44,4 @@ Follow `AGENTS.md` after every completed request: update this file when facts ch
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action: ran 90 uncalibrated site/winter/trigger scenarios, preserving unmet chill and per-metric exclusions; 45 server tests passed. Confirm authoritative chill/time/phenology settings before treating these illustrative windows as biological predictions. Publication result is reported in the task response, not assumed here.
+Latest action: documented the researched location × growing-system implementation plan and its evidence limits. Last runtime result remains 45 server tests; no management model validation is implied. Publication result is reported in the task response, not assumed here.
