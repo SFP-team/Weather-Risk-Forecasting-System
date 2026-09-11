@@ -10,6 +10,7 @@ Florida Blueberry Weather Risk Forecasting System — project documentation.
 | [risk-definitions.md](risk-definitions.md) | Crop calendar, adverse events, freeze/chill thresholds |
 | [roadmap.md](roadmap.md) | Phased build plan, milestones, pilot scope |
 | [analogue/README.md](analogue/README.md) | Blueberry Analogue site-selection product (separate from Florida ops) |
+| [analogue/soil-lookup.md](analogue/soil-lookup.md) | SoilGrids / UF soil screen for the analogue (not a farm soil test) |
 
 ## Product in one sentence
 

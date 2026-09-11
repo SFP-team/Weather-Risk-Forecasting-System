@@ -12,7 +12,7 @@ Monthly climatology is the globe screen. Hourly temperature is the fingerprint f
 | CHIRPS v3 | Rain fingerprint | Local files under `data/analogue/chirps` |
 | ERA5-Land hourly | Chill portions, frost nights, heat, VPD | CDS request payload for shortlisted cells. Not auto-downloaded. |
 | AgERA5 daily | ET0, VPD-at-Tmax, wet-hour fraction | CDS request payload. Not a chill substitute. |
-| SoilGrids REST | pH, SOC, clay at the point | Weight = 0 under substrate |
+| SoilGrids 2.0 | Native pH, texture, SOC, BD, θ at 10/33/1500 kPa | **WebDAV / WCS** (REST paused 2025–26; can return `null`). Weight = 0 and **skip fetch** under substrate. Screen, not veto. See [soil-lookup.md](soil-lookup.md) |
 | OpenTopoData Copernicus 30 m | Elevation | Point REST |
 | GHCN / FAWN / INIA / SIAR | Station spine | Documented; disagreement makes the pixel untrusted |
 
@@ -24,6 +24,9 @@ Monthly climatology is the globe screen. Hourly temperature is the fingerprint f
 - NASA POWER as a fake 1 km grid
 - Open-Meteo free tier for a commercial launch
 - Köppen or USDA zone as the model
+- SoilGrids REST as a production dependency (paused; can return null)
+- SoilGrids pH as a Hallegatte veto or a farm soil test
+- A Phytophthora or drainage-class score derived only from SoilGrids
 
 ## Licenses (MVP)
 
@@ -31,7 +34,7 @@ Monthly climatology is the globe screen. Hourly temperature is the fingerprint f
 - CHIRPS: public domain / CC-BY
 - ERA5-Land / AgERA5: Copernicus CC-BY
 - NASA POWER: CC-BY
-- SoilGrids: CC-BY
+- SoilGrids 2.0: CC-BY 4.0 (Poggio et al. 2021; water layers Turek et al. 2023). ISRIC: do not use at farm scale.
 
 ## Trust rule
 

@@ -16,6 +16,7 @@ Shortlist the next trial geography for a blueberry variety and production system
 | Dual chill + stage features | `packages/analogue/blueberry_analogue/features/` |
 | CCAFS lag + Hallegatte gates | `packages/analogue/blueberry_analogue/analogue/engine.py` |
 | Skill sheet | [skill-sheet.md](skill-sheet.md) |
+| Soil lookup (SoilGrids / UF / pots) | [soil-lookup.md](soil-lookup.md) |
 | Map UI | `apps/analogue-web/` on port 8010 |
 
 ## Run it
