@@ -10,8 +10,10 @@ import pandas as pd
 from discover import ROOT, write_json
 from evidence_report import complete, chill, dry_spell
 from postprocess import LandMask, extract
+from production import analyse, sensitivity, PROFILES, CHANGES, LIMITATIONS
 
-METHOD='location-evidence-v1'
+METHOD='location-evidence-v2'
+PRODUCTION_PROFILE='legacy_paul_v1'
 LAND=None
 BUSY=threading.Lock()
 
@@ -47,6 +49,17 @@ def summarize(frame,hourly,lat):
     return annual,monthly,climatology
 
 
+def production_block(hourly,padded,lat):
+    """Open-field production analysis for pilot coordinates with hourly temperature; explicit unavailability otherwise."""
+    if hourly is None or padded is None:
+        return {'status':'unavailable','reason':'Hourly temperature has not been acquired for this coordinate; chill-triggered calendar and stage risks need complete hourly winters.'}
+    daily=padded.set_index('time')
+    result=analyse(hourly,daily,lat,PRODUCTION_PROFILE)
+    result.update(status='available',scope='open_ground',
+        sensitivity=sensitivity(hourly,daily,lat,list(PROFILES)),changes=CHANGES,limitations=LIMITATIONS)
+    return result
+
+
 def analyze(lat,lon):
     global LAND
     if not (math.isfinite(lat) and math.isfinite(lon) and -90<=lat<=90 and -180<=lon<=180):
@@ -57,12 +70,13 @@ def analyze(lat,lon):
     sites=json.loads((ROOT/'config/sites.json').read_text())
     match=next((s for s in sites if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
     site=match or {'name':'Selected location','lat':lat,'lon':lon}
-    hourly=None;hourly_hash=None
+    hourly=None;hourly_hash=None;padded=None
     if match:
         hp=ROOT/'data/normalized/pilot/pilot'/match['id']/'met_hourly.parquet'
         if hp.exists():
             hourly=pd.read_parquet(hp).set_index('time').tmean_c
             hourly_hash=hashlib.sha256(hp.read_bytes()).hexdigest()
+            padded,_=extract(ROOT,lat,lon,LAND,padding=True)  # 2010 padding for the first northern winter
     sp=ROOT/'data/normalized/soilgrids/pilot_soil.json'
     soil=[r for r in json.loads(sp.read_text())['records']
           if abs(r['lat']-lat)<1e-7 and abs(r['lon']-lon)<1e-7] if sp.exists() else []
@@ -70,7 +84,8 @@ def analyze(lat,lon):
     soil=[{k:r[k] for k in ('property','depth','statistic','value','unit','status','cell_lon','cell_lat','sha256')} for r in soil]
     annual,monthly,climatology=summarize(frame.set_index('time'),hourly,lat)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
-        'soil':soil,'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_hash,
+        'soil':soil,'production':production_block(hourly,padded,lat),
+        'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_hash,
         'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
     result['analysis_id']=hashlib.sha256(json.dumps(result,sort_keys=True,allow_nan=False).encode()).hexdigest()[:20]
     return result

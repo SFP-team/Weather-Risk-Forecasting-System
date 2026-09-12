@@ -10,6 +10,8 @@ Implemented 2026-09-11. This is a historical research dashboard, not a cultivar 
 - A private read-only Python API extracts other coordinates from the existing archive. Exact pilot matches can include hourly chill and previously acquired soil; other coordinates explicitly show these as unavailable. No acquisition is triggered.
 - HTML/JSON export controls use the displayed analysis and selected system. The JSON contains the analysis ID and source hashes. Reports do not fit a new model or generate new numbers.
 
+- **Production analysis (2026-09-12):** section `00` above the annual cards shows the open field + ground system hypothesis, assumed calendar and frequency-ranked stage risks from `pipelines/weather/production.py`, plus a per-winter record, chill-definition/requirement sensitivity and the list of deliberate changes from the R workflow. It is computed server-side by `location_api.py` (`location-evidence-v2`) for coordinates with acquired hourly temperature (the 14 pilot sites) and reported as unavailable with a reason elsewhere. Choosing a tunnel or pot setup shows a note; the numbers are not adjusted. The three bundled snapshots include it.
+
 ## Two operating modes
 
 **Private hosted snapshot UI:** `dist/` is the complete static application, configured by `.openai/hosting.json`. All three presets work without access to the university server. This deployment does **not** have a hosted connection to the archive; another coordinate displays a connection explanation instead of a substitute site. Site access is owner-private; sharing with a supervisor is a separate access decision.
@@ -65,7 +67,7 @@ node --check scripts/preview-ui.mjs
 - Changing the growing system changes assumptions and soil interpretation, not ambient weather numbers. No calibrated tunnel transformations, severity score, soil suitability verdict or cultivar ranking exists.
 - Soil estimates remain geographic WCS samples with native-grid/field validation pending. Soil acquisition remains source-blocked at 157/630 records; this UI does not retry it.
 - Land support is cartographic, not parcel suitability. The source-labelled artificial “Null island” feature is excluded by `land-mask-v2`; small coasts/islands can remain unresolved.
-- Missing hourly and missing/incomplete hourly windows need more granular status labels in the next schema revision. Existing stage-scenario reports are not integrated into this UI yet.
+- Missing hourly and missing/incomplete hourly windows need more granular status labels in the next schema revision. The production section is assumption-based and unvalidated; the earlier standalone stage-scenario report is superseded by it.
 - Production work still requires authenticated archive connectivity, persisted jobs/cache, restart/concurrency tests, fuller per-section states, report download compatibility testing and a security review. No public data-host port was opened.
 
 The staged target architecture remains in `UI_IMPLEMENTATION_PLAN.md`; this first slice deliberately uses a static frontend and standard-library Python HTTP adapter over the working science code.

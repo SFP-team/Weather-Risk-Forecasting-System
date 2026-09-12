@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from location_api import summarize, avg
+from location_api import summarize, avg, production_block
 from postprocess import LandMask
 
 
@@ -30,6 +30,22 @@ class LocationTests(unittest.TestCase):
         self.frame.loc['2011-02-01','shortwave_mj_m2_day']=np.nan
         a,_,_=summarize(self.frame,None,29.)
         self.assertIsNone(a[0]['solar']);self.assertIsNone(avg([2.,None]))
+    def test_production_unavailable_without_hourly(self):
+        block=production_block(None,None,29.)
+        self.assertEqual(block['status'],'unavailable')
+        self.assertIn('reason',block)
+    def test_production_attached_with_hourly(self):
+        hourly=pd.Series(5.,index=pd.date_range('2010-01-01','2026-01-01',freq='h',inclusive='left'))
+        padded=pd.DataFrame({'tmean_c':17.,'tmin_c':-2.2,'tmax_c':36.,'precip_mm':2.,'rh_mean_pct':80.,
+            'shortwave_mj_m2_day':18.,'precip_suspect_extreme':False},index=pd.date_range('2010-01-01','2025-12-31')).rename_axis('time').reset_index()
+        block=production_block(hourly,padded,29.)
+        self.assertEqual(block['status'],'available')
+        self.assertEqual(block['scope'],'open_ground')
+        self.assertEqual(block['status_counts'],{'complete':15})
+        self.assertEqual(block['classification']['multi_feature']['majority'],'Deciduous')
+        self.assertEqual(block['calendar']['chill']['median_date'],'11-03')
+        self.assertEqual(set(block['sensitivity']),{'legacy_paul_v1','legacy_paul_100h_v1','bounded_uf_v1','bounded_uf_100h_v1'})
+        json.dumps(block,allow_nan=False)
 
     def test_land_mask_excludes_only_marked_placeholder(self):
         def feature(label, x):

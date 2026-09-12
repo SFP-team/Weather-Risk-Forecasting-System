@@ -7,6 +7,7 @@
 - Both of Paul's classifiers (chill-only; multi-feature with winter-month Tmin/Tmean and freezing) reported from multi-year means, per-year counts and a two-thirds majority. Risks ranked by frequency of winters with an event under his thresholds, with Wilson 95% intervals; other exposures reported unranked.
 - Generated `docs/weather/production/` for Waldo, Citra and Papanduva from existing archives. Waldo/Citra Deciduous majority, median flowering 20/26 Jan and harvest from 31 Mar/6 Apr; Papanduva Semi-evergreen, flowering 6 Aug, harvest from 15 Oct. Citra flips to Transitional under the bounded chill definition. Heavy-rain event saturates at 15/15 everywhere; intensity must be compared instead.
 - Verification: 18 new tests, 73 server tests passing; exact parity with all 90 existing 50/100 h scenario records; Papanduva mean chill 199.4 h matches the reconciliation; HTML inspected in headless Chrome. No downloads, soil restart, R execution, deployment or cultivar modelling.
+- Same day, UI integration: `location_api.py` now returns `production` (method `location-evidence-v2`), available for pilot coordinates with hourly data and explicitly unavailable elsewhere; `dist/` shows the three outputs as section `00` above the annual cards with per-winter, sensitivity and change lists. Snapshots regenerated; 75 server tests; presets, live-API pilot and non-pilot coordinates, setup note and mobile layout checked in headless Chrome. Hosted snapshot not redeployed.
 
 ## 2026-09-11 — Complete R source review
 
