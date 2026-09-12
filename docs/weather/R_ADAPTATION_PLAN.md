@@ -4,6 +4,8 @@
 
 Follow-up: [complete source review](R_FULL_CODE_REVIEW.md) now covers every line and all 51 top-level functions, with 22 passing characterization checks. The original targeted audit below remains historical evidence; additional implementation gates are recorded in section 3.
 
+**Revision 2026-09-12.** Milestones A and B are implemented in Python, not R: `pipelines/weather/production.py` carries the reviewed science with the section 3 corrections applied and the constants in versioned profiles; the R subprocess runner, JSON contract and isolated R library in section 6A are no longer planned. `scripts/audit_paul_reference.R` remains the characterization oracle for the R helpers. The three-site packet is in `production/`. Milestones C (frozen reference panel), D (bounded hourly registry, after a validated daily-to-hourly chill interpolation) and E–F stand, with the supervisor decisions listed in `../../HANDOVER.md` as prerequisites for the sweep.
+
 ## 1. Next deliverable
 
 For **one coordinate, open field + ground**, return three linked outputs:
