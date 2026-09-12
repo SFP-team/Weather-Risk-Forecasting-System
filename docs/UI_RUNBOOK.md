@@ -9,7 +9,6 @@ Implemented 2026-09-11. This is a historical research dashboard, not a cultivar 
 - The three bundled summaries are Papanduva, Citra and Waldo, each with 2011–2025 weather and 45 soil records. They contain public derived point summaries, not bulk weather, raw rasters or supervisor source materials.
 - A private read-only Python API extracts other coordinates from the existing archive. Exact pilot matches can include hourly chill and previously acquired soil; other coordinates explicitly show these as unavailable. No acquisition is triggered.
 - HTML/JSON export controls use the displayed analysis and selected system. The JSON contains the analysis ID and source hashes. Reports do not fit a new model or generate new numbers.
-
 - **Production analysis (2026-09-12):** section `00` above the annual cards shows the open field + ground system hypothesis, assumed calendar and frequency-ranked stage risks from `pipelines/weather/production.py`, plus a per-winter record, chill-definition/requirement sensitivity and the list of deliberate changes from the R workflow. It is computed server-side by `location_api.py` (`location-evidence-v2`) for coordinates with acquired hourly temperature (the 14 pilot sites) and reported as unavailable with a reason elsewhere. Choosing a tunnel or pot setup shows a note; the numbers are not adjusted. The three bundled snapshots include it.
 
 ## Two operating modes
