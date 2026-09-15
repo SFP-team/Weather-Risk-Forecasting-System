@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-09-15 — Risk-factor research review and chill-model data check
+
+- Eight parallel literature scouts (chill models, forcing/phenology, freeze, heat/VPD/radiation, rain/disease, water balance, pollination/pests, production-system classification) with primary sources; synthesised in `docs/weather/RISK_FACTOR_RESEARCH.md`: one-page verdict, formula scorecard (keep/change/add with sources), ~35 new computable metrics by stage with inputs, thresholds and confidence, implementation order, open uncertainties.
+- Data check `pipelines/weather/chill_comparison.py` on all 18 hourly cells (`docs/weather/chill_comparison.json`): current rule inflates Georgia chill by 60–200 h versus the standard 0–7.2 °C Oct–Feb band; band reproduces FAWN Sebring (104 vs 108 h) and undercounts Gainesville (346/296 vs 503 h) consistent with the +1 °C grid warm bias; CH/CP ratio 12–13.5 in Georgia/north Florida but 4.5–11 in south Florida and 7.0 at Papanduva; Papanduva 183 h but 26 chill portions ≈ Waldo. Negation hours (>21.1 °C mid-winter) 170–940 across the panel.
+- Conclusions: chill definition, 50 h anchor, 150 GDD budbreak, single harvest offset, disease-day rule, bloom-only freeze threshold, VPD mean and whole-season dry spell all need revision; pollination weather, stage-aware freeze, bloom heat, leaf-wetness disease rules, stage water balance, evergreen calendar, SWD and post-harvest heat are missing. No formula changed; `legacy_paul_v1` remains the executed profile.
+
 ## 2026-09-15 — Southeastern evaluation panel and cell-keyed hourly lookup
 
 - User selected a 15-site panel: 4 Georgia (Georgia/Alma pilot, Homerville, Valdosta, Folkston) and 11 central/south Florida (Dole, Clear Springs, Astin East, Barben, River Valley, PF Berry pilots; Wauchula, Sebring, Lake Placid, Okeechobee, Arcadia towns) and authorized hourly acquisition for cells without a series. Registry and cell index in `pipelines/weather/evaluation_sites.py`; server `config/evaluation_sites.json`, `config/hourly_index.json`, `state/evaluation.json`.
