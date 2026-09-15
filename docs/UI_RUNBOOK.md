@@ -10,6 +10,9 @@ Implemented 2026-09-11. This is a historical research dashboard, not a cultivar 
 - A private read-only Python API extracts other coordinates from the existing archive. Exact pilot matches can include hourly chill and previously acquired soil; other coordinates explicitly show these as unavailable. No acquisition is triggered.
 - HTML/JSON export controls use the displayed analysis and selected system. The JSON contains the analysis ID and source hashes. Reports do not fit a new model or generate new numbers.
 - **Production analysis (2026-09-12):** section `00` above the annual cards shows the open field + ground system hypothesis, assumed calendar and frequency-ranked stage risks from `pipelines/weather/production.py`, plus a per-winter record, chill-definition/requirement sensitivity and the list of deliberate changes from the R workflow. It is computed server-side by `location_api.py` (`location-evidence-v2`) for coordinates with acquired hourly temperature (the 14 pilot sites) and reported as unavailable with a reason elsewhere. Choosing a tunnel or pot setup shows a note; the numbers are not adjusted. The three bundled snapshots include it.
+- **Growing-cycle ruler (2026-09-15):** `dist/cycle.js` renders six aligned time lanes using the existing production result, with no UI library or new weather calculations. Select a stage button or lane for exposure details; native buttons also support keyboard activation. Choose a winter to see its modelled dates and exposures instead of aggregate frequencies. Small screens scroll the scale horizontally while controls and details reflow. The system hypothesis remains visible; the original tables are under an expandable details section.
+- Solid bars show analysis windows. In the typical view, outlined spans run from the p10 start to the p90 end across valid winters, not confidence limits or an observed season. The winter-chill lane covers the entire six-month analysis window, with a marker for fulfilment. Whole-cycle totals do not identify event dates. Counts are historical winters with an event, not loss probabilities or severity grades. The ruler declines evergreen-majority results without a management anchor; the underlying analysis is unchanged.
+- HTML export saves the selected cycle and stage without inert stage buttons, expands the evidence tables, and preserves the live cycle/monthly/annual select labels. JSON retains the original production data plus `cycle_view` selection metadata. Actual downloaded HTML and JSON were checked in Chromium, including exact production-data parity; other browsers remain unverified.
 
 ## Two operating modes
 
@@ -56,6 +59,7 @@ The generator writes `reports/ui_snapshots.json`. Review its three-site scope an
 
 ```sh
 node --check dist/app.js
+node --check dist/cycle.js
 node --check scripts/preview-ui.mjs
 ```
 
@@ -67,6 +71,6 @@ node --check scripts/preview-ui.mjs
 - Soil estimates remain geographic WCS samples with native-grid/field validation pending. Soil acquisition remains source-blocked at 157/630 records; this UI does not retry it.
 - Land support is cartographic, not parcel suitability. The source-labelled artificial “Null island” feature is excluded by `land-mask-v2`; small coasts/islands can remain unresolved.
 - Missing hourly and missing/incomplete hourly windows need more granular status labels in the next schema revision. The production section is assumption-based and unvalidated; the earlier standalone stage-scenario report is superseded by it.
-- Production work still requires authenticated archive connectivity, persisted jobs/cache, restart/concurrency tests, fuller per-section states, report download compatibility testing and a security review. No public data-host port was opened.
+- Production work still requires authenticated archive connectivity, persisted jobs/cache, restart/concurrency tests, fuller per-section states, broader cross-browser report compatibility testing and a security review. No public data-host port was opened.
 
 The staged target architecture remains in `UI_IMPLEMENTATION_PLAN.md`; this first slice deliberately uses a static frontend and standard-library Python HTTP adapter over the working science code.

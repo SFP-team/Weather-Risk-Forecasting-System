@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-09-15 — Growing-cycle ruler and stage exposures
+
+- Built a custom monochrome timeline in `dist/cycle.js`, integrated into `dist/app.js`, `index.html` and `style.css`. Six aligned lanes show winter chill, bud development, flowering, fruit development, harvest and whole-cycle context. The selected stage shows existing freeze, heat, rain, disease-weather, VPD, dry-spell, radiation or heat-unit values as applicable. Detailed tables remain expandable.
+- Typical-cycle bars use median boundaries with labelled p10-start to p90-end timing spans. Individual winters show their own dates and exposures. Missing data stays unavailable, event frequency is not presented as crop-loss probability, and evergreen-majority results do not receive a new chill-triggered ruler. No scientific constants, calculations, snapshots or API changed.
+- Browser verification: 135 flowering/fruit/harvest windows and exposure values matched the saved records across three sites and 45 winters; all 18 typical stage views checked. Keyboard activation, mouse lane selection, growing-setup note and four synthetic unavailable/incomplete states passed. No page errors during the main smoke sweep. Desktop and 390 px screenshots inspected; 320/390/768 px checks found no page overflow. The scale itself scrolls on narrow screens.
+- Downloaded real Chromium HTML and JSON reports. JSON production content matched the original snapshot exactly and retained cycle-view metadata. Found and fixed cloned-select labels reverting to defaults in HTML; confirmed the downloaded report retained winter 2014, Harvest, and selected monthly/annual metric labels. Static HTML removes stage buttons and expands evidence tables. Both frontend scripts passed `node --check`; no new permanent tests or backend test run.
+- Updated runbook and handover, removed temporary QA downloads. Local preview only; no hosted redeployment, server-code change, new acquisition or scientific validation. The supplied image was design guidance, not a published asset.
+
 ## 2026-09-12 — Open-field production core and three-site packet
 
 - Reviewed the 2026-09-12 supervisor transcript against the adaptation plan and R source. Decision: implement the reviewed chill → forcing → offsets → stage-exposure chain in Python (`pipelines/weather/production.py`) instead of an R subprocess runner; constants live in versioned profiles (`legacy_paul_v1`, 100 h and bounded 0–7.2 °C variants).
