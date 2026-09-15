@@ -4,7 +4,7 @@ Implemented 2026-09-11. This is a historical research dashboard, not a cultivar 
 
 ## What works
 
-- Coordinate inputs, three repeatable study-location presets and four growing-system choices.
+- Coordinate inputs, 18 grouped presets (Reference: Citra, Waldo, Papanduva; Georgia; Central Florida; South Florida) and four growing-system choices. Presets load `dist/snapshots/<site>.json` on demand from the small `dist/snapshots.json` index.
 - Six exposure cards, monthly and annual charts, annual data table, mapped soil profiles with uncertainty, qualitative management notes and source provenance.
 - The three bundled summaries are Papanduva, Citra and Waldo, each with 2011–2025 weather and 45 soil records. They contain public derived point summaries, not bulk weather, raw rasters or supervisor source materials.
 - A private read-only Python API extracts other coordinates from the existing archive. Exact pilot matches can include hourly chill and previously acquired soil; other coordinates explicitly show these as unavailable. No acquisition is triggered.
@@ -13,6 +13,7 @@ Implemented 2026-09-11. This is a historical research dashboard, not a cultivar 
 - **Growing-cycle ruler (2026-09-15):** `dist/cycle.js` renders six aligned time lanes using the existing production result, with no UI library or new weather calculations. Select a stage button or lane for exposure details; native buttons also support keyboard activation. Choose a winter to see its modelled dates and exposures instead of aggregate frequencies. Small screens scroll the scale horizontally while controls and details reflow. The system hypothesis remains visible; the original tables are under an expandable details section.
 - Solid bars show analysis windows. In the typical view, outlined spans run from the p10 start to the p90 end across valid winters, not confidence limits or an observed season. The winter-chill lane covers the entire six-month analysis window, with a marker for fulfilment. Whole-cycle totals do not identify event dates. Counts are historical winters with an event, not loss probabilities or severity grades. The ruler declines evergreen-majority results without a management anchor; the underlying analysis is unchanged.
 - HTML export saves the selected cycle and stage without inert stage buttons, expands the evidence tables, and preserves the live cycle/monthly/annual select labels. JSON retains the original production data plus `cycle_view` selection metadata. Actual downloaded HTML and JSON were checked in Chromium, including exact production-data parity; other browsers remain unverified.
+- **Evaluation panel and hourly by cell (2026-09-15):** `pipelines/weather/evaluation_sites.py` defines the 15 southeastern panel sites (pilot farms by their stored pins; towns by city centre) and indexes every stored hourly series by MERRA-2 source cell. `location_api.py` resolves hourly for any pin through that index, so a coordinate inside a stored cell gets the production packet even when it is not a named site; the availability strip then reads `HOURLY / cell <lat>, <lon> · shared with <site> · <km>`. All pins in one 0.5° × 0.625° cell receive identical chill and calendar; that is the data resolution, not a site measurement. Pins outside any stored cell stay daily-only. Evergreen-majority results (for example Arcadia) keep the production tables but the cycle ruler declines, as designed.
 
 ## Two operating modes
 
@@ -51,11 +52,13 @@ On the server:
 
 ```sh
 cd /media/fpt/fpt2/Weather_Claude/code
+../env/bin/python evaluation_sites.py index      # rebuild config/hourly_index.json after any hourly change
+../env/bin/python evaluation_sites.py fetch      # bounded: only cells without a stored series; needs explicit authorization
 ../env/bin/python location_api.py --snapshots
-../env/bin/python -m unittest test_location_api test_soil_pilot test_stage_scenarios test_reconcile_methods test_evidence_report test_recovery test_pilot test_global test_observations test_regional_stations
+../env/bin/python -m unittest test_evaluation_sites test_location_api test_production test_soil_pilot test_stage_scenarios test_reconcile_methods test_evidence_report test_recovery test_pilot test_global test_observations test_regional_stations
 ```
 
-The generator writes `reports/ui_snapshots.json`. Review its three-site scope and public fields before copying it to local `dist/snapshots.json`. Never copy the raw archive into `dist/`. JavaScript checks:
+The generator writes `reports/ui_snapshots.json` for the three references plus the panel. Copy it locally and run `python3 scripts/split_snapshots.py <file>` to produce `dist/snapshots.json` and `dist/snapshots/*.json`; review the public fields before committing. Never copy the raw archive into `dist/`. JavaScript checks:
 
 ```sh
 node --check dist/app.js

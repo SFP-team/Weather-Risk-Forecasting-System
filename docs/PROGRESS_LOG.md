@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-09-15 — Southeastern evaluation panel and cell-keyed hourly lookup
+
+- User selected a 15-site panel: 4 Georgia (Georgia/Alma pilot, Homerville, Valdosta, Folkston) and 11 central/south Florida (Dole, Clear Springs, Astin East, Barben, River Valley, PF Berry pilots; Wauchula, Sebring, Lake Placid, Okeechobee, Arcadia towns) and authorized hourly acquisition for cells without a series. Registry and cell index in `pipelines/weather/evaluation_sites.py`; server `config/evaluation_sites.json`, `config/hourly_index.json`, `state/evaluation.json`.
+- Acquired five hourly series (Homerville, Valdosta, Folkston, Okeechobee, Arcadia; 140,256 rows each, pilot QC and checksums) through the existing checksummed path under the post-global 200 GiB/500 GiB limits. Transfer counter unchanged at 18,824,365,917 bytes: the cells lay inside 5×5-cell zarr chunks cached for the pilots. Ten panel sites reused stored cells. No global hourly, no daily re-download.
+- `location_api.py` → `location-evidence-v3`: hourly resolved by MERRA-2 cell for any pin, with `hourly_source` provenance and a checksum refusal on tampering. Four new tests (cell keys against recorded pilot cells, shared-cell reuse, incomplete series excluded, tampered file refused); server suite 79 passing. API session restarted; unrelated yield jobs untouched.
+- UI: 18 snapshots split per site with an index (`scripts/split_snapshots.py`), grouped presets, hourly-cell line in the availability strip. Chromium checks: Arcadia Evergreen → ruler declines, Wauchula "shared with River Valley · 8.2 km", Homerville Deciduous with flowering-freeze 8/15, live pin in Barben's cell gets the packet, live non-cell pin daily-only, no page errors, 390 px no overflow.
+- Interpretation limits: town pins are city centres; one series per 0.5°×0.625° cell; assumption-based calendar, not validated phenology; no supervisor pre-registered labels yet. Hosted snapshot not redeployed.
+
 ## 2026-09-15 — Growing-cycle ruler and stage exposures
 
 - Built a custom monochrome timeline in `dist/cycle.js`, integrated into `dist/app.js`, `index.html` and `style.css`. Six aligned lanes show winter chill, bud development, flowering, fruit development, harvest and whole-cycle context. The selected stage shows existing freeze, heat, rain, disease-weather, VPD, dry-spell, radiation or heat-unit values as applicable. Detailed tables remain expandable.

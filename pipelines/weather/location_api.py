@@ -9,10 +9,11 @@ import numpy as np
 import pandas as pd
 from discover import ROOT, write_json
 from evidence_report import complete, chill, dry_spell
+from evaluation_sites import cell_key
 from postprocess import LandMask, extract
 from production import analyse, sensitivity, PROFILES, CHANGES, LIMITATIONS
 
-METHOD='location-evidence-v2'
+METHOD='location-evidence-v3'
 PRODUCTION_PROFILE='legacy_paul_v1'
 LAND=None
 BUSY=threading.Lock()
@@ -21,6 +22,37 @@ BUSY=threading.Lock()
 def avg(values):
     values=list(values)
     return float(np.mean(values)) if values and all(v is not None and math.isfinite(v) for v in values) else None
+
+
+def known_sites():
+    """Pilot sites, enriched by the evaluation registry (same id/pin, plus county and role)."""
+    sites={s['name']:s for s in json.loads((ROOT/'config/sites.json').read_text())}
+    ev=ROOT/'config/evaluation_sites.json'
+    if ev.exists():
+        sites.update({s['name']:s for s in json.loads(ev.read_text())})
+    return list(sites.values())
+
+
+def haversine_km(lat1,lon1,lat2,lon2):
+    a=math.sin(math.radians(lat2-lat1)/2)**2+math.cos(math.radians(lat1))*math.cos(math.radians(lat2))*math.sin(math.radians(lon2-lon1)/2)**2
+    return 2*6371.0088*math.asin(math.sqrt(a))
+
+
+def hourly_for(lat,lon,root=ROOT):
+    """Stored hourly series for the MERRA-2 cell containing the pin, or None. Never fetches."""
+    ip=root/'config/hourly_index.json'
+    if not ip.exists():return None,None
+    index=json.loads(ip.read_text())
+    entry=index['cells'].get(cell_key(index['axes'],lat,lon))
+    if not entry:return None,None
+    path=root/entry['path']
+    if not path.exists():return None,None
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=entry['parquet_sha256']:
+        raise RuntimeError('Stored hourly checksum mismatch; refusing to analyse')
+    source={'sha256':entry['parquet_sha256'],'site':entry['site'],'source_lat':entry['source_lat'],'source_lon':entry['source_lon'],
+        'cell_degrees':[0.5,0.625],'distance_km':round(haversine_km(lat,lon,entry['source_lat'],entry['source_lon']),1),
+        'note':'Hourly temperature is one series per 0.5 x 0.625 degree source cell; every pin inside the cell receives the same chill and calendar.'}
+    return pd.read_parquet(path).set_index('time').tmean_c,source
 
 
 def summarize(frame,hourly,lat):
@@ -67,16 +99,12 @@ def analyze(lat,lon):
     if LAND is None:LAND=LandMask(ROOT)
     frame,provenance=extract(ROOT,lat,lon,LAND)
     if frame is None:return {'error':provenance['reason'],'status':'unsupported_location'}
-    sites=json.loads((ROOT/'config/sites.json').read_text())
-    match=next((s for s in sites if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
+    match=next((s for s in known_sites() if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
     site=match or {'name':'Selected location','lat':lat,'lon':lon}
-    hourly=None;hourly_hash=None;padded=None
-    if match:
-        hp=ROOT/'data/normalized/pilot/pilot'/match['id']/'met_hourly.parquet'
-        if hp.exists():
-            hourly=pd.read_parquet(hp).set_index('time').tmean_c
-            hourly_hash=hashlib.sha256(hp.read_bytes()).hexdigest()
-            padded,_=extract(ROOT,lat,lon,LAND,padding=True)  # 2010 padding for the first northern winter
+    hourly,hourly_source=hourly_for(lat,lon)
+    padded=None
+    if hourly is not None:
+        padded,_=extract(ROOT,lat,lon,LAND,padding=True)  # 2010 padding for the first northern winter
     sp=ROOT/'data/normalized/soilgrids/pilot_soil.json'
     soil=[r for r in json.loads(sp.read_text())['records']
           if abs(r['lat']-lat)<1e-7 and abs(r['lon']-lon)<1e-7] if sp.exists() else []
@@ -84,8 +112,8 @@ def analyze(lat,lon):
     soil=[{k:r[k] for k in ('property','depth','statistic','value','unit','status','cell_lon','cell_lat','sha256')} for r in soil]
     annual,monthly,climatology=summarize(frame.set_index('time'),hourly,lat)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
-        'soil':soil,'production':production_block(hourly,padded,lat),
-        'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_hash,
+        'soil':soil,'production':production_block(hourly,padded,lat),'hourly_source':hourly_source,
+        'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_source['sha256'] if hourly_source else None,
         'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
     result['analysis_id']=hashlib.sha256(json.dumps(result,sort_keys=True,allow_nan=False).encode()).hexdigest()[:20]
     return result
@@ -114,9 +142,10 @@ class Handler(BaseHTTPRequestHandler):
 if __name__=='__main__':
     import sys
     if '--snapshots' in sys.argv:
-        sites=json.loads((ROOT/'config/sites.json').read_text())
-        write_json(ROOT/'reports/ui_snapshots.json',{'sites':{s['name']:analyze(s['lat'],s['lon']) for s in sites if s['name'] in ('Papanduva','Citra','Waldo')}})
-        print('Three derived UI snapshots generated')
+        sites=[s for s in known_sites() if s['name'] in ('Papanduva','Citra','Waldo') or s.get('role')]
+        snapshots={s['name']:analyze(s['lat'],s['lon']) for s in sites}
+        write_json(ROOT/'reports/ui_snapshots.json',{'sites':snapshots})
+        print(json.dumps({'snapshots':len(snapshots),'production_available':[n for n,r in snapshots.items() if r['production']['status']=='available']}))
     else:
         print('Private API: http://127.0.0.1:8787',flush=True)
         ThreadingHTTPServer(('127.0.0.1',8787),Handler).serve_forever()
