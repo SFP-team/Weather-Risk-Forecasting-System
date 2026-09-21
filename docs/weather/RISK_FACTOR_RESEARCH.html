@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather risks for blueberries — plain-language summary</title>
+<style>
+:root { --ink:#1a1a1a; --muted:#666; --line:#e0e0e0; --accent:#2b5d3a; --code-bg:#f4f4f4; }
+* { box-sizing:border-box; }
+body { font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; color:var(--ink); max-width:820px; margin:0 auto; padding:40px 24px; }
+h1 { font-size:30px; line-height:1.25; border-bottom:2px solid var(--accent); padding-bottom:12px; margin-top:0; }
+h2 { font-size:23px; margin-top:2em; border-bottom:1px solid var(--line); padding-bottom:6px; }
+h3 { font-size:18px; margin-top:1.5em; color:var(--accent); }
+p, li { }
+a { color:var(--accent); }
+code { background:var(--code-bg); padding:1px 5px; border-radius:4px; font:13px/1.4 "SF Mono",Menlo,Consolas,monospace; }
+em { color:var(--muted); }
+hr { border:0; border-top:1px solid var(--line); margin:2em 0; }
+table { border-collapse:collapse; width:100%; margin:1.2em 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:7px 10px; vertical-align:top; }
+thead th { background:var(--accent); color:#fff; font-weight:600; text-align:left; }
+tbody tr:nth-child(even) { background:#fafafa; }
+ul, ol { padding-left:1.5em; }
+li { margin:.35em 0; }
+strong { color:#000; }
+@media print { body { max-width:none; } thead th { background:#333 !important; -webkit-print-color-adjust:exact; } }
+</style>
+</head>
+<body>
+<h1>Weather risks for blueberries — plain-language summary</h1>
+<p><em>This is the easy-to-read version. The full technical version, with every research paper linked, is in <code>RISK_FACTOR_RESEARCH.md</code>.</em></p>
+<p>Date: 15 September 2026.</p>
+<h2>What this is</h2>
+<p>The tool looks at the weather at a place and works out things like: when the plant will flower, when the fruit will be ready, and what weather could ruin the crop. This note answers two simple questions:</p>
+<ol>
+<li>Are the weather rules we already use correct?</li>
+<li>What else should we be watching?</li>
+</ol>
+<p>We did two things to find out: we read the science, and we tested our own weather data. <strong>Nothing here has been built yet.</strong> It's a to-do list with reasons.</p>
+<p>A few words used below:</p>
+<ul>
+<li><strong>Blueberry types:</strong> <em>southern highbush</em>, <em>rabbiteye</em>, and <em>northern highbush</em>. They behave differently, so a rule that fits one may not fit another.</li>
+<li><strong>Chill:</strong> the amount of cold a plant needs over winter before it will wake up and flower properly. Too little chill and the plant flowers poorly or not at all.</li>
+<li><strong>Bloom:</strong> flowering.</li>
+<li><strong>Weather box:</strong> the free global weather data comes in boxes about 55 km wide. Every farm inside the same box gets the same weather record. So our answers are area-level, not field-level.</li>
+</ul>
+<h2>The short version</h2>
+<p><strong>What we already get right:</strong></p>
+<ul>
+<li>We use hour-by-hour temperature for the cold calculations, and daily totals for rain and heat. That is the correct way to split it.</li>
+<li>Our damage temperatures are close to the research: frost kills open flowers at about −2 °C, fruit starts cooking above 32–35 °C, and a 10 mm day counts as heavy rain.</li>
+<li>We count how many of the last 15 winters had a given problem, and we show how confident we can be. That is honest.</li>
+<li>For warm places with almost no winter cold, we do <strong>not</strong> invent a flowering calendar out of thin air. That is the right call.</li>
+</ul>
+<p><strong>What we got wrong, worst first:</strong></p>
+<ol>
+<li><strong>How we count winter cold is off.</strong> We count every hour below 7.2 °C, right down through freezing, from November all the way to May. Everyone else counts only the hours between 0 and 7.2 °C, and only from October to February. Freezing-cold hours don't actually add chill, and spring hours come too late to matter. Our method over-counts Georgia's cold by a lot. Even worse, counting "cold hours" ranks warm places wrongly (see the test below). We should switch to a better cold measure called <strong>chill portions</strong>.</li>
+<li><strong>Our "chill needed" number is far too low.</strong> We assume a plant is satisfied with 50 hours of cold. In reality no commercial variety needs less than about 150 hours, and most need 200–650. Because our number is so low, the plant's "clock" starts too early, and every date after that — flowering, harvest — comes out wrong.</li>
+<li><strong>Our flowering date has no source.</strong> We add a fixed amount of warmth after the cold is met to predict flowering, but that fixed amount was never based on anything. The published blueberry numbers are different, and they count warmth from 1 January, not from the cold date.</li>
+<li><strong>We use one harvest gap for all varieties.</strong> Rabbiteye takes longer from flower to ripe fruit than southern highbush. Using one number for both is wrong.</li>
+<li><strong>Our disease rule is too crude.</strong> It flags a day as risky if it's mildly warm, humid, and had any rain at all. But "any rain" on a 55 km box is almost every day, and different diseases like different temperatures and need the leaves to stay wet for a certain number of hours. It needs to be redone per disease.</li>
+<li><strong>We only check frost during full bloom.</strong> The most fragile stage is actually the young green fruit just after the flowers drop — it dies at around 0 °C. Swelling buds before bloom also get hurt by hard late-winter freezes. We miss both. How long the cold lasts matters too, not just how cold it got.</li>
+<li><strong>A few other measures don't work</strong> (a dryness-of-air average that never reaches a meaningful level, and a "longest dry spell" that treats a dry winter month — when the plant needs little water — the same as a dry spring month during fruit fill).</li>
+</ol>
+<h2>The cold test we ran</h2>
+<p>We compared three ways of scoring winter cold at our 18 measured locations. The important columns:</p>
+<ul>
+<li><strong>Our count</strong> — the way we do it now (hours below 7.2 °C, Nov–May).</li>
+<li><strong>Standard count</strong> — the way everyone else does it (hours between 0 and 7.2 °C, Oct–Feb).</li>
+<li><strong>Chill-portion score</strong> — the better method, which correctly credits cool-but-not-freezing hours.</li>
+</ul>
+<table>
+<thead><tr><th>Place</th><th style="text-align:right">Our count (hrs)</th><th style="text-align:right">Standard count (hrs)</th><th style="text-align:right">Chill-portion score</th></tr></thead><tbody>
+<tr><td>Georgia / Alma</td><td style="text-align:right">801</td><td style="text-align:right">603</td><td style="text-align:right">44.7</td></tr>
+<tr><td>Valdosta</td><td style="text-align:right">749</td><td style="text-align:right">569</td><td style="text-align:right">42.4</td></tr>
+<tr><td>Homerville</td><td style="text-align:right">694</td><td style="text-align:right">533</td><td style="text-align:right">39.9</td></tr>
+<tr><td>Folkston</td><td style="text-align:right">577</td><td style="text-align:right">460</td><td style="text-align:right">36.2</td></tr>
+<tr><td>Waldo</td><td style="text-align:right">420</td><td style="text-align:right">346</td><td style="text-align:right">28.5</td></tr>
+<tr><td>Citra</td><td style="text-align:right">350</td><td style="text-align:right">296</td><td style="text-align:right">23.4</td></tr>
+<tr><td>Wild Goose</td><td style="text-align:right">274</td><td style="text-align:right">238</td><td style="text-align:right">19.7</td></tr>
+<tr><td>H &amp; A</td><td style="text-align:right">210</td><td style="text-align:right">186</td><td style="text-align:right">17.0</td></tr>
+<tr><td>Frogmore</td><td style="text-align:right">134</td><td style="text-align:right">127</td><td style="text-align:right">17.8</td></tr>
+<tr><td>Clear Springs / Astin NE</td><td style="text-align:right">173</td><td style="text-align:right">155</td><td style="text-align:right">14.1</td></tr>
+<tr><td>Dole</td><td style="text-align:right">142</td><td style="text-align:right">126</td><td style="text-align:right">11.8</td></tr>
+<tr><td>River Valley / Wauchula</td><td style="text-align:right">132</td><td style="text-align:right">120</td><td style="text-align:right">11.1</td></tr>
+<tr><td>Barben / Sebring</td><td style="text-align:right">116</td><td style="text-align:right">104</td><td style="text-align:right">9.3</td></tr>
+<tr><td>Arcadia</td><td style="text-align:right">86</td><td style="text-align:right">80</td><td style="text-align:right">8.3</td></tr>
+<tr><td>PF Berry</td><td style="text-align:right">87</td><td style="text-align:right">79</td><td style="text-align:right">7.3</td></tr>
+<tr><td>Astin East</td><td style="text-align:right">40</td><td style="text-align:right">40</td><td style="text-align:right">8.7</td></tr>
+<tr><td>Okeechobee</td><td style="text-align:right">30</td><td style="text-align:right">30</td><td style="text-align:right">3.9</td></tr>
+<tr><td>Papanduva (Brazil)</td><td style="text-align:right">199</td><td style="text-align:right">183</td><td style="text-align:right">26.1</td></tr>
+</tbody></table>
+<p>What this shows, in plain terms:</p>
+<ul>
+<li><strong>Our method over-counts.</strong> At the Georgia sites our count is 100–200 hours higher than the standard count, because we include freezing hours and spring hours that don't count.</li>
+<li><strong>The data is trustworthy where it's warm, and runs a little warm where it's cold.</strong> Our standard count at the Barben box (104 hours) matches the nearby weather station's published average (108). But at Waldo/Citra we get about 300–350 hours where the station reports around 500 — the free data runs about 1 °C too warm at night, so it slightly under-counts cold in cooler places. Keep that in mind for any cold-based decision.</li>
+<li><strong>This is the clincher.</strong> Look at Papanduva in Brazil: by the "cold hours" way it looks like central Florida (183 hours, similar to Citra). But by the better chill-portion score it looks like Waldo (26 vs 28.5) — a much colder place for a plant. The reason: Papanduva's cool weather sits at 7–12 °C, which "cold hours" throw away but chill portions correctly count. So calling Papanduva a low-chill site is a mistake caused by the old method. <strong>This is why we should switch methods, and it changes the answer for a real location.</strong></li>
+</ul>
+<h2>What else we should watch, by season</h2>
+<p>Everything below can be worked out from weather data we already have.</p>
+<h3>Winter</h3>
+<ul>
+<li><strong>A proper cold score</strong> (chill portions) and a "reliable-cold" figure — the amount of cold you can count on in a poor winter, not just an average year.</li>
+<li><strong>Too-warm winter days</strong> that cancel out chill (hours above about 21 °C in mid-winter).</li>
+<li><strong>Warm spell then hard freeze.</strong> A few warm days wake the plant up, then a freeze kills the softened buds. This caused big Georgia losses in 2017. Worth flagging directly.</li>
+</ul>
+<h3>Bud swelling to flowering</h3>
+<ul>
+<li><strong>Frost at every stage, not just full bloom</strong>, with the right temperature for each stage and how long the cold lasted.</li>
+<li><strong>Can the frost even be protected against?</strong> Sprinklers only help in a still, radiation-type frost; they don't help in a windy, dry cold blast. Worth telling the grower which kind it was.</li>
+<li><strong>Good pollination days.</strong> Bees need it warm enough (above ~15 °C), calm, and not raining. Several bad days in a row during bloom loses a batch of flowers. We measure none of this today, and it matters a lot.</li>
+<li><strong>Heat during bloom.</strong> Above about 30 °C blueberry pollen struggles; at 35 °C it basically stops.</li>
+</ul>
+<h3>Fruit growing</h3>
+<ul>
+<li><strong>Heat on green fruit vs ripe fruit</strong> (different limits for each).</li>
+<li><strong>Sun-scald risk</strong> — a berry in full sun runs much hotter than the air.</li>
+<li><strong>Water shortage during fruit fill</strong>, measured properly as rain minus what the plant actually uses (which changes through the season), not just "days without rain".</li>
+<li><strong>Waterlogging</strong> after very heavy rain, which rots roots.</li>
+<li><strong>Fruit-rot risk</strong>, based on how long leaves and fruit stay wet and at what temperature.</li>
+</ul>
+<h3>Harvest</h3>
+<ul>
+<li><strong>Rain that splits ripe fruit</strong> (a dry spell followed by a downpour is the worst).</li>
+<li><strong>Wet picking days</strong> that cause rot.</li>
+<li><strong>Spotted-wing fly pressure</strong> — a fruit fly that peaks right at southern-highbush harvest time.</li>
+</ul>
+<h3>After harvest (affects next year)</h3>
+<ul>
+<li><strong>Late-summer heat</strong>, which quietly reduces next year's flower buds.</li>
+<li><strong>Water shortage</strong> in the weeks after picking.</li>
+</ul>
+<h2>What to do first</h2>
+<ol>
+<li>Fix the cold measure: add chill portions and the standard 0–7.2 °C count, over the right months.</li>
+<li>Fix flowering and harvest timing: use realistic "chill needed" numbers per variety, base flowering on warmth from 1 January, and use different harvest gaps for the different blueberry types.</li>
+<li>Add stage-by-stage frost, including whether it was protectable and the warm-then-freeze pattern. This is the main problem for south Georgia.</li>
+<li>Add good-pollination-days and bloom-heat — cheap to compute and currently a blind spot.</li>
+<li>Redo the disease rules around how long things stay wet.</li>
+<li>Add the proper water-use calculation.</li>
+<li>Build a management-based calendar for warm, evergreen sites so they get useful risk numbers too.</li>
+<li>Add the fruit fly and the after-harvest heat measures.</li>
+</ol>
+<p>Each of these should be added as a <strong>new version alongside the old one</strong>, so we can compare results and never lose what we had.</p>
+<h2>What we still don't know</h2>
+<ul>
+<li>Most exact numbers come from studies on other blueberry types or other crops, then borrowed. The best matches for our southern varieties often don't have their own published study.</li>
+<li>No one has published the exact cold requirement, in the better units, for any of the varieties we care about.</li>
+<li>There is no published rain amount that reliably splits blueberry fruit, no exact freeze dose-response, and no blueberry-specific air-dryness limit.</li>
+<li>The free weather data runs about 1 °C warm at night and smooths out local downpours, so every number should be read as an area estimate, and we should eventually correct it against real stations.</li>
+</ul>
+<p>Before any of this is treated as a real evaluation, the science lead still needs to decide the cold definition (this test now argues for chill portions), which varieties to run, and what flowering/harvest dates we should expect at a couple of known sites so we can check our numbers against reality.</p>
+<h2>Where the numbers come from (a few key sources)</h2>
+<ul>
+<li>University of Florida chill, freeze and frost guidance: <a href="https://ask.ifas.ufl.edu/publication/HS216">https://ask.ifas.ufl.edu/publication/HS216</a></li>
+<li>University of Florida evergreen vs deciduous growing systems: <a href="https://ask.ifas.ufl.edu/publication/HS1362">https://ask.ifas.ufl.edu/publication/HS1362</a></li>
+<li>The better cold model (chill portions) explained: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3077742/">https://pmc.ncbi.nlm.nih.gov/articles/PMC3077742/</a></li>
+<li>Southern-highbush flowering-timing study: <a href="https://journals.ashs.org/view/journals/jashs/140/1/article-p38.xml">https://journals.ashs.org/view/journals/jashs/140/1/article-p38.xml</a></li>
+<li>Georgia freeze-protection guide (stage-by-stage cold limits): <a href="https://fieldreport.caes.uga.edu/publications/B1479/commercial-freeze-protection-for-fruits-and-vegetables/">https://fieldreport.caes.uga.edu/publications/B1479/commercial-freeze-protection-for-fruits-and-vegetables/</a></li>
+<li>Heat and pollination study: <a href="https://journals.ashs.org/view/journals/jashs/144/5/article-p339.xml">https://journals.ashs.org/view/journals/jashs/144/5/article-p339.xml</a></li>
+<li>Fruit-rot risk model: <a href="https://www.canr.msu.edu/news/new-blueberry-anthracnose-risk-prediction-model-launched-for-michigan-growers">https://www.canr.msu.edu/news/new-blueberry-anthracnose-risk-prediction-model-launched-for-michigan-growers</a></li>
+<li>Bloom-weather and fruit-set study: <a href="https://pubmed.ncbi.nlm.nih.gov/20568598/">https://pubmed.ncbi.nlm.nih.gov/20568598/</a></li>
+<li>Blueberry water-use figures: <a href="https://www.tandfonline.com/doi/full/10.1080/15538362.2010.510419">https://www.tandfonline.com/doi/full/10.1080/15538362.2010.510419</a></li>
+</ul>
+</body>
+</html>

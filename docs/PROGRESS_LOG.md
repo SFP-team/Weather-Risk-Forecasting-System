@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-21 — Supervisor review recorded, direction research, future plan
+
+- Recorded Paul's River Valley review as decisions only in `docs/weather/SUPERVISOR_REVIEW_RIVER_VALLEY.md`: risks count only when their stage overlaps the production window and they recur often enough; disease must be ranked; add pollination-unfavourable days, warm mid-winter hours, berry-stage freeze, stage-specific dry spell and a single planting window from his R code; frost-at-every-stage, protection feasibility, post-harvest and wet-picking items deprioritised; management layer after field risks.
+- Eight parallel research scouts (Paul's new R file, code audit, crop-modelling second opinion, validation data, genotype layer, management layer, weather inputs, product/deployment); reports saved under `docs/research/2026-09-21/`. Findings: planting = budbreak −105…−30 d and the "multiple windows" are a month-day median artefact; Paul's R already computes Dynamic Model chill portions (chillR constants) but never uses them; ten constants differ from `legacy_paul_v1`; metric definitions are spread over seven code locations; UF trial logs are the highest-value validation data; a cited 40-cultivar attribute table can drive a rule-based shortlist; tunnel/pot effects have published parameters; keep NASA POWER with daily→hourly reconstruction and on-demand hourly; deploy behind token auth over Tailscale.
+- `docs/FUTURE_PLAN.md`: six phases with de-duplicated builder-day estimates (14 / 18 / 12 / 8 / 6 / 11), milestones (team-usable ≈ 37 days, v1 four outputs ≈ 51 days ≈ 3 months, validated ≈ 69 days gated on UF data), decisions and data requests by person, critical path and risks.
+- Plain-language HTML of the risk-factor review (`docs/weather/RISK_FACTOR_RESEARCH.html`, source `RISK_FACTOR_RESEARCH_PLAIN.md`) added from the 2026-09-15 session. Paul's new R file added to `.gitignore` as a private input. No code, formula, acquisition or deployment change.
+
 ## 2026-09-15 — Risk-factor research review and chill-model data check
 
 - Eight parallel literature scouts (chill models, forcing/phenology, freeze, heat/VPD/radiation, rain/disease, water balance, pollination/pests, production-system classification) with primary sources; synthesised in `docs/weather/RISK_FACTOR_RESEARCH.md`: one-page verdict, formula scorecard (keep/change/add with sources), ~35 new computable metrics by stage with inputs, thresholds and confidence, implementation order, open uncertainties.
