@@ -54,6 +54,26 @@ df -h /media/fpt/fpt2/Weather_Claude
 
 The global state includes completed/total tiles, PID and update time. A completed `tmux` session disappears; always inspect the persisted state and log before calling that a failure. `pilot.py --scope status` reports downloaded raw objects, not completed global output tiles.
 
+### Land hourly cache worker (started 2026-09-21, user-authorized)
+
+`code/global_hourly.py` fills `data/raw/zarr/met_hourly` (T2M, T2MDEW, 2010–2025) for every 5×5 block containing land: 3,479 of 8,468 blocks, 6,958 jobs, ≈ 29 GB measured-compression estimate, through the same checksummed `Downloads.get` path. No normalized copy is written. Plan: `state/global_hourly_plan.json`; state: `state/global_hourly.json`; log: `logs/global_hourly.log`; tile rows share the `tiles` table with the `met_hourly/` prefix. Session `blueberry-weather-hourly`.
+
+```sh
+cd /media/fpt/fpt2/Weather_Claude/code
+../env/bin/python global_hourly.py status
+tail -n 5 ../logs/global_hourly.log
+tmux list-sessions | grep hourly
+```
+
+Restart only if `state/global_hourly.json` shows `blocked` and the cause is understood; it resumes from the `tiles` table and skips validated jobs. Launch command:
+
+```sh
+tmux new-session -d -s blueberry-weather-hourly \
+  'cd /media/fpt/fpt2/Weather_Claude/code && ../env/bin/python -u global_hourly.py run >> /media/fpt/fpt2/Weather_Claude/logs/global_hourly.log 2>&1'
+```
+
+The worker holds `state/worker.lock`; do not start another project worker while it runs. First measured rate: 44 jobs in 80 s (≈ 3–4 h for the full plan).
+
 ## Important files
 
 | Path relative to the remote project | Meaning |

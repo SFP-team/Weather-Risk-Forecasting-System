@@ -21,7 +21,7 @@ The user has requested this plan before switching to another executor. When inst
 - Initial locations: the 13 reference entries in Paul's R workflow plus Papanduva: 14 named sites. Source-grid deduplication may reduce the number of distinct weather cells.
 - Global backbone: **NASA POWER daily weather at each variable's published native grid**, acquired using the public bulk datastore. Do not upsample it into invented higher-resolution observations.
 - Hourly layer: NASA POWER temperature and dewpoint for pilot sites initially; extend to actual requested sites through the same cache. Copernicus supplies a separately versioned optional comparison/enhancement when authorized credentials are available.
-- Do not download global hourly weather, global satellite imagery or full global soil rasters in this assignment.
+- Do not download global satellite imagery or full global soil rasters in this assignment. The original exclusion of global hourly weather was lifted by the user on 2026-09-21 for a bounded land-only temperature/dewpoint cache (`global_hourly.py`, ≈ 29 GB); no other hourly variables are authorized.
 - No paid services, new cloud compute, system-wide package changes or public server exposure.
 
 ## 2. Access: what is automatic and what needs the user

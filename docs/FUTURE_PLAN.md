@@ -50,14 +50,16 @@ Exit: 18 presets show gated risks with reasons, disease ranked, planting window,
 
 Exit: a validation report with numbers; the first honest "validated for defined use" label or an explicit list of what failed.
 
-### Phase 3 — Any coordinate on Earth (≈ 12 builder-days)
+### Phase 3 — Any coordinate on Earth (≈ 8 builder-days; revised 2026-09-21)
+
+On 2026-09-21 the user authorized a land-only global hourly cache (`pipelines/weather/global_hourly.py`: T2M and dewpoint, 2010–2025, 3,479 land 5×5 blocks, ≈ 29 GB measured). With it, daily→hourly reconstruction and on-demand fetch are no longer needed for chill; they remain as a fallback only if a pin lands in a block the mask calls ocean.
 
 | # | Work | Days |
 |---|---|---|
-| 3.1 | Daily→hourly reconstruction with validation on the 19 cells (hourly RMSE, chill hours, chill portions, class agreement); third tier in `hourly_for()` flagged `reconstructed` | 4.5 |
+| 3.1 | `hourly_for()` reads any land cell from the cached hourly store (`Source`-style slice by cell index), writes the per-cell parquet lazily, reports `hourly_source` from the cache; remove the panel-only path | 1.5 |
 | 3.2 | Durable jobs and result cache (SQLite, worker thread, `POST /analyses` → 202) replacing the single lock | 3.5 |
-| 3.3 | On-demand hourly fetch for an opened cell (reusing `evaluation_sites.fetch`), bounded cache, status upgrade in the UI; requires acquisition authorization | 2 |
-| 3.4 | Elevation delta warning (DEM lookup vs cell mean), Tmax-only lapse toggle | 2 |
+| 3.3 | Elevation delta warning (DEM lookup vs cell mean), Tmax-only lapse toggle | 2 |
+| 3.4 | Coverage check: pins in ocean-labelled blocks return an explicit `no_hourly_block` state; land-mask edge review on the panel coasts | 1 |
 
 Optional: CHIRPS rain-day source (3), ERA5-Land second opinion via Open-Meteo (2–3; needs owner decision on the service).
 
@@ -82,12 +84,12 @@ CMIP6 2040s scenario card from NEX-GDDP-CMIP6 with delta-change to the POWER bas
 | Milestone | Builder-days | Calendar estimate |
 |---|---|---|
 | Phase 1: science core with Paul's rules | 14 | 3–4 weeks |
-| Phases 1 + 3 + 6-core: any coordinate, usable by the team over Tailscale | ≈ 37 | 8–9 weeks |
-| + Phase 4 + Phase 5: four outputs delivered (system, window, risks, cultivar shortlist), v1 | ≈ 51 | 11–12 weeks (about 3 months) |
-| + Phase 2: scientifically validated for a defined use | ≈ 69 | 4–5 months, and only if UF bloom/harvest records and expert pre-registration arrive by week 6 |
-| + stretch | ≈ 80 | 5–6 months |
+| Phases 1 + 3 + 6-core: any coordinate, usable by the team over Tailscale | ≈ 33 | 7–8 weeks |
+| + Phase 4 + Phase 5: four outputs delivered (system, window, risks, cultivar shortlist), v1 | ≈ 47 | 10–11 weeks (under 3 months) |
+| + Phase 2: scientifically validated for a defined use | ≈ 65 | 4–5 months, and only if UF bloom/harvest records and expert pre-registration arrive by week 6 |
+| + stretch | ≈ 76 | 5–6 months |
 
-"Complete" in the sense of REQUIREMENTS.md v1 (four outputs for any coordinate, honest evidence state) is the 51-day line. The genotype output at that point is a cited rule-based shortlist, not a trained genotype × environment model; the model needs the breeding program's trial data and is a separate 8–10 day effort with unknown start date.
+"Complete" in the sense of REQUIREMENTS.md v1 (four outputs for any coordinate, honest evidence state) is the 47-day line. The genotype output at that point is a cited rule-based shortlist, not a trained genotype × environment model; the model needs the breeding program's trial data and is a separate 8–10 day effort with unknown start date.
 
 Critical path: Paul's chill-method decision (needed by Phase 1.6, but both profiles can be built and the decision selects the primary), then UF data for Phase 2. Nothing else blocks.
 
