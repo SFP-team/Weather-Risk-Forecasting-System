@@ -1,5 +1,14 @@
 # Project progress log
 
+## 2026-09-22 — Map-first UI redesign
+
+- Replaced the long report-first dashboard with a map/location workspace and five assessment views: Overview, Season & exposures, Climate history, Soil & setup, Methods & data. Vendored Leaflet 1.9.4 with its license; OSM supplies attributed geographic tiles only. Search filters saved sites locally; coordinates and map pins support arbitrary-point requests through the existing API.
+- Added explicit Analyze, separate draft/committed location states, browser cancel/stale-response guards and an actual-response hourly source-cell outline. Coverage distinguishes global daily access from the 19-cell hourly adapter, regional planting and partial soil. No new backend, acquisition, snapshot generation or scientific formula.
+- Recurrence cards show rank, numerator/denominator, uncertainty and excluded reasons. Stage colours identify windows, not severity; selected-winter cards compare with historical means and retain exact values/definitions. Corrected the primary whole-production timeline start to budbreak, matching the already-implemented backend window.
+- Browser verification: 18 presets × five views; 270 winter/stage views and 1,350 exact metric values, including 209 zeros and 22 missing values. Keyboard navigation and management-state retention passed; desktop/mobile inspected; all five views fit 320/390/768/1440 px without page overflow. Real daily-only land, shared-cell land and offshore requests passed. Simulated disconnected API, blocked tiles/library and delayed/cancelled responses behaved correctly.
+- Actual HTML/JSON downloads preserve winter 2014, fruit, tunnel/pots and selected chart labels. HTML contains all five views with expanded definitions and no inert buttons/selects or map requests; JSON production, planting and analysis ID match the original Homerville snapshot. JavaScript syntax checks passed. No backend test rerun for this frontend-only revision.
+- Updated the design plan, runbook and handover. Local preview and archive tunnel are running. GitHub publication follows the standing authorization; hosted Sites is not redeployed. Map tiles disclose IP/origin/viewed area to OSM; no geocoder, paid key or telemetry added. Scientific validation and general hourly extraction remain outstanding.
+
 ## 2026-09-22 — GitHub publication authorized
 
 - The user lifted the earlier no-GitHub restriction and requested the verified science/dashboard changes be published with relevant comments. Prepared the implementation, regression tests, 18 derived snapshots, three-site report and method/source notes for the existing `origin/main`; remote and local history matched before preparation.

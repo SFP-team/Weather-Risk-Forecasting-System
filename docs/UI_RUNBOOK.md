@@ -1,10 +1,30 @@
-# Climate evidence UI — first connected slice
+# Climate workspace UI
 
-Implemented 2026-09-11. This is a historical research dashboard, not a cultivar recommendation or a weather forecast. The supplied visual reference informed the monochrome palette, Geist typography, fine borders and compact controls; no reference attachment or brand assets are published.
+Updated 2026-09-22 with the map-first redesign. This is a historical research workspace, not a cultivar recommendation or weather forecast. The frontend stays in vanilla JavaScript and uses system fonts, warm-white panels, teal navigation and categorical stage colours. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
+
+## Map-first workflow
+
+- The world map supports click/drag pin placement, keyboard pan/zoom, Enter or Use map center, and a world reset. Saved markers and the local name/region/county filter select a draft location. Coordinate entry remains available without the map. **Analyze is explicit**; map movement does not call the archive.
+- The draft pin is separate from the committed assessment. A new selection displays a notice naming the previous result. Cancel aborts the browser request and prevents late responses replacing a newer selection; it does not claim to stop server computation.
+- Five keyboard-operable tabs organize the assessment: Overview, Season & exposures, Climate history, Soil & setup, Methods & data. Overview shows system hypothesis, assumed harvest, recurring-risk cards, descriptive exposure families and one planting guide. Definitions, uncertainty and excluded reasons expand on demand.
+- Stage colours mean stage identity, not severity. Selected-winter cards compare with historical means; exact values, missingness and sources remain expandable. The `stage_risks_v2` production bar starts at budbreak, matching its backend metrics. No scientific value changed.
+- Coverage badges distinguish daily records, hourly analysis, calendar applicability, planting and soil. The map's dashed source rectangle comes only from the returned hourly source cell; it is not parcel resolution or a global coverage layer.
+- Global weather acquisition does not make the existing API a global hourly calendar service. Outside its 19 indexed cells, supported land points have daily context and a warm-day fallback, not estimated hourly chill or invented crop dates.
+- HTML export expands every view and definition, retains the selected winter/stage/chart labels and embeds `style.css` plus `cycle.css`. JSON keeps the original analysis and selected management/cycle metadata. The map itself is not exported; coordinates and source-cell provenance are.
+
+## Map dependency and privacy
+
+Leaflet 1.9.4 is vendored in `dist/vendor/` with its license. OpenStreetMap supplies standard raster tiles, not weather overlays; attribution stays visible. Tile requests disclose IP, page origin and viewed map area to OSM. There is no third-party geocoder, location permission request, API key or telemetry. Saved-place filtering is local. Follow the [OSM tile policy](https://operations.osmfoundation.org/policies/tiles/); there is no bulk download or offline tile cache. Tile/library failures leave coordinates and saved analyses usable. Basemap availability is independent of weather availability.
+
+## Redesign verification
+
+2026-09-22: checked all 18 presets across five views, 270 winter/stage views and 1,350 exact values, including 209 zeros and 22 unavailable entries. Tested keyboard tab/stage controls and selected winter/stage retention after management changes. All five views had no page overflow at 320/390/768/1440 px; desktop/mobile inspected. Real API checks covered daily-only land, shared-cell land with unknown planting region and offshore refusal. Synthetic failures covered tiles, Leaflet, API disconnection and a delayed response after cancellation/new selection. The normal browser session reported no page errors.
+
+Actual downloaded HTML exposed all five views, expanded every detail and removed interactive buttons/selects. JSON production, planting and analysis ID matched the Homerville snapshot; both reports retained winter 2014, fruit and tunnel/pots, and HTML retained temperature/heat chart labels. JavaScript syntax checks passed. Backend code/results were unchanged, so backend tests were not rerun.
 
 ## What works
 
-- Coordinate inputs, 18 grouped presets (Reference: Citra, Waldo, Papanduva; Georgia; Central Florida; South Florida) and four growing-system choices. Presets load `dist/snapshots/<site>.json` on demand from the small `dist/snapshots.json` index.
+- Coordinate inputs, map-pin selection, 18 locally searchable saved locations and four growing-system choices. Presets load `dist/snapshots/<site>.json` on demand from the small `dist/snapshots.json` index.
 - Six exposure cards, monthly and annual charts, annual data table, mapped soil profiles with uncertainty, qualitative management notes and source provenance.
 - Eighteen derived location summaries cover 2011–2025; Citra, Waldo and Papanduva each have 45 soil records. These are point summaries, not bulk weather, raw rasters or supervisor source materials.
 - The private read-only API extracts other coordinates from the existing archive. Hourly production analysis is available within the 19 indexed source cells; the completed global hourly cache is not yet exposed for arbitrary cells. Missing hourly data does not trigger acquisition.
@@ -66,6 +86,7 @@ The generator writes `reports/ui_snapshots.json` for the three references plus t
 ```sh
 node --check dist/app.js
 node --check dist/cycle.js
+node --check dist/map.js
 node --check scripts/preview-ui.mjs
 ```
 
@@ -79,4 +100,4 @@ node --check scripts/preview-ui.mjs
 - Missing hourly availability, incomplete winters and per-metric gaps are distinct in the calculations; durable per-section jobs/cache and a broader geographic adapter are still pending. Establishment guidance does not validate field suitability; the stage calendar remains assumption-based. The earlier standalone stage-scenario report is historical.
 - Production work still requires authenticated archive connectivity, persisted jobs/cache, restart/concurrency tests, fuller per-section states, broader cross-browser report compatibility testing and a security review. No public data-host port was opened.
 
-The staged target architecture remains in `UI_IMPLEMENTATION_PLAN.md`; this first slice deliberately uses a static frontend and standard-library Python HTTP adapter over the working science code.
+The current design and interaction contract is in `UI_IMPLEMENTATION_PLAN.md`. The runtime remains the static frontend and standard-library Python HTTP adapter over the existing science code; durable jobs and authenticated hosted access are future work.
