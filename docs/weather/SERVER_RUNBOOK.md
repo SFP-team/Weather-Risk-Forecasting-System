@@ -72,7 +72,7 @@ tmux new-session -d -s blueberry-weather-hourly \
   'cd /media/fpt/fpt2/Weather_Claude/code && ../env/bin/python -u global_hourly.py run >> /media/fpt/fpt2/Weather_Claude/logs/global_hourly.log 2>&1'
 ```
 
-The worker holds `state/worker.lock`; do not start another project worker while it runs. First measured rate: 44 jobs in 80 s (≈ 3–4 h for the full plan).
+The worker holds `state/worker.lock` while running. **Completed 2026-09-22 01:12 UTC**: 6,958 / 6,958 blocks validated in 4 h 39 min, 20,885 objects, 40.5 GB. Do not restart it; `status` should read `complete`.
 
 ## Important files
 

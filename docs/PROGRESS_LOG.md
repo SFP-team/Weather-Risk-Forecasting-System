@@ -1,5 +1,9 @@
 # Project progress log
 
+## 2026-09-22 — Land hourly cache complete
+
+- `global_hourly.py` finished at 01:12 UTC: 6,958 / 6,958 land blocks validated (T2M, T2MDEW, 2010–2025), 20,885 cached objects, 40.5 GB on disk against a 28.7 GB pre-run estimate (estimate drew on the smaller pilot chunks; capacity gates unaffected). State `complete`; tmux session exited normally. No rerun, no code change. Any-cell extraction from this cache remains Phase 3.1 of `docs/FUTURE_PLAN.md`.
+
 ## 2026-09-21 — Supervisor review recorded, direction research, future plan
 
 - Recorded Paul's River Valley review as decisions only in `docs/weather/SUPERVISOR_REVIEW_RIVER_VALLEY.md`: risks count only when their stage overlaps the production window and they recur often enough; disease must be ranked; add pollination-unfavourable days, warm mid-winter hours, berry-stage freeze, stage-specific dry spell and a single planting window from his R code; frost-at-every-stage, protection feasibility, post-harvest and wet-picking items deprioritised; management layer after field risks.
