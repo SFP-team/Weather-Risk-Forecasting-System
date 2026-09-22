@@ -1,5 +1,21 @@
 # Project progress log
 
+## 2026-09-22 — GitHub publication authorized
+
+- The user lifted the earlier no-GitHub restriction and requested the verified science/dashboard changes be published with relevant comments. Prepared the implementation, regression tests, 18 derived snapshots, three-site report and method/source notes for the existing `origin/main`; remote and local history matched before preparation.
+- Reviewed the selected changes for credentials and private source material. Original R workflows, supplied reports/transcripts, bulk weather data and local caches remain excluded. Replaced the UI runbook's machine-specific checkout path with a project-root instruction.
+- Commit notes record scope, prior verification and remaining scientific limits. No tests were rerun for this publication-only step; the implementation checks below are the evidence. The local UI and API were confirmed running during the preceding launch request. Push success must be established from the remote branch, not inferred from this entry.
+- No hosted-Sites redeployment, new acquisition, phenology calibration or management/genotype work.
+
+## 2026-09-22 — Stage-aware risks, establishment guidance and dashboards
+
+- Implemented `stage_risks_v2` / `open-field-production-v2` and API `location-evidence-v4`: individual-winter stage exposures; ≥50% recurrence with ≥12 complete winters; qualified headlines only; full `by_id`/`demoted` evidence and reasons; equal ranks for equal frequencies. Evergreen/unknown primary clocks cannot support crop/chill-shortfall headlines.
+- Disease-weather now ranks as one family with flowering, fruit-development and harvest evidence. Added cold-or-wet pollination days (with the separate spoken cold/dry hypothesis), fixed-hemisphere >21 °C warm-midwinter hours, fruit Tmin ≤0 °C frost exposure and stage dry spells. Daily-only fallback reports Tmax warm **days**, not hours. No invented seasonal-loss thresholds for pollination, warm weather or dry runs.
+- Researched primary blueberry guidance and implemented `regional-establishment-v1`: Florida mid-December–mid-February; Georgia winter, shown approximately December–February; Santa Catarina winter while dormant, shown approximately June–August. UGA/Embrapa do not specify exact endpoints; those months are display conventions. One independent establishment window per covered region; unknown geography declines. The uncited budbreak-offset formula was not adopted. Sources and reasoning: `weather/production/README.md`.
+- Updated both dashboard views, per-winter/sensitivity tables, sources and HTML/JSON exports. Regenerated 18 snapshots and the Waldo/Citra/Papanduva production packet from existing data. Deployed only changed science/API files and tests; restarted only `blueberry-ui-api`. No weather/soil acquisition, public hosting update or GitHub commit/push.
+- Verification: full backend suite **96 passing**; **39 production/API tests** passed after a browser-discovered missing method field was fixed. All 270 prior preset chill/date/stage-exposure records and all 18 annual summaries/weather hashes preserved. Independent input-level reconstruction matched 29 complete crop-years at River Valley/Papanduva; a daily-only land probe returned 15 warm-day windows. Browser checked 18 presets, 135 winter/stage views, 855 displayed values, empty/evergreen states, keyboard/state retention, real API paths and actual downloaded reports. Desktop/mobile inspected; no overflow at 320/390/768/1440 px. JavaScript syntax checks passed.
+- River Valley's unchanged calendar still predicts harvest 23 April–2 June: heavy rain ranks **14/14**, disease-weather **12/14**. The supervisor's early-April expectation needs phenology review. Software/source consistency is not scientific validation; legacy phenology constants, warm grid bias, no calibrated management effects and the indexed-cell API limit remain.
+
 ## 2026-09-22 — Land hourly cache complete
 
 - `global_hourly.py` finished at 01:12 UTC: 6,958 / 6,958 land blocks validated (T2M, T2MDEW, 2010–2025), 20,885 cached objects, 40.5 GB on disk against a 28.7 GB pre-run estimate (estimate drew on the smaller pilot chunks; capacity gates unaffected). State `complete`; tmux session exited normally. No rerun, no code change. Any-cell extraction from this cache remains Phase 3.1 of `docs/FUTURE_PLAN.md`.

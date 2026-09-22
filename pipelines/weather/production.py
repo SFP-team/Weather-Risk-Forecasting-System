@@ -9,6 +9,7 @@ probabilities, and never cultivar recommendations.
 Behaviour changes relative to the R source are deliberate and listed in CHANGES.
 """
 import hashlib
+import html
 import json
 import math
 from pathlib import Path
@@ -18,9 +19,10 @@ import pandas as pd
 
 from discover import write_json
 from evidence_report import complete, dry_spell, table
+from planting import planting_window
 from postprocess import ROOT, LandMask, extract
 
-METHOD = 'open-field-production-v1'
+METHOD = 'open-field-production-v2'
 
 PROFILES = {
     'legacy_paul_v1': {
@@ -53,6 +55,15 @@ PROFILES = {
 PROFILES['legacy_paul_100h_v1'] = {**PROFILES['legacy_paul_v1'], 'chill_requirement_hours': 100}
 PROFILES['bounded_uf_v1'] = {**PROFILES['legacy_paul_v1'], 'chill_definition': 'bounded_0_7_2'}
 PROFILES['bounded_uf_100h_v1'] = {**PROFILES['bounded_uf_v1'], 'chill_requirement_hours': 100}
+PROFILES['stage_risks_v2'] = {
+    **PROFILES['legacy_paul_v1'],
+    'risk_min_frequency': 0.5,
+    'risk_min_valid_years': 12,
+    'require_applicable_calendar': True,
+    'pollination_cold_tmax_c': 15.0,
+    'pollination_wet_mm': 1.0,
+    'warm_midwinter_threshold_c': 21.0,
+}
 
 CHANGES = [
     'Northern calendar dates are reconstructed from the same 1 November anchor used for the offsets; the R summary used 1 October (-31 days).',
@@ -60,9 +71,12 @@ CHANGES = [
     'Chill, forcing and every stage metric require a complete, unique, ordered window; missing values are never compressed, zero-filled or counted as safe.',
     'Suspect or out-of-range rainfall declines rain, dry-spell and disease-weather metrics for that window instead of contributing zero.',
     'A non-positive chill requirement is refused (anchor_required); zero chill never silently anchors on the first winter date.',
-    'Risks are ranked by the frequency of years with an event under the profile thresholds, not by percentile against a query-dependent reference panel; no weighted total is produced.',
+    'Headline risks require an event in at least half of at least 12 complete winters. Equal frequencies share a competition rank; no weighted total is produced.',
     'The production system is reported three ways: from multi-year means (R behaviour), per-year distribution, and a two-thirds majority vote with transitional otherwise.',
     'Winter-month features for the multi-feature rule come from our daily series (Jan-Mar north, Jul-Sep south of the winter year), not WorldClim monthly climatologies.',
+    'The stage_risks_v2 profile preserves the legacy chill and phenology constants. Crop exposures use each winter calendar, not the median calendar.',
+    'Disease weather combines complete flowering, fruit-development and harvest windows into one event family.',
+    'Warm midwinter hours use fixed hemisphere dates and remain available when the chill requirement fails.',
 ]
 
 LIMITATIONS = [
@@ -72,23 +86,46 @@ LIMITATIONS = [
     'UTC hours throughout. The original R requested local solar time; the difference affects window edges only.',
     'Frequencies come from at most 15 winters; 95% Wilson intervals are shown and are wide. Do not over-read differences between sites.',
     'Disease-favourable weather is a daily temperature/humidity/rain rule, not disease incidence. Longest dry spell is not a soil water balance.',
+    'Pollination-unfavourable days are an operational cold-or-wet proxy, not measured bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison.',
+    'Fruit frost at or below 0 C is exposure, not a cultivar-specific injury threshold. Warm hours above 21 C are not measured chill negation.',
+    'The 50% frequency and 12-winter evidence gates are an explicit reporting policy, not biological loss thresholds. Dry spells, pollination weather and warm winter have no defined loss event.',
     'No cultivar ranking, no soil scoring, no tunnel or pot effects, no forecast, no independent phenology validation yet.',
 ]
 
-STAGE_METRICS = (
-    'flower_tmin_min_c', 'flower_freeze_days', 'flowering_rain_mm', 'flowering_heavy_rain_days',
-    'flowering_disease_days', 'flowering_vpd_mean_kpa',
-    'fruit_heat_days', 'fruit_severe_heat_days', 'fruit_vpd_mean_kpa',
-    'harvest_rain_mm', 'harvest_heavy_rain_days', 'harvest_disease_days', 'harvest_vpd_mean_kpa',
-    'production_max_dry_days', 'production_radiation_mean_mj', 'production_gdd',
-)
+METRIC_CATALOG = [
+    {'key': key, 'stage': stage, 'label': label, 'unit': unit, 'note': note}
+    for key, stage, label, unit, note in (
+        ('chill_hours', 'chill', 'Chill accumulation', 'hours', 'Profile-defined chill rule and six-month window; not chill portions.'),
+        ('freeze_hours', 'chill', 'Winter freezing exposure', 'hours', 'Hourly temperature at or below the profile frost threshold during the chill window.'),
+        ('warm_midwinter_hours', 'chill', 'Warm midwinter exposure', 'hours', 'T >21 C, 15 Nov to 15 Feb north, 15 May to 15 Aug south, inclusive UTC dates. Operational proxy, not measured chill negation.'),
+        ('flower_tmin_min_c', 'flower', 'Lowest flowering temperature', '°C', 'Minimum daily Tmin within the modelled flowering window.'),
+        ('flower_freeze_days', 'flower', 'Flowering freeze exposure', 'days', 'Daily Tmin <=-2.2 C under the legacy profile assumption; not an injury probability.'),
+        ('flowering_rain_mm', 'flower', 'Flowering rainfall', 'mm', 'Total rain within flowering; suspect rainfall is excluded by declining the metric.'),
+        ('flowering_heavy_rain_days', 'flower', 'Flowering heavy rain', 'days', 'Daily rain >=10 mm; operational exposure threshold.'),
+        ('flowering_disease_days', 'flower', 'Flowering disease weather', 'days', 'Tmean 15–28 C inclusive, RH >=85%, rain >=0.1 mm. Provisional daily proxy, not infection or the Blueberry Advisory System.'),
+        ('flowering_vpd_mean_kpa', 'flower', 'Flowering mean VPD', 'kPa', 'Calculated from daily mean temperature and RH, not hourly plant water stress.'),
+        ('flowering_pollination_unfavourable_days', 'flower', 'Pollination-unfavourable weather', 'days', 'Tmax <15 C OR rain >=1 mm. Operational cold/wet proxy, not literal bee inactivity; the cutoffs are not validated by UF IN1237.'),
+        ('flowering_cold_dry_days', 'flower', 'Cold-and-dry flowering weather', 'days', 'Tmax <15 C AND rain <1 mm. Supervisor hypothesis comparison only, not an established pollination or loss index.'),
+        ('flowering_max_dry_days', 'flower', 'Longest flowering dry spell', 'days', 'Consecutive rain <1 mm, clipped to flowering. Not drought or soil water balance.'),
+        ('fruit_heat_days', 'fruit', 'Fruit-development heat exposure', 'days', 'Daily Tmax >=32 C under the legacy assumption.'),
+        ('fruit_severe_heat_days', 'fruit', 'Fruit-development severe heat exposure', 'days', 'Daily Tmax >=35 C under the legacy assumption, not fruit temperature or measured injury.'),
+        ('fruit_vpd_mean_kpa', 'fruit', 'Fruit-development mean VPD', 'kPa', 'Calculated from daily mean temperature and RH, not hourly plant water stress.'),
+        ('fruit_disease_days', 'fruit', 'Fruit-development disease weather', 'days', 'Tmean 15–28 C inclusive, RH >=85%, rain >=0.1 mm. Provisional daily proxy, not infection or the Blueberry Advisory System.'),
+        ('fruit_frost_days', 'fruit', 'Fruit-stage frost exposure', 'days', 'Daily Tmin <=0 C. Generic exposure threshold, not stage-specific injury.'),
+        ('fruit_max_dry_days', 'fruit', 'Longest fruit-development dry spell', 'days', 'Consecutive rain <1 mm, clipped to fruit development. Not drought or soil water balance.'),
+        ('harvest_rain_mm', 'harvest', 'Harvest rainfall', 'mm', 'Total rain within the modelled harvest window.'),
+        ('harvest_heavy_rain_days', 'harvest', 'Harvest heavy rain', 'days', 'Daily rain >=10 mm; operational exposure threshold.'),
+        ('harvest_disease_days', 'harvest', 'Harvest disease weather', 'days', 'Tmean 15–28 C inclusive, RH >=85%, rain >=0.1 mm. Provisional daily proxy, not infection or the Blueberry Advisory System.'),
+        ('harvest_vpd_mean_kpa', 'harvest', 'Harvest mean VPD', 'kPa', 'Calculated from daily mean temperature and RH, not hourly plant water stress.'),
+        ('production_max_dry_days', 'whole', 'Longest production-window dry spell', 'days', 'Rain <1 mm. New primary uses budbreak through harvest end; legacy profiles retain season start through harvest end.'),
+        ('production_radiation_mean_mj', 'whole', 'Production-window mean radiation', 'MJ/m²/day', 'New primary uses budbreak through harvest end; legacy profiles retain season start through harvest end.'),
+        ('production_gdd', 'whole', 'Production-window growing degree days', '°C days', 'Sum of max(Tmean minus profile base, 0). New primary uses budbreak through harvest end; legacy profiles retain the season-start window.'),
+    )
+]
+ROW_METRICS = ('chill_hours', 'freeze_hours', 'warm_midwinter_hours')
+STAGE_METRICS = tuple(m['key'] for m in METRIC_CATALOG if m['key'] not in ROW_METRICS)
 OFFSETS = ('chill', 'budbreak', 'flowering_start', 'flowering_end', 'harvest_start', 'harvest_end')
-EVENTS = (   # name, numerator predicate field, denominator field, exposure field, label
-    ('chill_shortfall', 'chill_hours', 'chill_hours', 'Winters below the chill requirement'),
-    ('flowering_freeze', 'flower_freeze_days', 'flower_freeze_days', 'Modelled flowering with a day at or below the damaging freeze threshold'),
-    ('fruit_severe_heat', 'fruit_severe_heat_days', 'fruit_severe_heat_days', 'Fruit development with a day at or above the severe heat threshold'),
-    ('harvest_heavy_rain', 'harvest_heavy_rain_days', 'harvest_heavy_rain_days', 'Modelled harvest with a heavy-rain day'),
-)
+DISEASE_METRICS = ('flowering_disease_days', 'fruit_disease_days', 'harvest_disease_days')
 CLASSES = ('Evergreen', 'Semi-evergreen', 'Deciduous')
 
 
@@ -110,6 +147,29 @@ def window(year, hemi):
     if hemi == 'south':
         return pd.Timestamp(f'{year}-04-01'), pd.Timestamp(f'{year}-10-01')
     return pd.Timestamp(f'{year-1}-11-01'), pd.Timestamp(f'{year}-05-01')
+
+
+def midwinter_window(year, hemi):
+    """Fixed inclusive UTC dates, separate from the chill-model window."""
+    if hemi == 'south':
+        return pd.Timestamp(f'{year}-05-15'), pd.Timestamp(f'{year}-08-15')
+    return pd.Timestamp(f'{year-1}-11-15'), pd.Timestamp(f'{year}-02-15')
+
+
+def warm_midwinter_daily(daily, lat, years=range(2011, 2026)):
+    """Daily-Tmax fallback only; never convert or combine these counts with hours."""
+    seasons = []
+    temperatures = daily.tmax_c.astype(float)
+    for year in years:
+        start, end = midwinter_window(year, hemisphere(lat))
+        values = stage_days(temperatures, start, end)
+        seasons.append({'winter_year': year, 'window': [str(start.date()), str(end.date())],
+                        'value': int((values > 21.0).sum()) if values is not None else None})
+    return {'metric': 'warm_midwinter_days', 'label': 'Warm midwinter days (daily Tmax proxy)',
+            'unit': 'days', 'threshold_c': 21,
+            'note': 'Daily Tmax >21 C over fixed inclusive midwinter dates. Complete daily windows only. This fallback counts warm days, not estimated warm hours or measured chill negation; it is never mixed with hourly statistics or risk ranking.',
+            'summary': stats([s['value'] for s in seasons if s['value'] is not None]),
+            'seasons': seasons}
 
 
 def winter_months(year, hemi):
@@ -183,6 +243,8 @@ def empty_row(year, hemi, start, end):
         'season_start': str(start.date()), 'season_end_exclusive': str(end.date()),
         'status': 'incomplete_chill',
         'chill_hours': None, 'freeze_hours': None, 'freeze_events': None,
+        'warm_midwinter_hours': None,
+        'warm_midwinter_window': [str(day.date()) for day in midwinter_window(year, hemi)],
         'winter_month_tmin_lowest_c': None, 'winter_month_tmean_lowest_c': None, 'freeze_risk_months': None,
         'chill_date': None, 'budbreak_date': None, 'flowering': None, 'fruit': None, 'harvest': None,
         'offset_days': {k: None for k in OFFSETS},
@@ -200,10 +262,18 @@ def season(hourly, daily, lat, year, p):
         raise ValueError('Duplicate daily timestamps')
     row['winter_month_tmin_lowest_c'], row['winter_month_tmean_lowest_c'] = month_means(daily, year, hemi)
     row['freeze_risk_months'] = freeze_risk_months(daily, start, end, p['frost_threshold_c'])
+    warm_start, warm_end = map(pd.Timestamp, row['warm_midwinter_window'])
+    temperatures = hourly.astype(float)
+    midwinter = complete(temperatures, warm_start, warm_end + pd.Timedelta(days=1), 'h')
+    if midwinter is None:
+        row['issues']['warm_midwinter_hours'] = 'missing/nonfinite hourly temperature in fixed midwinter window'
+    else:
+        row['warm_midwinter_hours'] = int((midwinter > p.get('warm_midwinter_threshold_c', 21.0)).sum())
 
-    winter = complete(hourly.astype(float), start, end, 'h')
+    winter = complete(temperatures, start, end, 'h')
     if winter is None:
         row['issues']['chill'] = 'missing/nonfinite hourly temperature in chill window'
+        row['issues']['crop_stages'] = 'No crop windows: the chill window is incomplete.'
         return row
     flags = chill_flags(winter.to_numpy(), p['chill_definition'])
     freezing = winter.to_numpy() <= p['frost_threshold_c']
@@ -211,6 +281,7 @@ def season(hourly, daily, lat, year, p):
     reached = np.cumsum(flags) >= p['chill_requirement_hours']
     if not reached.any():
         row['status'] = 'chill_not_met'
+        row['issues']['crop_stages'] = 'No crop windows: the chill requirement was not reached.'
         return row
     chill_date = winter.index[int(np.argmax(reached))].floor('D')
     row['chill_date'] = str(chill_date.date())
@@ -222,6 +293,7 @@ def season(hourly, daily, lat, year, p):
         if not np.isfinite(t):
             row['status'] = 'incomplete_gdd'
             row['issues']['budbreak'] = f'missing daily mean temperature at {day.date()}'
+            row['issues']['crop_stages'] = 'No crop windows: forcing temperature is incomplete.'
             return row
         total += max(float(t) - p['gdd_base_c'], 0.0)
         if total >= p['gdd_to_budbreak']:
@@ -229,6 +301,7 @@ def season(hourly, daily, lat, year, p):
             break
     if bud is None:
         row['status'] = 'gdd_not_met_within_horizon'
+        row['issues']['crop_stages'] = 'No crop windows: forcing did not reach budbreak within the model horizon.'
         return row
     fa, fb = p['flowering_after_budbreak_days']
     ha, hb = p['harvest_after_flowering_start_days']
@@ -268,6 +341,13 @@ def season(hourly, daily, lat, year, p):
     if wet is not None:
         m['flowering_rain_mm'] = float(wet.sum())
         m['flowering_heavy_rain_days'] = int((wet >= p['heavy_rain_mm']).sum())
+        m['flowering_max_dry_days'] = dry_spell(rain, flowering[0], flowering[1] + d(days=1))
+    flower_max = stage_days(tmax, *flowering)
+    if wet is not None and flower_max is not None:
+        cold_day = flower_max < p.get('pollination_cold_tmax_c', 15.0)
+        wet_day = wet >= p.get('pollination_wet_mm', 1.0)
+        m['flowering_pollination_unfavourable_days'] = int((cold_day | wet_day).sum())
+        m['flowering_cold_dry_days'] = int((cold_day & ~wet_day).sum())
     m['flowering_disease_days'] = disease_days(*flowering)
     m['flowering_vpd_mean_kpa'] = vpd_mean(*flowering)
     hot = stage_days(tmax, *fruit)
@@ -275,29 +355,39 @@ def season(hourly, daily, lat, year, p):
         m['fruit_heat_days'] = int((hot >= p['heat_threshold_c']).sum())
         m['fruit_severe_heat_days'] = int((hot >= p['severe_heat_threshold_c']).sum())
     m['fruit_vpd_mean_kpa'] = vpd_mean(*fruit)
+    m['fruit_disease_days'] = disease_days(*fruit)
+    fruit_cold = stage_days(tmin, *fruit)
+    if fruit_cold is not None:
+        m['fruit_frost_days'] = int((fruit_cold <= 0.0).sum())
+    m['fruit_max_dry_days'] = dry_spell(rain, fruit[0], fruit[1] + d(days=1))
     wet = stage_days(rain, *harvest)
     if wet is not None:
         m['harvest_rain_mm'] = float(wet.sum())
         m['harvest_heavy_rain_days'] = int((wet >= p['heavy_rain_mm']).sum())
     m['harvest_disease_days'] = disease_days(*harvest)
     m['harvest_vpd_mean_kpa'] = vpd_mean(*harvest)
-    m['production_max_dry_days'] = dry_spell(rain, start, harvest[1] + d(days=1))
+    production_start = bud if p.get('require_applicable_calendar') else start
+    m['production_max_dry_days'] = dry_spell(rain, production_start, harvest[1] + d(days=1))
     if 'shortwave_mj_m2_day' in daily:
-        sun = stage_days(daily.shortwave_mj_m2_day.astype(float), start, harvest[1])
+        sun = stage_days(daily.shortwave_mj_m2_day.astype(float), production_start, harvest[1])
         m['production_radiation_mean_mj'] = None if sun is None else float(sun.mean())
-    heat = stage_days(tmean, start, harvest[1])
+    heat = stage_days(tmean, production_start, harvest[1])
     m['production_gdd'] = None if heat is None else float(np.maximum(heat.to_numpy() - p['gdd_base_c'], 0).sum())
 
     reasons = {'tmin': 'missing/nonfinite daily minimum temperature in window',
                'tmax': 'missing/nonfinite daily maximum temperature in window',
                'rain': 'missing/nonfinite/negative/suspect rainfall in window',
-               'rh_t': 'missing/nonfinite humidity or temperature in window',
-               'disease': 'missing/nonfinite temperature, humidity or rainfall in window',
+               'rh_t': 'missing/nonfinite/out-of-range humidity or temperature in window',
+               'disease': 'missing/nonfinite temperature, invalid humidity or missing/negative/suspect rainfall in window',
+               'pollination': 'missing/nonfinite maximum temperature or missing/negative/suspect rainfall in flowering window',
                'sun': 'missing/nonfinite radiation in window',
                'gdd': 'missing/nonfinite daily mean temperature in window'}
     needs = {'flower_tmin_min_c': 'tmin', 'flower_freeze_days': 'tmin', 'flowering_rain_mm': 'rain',
              'flowering_heavy_rain_days': 'rain', 'flowering_disease_days': 'disease', 'flowering_vpd_mean_kpa': 'rh_t',
              'fruit_heat_days': 'tmax', 'fruit_severe_heat_days': 'tmax', 'fruit_vpd_mean_kpa': 'rh_t',
+             'flowering_pollination_unfavourable_days': 'pollination', 'flowering_cold_dry_days': 'pollination',
+             'flowering_max_dry_days': 'rain', 'fruit_max_dry_days': 'rain',
+             'fruit_disease_days': 'disease', 'fruit_frost_days': 'tmin',
              'harvest_rain_mm': 'rain', 'harvest_heavy_rain_days': 'rain', 'harvest_disease_days': 'disease',
              'harvest_vpd_mean_kpa': 'rh_t', 'production_max_dry_days': 'rain',
              'production_radiation_mean_mj': 'sun', 'production_gdd': 'gdd'}
@@ -399,35 +489,109 @@ def classification(rows, p):
     return out
 
 
-def risks(rows, p):
-    """Frequency of years with an event under the profile thresholds. Ranked by frequency, ties in declared order."""
-    ranked = []
-    for name, field, denom_field, label in EVENTS:
-        if name == 'chill_shortfall':
-            values = valid(rows, 'chill_hours', None)
-            k = sum(v < p['chill_requirement_hours'] for v in values)
-            exposure = {'chill_hours': stats(values)}
+def risks(rows, p, classes=None):
+    """Assess each event family using complete per-winter windows, then apply reporting gates."""
+    policy = {'min_frequency': p.get('risk_min_frequency', 0.5),
+              'min_valid_years': p.get('risk_min_valid_years', 12)}
+    classes = classification(rows, p) if classes is None else classes
+    majority = classes['multi_feature']['majority']
+    unsupported = p.get('require_applicable_calendar', False) and majority in (None, 'Evergreen')
+    calendar_reason = (
+        'The evergreen-majority system needs a management-defined crop calendar; the chill-triggered calendar and chill requirement do not apply.'
+        if majority == 'Evergreen' else
+        'The production-system classification is unknown; applicability of the chill-triggered calendar and chill requirement is not established.'
+    )
+    exposures = {key: stats(valid(rows, key, None if key in ROW_METRICS else 'metrics'))
+                 for key in (*ROW_METRICS, *STAGE_METRICS)}
+    frost_source = [{'title': 'NC State: Blueberry freeze damage and protection measures',
+                     'url': 'https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures'}]
+    winter_source = [{'title': 'UF/IFAS: Protecting blueberries from freezes in Florida',
+                      'url': 'https://ask.ifas.ufl.edu/publication/HS216'}]
+    # One entry per family. Additional fields describe exposure, not extra headline risks.
+    definitions = (
+        ('chill_shortfall', 'Winters below the assumed chill requirement', 'chill', ('chill_hours',),
+         f"Winter chill hours <{p['chill_requirement_hours']}. This is a profile assumption, not a measured crop loss threshold.", winter_source),
+        ('flowering_freeze', 'Flowering freeze exposure', 'flower', ('flower_freeze_days', 'flower_tmin_min_c'),
+         f"At least one flowering day with Tmin <={p['damaging_flower_freeze_c']} C. Provisional legacy threshold, not predicted injury.", frost_source),
+        ('fruit_severe_heat', 'Fruit-development severe heat exposure', 'fruit', ('fruit_severe_heat_days', 'fruit_heat_days'),
+         f"At least one fruit-development day with Tmax >={p['severe_heat_threshold_c']} C. Provisional legacy threshold, not measured injury.", []),
+        ('harvest_heavy_rain', 'Harvest heavy-rain exposure', 'harvest', ('harvest_heavy_rain_days', 'harvest_rain_mm'),
+         f"At least one harvest day with rain >={p['heavy_rain_mm']} mm. Operational exposure threshold.", []),
+        ('disease_weather', 'Disease-favourable weather', 'whole', DISEASE_METRICS,
+         f"At least one day across flowering, fruit development and harvest with Tmean {p['disease_temp_min_c']}–{p['disease_temp_max_c']} C inclusive, RH >={p['disease_rh_threshold']}% and rain >={p['disease_rain_threshold_mm']} mm. All three windows must be complete. This daily proxy is provisional, not infection or BAS; UF PP366 requires wetness-duration information.",
+         [{'title': 'UF/IFAS: Blueberry Advisory System', 'url': 'https://ask.ifas.ufl.edu/publication/PP366'}]),
+        ('fruit_frost', 'Fruit-stage frost exposure', 'fruit', ('fruit_frost_days',),
+         'At least one fruit-development day with Tmin <=0 C. Generic exposure, not a berry injury threshold.', frost_source),
+        ('pollination_weather', 'Pollination-unfavourable weather', 'flower',
+         ('flowering_pollination_unfavourable_days', 'flowering_cold_dry_days'),
+         'No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.',
+         [{'title': 'UF/IFAS: Pollination best practices in southern highbush blueberry in Florida',
+           'url': 'https://ask.ifas.ufl.edu/publication/IN1237'}]),
+        ('warm_midwinter', 'Warm midwinter exposure', 'chill', ('warm_midwinter_hours',),
+         'No risk event or loss threshold defined. Count hours >21 C within the fixed midwinter window, independently of chill success. This operational proxy is not measured chill negation.', winter_source),
+        ('flowering_dry_spell', 'Flowering dry-spell exposure', 'flower', ('flowering_max_dry_days',),
+         'No risk event or loss threshold defined. Longest consecutive rain <1 mm run, clipped to flowering; not soil water deficit.', []),
+        ('fruit_dry_spell', 'Fruit-development dry-spell exposure', 'fruit', ('fruit_max_dry_days',),
+         'No risk event or loss threshold defined. Longest consecutive rain <1 mm run, clipped to fruit development; not soil water deficit.', []),
+    )
+    exposure_only = {'pollination_weather', 'warm_midwinter', 'flowering_dry_spell', 'fruit_dry_spell'}
+    by_id = {}
+    for name, label, stage, fields, event_definition, evidence in definitions:
+        if name == 'disease_weather':
+            values = [sum(r['metrics'][key] for key in DISEASE_METRICS) for r in rows
+                      if all(r['metrics'][key] is not None for key in DISEASE_METRICS)]
         else:
-            values = valid(rows, field)
-            k = sum(v >= 1 for v in values)
-            exposure = {field: stats(values)}
-            if name == 'harvest_heavy_rain':
-                exposure['harvest_rain_mm'] = stats(valid(rows, 'harvest_rain_mm'))
-            if name == 'flowering_freeze':
-                exposure['flower_tmin_min_c'] = stats(valid(rows, 'flower_tmin_min_c'))
-            if name == 'fruit_severe_heat':
-                exposure['fruit_heat_days'] = stats(valid(rows, 'fruit_heat_days'))
+            key = fields[0]
+            values = valid(rows, key, None if key in ROW_METRICS else 'metrics')
         n = len(values)
-        ranked.append({'risk': name, 'label': label, 'years_with_event': k, 'valid_years': n,
-                       'frequency': (k / n) if n else None, 'ci95': wilson(k, n), 'exposure': exposure})
-    ranked.sort(key=lambda r: -(r['frequency'] if r['frequency'] is not None else -1))
-    for i, r in enumerate(ranked, 1):
-        r['rank'] = i
-    unranked = {k: stats(valid(rows, k)) for k in ('production_max_dry_days', 'flowering_disease_days', 'harvest_disease_days',
-                                                    'flowering_rain_mm', 'flowering_vpd_mean_kpa', 'fruit_vpd_mean_kpa',
-                                                    'harvest_vpd_mean_kpa', 'production_radiation_mean_mj', 'production_gdd')}
-    return {'ranked': ranked, 'unranked_exposures': unranked,
-            'note': 'Ranked by frequency of winters with at least one event day; ties keep declared order. A single heavy-rain day in a six-week harvest window is near-certain at humid sites, so compare harvest_heavy_rain_days and harvest_rain_mm exposure across sites rather than that frequency alone. No event threshold is defined for the unranked exposures.'}
+        defined = name not in exposure_only
+        k = (sum(v < p['chill_requirement_hours'] for v in values) if name == 'chill_shortfall'
+             else sum(v >= 1 for v in values)) if defined and n else None
+        frequency = k / n if k is not None else None
+        if unsupported and name != 'warm_midwinter':
+            eligibility = 'not_applicable'
+            reason = calendar_reason + ' Calculated exposures are hypothetical only, not applicable crop risks.'
+        elif not defined:
+            eligibility = 'definition_pending'
+            reason = f'Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: {n}/{len(rows)}.'
+        elif n < policy['min_valid_years']:
+            eligibility = 'insufficient_data'
+            reason = f"Only {n}/{len(rows)} complete winters; at least {policy['min_valid_years']} are required."
+            if name == 'disease_weather':
+                reason += ' Every included winter requires complete flowering, fruit and harvest disease weather.'
+            elif name != 'chill_shortfall':
+                reason += ' Missing crop dates or weather are excluded, never counted as zero.'
+        elif frequency < policy['min_frequency']:
+            eligibility = 'below_frequency'
+            reason = f"Event frequency {k}/{n} is below the {policy['min_frequency']:.0%} reporting gate."
+        else:
+            eligibility = 'ranked'
+            reason = f"Event frequency {k}/{n} meets the {policy['min_frequency']:.0%} gate with at least {policy['min_valid_years']} complete winters."
+        by_id[name] = {
+            'risk': name, 'label': label, 'stage': stage, 'years_with_event': k,
+            'valid_years': n, 'total_years': len(rows), 'frequency': frequency,
+            'ci95': wilson(k, n) if k is not None else None,
+            'exposure': {key: exposures[key] for key in fields},
+            'eligibility': eligibility, 'reason': reason, 'rank': None,
+            'event_definition': event_definition, 'evidence': evidence,
+        }
+    ranked = sorted((r for r in by_id.values() if r['eligibility'] == 'ranked'),
+                    key=lambda r: -r['frequency'])
+    previous_frequency, rank = None, None
+    for position, assessment in enumerate(ranked, 1):
+        if assessment['frequency'] != previous_frequency:
+            rank = position
+            previous_frequency = assessment['frequency']
+        assessment['rank'] = rank
+    note = ('Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; '
+            'equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. '
+            'Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; '
+            'compare counts and totals. Dry spells, pollination weather and warm winter remain descriptive exposures.')
+    if unsupported:
+        note += ' ' + calendar_reason + ' Crop-stage exposures and derived event frequencies are hypothetical only.'
+    return {'policy': policy, 'by_id': by_id, 'ranked': ranked,
+            'demoted': [r for r in by_id.values() if r['eligibility'] != 'ranked'],
+            'exposures': exposures, 'note': note}
 
 
 def analyse(hourly, daily, lat, profile_name, years=range(2011, 2026)):
@@ -437,13 +601,17 @@ def analyse(hourly, daily, lat, profile_name, years=range(2011, 2026)):
     statuses = {}
     for r in rows:
         statuses[r['status']] = statuses.get(r['status'], 0) + 1
+    classes = classification(rows, p)
     return {'profile': profile_name, 'assumptions': p, 'hemisphere': hemi,
+            'method': METHOD,
             'years': [years[0], years[-1]], 'status_counts': statuses,
             'chill_hours': stats(valid(rows, 'chill_hours', None)),
             'freeze_hours': stats(valid(rows, 'freeze_hours', None)),
-            'classification': classification(rows, p),
+            'warm_midwinter_hours': stats(valid(rows, 'warm_midwinter_hours', None)),
+            'metric_catalog': METRIC_CATALOG,
+            'classification': classes,
             'calendar': calendar(rows, hemi),
-            'risks': risks(rows, p),
+            'risks': risks(rows, p, classes),
             'seasons': rows}
 
 
@@ -461,7 +629,7 @@ def sensitivity(hourly, daily, lat, names):
                      'mean_based_multi_feature': c['mean_based']['multi_feature'],
                      'flowering_start_median': a['calendar']['flowering_start'].get('median_date'),
                      'harvest_start_median': a['calendar']['harvest_start'].get('median_date'),
-                     'flowering_freeze_frequency': next(r['frequency'] for r in a['risks']['ranked'] if r['risk'] == 'flowering_freeze')}
+                     'flowering_freeze_frequency': a['risks']['by_id']['flowering_freeze']['frequency']}
     return out
 
 
@@ -474,47 +642,111 @@ def fmt(v, digits=1):
 
 
 def render(report):
-    parts = ['<!doctype html><html lang="en"><meta charset="utf-8"><title>Open-field production analysis</title>',
-             '<style>body{font:16px system-ui;max-width:1200px;margin:40px auto;padding:20px;color:#173a3a}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px;border-bottom:1px solid #ccd;text-align:left;vertical-align:top}.scroll{overflow:auto}li{margin:8px 0}h1,h2{color:#176b65}h3{margin-top:28px}.k{font-size:13px;color:#555}</style>',
-             '<h1>Open field + ground: production system, seasonal calendar, stage risks</h1>',
-             f'<p class="k">Method {report["method"]} · primary profile {report["primary_profile"]} · winters {report["years"][0]}–{report["years"][1]} · existing NASA POWER archive, UTC · <strong>assumption-based, not validated, not cultivar advice</strong></p>',
-             '<h2>Assumptions carried from the R workflow</h2>' + table(['Constant', 'Value'], [[k, fmt(v)] for k, v in report['sites'][next(iter(report['sites']))]['analysis']['assumptions'].items()]),
-             '<h2>Deliberate changes from the R source</h2><ul>' + ''.join(f'<li>{x}</li>' for x in CHANGES) + '</ul>',
-             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{x}</li>' for x in LIMITATIONS) + '</ul>']
+    def sources(items):
+        return '<ul>' + ''.join(
+            f'<li><a href="{html.escape(s["url"], quote=True)}">{html.escape(s["title"])}</a></li>'
+            for s in items) + '</ul>' if items else ''
+
+    parts = ['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Open-field production analysis</title>',
+             '<style>body{font:16px system-ui;max-width:1200px;margin:40px auto;padding:20px;color:#222}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px;border-bottom:1px solid #ccc;text-align:left;vertical-align:top}.scroll{overflow:auto}li{margin:8px 0}h3{margin-top:28px}.k{font-size:13px;color:#555}summary{cursor:pointer}</style></head><body>',
+             '<h1>Open field + ground: establishment, bearing calendar and stage risks</h1>',
+             f'<p class="k">Method {html.escape(report["method"])} · primary profile {html.escape(report["primary_profile"])} · winters {report["years"][0]}–{report["years"][1]} · existing NASA POWER archive, UTC · <strong>assumption-based, not validated, not cultivar advice</strong></p>',
+             '<h2>Deliberate changes from the R source</h2><ul>' + ''.join(f'<li>{html.escape(x)}</li>' for x in CHANGES) + '</ul>',
+             '<h2>Limitations</h2><ul>' + ''.join(f'<li>{html.escape(x)}</li>' for x in LIMITATIONS) + '</ul>']
     for name, site in report['sites'].items():
+        parts.append(f'<h2>{html.escape(name)}</h2>')
+        planting = site['planting']
+        parts.append('<h3>Regional establishment guidance</h3>')
+        parts.append(f'<p>{html.escape(planting["label"])}</p>')
+        if planting['window']:
+            w = planting['window']
+            parts.append(f'<p>{html.escape(w["start"])} to {html.escape(w["end"])}'
+                         + (' across the year boundary' if w['crosses_year'] else '') + '.</p>')
+        else:
+            parts.append(f'<p>{html.escape(planting["reason"])}</p>')
+        parts.extend(f'<p>{html.escape(planting[key])}</p>' for key in ('precision', 'basis'))
+        parts.append('<ul>' + ''.join(f'<li>{html.escape(x)}</li>'
+                                     for x in planting['assumptions'] + planting['limitations']) + '</ul>')
+        parts.append(sources(planting['sources']))
         a = site['analysis']
         c, cal, rk = a['classification'], a['calendar'], a['risks']
-        parts.append(f'<h2>{name}</h2><p class="k">{site["latitude"]:.4f}, {site["longitude"]:.4f} · {a["hemisphere"]}ern hemisphere · valid chill winters {a["chill_hours"]["n"]}/15 · season status: {json.dumps(a["status_counts"])}</p>')
-        parts.append('<h3>1. Production-system hypothesis</h3>')
-        parts.append(table(['Rule', 'From multi-year means (R behaviour)', 'Per-year counts E / S / D', 'Two-thirds majority'],
+        catalog = a['metric_catalog']
+        parts.append(f'<p class="k">{site["latitude"]:.4f}, {site["longitude"]:.4f} · {a["hemisphere"]}ern hemisphere · valid chill winters {a["chill_hours"]["n"]}/{len(a["seasons"])} · season status: {html.escape(json.dumps(a["status_counts"]))}</p>')
+        parts.append('<details><summary>Profile assumptions</summary>'
+                     + table(['Constant', 'Value'], [[k, fmt(v)] for k, v in a['assumptions'].items()]) + '</details>')
+        parts.append('<h3>Production-system hypothesis</h3>')
+        parts.append(table(['Rule', 'From multi-year means', 'Per-year counts E / S / D', 'Two-thirds majority'],
                            [[rule, c['mean_based'][rule], ' / '.join(str(c[rule]['year_counts'][k]) for k in CLASSES),
                              f"{c[rule]['majority']} ({fmt(c[rule]['majority_share'], 2)})"] for rule in ('chill_only', 'multi_feature')]))
-        ch = a['chill_hours']
-        parts.append(f'<p>Chill hours ({a["assumptions"]["chill_definition"]}): mean {fmt(ch.get("mean"))}, median {fmt(ch.get("median"))}, p10–p90 {fmt(ch.get("p10"))}–{fmt(ch.get("p90"))}, range {fmt(ch.get("min"))}–{fmt(ch.get("max"))} over {ch["n"]} winters. Winter-month lowest mean Tmin {fmt(c["multi_year_means"]["winter_month_tmin_lowest_c"])} °C; freezing hours mean {fmt(c["multi_year_means"]["freeze_hours"])}.</p>')
-        parts.append('<h3>2. Assumption-based seasonal calendar</h3>')
-        parts.append(table(['Stage', 'Valid winters', 'Median date', 'p10 date', 'p90 date', 'Median offset (days from season start)'],
-                           [[k, cal[k]['n'], cal[k].get('median_date'), cal[k].get('p10_date'), cal[k].get('p90_date'), fmt(cal[k].get('median'))] for k in OFFSETS]))
-        parts.append('<h3>3. Stage risks ranked by frequency of winters with an event</h3>')
-        parts.append(table(['Rank', 'Risk', 'Winters with event / valid', 'Frequency', '95% CI', 'Exposure (mean, median, p90)'],
-                           [[r['rank'], r['label'], f"{r['years_with_event']} / {r['valid_years']}", fmt(r['frequency'], 2),
-                             '–'.join(fmt(x, 2) for x in r['ci95']) if r['ci95'] else 'unavailable',
-                             '; '.join(f"{k}: {fmt(v.get('mean'))}, {fmt(v.get('median'))}, {fmt(v.get('p90'))}" for k, v in r['exposure'].items())] for r in rk['ranked']]))
-        parts.append('<p class="k">Unranked exposures (n, mean, median, p90): ' + '; '.join(f"{k} ({v['n']}, {fmt(v.get('mean'))}, {fmt(v.get('median'))}, {fmt(v.get('p90'))})" for k, v in rk['unranked_exposures'].items()) + '</p>')
-        parts.append(f'<p class="k">{rk["note"]}</p>')
+        parts.append('<h3>Winter weather context</h3>')
+        parts.append('<p>Fixed midwinter exposure is independent of crop dates and chill success. Hours above 21 C do not measure lost chill.</p>')
+        parts.append(table(['Metric', 'Valid winters', 'Mean', 'Median', 'p90', 'Interpretation'],
+                           [[m['label'] + ' (' + m['unit'] + ')', rk['exposures'][m['key']]['n'],
+                             fmt(rk['exposures'][m['key']].get('mean')), fmt(rk['exposures'][m['key']].get('median')),
+                             fmt(rk['exposures'][m['key']].get('p90')), m['note']]
+                            for m in catalog if m['key'] in ROW_METRICS]))
+        parts.append('<h3>Assumption-based bearing calendar</h3>')
+        applicability = rk['by_id']['chill_shortfall']
+        if applicability['eligibility'] == 'not_applicable':
+            parts.append('<p><strong>Hypothetical dates and crop exposures only.</strong> '
+                         + html.escape(applicability['reason']) + '</p>')
+        parts.append(table(['Stage', 'Valid winters', 'Median date', 'p10 date', 'p90 date', 'Median offset from season start'],
+                           [[k, cal[k]['n'], cal[k].get('median_date'), cal[k].get('p10_date'),
+                             cal[k].get('p90_date'), fmt(cal[k].get('median'))] for k in OFFSETS]))
+        parts.append('<h3>Recurring stage risks</h3>')
+        parts.append(f'<p>Reporting policy: event frequency at least {rk["policy"]["min_frequency"]:.0%} in at least {rk["policy"]["min_valid_years"]} complete winters. Exposure frequency is not loss probability.</p>')
+        if rk['ranked']:
+            parts.append(table(['Rank', 'Risk', 'Stage', 'Event winters / valid / total', 'Frequency', '95% CI'],
+                               [[r['rank'], r['label'], r['stage'],
+                                 f"{r['years_with_event']} / {r['valid_years']} / {r['total_years']}",
+                                 fmt(r['frequency'], 2), '–'.join(fmt(x, 2) for x in r['ci95'])]
+                                for r in rk['ranked']]))
+        else:
+            parts.append('<p>No risk qualifies for the recurring-risk list. This does not mean no exposure or no risk. See the assessment reasons below.</p>')
+        parts.append('<h3>All checked risks and descriptive exposures</h3>')
+        for assessment in rk['by_id'].values():
+            parts.append(f'<details><summary>{html.escape(assessment["label"])}: {html.escape(assessment["eligibility"])}</summary>'
+                         + f'<p>{html.escape(assessment["reason"])}</p><p>{html.escape(assessment["event_definition"])}</p>')
+            parts.append(table(['Stage', 'Event winters', 'Valid / total winters', 'Frequency', '95% CI'],
+                               [[assessment['stage'], assessment['years_with_event'],
+                                 f"{assessment['valid_years']} / {assessment['total_years']}",
+                                 fmt(assessment['frequency'], 2),
+                                 '–'.join(fmt(x, 2) for x in assessment['ci95']) if assessment['ci95'] else None]]))
+            parts.append(sources(assessment['evidence']) + '</details>')
+        parts.append(f'<p class="k">{html.escape(rk["note"])}</p>')
+        parts.append('<h3>Crop-stage exposure record</h3>')
+        if applicability['eligibility'] == 'not_applicable':
+            parts.append('<p>All crop-stage values below are descriptive results from a hypothetical calendar, not applicable crop-risk estimates.</p>')
+        parts.append(table(['Metric', 'Stage', 'Valid winters', 'Mean', 'Median', 'p90', 'Interpretation'],
+                           [[m['label'] + ' (' + m['unit'] + ')', m['stage'], rk['exposures'][m['key']]['n'],
+                             fmt(rk['exposures'][m['key']].get('mean')), fmt(rk['exposures'][m['key']].get('median')),
+                             fmt(rk['exposures'][m['key']].get('p90')), m['note']]
+                            for m in catalog if m['key'] not in ROW_METRICS]))
         parts.append('<h3>Sensitivity to chill definition and requirement</h3>')
         parts.append(table(['Profile', 'Definition', 'Requirement h', 'Mean chill h', 'Majority (chill-only)', 'Majority (multi-feature)', 'Mean-based (multi)', 'Flowering start', 'Harvest start', 'Flowering-freeze frequency'],
-                           [[k, v['chill_definition'], v['chill_requirement_hours'], fmt(v['chill_hours_mean']), v['majority_chill_only'], v['majority_multi_feature'], v['mean_based_multi_feature'], v['flowering_start_median'], v['harvest_start_median'], fmt(v['flowering_freeze_frequency'], 2)] for k, v in site['sensitivity'].items()]))
-        parts.append('<h3>Per-winter record (primary profile)</h3>')
-        parts.append(table(['Winter', 'Status', 'Chill h', 'Freeze h', 'Class (chill-only / multi)', 'Chill date', 'Budbreak', 'Flowering', 'Harvest', 'Flower Tmin', 'Freeze days', 'Fruit ≥35 days', 'Harvest rain mm', 'Heavy days', 'Dry spell'],
-                           [[r['winter_year'], r['status'], r['chill_hours'], r['freeze_hours'],
-                             f"{c['per_year'][r['winter_year']]['chill_only']} / {c['per_year'][r['winter_year']]['multi_feature']}",
-                             r['chill_date'], r['budbreak_date'], ' → '.join(r['flowering'] or []) or None, ' → '.join(r['harvest'] or []) or None,
-                             r['metrics']['flower_tmin_min_c'], r['metrics']['flower_freeze_days'], r['metrics']['fruit_severe_heat_days'],
-                             r['metrics']['harvest_rain_mm'], r['metrics']['harvest_heavy_rain_days'], r['metrics']['production_max_dry_days']] for r in a['seasons']]))
-    return '\n'.join(parts) + '</html>'
+                           [[k, v['chill_definition'], v['chill_requirement_hours'], fmt(v['chill_hours_mean']),
+                             v['majority_chill_only'], v['majority_multi_feature'], v['mean_based_multi_feature'],
+                             v['flowering_start_median'], v['harvest_start_median'], fmt(v['flowering_freeze_frequency'], 2)]
+                            for k, v in site['sensitivity'].items()]))
+        parts.append('<h3>Per-winter record</h3>')
+        for row in a['seasons']:
+            parts.append(f'<details><summary>Winter {row["winter_year"]}: {html.escape(row["status"])}</summary>')
+            parts.append(table(['Chill date', 'Budbreak', 'Flowering', 'Fruit development', 'Harvest', 'Fixed midwinter window'],
+                               [[row['chill_date'], row['budbreak_date'], ' to '.join(row['flowering'] or []) or None,
+                                 ' to '.join(row['fruit'] or []) or None, ' to '.join(row['harvest'] or []) or None,
+                                 ' to '.join(row['warm_midwinter_window'])]]))
+            parts.append(table(['Metric', 'Stage', 'Value', 'Missingness reason'],
+                               [[m['label'] + ' (' + m['unit'] + ')', m['stage'],
+                                 row[m['key']] if m['key'] in ROW_METRICS else row['metrics'][m['key']],
+                                 row['issues'].get(m['key'], row['issues'].get('chill', '')
+                                                  if m['key'] in ('chill_hours', 'freeze_hours')
+                                                  else row['issues'].get('crop_stages', '') if m['key'] not in ROW_METRICS else '')]
+                                for m in catalog]))
+            parts.append('</details>')
+    return '\n'.join(parts) + '</body></html>'
 
 
-def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary='legacy_paul_v1'):
+def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary='stage_risks_v2'):
     report = {'method': METHOD, 'primary_profile': primary, 'years': [2011, 2025], 'changes': CHANGES, 'limitations': LIMITATIONS,
               'code_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'sites': {}}
     land = LandMask(root)
@@ -529,6 +761,7 @@ def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary='legacy_paul_v
         hourly = pd.read_parquet(source).set_index('time').tmean_c
         report['sites'][site['name']] = {
             'latitude': site['lat'], 'longitude': site['lon'],
+            'planting': planting_window(site),
             'analysis': analyse(hourly, daily, site['lat'], primary),
             'sensitivity': sensitivity(hourly, daily, site['lat'], list(PROFILES)),
             'daily_provenance': provenance, 'hourly_sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
@@ -539,7 +772,8 @@ def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary='legacy_paul_v
     print(json.dumps({n: {'majority_multi': s['analysis']['classification']['multi_feature']['majority'],
                           'mean_chill': s['analysis']['chill_hours'].get('mean'),
                           'flowering_start': s['analysis']['calendar']['flowering_start'].get('median_date'),
-                          'top_risk': s['analysis']['risks']['ranked'][0]['risk']} for n, s in report['sites'].items()}))
+                          'top_risk': next((r['risk'] for r in s['analysis']['risks']['ranked']), None)}
+                      for n, s in report['sites'].items()}))
 
 
 if __name__ == '__main__':

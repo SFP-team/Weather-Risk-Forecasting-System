@@ -11,10 +11,11 @@ from discover import ROOT, write_json
 from evidence_report import complete, chill, dry_spell
 from evaluation_sites import cell_key
 from postprocess import LandMask, extract
-from production import analyse, sensitivity, PROFILES, CHANGES, LIMITATIONS
+from production import analyse, sensitivity, warm_midwinter_daily, PROFILES, CHANGES, LIMITATIONS
+from planting import planting_window
 
-METHOD='location-evidence-v3'
-PRODUCTION_PROFILE='legacy_paul_v1'
+METHOD='location-evidence-v4'
+PRODUCTION_PROFILE='stage_risks_v2'
 LAND=None
 BUSY=threading.Lock()
 
@@ -82,9 +83,12 @@ def summarize(frame,hourly,lat):
 
 
 def production_block(hourly,padded,lat):
-    """Open-field production analysis for pilot coordinates with hourly temperature; explicit unavailability otherwise."""
+    """Existing-data production analysis; daily warm-weather context is not an hourly calendar substitute."""
     if hourly is None or padded is None:
-        return {'status':'unavailable','reason':'Hourly temperature has not been acquired for this coordinate; chill-triggered calendar and stage risks need complete hourly winters.'}
+        result={'status':'unavailable','reason':'Complete hourly temperature is not exposed for this coordinate by the current location adapter. The chill-triggered calendar and stage risks require a complete extracted hourly series; no substitute calendar is generated.'}
+        if padded is not None:
+            result['warm_midwinter_fallback']=warm_midwinter_daily(padded.set_index('time'),lat)
+        return result
     daily=padded.set_index('time')
     result=analyse(hourly,daily,lat,PRODUCTION_PROFILE)
     result.update(status='available',scope='open_ground',
@@ -102,9 +106,8 @@ def analyze(lat,lon):
     match=next((s for s in known_sites() if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
     site=match or {'name':'Selected location','lat':lat,'lon':lon}
     hourly,hourly_source=hourly_for(lat,lon)
-    padded=None
-    if hourly is not None:
-        padded,_=extract(ROOT,lat,lon,LAND,padding=True)  # 2010 padding for the first northern winter
+    # 2010 padding also covers the first northern daily warm-weather fallback.
+    padded,_=extract(ROOT,lat,lon,LAND,padding=True)
     sp=ROOT/'data/normalized/soilgrids/pilot_soil.json'
     soil=[r for r in json.loads(sp.read_text())['records']
           if abs(r['lat']-lat)<1e-7 and abs(r['lon']-lon)<1e-7] if sp.exists() else []
@@ -113,6 +116,7 @@ def analyze(lat,lon):
     annual,monthly,climatology=summarize(frame.set_index('time'),hourly,lat)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
         'soil':soil,'production':production_block(hourly,padded,lat),'hourly_source':hourly_source,
+        'planting':planting_window(site),
         'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_source['sha256'] if hourly_source else None,
         'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
     result['analysis_id']=hashlib.sha256(json.dumps(result,sort_keys=True,allow_nan=False).encode()).hexdigest()[:20]

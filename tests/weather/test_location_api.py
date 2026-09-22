@@ -34,6 +34,16 @@ class LocationTests(unittest.TestCase):
         block=production_block(None,None,29.)
         self.assertEqual(block['status'],'unavailable')
         self.assertIn('reason',block)
+    def test_no_hourly_keeps_daily_warm_days_distinct_and_excludes_incomplete_winter(self):
+        daily=self.frame.rename_axis('time').reset_index()
+        block=production_block(None,daily,29.)
+        self.assertEqual(block['status'],'unavailable')
+        warm=block['warm_midwinter_fallback']
+        self.assertEqual(warm['unit'],'days')
+        self.assertIsNone(warm['seasons'][0]['value'])
+        self.assertEqual(warm['summary']['n'],14)
+        self.assertEqual(warm['seasons'][1]['value'],93)
+        self.assertNotIn('calendar',block)
     def test_production_attached_with_hourly(self):
         hourly=pd.Series(5.,index=pd.date_range('2010-01-01','2026-01-01',freq='h',inclusive='left'))
         padded=pd.DataFrame({'tmean_c':17.,'tmin_c':-2.2,'tmax_c':36.,'precip_mm':2.,'rh_mean_pct':80.,
@@ -44,7 +54,10 @@ class LocationTests(unittest.TestCase):
         self.assertEqual(block['status_counts'],{'complete':15})
         self.assertEqual(block['classification']['multi_feature']['majority'],'Deciduous')
         self.assertEqual(block['calendar']['chill']['median_date'],'11-03')
-        self.assertEqual(set(block['sensitivity']),{'legacy_paul_v1','legacy_paul_100h_v1','bounded_uf_v1','bounded_uf_100h_v1'})
+        frost=block['risks']['by_id']['fruit_frost']
+        self.assertEqual((frost['years_with_event'],frost['valid_years']), (15,15))
+        self.assertEqual(frost['eligibility'],'ranked')
+        self.assertNotIn('chill_shortfall',[r['risk'] for r in block['risks']['ranked']])
         json.dumps(block,allow_nan=False)
 
     def test_land_mask_excludes_only_marked_placeholder(self):

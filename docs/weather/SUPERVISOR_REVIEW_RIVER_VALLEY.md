@@ -39,3 +39,15 @@ Field risks first. The management layer (tunnel, pots) is applied afterwards and
 - Chill method: chill hours versus Dynamic Model chill portions (the 2026-09-15 data check argues for chill portions; Papanduva changes class).
 - His risk factors came from his own experience rather than a specific paper; the research catalogue is supporting evidence, not his source.
 - Pre-registered expected system, bloom and harvest for the 18 panel sites.
+
+## Implemented interpretation — 2026-09-22
+
+The user subsequently authorized implementation and online planting research. Executed choices, sources and verification are in [production method notes](production/README.md):
+
+- `stage_risks_v2` preserves the existing chill and stage dates, applies individual-winter stage windows, and requires ≥50% recurrence among at least 12 complete winters. Exclusions retain their evidence; “not ranked” does not mean safe.
+- Disease-weather is one ranked family with flowering, fruit-development and harvest counts. Pollination, warm-midwinter, berry-stage frost and stage dry spells are computed; daily fallback counts are explicitly days, not hours.
+- UF/IFAS pollination guidance does not support treating cold rainy days as favourable. The primary daily screen is **Tmax <15 °C OR rain ≥1 mm**; the spoken cold-and-dry hypothesis remains a separate comparison. Neither is a measured pollination-loss model.
+- Reviewed planting guidance supports a **regional establishment season**, not the R's budbreak −105…−30 day formula. One independent window is shown, with source precision and stock/irrigation caveats. It does not predict a first-year harvest.
+- River Valley's preserved model still has median harvest **23 April–2 June**, not early April: harvest heavy rain qualifies in **14/14**, disease-weather in **12/14** assessable winters. The discrepancy is recorded for phenology review; the weather evidence is not suppressed to match the spoken expectation.
+
+These are provisional implementation decisions, not a record of subsequent supervisor sign-off or scientific validation.

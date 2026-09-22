@@ -1,5 +1,7 @@
 <!-- Research scout report (PaulPlantingR), generated 2026-09-21 for the future plan. Read-only literature/code research; claims marked [unverified] are not confirmed. -->
 
+**2026-09-22 implementation note:** this remains a historical code-research report. Its proposed planting-offset/profile changes below were **not adopted**. Primary-source planting research led to one independent regional establishment window; `stage_risks_v2` preserves the earlier chill/phenology constants. See [current methods, sources and evidence](../../weather/production/README.md). Chill portions and broader constant changes remain future work.
+
 ## 1. Findings (R line ranges cited; file is 1,802 lines in the working tree)
 
 ### 1.1 Non-goal sections in one paragraph

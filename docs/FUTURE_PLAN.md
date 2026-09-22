@@ -2,11 +2,13 @@
 
 Date: 2026-09-21. Basis: eight parallel research scouts (Paul's new R file, code audit, crop-modelling second opinion, validation data, genotype layer, management layer, weather inputs, product/deployment), full reports in `docs/research/2026-09-21/`, plus Paul's River Valley review (`docs/weather/SUPERVISOR_REVIEW_RIVER_VALLEY.md`). Effort figures are builder-days for one person working with AI coding assistance at about six productive hours a day; overlaps between scouts have been removed. Calendar time is longer than builder-days because every phase ends with a supervisor review.
 
+Implementation update, 2026-09-22: the user authorized recurrence gating, disease-weather ranking, the four exposure families, one researched planting window and dashboard updates. These now run as `stage_risks_v2`; see [verified methods and sources](weather/production/README.md). Regional establishment guidance replaces the uncited budbreak planting offsets. Chill portions, new phenology constants, management/genotype models and hosted deployment were not part of this change. The user subsequently authorized GitHub publication.
+
 ## 1. Where the project stands
 
-Built and working: global daily weather 2010–2025 for every land cell; hourly temperature for 19 cells; an open-field production chain (`legacy_paul_v1`) that outputs system class, calendar and frequency-ranked risks for any pin with hourly data; a dashboard with 18 presets, a growing-cycle ruler and exports; 79 backend tests.
+Built and working: completed global daily and land-hourly archives for 2010–2025; API hourly access still limited to 19 extracted cells; `stage_risks_v2` with ≥50%/12-winter gating, disease-family ranking and stage exposures; one regional establishment window; 18 updated dashboard presets and HTML/JSON exports. The full backend suite passed 96 tests; 39 production/API tests passed again after an analysis-version metadata fix.
 
-Not built: planting window, risk gating, disease as a ranked risk, management-system effects, genotype shortlist, any scientific validation, station bias correction, team deployment. The science layer still runs on constants that the literature and Paul's own newer R file both contradict (50 h chill anchor, chill hours with no lower bound over six months, +150 GDD budbreak with no source, one harvest offset for all species).
+Not built: arbitrary-cell hourly adapter, calibrated phenology, chill portions in production, management effects, genotype shortlist, scientific validation, station bias correction or team deployment. Legacy chill/GDD/stage constants remain provisional and unchanged; software verification does not resolve their agronomic limitations.
 
 ## 2. What the research found (one line each; details in the reports)
 
@@ -27,15 +29,15 @@ Not built: planting window, risk gating, disease as a ranked risk, management-sy
 
 | # | Work | Days |
 |---|---|---|
-| 1.1 | Prerequisite refactors: metric/risk registry consumed by backend and both JS files; typed result schema (`docs/weather/analysis_schema.json`) validated in tests; `WEATHER_ROOT`/port from environment so the pipeline runs off-server; data-driven preset groups | 3.5 |
-| 1.2 | Risk gating: stage-overlap rule plus configurable frequency threshold; `ranked[]` and `demoted[]` with reasons; UI split | 2 |
-| 1.3 | Disease as ranked risks (flowering, harvest) | 1 |
-| 1.4 | New metrics: pollination-unfavourable days, warm mid-winter hours (hourly, daily fallback), berry-stage freeze, stage-specific dry spell | 2 |
-| 1.5 | Planting window: profile `paul_analogs_v2` (Paul's constants), planting offsets in `season()`/`calendar()`, single window from median budbreak, planting lane in the ruler | 2.5 |
+| 1.1 | Shared metric catalogue implemented and consumed by both JS views. Typed-result validation, environment-configurable root/port and data-driven preset grouping remain future work. | remaining scope |
+| 1.2 | Implemented: individual-winter stage windows, ≥50% recurrence, ≥12 complete winters, `by_id`/`ranked`/`demoted`, reasons and UI split. | complete |
+| 1.3 | Implemented: one disease-weather family with flowering, fruit-development and harvest evidence, not duplicate headline ranks. | complete |
+| 1.4 | Implemented: cold-or-wet pollination proxy plus cold/dry hypothesis comparator; warm midwinter hours and separately labelled daily fallback; berry-stage frost; stage-specific dry spells. No invented loss thresholds. | complete |
+| 1.5 | Implemented: `regional-establishment-v1`, independent of mature-plant budbreak. UF Florida window; UGA/Embrapa winter guidance with coarse seasonal precision. Unsupported regions decline. The R offset proposal was not adopted. | complete |
 | 1.6 | Chill portions as a profile option (`chill_comparison.chill_portions` moved into production), Safe Winter Chill (p10), provisional CP class cuts, both chill quantities shown side by side | 2 |
-| 1.7 | Snapshot regeneration, runbook, changelog, tests | 1 |
+| 1.7 | Snapshots, three-site report, runbook and current tests updated for the authorized scope; later chill-method changes will need fresh verification. | complete for this scope |
 
-Exit: 18 presets show gated risks with reasons, disease ranked, planting window, chill hours and chill portions side by side; Paul reviews River Valley and Papanduva again.
+Current delivered scope: 18 presets show gated risks, disease evidence, new exposures and planting guidance. Phase 1.6 chill portions remains pending. Paul/Gerardo review of River Valley and Papanduva is still needed; modeled River Valley harvest remains 23 April–2 June, not the supervisor's early-April expectation.
 
 ### Phase 2 — Phenology and evidence (≈ 18 builder-days; calendar gated on data)
 
@@ -96,21 +98,21 @@ Critical path: Paul's chill-method decision (needed by Phase 1.6, but both profi
 ## 5. How it gets completed
 
 1. **Every change is a named profile beside `legacy_paul_v1`**, so old and new outputs stay comparable and Paul can see exactly what a rule change does on the 18 presets.
-2. **Registry first.** The metric/risk registry and typed schema (1.1) are done before any new metric, because six of the later items each touch seven places today.
+2. **One metric catalogue.** The implemented backend catalogue feeds both JS views. A broader typed result schema remains future work, not a claim of this delivery.
 3. **Both chill metrics run until the decision**; chill hours stay visible for AgroClimate compatibility, chill portions become primary when Paul signs off.
 4. **Pre-registration before validation.** Paul and Gerardo write expected class, bloom and harvest for the 18 sites before seeing model output; the sheet is checksum-locked.
 5. **Bias study before correction.** Correct Tmin only where the multi-year station comparison shows a stable offset; never correct RH; never apply a lapse rate to Tmin without local evidence.
 6. **Management and genotype layers consume the same site outputs**, so a change in the chill chain flows through without a second convention.
 7. **Deployment stays on the university server**; the team reaches it through Tailscale or Cloudflare Access; the public site keeps serving snapshots only.
-8. **Each phase ends with a supervisor review on the dashboard**, the handover updated, and a push.
+8. **Each phase ends with a supervisor review and a verified handover.** GitHub publication is authorized again as of 2026-09-22; follow the review, privacy and remote-verification rules in `AGENTS.md`. Publication does not authorize hosted deployment.
 
 ## 6. Decisions needed from people
 
 | Decision | Who | Blocks |
 |---|---|---|
 | Chill metric: chill portions primary, hours as comparator | Paul | 1.6, 2.1, 5 |
-| Gating threshold (≈50 % of winters?) and overlap definition | Paul | 1.2 |
-| Planting offsets (budbreak −105…−30 d) are the intended agronomy; spring planting in the SE US? | Gerardo | 1.5 |
+| Review 50% recurrence / 12-winter reporting policy and stage applicability | Paul | implemented provisionally; calibration remains open |
+| Review regional establishment guidance, stock assumptions and coarse GA/Brazil season bounds | Gerardo | local agronomic confirmation; no uncited offset fallback |
 | Cultivar classes and cultivars in scope; conflicting chill values (Primadonna, Sweetcrisp, Magnus, Krewer) | Patricio | 2.1, 5 |
 | Tunnel Tmin offset (0 or +1.5 °C); splitting under cover reduce vs remove | Paul, Gerardo | 4 |
 | Pre-registered expectations for 18 sites | Paul, Gerardo | 2.6 |
