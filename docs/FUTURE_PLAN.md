@@ -6,9 +6,9 @@ Implementation update, 2026-09-22: the user authorized recurrence gating, diseas
 
 ## 1. Where the project stands
 
-Built and working: completed global daily and land-hourly archives for 2010–2025; API hourly access still limited to 19 extracted cells; `stage_risks_v2` with ≥50%/12-winter gating, disease-family ranking and stage exposures; one regional establishment window; 18 updated dashboard presets and HTML/JSON exports. The full backend suite passed 96 tests; 39 production/API tests passed again after an analysis-version metadata fix.
+Built and working: completed global daily and land-hourly archives for 2010–2025; read-only API extraction for supported land cells beyond the 19 indexed cells; `stage_risks_v2` with ≥50%/12-winter gating, disease-family ranking and stage exposures; one regional establishment window; 18 dashboard presets and HTML/JSON exports. The hourly integration passed 102 server tests, real global-point checks and browser verification.
 
-Not built: arbitrary-cell hourly adapter, calibrated phenology, chill portions in production, management effects, genotype shortlist, scientific validation, station bias correction or team deployment. Legacy chill/GDD/stage constants remain provisional and unchanged; software verification does not resolve their agronomic limitations.
+Not built: calibrated phenology, chill portions in production, management effects, genotype shortlist, scientific validation, station bias correction or team deployment. Legacy chill/GDD/stage constants remain provisional and unchanged; software verification does not resolve their agronomic limitations.
 
 ## 2. What the research found (one line each; details in the reports)
 
@@ -54,11 +54,11 @@ Exit: a validation report with numbers; the first honest "validated for defined 
 
 ### Phase 3 — Any coordinate on Earth (≈ 8 builder-days; revised 2026-09-21)
 
-On 2026-09-21 the user authorized a land-only global hourly cache (`pipelines/weather/global_hourly.py`: T2M and dewpoint, 2010–2025, 3,479 land 5×5 blocks, ≈ 29 GB measured). With it, daily→hourly reconstruction and on-demand fetch are no longer needed for chill; they remain as a fallback only if a pin lands in a block the mask calls ocean.
+The authorized land-only T2M/dewpoint cache for 2010–2025 is complete. On 2026-09-22 the API gained read-only checksummed point extraction from it. No daily-to-hourly reconstruction or network fallback is used. Unresolved ocean/island requests are refused; missing or corrupt objects in an installed archive fail closed.
 
 | # | Work | Days |
 |---|---|---|
-| 3.1 | `hourly_for()` reads any land cell from the cached hourly store (`Source`-style slice by cell index), writes the per-cell parquet lazily, reports `hourly_source` from the cache; remove the panel-only path | 1.5 |
+| 3.1 | **Implemented and verified 2026-09-22:** `hourly_for()` reads previously unindexed land cells through the checksummed cache adapter. Existing normalized cells remain a fast path. No new per-cell Parquet cache was needed at measured 0.62–2.04 s analysis latency. | Done |
 | 3.2 | Durable jobs and result cache (SQLite, worker thread, `POST /analyses` → 202) replacing the single lock | 3.5 |
 | 3.3 | Elevation delta warning (DEM lookup vs cell mean), Tmax-only lapse toggle | 2 |
 | 3.4 | Coverage check: pins in ocean-labelled blocks return an explicit `no_hourly_block` state; land-mask edge review on the panel coasts | 1 |

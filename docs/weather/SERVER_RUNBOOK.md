@@ -74,6 +74,8 @@ tmux new-session -d -s blueberry-weather-hourly \
 
 The worker holds `state/worker.lock` while running. **Completed 2026-09-22 01:12 UTC**: 6,958 / 6,958 blocks validated in 4 h 39 min, 20,885 objects, 40.5 GB. Do not restart it; `status` should read `complete`.
 
+The private API now reads this cache through `hourly_archive.py` for unindexed land cells. Deploy it alongside `location_api.py`; restart only `blueberry-ui-api`. The reader opens `jobs.sqlite` with `mode=ro`, verifies cached object hashes, and never instantiates the downloader. Six new synthetic archive regressions and real global-point checks passed on 2026-09-22; no acquisition counters changed. Existing indexed series remain the optimized path. API readiness does not imply scientific validation or soil/planting coverage.
+
 ## Important files
 
 | Path relative to the remote project | Meaning |

@@ -6,7 +6,7 @@ Design revision: 2026-09-22. This replaces the original coordinate-form specific
 
 Help a user choose a location, understand its historical weather evidence, inspect susceptible crop stages and save a reproducible report. This is not a forecast, orchard-suitability verdict or cultivar recommendation.
 
-Global acquisition and global analysis availability are different. The daily archive can answer supported land-point queries through the connected private API. The land-hourly cache is complete, but the API currently exposes 19 indexed hourly cells. Selecting any point on a map must not imply an applicable crop calendar, available soil or regional planting guidance. The broader adapter and service roadmap remain in [FUTURE_PLAN.md](FUTURE_PLAN.md).
+The connected private API reads daily weather and complete hourly series for supported land points from the existing archives. The hourly adapter verifies cached source objects without network fallback; the 19 previously indexed cells retain their normalized series. Selecting a point still does not imply an applicable crop calendar, available soil or regional planting guidance. Missing/corrupt installed hourly objects fail closed. The remaining service roadmap is in [FUTURE_PLAN.md](FUTURE_PLAN.md).
 
 ## User journey
 

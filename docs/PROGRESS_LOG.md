@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-22 — Arbitrary-cell hourly API integration
+
+- Added a read-only checksummed adapter over the completed hourly cache and connected unindexed map requests to it. Existing indexed cells keep their verified normalized series. No downloads, writable acquisition database, unbounded extraction cache or duplicate global arrays.
+- The user's 43.060861, -92.548828 point now returns hourly data, 15 complete modeled winters and two recurring risks. London, Chile, Nairobi and Sydney also worked; measured server analysis times were 0.62–2.04 seconds. Evergreen/chill-not-met results remain explicit rather than invented calendars.
+- Server suite: 102 tests passed, including six new actual-Zarr extraction/integrity regressions. All 18 saved production/annual summaries were unchanged; Citra, Papanduva and Waldo raw/indexed hourly parity passed. Offline smoke checks preserved 59,269,420,065 transferred bytes and 35,853 downloaded objects; offshore refusal passed.
+- Deployed only the adapter/API/test files and restarted the private API. Restored local preview/tunnel and opened the UI. Browser verified the reported coordinate and an actual new map-click selection, hourly coverage, calendar and source-cell identity without page errors. Updated UI coverage copy and operating/design documentation. Soil, regional planting support, scientific validation and hosted deployment remain separate.
+
 ## 2026-09-22 — Map-first UI redesign
 
 - Replaced the long report-first dashboard with a map/location workspace and five assessment views: Overview, Season & exposures, Climate history, Soil & setup, Methods & data. Vendored Leaflet 1.9.4 with its license; OSM supplies attributed geographic tiles only. Search filters saved sites locally; coordinates and map pins support arbitrary-point requests through the existing API.

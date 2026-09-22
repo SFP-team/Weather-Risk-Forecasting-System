@@ -13,6 +13,7 @@ from evaluation_sites import cell_key
 from postprocess import LandMask, extract
 from production import analyse, sensitivity, warm_midwinter_daily, PROFILES, CHANGES, LIMITATIONS
 from planting import planting_window
+from hourly_archive import hourly_from_cache
 
 METHOD='location-evidence-v4'
 PRODUCTION_PROFILE='stage_risks_v2'
@@ -42,12 +43,12 @@ def haversine_km(lat1,lon1,lat2,lon2):
 def hourly_for(lat,lon,root=ROOT):
     """Stored hourly series for the MERRA-2 cell containing the pin, or None. Never fetches."""
     ip=root/'config/hourly_index.json'
-    if not ip.exists():return None,None
+    if not ip.exists():return hourly_from_cache(root,lat,lon)
     index=json.loads(ip.read_text())
     entry=index['cells'].get(cell_key(index['axes'],lat,lon))
-    if not entry:return None,None
+    if not entry:return hourly_from_cache(root,lat,lon)
     path=root/entry['path']
-    if not path.exists():return None,None
+    if not path.exists():raise RuntimeError('Indexed hourly file is missing; refusing analysis')
     if hashlib.sha256(path.read_bytes()).hexdigest()!=entry['parquet_sha256']:
         raise RuntimeError('Stored hourly checksum mismatch; refusing to analyse')
     source={'sha256':entry['parquet_sha256'],'site':entry['site'],'source_lat':entry['source_lat'],'source_lon':entry['source_lon'],
