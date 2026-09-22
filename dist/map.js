@@ -17,7 +17,7 @@ window.LocationMap = (() => {
     if (!root) throw new Error('Location map container was not found.');
     root.classList.add('location-map');
     const canvas = textNode('div', 'location-map-canvas');
-    const help = textNode('p', 'location-map-help', 'Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Coordinate entry is also available in the location panel. OpenStreetMap receives your IP and viewed map area; location search stays within the saved list.');
+    const help = textNode('p', 'location-map-help', 'Scroll or pinch over the map to zoom. Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Coordinate entry is also available in the location panel. OpenStreetMap receives your IP and viewed map area; location search stays within the saved list.');
     help.id = `${root.id || 'location-map'}-help`;
     canvas.setAttribute('aria-label', 'Location map. Select coordinates, then use Analyze location.');
     canvas.setAttribute('aria-describedby', help.id);
@@ -136,7 +136,7 @@ window.LocationMap = (() => {
       map = L.map(canvas, {
         center: [18, 0], zoom: 2, minZoom: 1, maxZoom: 18,
         zoomControl: true, attributionControl: true,
-        keyboard: true, scrollWheelZoom: false, doubleClickZoom: false,
+        keyboard: true, scrollWheelZoom: true, doubleClickZoom: false,
         worldCopyJump: true, zoomAnimation: !reducedMotion,
         fadeAnimation: !reducedMotion, markerZoomAnimation: !reducedMotion
       });

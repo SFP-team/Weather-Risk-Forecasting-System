@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-09-22 — Map wheel zoom
+
+- Enabled scroll-wheel zoom in the map element and updated its interaction help. Existing zoom buttons, keyboard controls and pin-selection behavior remain unchanged.
+- Chromium verification: wheel zoom 2→3→2, no page movement while zooming, unchanged coordinate fields and zero analysis requests. Scrolling outside the map moved the page normally. Visually inspected the zoomed map; JavaScript syntax check passed. No backend changes or tests rerun.
+
 ## 2026-09-22 — Arbitrary-cell hourly API integration
 
 - Added a read-only checksummed adapter over the completed hourly cache and connected unindexed map requests to it. Existing indexed cells keep their verified normalized series. No downloads, writable acquisition database, unbounded extraction cache or duplicate global arrays.

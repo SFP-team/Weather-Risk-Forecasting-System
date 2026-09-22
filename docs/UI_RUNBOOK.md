@@ -4,7 +4,7 @@ Updated 2026-09-22 with the map-first redesign. This is a historical research wo
 
 ## Map-first workflow
 
-- The world map supports click/drag pin placement, keyboard pan/zoom, Enter or Use map center, and a world reset. Saved markers and the local name/region/county filter select a draft location. Coordinate entry remains available without the map. **Analyze is explicit**; map movement does not call the archive.
+- The world map supports mouse-wheel/trackpad scroll zoom while the pointer is over the map, click/drag pin placement, keyboard pan/zoom, Enter or Use map center, and a world reset. Scrolling outside the map scrolls the page. Saved markers and the local name/region/county filter select a draft location. Coordinate entry remains available without the map. **Analyze is explicit**; map movement does not call the archive.
 - The draft pin is separate from the committed assessment. A new selection displays a notice naming the previous result. Cancel aborts the browser request and prevents late responses replacing a newer selection; it does not claim to stop server computation.
 - Five keyboard-operable tabs organize the assessment: Overview, Season & exposures, Climate history, Soil & setup, Methods & data. Overview shows system hypothesis, assumed harvest, recurring-risk cards, descriptive exposure families and one planting guide. Definitions, uncertainty and excluded reasons expand on demand.
 - Stage colours mean stage identity, not severity. Selected-winter cards compare with historical means; exact values, missingness and sources remain expandable. The `stage_risks_v2` production bar starts at budbreak, matching its backend metrics. No scientific value changed.
