@@ -45,7 +45,7 @@ The five assessment views use one tab panel at a time. Tab, arrow keys, Home and
 
 ## Visual and interaction system
 
-Use a warm-white background, dark green text, teal navigation and restrained amber recurrence accents. Stage colours identify categories only. All meaning also appears in words, units and counts. System fonts avoid an external font service. Values use tabular numerals.
+Use the supplied Blueberry Breeding Lab logo, white panels, navy text, blue navigation and restrained amber recurrence accents. Headings name the data or action rather than using slogans. Stage colours identify categories only. All meaning also appears in words, units and counts. System fonts avoid an external font service. Values use tabular numerals.
 
 Desktop places the location controls alongside the map. The assessment starts below with its identity, setup and evidence coverage. Mobile stacks the controls and map, then the assessment. Tables and the timeline scroll within labelled regions rather than widening the page. Interactive targets are at least 44 px where practical; focus rings, semantic headings, reduced-motion support and a coordinate-entry skip link are part of the design.
 

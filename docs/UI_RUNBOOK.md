@@ -1,6 +1,6 @@
 # Climate workspace UI
 
-Updated 2026-09-22 with the map-first redesign. This is a historical research workspace, not a cultivar recommendation or weather forecast. The frontend stays in vanilla JavaScript and uses system fonts, warm-white panels, teal navigation and categorical stage colours. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
+Updated 2026-09-23 with the supplied lab logo and revised interface copy. This is a historical research workspace, not a cultivar recommendation or weather forecast. The frontend stays in vanilla JavaScript and uses system fonts, white panels, navy/blue navigation and categorical stage colours. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
 
 ## Map-first workflow
 

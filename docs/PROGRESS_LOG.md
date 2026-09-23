@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-09-23 — Lab branding and UI copy
+
+- Added the supplied logo as a transparent native-resolution PNG in the header; original AVIF remains untouched and outside publication. Replaced generic branding and promotional headings with concrete climate-analysis labels.
+- Refined navy/blue colours, typography, panel corners and responsive header. Preserved scientific caveats, data definitions and controls.
+- Chromium desktop/mobile inspection passed, logo loaded, all five assessment views fit 390 px without horizontal overflow and no page errors. `node --check` passed for app.js and cycle.js. No backend tests rerun.
+
 ## 2026-09-23 — English-first vector map and local place context
 
 - Confirmed `97c8a3a` was on origin/main before implementation as requested. Replaced Leaflet assets with MapLibre 5.24.0 and an adapted OpenFreeMap Positron style. English/romanized labels, quieter markers, native wheel/pinch/keyboard, source-cell overlay and coordinate fallbacks retained.

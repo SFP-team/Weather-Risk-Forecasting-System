@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Blueberry | Climate workspace</title>
-  <meta name="description" content="Explore a location's historical climate, seasonal weather exposures and regional blueberry planting guidance.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='13' r='8' fill='%23246b60'/%3E%3Ccircle cx='22' cy='13' r='7' fill='%23183d3b'/%3E%3Ccircle cx='16' cy='24' r='7' fill='%23246b60'/%3E%3C/svg%3E">
+  <title>Blueberry Breeding Lab | Climate analysis</title>
+  <meta name="description" content="Historical climate, seasonal weather exposures and regional blueberry planting guidance by location.">
+  <link rel="icon" href="assets/blueberry-breeding-lab.png" type="image/png">
   <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
   <script src="vendor/maplibre-gl.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="places.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
-<header class="top"><a class="brand" href="./"><span class="brand-mark" aria-hidden="true">b.</span><strong>blueberry</strong><span class="brand-sub">Climate workspace</span></a><div class="top-meta"><span class="research-label">Research preview</span><span id="connection" role="status">Checking archive connection</span></div></header>
+<header class="top"><a class="brand" href="./"><img class="lab-logo" src="assets/blueberry-breeding-lab.png" alt="Blueberry Breeding Lab"><span class="brand-sub">Climate analysis</span></a><div class="top-meta"><span id="connection" role="status">Checking archive connection</span></div></header>
 <main>
-  <div class="heading"><div><p class="eyebrow">From a place to its growing conditions</p><h1>See the season. Understand the exposure.</h1><p class="sub">Explore historical weather, then look closer at the stages that matter.</p></div><div class="period"><strong>2011–2025</strong><span>Historical baseline, not a forecast</span></div></div>
+  <div class="heading"><div><p class="eyebrow">Historical weather &amp; crop-stage exposures</p><h1>Climate analysis</h1><p class="sub">Select a location to review weather records and provisional crop dates.</p></div><div class="period"><strong>2011–2025</strong><span>Historical baseline, not a forecast</span></div></div>
   <section class="explorer" aria-label="Choose a location">
     <aside class="location-panel">
-      <div class="panel-heading"><span class="step-number">01</span><h2>Choose your location</h2></div>
-      <p class="small">Drop a pin, enter coordinates or choose a saved location. Then analyze.</p>
+      <div class="panel-heading"><span class="step-number">01</span><h2>Select a location</h2></div>
+      <p class="small">Place a pin, enter coordinates or select a saved location.</p>
       <label for="site-search" class="field-label">Find a saved location</label><input id="site-search" type="search" placeholder="Name, region or county" autocomplete="off" aria-controls="presets">
       <div id="presets" class="preset-list" aria-label="Saved locations"></div><p id="preset-count" class="small" role="status"></p>
       <form id="location-form">
@@ -25,7 +25,7 @@
         <button class="primary" type="submit" id="analyze">Analyze location <span aria-hidden="true">→</span></button>
       </form>
     </aside>
-    <div class="map-panel"><div id="location-map" aria-label="World map for location selection"></div><div class="coverage-note"><span class="coverage-dot" aria-hidden="true"></span><p><strong>Global weather archive. Location-specific evidence.</strong> The connected service reads daily and hourly weather for supported land points from the existing archive. Crop dates remain provisional; soil and planting guidance have separate coverage. A map pin is not a field measurement.</p></div></div>
+    <div class="map-panel"><div id="location-map" aria-label="World map for location selection"></div><div class="coverage-note"><span class="coverage-dot" aria-hidden="true"></span><p><strong>Weather archive coverage.</strong> Daily and hourly weather are available for supported land points. Crop dates are provisional; soil and planting guidance have separate coverage. A map pin is not a field measurement.</p></div></div>
     <section class="selected-place" aria-labelledby="selected-place-heading">
       <div class="selected-place-main" role="status" aria-live="polite" aria-atomic="true"><h3 id="selected-place-heading" class="eyebrow">Selected place</h3><p id="place-state" class="place-state">Finding place names…</p><p id="place-name" class="place-name">-26.312389, -50.080639</p><p id="place-region" class="small">Region and country pending</p><p id="place-coordinates" class="place-coordinates">-26.312389, -50.080639</p></div>
       <div class="selected-place-detail"><p id="place-nearest" class="small">Looking up the nearest represented settlement.</p><p class="small">Approximate reference names, not a street address. Weather uses your exact coordinates.</p><details class="place-data"><summary>Place data &amp; limits</summary><p id="place-note" class="small">Place names load separately from weather evidence.</p><p id="place-source" class="small"></p></details></div>
@@ -47,20 +47,20 @@
     </nav>
     <section id="panel-overview" class="view-panel" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
       <h2 class="sr-only">Location overview</h2><div id="decision-summary" class="summary-grid"></div>
-      <section class="overview-risks" aria-labelledby="risks-heading"><div class="section-title"><div><p class="eyebrow">Historical recurrence, not predicted loss</p><h2 id="risks-heading">What deserves a closer look</h2></div><button type="button" data-open-view="season">Explore the season →</button></div><div id="headline-risks"></div></section>
-      <section aria-labelledby="exposures-heading"><div class="section-title"><div><p class="eyebrow">Descriptive signals</p><h2 id="exposures-heading">Beyond the ranked risks</h2></div><span class="small">Historical means unless labelled otherwise</span></div><div id="exposure-highlights" class="signal-grid"></div></section>
-      <section id="planting" aria-labelledby="planting-heading"><div class="section-title"><div><p class="eyebrow">Establishment, not the annual crop cycle</p><h2 id="planting-heading">A window for new plants</h2></div><span class="badge" id="planting-badge"></span></div><div id="planting-content" class="planting-panel"></div></section>
+      <section class="overview-risks" aria-labelledby="risks-heading"><div class="section-title"><div><p class="eyebrow">Historical recurrence, not predicted loss</p><h2 id="risks-heading">Recurring weather risks</h2></div><button type="button" data-open-view="season">View seasonal exposures →</button></div><div id="headline-risks"></div></section>
+      <section aria-labelledby="exposures-heading"><div class="section-title"><div><p class="eyebrow">Descriptive measures</p><h2 id="exposures-heading">Additional weather exposures</h2></div><span class="small">Historical means unless labelled otherwise</span></div><div id="exposure-highlights" class="signal-grid"></div></section>
+      <section id="planting" aria-labelledby="planting-heading"><div class="section-title"><div><p class="eyebrow">Establishment, not the annual crop cycle</p><h2 id="planting-heading">Regional planting window</h2></div><span class="badge" id="planting-badge"></span></div><div id="planting-content" class="planting-panel"></div></section>
     </section>
-    <section id="panel-season" class="view-panel" role="tabpanel" aria-labelledby="tab-season" tabindex="0" hidden><div id="production" class="production"><div class="section-title"><div><p class="eyebrow">Follow the bearing-plant calendar</p><h2>Season &amp; exposures</h2></div><span class="badge" id="production-badge"></span></div><div id="production-content"></div></div></section>
+    <section id="panel-season" class="view-panel" role="tabpanel" aria-labelledby="tab-season" tabindex="0" hidden><div id="production" class="production"><div class="section-title"><div><p class="eyebrow">Provisional bearing-plant calendar</p><h2>Season &amp; exposures</h2></div><span class="badge" id="production-badge"></span></div><div id="production-content"></div></div></section>
     <section id="panel-climate" class="view-panel" role="tabpanel" aria-labelledby="tab-climate" tabindex="0" hidden>
-      <div class="section-title"><div><p class="eyebrow">Outside the crop calendar</p><h2>The broader climate picture</h2></div><span class="small">Calendar-year and reference-winter context</span></div><div id="risk-cards" class="risk-grid" aria-label="Six weather exposure factors"></div>
+      <div class="section-title"><div><p class="eyebrow">Outside the crop calendar</p><h2>Annual climate summary</h2></div><span class="small">Calendar-year and reference-winter context</span></div><div id="risk-cards" class="risk-grid" aria-label="Six weather exposure factors"></div>
       <div class="chart-pair"><article class="chart-panel"><div class="panel-head"><h3>Monthly climate</h3><select id="monthly-metric" aria-label="Monthly climate metric"><option value="rain_mm">Rainfall · mm/month</option><option value="tmean">Temperature · °C</option><option value="solar">Solar energy · MJ/m²/day</option></select></div><div id="monthly-chart" class="chart"></div></article><article class="chart-panel"><div class="panel-head"><h3>Year-to-year variation</h3><select id="annual-metric" aria-label="Annual climate metric"><option value="chill_hours">Chill · hours</option><option value="rain_mm">Rainfall · mm/year</option><option value="cold_days">Cold exposure · days/year</option><option value="hot_days">Heat exposure · days/year</option><option value="dry_spell">Dry spell · days</option></select></div><div id="annual-chart" class="chart"></div></article></div>
       <details><summary>Annual values and definitions</summary><div id="annual-table" class="table-scroll" tabindex="0" role="region" aria-label="Annual climate values"></div><p class="small">Reference chill is 0–7.2°C inclusive, November through February north / May through August south, UTC. Other annual metrics use January through December. Dry spells stop at year boundaries. Exposure thresholds are not crop-damage estimates.</p></details>
     </section>
-    <section id="panel-site" class="view-panel" role="tabpanel" aria-labelledby="tab-site" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Mapped context, not a field soil test</p><h2>Below the surface</h2></div><span class="badge" id="soil-status"></span></div><div id="soil-content"></div><div class="section-title"><div><p class="eyebrow">Qualitative management assumptions</p><h2 id="management-title"></h2></div><span class="badge">Not calibrated</span></div><div class="management-grid" id="management"></div></section>
-    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Know what the evidence supports</p><h2>Methods, coverage &amp; limits</h2></div></div><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
+    <section id="panel-site" class="view-panel" role="tabpanel" aria-labelledby="tab-site" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Mapped estimates, not a field soil test</p><h2>Soil properties</h2></div><span class="badge" id="soil-status"></span></div><div id="soil-content"></div><div class="section-title"><div><p class="eyebrow">Qualitative management assumptions</p><h2 id="management-title"></h2></div><span class="badge">Not calibrated</span></div><div class="management-grid" id="management"></div></section>
+    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Sources &amp; uncertainty</p><h2>Methods, coverage &amp; limits</h2></div></div><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
   </div>
-  <noscript><p class="notice">This interactive workspace requires JavaScript. No analysis has been loaded.</p></noscript>
-  <footer class="site-footer"><span>blueberry / Climate workspace</span><span>NASA POWER · ISRIC SoilGrids · Unvalidated crop assumptions</span></footer>
+  <noscript><p class="notice">Climate analysis requires JavaScript. No analysis has been loaded.</p></noscript>
+  <footer class="site-footer"><span>Blueberry Breeding Lab / Climate analysis</span><span>NASA POWER · ISRIC SoilGrids · Unvalidated crop assumptions</span></footer>
 </main>
 </body></html>

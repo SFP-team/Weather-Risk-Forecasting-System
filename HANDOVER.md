@@ -4,6 +4,8 @@ Last updated: 2026-09-22. Current phase: arbitrary supported land-point hourly a
 
 ## Implemented and verified
 
+- **Lab branding and copy (2026-09-23):** supplied logo converted to a transparent 440×130 PNG, replacing generic header branding. Original AVIF retained locally, not included in publication. Navy/blue styling, simpler panel corners and concrete research headings replace promotional copy. Scientific caveats and calculations unchanged. Chromium desktop/mobile inspection passed; all five views fit 390 px without horizontal overflow, saved assessment loaded and no page errors. JS syntax checks passed; no backend tests rerun.
+
 - **English-first map and local place names (2026-09-23):** MapLibre 5.24.0 replaces Leaflet, using an adapted OpenFreeMap Positron style with English/romanized labels, quiet saved markers and the existing selected pin/source-grid behavior. Natural Earth local reference resolves containing country/region separately from nearest represented settlement. Saved farm names stay primary. Separate draft/assessment metadata and JSON `location_context` preserve original weather/planting payloads. No external geocoder, weather downloads or backend changes.
 - **Naming verification:** ten global/border/ocean/dateline lookup cases; actual Iowa analysis and unchanged API coordinates/planting; all 18 saved names; out-of-order name resolution; actual named HTML/JSON downloads; blocked geography/map-library fallbacks; desktop/mobile inspection and 390 px overflow check. JS syntax checks passed. Dataset is 2.97 MB compressed; generalized boundaries and sampled settlements are approximate, not addresses. Provider needs external tiles and WebGL; coordinate fallback remains. Raw reference inputs stay on server; licenses and provenance accompany derived bundles.
 
@@ -82,4 +84,4 @@ Follow `AGENTS.md` for evidence and handover updates. On 2026-09-22 the user lif
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action (2026-09-23): confirmed existing revision `97c8a3a` was already pushed before implementing the approved English-first vector map, local geographic names and report metadata. Browser checks passed; reviewed frontend/reference assets are prepared for authorized publication, without pre-claiming this revision's push. No weather acquisition, scientific recalibration, backend deployment or hosted redeployment.
+Latest action (2026-09-23): added the user-approved lab logo and refined typography, panel styling and interface copy. Verified desktop/mobile presentation and prepared selected frontend/documentation changes for publication without pre-claiming the push. Original user image remains untouched and untracked; only the reviewed PNG derivative is included. No backend or scientific changes.
