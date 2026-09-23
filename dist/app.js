@@ -2,12 +2,88 @@
 const $=id=>document.getElementById(id);
 let catalog={}, active=null, serial=0, pendingRequest=null, locationMap=null, currentView='overview';
 let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved assessment';
+let draftPlace=null,activePlace=null;
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
 const mean=a=>{a=good(a);return a.length?a.reduce((s,v)=>s+v,0)/a.length:null};
 const median=a=>{a=good(a).sort((x,y)=>x-y);return a.length?(a[Math.floor((a.length-1)/2)]+a[Math.floor(a.length/2)])/2:null};
 const fmt=(v,d=1)=>v===null||v===undefined?'Unavailable':Number(v).toLocaleString('en-US',{maximumFractionDigits:d});
+function validPoint(p){return Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&Math.abs(p.lat)<=90&&Math.abs(p.lon)<=180}
+function coordinateName(p){return validPoint(p)?`${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}`:'Enter valid coordinates'}
+function assessmentName(){return activePlace?.display_name??coordinateName(active.site)}
+function placeRegion(p){
+  if(p.status==='pending')return 'Country and region pending';
+  if(p.status==='invalid')return 'Latitude −90 to 90; longitude −180 to 180';
+  if(p.status==='unavailable')return 'Country and region unavailable';
+  return [p.region,p.country].filter(Boolean).join(' · ')||'No containing country or region in the reference data';
+}
+function nearestPlace(p){
+  if(p.status==='pending')return 'Looking up the nearest represented settlement.';
+  if(!p.nearest)return 'Nearest represented settlement unavailable.';
+  const distance=p.nearest.distance_km<0.1?'<0.1':fmt(p.nearest.distance_km,1);
+  return `Nearest represented settlement: ${p.nearest.name} · approximately ${distance} km away`;
+}
+function placeNote(p){
+  if(p.status==='pending')return 'Place names are still resolving. Coordinate identity is retained.';
+  if(p.status==='unavailable')return 'Place-name data unavailable. Coordinates and weather evidence remain usable.';
+  if(p.status==='invalid')return 'Enter valid coordinates to look up place names.';
+  return 'Approximate reference names, not a street address.';
+}
+function renderDraftPlace(){
+  const p=draftPlace;if(!p)return;
+  $('place-state').textContent=p.status==='pending'?'Finding place names…':p.status==='resolved'?'Reference names ready':p.status==='invalid'?'Coordinates incomplete':'Place-name data unavailable';
+  $('place-name').textContent=p.display_name;
+  $('place-region').textContent=placeRegion(p);
+  $('place-coordinates').textContent=coordinateName(p);
+  $('place-nearest').textContent=nearestPlace(p);
+  $('place-note').textContent=p.note;
+  $('place-source').textContent=p.source?`Source: ${p.source}`:'';
+  $('place-source').hidden=!p.source;
+  $('selection-label').textContent=p.status==='invalid'?'Enter valid coordinates before analyzing':active&&samePoint(draft,active.site)?'Assessment loaded for these coordinates':p.saved_name?'Saved location · ready to analyze':'New selection · analyze to update evidence';
+  if(validPoint(p))locationMap?.setLabel(p.display_name);
+}
+function renderAssessmentPlace(){
+  if(!active||!activePlace)return;
+  const p=activePlace,name=assessmentName();
+  $('location-name').textContent=name;
+  $('assessment-place-details').textContent=placeRegion(p);
+  $('assessment-place-note').textContent=placeNote(p);
+  $('summary').querySelector('[data-assessment-name]').textContent=name;
+  const cycleLabel=$('production-content').querySelector('.cycle-header .stamp');
+  if(cycleLabel)cycleLabel.textContent=`${name} · Seasonal exposure`;
+  $('place-evidence').innerHTML=`<h3>Place-name context</h3><p>${esc(nearestPlace(p))}</p><p>${esc(p.note)}</p>${p.source?`<p>Source: ${esc(p.source)}</p>`:''}<p>Place names are display context only. They do not change weather coordinates, source cells or planting-region guidance.</p>`;
+}
+function finishPlaceLookup(context,place){
+  // An old lookup may update its committed assessment, never a newer pin or result.
+  if(context!==draftPlace&&context!==activePlace)return;
+  const available=Boolean(place?.source);
+  context.status=available?'resolved':'unavailable';
+  context.label=available?place.label:coordinateName(context);
+  context.display_name=context.saved_name||context.label;
+  context.region=available?place.region:null;
+  context.country=available?place.country:null;
+  context.nearest=available?place.nearest:null;
+  context.source=available?place.source:null;
+  context.note=place?.note||'The local place-name reference could not load. Coordinate entry and weather analysis still work.';
+  if(context===draftPlace)renderDraftPlace();
+  if(context===activePlace)renderAssessmentPlace();
+  updateDraftNotice();
+}
+function placeContext(point,savedName=null){
+  const valid=validPoint(point),label=coordinateName(point);
+  const context={lat:point.lat,lon:point.lon,saved_name:savedName,display_name:savedName||label,label,
+    status:valid?'pending':'invalid',region:null,country:null,nearest:null,source:null,
+    note:valid?'Place names load separately from weather evidence. No coordinates are sent to a geocoder.':'Enter valid coordinates to look up place names.'};
+  if(valid)Promise.resolve().then(()=>window.PlaceNames.lookup(point.lat,point.lon))
+    .then(place=>finishPlaceLookup(context,place),()=>finishPlaceLookup(context,null));
+  return context;
+}
+function setDraftPlace(savedName=null){
+  if(!draftPlace||draftPlace.lat!==draft.lat||draftPlace.lon!==draft.lon||draftPlace.saved_name!==savedName)
+    draftPlace=placeContext(draft,savedName);
+  renderDraftPlace();
+}
 function card(title,value,unit,desc,values,index){const a=good(values);return `<article class="risk"><div class="risk-top"><h3>${title}</h3><span class="risk-index">0${index}</span></div><div class="metric">${fmt(value)}${value===null?'':`<small>${unit}</small>`}</div><p>${desc}</p><div class="detail">${a.length?`${a.length}/15 valid years · range ${fmt(Math.min(...a))}–${fmt(Math.max(...a))}`:'Not acquired for this coordinate'}</div></article>`}
 function bars(id,values,labels,unit){const node=$(id);const w=Math.max(290,node.clientWidth),h=220,p={l:48,r:10,t:16,b:34},valid=good(values);if(!valid.length){node.innerHTML='<p class="small">This metric is unavailable. No values have been substituted.</p>';return}const lo=Math.min(0,...valid),hi=Math.max(...valid,1),y=v=>h-p.b-(v-lo)/(hi-lo)*(h-p.b-p.t),step=(w-p.l-p.r)/values.length;let svg=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(unit)} by ${id==='monthly-chart'?'month':'year'}"><title>${esc(unit)}; exact values available in the data tables or JSON export</title>`;for(let n=0;n<=3;n++){const v=lo+(hi-lo)*n/3;svg+=`<line x1="${p.l}" x2="${w-p.r}" y1="${y(v)}" y2="${y(v)}" stroke="#ebebeb"/><text x="${p.l-8}" y="${y(v)+4}" text-anchor="end">${fmt(v,0)}</text>`}values.forEach((v,i)=>{const x=p.l+step*i;if(v!==null&&Number.isFinite(v))svg+=`<rect class="bar" x="${x+step*.16}" width="${step*.68}" y="${Math.min(y(0),y(v))}" height="${Math.max(1,Math.abs(y(v)-y(0)))}"><title>${labels[i]}: ${fmt(v,2)} ${esc(unit)}</title></rect>`;if(i%Math.ceil(labels.length/(w<400?6:12))===0)svg+=`<text x="${x+step/2}" y="${h-10}" text-anchor="middle">${labels[i]}</text>`});node.innerHTML=svg+'</svg>'}
 function charts(){if(!active)return;const m=$('monthly-metric').value,a=$('annual-metric').value;bars('monthly-chart',active.climatology[m],['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],$('monthly-metric').selectedOptions[0].text);bars('annual-chart',active.annual.map(r=>r[a]),active.annual.map(r=>r.year),$('annual-metric').selectedOptions[0].text)}
@@ -69,7 +145,7 @@ function renderProduction(){
     <article class="prod-panel"><h3>Exposure catalogue</h3><p class="small">${hypothetical?'Crop-stage exposures use hypothetical chill-triggered dates, not an applicable crop calendar. ':''}Warm mid-winter hours are independent winter context. Missing values are not zero; counts and thresholds are not estimates of crop loss.</p><div class="table-scroll" tabindex="0" role="region" aria-label="All exposure summaries"><table class="exposure-table"><thead><tr><th>Metric / unit</th><th>Mean</th><th>Median</th><th>p10 to p90</th><th>Valid winters</th><th>Definition and limits</th></tr></thead><tbody>${exposureRows}</tbody></table></div></article>
     <details><summary>Every winter, all exposure values and missing-data reasons</summary><p class="small">Warm-window end dates are inclusive. Each crop exposure uses that winter's own modelled stage, not a median or timing-spread window.${hypothetical?' Crop-stage values are hypothetical, not applicable risk labels.':''}</p><div class="table-scroll" tabindex="0" role="region" aria-label="Per-winter dates and all exposures"><table class="winter-table"><thead><tr><th>Winter</th><th>Status</th><th>Class</th><th>Chill date</th><th>Budbreak</th><th>Flowering</th><th>Harvest</th><th>Warm winter window</th>${metrics.map(m=>`<th>${esc(m.label)} · ${esc(m.unit)}</th>`).join('')}</tr></thead><tbody>${seasons}</tbody></table></div></details>
     <details><summary>Sensitivity, assumptions and changes from the R workflow</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Profile sensitivity"><table><thead><tr><th>Profile</th><th>Chill definition</th><th>Requirement h</th><th>Mean chill</th><th>Majority</th><th>Flowering start</th><th>Harvest start</th><th>Flowering freeze</th></tr></thead><tbody>${sens}</tbody></table></div><ul class="small">${p.changes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><ul class="small">${p.limitations.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details></div>`;
-  CycleView.mount(node,p,{site:active.site.name,system:$('system').value,view});
+  CycleView.mount(node,p,{site:assessmentName(),system:$('system').value,view});
 }
 const stageNames={chill:'Winter context',flower:'Flowering',fruit:'Fruit development',harvest:'Harvest',whole:'Across crop stages'};
 function showView(name,focus=false){
@@ -121,29 +197,29 @@ function renderOverview(){
     signal('Fruit frost exposure','fruit_frost_days','fruit')+
     signal('Longest flowering dry run','flowering_max_dry_days','flower',`<p>Fruit-development mean: ${fmt(dry?.mean)}${dry?.mean!=null?' days':''}${dry?` · ${dry.n} valid winters`:''}</p>`);
 }
-function render(r){
+function render(r,place){
   if(r.method_version!=='location-evidence-v4'||(r.production?.status==='available'&&r.production.method!=='open-field-production-v2'))
     throw Error('This result uses an older analysis method. Update saved snapshots and the analysis service to location-evidence-v4. Old risk results are not displayed.');
   $('production-content').replaceChildren();
-  active=r;$('results').hidden=false;
-  $('location-name').textContent=r.site.name;
+  active=r;activePlace=place;$('results').hidden=false;
   $('result-origin').textContent=resultOrigin;
   $('coordinate-label').textContent=`${r.site.lat.toFixed(6)}, ${r.site.lon.toFixed(6)} · 2011–2025 · UTC`;
   const ann=r.annual,v=k=>ann.map(a=>a[k]),solar=v('solar'),longest=good(v('dry_spell'));
   $('risk-cards').innerHTML=card('Reference chill',median(v('chill_hours')),'hours','Median reference-winter chill · 0–7.2°C',v('chill_hours'),1)+card('Cold exposure',mean(v('cold_days')),'days/yr','Mean days with minimum temperature <0°C',v('cold_days'),2)+card('Rainfall',mean(v('rain_mm')),'mm/yr','Mean annual total, not harvest rainfall',v('rain_mm'),3)+card('Heat exposure',mean(v('hot_days')),'days/yr','Mean days with maximum temperature ≥35°C',v('hot_days'),4)+card('Dry weather',longest.length?Math.max(...longest):null,'days','Longest within-year dry run · rain <1 mm',v('dry_spell'),5)+card('Radiation',mean(solar),'MJ/m²/day','Mean annual daily shortwave energy',solar,6);
   $('availability').innerHTML=`<span>Daily archive · ${r.provenance.rows} rows</span><span>Hourly source · ${r.hourly_source?`${r.hourly_source.source_lat}, ${r.hourly_source.source_lon} · ${fmt(r.hourly_source.distance_km)} km from pin · ${esc(r.hourly_source.site)}`:'Unavailable for this coordinate'}</span><span>Soil · ${r.soil?.length??0} records; no nearby-site substitution</span><span>Meteorology source cell · ${fmt(r.provenance.sources?.[0]?.distance_km)} km from pin</span>`;
   $('annual-table').innerHTML='<table><thead><tr>'+['Year','Chill h','Cold days','Rain mm','Hot days','Dry spell days','Solar MJ/m²/day'].map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+ann.map(a=>'<tr>'+['year','chill_hours','cold_days','rain_mm','hot_days','dry_spell','solar'].map(k=>`<td>${fmt(a[k])}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
-  $('summary').innerHTML=`<h3>Weather evidence, not a suitability verdict</h3><p>${esc(r.site.name)} has ${fmt(mean(v('rain_mm')))} mm mean annual rainfall across ${good(v('rain_mm')).length} usable years. The longest within-year dry spell is ${fmt(longest.length?Math.max(...longest):null)} days. These are weather exposures, not irrigation need or yield loss.</p><p>Outdoor values remain unchanged across growing setups. Tunnel effects, soil drainage, cultivar suitability and modelled stage dates have not been calibrated.</p><p>Station comparisons show missed cold events in the grid data. Zero recorded cold days is not proof of frost safety. ${r.provenance.screening?.precip_suspect_days?`${r.provenance.screening.precip_suspect_days} suspect rainfall days affect this point; dependent windows are excluded.`:''}</p>`;
+  $('summary').innerHTML=`<h3>Weather evidence, not a suitability verdict</h3><p><span data-assessment-name>${esc(assessmentName())}</span> has ${fmt(mean(v('rain_mm')))} mm mean annual rainfall across ${good(v('rain_mm')).length} usable years. The longest within-year dry spell is ${fmt(longest.length?Math.max(...longest):null)} days. These are weather exposures, not irrigation need or yield loss.</p><p>Outdoor values remain unchanged across growing setups. Tunnel effects, soil drainage, cultivar suitability and modelled stage dates have not been calibrated.</p><p>Station comparisons show missed cold events in the grid data. Zero recorded cold days is not proof of frost safety. ${r.provenance.screening?.precip_suspect_days?`${r.provenance.screening.precip_suspect_days} suspect rainfall days affect this point; dependent windows are excluded.`:''}</p>`;
   $('provenance').innerHTML=`<p>Method: ${esc(r.method_version)} · Baseline 2011–2025 · UTC. Analysis ID: ${esc(r.analysis_id??'saved-snapshot')}.</p><p>Meteorology: 0.5° × 0.625°; solar: 1° × 1°. Each variable retains its source grid. Shared weather cells do not resolve parcel differences. Values are uncorrected gridded estimates.</p><p><a href="https://power.larc.nasa.gov/docs/services/aws/" target="_blank" rel="noreferrer">NASA POWER source</a> · <a href="https://docs.isric.org/globaldata/soilgrids/" target="_blank" rel="noreferrer">SoilGrids source</a></p><pre>${esc(JSON.stringify(r.provenance.sources,null,2))}</pre>`;
   management();showView('overview');charts();locationMap?.setEvidence(r);
-  $('status').textContent=`Assessment ready for ${r.site.name}. Historical evidence, not a forecast.`;
+  renderAssessmentPlace();renderDraftPlace();
+  $('status').textContent='Assessment ready. Historical evidence, not a forecast.';
   updateDraftNotice();
 }
 function samePoint(a,b){return a&&b&&Math.abs(a.lat-b.lat)<1e-7&&Math.abs(a.lon-b.lon)<1e-7}
 function updateDraftNotice(){
   const changed=active&&!samePoint(draft,active.site);
   $('draft-notice').hidden=!changed;
-  if(changed)$('draft-notice').textContent=`A new pin is selected. The assessment below still belongs to ${active.site.name} (${active.site.lat.toFixed(4)}, ${active.site.lon.toFixed(4)}). Choose Analyze location to replace it.`;
+  if(changed)$('draft-notice').textContent=`A new location is selected. The assessment below still belongs to ${assessmentName()} (${active.site.lat.toFixed(4)}, ${active.site.lon.toFixed(4)}). Choose Analyze location to replace it.`;
 }
 function setBusy(busy){
   $('analyze').disabled=busy;$('cancel-analysis').hidden=!busy;
@@ -157,10 +233,11 @@ function cancelRequest(){
 }
 function selectLocation(lat,lon,name='Selected point',{recenter=true}={}){
   cancelRequest();
-  draft={lat,lon,name};$('latitude').value=lat;$('longitude').value=lon;
-  $('selection-label').textContent=`${name}${catalog[name]?' · saved location':' · not yet analyzed'}`;
-  locationMap?.setSelection(lat,lon,{label:name,recenter});
-  document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===name)));
+  const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
+  draft={lat,lon,name:saved?.site.name??name};$('latitude').value=lat;$('longitude').value=lon;
+  setDraftPlace(saved?.site.name);
+  locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter});
+  document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
   $('error').hidden=true;updateDraftNotice();
 }
 function selectSaved(name){
@@ -183,7 +260,9 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
   const request=++serial,controller=new AbortController();pendingRequest=controller;
   const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
   draft={lat,lon,name:saved?.site.name??'Selected point'};
-  locationMap?.setSelection(lat,lon,{label:draft.name,recenter});
+  setDraftPlace(saved?.site.name);
+  const requestedPlace=draftPlace;
+  locationMap?.setSelection(lat,lon,{label:requestedPlace.display_name,recenter});
   $('latitude').value=lat;$('longitude').value=lon;
   $('error').hidden=true;$('draft-notice').hidden=true;$('results').hidden=true;
   $('status').textContent=saved?'Opening saved location evidence…':'Reading the private historical archive. No new weather download is requested.';
@@ -201,13 +280,13 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
     }
     if(request!==serial)return;
     resultOrigin=saved?'Saved location assessment':'Connected archive assessment';
-    render(result);
-    $('selection-label').textContent=`${result.site.name} · assessment loaded`;
+    const resultPlace=result.site.lat===lat&&result.site.lon===lon?requestedPlace:placeContext(result.site,saved?.site.name);
+    render(result,resultPlace);
     if(focusResult){
       $('location-name').focus({preventScroll:true});
       $('results').scrollIntoView({block:'start',behavior:'instant'});
     }
-    return {location:result.site.name,status:'ready'};
+    return {location:assessmentName(),status:'ready'};
   }catch(e){
     if(request===serial){
       $('error').textContent=e.name==='AbortError'?'Analysis timed out. No result was substituted. Saved locations remain available.':e.message;
@@ -234,9 +313,12 @@ $('presets').addEventListener('click',e=>{const b=e.target.closest('[data-site]'
 for(const id of ['latitude','longitude'])$(id).addEventListener('input',()=>{
   cancelRequest();
   const lat=$('latitude').valueAsNumber,lon=$('longitude').valueAsNumber;
-  draft={lat,lon,name:'Entered coordinates'};
-  if(Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat)<=90&&Math.abs(lon)<=180)locationMap?.setSelection(lat,lon,{label:'Entered coordinates',recenter:false});
-  $('selection-label').textContent='Coordinates changed · analyze to update evidence';updateDraftNotice();
+  const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
+  draft={lat,lon,name:saved?.site.name??'Entered coordinates'};
+  setDraftPlace(saved?.site.name);
+  if(validPoint(draft))locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter:false});
+  document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
+  updateDraftNotice();
 });
 $('location-form').addEventListener('submit',e=>{e.preventDefault();analyze($('latitude').valueAsNumber,$('longitude').valueAsNumber)});
 $('cancel-analysis').onclick=cancelRequest;
@@ -267,15 +349,19 @@ function download(content,type,name){
 $('export-json').onclick=()=>{
   if(!active)return;
   const view=document.querySelector('.cycle-panel')?.dataset;
-  download(JSON.stringify({...active,management:systems[$('system').value][0],management_evidence:'qualitative only',
+  download(JSON.stringify({...active,location_context:activePlace,management:systems[$('system').value][0],management_evidence:'qualitative only',
     cycle_view:view?.winter?{winter:view.winter,stage:view.stage}:null},null,2),'application/json','blueberry-assessment.json');
 };
 $('export').onclick=async()=>{
   if(!active)return;
-  const button=$('export'),snapshot=active,system=systems[$('system').value][0];
+  const button=$('export'),snapshot=active,placeSnapshot={...activePlace},system=systems[$('system').value][0];
   // Render hidden climate charts at their real width before cloning the immutable report.
   const previous=currentView;showView('climate');charts();
   const content=$('results').cloneNode(true);showView(previous);
+  if(placeSnapshot.status==='pending'){
+    content.querySelector('#assessment-place-note').textContent='Place names were still resolving when this report was saved. Coordinate identity is retained.';
+    content.querySelector('#place-evidence').textContent='Place names were pending at export. No settlement, country or region was assigned. Weather coordinates and planting-region guidance are unchanged.';
+  }
   content.querySelectorAll('.actions,.view-tabs,.cycle-stage-controls,[data-open-view],[data-explore-stage]').forEach(n=>n.remove());
   content.querySelector('.cycle-panel')?.classList.add('is-snapshot');
   content.querySelectorAll('.view-panel').forEach(p=>{
@@ -291,11 +377,13 @@ $('export').onclick=async()=>{
     const styles=await Promise.all(['style.css','cycle.css'].map(async path=>{
       const res=await fetch(path);if(!res.ok)throw Error('Report styles could not load. No incomplete report was saved.');return res.text();
     }));
-    download(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(snapshot.site.name)} | Blueberry assessment</title><style>${styles.join('\n')}</style></head><body class="export-document"><main><p class="stamp export-heading">Historical baseline 2011–2025 · ${esc(system)} · ${esc(snapshot.analysis_id??'saved-snapshot')}</p>${content.outerHTML}</main></body></html>`,'text/html','blueberry-assessment.html');
+    download(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(placeSnapshot.display_name)} | Blueberry assessment</title><style>${styles.join('\n')}</style></head><body class="export-document"><main><p class="stamp export-heading">Historical baseline 2011–2025 · ${esc(system)} · ${esc(snapshot.analysis_id??'saved-snapshot')}</p>${content.outerHTML}</main></body></html>`,'text/html','blueberry-assessment.html');
   }catch(e){$('error').textContent=e.message;$('error').hidden=false}
   finally{button.disabled=false}
 };
 async function initialize(){
+  const initialDraft=draft;
+  setDraftPlace();
   try{
     const res=await fetch('snapshots.json');if(!res.ok)throw Error('Saved location index could not load.');
     catalog=(await res.json()).sites;presets();
@@ -303,9 +391,9 @@ async function initialize(){
   if(typeof LocationMap!=='undefined'){
     locationMap=LocationMap.mount('location-map',{sites:Object.values(catalog),
       onSelect:({lat,lon})=>selectLocation(lat,lon,'Map pin',{recenter:false}),onPreset:selectSaved});
-    locationMap.setSelection(draft.lat,draft.lon,{label:draft.name,recenter:false});
+    if(validPoint(draft))locationMap.setSelection(draft.lat,draft.lon,{label:draftPlace.display_name,recenter:false});
   }else $('location-map').innerHTML='<p class="notice">The map could not load. Coordinate entry and saved locations still work.</p>';
-  if(catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
+  if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
 }
 initialize();
 $('connection').textContent='Saved locations · archive not connected';

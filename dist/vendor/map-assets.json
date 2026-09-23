@@ -1,0 +1,39 @@
+{
+  "maplibre": {
+    "version": "5.24.0",
+    "reason": "Pinned stable classic-script v5 release, matching the provider quick-start integration.",
+    "license": "BSD-3-Clause",
+    "files": [
+      {
+        "file": "maplibre-gl.js",
+        "url": "https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js",
+        "sha256": "45a9b07a9189ce56054c620a947ccf41e291e58c95e9b61533b740aaa65ee5cb"
+      },
+      {
+        "file": "maplibre-gl.css",
+        "url": "https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css",
+        "sha256": "ab1e70d59ec40465bae7e7030da2f3ccf28133fd502e62bd598eefbadfd7a732"
+      },
+      {
+        "file": "maplibre-LICENSE.txt",
+        "url": "https://unpkg.com/maplibre-gl@5.24.0/LICENSE.txt",
+        "sha256": "ee5fc05a0677eaf69601d2c7db0d9ecd6cc27c3abc1d0733bc9ed34707cf8ef2"
+      }
+    ]
+  },
+  "style": {
+    "file": "openfreemap-positron-en.json",
+    "source": "https://tiles.openfreemap.org/styles/positron",
+    "retrieved": "2026-09-23",
+    "sha256": "d7507e86eae0946a6648d4863a6886eb9e58b0a25c4210107a8c0317029051d5",
+    "license": "openfreemap-positron-LICENSE.txt",
+    "changes": "English name:en/name_en, then name:latin, then local name; empty names skipped. Muted water and airport labels. Stronger country and region boundaries, quieter local boundaries. No relief, satellite, terrain or 3D layers."
+  },
+  "service": {
+    "provider": "OpenFreeMap",
+    "terms": "https://openfreemap.org/tos/",
+    "privacy": "https://openfreemap.org/privacy/",
+    "policy_checked": "2026-09-23",
+    "notes": "Public tiles need no key and have no stated request limits; service is as-is without an SLA. Provider/CDN receives IP and map resource requests. No geocoding requests."
+  }
+}

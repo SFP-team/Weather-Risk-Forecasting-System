@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-23 — English-first vector map and local place context
+
+- Confirmed `97c8a3a` was on origin/main before implementation as requested. Replaced Leaflet assets with MapLibre 5.24.0 and an adapted OpenFreeMap Positron style. English/romanized labels, quieter markers, native wheel/pinch/keyboard, source-cell overlay and coordinate fallbacks retained.
+- Added browser-local Natural Earth lookup: 258 country/territory areas, 4,596 admin areas and 7,295 sampled settlements in a 2.97 MB compressed bundle. Polygon containment assigns country/region; nearest represented settlement and great-circle distance are separate. Raw source cache stays on server. Public-domain provenance, source hashes and reproducible generator included.
+- Place cards, assessment/cycle headings and actual HTML/JSON reports now retain resolved display context without changing API site, coordinates, science, planting or analysis ID. Async guards keep old name responses from overwriting newer pins/reports. Saved farm names remain primary.
+- Verified ten global/border/ocean/dateline points, real Iowa analysis, all 18 saved names, delayed out-of-order naming, actual downloads, blocked map-library/reference-data fallbacks and desktop/mobile layout. Syntax checks passed. Boundaries/settlement coverage remain approximate; no geocoder queries, backend changes or hosted deployment.
+
 ## 2026-09-22 — Map wheel zoom
 
 - Enabled scroll-wheel zoom in the map element and updated its interaction help. Existing zoom buttons, keyboard controls and pin-selection behavior remain unchanged.

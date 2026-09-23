@@ -5,8 +5,8 @@
   <title>Blueberry | Climate workspace</title>
   <meta name="description" content="Explore a location's historical climate, seasonal weather exposures and regional blueberry planting guidance.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='13' r='8' fill='%23246b60'/%3E%3Ccircle cx='22' cy='13' r='7' fill='%23183d3b'/%3E%3Ccircle cx='16' cy='24' r='7' fill='%23246b60'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
-  <script src="vendor/leaflet.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="app.js" defer></script>
+  <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
+  <script src="vendor/maplibre-gl.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="places.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
@@ -26,12 +26,16 @@
       </form>
     </aside>
     <div class="map-panel"><div id="location-map" aria-label="World map for location selection"></div><div class="coverage-note"><span class="coverage-dot" aria-hidden="true"></span><p><strong>Global weather archive. Location-specific evidence.</strong> The connected service reads daily and hourly weather for supported land points from the existing archive. Crop dates remain provisional; soil and planting guidance have separate coverage. A map pin is not a field measurement.</p></div></div>
+    <section class="selected-place" aria-labelledby="selected-place-heading">
+      <div class="selected-place-main" role="status" aria-live="polite" aria-atomic="true"><h3 id="selected-place-heading" class="eyebrow">Selected place</h3><p id="place-state" class="place-state">Finding place names…</p><p id="place-name" class="place-name">-26.312389, -50.080639</p><p id="place-region" class="small">Region and country pending</p><p id="place-coordinates" class="place-coordinates">-26.312389, -50.080639</p></div>
+      <div class="selected-place-detail"><p id="place-nearest" class="small">Looking up the nearest represented settlement.</p><p class="small">Approximate reference names, not a street address. Weather uses your exact coordinates.</p><details class="place-data"><summary>Place data &amp; limits</summary><p id="place-note" class="small">Place names load separately from weather evidence.</p><p id="place-source" class="small"></p></details></div>
+    </section>
   </section>
   <div class="request-bar"><p id="status" role="status" aria-live="polite">Loading saved evidence…</p><button id="cancel-analysis" type="button" hidden>Cancel request</button></div>
   <div id="error" class="notice error-notice" role="alert" hidden></div>
   <p id="draft-notice" class="notice" hidden></p>
   <div id="results" hidden>
-    <section class="result-head" aria-label="Assessment identity"><div><p class="eyebrow" id="result-origin">Saved assessment</p><h2 id="location-name" tabindex="-1"></h2><p id="coordinate-label" class="small"></p></div><div class="actions"><label class="setup-select">Growing setup<select id="system"><option value="open_ground">Open field + ground</option><option value="open_pots">Open field + pots</option><option value="tunnel_ground">Tunnel + ground</option><option value="tunnel_pots">Tunnel + pots</option></select></label><button id="change-location" type="button">Change location</button><button id="export" type="button">Save report</button><button id="export-json" type="button" aria-label="Download analysis JSON">JSON</button></div></section>
+    <section class="result-head" aria-label="Assessment identity"><div><p class="eyebrow" id="result-origin">Saved assessment</p><h2 id="location-name" tabindex="-1"></h2><p id="assessment-place-details" class="small"></p><p id="coordinate-label" class="small"></p><p id="assessment-place-note" class="small"></p></div><div class="actions"><label class="setup-select">Growing setup<select id="system"><option value="open_ground">Open field + ground</option><option value="open_pots">Open field + pots</option><option value="tunnel_ground">Tunnel + ground</option><option value="tunnel_pots">Tunnel + pots</option></select></label><button id="change-location" type="button">Change location</button><button id="export" type="button">Save report</button><button id="export-json" type="button" aria-label="Download analysis JSON">JSON</button></div></section>
     <div id="coverage-summary" class="coverage-summary" aria-label="Available evidence"></div>
     <p id="setup-note" class="small setup-note">Weather values describe open-field conditions. Growing setup changes notes, not the numbers.</p>
     <nav class="view-tabs" role="tablist" aria-label="Assessment views">
@@ -54,7 +58,7 @@
       <details><summary>Annual values and definitions</summary><div id="annual-table" class="table-scroll" tabindex="0" role="region" aria-label="Annual climate values"></div><p class="small">Reference chill is 0–7.2°C inclusive, November through February north / May through August south, UTC. Other annual metrics use January through December. Dry spells stop at year boundaries. Exposure thresholds are not crop-damage estimates.</p></details>
     </section>
     <section id="panel-site" class="view-panel" role="tabpanel" aria-labelledby="tab-site" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Mapped context, not a field soil test</p><h2>Below the surface</h2></div><span class="badge" id="soil-status"></span></div><div id="soil-content"></div><div class="section-title"><div><p class="eyebrow">Qualitative management assumptions</p><h2 id="management-title"></h2></div><span class="badge">Not calibrated</span></div><div class="management-grid" id="management"></div></section>
-    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Know what the evidence supports</p><h2>Methods, coverage &amp; limits</h2></div></div><div id="summary" class="notice"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
+    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Know what the evidence supports</p><h2>Methods, coverage &amp; limits</h2></div></div><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
   </div>
   <noscript><p class="notice">This interactive workspace requires JavaScript. No analysis has been loaded.</p></noscript>
   <footer class="site-footer"><span>blueberry / Climate workspace</span><span>NASA POWER · ISRIC SoilGrids · Unvalidated crop assumptions</span></footer>

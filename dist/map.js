@@ -1,26 +1,53 @@
-/* Leaflet 1.9.4 is vendored in vendor/. Tiles follow the OSM tile usage policy. */
+/* MapLibre GL JS 5.24.0 and the adapted OpenFreeMap Positron style are in vendor/. */
 window.LocationMap = (() => {
   'use strict';
 
+  const assetBase = new URL('vendor/', document.currentScript?.src || document.baseURI);
+  const mercatorLimit = 85.0511287798066;
+  const emptyFeatures = {type: 'FeatureCollection', features: []};
   const coordinatesValid = (lat, lon) => Number.isFinite(lat) && Number.isFinite(lon)
     && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
   const coordinateText = (lat, lon) => `${lat.toFixed(5)}°, ${lon.toFixed(5)}°`;
+  const wrapLongitude = lon => ((lon + 180) % 360 + 360) % 360 - 180;
   const textNode = (tag, className, text) => {
     const node = document.createElement(tag);
     node.className = className;
     if (text) node.textContent = text;
     return node;
   };
+  const link = (text, href) => {
+    const node = textNode('a', '', text);
+    node.href = href;
+    node.target = '_blank';
+    node.rel = 'noopener noreferrer';
+    return node;
+  };
+
+  function cellGeometry(lat, lon) {
+    const south = Math.max(-mercatorLimit, lat - 0.25);
+    const north = Math.min(mercatorLimit, lat + 0.25);
+    if (south >= north) return emptyFeatures;
+    const west = lon - 0.3125;
+    const east = lon + 0.3125;
+    const intervals = west < -180 ? [[west + 360, 180], [-180, east]]
+      : east > 180 ? [[west, 180], [-180, east - 360]] : [[west, east]];
+    const polygons = intervals.map(([left, right]) => [
+      [[left, south], [right, south], [right, north], [left, north], [left, south]]
+    ]);
+    return {
+      type: 'Feature', properties: {},
+      geometry: {type: 'MultiPolygon', coordinates: polygons}
+    };
+  }
 
   function mount(id, {sites = [], onSelect, onPreset} = {}) {
     const root = typeof id === 'string' ? document.getElementById(id) : id;
     if (!root) throw new Error('Location map container was not found.');
     root.classList.add('location-map');
     const canvas = textNode('div', 'location-map-canvas');
-    const help = textNode('p', 'location-map-help', 'Scroll or pinch over the map to zoom. Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Coordinate entry is also available in the location panel. OpenStreetMap receives your IP and viewed map area; location search stays within the saved list.');
+    const help = textNode('p', 'location-map-help', 'Scroll or pinch to zoom. Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Drag the selected pin to move it. Then use Analyze location. Coordinate entry is always available. OpenFreeMap and its CDN receive your IP and viewed map area; place lookup stays in your browser. ');
     help.id = `${root.id || 'location-map'}-help`;
-    canvas.setAttribute('aria-label', 'Location map. Select coordinates, then use Analyze location.');
-    canvas.setAttribute('aria-describedby', help.id);
+    help.append(link('Map privacy', 'https://openfreemap.org/privacy/'));
     const toolbar = textNode('div', 'location-map-toolbar');
     const world = textNode('button', 'location-map-world', 'World view');
     world.type = 'button';
@@ -33,7 +60,7 @@ window.LocationMap = (() => {
       textNode('span', 'location-map-key location-map-key-selected', 'Selected point')
     );
     toolbar.append(world, center, legend);
-    const caption = textNode('p', 'location-map-caption', 'Basemap is geographic context, not weather risk. Saved pins are saved analyses, not all supported areas.');
+    const caption = textNode('p', 'location-map-caption', 'Basemap is geographic context, not weather risk. Saved pins are saved analyses, not all supported areas. Labels prefer English, then romanized names where available. Boundaries are reference data, not a legal determination.');
     const evidence = textNode('p', 'location-map-evidence');
     evidence.hidden = true;
     const warning = textNode('p', 'location-map-warning');
@@ -44,63 +71,122 @@ window.LocationMap = (() => {
 
     let map = null;
     let selected = null;
-    let grid = null;
+    let selection = null;
+    let gridData = null;
+    let styleReady = false;
     let failed = false;
+    let mapMessage = '';
+    let latitudeMessage = '';
+    let waitingTimer = null;
+    let styleTimer = null;
+    let styleRequest = null;
+    let basemapInstalled = false;
+    let resourceFailed = false;
+    const updateWarning = () => {
+      warning.textContent = [mapMessage, latitudeMessage].filter(Boolean).join(' ');
+      warning.hidden = !warning.textContent;
+    };
     const warn = message => {
-      warning.textContent = message;
-      warning.hidden = !message;
+      mapMessage = message;
+      updateWarning();
+    };
+    const syncEvidence = () => {
+      if (!map || failed || !styleReady) return;
+      const source = map.getSource('weather-source-cell');
+      if (source) {
+        source.setData(gridData || emptyFeatures);
+      } else if (gridData) {
+        map.addSource('weather-source-cell', {type: 'geojson', data: gridData});
+        map.addLayer({
+          id: 'weather-source-cell-fill', type: 'fill', source: 'weather-source-cell',
+          paint: {'fill-color': '#b88544', 'fill-opacity': 0.12}
+        });
+        map.addLayer({
+          id: 'weather-source-cell-line', type: 'line', source: 'weather-source-cell',
+          paint: {'line-color': '#8b561c', 'line-width': 2, 'line-opacity': 0.95, 'line-dasharray': [3, 2]}
+        });
+      }
     };
     const clearEvidence = () => {
-      if (map && grid) map.removeLayer(grid);
-      grid = null;
+      gridData = null;
+      syncEvidence();
       evidence.hidden = true;
       evidence.textContent = '';
     };
     const failMap = () => {
+      if (failed) return;
       failed = true;
+      clearTimeout(waitingTimer);
+      clearTimeout(styleTimer);
+      styleRequest?.abort();
       if (map) map.remove();
       map = null;
       canvas.hidden = true;
       toolbar.hidden = true;
       help.hidden = true;
+      latitudeMessage = '';
       warn('The interactive map could not load. Enter coordinates or choose a saved analysis in the location panel. Map availability does not indicate weather-data availability.');
     };
-    const markerLabel = (lat, lon, label) => `${label || 'Selected point'}: ${coordinateText(lat, lon)}. Drag to move, or use coordinate entry.`;
+    const markerLabel = () => `${selection.label || 'Selected point'}: ${coordinateText(selection.lat, selection.lon)}. Drag to move, or use coordinate entry.`;
+    const makePin = (kind, label) => {
+      const element = textNode(kind === 'saved' ? 'button' : 'div', `location-map-pin location-map-pin-${kind}`);
+      if (kind === 'saved') element.type = 'button';
+      else {
+        element.tabIndex = 0;
+        element.setAttribute('role', 'img');
+      }
+      const dot = textNode('span', 'location-map-pin-dot');
+      dot.setAttribute('aria-hidden', 'true');
+      const tooltip = textNode('span', 'location-map-pin-tooltip', label);
+      tooltip.setAttribute('aria-hidden', 'true');
+      element.append(dot, tooltip);
+      element.setAttribute('aria-label', label);
+      element.title = label;
+      return element;
+    };
+
+    function setLabel(label) {
+      if (!selection) return;
+      selection.label = String(label || '');
+      if (!selected) return;
+      const element = selected.getElement();
+      const accessibleLabel = markerLabel();
+      element.setAttribute('aria-label', accessibleLabel);
+      element.title = accessibleLabel;
+      element.querySelector('.location-map-pin-tooltip').textContent = accessibleLabel;
+    }
 
     function setSelection(lat, lon, {label, recenter = true} = {}) {
-      clearEvidence();
       if (!coordinatesValid(lat, lon)) return;
+      clearEvidence();
+      selection = {lat, lon, label: String(label || '')};
       if (!map || failed) return;
-      const accessibleLabel = markerLabel(lat, lon, label);
-      const popup = textNode('span', '', accessibleLabel);
+      const outsideMap = Math.abs(lat) > mercatorLimit;
+      latitudeMessage = outsideMap
+        ? `Selected coordinates ${coordinateText(lat, lon)} are beyond this flat map's latitude limit of ±85.05113°. The coordinates are unchanged; use coordinate entry for polar locations.` : '';
+      updateWarning();
       if (!selected) {
-        selected = L.marker([lat, lon], {
-          icon: L.divIcon({className: 'location-map-pin location-map-pin-selected', html: '<span aria-hidden="true"></span>', iconSize: [44, 44], iconAnchor: [22, 30]}),
-          draggable: true,
-          keyboard: true,
-          title: accessibleLabel,
-          alt: accessibleLabel,
-          zIndexOffset: 1000,
-          autoPan: true,
-          autoPanOnFocus: true
-        }).addTo(map).bindTooltip(popup, {direction: 'top', offset: [0, -24]});
+        selected = new maplibregl.Marker({
+          element: makePin('selected', markerLabel()), draggable: true,
+          anchor: 'center', offset: [0, -12 * Math.SQRT2], subpixelPositioning: true
+        }).setLngLat([lon, Math.max(-mercatorLimit, Math.min(mercatorLimit, lat))]).addTo(map);
         selected.on('dragstart', clearEvidence);
-        selected.on('dragend', () => choose(selected.getLatLng()));
-      } else {
-        selected.setLatLng([lat, lon]);
-        selected.setTooltipContent(popup);
+        selected.on('dragend', () => choose(selected.getLngLat()));
       }
-      const element = selected.getElement();
-      if (element) {
-        element.setAttribute('aria-label', accessibleLabel);
-        element.setAttribute('title', accessibleLabel);
-      }
-      if (recenter) map.setView([lat, lon], Math.max(map.getZoom(), 7), {animate: false});
+      // Do not project an unsupported polar coordinate to a different visible pin.
+      selected.getElement().hidden = outsideMap;
+      if (!outsideMap) selected.setLngLat([lon, lat]);
+      setLabel(selection.label);
+      if (recenter) map.jumpTo({
+        center: [lon, Math.max(-mercatorLimit, Math.min(mercatorLimit, lat))],
+        zoom: Math.max(map.getZoom(), 7)
+      });
     }
 
     function choose(point) {
+      if (!Number.isFinite(point.lat) || !Number.isFinite(point.lng)) return;
       const lat = Math.max(-90, Math.min(90, point.lat));
-      const lon = ((point.lng + 180) % 360 + 360) % 360 - 180;
+      const lon = wrapLongitude(point.lng);
       setSelection(lat, lon, {recenter: false});
       if (typeof onSelect === 'function') onSelect({lat, lon});
     }
@@ -111,107 +197,107 @@ window.LocationMap = (() => {
       if (!source || !coordinatesValid(source.source_lat, source.source_lon)) return;
       evidence.textContent = `Hourly weather grid, not parcel. Source cell center ${coordinateText(source.source_lat, source.source_lon)}; 0.5° latitude × 0.625° longitude. This cell is evidence for this analysis, not a coverage map.`;
       evidence.hidden = false;
-      if (!map || failed) return;
-      const lat = source.source_lat;
-      const lon = source.source_lon;
-      grid = L.rectangle([[lat - 0.25, lon - 0.3125], [lat + 0.25, lon + 0.3125]], {
-        color: '#8b561c', weight: 2, opacity: 0.95,
-        fillColor: '#b88544', fillOpacity: 0.12,
-        dashArray: '6 4', interactive: false
-      }).addTo(map);
+      gridData = cellGeometry(source.source_lat, source.source_lon);
+      syncEvidence();
     }
 
     const controller = {
-      setSelection,
-      setEvidence,
-      resize() { if (map && !failed) map.invalidateSize({animate: false, pan: false}); }
+      setSelection, setEvidence, setLabel,
+      resize() { if (map && !failed) map.resize(); }
     };
-    if (!window.L || typeof window.L.map !== 'function') {
+    if (!window.maplibregl || typeof window.maplibregl.Map !== 'function') {
       failMap();
       return controller;
     }
 
     try {
       const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-      map = L.map(canvas, {
-        center: [18, 0], zoom: 2, minZoom: 1, maxZoom: 18,
-        zoomControl: true, attributionControl: true,
-        keyboard: true, scrollWheelZoom: true, doubleClickZoom: false,
-        worldCopyJump: true, zoomAnimation: !reducedMotion,
-        fadeAnimation: !reducedMotion, markerZoomAnimation: !reducedMotion
+      map = new maplibregl.Map({
+        container: canvas, center: [0, 18], zoom: 1, minZoom: 0, maxZoom: 18,
+        style: {version: 8, sources: {}, layers: [{id: 'background', type: 'background', paint: {'background-color': '#eef1ec'}}]},
+        attributionControl: false, keyboard: true, scrollZoom: true,
+        doubleClickZoom: false, dragRotate: false, touchPitch: false,
+        pitch: 0, maxPitch: 0, renderWorldCopies: true,
+        respectPrefersReducedMotion: true, fadeDuration: reducedMotion ? 0 : 200
       });
-      map.attributionControl.setPrefix('<a href="https://leafletjs.com/">Leaflet</a>');
-      world.addEventListener('click', () => map.setView([18, 0], 2, {animate: false}));
-      center.addEventListener('click', () => choose(map.getCenter()));
-      map.on('click', event => choose(event.latlng));
-      canvas.addEventListener('keydown', event => {
-        if (event.target === canvas && event.key === 'Enter') {
+      map.touchZoomRotate.disableRotation();
+      map.keyboard.disableRotation();
+      map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-left');
+      map.addControl(new maplibregl.AttributionControl({
+        compact: false,
+        customAttribution: `<a href="https://maplibre.org/" target="_blank" rel="noopener noreferrer">MapLibre</a> · <a href="${new URL('openfreemap-positron-LICENSE.txt', assetBase).href}" target="_blank" rel="noopener noreferrer">Positron style credits</a>`
+      }));
+      const mapCanvas = map.getCanvas();
+      mapCanvas.setAttribute('aria-label', 'Location map. Select coordinates, then use Analyze location.');
+      mapCanvas.setAttribute('aria-describedby', help.id);
+      world.addEventListener('click', () => map?.jumpTo({center: [0, 18], zoom: 1, bearing: 0, pitch: 0}));
+      center.addEventListener('click', () => { if (map) choose(map.getCenter()); });
+      map.on('click', event => {
+        if (!event.originalEvent.target.closest('.location-map-pin')) choose(event.lngLat);
+      });
+      mapCanvas.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && map) {
           event.preventDefault();
           choose(map.getCenter());
         }
       });
+      map.on('webglcontextlost', failMap);
+      map.on('style.load', () => {
+        styleReady = true;
+        syncEvidence();
+      });
+      map.on('error', () => {
+        resourceFailed = true;
+        warn('Some basemap tiles or labels could not load. You can still select coordinates or choose a saved analysis. This is not a weather-data limitation.');
+      });
+      map.on('dataloading', () => {
+        if (!basemapInstalled || waitingTimer || failed) return;
+        waitingTimer = setTimeout(() => {
+          waitingTimer = null;
+          if (map && (!map.isStyleLoaded() || !map.areTilesLoaded())) warn('The basemap is taking longer to load. Coordinates and saved analyses still work. This is not a weather-data limitation.');
+        }, 12000);
+      });
+      map.on('idle', () => {
+        clearTimeout(waitingTimer);
+        waitingTimer = null;
+        if (basemapInstalled && !resourceFailed) warn('');
+      });
 
       for (const entry of sites) {
         const site = entry?.site;
-        if (!site || !coordinatesValid(site.lat, site.lon)) continue;
+        if (!site || !coordinatesValid(site.lat, site.lon) || Math.abs(site.lat) > mercatorLimit) continue;
         const name = String(site.name || 'Saved analysis');
-        const accessibleLabel = `Select saved analysis: ${name}`;
-        const marker = L.marker([site.lat, site.lon], {
-          icon: L.divIcon({className: 'location-map-pin location-map-pin-saved', html: '<span aria-hidden="true"></span>', iconSize: [44, 44], iconAnchor: [22, 22]}),
-          title: accessibleLabel, alt: accessibleLabel,
-          keyboard: true, autoPanOnFocus: true, bubblingMouseEvents: false
-        }).addTo(map).bindTooltip(textNode('span', '', name), {direction: 'top', offset: [0, -12]});
-        const selectSaved = () => {
+        const element = makePin('saved', `Select saved analysis: ${name}`);
+        new maplibregl.Marker({element, anchor: 'center', subpixelPositioning: true})
+          .setLngLat([site.lon, site.lat]).addTo(map);
+        element.addEventListener('click', event => {
+          event.stopPropagation();
           setSelection(site.lat, site.lon, {label: name, recenter: false});
           if (typeof onPreset === 'function') onPreset(name);
-        };
-        marker.on('click', selectSaved);
-        const element = marker.getElement();
-        element.setAttribute('aria-label', accessibleLabel);
-        element.addEventListener('keydown', event => {
-          if (event.key === ' ') {
-            event.preventDefault();
-            event.stopPropagation();
-            selectSaved();
-          }
         });
       }
 
       if (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') {
-        warn('Basemap tiles need an HTTP or HTTPS page. Coordinates and saved analyses still work; this is not a weather-data limitation.');
+        warn('Basemap resources need an HTTP or HTTPS page. Coordinates and saved analyses still work; this is not a weather-data limitation.');
       } else {
-        const failedTiles = new Set();
-        let waitingTimer = null;
-        let waiting = false;
-        const tileWarning = () => {
-          warn(failedTiles.size || waiting
-            ? 'Some basemap tiles could not load. You can still select a point, enter coordinates, or choose a saved analysis. This is not a weather-data limitation.'
-            : '');
-        };
-        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 18, minZoom: 1, keepBuffer: 1,
-          updateWhenIdle: true, updateWhenZooming: false,
-          referrerPolicy: 'strict-origin-when-cross-origin',
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · <a href="https://www.openstreetmap.org/fixthemap">Report a map issue</a>'
-        });
-        tiles.on('loading', () => {
-          clearTimeout(waitingTimer);
-          waitingTimer = setTimeout(() => { waiting = true; tileWarning(); }, 12000);
-        });
-        tiles.on('tileerror', event => {
-          failedTiles.add(event.tile);
-          tileWarning();
-        });
-        tiles.on('tileunload', event => {
-          failedTiles.delete(event.tile);
-          tileWarning();
-        });
-        tiles.on('load', () => {
-          clearTimeout(waitingTimer);
-          waiting = false;
-          tileWarning();
-        });
-        tiles.addTo(map);
+        warn('Loading the basemap. Coordinates and saved analyses are already available.');
+        styleRequest = new AbortController();
+        styleTimer = setTimeout(() => styleRequest.abort(), 12000);
+        fetch(new URL('openfreemap-positron-en.json', assetBase), {signal: styleRequest.signal})
+          .then(response => {
+            if (!response.ok) throw new Error(`Basemap style HTTP ${response.status}`);
+            return response.json();
+          })
+          .then(style => {
+            if (failed) return;
+            styleReady = false;
+            basemapInstalled = true;
+            map.setStyle(style, {diff: false});
+          })
+          .catch(() => {
+            if (!failed) warn('The basemap style could not load. You can still select coordinates or choose a saved analysis. This is not a weather-data limitation.');
+          })
+          .finally(() => clearTimeout(styleTimer));
       }
     } catch (error) {
       failMap();

@@ -1,0 +1,77 @@
+{
+  "title": "Local place reference",
+  "format_version": 1,
+  "attribution": "Made with Natural Earth. Public domain.",
+  "license": "Public domain",
+  "license_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "source_commit": "f1890d9f152c896d250a77557a5751a93d494776",
+  "source_release": "Natural Earth vector v5.1.2",
+  "sources": [
+    {
+      "dataset": "ne_10m_admin_0_countries",
+      "version": "5.1.1",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_10m_admin_0_countries.geojson",
+      "sha256": "239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255"
+    },
+    {
+      "dataset": "ne_10m_admin_1_states_provinces",
+      "version": "5.1.1",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5"
+    },
+    {
+      "dataset": "ne_10m_populated_places",
+      "version": "5.1.2",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_10m_populated_places.geojson",
+      "sha256": "9b8e3de09048ef00dfc70357dbb9fa324493f214b5e0ae4daf1aa79a8d10116b"
+    }
+  ],
+  "processing": {
+    "tool": "mapshaper@0.6.113",
+    "simplification": "Shared-topology spherical Douglas-Peucker, each polygon part protected by keep-shapes",
+    "interval_m": 250,
+    "quantization": 10000001,
+    "settlement_coordinates_decimal_places": 5,
+    "excluded_place_classes": [
+      "historic place",
+      "meteorological station",
+      "scientific station"
+    ],
+    "english_names": "NAME_EN/name_en, then dataset romanized or ASCII name",
+    "compression": "Minified UTF-8 JSON with shared delta-encoded quantized arcs, gzip level 9"
+  },
+  "coverage": {
+    "countries_and_territories": 258,
+    "admin1_areas": 4596,
+    "settlements": 7295,
+    "input_polygon_parts": 12809,
+    "output_polygon_parts": 12809
+  },
+  "limitations": [
+    "Cartographic reference at 1:10 million, not an address lookup or legal boundary determination.",
+    "Country and region come only from polygon containment, never from the nearest settlement.",
+    "Source coastlines and borders are generalized; 250 m simplification and coordinate quantization add approximation. Small islands and near-shore or border points can be unresolved or misclassified.",
+    "Natural Earth uses de facto boundaries and may not reflect current administrative changes or every jurisdictional viewpoint.",
+    "Admin-1 coverage and naming vary by country. Some territories and tiny countries have no named admin-1 area.",
+    "Nearest means nearest represented settlement, not nearest village, address, farm or inhabited point. Natural Earth samples smaller towns and favors regional significance.",
+    "Distances are great-circle estimates on a sphere of radius 6371.0088 km, not road distances.",
+    "A Near label requires a containing country and a represented settlement within 100 km. Offshore points retain coordinate labels even when a city is nearby.",
+    "No containing polygon means ocean or unrepresented land; it does not prove the point is ocean. Exact shared boundaries remain unresolved rather than selecting a side.",
+    "Source polygons are split at the antimeridian. Longitude -180 and 180 are checked at both seams; no nearest-city country fallback is used.",
+    "Mapshaper generation reported 46 repaired and 636 unrepaired intersections. Geographic reference is not topology-certified; border/coast and overlap classifications need independent validation for legal or operational use."
+  ],
+  "boundary_policy_url": "https://www.naturalearthdata.com/about/disputed-boundaries-policy/",
+  "schema": {
+    "entities": "[display name or null, containing country entity index]; country entities come first",
+    "areas": "[entity index, quantized bounds [xmin,ymin,xmax,ymax], polygon rings of TopoJSON arc indexes]",
+    "arcs": "TopoJSON delta-encoded arcs; a negative ring index reverses arc ~index",
+    "places": "[English or romanized name, longitude, latitude]",
+    "transform": "TopoJSON scale and translate from quantized positions to longitude/latitude"
+  },
+  "artifact": {
+    "file": "places-v1.json.gz",
+    "bytes": 2973757,
+    "uncompressed_bytes": 7584431,
+    "sha256": "eea067d637b4653a888f89e5e67a09eddf157ff518bd19faa84e54df1b697931"
+  }
+}

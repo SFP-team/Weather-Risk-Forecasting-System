@@ -1,6 +1,6 @@
 # Map-first climate workspace
 
-Design revision: 2026-09-22. This replaces the original coordinate-form specification with the map-first redesign requested by the user. The implementation stays in the existing vanilla-JavaScript frontend; a framework migration does not improve the current user journey. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
+Design revision: 2026-09-23. The map now uses MapLibre with an English-first OpenFreeMap style and browser-local place context. The assessment remains vanilla JavaScript; the weather and planting contracts are unchanged. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
 
 ## Product boundary
 
@@ -11,12 +11,13 @@ The connected private API reads daily weather and complete hourly series for sup
 ## User journey
 
 1. **Choose a place.** Click or drag a map pin, enter numeric coordinates, or filter the 18 saved locations by name, region or county. The search is explicitly a saved-location filter, not global address geocoding. Keyboard users can enter coordinates, select a saved button, or pan the map and select its center.
+   A local Natural Earth lookup supplies the containing country/region and nearest represented settlement. Show `Near NAME` within 100 km on represented land; otherwise use the containing area or coordinates. Saved farm names remain primary. Names do not move the pin or assign scientific/planting metadata.
 2. **Request an analysis.** Map movement never invokes the archive. Analyze is explicit. Distinguish the draft pin from the committed result; a changed pin leaves the previous location's name and coordinates on its assessment with a visible notice.
 3. **Read what is available.** Show daily rows, hourly access, applicable calendar, planting-guide availability and soil records separately. Connection status concerns service access, not scientific validity. Missing information never receives a low-risk colour or zero value.
 4. **Understand the main evidence.** The overview shows the production-system hypothesis, assumed harvest window, qualifying recurring risks and descriptive signals. No blended suitability score or invented severity categories.
 5. **Inspect the season.** Choose a winter and stage. Read its modelled dates, exposure values, historical comparison and missing-data reasons. Keep hourly warm-midwinter context independent of crop timing.
 6. **Check context and assumptions.** Climate history, soil/setup and methods/data have their own views. Detailed tables and scientific definitions remain accessible without dominating the initial screen.
-7. **Save the same result.** HTML includes all views and expanded definitions, not only the active tab. JSON retains the original analysis with management and selected winter/stage metadata. Neither export recalculates science.
+7. **Save the same result.** HTML includes all views, place-name context and expanded definitions. JSON retains the unchanged original analysis plus separate `location_context`, management and winter/stage metadata. Pending name lookup exports keep coordinates and explicitly mark names pending. Neither export recalculates science.
 
 ## Information architecture
 
@@ -52,9 +53,9 @@ Loading states describe the actual request, without invented processing stages o
 
 ## Map, privacy and resilience
 
-Leaflet 1.9.4 is vendored with its license. Standard OpenStreetMap raster tiles supply geography, not weather or a risk heatmap. Attribution remains visible. Only ordinary viewport tiles load; no prefetch, bulk download or offline tile cache. See [OSM tile policy](https://operations.osmfoundation.org/policies/tiles/).
+MapLibre GL JS 5.24.0 is vendored with its license. A locally adapted OpenFreeMap Positron vector style supplies geographic context, not weather risk. Labels prefer English, then romanized names; local names remain only when those are absent. Country/region borders are clearer and incidental labels quieter. Attribution stays visible. Ordinary viewport tiles, fonts and sprites load from OpenFreeMap; no bulk tile download.
 
-Tile requests expose the browser IP, page origin and viewed map area to OpenStreetMap. The interface states this. Saved-location filtering is local; there is no third-party geocoder, location permission, paid key or telemetry. If tiles or the map library fail, coordinates and saved analyses remain usable. A private-API outage leaves saved snapshots usable.
+OpenFreeMap and its CDN receive IP and viewed map area; see its [privacy policy](https://openfreemap.org/privacy/). No paid key or external geocoder is used. Place naming loads a single 2.97 MB compressed public Natural Earth reference bundle, then uses coordinates only in browser memory. Coverage is 258 countries/territories, 4,596 administrative areas and 7,295 represented settlements. Boundaries are generalized and may be inaccurate near coasts/borders; this is not street addressing or a legal jurisdiction service. The flat map stops at Mercator latitude limits without altering supplied coordinates. WebGL, tile or naming failure retains coordinate entry and saved reports.
 
 The selected pin is distinct from the dashed hourly source-cell rectangle. The rectangle uses the response's source coordinates and native 0.5° by 0.625° cell, not an invented coverage layer or parcel footprint. Changing the pin removes the previous cell evidence until a matching result is returned.
 
@@ -64,4 +65,4 @@ Exercise all saved locations and views; compare displayed metric values with the
 
 ## What this revision does not deploy
 
-No new archive acquisition, any-cell hourly adapter, weather interpolation, geocoding service, authenticated team gateway, durable jobs/cache, management calibration or cultivar model. The current private API and local preview remain the runtime. GitHub publication does not redeploy the existing hosted Sites application. Future service architecture needs its own implementation and authorization; this design does not claim those components exist.
+No new weather acquisition, weather interpolation, external geocoding service, authenticated team gateway, durable jobs/cache, management calibration or cultivar model. The existing private API and local preview remain the runtime. GitHub publication does not redeploy the hosted Sites application.
