@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-09-23 — Responsive layouts across screen sizes
+
+- Replaced fixed heading/map sizing with fluid width/height rules, reduced landscape spacing, added safe-area padding and mobile keyboard viewport hints. Narrow coordinate/action/stage controls stack; map follows container size through ResizeObserver.
+- Bounded search/saved lists by viewport height. Kept select text at 16 px and gave charts labelled, keyboard-scrollable regions rather than shrinking labels below readable size.
+- Verified five expanded assessment views at 15 viewport sizes, 280 px through 3840 px, without page overflow. Landscape map is 260 px in a 390 px viewport, previously 500 px. Container-only resizing, narrow search-to-point flow, 640 px high-DPI reflow, arrow-key chart scrolling and downloaded HTML at 320 px passed. Screenshots inspected; no page errors; map.js syntax passed. Chromium emulation only, not physical-device or cross-engine certification.
+
 ## 2026-09-23 — Geographic search and gallery design
 
 - Expanded search beyond saved sites to local reference settlements, regions and countries. Saved names remain searchable in their own group. Added accent/case matching, multi-term context, country aliases, bounded results and keyboard selection with stale-query protection.

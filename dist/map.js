@@ -82,6 +82,7 @@ window.LocationMap = (() => {
     let styleRequest = null;
     let basemapInstalled = false;
     let resourceFailed = false;
+    let resizeObserver = null;
     const updateWarning = () => {
       warning.textContent = [mapMessage, latitudeMessage].filter(Boolean).join(' ');
       warning.hidden = !warning.textContent;
@@ -119,6 +120,7 @@ window.LocationMap = (() => {
       clearTimeout(waitingTimer);
       clearTimeout(styleTimer);
       styleRequest?.abort();
+      resizeObserver?.disconnect();
       if (map) map.remove();
       map = null;
       canvas.hidden = true;
@@ -235,6 +237,12 @@ window.LocationMap = (() => {
         pitch: 0, maxPitch: 0, renderWorldCopies: true,
         respectPrefersReducedMotion: true, fadeDuration: reducedMotion ? 0 : 200
       });
+      if (typeof ResizeObserver === 'function') {
+        resizeObserver = new ResizeObserver(() => {
+          if (map && !failed) map.resize();
+        });
+        resizeObserver.observe(canvas);
+      }
       map.touchZoomRotate.disableRotation();
       map.keyboard.disableRotation();
       map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-left');
