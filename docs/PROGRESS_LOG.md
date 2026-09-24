@@ -1,5 +1,9 @@
 # Project progress log
 
+## 2026-09-24 — Removed platform heading
+
+- Removed Blueberry Decision Support from the visible page and browser-tab title. The lab logo remains; search and map follow the header without the hero's blank space. Direct-map layout visually inspected. No backend changes.
+
 ## 2026-09-23 — Simplified platform title
 
 - Replaced the introductory block with Blueberry Decision Support and retained the lab logo. Removed redundant header text; moved connection status to Methods & data. Assessment baseline and scientific caveats remain.

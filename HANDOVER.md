@@ -4,6 +4,8 @@ Last updated: 2026-09-22. Current phase: arbitrary supported land-point hourly a
 
 ## Implemented and verified
 
+- **Heading removed (2026-09-24):** removed the remaining platform heading and its container; the location search/map now follows the lab-logo header directly. Browser tab uses Blueberry Breeding Lab. The direct-map layout was visually inspected. No data or scientific changes.
+
 - **Title simplification (2026-09-23):** renamed the page and hero to Blueberry Decision Support. Removed hero kicker, explanatory subtitle, baseline strip and header connection text. Connection status remains under Methods & data; baseline and scientific limitations remain in assessments. Desktop inspected and 320 px reflow checked without overflow. No scientific changes.
 
 - **Responsive layout pass (2026-09-23):** fluid heading/gutters, height-aware map/search lists, compact landscape header, safe-area padding and mobile keyboard viewport declaration. Very narrow coordinate/action/stage controls stack; form selects remain 16 px. Charts retain readable minimum width with labelled keyboard-scrollable regions. Map ResizeObserver follows container changes independently of window resizing.
