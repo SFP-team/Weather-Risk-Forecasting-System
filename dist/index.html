@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-  <title>Blueberry Breeding Lab | Climate analysis</title>
+  <title>Blueberry Decision Support | Blueberry Breeding Lab</title>
   <meta name="description" content="Historical climate, seasonal weather exposures and regional blueberry planting guidance by location.">
   <link rel="icon" href="assets/blueberry-breeding-lab.png" type="image/png">
   <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
@@ -10,9 +10,9 @@
 </head>
 <body>
 <a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
-<header class="top"><a class="brand" href="./"><img class="lab-logo" src="assets/blueberry-breeding-lab.png" alt="Blueberry Breeding Lab"><span class="brand-sub">Climate analysis</span></a><div class="top-meta"><span id="connection" role="status">Checking archive connection</span></div></header>
+<header class="top"><a class="brand" href="./"><img class="lab-logo" src="assets/blueberry-breeding-lab.png" alt="Blueberry Breeding Lab"></a></header>
 <main>
-  <div class="heading"><div><p class="eyebrow">Historical weather &amp; crop-stage exposures</p><h1>Climate analysis</h1><p class="sub">Select a location to review weather records and provisional crop dates.</p></div><div class="period"><strong>2011–2025</strong><span>Historical baseline, not a forecast</span></div></div>
+  <div class="heading"><h1>Blueberry Decision Support</h1></div>
   <section class="explorer" aria-label="Choose a location">
     <aside class="location-panel">
       <div class="panel-heading"><span class="step-number">01</span><h2>Select a location</h2></div>
@@ -63,7 +63,7 @@
       <details><summary>Annual values and definitions</summary><div id="annual-table" class="table-scroll" tabindex="0" role="region" aria-label="Annual climate values"></div><p class="small">Reference chill is 0–7.2°C inclusive, November through February north / May through August south, UTC. Other annual metrics use January through December. Dry spells stop at year boundaries. Exposure thresholds are not crop-damage estimates.</p></details>
     </section>
     <section id="panel-site" class="view-panel" role="tabpanel" aria-labelledby="tab-site" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Mapped estimates, not a field soil test</p><h2>Soil properties</h2></div><span class="badge" id="soil-status"></span></div><div id="soil-content"></div><div class="section-title"><div><p class="eyebrow">Qualitative management assumptions</p><h2 id="management-title"></h2></div><span class="badge">Not calibrated</span></div><div class="management-grid" id="management"></div></section>
-    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Sources &amp; uncertainty</p><h2>Methods, coverage &amp; limits</h2></div></div><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
+    <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Sources &amp; uncertainty</p><h2>Methods, coverage &amp; limits</h2></div></div><p id="connection" class="small" role="status">Checking archive connection</p><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details></section>
   </div>
   <noscript><p class="notice">Climate analysis requires JavaScript. No analysis has been loaded.</p></noscript>
   <footer class="site-footer"><span>Blueberry Breeding Lab / Climate analysis</span><span>NASA POWER · ISRIC SoilGrids · Unvalidated crop assumptions</span></footer>

@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-09-23 — Simplified platform title
+
+- Replaced the introductory block with Blueberry Decision Support and retained the lab logo. Removed redundant header text; moved connection status to Methods & data. Assessment baseline and scientific caveats remain.
+- Desktop browser inspection and 320 px reflow passed. No backend changes or tests rerun.
+
 ## 2026-09-23 — Responsive layouts across screen sizes
 
 - Replaced fixed heading/map sizing with fluid width/height rules, reduced landscape spacing, added safe-area padding and mobile keyboard viewport hints. Narrow coordinate/action/stage controls stack; map follows container size through ResizeObserver.

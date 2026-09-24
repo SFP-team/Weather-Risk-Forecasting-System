@@ -4,6 +4,8 @@ Last updated: 2026-09-22. Current phase: arbitrary supported land-point hourly a
 
 ## Implemented and verified
 
+- **Title simplification (2026-09-23):** renamed the page and hero to Blueberry Decision Support. Removed hero kicker, explanatory subtitle, baseline strip and header connection text. Connection status remains under Methods & data; baseline and scientific limitations remain in assessments. Desktop inspected and 320 px reflow checked without overflow. No scientific changes.
+
 - **Responsive layout pass (2026-09-23):** fluid heading/gutters, height-aware map/search lists, compact landscape header, safe-area padding and mobile keyboard viewport declaration. Very narrow coordinate/action/stage controls stack; form selects remain 16 px. Charts retain readable minimum width with labelled keyboard-scrollable regions. Map ResizeObserver follows container changes independently of window resizing.
 - **Responsive proof:** all five views with details expanded across 15 viewport sizes from 280×653 through 3840×2160 showed no page overflow. At 844×390, map height fell from 500 to 260 px and heading from 301 to 194 px. Container-only resize kept map canvas/container widths equal. Narrow keyboard search/area-to-point flow, 640 px high-DPI reflow, chart arrow-key scrolling and actual self-contained HTML at 320 px passed. Desktop/phone/landscape inspected; no page errors and map.js syntax passed. Physical-device keyboard/notch behavior and other browser engines were not exercised.
 
