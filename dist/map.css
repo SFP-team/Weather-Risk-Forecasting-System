@@ -1,40 +1,33 @@
 .location-map {
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--line, #dce3dc);
-  border-radius: 16px;
+  border: 1px solid var(--line, #d6d6d6);
+  border-radius: 28px;
   background: var(--paper, #fff);
-  color: var(--ink, #183d3b);
+  color: var(--ink, #1d1d1f);
 }
-
 .location-map .location-map-canvas {
   width: 100%;
-  height: clamp(320px, 48vw, 510px);
-  min-height: 320px;
+  height: clamp(440px, 42vw, 600px);
+  min-height: 440px;
   z-index: 0;
-  background: #eef1ec;
+  background: #f5f5f7;
   font-family: inherit;
 }
-
 .location-map .maplibregl-canvas:focus-visible,
 .location-map button:focus-visible,
 .location-map a:focus-visible,
 .location-map .location-map-pin:focus-visible {
-  outline: 3px solid var(--accent, #246b60);
+  outline: 3px solid var(--accent, #0066cc);
   outline-offset: 3px;
 }
-
-.location-map .maplibregl-canvas:focus-visible {
-  outline-offset: -4px;
-}
-
+.location-map .maplibregl-canvas:focus-visible { outline-offset: -4px; }
 .location-map .maplibregl-ctrl-group {
   overflow: hidden;
-  border: 1px solid var(--line, #dce3dc);
-  border-radius: 10px;
-  box-shadow: 0 2px 9px #183d3b14;
+  border: 1px solid var(--line, #d6d6d6);
+  border-radius: 9999px;
+  box-shadow: none;
 }
-
 .location-map .maplibregl-ctrl-group button {
   width: 44px;
   height: 44px;
@@ -42,56 +35,47 @@
   padding: 0;
   border-radius: 0;
   background-color: var(--paper, #fff);
-  color: var(--ink, #183d3b);
-  border-color: var(--line, #dce3dc);
+  color: var(--ink, #1d1d1f);
+  border-color: var(--line, #d6d6d6);
 }
-
-.location-map .maplibregl-ctrl-group button:hover {
-  background-color: var(--soft, #edf3ee);
-}
-
-.location-map .maplibregl-ctrl-group button:disabled {
-  opacity: 0.4;
-}
-
+.location-map .maplibregl-ctrl-group button:focus-visible { outline-offset: -4px; }
+.location-map .maplibregl-ctrl-group button:hover { background-color: var(--soft, #f5f5f7); }
+.location-map .maplibregl-ctrl-group button:disabled { opacity: .4; }
 .location-map .maplibregl-ctrl-attrib {
   max-width: min(calc(100% - 20px), 490px);
-  padding: 4px 8px;
-  background: #fffffff2;
-  color: var(--ink, #183d3b);
+  padding: 6px 10px;
+  background: #fff;
+  color: var(--ink, #1d1d1f);
   font-size: 10px;
   line-height: 1.5;
   text-align: right;
+  box-shadow: none;
 }
-
+.location-map .maplibregl-ctrl-attrib.maplibregl-compact { min-height: 44px; padding: 12px 44px 12px 12px; border-radius: 22px; }
+.location-map .maplibregl-ctrl-attrib-button { width: 44px; height: 44px; min-height: 44px; background-position: center; }
 .location-map .maplibregl-ctrl-attrib a,
 .location-map .location-map-help a {
-  color: #205e55;
+  color: var(--accent, #0066cc);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-
 .location-map .location-map-pin {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  min-height: 0;
+  min-height: 44px;
   margin: 0;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: var(--ink, #183d3b);
+  color: var(--ink, #1d1d1f);
   font: inherit;
   cursor: pointer;
   z-index: 1;
 }
-
-.location-map .location-map-pin:hover {
-  background: transparent;
-}
-
+.location-map .location-map-pin:hover { background: transparent; }
 .location-map-pin > .location-map-pin-dot {
   display: block;
   box-sizing: border-box;
@@ -99,35 +83,25 @@
   height: 14px;
   border: 3px solid #fff;
   border-radius: 50%;
-  background: var(--accent, #246b60);
-  box-shadow: 0 0 0 1px var(--accent, #246b60), 0 2px 5px #183d3b33;
+  background: var(--accent, #0066cc);
+  outline: 1px solid var(--accent, #0066cc);
 }
-
-.location-map .location-map-pin-selected {
-  cursor: grab;
-  z-index: 2;
-}
-
-.location-map .location-map-pin-selected:active {
-  cursor: grabbing;
-}
-
+.location-map .location-map-pin-selected { cursor: grab; z-index: 2; }
+.location-map .location-map-pin-selected:active { cursor: grabbing; }
 .location-map-pin-selected > .location-map-pin-dot {
   width: 24px;
   height: 24px;
   border: 3px solid #fff;
   border-radius: 50% 50% 50% 0;
-  background: var(--ink, #183d3b);
-  box-shadow: 0 0 0 2px var(--ink, #183d3b), 0 2px 7px #183d3b33;
+  background: var(--ink, #1d1d1f);
+  outline: 2px solid var(--ink, #1d1d1f);
   transform: rotate(-45deg);
 }
-
 .location-map-pin-saved:hover > .location-map-pin-dot,
 .location-map-pin-saved:focus-visible > .location-map-pin-dot {
-  background: #8b561c;
-  box-shadow: 0 0 0 2px #8b561c;
+  background: var(--ink, #1d1d1f);
+  outline: 2px solid var(--ink, #1d1d1f);
 }
-
 .location-map-pin-tooltip {
   display: none;
   position: absolute;
@@ -135,74 +109,47 @@
   left: 50%;
   width: max-content;
   max-width: min(260px, 60vw);
-  padding: 8px 11px;
-  border: 1px solid var(--line, #dce3dc);
-  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--line, #d6d6d6);
+  border-radius: 18px;
   background: var(--paper, #fff);
-  color: var(--ink, #183d3b);
+  color: var(--ink, #1d1d1f);
   font-size: 12px;
   line-height: 1.4;
   font-weight: 400;
   text-align: left;
   white-space: normal;
-  box-shadow: 0 3px 12px #183d3b18;
   pointer-events: none;
   transform: translateX(-50%);
 }
-
 .location-map-pin:hover > .location-map-pin-tooltip,
-.location-map-pin:focus-visible > .location-map-pin-tooltip {
-  display: block;
-}
-
-.location-map .location-map-pin:focus-visible {
-  z-index: 3;
-}
-
+.location-map-pin:focus-visible > .location-map-pin-tooltip { display: block; }
+.location-map .location-map-pin:focus-visible { z-index: 3; }
 .location-map-toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 16px 0;
-  border-top: 1px solid var(--line, #dce3dc);
+  gap: 10px;
+  padding: 20px 24px 0;
+  border-top: 1px solid var(--line, #d6d6d6);
 }
-
 .location-map .location-map-toolbar button {
   min-height: 44px;
-  padding: 9px 14px;
+  padding: 10px 16px;
   margin: 0;
-  border: 1px solid var(--line, #dce3dc);
-  border-radius: 8px;
+  border: 1px solid var(--line, #d6d6d6);
+  border-radius: 9999px;
   background: var(--paper, #fff);
-  color: var(--ink, #183d3b);
+  color: var(--accent, #0066cc);
   font: inherit;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   cursor: pointer;
 }
-
-.location-map .location-map-toolbar button:hover {
-  border-color: var(--accent, #246b60);
-  background: var(--soft, #edf3ee);
-}
-
-.location-map-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 18px;
-  margin-left: auto;
-  padding: 8px 0;
-  font-size: 12px;
-}
-
-.location-map-key {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.location-map .location-map-toolbar button:hover { border-color: var(--accent, #0066cc); background: var(--soft, #f5f5f7); }
+.location-map-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-left: auto; padding: 8px 0; font-size: 12px; }
+.location-map-key { display: inline-flex; align-items: center; gap: 8px; }
 .location-map-key::before {
   content: '';
   display: inline-block;
@@ -211,77 +158,36 @@
   flex: 0 0 auto;
   border: 2px solid #fff;
   border-radius: 50%;
-  background: var(--accent, #246b60);
-  box-shadow: 0 0 0 1px var(--accent, #246b60);
+  background: var(--accent, #0066cc);
+  outline: 1px solid var(--accent, #0066cc);
 }
-
-.location-map-key-selected::before {
-  border-radius: 50% 50% 50% 0;
-  background: var(--ink, #183d3b);
-  box-shadow: 0 0 0 1px var(--ink, #183d3b);
-  transform: rotate(-45deg);
-}
-
+.location-map-key-selected::before { border-radius: 50% 50% 50% 0; background: var(--ink, #1d1d1f); outline-color: var(--ink, #1d1d1f); transform: rotate(-45deg); }
 .location-map .location-map-caption,
 .location-map .location-map-help,
 .location-map .location-map-evidence,
 .location-map .location-map-warning {
   margin: 0;
-  padding: 10px 16px 0;
+  padding: 12px 24px 0;
   font-size: 12px;
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
-
-.location-map .location-map-caption {
-  color: var(--ink, #183d3b);
+.location-map .location-map-caption { color: var(--ink, #1d1d1f); }
+.location-map .location-map-help { padding-top: 8px; padding-bottom: 20px; color: var(--muted, #707070); }
+.location-map .location-map-evidence { margin: 14px 24px 0; padding: 12px 16px; border-left: 3px dashed var(--warning, #805018); background: #fff9ee; color: #704313; }
+.location-map .location-map-warning { margin: 16px 24px; padding: 14px 18px; border: 1px solid #dfcba9; border-radius: 28px; background: #fff9ee; color: #704313; }
+.location-map [hidden] { display: none !important; }
+@media (max-width: 900px) {
+  .location-map .location-map-canvas { height: 500px; }
 }
-
-.location-map .location-map-help {
-  padding-top: 6px;
-  padding-bottom: 14px;
-  color: var(--muted, #64716d);
-}
-
-.location-map .location-map-evidence {
-  margin: 10px 16px 0;
-  padding: 9px 12px;
-  border-left: 3px dashed var(--warning, #8b561c);
-  background: #f8f3e9;
-  color: #704313;
-}
-
-.location-map .location-map-warning {
-  margin: 12px 16px;
-  padding: 10px 12px;
-  border: 1px solid #dfcba9;
-  border-radius: 8px;
-  background: #faf5eb;
-  color: #704313;
-}
-
-.location-map [hidden] {
-  display: none !important;
-}
-
 @media (max-width: 580px) {
-  .location-map .location-map-canvas {
-    height: 340px;
-  }
-
-  .location-map-legend {
-    width: 100%;
-    margin-left: 0;
-    padding-bottom: 0;
-  }
-
-  .location-map .maplibregl-ctrl-attrib {
-    max-width: calc(100% - 20px);
-  }
+  .location-map .location-map-canvas { height: 380px; min-height: 380px; }
+  .location-map-toolbar { padding: 18px 18px 0; }
+  .location-map-legend { width: 100%; margin-left: 0; padding-bottom: 0; }
+  .location-map .location-map-caption, .location-map .location-map-help { padding-inline: 18px; }
+  .location-map .location-map-evidence, .location-map .location-map-warning { margin-inline: 18px; }
+  .location-map .maplibregl-ctrl-attrib { max-width: calc(100% - 20px); }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .location-map .maplibregl-marker,
-  .location-map .maplibregl-canvas {
-    transition: none !important;
-  }
+  .location-map .maplibregl-marker, .location-map .maplibregl-canvas { transition: none !important; }
 }

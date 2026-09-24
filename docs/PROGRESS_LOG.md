@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-23 — Geographic search and gallery design
+
+- Expanded search beyond saved sites to local reference settlements, regions and countries. Saved names remain searchable in their own group. Added accent/case matching, multi-term context, country aliases, bounded results and keyboard selection with stale-query protection.
+- Region/country selection frames the principal polygon, clears point coordinates and disables Analyze until the user selects a specific point. Previous committed assessments remain named. Search and browsing never request weather automatically.
+- Applied the supplied white/gray gallery palette, centered responsive 80px desktop heading, quiet typography, 28px shadowless map/cards and pill controls. Retained the lab logo, science caveats, stage categories and report styling.
+- Verified city/region/country/alias/accent/empty/saved queries, keyboard controls, real London hourly analysis, Iowa area-to-map-point flow without extra API requests, delayed query races and unavailable-reference saved fallback. All five views fit 320/390/768/1440 px. Actual HTML/JSON exports retained London while draft selection changed. JS syntax checks passed; backend tests not rerun for this frontend-only change.
+
 ## 2026-09-23 — Lab branding and UI copy
 
 - Added the supplied logo as a transparent native-resolution PNG in the header; original AVIF remains untouched and outside publication. Replaced generic branding and promotional headings with concrete climate-analysis labels.

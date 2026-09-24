@@ -2,7 +2,8 @@
 const $=id=>document.getElementById(id);
 let catalog={}, active=null, serial=0, pendingRequest=null, locationMap=null, currentView='overview';
 let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved assessment';
-let draftPlace=null,activePlace=null;
+let draftPlace=null,activePlace=null,areaSelection=null;
+let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1;
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -32,6 +33,19 @@ function placeNote(p){
 }
 function renderDraftPlace(){
   const p=draftPlace;if(!p)return;
+  document.querySelector('.selected-place').dataset.selection=areaSelection?'area':'point';
+  if(areaSelection){
+    $('place-state').textContent='Choose an analysis point';
+    $('place-name').textContent=areaSelection.name;
+    $('place-region').textContent=[areaSelection.region,areaSelection.country].filter(v=>v&&v!==areaSelection.name).join(' · ')||'Area view';
+    $('place-coordinates').textContent='No analysis point selected';
+    $('place-nearest').textContent='Click the map, enter coordinates or select a saved location.';
+    $('place-note').textContent='The map frames the principal polygon extent in the local reference. This is not a region-wide weather assessment.';
+    $('place-source').textContent='Source: Natural Earth local reference';
+    $('place-source').hidden=false;
+    $('selection-label').textContent='Choose a point before analyzing. An area is not a weather location.';
+    return;
+  }
   $('place-state').textContent=p.status==='pending'?'Finding place names…':p.status==='resolved'?'Reference names ready':p.status==='invalid'?'Coordinates incomplete':'Place-name data unavailable';
   $('place-name').textContent=p.display_name;
   $('place-region').textContent=placeRegion(p);
@@ -219,10 +233,13 @@ function samePoint(a,b){return a&&b&&Math.abs(a.lat-b.lat)<1e-7&&Math.abs(a.lon-
 function updateDraftNotice(){
   const changed=active&&!samePoint(draft,active.site);
   $('draft-notice').hidden=!changed;
-  if(changed)$('draft-notice').textContent=`A new location is selected. The assessment below still belongs to ${assessmentName()} (${active.site.lat.toFixed(4)}, ${active.site.lon.toFixed(4)}). Choose Analyze location to replace it.`;
+  if(changed){
+    const next=areaSelection?`Viewing ${areaSelection.name}. Choose an analysis point on the map, enter coordinates or select a saved location.`:validPoint(draft)?'A new location is selected. Choose Analyze location to replace the previous assessment.':'Enter valid coordinates or choose a point before analyzing.';
+    $('draft-notice').textContent=`${next} The assessment below still belongs to ${assessmentName()} (${active.site.lat.toFixed(4)}, ${active.site.lon.toFixed(4)}).`;
+  }
 }
 function setBusy(busy){
-  $('analyze').disabled=busy;$('cancel-analysis').hidden=!busy;
+  $('analyze').disabled=busy||!validPoint(draft);$('cancel-analysis').hidden=!busy;
   $('location-form').setAttribute('aria-busy',String(busy));
 }
 function cancelRequest(){
@@ -233,12 +250,13 @@ function cancelRequest(){
 }
 function selectLocation(lat,lon,name='Selected point',{recenter=true}={}){
   cancelRequest();
+  closeSearch();areaSelection=null;
   const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
   draft={lat,lon,name:saved?.site.name??name};$('latitude').value=lat;$('longitude').value=lon;
   setDraftPlace(saved?.site.name);
   locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter});
   document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
-  $('error').hidden=true;updateDraftNotice();
+  $('error').hidden=true;setBusy(false);updateDraftNotice();
 }
 function selectSaved(name){
   const entry=catalog[name];if(!entry)return;
@@ -259,6 +277,7 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
   cancelRequest();
   const request=++serial,controller=new AbortController();pendingRequest=controller;
   const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
+  areaSelection=null;
   draft={lat,lon,name:saved?.site.name??'Selected point'};
   setDraftPlace(saved?.site.name);
   const requestedPlace=draftPlace;
@@ -299,26 +318,138 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
   }
 }
 function presets(){
-  const query=$('site-search').value.trim().toLowerCase();
-  const entries=Object.values(catalog).filter(r=>[r.site.name,r.site.region,r.site.county,r.group].filter(Boolean).join(' ').toLowerCase().includes(query));
+  const entries=Object.values(catalog);
   const groups=['Reference','Georgia','Central Florida','South Florida'];
   $('presets').innerHTML=groups.map(g=>{
     const rows=entries.filter(r=>(r.group??'Reference')===g);
     return rows.length?`<div class="preset-group"><span class="preset-group-title">${g}</span>${rows.map(r=>`<button class="preset-option" type="button" data-site="${esc(r.site.name)}" aria-pressed="${draft.name===r.site.name}"><span>${esc(r.site.name)}</span><small>${esc(r.site.county??r.site.region??'Saved')}</small></button>`).join('')}</div>`:'';
-  }).join('')||'<p class="small">No saved locations match. Use the map or coordinates for other places.</p>';
-  $('preset-count').textContent=`${entries.length} of ${Object.keys(catalog).length} saved locations`;
+  }).join('')||'<p class="small">No saved locations are available. Search places or enter coordinates.</p>';
+  $('preset-count').textContent=`${entries.length} saved locations`;
 }
-$('site-search').addEventListener('input',presets);
+function closeSearch(){
+  searchSerial++;clearTimeout(searchTimer);searchResults=[];searchIndex=-1;
+  $('search-results').hidden=true;$('search-results').replaceChildren();
+  $('site-search').setAttribute('aria-expanded','false');
+  $('site-search').removeAttribute('aria-activedescendant');
+  $('search-status').textContent=$('site-search').value.trim()?'Edit the search to look for another place.':'Type a city, region or country. Search works without the weather archive.';
+}
+function setSearchIndex(index){
+  searchIndex=index;
+  $('search-results').querySelectorAll('[role="option"]').forEach((option,i)=>option.setAttribute('aria-selected',String(i===index)));
+  const option=$(`search-option-${index}`);
+  if(option){
+    $('site-search').setAttribute('aria-activedescendant',option.id);
+    option.scrollIntoView({block:'nearest'});
+  }else $('site-search').removeAttribute('aria-activedescendant');
+}
+function normalizeSearch(value){
+  return String(value||'').normalize('NFD').replace(/\p{M}/gu,'')
+    .toLowerCase().replace(/[.'’]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+}
+function savedSearchResults(query){
+  const normalized=normalizeSearch(query),terms=normalized.split(' ');
+  if(!normalized)return [];
+  return Object.values(catalog).filter(({site})=>{
+    const fields=normalizeSearch([site.name,site.region,site.county].filter(Boolean).join(' '));
+    return terms.every(term=>fields.includes(term));
+  }).sort((a,b)=>{
+    const rank=site=>normalizeSearch(site.name)===normalized?0:normalizeSearch(site.name).startsWith(normalized)?1:2;
+    return rank(a.site)-rank(b.site)||a.site.name.localeCompare(b.site.name);
+  }).map(({site})=>({id:`saved:${site.name}`,type:'saved',name:site.name,county:site.county,region:site.region,country:site.country}));
+}
+function renderSearchResults(results){
+  const selectedId=searchResults[searchIndex]?.id;
+  searchResults=[];searchIndex=-1;
+  $('site-search').removeAttribute('aria-activedescendant');
+  const labels={saved:'Saved locations',place:'Places',region:'Regions',country:'Countries'};
+  $('search-results').innerHTML=[...new Set(results.map(result=>result.type))].map(type=>{
+    const label=labels[type];
+    const rows=results.filter(result=>result.type===type);
+    if(!rows.length)return '';
+    return `<div class="search-section" role="group" aria-label="${label}"><p class="search-section-title" aria-hidden="true">${label}</p>${rows.map(result=>{
+      const index=searchResults.push(result)-1;
+      const context=[result.county,result.region,result.country].filter(value=>value&&value!==result.name).join(' · ');
+      const action=type==='saved'?'Select saved location, then analyze':type==='place'?'Select point, then analyze':'View area, choose analysis point';
+      return `<button id="search-option-${index}" class="search-option" type="button" role="option" tabindex="-1" aria-selected="false" data-search-index="${index}"><span>${esc(result.name)}</span><small>${esc(context?`${context} · ${action}`:action)}</small></button>`;
+    }).join('')}</div>`;
+  }).join('');
+  $('search-results').hidden=!searchResults.length;
+  $('site-search').setAttribute('aria-expanded',String(Boolean(searchResults.length)));
+  if(selectedId)setSearchIndex(searchResults.findIndex(result=>result.id===selectedId));
+  $('search-status').textContent=searchResults.length?`${searchResults.length} results. Use arrow keys and Enter to select. No analysis runs until you choose Analyze location.`:'No saved locations or reference places match. Try a larger nearby town, a region or country, or enter coordinates.';
+}
+function searchPlaces(){
+  closeSearch();
+  const query=$('site-search').value.trim(),request=searchSerial;
+  if(!query){$('search-status').textContent='Type a city, region or country. Search works without the weather archive.';return}
+  renderSearchResults(savedSearchResults(query));
+  $('search-status').textContent=searchResults.length?`${searchResults.length} saved matches available. Searching the local place reference…`:'Searching the local place reference…';
+  searchTimer=setTimeout(async()=>{
+    try{
+      const response=await window.PlaceNames.search(query,{limit:15});
+      if(request!==searchSerial)return;
+      if(!response.available)throw Error('Place reference unavailable');
+      renderSearchResults([...savedSearchResults(query),...response.results]);
+    }catch{
+      if(request!==searchSerial)return;
+      renderSearchResults(savedSearchResults(query));
+      $('search-status').textContent=searchResults.length?`Place reference search is unavailable. ${searchResults.length} saved matches remain selectable. Use arrow keys and Enter to select, or use the map or coordinates.`:'Place reference search is unavailable. No saved locations match. Use the map, coordinates or browse the saved locations below.';
+    }
+  },180);
+}
+function selectSearchResult(index){
+  const result=searchResults[index];if(!result)return;
+  closeSearch();$('site-search').value=result.name;
+  if(result.type==='saved'){
+    selectSaved(result.name);
+    $('search-status').textContent='Saved location selected. Choose Analyze location to open its evidence.';
+    return;
+  }
+  if(result.type==='place'){
+    selectLocation(result.lat,result.lon,result.name);
+    $('status').textContent=`${result.name} selected at ${coordinateName(draft)}. Choose Analyze location to request evidence for this point.`;
+    $('search-status').textContent='Point selected. Analysis has not been requested.';
+    return;
+  }
+  cancelRequest();areaSelection=result;
+  draft={lat:NaN,lon:NaN,name:''};$('latitude').value='';$('longitude').value='';
+  setDraftPlace();locationMap?.focusArea(result.bounds);
+  document.querySelectorAll('[data-site]').forEach(button=>button.setAttribute('aria-pressed','false'));
+  $('error').hidden=true;setBusy(false);updateDraftNotice();
+  $('status').textContent=`Viewing ${result.name}. Choose an analysis point. No region-wide weather has been requested.`;
+  $('search-status').textContent='Area opened. The map frames its principal polygon extent. Click a point or enter coordinates before analyzing.';
+}
+$('site-search').addEventListener('input',searchPlaces);
+$('site-search').addEventListener('focus',searchPlaces);
+$('site-search').addEventListener('keydown',event=>{
+  if(event.key==='Escape'){
+    event.preventDefault();closeSearch();$('search-status').textContent='Search results closed. Edit the search to look again.';return;
+  }
+  if(event.key==='Tab'){closeSearch();return}
+  if(!searchResults.length)return;
+  if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+    event.preventDefault();
+    setSearchIndex(searchIndex<0?(event.key==='ArrowDown'?0:searchResults.length-1):(searchIndex+(event.key==='ArrowDown'?1:-1)+searchResults.length)%searchResults.length);
+  }else if(event.key==='Enter'&&searchIndex>=0){event.preventDefault();selectSearchResult(searchIndex)}
+});
+$('search-results').addEventListener('mousedown',event=>event.preventDefault());
+$('search-results').addEventListener('click',event=>{
+  const option=event.target.closest('[data-search-index]');if(option)selectSearchResult(Number(option.dataset.searchIndex));
+});
+document.addEventListener('pointerdown',event=>{
+  if(event.target!==$('site-search')&&!$('search-results').contains(event.target))closeSearch();
+});
 $('presets').addEventListener('click',e=>{const b=e.target.closest('[data-site]');if(b)selectSaved(b.dataset.site)});
 for(const id of ['latitude','longitude'])$(id).addEventListener('input',()=>{
   cancelRequest();
+  areaSelection=null;
   const lat=$('latitude').valueAsNumber,lon=$('longitude').valueAsNumber;
   const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
   draft={lat,lon,name:saved?.site.name??'Entered coordinates'};
   setDraftPlace(saved?.site.name);
   if(validPoint(draft))locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter:false});
   document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
-  updateDraftNotice();
+  setBusy(false);updateDraftNotice();
 });
 $('location-form').addEventListener('submit',e=>{e.preventDefault();analyze($('latitude').valueAsNumber,$('longitude').valueAsNumber)});
 $('cancel-analysis').onclick=cancelRequest;
@@ -392,6 +523,7 @@ async function initialize(){
     locationMap=LocationMap.mount('location-map',{sites:Object.values(catalog),
       onSelect:({lat,lon})=>selectLocation(lat,lon,'Map pin',{recenter:false}),onPreset:selectSaved});
     if(validPoint(draft))locationMap.setSelection(draft.lat,draft.lon,{label:draftPlace.display_name,recenter:false});
+    else if(areaSelection)locationMap.focusArea(areaSelection.bounds);
   }else $('location-map').innerHTML='<p class="notice">The map could not load. Coordinate entry and saved locations still work.</p>';
   if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
 }

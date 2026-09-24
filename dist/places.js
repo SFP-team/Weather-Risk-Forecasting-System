@@ -12,11 +12,14 @@ window.PlaceNames = (() => {
   const sourceText = 'Made with Natural Earth. Public domain. Admin boundaries 5.1.1; populated places 5.1.2.';
   const caveat = 'Approximate cartographic context, not an address or legal boundary. Natural Earth uses generalized de facto borders; small islands, coasts and border points may be unresolved or misclassified. Nearest means nearest represented settlement, not necessarily the nearest town. Distances are approximate great-circle distances.';
   let loading;
+  let searching;
 
   const coordinatesValid = (lat, lon) => Number.isFinite(lat) && Number.isFinite(lon)
     && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
   const coordinateText = (lat, lon) => `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
 
+  const normalize = value => String(value || '').normalize('NFD').replace(/\p{M}/gu, '')
+    .toLowerCase().replace(/[.'’]/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
   async function load() {
     if (!loading) {
       loading = (async () => {
@@ -159,6 +162,170 @@ window.PlaceNames = (() => {
     return {name: place[0], distance_km: Math.round(distance * 10) / 10};
   }
 
+  function principalBounds(data) {
+    const {scale, translate} = data.transform;
+    // Spherical ring integrals let the largest polygon win, not the polygon
+    // with the widest bounding box. Overseas parts do not stretch the frame.
+    const integrals = data.arcs.map(arc => {
+      let sum = 0;
+      for (let i = 2; i < arc.length; i += 2) {
+        const south = (arc[i - 1] * scale[1] + translate[1]) * radians;
+        const north = (arc[i + 1] * scale[1] + translate[1]) * radians;
+        sum += (arc[i] - arc[i - 2]) * scale[0] * radians * (Math.sin(south) + Math.sin(north));
+      }
+      return sum;
+    });
+    const largest = new Float64Array(data.entities.length);
+    const bounds = new Array(data.entities.length);
+    for (const areas of [data.countries, ...data.regions]) {
+      for (const [id, box, rings] of areas) {
+        let size = 0;
+        for (let r = 0; r < rings.length; r++) {
+          let sum = 0;
+          for (const arc of rings[r]) sum += arc < 0 ? -integrals[~arc] : integrals[arc];
+          size += (r === 0 ? 1 : -1) * Math.abs(sum);
+        }
+        if (bounds[id] && size <= largest[id]) continue;
+        largest[id] = size;
+        bounds[id] = [
+          [Math.max(-180, box[0] * scale[0] + translate[0]), Math.max(-90, box[1] * scale[1] + translate[1])],
+          [Math.min(180, box[2] * scale[0] + translate[0]), Math.min(90, box[3] * scale[1] + translate[1])]
+        ];
+      }
+    }
+    return bounds;
+  }
+
+  function countryAliases(data) {
+    const count = data.regions.length;
+    const aliases = Array.from({length: count}, () => []);
+    const names = new Map();
+    for (let i = 0; i < count; i++) {
+      const name = normalize(data.entities[i][0]);
+      names.set(name, i);
+      // Match shorter localized labels to formal names with an "of" suffix.
+      const short = name.replace(/^the /, '').split(' of ')[0];
+      if (short !== name && (short.includes(' ') || name.startsWith('the '))) {
+        names.set(short, names.has(short) ? null : i);
+      }
+      // Initialisms come from the full dataset name, not a hand-picked list.
+      const words = name.split(' ').filter(word => !['of', 'the', 'and'].includes(word));
+      if (words.length > 1) aliases[i].push(words.map(word => word[0]).join(''));
+    }
+    if (typeof Intl.DisplayNames !== 'function') return aliases;
+    const longNames = new Intl.DisplayNames(['en'], {type: 'region', fallback: 'none'});
+    const shortNames = new Intl.DisplayNames(['en'], {type: 'region', style: 'short', fallback: 'none'});
+    for (let a = 65; a <= 90; a++) {
+      for (let b = 65; b <= 90; b++) {
+        const code = String.fromCharCode(a, b);
+        const long = normalize(longNames.of(code));
+        const short = normalize(shortNames.of(code));
+        const id = names.get(long) ?? names.get(short);
+        if (id !== undefined && id !== null) aliases[id].push(code.toLowerCase(), long, short);
+      }
+    }
+    return aliases;
+  }
+
+  async function searchIndex(data) {
+    const entries = [];
+    const bounds = principalBounds(data);
+    const aliases = countryAliases(data);
+    const countryCount = data.regions.length;
+    const names = data.entities.map(entity => normalize(entity[0]));
+    const add = (result, countryId, regionId) => {
+      const name = normalize(result.name);
+      entries.push({
+        result, name,
+        fields: [name, regionId >= 0 ? names[regionId] : '',
+          countryId >= 0 ? names[countryId] : ''],
+        aliases: countryId >= 0 ? aliases[countryId] : []
+      });
+    };
+    for (let id = 0; id < data.entities.length; id++) {
+      const [name, countryId] = data.entities[id];
+      if (!name || !bounds[id]) continue;
+      const country = data.entities[countryId][0];
+      const isCountry = id < countryCount;
+      add({
+        id: `${isCountry ? 'country' : 'region'}:${id}`,
+        type: isCountry ? 'country' : 'region', name,
+        region: isCountry ? null : name, country, bounds: bounds[id]
+      }, countryId, isCountry ? -1 : id);
+    }
+    const {scale, translate} = data.transform;
+    for (let id = 0; id < data.places.length; id++) {
+      const [name, lon, lat] = data.places[id];
+      const x = (lon - translate[0]) / scale[0];
+      const y = (lat - translate[1]) / scale[1];
+      const seam = Math.abs(lon) === 180;
+      const countryId = locate(data.countries, x, y, seam, data);
+      const regionId = countryId >= 0 ? locate(data.regions[countryId], x, y, seam, data) : -1;
+      add({
+        id: `place:${id}`, type: 'place', name, lat, lon,
+        region: regionId >= 0 ? data.entities[regionId][0] : null,
+        country: countryId >= 0 ? data.entities[countryId][0] : null
+      }, countryId, regionId);
+      // Index once, yielding between batches so typing and map controls work.
+      if (id % 256 === 255) await new Promise(resolve => setTimeout(resolve, 0));
+    }
+    return entries;
+  }
+
+  function matchRank(entry, query, terms) {
+    let rank = 0;
+    let named = false;
+    for (const term of terms) {
+      let best = Infinity;
+      for (let i = 0; i < entry.fields.length; i++) {
+        const field = entry.fields[i];
+        const position = field.indexOf(term);
+        if (position < 0) continue;
+        const quality = field === term ? 0 : position === 0 || field[position - 1] === ' ' ? 1 : 2;
+        best = Math.min(best, quality);
+        if (i === 0) named = true;
+      }
+      // Short country aliases match as a whole, never inside another word.
+      if (entry.aliases.includes(term)) {
+        best = 0;
+        if (entry.result.type === 'country') named = true;
+      }
+      if (!Number.isFinite(best)) return Infinity;
+      rank = Math.max(rank, best);
+    }
+    if (entry.name === query || (entry.result.type === 'country' && entry.aliases.includes(query))) return 0;
+    return 1 + rank * 2 + (named ? 0 : 1);
+  }
+
+  async function search(query, {limit = 15} = {}) {
+    const data = await load();
+    if (!data) return {results: [], available: false};
+    const normalized = normalize(query);
+    const size = Number.isFinite(limit) ? Math.max(0, Math.min(50, Math.floor(limit))) : 15;
+    if (!normalized || !size) return {results: [], available: true};
+    if (!searching) searching = searchIndex(data).catch(() => null);
+    const entries = await searching;
+    if (!entries) return {results: [], available: false};
+    const terms = normalized.split(' ');
+    const best = [];
+    for (const entry of entries) {
+      const rank = matchRank(entry, normalized, terms);
+      if (!Number.isFinite(rank)) continue;
+      let index = 0;
+      while (index < best.length && (best[index].rank < rank
+        || (best[index].rank === rank && best[index].entry.result.name.localeCompare(entry.result.name) <= 0))) index++;
+      if (index >= size) continue;
+      best.splice(index, 0, {entry, rank});
+      if (best.length > size) best.pop();
+    }
+    // Only the bounded result set is copied; the shared index stays private.
+    return {results: best.map(({entry}) => {
+      const result = {...entry.result};
+      if (result.bounds) result.bounds = result.bounds.map(point => [...point]);
+      return result;
+    }), available: true};
+  }
+
   async function lookup(lat, lon) {
     if (!coordinatesValid(lat, lon)) {
       return {label: 'Unresolved location', region: null, country: null, nearest: null,
@@ -198,5 +365,5 @@ window.PlaceNames = (() => {
     return {label, region, country, nearest, source: sourceText, note: `${note} ${caveat}`};
   }
 
-  return {lookup};
+  return {lookup, search};
 })();

@@ -16,9 +16,14 @@
   <section class="explorer" aria-label="Choose a location">
     <aside class="location-panel">
       <div class="panel-heading"><span class="step-number">01</span><h2>Select a location</h2></div>
-      <p class="small">Place a pin, enter coordinates or select a saved location.</p>
-      <label for="site-search" class="field-label">Find a saved location</label><input id="site-search" type="search" placeholder="Name, region or county" autocomplete="off" aria-controls="presets">
-      <div id="presets" class="preset-list" aria-label="Saved locations"></div><p id="preset-count" class="small" role="status"></p>
+      <p class="small">Search for a place, place a pin or enter coordinates.</p>
+      <label for="site-search" class="field-label">Search places</label>
+      <input id="site-search" type="search" placeholder="City, region or country" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-help search-status">
+      <p id="search-help" class="small">Search saved locations and the local Natural Earth reference. Not every village or address is represented. Regions and countries open an area; choose a point for analysis.</p>
+      <div id="search-results" class="search-results" role="listbox" aria-label="Saved locations, places, regions and countries" hidden></div>
+      <p id="search-status" class="small" role="status" aria-live="polite">Type a city, region or country. Search works without the weather archive.</p>
+      <h3 class="field-label" id="saved-locations-heading">Saved locations</h3>
+      <div id="presets" class="preset-list" aria-labelledby="saved-locations-heading"></div><p id="preset-count" class="small" role="status"></p>
       <form id="location-form">
         <div class="coordinate-fields"><label>Latitude<input id="latitude" type="number" min="-90" max="90" step="any" required value="-26.312389"></label><label>Longitude<input id="longitude" type="number" min="-180" max="180" step="any" required value="-50.080639"></label></div>
         <p id="selection-label" class="selection-label">Papanduva · saved location</p>

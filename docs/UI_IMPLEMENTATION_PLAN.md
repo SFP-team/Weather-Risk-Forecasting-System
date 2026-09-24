@@ -10,7 +10,7 @@ The connected private API reads daily weather and complete hourly series for sup
 
 ## User journey
 
-1. **Choose a place.** Click or drag a map pin, enter numeric coordinates, or filter the 18 saved locations by name, region or county. The search is explicitly a saved-location filter, not global address geocoding. Keyboard users can enter coordinates, select a saved button, or pan the map and select its center.
+1. **Choose a place.** Search by settlement name, region or country in the local reference, or choose a saved research site. Case/accent-insensitive results include geographic context and support arrows, Enter and Escape. A settlement selects its reference coordinates. A region or country frames its principal polygon and requires a specific map point or coordinates before Analyze is enabled. This is not a worldwide street-address service; many smaller settlements are absent. Saved sites remain a separate search group and browse list.
    A local Natural Earth lookup supplies the containing country/region and nearest represented settlement. Show `Near NAME` within 100 km on represented land; otherwise use the containing area or coordinates. Saved farm names remain primary. Names do not move the pin or assign scientific/planting metadata.
 2. **Request an analysis.** Map movement never invokes the archive. Analyze is explicit. Distinguish the draft pin from the committed result; a changed pin leaves the previous location's name and coordinates on its assessment with a visible notice.
 3. **Read what is available.** Show daily rows, hourly access, applicable calendar, planting-guide availability and soil records separately. Connection status concerns service access, not scientific validity. Missing information never receives a low-risk colour or zero value.
@@ -45,7 +45,7 @@ The five assessment views use one tab panel at a time. Tab, arrow keys, Home and
 
 ## Visual and interaction system
 
-Use the supplied Blueberry Breeding Lab logo, white panels, navy text, blue navigation and restrained amber recurrence accents. Headings name the data or action rather than using slogans. Stage colours identify categories only. All meaning also appears in words, units and counts. System fonts avoid an external font service. Values use tabular numerals.
+Use the supplied Blueberry Breeding Lab logo and gallery reference: white canvas, #f5f5f7 section surfaces, #1d1d1f text, #0066cc links and compact #0071e3 primary actions. Center the 80px/600 desktop heading with responsive smaller type. Map and feature cards use 28px corners without gradients or cast shadows; inputs/actions are pill-shaped. System fonts avoid external font services. Scientific stage colours remain categorical, values retain units and tabular numerals, and tables scroll within their sections. The map takes the visual role of product imagery; no unrelated device or shopping elements are added.
 
 Desktop places the location controls alongside the map. The assessment starts below with its identity, setup and evidence coverage. Mobile stacks the controls and map, then the assessment. Tables and the timeline scroll within labelled regions rather than widening the page. Interactive targets are at least 44 px where practical; focus rings, semantic headings, reduced-motion support and a coordinate-entry skip link are part of the design.
 

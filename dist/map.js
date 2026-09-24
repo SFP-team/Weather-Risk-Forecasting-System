@@ -183,6 +183,21 @@ window.LocationMap = (() => {
       });
     }
 
+    function focusArea(bounds) {
+      if (!Array.isArray(bounds) || bounds.length !== 2
+        || !bounds.every(point => Array.isArray(point) && point.length === 2
+          && coordinatesValid(point[1], point[0]))
+        || bounds[0][0] > bounds[1][0] || bounds[0][1] > bounds[1][1]) return;
+      selection = null;
+      if (selected) selected.getElement().hidden = true;
+      clearEvidence();
+      latitudeMessage = '';
+      updateWarning();
+      if (!map || failed) return;
+      const framed = bounds.map(([lon, lat]) => [lon, Math.max(-mercatorLimit, Math.min(mercatorLimit, lat))]);
+      map.fitBounds(framed, {padding: 36, maxZoom: 9, duration: 0});
+    }
+
     function choose(point) {
       if (!Number.isFinite(point.lat) || !Number.isFinite(point.lng)) return;
       const lat = Math.max(-90, Math.min(90, point.lat));
@@ -202,7 +217,7 @@ window.LocationMap = (() => {
     }
 
     const controller = {
-      setSelection, setEvidence, setLabel,
+      setSelection, setEvidence, setLabel, focusArea,
       resize() { if (map && !failed) map.resize(); }
     };
     if (!window.maplibregl || typeof window.maplibregl.Map !== 'function') {
