@@ -2,6 +2,8 @@
 
 Date: 2026-09-15. Status: research synthesis with one data check. Nothing here is implemented in `production.py` yet; every proposal names its inputs, window, threshold, source and confidence. Sources were gathered by eight parallel literature scouts (chill, forcing/phenology, freeze, heat/VPD/radiation, rain/disease, water balance, pollination/pests, system classification); numbers marked [unverified] could not be traced to a primary source or are cross-crop.
 
+**2026-09-24 phenology correction:** the [global phenology review](GLOBAL_PHENOLOGY_REVIEW.md) supersedes this document's calendar parameter recommendations. Do not implement its universal 150-hour floor, CH-to-CP conversion, generic SHB bloom classes, first-ripe/end-of-harvest offsets, 300-hour/10–14-day delay or fixed evergreen dates as validated rules. Emerald/Jewel flowering quantiles are derived from treated Citra plants, not general cultivar-class observations. Piracicaba's published table contains five hours below 7.2°C, not zero. The newer review distinguishes measured endpoints, treatment effects, model fit, transferability and unsupported proposals. Historical text below is retained as the earlier research record; live scientific constants were not changed by this review.
+
 Species tags: SHB = southern highbush, RE = rabbiteye, NHB = northern highbush.
 
 ## 1. Verdict in one page

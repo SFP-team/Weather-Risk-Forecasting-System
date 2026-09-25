@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-09-24 — Global blueberry phenology research
+
+- Completed a 43-source synthesis covering bud initiation/differentiation, floral and vegetative budbreak, flowering, ripening and commercial harvest across global production regimes. Regional examples retain cultivar, site, system, stage definitions and source-access limitations. Usual dates, forecasts and favorable management scenarios are treated separately.
+- Read-only audit: 18 saved sites, 270 site-years, 235 computed calendars; all retain +14/+35 flowering and +70/+110 harvest offsets. Reconstructed Emerald/Jewel flowering quantiles from published logistic coefficients and recorded the treatment/anchor/formula caveats.
+- Corrected earlier recommendations and source descriptions: Kirk & Isaacs is not the 15-year harvest series; Epagri is modeled zoning, not cultivar-date validation; Piracicaba reports five rather than zero hours below 7.2°C; general CH/CP conversion and several harvest/chill-delay/accuracy claims lack support.
+- Delivered `docs/weather/GLOBAL_PHENOLOGY_REVIEW.md` and calculation audit JSON; updated earlier research and roadmap pointers. Citation and arithmetic checks performed. No live model, snapshots, weather data or UI changes; no tests rerun or scientific validation claimed. Further parameter changes require a separate implementation decision and relevant observations.
+
 ## 2026-09-24 — Removed platform heading
 
 - Removed Blueberry Decision Support from the visible page and browser-tab title. The lab logo remains; search and map follow the header without the hero's blank space. Direct-map layout visually inspected. No backend changes.

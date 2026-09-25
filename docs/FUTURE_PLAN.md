@@ -4,6 +4,8 @@ Date: 2026-09-21. Basis: eight parallel research scouts (Paul's new R file, code
 
 Implementation update, 2026-09-22: the user authorized recurrence gating, disease-weather ranking, the four exposure families, one researched planting window and dashboard updates. These now run as `stage_risks_v2`; see [verified methods and sources](weather/production/README.md). Regional establishment guidance replaces the uncited budbreak planting offsets. Chill portions, new phenology constants, management/genotype models and hosted deployment were not part of this change. The user subsequently authorized GitHub publication.
 
+Phenology research amendment, 2026-09-24: [GLOBAL_PHENOLOGY_REVIEW.md](weather/GLOBAL_PHENOLOGY_REVIEW.md) provides a 43-source, stage-defined review and corrections to earlier numerical proposals. The next phenology revision requires a cultivar/management/endpoint-specific parameter registry and blocked site/year validation, not universal 50-hour/150-GDD/day-offset replacements. Emerald/Jewel fitted flowering quantiles are local treated-plant comparisons; chilling-model superiority, CH/CP conversion, generic harvest-end offsets and prior accuracy promises are not established. The research did not change live parameters. Phase 2 entries below are planning topics, not validated settings.
+
 ## 1. Where the project stands
 
 Built and working: completed global daily and land-hourly archives for 2010–2025; read-only API extraction for supported land cells beyond the 19 indexed cells; `stage_risks_v2` with ≥50%/12-winter gating, disease-family ranking and stage exposures; one regional establishment window; 18 dashboard presets and HTML/JSON exports. The hourly integration passed 102 server tests, real global-point checks and browser verification.

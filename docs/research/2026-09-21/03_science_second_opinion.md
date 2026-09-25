@@ -2,6 +2,8 @@
 
 # Second opinion: crop-modelling / horticultural-climatology view
 
+**Research update, 2026-09-24:** the [global phenology review](../../weather/GLOBAL_PHENOLOGY_REVIEW.md) separates blueberry-specific evidence from cross-crop models. Dynamic Model chill portions are a candidate for comparison, not a demonstrated globally best blueberry model; cultivar requirements cannot be obtained by CH/CP ratios. SHB bloom curves from treated Citra plants do not establish global cultivar-class targets, and a January/July anchor is not a universal management cycle. The completed hourly archive also removes the earlier operational need to reconstruct hourly temperature from daily data. Historical recommendations below are not an approved parameter configuration.
+
 ## 1. Findings with sources
 
 ### 1.1 Perennial-fruit suitability and phenology frameworks

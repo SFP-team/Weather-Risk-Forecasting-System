@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-24",
+  "scope": "Read-only audit of the 18 committed dist/snapshots/*.json payloads; no archive download or scientific model change",
+  "method": "For each season with budbreak_date, flowering and harvest, subtract ISO dates and count distinct elapsed-day offsets",
+  "sites": 18,
+  "site_years": 270,
+  "rows_with_computed_calendar": 235,
+  "distinct_offsets": [{
+    "flowering_start_after_budbreak_days": 14,
+    "flowering_end_after_budbreak_days": 35,
+    "harvest_start_after_flowering_start_days": 70,
+    "harvest_end_after_flowering_start_days": 110,
+    "harvest_elapsed_span_days": 40,
+    "harvest_inclusive_calendar_days": 41
+  }],
+  "interpretation": "All 235 computed calendars use identical post-budbreak elapsed-day offsets. Temperature changes budbreak timing but does not change post-budbreak flowering or harvest durations. Computed calendars include hypothetical rows and do not imply all 235 are agronomically applicable.",
+  "model_profile": "stage_risks_v2 inherits legacy_paul_v1 phenology",
+  "parameters": {
+    "chill_definition": "T < 7.2 C, without lower bound",
+    "chill_requirement_hours": 50,
+    "forcing_base_c": 7,
+    "forcing_requirement_degree_days": 150,
+    "forcing_temperature": "daily source tmean_c, starting on the UTC day chilling threshold is reached"
+  },
+  "published_bloom_curve_reconstruction": {
+    "source": "https://journals.ashs.org/view/journals/jashs/140/1/article-p38.xml",
+    "formula": "GDD(p) = (ln(p/(1-p)) - intercept) / slope",
+    "Emerald": {"intercept": -3.3740, "slope": 0.0150, "F10": 78.5, "F50": 224.9, "F90": 371.4},
+    "Jewel": {"intercept": -4.6172, "slope": 0.0153, "F10": 158.2, "F50": 301.8, "F90": 445.4},
+    "context": "Citra, Florida; two bloom seasons, 2012 and 2013; mature plants; hydrogen cyanamide used; base 7 C, January 1 accumulation anchor",
+    "limitations": "Derived fitted-curve quantiles, not independent observed dates or general SHB classes. Published HTML prints an apparent minus-sign error in the daily temperature formula; exact accumulation implementation needs confirmation before model transfer. No live parameters changed."
+  }
+}

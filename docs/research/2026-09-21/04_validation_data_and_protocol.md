@@ -2,6 +2,8 @@
 
 # Ground truth and validation protocol
 
+**Correction, 2026-09-24:** use the [global phenology review](../../weather/GLOBAL_PHENOLOGY_REVIEW.md) for current evidence. Kirk & Isaacs observed field bloom in 2009–2010, not a 15-year harvest series; that long series belongs to Carlson & Hancock 1991. Epagri's linked document is 2017 modeled zoning, not a 2020/21 cultivar trial. Campa & Ferreira's accessible Asturias paper covers 70 mixed Vaccinium accessions over 2012–2017. The 7–12-day bloom MAE and ±10–14-day harvest expectations below are not established platform accuracy. USA-NPN stage definitions are verified, but local record counts remain unverified. Original notes remain below for history.
+
 ## 1. Findings with sources
 
 ### 1a. Observed phenology / harvest-progress datasets
