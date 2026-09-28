@@ -23,7 +23,11 @@ const CycleView = (() => {
   const shift = (value, delta) => finite(value) ? value + delta : null;
   const reason = status => ({ chill_not_met: 'Chill requirement not met', incomplete_chill: 'Incomplete hourly winter',
     incomplete_gdd: 'Incomplete temperature history', gdd_not_met_within_horizon: 'Heat requirement not reached',
+    stage_gdd_not_met: 'Stage heat requirement not reached', incomplete_stage_dates: 'Incomplete temperature history after budbreak',
     incomplete_metrics: 'Some stage exposures are unavailable' })[status] || 'Stage timing unavailable';
+  const share = value => finite(value) ? `${number(value * 100, 1)}%` : 'Unavailable';
+  const measureNames = { flowering_freeze: 'Flowering freeze', fruit_frost: 'Fruit frost', fruit_heat: 'Fruit heat',
+    harvest_heavy_rain: 'Harvest heavy rain', disease_weather: 'Disease weather' };
 
   function model(p, winter) {
     const season = winter === 'typical' ? null : p.seasons.find(row => String(row.winter_year) === winter);
@@ -38,7 +42,8 @@ const CycleView = (() => {
         case 'flower': return [offset('flowering_start', qStart), offset('flowering_end', qEnd)];
         case 'fruit': return [shift(offset('flowering_end', qStart), 1), shift(offset('harvest_start', qEnd), -1)];
         case 'harvest': return [offset('harvest_start', qStart), offset('harvest_end', qEnd)];
-        case 'whole': return [p.profile === 'stage_risks_v2' ? offset('budbreak', qStart) : 0, offset('harvest_end', qEnd)];
+        // Profiles that require an applicable calendar measure the production window from budbreak.
+        case 'whole': return [p.assumptions?.require_applicable_calendar ? offset('budbreak', qStart) : 0, offset('harvest_end', qEnd)];
       }
     };
     const rows = stages.map(stage => ({ ...stage, span: interval(stage.id), spread: season ? null : interval(stage.id, 'p10', 'p90') }));
@@ -47,7 +52,10 @@ const CycleView = (() => {
     const latest = Math.max(winterEnd, ...ends.map(value => value + 1));
     const lastDate = new Date(anchor + latest * DAY);
     const end = Date.UTC(lastDate.getUTCFullYear(), lastDate.getUTCMonth() + 1, 1);
-    return { season, anchor, rows, offset, days: (end - anchor) / DAY };
+    const chill = season ? [season.chill_hours, season.chill_portions] : [p.chill_hours?.mean, p.chill_portions?.mean];
+    const chillNote = [finite(chill[0]) ? `${number(chill[0], 0)} chill hours` : '', finite(chill[1]) ? `${number(chill[1], 1)} chill portions` : '']
+      .filter(Boolean).join(' · ');
+    return { season, anchor, rows, offset, days: (end - anchor) / DAY, chillNote: chillNote && (season ? chillNote : `Mean ${chillNote}`) };
   }
 
   function diagram(view, selected) {
@@ -74,10 +82,11 @@ const CycleView = (() => {
         const markerKey = row.id === 'chill' ? 'chill' : row.id === 'buds' ? 'budbreak' : null;
         const marker = markerKey ? view.offset(markerKey) : null;
         return `<g class="cycle-lane${on ? ' is-selected' : ''}" data-cycle-lane="${row.id}" data-stage="${row.id}">
-          <title>${row.title}: ${available ? `${date(view.anchor, row.span[0])} to ${date(view.anchor, row.span[1])}` : 'Unavailable'}</title>
+          <title>${row.title}: ${available ? `${date(view.anchor, row.span[0])} to ${date(view.anchor, row.span[1])}` : 'Unavailable'}${row.id === 'chill' && view.chillNote ? ` · ${view.chillNote}` : ''}</title>
           <rect x="0" y="${y - 10}" width="${right + 12}" height="42" rx="6" class="cycle-row-highlight"/>
           <text x="12" y="${y + 6}" class="cycle-row-title">${row.title}</text><text x="12" y="${y + 23}" class="cycle-row-subtitle">${available ? `${date(view.anchor, row.span[0])} to ${date(view.anchor, row.span[1])}` : 'Window unavailable'}</text>
           ${broad && row.id !== 'chill' ? `<rect x="${x(row.spread[0])}" y="${y - 2}" width="${Math.max(2, x(row.spread[1] + 1) - x(row.spread[0]))}" height="26" rx="5" class="cycle-spread"/>` : ''}${track}
+          ${row.id === 'chill' && available && view.chillNote && x(row.span[1] + 1) - x(row.span[0]) > 260 ? `<text x="${x(row.span[1] + 1) - 10}" y="${y + 15}" text-anchor="end" class="cycle-bar-text">${escape(view.chillNote)}</text>` : ''}
           ${finite(marker) ? `<path d="M ${x(marker)} ${y - 6} v 33" class="cycle-marker"/><circle cx="${x(marker)}" cy="${y - 6}" r="3" class="cycle-marker-dot"><title>${markerKey === 'chill' ? 'Requirement reached' : 'Budbreak'}: ${date(view.anchor, marker)}</title></circle>` : ''}
         </g>`;
       }).join('')}</svg>`;
@@ -129,13 +138,52 @@ const CycleView = (() => {
     const available = stage.span.every(finite) && stage.span[1] >= stage.span[0];
     const metrics = p.metric_catalog.filter(metric => metric.stage === selected && metric.key !== 'warm_midwinter_hours');
     const events = Object.values(p.risks.by_id).filter(event => event.risk !== 'warm_midwinter' && (event.stage === selected || metrics.some(metric => metric.key in (event.exposure ?? {}))));
-    const budNote = selected === 'buds' ? `<div class="cycle-explanation"><p>Assumed budbreak <strong>${date(view.anchor, view.offset('budbreak'), !!view.season)}</strong>. No separate bud-stage exposure metric is available.</p><details><summary>Timing assumptions</summary><p>After ${escape(a.chill_requirement_hours)} chill hours, the model adds warmth until ${escape(a.gdd_to_budbreak)} °C·d above ${escape(a.gdd_base_c)}°C is reached. Flowering starts ${escape(a.flowering_after_budbreak_days[0])} days after budbreak.</p><p>These are timing assumptions, not observed plant stages.</p></details></div>` : '';
+    const budNote = selected === 'buds' ? `<div class="cycle-explanation"><p>Assumed budbreak <strong>${date(view.anchor, view.offset('budbreak'), !!view.season)}</strong>. No separate bud-stage exposure metric is available.</p><details><summary>Timing assumptions · ${escape(stageClockLabel(a))}</summary><p>${escape(stageTiming(a))}</p><p>These are timing assumptions, not observed plant stages.</p></details></div>` : '';
     return `<header class="cycle-detail-heading"><div><span class="stamp">${view.season ? `Winter ${view.season.winter_year}` : 'Historical exposure summary'}${hypothetical ? ' · Hypothetical exposures' : ''}</span><h3 id="cycle-detail-title">${stage.title}</h3></div><p>${available ? `${hypothetical ? 'Hypothetical' : view.season ? 'Modelled' : 'Median'} window<br><strong>${date(view.anchor, stage.span[0], !!view.season)} to ${date(view.anchor, stage.span[1], !!view.season)}</strong>` : escape(reason(view.season?.status))}</p></header>
       ${view.season && view.season.status !== 'complete' ? `<p class="cycle-notice">${escape(reason(view.season.status))}. Missing values are not zero exposure.</p>` : ''}
       <div class="cycle-metrics">${metrics.map(metric => metricCard(p, view, metric)).join('')}</div>${budNote}
       ${events.length ? `<details class="cycle-stage-evidence"><summary>Historical event definitions, eligibility & sources · ${events.length} assessments</summary>${events.map(event => assessmentDetail(event, !!view.season)).join('')}</details>` : ''}
       ${selected === 'harvest' ? '<p class="cycle-footnote">Rainfall totals and day counts describe different exposures. Neither is an estimate of crop loss.</p>' : ''}
-      ${selected === 'whole' ? `<p class="cycle-footnote">${p.profile === 'stage_risks_v2' ? 'Production metrics cover budbreak through harvest end.' : 'This legacy profile covers season start through harvest end.'} Totals do not locate dry spells or radiation extremes within that window.</p>` : ''}`;
+      ${selected === 'whole' ? `<p class="cycle-footnote">${p.assumptions?.require_applicable_calendar ? 'Production metrics cover budbreak through harvest end.' : 'This legacy profile covers season start through harvest end.'} Totals do not locate dry spells or radiation extremes within that window.</p>` : ''}`;
+  }
+
+  // Managed-cycle scan: each 1st/15th start is a management scenario for budbreak, not a chill-triggered date.
+  function managedCycle(p) {
+    const m = p.managed_cycle;
+    if (!m?.starts?.length) return '';
+    const primary = m.role === 'primary', fav = m.favourable ?? {}, policy = m.policy ?? {};
+    const favourable = new Set(fav.budbreak ?? []);
+    const state = start => start.recurring_crop_loss?.length ? 'loss' : !start.rankable ? 'unrankable' : favourable.has(start.budbreak) ? 'favourable' : 'other';
+    const stateLabel = { favourable: 'Favourable', loss: 'Recurring crop loss', unrankable: 'Not rankable', other: 'Not favourable' };
+    const names = ids => (ids ?? []).map(id => riskLabel(p, id));
+    const span = (from, to) => from && to ? `${md(from)} – ${md(to)}` : 'Unavailable';
+    const startsIn = key => m.starts.filter(start => state(start) === key).map(start => md(start.budbreak)).join(', ') || 'none';
+    const minCycles = finite(policy.min_valid_years) ? `fewer than ${policy.min_valid_years} complete cycles` : 'too few complete cycles';
+    const cells = m.starts.map(start => {
+      const kind = state(start);
+      const tip = `${md(start.budbreak)} start · ${stateLabel[kind]} · ${start.cycles} complete, ${start.stalled_cycles} stalled cycles${start.recurring?.length ? ` · recurring: ${names(start.recurring).join(', ')}` : ''}`;
+      return `<span class="scan-cell is-${kind}${start.stalled_cycles ? ' has-stalled' : ''}" title="${escape(tip)}"></span>`;
+    }).join('');
+    const rows = m.starts.map(start => {
+      const kind = state(start), d = start.dates ?? {};
+      // Crop-loss families first; a stalled start can list both even when other events lack complete cycles.
+      const loss = start.recurring_crop_loss ?? [], ids = [...new Set([...loss, ...(start.recurring ?? [])])];
+      const recurring = ids.map(id => `${riskLabel(p, id)} ${share(start.events?.[id]?.frequency)}${loss.includes(id) ? ' (crop loss)' : ''}`);
+      return `<tr class="is-${kind}"><th scope="row">${md(start.budbreak)}<span class="risk-stage">${stateLabel[kind]}</span></th><td>${span(d.flowering_start, d.flowering_end)}</td><td>${span(d.harvest_start, d.harvest_end)}</td><td>${escape(exact(start.cycles))} / ${escape(exact(start.stalled_cycles))}</td>${(m.measures ?? []).map(measure => `<td>${share(start.measures?.[measure.key])}</td>`).join('')}<td>${recurring.length ? escape(recurring.join(' · ')) : 'None'}</td></tr>`;
+    }).join('');
+    const timing = fav.unconstrained
+      ? '<div><dt>Favourable starts</dt><dd>Weather does not separate start dates; timing is a market or management choice.</dd></div>'
+      : `<div><dt>Favourable starts (budbreak)</dt><dd>${escape((fav.budbreak ?? []).map(md).join(', ') || 'None')}</dd></div><div><dt>Flowering</dt><dd>${escape(monthRuns(fav.flowering_months))}</dd></div><div><dt>Harvest</dt><dd>${escape(monthRuns(fav.harvest_months))}</dd></div>`;
+    return `<header class="scan-header"><div><span class="stamp">${primary ? 'Management scenario · production window for this location' : 'Comparison · management scenario'}</span><h3 id="managed-cycle-title">${primary ? 'Managed-cycle scan' : 'If managed as an evergreen cycle'}</h3>
+      <p>${primary ? 'The chill-triggered calendar does not apply here. Each start date is a managed budbreak of the fruiting cycle; the favourable starts give the production window.' : 'The chill-triggered calendar applies here. This comparison scores cycles started by management on each date against the same historical weather.'}</p></div><span class="scan-chip">${escape(stageClockLabel(p.assumptions))}</span></header>
+      <dl class="scan-facts">${timing}<div><dt>Recurring at favourable starts</dt><dd>${escape(names(fav.recurring).join(', ') || 'None')}</dd></div></dl>
+      <div class="scan-strip-wrap"><div class="scan-strip" role="img" aria-label="Cycle starts on the 1st and 15th of each month. Favourable: ${escape(startsIn('favourable'))}. Recurring crop loss: ${escape(startsIn('loss'))}. Not rankable: ${escape(startsIn('unrankable'))}.">${cells}</div>
+      <div class="scan-months" aria-hidden="true">${MONTHS.map(month => `<span>${month}</span>`).join('')}</div></div>
+      <div class="scan-legend"><span><i class="scan-key is-favourable"></i>Favourable start</span><span><i class="scan-key is-loss"></i>Recurring crop loss</span><span><i class="scan-key is-unrankable"></i>Not rankable (${escape(minCycles)})</span><span><i class="scan-key is-other"></i>Other start</span><span><i class="scan-key has-stalled"></i>Some cycles stalled</span></div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Managed-cycle starts: dates, cycles, measures and recurring risks"><table class="scan-table"><thead><tr><th scope="col">Cycle start</th><th scope="col">Flowering</th><th scope="col">Harvest</th><th scope="col">Complete / stalled cycles</th>${(m.measures ?? []).map(measure => `<th scope="col">${escape(measureNames[measure.key] ?? measure.key)}</th>`).join('')}<th scope="col">Recurring risks · share of cycles</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="scan-note">Dates are medians across complete cycles. Percentages are historical exposure shares, not loss probabilities.</p>
+      <details class="scan-details"><summary>Measures, selection rule and limitations</summary><dl class="scan-measures">${(m.measures ?? []).map(measure => `<div><dt>${escape(measureNames[measure.key] ?? measure.key)}</dt><dd>${escape(measure.definition)}${finite(measure.tolerance) ? `. Separation tolerance ${escape(number(measure.tolerance * 100, 1))} percentage points.` : ''}</dd></div>`).join('')}</dl>
+      <p>${escape(m.rule)}</p><ul>${(m.limitations ?? []).map(item => `<li>${escape(item)}</li>`).join('')}</ul></details>`;
   }
 
   function mount(root, p, context) {
@@ -150,25 +198,37 @@ const CycleView = (() => {
     const panel = document.createElement('section');
     panel.className = 'cycle-panel';
     panel.setAttribute('aria-labelledby', 'cycle-heading');
-    const hypothetical = !p.classification?.multi_feature?.majority || p.classification.multi_feature.majority === 'Evergreen';
+    const hypothetical = !chillCalendarApplies(p);
     const unsupported = hypothetical || !p.seasons.length;
+    const majority = p.classification?.multi_feature?.majority, reasons = p.chill_clock?.reasons ?? [];
+    const managed = p.managed_cycle?.role === 'primary';
     panel.innerHTML = `<header class="cycle-header"><div><span class="stamp">${escape(context.site)} · Seasonal exposure</span><h3 id="cycle-heading">${unsupported ? 'Winter context & hypothetical exposures' : 'Season & exposures'}</h3><p>Select a winter and stage to compare exposures with historical means.</p></div><label class="cycle-view-label" for="cycle-winter">Winter record<select id="cycle-winter"><option value="typical">Historical summary · ${escape(p.years.join(' to '))}</option>${p.seasons.map(row => `<option value="${row.winter_year}">Winter ${row.winter_year}${row.status !== 'complete' ? ' · incomplete' : ''}</option>`).join('')}</select></label></header>
-      <div class="cycle-scope"><span>${escape(p.profile)} · ${escape(p.assumptions.chill_requirement_hours)} h requirement · UTC</span><span>${escape(p.classification?.multi_feature?.majority ?? 'Unclassified')} hypothesis · open field + ground · unvalidated</span></div>
-      ${unsupported ? `<p class="cycle-notice">${hypothetical ? 'No applicable crop timeline. Evergreen production needs a management anchor; an unclassified result has no supported crop calendar. Retained crop-stage exposures are hypothetical.' : 'No winter records are available for a crop timeline.'} Warm midwinter context remains independent.</p>` : ''}
+      <div class="cycle-scope"><span>${escape(p.profile)} · ${escape(stageClockLabel(p.assumptions))} · ${p.chill_clock?.chill_requirement_applies === false ? 'chill requirement not applied' : `${escape(p.assumptions.chill_requirement_hours)} h requirement`} · UTC</span><span>${escape(systemLabel(majority))}${majority === 'Transitional' ? '' : ' hypothesis'} · open field + ground · unvalidated</span></div>
+      ${unsupported ? `<div class="cycle-notice"><p>${hypothetical ? `No applicable chill-triggered crop timeline.${reasons.length ? '' : ' Evergreen production needs a management anchor; an unclassified result has no supported crop calendar.'} Retained crop-stage exposures are hypothetical.${managed ? ' The managed-cycle scan above gives the production window for this location.' : ''}` : 'No winter records are available for a crop timeline.'} Warm midwinter context remains independent.</p>${hypothetical && reasons.length ? `<ul>${reasons.map(item => `<li>${escape(item)}</li>`).join('')}</ul>` : ''}</div>` : ''}
+      ${!unsupported && majority === 'Transitional' ? '<p class="cycle-notice">Tentative calendar: no production system reaches a two-thirds majority across winters.</p>' : ''}
       ${context.system !== 'open_ground' ? '<p class="cycle-notice">Open-field baseline shown. No tunnel or pot adjustment is applied.</p>' : ''}
       <div class="cycle-layout"><div class="cycle-chart-side"><div class="cycle-nav-heading"><h4>${hypothetical ? 'Hypothetical stage exposures' : 'Crop stages & analysis windows'}</h4><span>Colours identify stages, not severity</span></div><div class="cycle-stage-controls" role="group" aria-label="${hypothetical ? 'Select a hypothetical stage' : 'Select a stage'}">${stages.map(stage => `<button type="button" data-cycle-stage="${stage.id}" data-stage="${stage.id}" aria-pressed="false" aria-controls="cycle-detail"><i aria-hidden="true"></i>${stage.title}</button>`).join('')}</div>
       <div class="cycle-scroll" tabindex="0" role="region" aria-label="Modelled monthly timeline. Scroll horizontally to see all months." aria-describedby="cycle-scroll-hint"${unsupported ? ' hidden' : ''}></div>
       <p class="cycle-scroll-hint" id="cycle-scroll-hint"${unsupported ? ' hidden' : ''}>Timeline scrolls horizontally on smaller screens. Stage dates are also shown below.</p>
       <div class="cycle-legend"${unsupported ? ' hidden' : ''}><span><i class="cycle-key-solid"></i>Analysis window</span><span class="cycle-spread-key"><i class="cycle-key-spread"></i>p10 start to p90 end</span><span><i class="cycle-key-marker"></i>Chill fulfilled / budbreak</span></div>
       <details class="cycle-timeline-details"${unsupported ? ' hidden' : ''}><summary>How to read the timeline</summary><p class="cycle-chart-note"></p><p>Bar length shows time, not severity. Exact weather-event dates are not available here.</p></details></div>
-      <section id="cycle-detail" class="cycle-detail" aria-labelledby="cycle-detail-title" aria-live="polite" aria-atomic="true"></section></div>
+      <section id="cycle-detail" class="cycle-detail" aria-labelledby="cycle-detail-title"></section></div><p class="sr-only" id="cycle-status" role="status"></p>
       <div class="cycle-winter-context"></div><footer class="cycle-footer">Modelled dates are not observed phenology. Exposure counts and thresholds are not estimates of crop loss. Zero recorded events does not establish safety.</footer>`;
     root.insertBefore(panel, reference);
+    const scan = managedCycle(p);
+    if (scan) {
+      const section = document.createElement('section');
+      section.className = `managed-cycle${managed ? ' is-primary' : ''}`;
+      section.setAttribute('aria-labelledby', 'managed-cycle-title');
+      section.innerHTML = scan;
+      // Primary: the scan is the production window, so it leads. Comparison: it follows the chill-triggered view.
+      root.insertBefore(section, managed ? panel : reference);
+    }
     let selected = stages.some(stage => stage.id === context.view?.stage) ? context.view.stage : 'flower';
     const selector = panel.querySelector('#cycle-winter');
     const winter = String(context.view?.winter ?? 'typical');
     if (winter === 'typical' || p.seasons.some(row => String(row.winter_year) === winter)) selector.value = winter;
-    function update() {
+    function update(announce = false) {
       const view = model(p, selector.value);
       panel.dataset.winter = selector.value;
       panel.dataset.stage = selected;
@@ -182,14 +242,19 @@ const CycleView = (() => {
         ? 'Dates and totals belong to this winter. The year label refers to the winter, not necessarily the harvest year. Each metric uses its own modelled analysis window.'
         : 'Solid bars use median stage boundaries. Outlines span the 10th-percentile start to the 90th-percentile end across valid winters. They show timing spread, not confidence limits or a single observed season. Exposure means are calculated from each winter’s own dates, not the median window.';
       panel.querySelectorAll('[data-cycle-stage]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cycleStage === selected)));
+      if (announce) {
+        // One short line instead of re-reading the whole detail region on every change.
+        const row = view.rows.find(item => item.id === selected), open = row.span.every(finite) && row.span[1] >= row.span[0];
+        panel.querySelector('#cycle-status').textContent = `${row.title}, ${view.season ? `winter ${view.season.winter_year}` : 'historical summary'}: ${open ? `${hypothetical ? 'hypothetical ' : ''}${date(view.anchor, row.span[0], !!view.season)} to ${date(view.anchor, row.span[1], !!view.season)}` : reason(view.season?.status)}.`;
+      }
     }
     panel.addEventListener('click', event => {
       const control = event.target.closest('[data-cycle-stage], [data-cycle-lane]');
       if (!control) return;
       selected = control.dataset.cycleStage || control.dataset.cycleLane;
-      update();
+      update(true);
     });
-    selector.addEventListener('change', update);
+    selector.addEventListener('change', () => update(true));
     update();
   }
 

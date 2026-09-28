@@ -6,11 +6,13 @@ Implementation update, 2026-09-22: the user authorized recurrence gating, diseas
 
 Phenology research amendment, 2026-09-24: [GLOBAL_PHENOLOGY_REVIEW.md](weather/GLOBAL_PHENOLOGY_REVIEW.md) provides a 43-source, stage-defined review and corrections to earlier numerical proposals. The next phenology revision requires a cultivar/management/endpoint-specific parameter registry and blocked site/year validation, not universal 50-hour/150-GDD/day-offset replacements. Emerald/Jewel fitted flowering quantiles are local treated-plant comparisons; chilling-model superiority, CH/CP conversion, generic harvest-end offsets and prior accuracy promises are not established. The research did not change live parameters. Phase 2 entries below are planning topics, not validated settings.
 
+Production v3 amendment, 2026-09-28: `stage_thermal_v3` is now primary. It adds temperature-driven stages after budbreak, the hourly BAS/SAS infection model, reported chill portions, a chill-clock applicability test and a managed-cycle scan that gives a window at tropical and evergreen sites. A 53-site literature benchmark (US transect, Peru, Chile, Mexico, other Latin America, rest of world) compares modelled and published months; see `weather/production/README.md` and `weather/benchmark/benchmark.html`. The thermal constants are a Waldo translation checked against published spans, not a phenology fit, so Phase 2.1 and field validation remain open.
+
 ## 1. Where the project stands
 
-Built and working: completed global daily and land-hourly archives for 2010–2025; read-only API extraction for supported land cells beyond the 19 indexed cells; `stage_risks_v2` with ≥50%/12-winter gating, disease-family ranking and stage exposures; one regional establishment window; 18 dashboard presets and HTML/JSON exports. The hourly integration passed 102 server tests, real global-point checks and browser verification.
+Built and working: completed global daily and land-hourly archives for 2010–2025; read-only API extraction for supported land cells; `stage_thermal_v3` primary with thermal stages, hourly infection model, chill portions reported beside chill hours, and a managed-cycle scan wherever the chill clock does not apply; ≥50%/12-winter gating; one regional establishment window; 71 dashboard presets including 53 benchmark sites; a literature benchmark; HTML/JSON exports. The v3 delivery passed 127 server tests, exact legacy parity on 18 sites and browser verification.
 
-Not built: calibrated phenology, chill portions in production, management effects, genotype shortlist, scientific validation, station bias correction or team deployment. Legacy chill/GDD/stage constants remain provisional and unchanged; software verification does not resolve their agronomic limitations.
+Not built: phenology fitted to observed bloom and harvest, chill portions as the trigger, cultivar classes, management effects, genotype shortlist, field validation, station bias correction or team deployment. v3 stage constants are provisional; software verification does not resolve their agronomic limits.
 
 ## 2. What the research found (one line each; details in the reports)
 
@@ -36,10 +38,10 @@ Not built: calibrated phenology, chill portions in production, management effect
 | 1.3 | Implemented: one disease-weather family with flowering, fruit-development and harvest evidence, not duplicate headline ranks. | complete |
 | 1.4 | Implemented: cold-or-wet pollination proxy plus cold/dry hypothesis comparator; warm midwinter hours and separately labelled daily fallback; berry-stage frost; stage-specific dry spells. No invented loss thresholds. | complete |
 | 1.5 | Implemented: `regional-establishment-v1`, independent of mature-plant budbreak. UF Florida window; UGA/Embrapa winter guidance with coarse seasonal precision. Unsupported regions decline. The R offset proposal was not adopted. | complete |
-| 1.6 | Chill portions as a profile option (`chill_comparison.chill_portions` moved into production), Safe Winter Chill (p10), provisional CP class cuts, both chill quantities shown side by side | 2 |
+| 1.6 | Partly done: `chill_portions` moved into production and reported beside chill hours for every winter and in the dashboard. Safe Winter Chill (p10), CP class cuts and a CP trigger remain, pending Paul's chill-metric decision. | 1 |
 | 1.7 | Snapshots, three-site report, runbook and current tests updated for the authorized scope; later chill-method changes will need fresh verification. | complete for this scope |
 
-Current delivered scope: 18 presets show gated risks, disease evidence, new exposures and planting guidance. Phase 1.6 chill portions remains pending. Paul/Gerardo review of River Valley and Papanduva is still needed; modeled River Valley harvest remains 23 April–2 June, not the supervisor's early-April expectation.
+Current delivered scope: 71 presets show the v3 decision strip, gated risks, infection-model disease evidence, exposures, the managed-cycle scan and planting guidance. Paul/Gerardo review of River Valley and Papanduva is still needed. River Valley now models harvest 2 April–6 May under v3, closer to the supervisor's early-April expectation than v2's 23 April–2 June.
 
 ### Phase 2 — Phenology and evidence (≈ 18 builder-days; calendar gated on data)
 
@@ -134,6 +136,6 @@ Critical path: Paul's chill-method decision (needed by Phase 1.6, but both profi
 
 - Grid warm-night bias (+1 °C) undercounts chill at deciduous sites and frost everywhere; until Phase 2.2 every freeze and chill number carries that caveat.
 - No published chill-portion requirement for any UF cultivar; class cuts in CP are derived from this project's own cells and must be labelled so.
-- Validation may show the fixed-offset calendar is wrong by more than a week; the plan then fits GDD targets to Citra data and holds out years, which is a different (calibrated) model.
-- Evergreen systems (south Florida, Peru) have no validated phenology model in the literature; the management-anchored calendar is a convention, and heat, not chill, is the binding risk there.
+- Validation may show the v3 thermal calendar is wrong by more than a week. Its constants reproduce the old offsets at Waldo, so the plan would then fit GDD targets to Citra data and hold out years, which is a different, calibrated model. The benchmark already shows northern-highbush bloom about two weeks late in Poland and Germany.
+- Evergreen systems (south Florida, Peru, Mexico) have no validated phenology model in the literature. The managed-cycle scan picks weather-favourable start dates; it does not predict when growers prune. At Chao, Peru the model needs 41 to 51 days from flowering to first harvest, while the Chao trial reports flowering from April and harvest from August. The matching harvest months there partly reflect scan selection, not correct stage timing.
 - Free third-party services (Open-Meteo, Tailscale, Cloudflare free tier) have seat and uptime limits.

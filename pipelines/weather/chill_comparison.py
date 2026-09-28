@@ -8,24 +8,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from discover import ROOT, write_json
-
-E0, E1, A0, A1, SLP, TETMLT = 4153.5, 12888.8, 139500.0, 2.567e18, 1.6, 277.0
-
-
-def chill_portions(temp_c):
-    tk = np.asarray(temp_c, dtype=float) + 273.0
-    ftmprt = SLP * TETMLT * (tk - TETMLT) / tk
-    sr = np.exp(ftmprt)
-    xi = sr / (1 + sr)
-    xs = A0 / A1 * np.exp((E1 - E0) / tk)
-    ak1 = A1 * np.exp(-E1 / tk)
-    inter = np.zeros(len(tk))
-    for i in range(1, len(tk)):
-        prev = inter[i - 1]
-        s = prev if prev < 1 else prev - prev * xi[i - 1]
-        inter[i] = xs[i] - (xs[i] - s) * np.exp(-ak1[i])
-    delta = np.where(inter >= 1, inter * xi, 0.0)
-    return np.cumsum(delta)
+from production import chill_portions
 
 
 def winter(series, year, south):

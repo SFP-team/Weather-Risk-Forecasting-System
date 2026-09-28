@@ -1,7 +1,10 @@
+import math
 import unittest
 import numpy as np
 import pandas as pd
-from production import (analyse, classification, empty_row, profile, risks, season, window, winter_months,
+from production import (analyse, chill_clock, chill_portions, classification, CYCLE_STARTS, Days, empty_row,
+                        infection_risk, longest_run, managed_cycles, months_between, profile, reach, risks, season,
+                        SCAN_MEASURES, select_favourable, stage_dates, stage_metrics, window, winter_months,
                         warm_midwinter_daily, wilson, PROFILES)
 
 
@@ -368,6 +371,227 @@ class StageExposureTests(unittest.TestCase):
                 self.assertIsNone(result['seasons'][0]['value'])
                 self.assertEqual(result['summary']['n'], 0)
 
+
+def flat_daily(tmean=17., start='2010-01-01', end='2025-12-31', **columns):
+    base = {'tmean_c': tmean, 'tmin_c': 10., 'tmax_c': 25., 'precip_mm': 0., 'rh_mean_pct': 70.,
+            'shortwave_mj_m2_day': 15., 'precip_suspect_extreme': False}
+    return pd.DataFrame({**base, **columns}, index=pd.date_range(start, end))
+
+
+class ThermalClockTests(unittest.TestCase):
+    def setUp(self):
+        self.p = profile('stage_thermal_v3')
+        self.day = pd.Timestamp
+
+    def test_reach_counts_from_first_day_and_names_gaps(self):
+        days = Days(flat_daily(start='2020-01-01', end='2020-03-31'))
+        self.assertEqual(reach(days, self.day('2020-01-01'), self.day('2020-02-01'), 85, 7.), (self.day('2020-01-09'), None))
+        self.assertEqual(reach(days, self.day('2020-01-01'), self.day('2020-01-05'), 85, 7.),
+                         (None, ('horizon', self.day('2020-01-05'))))
+        self.assertEqual(reach(days, self.day('2020-03-25'), self.day('2020-05-01'), 85, 7.),
+                         (None, ('missing', self.day('2020-04-01'))))
+        daily = flat_daily(start='2020-01-01', end='2020-03-31')
+        daily.loc['2020-01-05', 'tmean_c'] = np.nan
+        self.assertEqual(reach(Days(daily), self.day('2020-01-01'), self.day('2020-02-01'), 85, 7.),
+                         (None, ('missing', self.day('2020-01-05'))))
+
+    def test_upper_cutoff_caps_daily_heat(self):
+        days = Days(flat_daily(tmean=35., start='2020-01-01', end='2020-03-31'))
+        self.assertEqual(reach(days, self.day('2020-01-01'), self.day('2020-03-01'), 230, 7.)[0], self.day('2020-01-09'))
+        self.assertEqual(reach(days, self.day('2020-01-01'), self.day('2020-03-01'), 230, 7., 30.)[0], self.day('2020-01-10'))
+
+    def test_stage_durations_follow_temperature(self):
+        bud = self.day('2020-01-01')
+        (flowering, harvest), _ = stage_dates(Days(flat_daily()), bud, self.p)
+        self.assertEqual([(d - bud).days for d in (*flowering, *harvest)], [9, 38, 73, 134])
+        (flowering, harvest), _ = stage_dates(Days(flat_daily(tmean=22.)), bud, self.p)
+        self.assertEqual([(d - bud).days for d in (*flowering, *harvest)], [6, 25, 49, 89])
+        legacy, _ = stage_dates(Days(flat_daily(tmean=22.)), bud, profile('stage_risks_v2'))
+        self.assertEqual([(d - bud).days for d in (*legacy[0], *legacy[1])], [14, 35, 84, 124])
+
+    def test_unordered_or_missing_requirements_refused(self):
+        PROFILES['_bad'] = {**PROFILES['stage_thermal_v3'], 'harvest_end_gdd': 600.}
+        try:
+            with self.assertRaisesRegex(ValueError, 'ordered'):
+                profile('_bad')
+        finally:
+            del PROFILES['_bad']
+
+    def test_right_censored_harvest_is_not_a_calendar(self):
+        hourly = pd.Series(5., index=pd.date_range('2019-11-01', '2020-05-01', freq='h', inclusive='left'))
+        row = season(hourly, flat_daily(end='2020-02-15'), 29.8, 2020, self.p)
+        self.assertEqual(row['status'], 'incomplete_stage_dates')
+        self.assertIsNotNone(row['budbreak_date'])
+        self.assertIsNone(row['harvest'])
+        self.assertIsNone(row['offset_days']['harvest_start'])
+
+
+class ManagedCycleTests(unittest.TestCase):
+    @staticmethod
+    def scan(daily):
+        """Scan with dry (zero-index) infection weather so tests isolate the start-date logic."""
+        dry = pd.DataFrame(0., index=daily.index, columns=['anthracnose', 'botrytis'])
+        return managed_cycles(Days(daily, dry), profile('stage_thermal_v3'), range(2011, 2026))
+
+    def test_favourable_starts_avoid_recurring_harvest_rain(self):
+        daily = flat_daily()
+        daily.loc[daily.index.month.isin([7, 8, 9]), 'precip_mm'] = 12.
+        scan = self.scan(daily)
+        favourable = scan['favourable']
+        expected = ['01-01', '01-15', '02-01', '02-15'] + [f'{m:02d}-{d:02d}' for m in range(8, 13) for d in (1, 15)]
+        self.assertEqual(favourable['budbreak'], expected)
+        self.assertEqual(favourable['recurring'], [])
+        self.assertFalse(favourable['unconstrained'])
+        self.assertFalse({7, 8, 9} & set(favourable['harvest_months']))
+        march = next(s for s in scan['starts'] if s['budbreak'] == '03-01')
+        self.assertEqual(march['recurring'], ['harvest_heavy_rain'])
+        self.assertEqual(march['events']['harvest_heavy_rain']['frequency'], 1.)
+        self.assertEqual(march['dates']['harvest_start'], '05-13')
+        december = next(s for s in scan['starts'] if s['budbreak'] == '12-15')
+        self.assertEqual(december['events']['harvest_heavy_rain']['valid_years'], 14)
+
+    def test_uniform_weather_is_unconstrained(self):
+        scan = self.scan(flat_daily())
+        self.assertTrue(scan['favourable']['unconstrained'])
+        self.assertEqual(len(scan['favourable']['budbreak']), 24)
+
+    def test_chill_clock_declines_tropics_evergreen_and_sparse_calendars(self):
+        rows = []
+        for i in range(12):
+            row = empty_row(2011 + i, 'north', pd.Timestamp('2010-11-01'), pd.Timestamp('2011-05-01'))
+            row.update(chill_hours=320, freeze_hours=0, freeze_risk_months=0, winter_month_tmin_lowest_c=9.,
+                       winter_month_tmean_lowest_c=14., harvest=['2011-04-01', '2011-05-10'])
+            rows.append(row)
+        p = profile('stage_thermal_v3')
+        deciduous = classification(rows, p)
+        self.assertTrue(chill_clock(rows, deciduous, 30., p)['applicable'])
+        tropical = chill_clock(rows, deciduous, -8., p)
+        self.assertFalse(tropical['applicable'])
+        self.assertIn('tropics', tropical['reasons'][0])
+        rows[0]['harvest'] = None
+        self.assertFalse(chill_clock(rows, deciduous, 30., p)['applicable'])
+
+    def test_analysis_attaches_scan_and_uses_clock_for_risks(self):
+        hourly = pd.Series(25., index=pd.date_range('2010-01-01', '2026-01-01', freq='h', inclusive='left'))
+        # Dewpoint without longitude cannot place the local infection day: disease weather is unavailable, not zero.
+        result = analyse(hourly, flat_daily(), -8., 'stage_thermal_v3', dewpoint=hourly - 1.)
+        self.assertEqual(result['managed_cycle']['role'], 'primary')
+        self.assertEqual(result['risks']['by_id']['flowering_freeze']['eligibility'], 'not_applicable')
+        self.assertEqual(result['chill_portions']['mean'], 0.)
+        self.assertTrue(all(s['measures']['disease_weather'] is None for s in result['managed_cycle']['starts']))
+        self.assertEqual(result['managed_cycle']['favourable']['budbreak'], [])
+        self.assertNotIn('managed_cycle', analyse(hourly, flat_daily(), -8., 'stage_risks_v2'))
+
+    def test_recurring_crop_loss_excludes_starts_and_tiny_differences_tie(self):
+        daily = flat_daily()
+        daily.loc[daily.index.month == 1, 'tmin_c'] = -5.
+        scan = self.scan(daily)
+        self.assertEqual(scan['favourable']['budbreak'], list(CYCLE_STARTS[2:20]))
+        loss = {s['budbreak']: s['recurring_crop_loss'] for s in scan['starts']}
+        self.assertEqual((loss['01-15'], loss['11-15'], loss['06-01']), (['flowering_freeze'], ['fruit_frost'], []))
+        daily = flat_daily()
+        daily.loc['2015-06-01', 'precip_mm'] = 12.
+        self.assertTrue(self.scan(daily)['favourable']['unconstrained'])
+
+    def test_cycles_stalled_by_cold_count_as_crop_loss(self):
+        daily = flat_daily()
+        daily.loc[daily.index.month.isin([12, 1, 2]), 'tmean_c'] = 5.
+        scan = self.scan(daily)
+        november = next(s for s in scan['starts'] if s['budbreak'] == '11-15')
+        self.assertEqual(november['stalled_cycles'], 14)
+        self.assertEqual(november['events']['flowering_freeze']['frequency'], 1.)
+        self.assertEqual(november['recurring_crop_loss'], ['flowering_freeze', 'fruit_frost'])
+        self.assertNotIn('11-15', scan['favourable']['budbreak'])
+
+    def test_selection_survives_non_transitive_near_ties(self):
+        keys = [key for key, _ in SCAN_MEASURES]
+        start = lambda name, *shares: {'budbreak': name, 'measures': dict(zip(keys, (0., 0., *shares)))}
+        cyclic = [start('a', 0., .1, .2), start('b', .2, 0., .1), start('c', .1, .2, 0.)]
+        tolerance = dict.fromkeys(keys, .1)
+        self.assertEqual([s['budbreak'] for s in select_favourable(cyclic, tolerance)], ['a', 'b', 'c'])
+        chosen = select_favourable([*cyclic, start('near', .05, .1, .2), start('far', .3, .3, .3)], tolerance)
+        self.assertEqual([s['budbreak'] for s in chosen], ['a', 'b', 'c', 'near'])
+
+
+class InfectionTests(unittest.TestCase):
+    def setUp(self):
+        self.p = profile('stage_thermal_v3')
+        self.index = pd.date_range('2020-03-01', '2020-03-06', freq='h', inclusive='left')
+
+    def weather(self, *wet, temp=25.):
+        t = pd.Series(temp, index=self.index)
+        d = t - 10.
+        for hours in wet:
+            d.iloc[list(hours)] = t.iloc[list(hours)]
+        return t, d
+
+    @staticmethod
+    def indices(w, t):
+        fa = -3.7 + 0.33 * w - 0.069 * w * t + 0.005 * w * t ** 2 - 9.3e-5 * w * t ** 3
+        fb = -4.268 - 0.0901 * w + 0.0294 * w * t - 2.35e-5 * w * t ** 3
+        return 1 / (1 + math.exp(-fa)), 1 / (1 + math.exp(-fb))
+
+    def test_three_dry_hours_join_a_period_and_four_split_it(self):
+        joined = infection_risk(*self.weather(range(30, 36), range(39, 45)), 0., self.p)
+        self.assertAlmostEqual(joined.loc['2020-03-02', 'anthracnose'], self.indices(12, 25.)[0])
+        self.assertAlmostEqual(joined.loc['2020-03-02', 'botrytis'], self.indices(12, 25.)[1])
+        split = infection_risk(*self.weather(range(30, 36), range(40, 46)), 0., self.p)
+        self.assertAlmostEqual(split.loc['2020-03-02', 'anthracnose'], self.indices(6, 25.)[0])
+        self.assertEqual(split.loc['2020-03-03', 'anthracnose'], 0.)
+
+    def test_period_counts_on_local_day_of_last_wet_hour(self):
+        t, d = self.weather(range(48, 52))
+        self.assertGreater(infection_risk(t, d, 0., self.p).loc['2020-03-03', 'anthracnose'], 0.)
+        west = infection_risk(t, d, -82., self.p)
+        self.assertGreater(west.loc['2020-03-02', 'anthracnose'], 0.)
+        self.assertEqual(west.loc['2020-03-03', 'anthracnose'], 0.)
+
+    def test_cold_wetness_is_botrytis_not_anthracnose_and_gaps_are_unavailable(self):
+        t, d = self.weather(range(24, 48), temp=5.)
+        risk = infection_risk(t, d, 0., self.p)
+        self.assertEqual(risk.loc['2020-03-02', 'anthracnose'], 0.)
+        self.assertAlmostEqual(risk.loc['2020-03-02', 'botrytis'], self.indices(24, 5.)[1])
+        t.iloc[80] = np.nan
+        self.assertTrue(np.isnan(infection_risk(t, d, 0., self.p).loc['2020-03-04', 'anthracnose']))
+
+    def test_wetness_is_capped_at_fitted_range_and_cold_anthracnose_is_floored(self):
+        long_warm = infection_risk(*self.weather(range(24, 84)), 0., self.p)
+        self.assertAlmostEqual(long_warm.loc['2020-03-04', 'anthracnose'], self.indices(51, 25.)[0])
+        self.assertAlmostEqual(long_warm.loc['2020-03-04', 'botrytis'], self.indices(32, 25.)[1])
+        cool = infection_risk(*self.weather(range(24, 72), temp=8.), 0., self.p)
+        self.assertAlmostEqual(cool.loc['2020-03-03', 'anthracnose'], self.indices(48, 10.)[0])
+        self.assertLess(cool.loc['2020-03-03', 'anthracnose'], self.indices(48, 8.)[0])
+
+    def test_stage_counts_use_moderate_and_high_classes(self):
+        t, d = self.weather(range(30, 42), range(54, 78))
+        daily = flat_daily(start='2020-03-01', end='2020-03-05')
+        days = Days(daily, infection_risk(t, d, 0., self.p))
+        flowering = (pd.Timestamp('2020-03-01'), pd.Timestamp('2020-03-02'))
+        harvest = (pd.Timestamp('2020-03-04'), pd.Timestamp('2020-03-05'))
+        m = stage_metrics(days, self.p, flowering, (pd.Timestamp('2020-03-03'),) * 2, harvest, flowering[0])
+        self.assertEqual(m['flowering_infection_days'], 1)
+        self.assertEqual(m['harvest_infection_days'], 1)
+        self.assertEqual(m['crop_high_infection_days'], 1)
+        legacy = stage_metrics(days, profile('stage_risks_v2'), flowering, (pd.Timestamp('2020-03-03'),) * 2, harvest, flowering[0])
+        self.assertIsNone(legacy['crop_high_infection_days'])
+
+
+
+class HelperTests(unittest.TestCase):
+    def test_months_between_wraps_year(self):
+        self.assertEqual(months_between('11-20', '02-03'), [1, 2, 11, 12])
+        self.assertEqual(months_between('03-01', '03-31'), [3])
+
+    def test_longest_run(self):
+        self.assertEqual(longest_run([True, True, False, True, True, True, False]), 3)
+        self.assertEqual(longest_run([False, False]), 0)
+
+    def test_chill_portions_follow_dynamic_model_temperature_response(self):
+        final = {t: chill_portions(np.full(2000, t))[-1] for t in (6., 12., 25.)}
+        self.assertEqual(final[25.], 0.)
+        self.assertGreater(final[6.], final[12.])
+        self.assertGreater(final[12.], 0.)
+        self.assertTrue((np.diff(chill_portions(np.full(2000, 6.))) >= 0).all())
 
 
 if __name__ == '__main__':

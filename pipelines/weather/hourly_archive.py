@@ -31,7 +31,7 @@ class ArchiveReader:
 
 
 def hourly_from_cache(root, lat, lon):
-    """Return complete 2010–2025 UTC temperature and public source provenance."""
+    """Return complete 2010–2025 UTC temperature and dewpoint (tmean_c, dewpoint_mean_c) and public source provenance."""
     root = Path(root)
     if not (math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
         raise ValueError('Invalid coordinate')
@@ -43,7 +43,7 @@ def hourly_from_cache(root, lat, lon):
         frame, metadata = source.point({'lat': lat, 'lon': lon}, '2010-01-01', '2025-12-31')
         if len(frame) != 140256 or not np.isfinite(frame[['tmean_c', 'dewpoint_mean_c']].to_numpy()).all():
             raise RuntimeError('Hourly archive series is incomplete; refusing crop analysis')
-        series = frame.set_index('time').tmean_c
+        hourly = frame.set_index('time')[['tmean_c', 'dewpoint_mean_c']]
         sy, sx = metadata['source_lat'], metadata['source_lon']
         a = math.sin(math.radians(sy-lat)/2)**2 + math.cos(math.radians(lat))*math.cos(math.radians(sy))*math.sin(math.radians(sx-lon)/2)**2
         identity = {'objects': reader.hashes, 'source_indices': metadata['source_indices'],
@@ -52,11 +52,11 @@ def hourly_from_cache(root, lat, lon):
                       'site': 'Global hourly archive', 'source_lat': sy, 'source_lon': sx,
                       'source_indices': metadata['source_indices'], 'cell_degrees': [0.5, 0.625],
                       'distance_km': round(2*6371.0088*math.asin(math.sqrt(min(1., a))), 1),
-                      'rows': len(series), 'start': '2010-01-01', 'end': '2025-12-31',
+                      'rows': len(hourly), 'start': '2010-01-01', 'end': '2025-12-31',
                       'time_standard': 'UTC', 'source_version': metadata['source_version'],
                       'source_url': metadata['source_url'],
                       'note': 'Existing land-hourly archive; one native grid series per cell, not a field measurement.'}
-        return series, provenance
+        return hourly, provenance
     except (KeyError, ValueError) as exc:
         raise RuntimeError('Invalid hourly archive metadata or series; refusing analysis') from exc
     finally:

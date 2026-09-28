@@ -20,12 +20,13 @@ def main(source):
         stale.unlink()
     index = {}
     for name, record in sites.items():
-        slug = re.sub(r'[^A-Za-z0-9]+', '-', name).strip('-').lower()
+        # Benchmark ids are stable ASCII; pilot and panel files keep their name-based slugs.
+        slug = record['site'].get('benchmark_id') or re.sub(r'[^A-Za-z0-9]+', '-', name).strip('-').lower()
         (out / f'{slug}.json').write_text(json.dumps(record, separators=(',', ':'), allow_nan=False))
         site = record['site']
-        index[name] = {'site': {k: site[k] for k in ('name', 'lat', 'lon', 'region', 'county') if k in site},
+        index[name] = {'site': {k: site[k] for k in ('name', 'lat', 'lon', 'region', 'county', 'country') if k in site},
                        'file': f'snapshots/{slug}.json',
-                       'group': 'Reference' if name in REFERENCE else site.get('region', 'Panel'),
+                       'group': 'Reference' if name in REFERENCE else site.get('group') or site.get('region', 'Panel'),
                        'production': record['production']['status'],
                        'hourly_source': record['hourly_source']['site'] if record.get('hourly_source') else None}
     Path('dist/snapshots.json').write_text(json.dumps({'sites': index}, indent=1, allow_nan=False))

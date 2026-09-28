@@ -31,12 +31,12 @@ class LocationTests(unittest.TestCase):
         a,_,_=summarize(self.frame,None,29.)
         self.assertIsNone(a[0]['solar']);self.assertIsNone(avg([2.,None]))
     def test_production_unavailable_without_hourly(self):
-        block=production_block(None,None,29.)
+        block=production_block(None,None,29.,-82.)
         self.assertEqual(block['status'],'unavailable')
         self.assertIn('reason',block)
     def test_no_hourly_keeps_daily_warm_days_distinct_and_excludes_incomplete_winter(self):
         daily=self.frame.rename_axis('time').reset_index()
-        block=production_block(None,daily,29.)
+        block=production_block(None,daily,29.,-82.)
         self.assertEqual(block['status'],'unavailable')
         warm=block['warm_midwinter_fallback']
         self.assertEqual(warm['unit'],'days')
@@ -45,15 +45,17 @@ class LocationTests(unittest.TestCase):
         self.assertEqual(warm['seasons'][1]['value'],93)
         self.assertNotIn('calendar',block)
     def test_production_attached_with_hourly(self):
-        hourly=pd.Series(5.,index=pd.date_range('2010-01-01','2026-01-01',freq='h',inclusive='left'))
+        hourly=pd.DataFrame({'tmean_c':5.,'dewpoint_mean_c':2.},index=pd.date_range('2010-01-01','2026-01-01',freq='h',inclusive='left'))
         padded=pd.DataFrame({'tmean_c':17.,'tmin_c':-2.2,'tmax_c':36.,'precip_mm':2.,'rh_mean_pct':80.,
             'shortwave_mj_m2_day':18.,'precip_suspect_extreme':False},index=pd.date_range('2010-01-01','2025-12-31')).rename_axis('time').reset_index()
-        block=production_block(hourly,padded,29.)
+        block=production_block(hourly,padded,29.,-82.)
         self.assertEqual(block['status'],'available')
         self.assertEqual(block['scope'],'open_ground')
         self.assertEqual(block['status_counts'],{'complete':15})
         self.assertEqual(block['classification']['multi_feature']['majority'],'Deciduous')
-        self.assertEqual(block['calendar']['chill']['median_date'],'11-03')
+        self.assertEqual(block['calendar']['chill']['median_date'],'11-05')  # 100 h at 5 C under the v3 primary
+        self.assertEqual(block['profile'],'stage_thermal_v3')
+        self.assertEqual(block['managed_cycle']['role'],'comparison')
         frost=block['risks']['by_id']['fruit_frost']
         self.assertEqual((frost['years_with_event'],frost['valid_years']), (15,15))
         self.assertEqual(frost['eligibility'],'ranked')

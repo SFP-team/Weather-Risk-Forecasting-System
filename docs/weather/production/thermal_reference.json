@@ -1,0 +1,332 @@
+{
+  "method": "legacy-offset-thermal-reference-v1",
+  "site": "Waldo",
+  "latitude": 29.795286,
+  "longitude": -82.129853,
+  "base_c": 7.0,
+  "reference_profile": "legacy_paul_v1",
+  "winters": [
+    2011,
+    2025
+  ],
+  "hourly_sha256": "b13404915f3c768480b48dc0cda75592b887ae0f48c04c3762da6d600593df56",
+  "daily_provenance": {
+    "status": "weather_available",
+    "request": {
+      "latitude": 29.795286,
+      "longitude": -82.129853
+    },
+    "rows": 5844,
+    "start": "2010-01-01",
+    "end": "2025-12-31",
+    "time_standard": "UTC",
+    "sources": [
+      {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 30.0,
+        "source_longitude": -81.875,
+        "source_cell_center_on_land": true,
+        "distance_km": 33.491806639276945,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      {
+        "source": "solar_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 29.5,
+        "source_longitude": -82.5,
+        "source_cell_center_on_land": true,
+        "distance_km": 48.55508164123226,
+        "units": {
+          "shortwave_mj_m2_day": "MJ/m^2/day"
+        }
+      }
+    ],
+    "qc": {
+      "tmin_c": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": -5.90997314453125,
+        "max": 27.16998291015625
+      },
+      "tmax_c": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": 1.719970703125,
+        "max": 40.54998779296875
+      },
+      "tmean_c": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": -1.69000244140625,
+        "max": 32.67999267578125
+      },
+      "precip_mm": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": 0.0,
+        "max": 141.1500244140625
+      },
+      "rh_mean_pct": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": 34.94000244140625,
+        "max": 98.4000244140625
+      },
+      "wind_mean_m_s": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": 0.34002685546875,
+        "max": 7.6300048828125
+      },
+      "dewpoint_mean_c": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": -13.0,
+        "max": 26.58001708984375
+      },
+      "shortwave_mj_m2_day": {
+        "valid": 5844,
+        "missing": 0,
+        "invalid": 0,
+        "min": 1.1119675636291504,
+        "max": 30.906145095825195
+      },
+      "temperature_order": {
+        "invalid": 0
+      }
+    },
+    "screening": {
+      "version": "rain-extreme-screen-v1",
+      "precip_suspect_threshold_mm_day": 1000,
+      "precip_suspect_days": 0,
+      "precip_missing_days": 0,
+      "rainfall_risk_admissible": true,
+      "policy": "Preserve source values and boolean flag; decline rainfall-risk metrics for windows containing suspect or missing precipitation. Passing this screen is not scientific validation."
+    },
+    "land_mask": {
+      "source": "Natural Earth 1:10 million land polygons",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_land.geojson",
+      "git_blob_sha": "2d76878175b8054acd9c5a52917ee9ea59a36fc5",
+      "sha256": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416",
+      "bytes": 10157965,
+      "retrieved": "2026-09-08T01:33:30.382619+00:00",
+      "license": "public domain",
+      "note": "Cartographic mask; small islands and coastlines may be imperfect. Not a field boundary.",
+      "processing_version": "land-mask-v2",
+      "excluded_null_island_features": 1
+    },
+    "land_geometry_repairs": 0,
+    "limitations": [
+      "Gridded weather, not on-farm observations or a cultivar recommendation.",
+      "Coastal source cells may represent mixed land/ocean.",
+      "UTC daily aggregation is not a local biological day."
+    ]
+  },
+  "code_sha256": "1c310e19d0e22d22bd0efd5e7701b5189ea129956dccdc6d0726ff05a92c5c4a",
+  "cutoffs": {
+    "None": {
+      "flowering_start_gdd": {
+        "median": 84.889892578125,
+        "n": 15,
+        "p10": 54.95,
+        "p90": 132.62406005859376,
+        "values": [
+          75.2,
+          89.5,
+          88.6,
+          55.8,
+          60.2,
+          54.4,
+          112.9,
+          47.2,
+          141.0,
+          136.5,
+          59.2,
+          84.9,
+          126.8,
+          61.6,
+          90.8
+        ]
+      },
+      "flowering_end_gdd": {
+        "median": 218.14984130859375,
+        "n": 15,
+        "p10": 167.16383056640626,
+        "p90": 297.72203369140624,
+        "values": [
+          243.2,
+          280.0,
+          246.7,
+          167.3,
+          218.1,
+          213.9,
+          291.4,
+          217.7,
+          238.5,
+          302.0,
+          181.0,
+          167.1,
+          345.1,
+          201.6,
+          139.9
+        ]
+      },
+      "harvest_start_gdd": {
+        "median": 632.9497680664062,
+        "n": 15,
+        "p10": 505.564111328125,
+        "p90": 808.2179931640625,
+        "values": [
+          771.6,
+          797.6,
+          510.4,
+          502.3,
+          380.1,
+          815.3,
+          709.9,
+          660.6,
+          569.2,
+          600.2,
+          632.9,
+          647.0,
+          894.7,
+          632.5,
+          520.6
+        ]
+      },
+      "harvest_end_gdd": {
+        "median": 1242.4400024414062,
+        "n": 15,
+        "p10": 964.9219848632813,
+        "p90": 1532.0400390625,
+        "values": [
+          1503.5,
+          1437.6,
+          875.9,
+          1073.1,
+          899.8,
+          1551.1,
+          1348.1,
+          1221.7,
+          1062.6,
+          1242.4,
+          1222.6,
+          1253.0,
+          1571.8,
+          1247.1,
+          1120.9
+        ]
+      }
+    },
+    "30.0": {
+      "flowering_start_gdd": {
+        "median": 84.889892578125,
+        "n": 15,
+        "p10": 54.95,
+        "p90": 132.62406005859376,
+        "values": [
+          75.2,
+          89.5,
+          88.6,
+          55.8,
+          60.2,
+          54.4,
+          112.9,
+          47.2,
+          141.0,
+          136.5,
+          59.2,
+          84.9,
+          126.8,
+          61.6,
+          90.8
+        ]
+      },
+      "flowering_end_gdd": {
+        "median": 218.14984130859375,
+        "n": 15,
+        "p10": 167.16383056640626,
+        "p90": 297.72203369140624,
+        "values": [
+          243.2,
+          280.0,
+          246.7,
+          167.3,
+          218.1,
+          213.9,
+          291.4,
+          217.7,
+          238.5,
+          302.0,
+          181.0,
+          167.1,
+          345.1,
+          201.6,
+          139.9
+        ]
+      },
+      "harvest_start_gdd": {
+        "median": 632.9497680664062,
+        "n": 15,
+        "p10": 505.564111328125,
+        "p90": 808.2179931640625,
+        "values": [
+          771.6,
+          797.6,
+          510.4,
+          502.3,
+          380.1,
+          815.3,
+          709.9,
+          660.6,
+          569.2,
+          600.2,
+          632.9,
+          647.0,
+          894.7,
+          632.5,
+          520.6
+        ]
+      },
+      "harvest_end_gdd": {
+        "median": 1242.4400024414062,
+        "n": 15,
+        "p10": 964.9219848632813,
+        "p90": 1532.0400390625,
+        "values": [
+          1503.5,
+          1437.6,
+          875.9,
+          1073.1,
+          899.8,
+          1551.1,
+          1348.1,
+          1221.7,
+          1062.6,
+          1242.4,
+          1222.6,
+          1253.0,
+          1571.8,
+          1247.1,
+          1120.9
+        ]
+      }
+    }
+  }
+}

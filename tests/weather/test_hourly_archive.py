@@ -52,15 +52,17 @@ class HourlyArchiveTests(unittest.TestCase):
             values, source = hourly_for(43.06, -92.55, self.root)
             nearby, other = hourly_from_cache(self.root, 43.1, -92.6)
         self.assertTrue(values.index.equals(pd.date_range('2010-01-01', '2026-01-01', freq='h', inclusive='left', name='time')))
-        self.assertTrue((values == 5.).all())
-        pd.testing.assert_series_equal(values, nearby)
+        self.assertTrue((values.tmean_c == 5.).all())
+        self.assertTrue((values.dewpoint_mean_c == 2.).all())
+        pd.testing.assert_frame_equal(values, nearby)
         self.assertEqual(source['sha256'], other['sha256'])
         self.assertEqual((source['source_lat'], source['source_lon']), (43., -92.5))
         self.assertEqual(before, self.db.execute('SELECT * FROM objects ORDER BY url').fetchall())
 
     def test_dateline_wrap_and_distinct_latitude_cell(self):
         values, source = hourly_from_cache(self.root, 43.49, 180.)
-        self.assertTrue((values == 6.).all())
+        self.assertTrue((values.tmean_c == 6.).all())
+        self.assertTrue((values.dewpoint_mean_c == 3.).all())
         self.assertEqual((source['source_lat'], source['source_lon']), (43.5, -180.))
 
     def test_missing_chunk_is_not_zarr_fill(self):

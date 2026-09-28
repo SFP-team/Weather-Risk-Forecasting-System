@@ -230,6 +230,695 @@
    "group": "South Florida",
    "production": "available",
    "hourly_source": "Arcadia"
+  },
+  "Homestead (Redland), Miami-Dade County": {
+   "site": {
+    "name": "Homestead (Redland), Miami-Dade County",
+    "lat": 25.4687,
+    "lon": -80.4776,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-homestead.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Arcadia, DeSoto County": {
+   "site": {
+    "name": "Arcadia, DeSoto County",
+    "lat": 27.2159,
+    "lon": -81.8584,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-arcadia.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Arcadia"
+  },
+  "Sebring / Avon Park, Highlands County": {
+   "site": {
+    "name": "Sebring / Avon Park, Highlands County",
+    "lat": 27.4956,
+    "lon": -81.4409,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-sebring.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Barben"
+  },
+  "Plant City, Hillsborough County": {
+   "site": {
+    "name": "Plant City, Hillsborough County",
+    "lat": 28.0186,
+    "lon": -82.1129,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-plant-city.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Astin North East"
+  },
+  "Groveland / Clermont, Lake County": {
+   "site": {
+    "name": "Groveland / Clermont, Lake County",
+    "lat": 28.558,
+    "lon": -81.8512,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-groveland.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "H&A"
+  },
+  "Citra, Marion County (UF PSREU)": {
+   "site": {
+    "name": "Citra, Marion County (UF PSREU)",
+    "lat": 29.4114,
+    "lon": -82.1101,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-citra.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Citra"
+  },
+  "Waldo, Alachua County (supervisor's base site)": {
+   "site": {
+    "name": "Waldo, Alachua County (supervisor's base site)",
+    "lat": 29.7897,
+    "lon": -82.1676,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-waldo.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Waldo"
+  },
+  "Live Oak, Suwannee County": {
+   "site": {
+    "name": "Live Oak, Suwannee County",
+    "lat": 30.2949,
+    "lon": -82.984,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-live-oak.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Tallahassee / Monticello, Leon-Jefferson counties": {
+   "site": {
+    "name": "Tallahassee / Monticello, Leon-Jefferson counties",
+    "lat": 30.4383,
+    "lon": -84.2807,
+    "region": "Florida",
+    "country": "US"
+   },
+   "file": "snapshots/us-fl-tallahassee.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Alma, Bacon County": {
+   "site": {
+    "name": "Alma, Bacon County",
+    "lat": 31.5396,
+    "lon": -82.4624,
+    "region": "Georgia",
+    "country": "US"
+   },
+   "file": "snapshots/us-ga-alma.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Georgia"
+  },
+  "Homerville, Clinch County": {
+   "site": {
+    "name": "Homerville, Clinch County",
+    "lat": 31.0366,
+    "lon": -82.7471,
+    "region": "Georgia",
+    "country": "US"
+   },
+   "file": "snapshots/us-ga-homerville.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Homerville"
+  },
+  "Loris, Horry County (SC coastal plain)": {
+   "site": {
+    "name": "Loris, Horry County (SC coastal plain)",
+    "lat": 34.0563,
+    "lon": -78.8906,
+    "region": "South Carolina",
+    "country": "US"
+   },
+   "file": "snapshots/us-sc-loris.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Elizabethtown, Bladen County": {
+   "site": {
+    "name": "Elizabethtown, Bladen County",
+    "lat": 34.6293,
+    "lon": -78.6053,
+    "region": "North Carolina",
+    "country": "US"
+   },
+   "file": "snapshots/us-nc-elizabethtown.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Burgaw, Pender County": {
+   "site": {
+    "name": "Burgaw, Pender County",
+    "lat": 34.5527,
+    "lon": -77.9261,
+    "region": "North Carolina",
+    "country": "US"
+   },
+   "file": "snapshots/us-nc-burgaw.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Poplarville, Pearl River County (USDA-ARS Thad Cochran Southern Horticultural Lab)": {
+   "site": {
+    "name": "Poplarville, Pearl River County (USDA-ARS Thad Cochran Southern Horticultural Lab)",
+    "lat": 30.8402,
+    "lon": -89.5342,
+    "region": "Mississippi",
+    "country": "US"
+   },
+   "file": "snapshots/us-ms-poplarville.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Hammonton, Atlantic County": {
+   "site": {
+    "name": "Hammonton, Atlantic County",
+    "lat": 39.6365,
+    "lon": -74.8024,
+    "region": "New Jersey",
+    "country": "US"
+   },
+   "file": "snapshots/us-nj-hammonton.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Grand Junction / South Haven, Van Buren County": {
+   "site": {
+    "name": "Grand Junction / South Haven, Van Buren County",
+    "lat": 42.4014,
+    "lon": -86.0708,
+    "region": "Michigan",
+    "country": "US"
+   },
+   "file": "snapshots/us-mi-grand-junction.json",
+   "group": "Benchmark \u00b7 US transect",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Chao / Vir\u00fa (Chavimochic irrigation)": {
+   "site": {
+    "name": "Chao / Vir\u00fa (Chavimochic irrigation)",
+    "lat": -8.5386,
+    "lon": -78.6811,
+    "region": "La Libertad",
+    "country": "PE"
+   },
+   "file": "snapshots/pe-chao-chavimochic.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Olmos (Proyecto Olmos irrigation)": {
+   "site": {
+    "name": "Olmos (Proyecto Olmos irrigation)",
+    "lat": -5.9847,
+    "lon": -79.7583,
+    "region": "Lambayeque",
+    "country": "PE"
+   },
+   "file": "snapshots/pe-olmos.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Ica / Villacur\u00ed / Pisco": {
+   "site": {
+    "name": "Ica / Villacur\u00ed / Pisco",
+    "lat": -14.0678,
+    "lon": -75.7286,
+    "region": "Ica",
+    "country": "PE"
+   },
+   "file": "snapshots/pe-ica.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Ovalle / Punitaqui (Limar\u00ed valley)": {
+   "site": {
+    "name": "Ovalle / Punitaqui (Limar\u00ed valley)",
+    "lat": -30.6036,
+    "lon": -71.2003,
+    "region": "Coquimbo",
+    "country": "CL"
+   },
+   "file": "snapshots/cl-ovalle-coquimbo.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Linares / Parral (Maule)": {
+   "site": {
+    "name": "Linares / Parral (Maule)",
+    "lat": -35.8467,
+    "lon": -71.5931,
+    "region": "Maule",
+    "country": "CL"
+   },
+   "file": "snapshots/cl-linares-maule.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Chill\u00e1n / San Carlos / Coihueco (\u00d1uble)": {
+   "site": {
+    "name": "Chill\u00e1n / San Carlos / Coihueco (\u00d1uble)",
+    "lat": -36.6066,
+    "lon": -72.1034,
+    "region": "\u00d1uble",
+    "country": "CL"
+   },
+   "file": "snapshots/cl-chillan-nuble.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Los \u00c1ngeles (Biob\u00edo)": {
+   "site": {
+    "name": "Los \u00c1ngeles (Biob\u00edo)",
+    "lat": -37.4697,
+    "lon": -72.3537,
+    "region": "Biob\u00edo",
+    "country": "CL"
+   },
+   "file": "snapshots/cl-los-angeles-biobio.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Osorno / Purranque (Los Lagos)": {
+   "site": {
+    "name": "Osorno / Purranque (Los Lagos)",
+    "lat": -40.5739,
+    "lon": -73.1336,
+    "region": "Los Lagos",
+    "country": "CL"
+   },
+   "file": "snapshots/cl-osorno-los-lagos.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Zapotl\u00e1n el Grande (Ciudad Guzm\u00e1n) / Zapotiltic / Tuxpan": {
+   "site": {
+    "name": "Zapotl\u00e1n el Grande (Ciudad Guzm\u00e1n) / Zapotiltic / Tuxpan",
+    "lat": 19.7059,
+    "lon": -103.4616,
+    "region": "Jalisco",
+    "country": "MX"
+   },
+   "file": "snapshots/mx-zapotlan-jalisco.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Los Reyes de Salgado": {
+   "site": {
+    "name": "Los Reyes de Salgado",
+    "lat": 19.5917,
+    "lon": -102.4764,
+    "region": "Michoac\u00e1n",
+    "country": "MX"
+   },
+   "file": "snapshots/mx-los-reyes-michoacan.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "El Fuerte / Valle del Fuerte (Ahome, Guasave)": {
+   "site": {
+    "name": "El Fuerte / Valle del Fuerte (Ahome, Guasave)",
+    "lat": 26.4194,
+    "lon": -108.6197,
+    "region": "Sinaloa",
+    "country": "MX"
+   },
+   "file": "snapshots/mx-el-fuerte-sinaloa.json",
+   "group": "Benchmark \u00b7 Peru, Chile and Mexico",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Famaill\u00e1 / Lules / Monteros (Tucum\u00e1n piedmont)": {
+   "site": {
+    "name": "Famaill\u00e1 / Lules / Monteros (Tucum\u00e1n piedmont)",
+    "lat": -27.05,
+    "lon": -65.4,
+    "region": "Tucum\u00e1n",
+    "country": "AR"
+   },
+   "file": "snapshots/ar-famailla-tucuman.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Taf\u00ed del Valle (EEAOC substation)": {
+   "site": {
+    "name": "Taf\u00ed del Valle (EEAOC substation)",
+    "lat": -26.8517,
+    "lon": -65.7098,
+    "region": "Tucum\u00e1n",
+    "country": "AR"
+   },
+   "file": "snapshots/ar-tafi-del-valle.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Concordia": {
+   "site": {
+    "name": "Concordia",
+    "lat": -31.3929,
+    "lon": -58.0209,
+    "region": "Entre R\u00edos",
+    "country": "AR"
+   },
+   "file": "snapshots/ar-concordia-entre-rios.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Guasca (Sabana de Bogot\u00e1 highlands)": {
+   "site": {
+    "name": "Guasca (Sabana de Bogot\u00e1 highlands)",
+    "lat": 4.8667,
+    "lon": -73.8778,
+    "region": "Cundinamarca",
+    "country": "CO"
+   },
+   "file": "snapshots/co-guasca-cundinamarca.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Vacaria (Campos de Cima da Serra)": {
+   "site": {
+    "name": "Vacaria (Campos de Cima da Serra)",
+    "lat": -28.5122,
+    "lon": -50.9339,
+    "region": "Rio Grande do Sul",
+    "country": "BR"
+   },
+   "file": "snapshots/br-vacaria-rs.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Pelotas (Esta\u00e7\u00e3o Experimental Cascata, Embrapa Clima Temperado)": {
+   "site": {
+    "name": "Pelotas (Esta\u00e7\u00e3o Experimental Cascata, Embrapa Clima Temperado)",
+    "lat": -31.6208,
+    "lon": -52.525,
+    "region": "Rio Grande do Sul",
+    "country": "BR"
+   },
+   "file": "snapshots/br-pelotas-rs.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Lages / Planalto Serrano (incl. Palmeira)": {
+   "site": {
+    "name": "Lages / Planalto Serrano (incl. Palmeira)",
+    "lat": -27.816,
+    "lon": -50.326,
+    "region": "Santa Catarina",
+    "country": "BR"
+   },
+   "file": "snapshots/br-lages-sc.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Piracicaba (Ch\u00e1cara Catavento, ESALQ trial)": {
+   "site": {
+    "name": "Piracicaba (Ch\u00e1cara Catavento, ESALQ trial)",
+    "lat": -22.725,
+    "lon": -47.6489,
+    "region": "S\u00e3o Paulo",
+    "country": "BR"
+   },
+   "file": "snapshots/br-piracicaba-sp.json",
+   "group": "Benchmark \u00b7 Other Latin America",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Moguer / Huelva coastal strip (Moguer-Lepe-Almonte)": {
+   "site": {
+    "name": "Moguer / Huelva coastal strip (Moguer-Lepe-Almonte)",
+    "lat": 37.2764,
+    "lon": -6.8389,
+    "region": "Andalusia (Huelva)",
+    "country": "ES"
+   },
+   "file": "snapshots/es-hu-moguer.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Odemira / Sao Teotonio (Alentejo coast, Mira irrigation perimeter)": {
+   "site": {
+    "name": "Odemira / Sao Teotonio (Alentejo coast, Mira irrigation perimeter)",
+    "lat": 37.5108,
+    "lon": -8.7053,
+    "region": "Beja (Alentejo Litoral)",
+    "country": "PT"
+   },
+   "file": "snapshots/pt-odemira-sao-teotonio.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Sever do Vouga (Beira Litoral / Vouga valley)": {
+   "site": {
+    "name": "Sever do Vouga (Beira Litoral / Vouga valley)",
+    "lat": 40.7312,
+    "lon": -8.3706,
+    "region": "Aveiro (Centro)",
+    "country": "PT"
+   },
+   "file": "snapshots/pt-sever-do-vouga.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Larache / Loukkos perimeter (incl. Moulay Bousselham, Gharb)": {
+   "site": {
+    "name": "Larache / Loukkos perimeter (incl. Moulay Bousselham, Gharb)",
+    "lat": 35.1932,
+    "lon": -6.1557,
+    "region": "Tanger-Tetouan-Al Hoceima",
+    "country": "MA"
+   },
+   "file": "snapshots/ma-larache-loukkos.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Agadir / Souss-Massa (Ait Melloul - Chtouka Ait Baha)": {
+   "site": {
+    "name": "Agadir / Souss-Massa (Ait Melloul - Chtouka Ait Baha)",
+    "lat": 30.3342,
+    "lon": -9.4972,
+    "region": "Souss-Massa",
+    "country": "MA"
+   },
+   "file": "snapshots/ma-agadir-souss.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "George (southern Cape coast)": {
+   "site": {
+    "name": "George (southern Cape coast)",
+    "lat": -33.9648,
+    "lon": 22.459,
+    "region": "Western Cape",
+    "country": "ZA"
+   },
+   "file": "snapshots/za-wc-george.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Wolseley / Hex River valley (Breede valley interior)": {
+   "site": {
+    "name": "Wolseley / Hex River valley (Breede valley interior)",
+    "lat": -33.418,
+    "lon": 19.2006,
+    "region": "Western Cape",
+    "country": "ZA"
+   },
+   "file": "snapshots/za-wc-wolseley.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Tzaneen / Letaba area (Limpopo escarpment, summer rainfall)": {
+   "site": {
+    "name": "Tzaneen / Letaba area (Limpopo escarpment, summer rainfall)",
+    "lat": -23.8332,
+    "lon": 30.1635,
+    "region": "Limpopo",
+    "country": "ZA"
+   },
+   "file": "snapshots/za-lp-tzaneen.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Coffs Harbour - Woolgoolga - Corindi (NSW mid-north coast)": {
+   "site": {
+    "name": "Coffs Harbour - Woolgoolga - Corindi (NSW mid-north coast)",
+    "lat": -30.2963,
+    "lon": 153.1135,
+    "region": "New South Wales",
+    "country": "AU"
+   },
+   "file": "snapshots/au-nsw-coffs-harbour.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Penguin - Sulphur Creek (north-west Tasmania coast)": {
+   "site": {
+    "name": "Penguin - Sulphur Creek (north-west Tasmania coast)",
+    "lat": -41.1204,
+    "lon": 146.0722,
+    "region": "Tasmania",
+    "country": "AU"
+   },
+   "file": "snapshots/au-tas-penguin.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Ohaupo (Waikato, incl. Ngatea on the Hauraki Plains)": {
+   "site": {
+    "name": "Ohaupo (Waikato, incl. Ngatea on the Hauraki Plains)",
+    "lat": -37.9236,
+    "lon": 175.3067,
+    "region": "Waikato",
+    "country": "NZ"
+   },
+   "file": "snapshots/nz-waikato-ohaupo.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Mengzi (Honghe prefecture, southeast Yunnan plateau)": {
+   "site": {
+    "name": "Mengzi (Honghe prefecture, southeast Yunnan plateau)",
+    "lat": 23.364,
+    "lon": 103.385,
+    "region": "Yunnan",
+    "country": "CN"
+   },
+   "file": "snapshots/cn-yn-mengzi.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Qingdao West Coast New Area (Huangdao) and Rizhao (Shandong peninsula)": {
+   "site": {
+    "name": "Qingdao West Coast New Area (Huangdao) and Rizhao (Shandong peninsula)",
+    "lat": 35.9645,
+    "lon": 120.1963,
+    "region": "Shandong",
+    "country": "CN"
+   },
+   "file": "snapshots/cn-sd-qingdao-huangdao.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Dandong (Liaodong peninsula)": {
+   "site": {
+    "name": "Dandong (Liaodong peninsula)",
+    "lat": 40.129,
+    "lon": 124.3947,
+    "region": "Liaoning",
+    "country": "CN"
+   },
+   "file": "snapshots/cn-ln-dandong.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Lublin region (Lubelskie, incl. Krasnik / Opole Lubelskie plantations)": {
+   "site": {
+    "name": "Lublin region (Lubelskie, incl. Krasnik / Opole Lubelskie plantations)",
+    "lat": 51.2465,
+    "lon": 22.5684,
+    "region": "Lubelskie",
+    "country": "PL"
+   },
+   "file": "snapshots/pl-lublin.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Vechta - Langforden (Oldenburger Munsterland; LWK berry trial station)": {
+   "site": {
+    "name": "Vechta - Langforden (Oldenburger Munsterland; LWK berry trial station)",
+    "lat": 52.7261,
+    "lon": 8.2878,
+    "region": "Niedersachsen",
+    "country": "DE"
+   },
+   "file": "snapshots/de-ni-vechta.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
+  },
+  "Marondera / Harare hinterland (Mashonaland East)": {
+   "site": {
+    "name": "Marondera / Harare hinterland (Mashonaland East)",
+    "lat": -18.1897,
+    "lon": 31.5467,
+    "region": "Mashonaland East",
+    "country": "ZW"
+   },
+   "file": "snapshots/zw-me-marondera.json",
+   "group": "Benchmark \u00b7 Rest of world",
+   "production": "available",
+   "hourly_source": "Global hourly archive"
   }
  }
 }

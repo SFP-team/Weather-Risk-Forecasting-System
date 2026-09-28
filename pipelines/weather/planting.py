@@ -6,8 +6,8 @@ Resolve only registry geography; never infer a region from a shared weather cell
 
 METHOD = 'regional-establishment-v1'
 REGIONS = {
-    'Citra': 'florida', 'Waldo': 'florida', 'Central Florida': 'florida',
-    'South Florida': 'florida', 'Georgia': 'georgia', 'Santa Catarina': 'southern_brazil',
+    'Citra': 'florida', 'Waldo': 'florida', 'Central Florida': 'florida', 'South Florida': 'florida',
+    'Florida': 'florida', 'Georgia': 'georgia', 'Santa Catarina': 'southern_brazil',
 }
 GUIDANCE = {
     'florida': {

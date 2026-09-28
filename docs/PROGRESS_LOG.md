@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-09-28 — Production v3, literature benchmark and decision-first dashboard
+
+- Reviewed the v2 model against its own outputs and the literature. Fixed day offsets gave every site a 40-day harvest and put central Chile's harvest in Sep–Nov against published Nov–Jan. The 50 h chill requirement sat below published Emerald values, and the daily disease rule had no source. v2 gave no production window at 14 of 46 southern-highbush benchmark sites, including all of Peru and Mexico.
+- Implemented `stage_thermal_v3` as primary (`open-field-production-v3`, `location-evidence-v5`). It adds degree-day stages after budbreak, a 100 h chill requirement, chill portions reported beside chill hours, the hourly BAS anthracnose / SAS Botrytis infection model and a `chill_clock` applicability test. Where the chill clock does not apply, a managed-cycle scan of 24 start dates gives the production window. A review pass fixed the scan: stalled cycles now count as failed crop-loss cycles, and favourable starts come from the Pareto front plus near ties, which can no longer come out empty.
+- Built a 53-site literature benchmark, drafted from published sources and independently re-verified before any model comparison. Across the 46 southern-highbush sites, v3 leaves none without a window (v2 14). The chill-clock harvest midpoint falls in published months at 25/27 sites (v2 19/32) and bloom at 13/19 (v2 6/20). Scan sites cover 79% of published harvest months. Misses are documented: management-driven evergreen sites, high elevation, rabbiteye, tunnels, northern-highbush bloom timing, a sea-dominated coastal cell and Peru fruit-development time.
+- Dashboard: decision strip (system, window, top risks, planting), managed-cycle scan panel, 71 presets including the benchmark sites, benchmark page, separated busy/disconnected API states, stable export names and fixed preview MIME types.
+- Verification: 127 server tests on deployed `code/`; exact legacy parity for 18 sites with `stage_risks_v2` as primary; live API at Clinton, NC and Chao, Peru; browser checks with no page errors and no 390 px overflow. Only `blueberry-ui-api` restarted. Constants remain provisional; this is not field validation.
+
 ## 2026-09-24 — Global blueberry phenology research
 
 - Completed a 43-source synthesis covering bud initiation/differentiation, floral and vegetative budbreak, flowering, ripening and commercial harvest across global production regimes. Regional examples retain cultivar, site, system, stage definitions and source-access limitations. Usual dates, forecasts and favorable management scenarios are treated separately.

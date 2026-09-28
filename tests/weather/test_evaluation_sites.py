@@ -22,7 +22,7 @@ class EvaluationSiteTests(unittest.TestCase):
         root = Path(directory.name)
         site = root / 'data/normalized/pilot/pilot/UF_X'
         site.mkdir(parents=True)
-        pd.DataFrame({'time': pd.date_range('2010-01-01', periods=rows, freq='h'), 'tmean_c': 5.}).to_parquet(site / 'met_hourly.parquet', index=False)
+        pd.DataFrame({'time': pd.date_range('2010-01-01', periods=rows, freq='h'), 'tmean_c': 5., 'dewpoint_mean_c': 2.}).to_parquet(site / 'met_hourly.parquet', index=False)
         sha = hashlib.sha256((site / 'met_hourly.parquet').read_bytes()).hexdigest()
         (site / 'met_hourly.json').write_text(json.dumps({'site': {'id': 'UF_X', 'name': 'X'}, 'source_indices': [235, 157],
             'source_lat': 27.5, 'source_lon': -81.875, 'rows': rows, 'start': '2010-01-01', 'end': '2025-12-31', 'parquet_sha256': sha}))
@@ -34,6 +34,7 @@ class EvaluationSiteTests(unittest.TestCase):
         keep, root = self.root()
         series, source = hourly_for(27.547, -81.811, root)
         self.assertEqual(len(series), 140256)
+        self.assertEqual(list(series.columns), ['tmean_c', 'dewpoint_mean_c'])
         self.assertEqual(source['site'], 'X')
         self.assertGreater(source['distance_km'], 5)
         self.assertIsNone(hourly_for(27.221, -81.868, root)[0])
