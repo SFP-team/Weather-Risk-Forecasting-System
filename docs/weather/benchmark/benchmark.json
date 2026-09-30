@@ -137,8 +137,8 @@
         "managed_sites": 8,
         "managed_unconstrained": 0,
         "managed_empty": 0,
-        "managed_harvest_recall": 0.7956349206349207,
-        "managed_harvest_precision": 0.7270833333333333,
+        "managed_harvest_recall": 0.8908730158730159,
+        "managed_harvest_precision": 0.7663690476190477,
         "planting_assessed": 0,
         "planting_recall": null,
         "planting_precision": null
@@ -223,8 +223,8 @@
         "managed_sites": 19,
         "managed_unconstrained": 2,
         "managed_empty": 0,
-        "managed_harvest_recall": 0.7911445279866333,
-        "managed_harvest_precision": 0.7037593984962406,
+        "managed_harvest_recall": 0.8137009189640768,
+        "managed_harvest_precision": 0.7150375939849624,
         "planting_assessed": 15,
         "planting_recall": 0.3777777777777777,
         "planting_precision": 0.3277777777777777
@@ -4274,7 +4274,8 @@
           "ranked_risks": [
             "disease_weather",
             "harvest_heavy_rain",
-            "flowering_freeze"
+            "flowering_freeze",
+            "bud_freeze"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -10149,7 +10150,8 @@
           "r_planting_rule": null,
           "ranked_risks": [],
           "managed_recurring": [
-            "fruit_severe_heat"
+            "fruit_severe_heat",
+            "harvest_heavy_rain"
           ]
         }
       },
@@ -10326,9 +10328,14 @@
               2,
               3,
               4,
-              5
+              5,
+              11,
+              12
             ],
             "harvest": [
+              1,
+              2,
+              3,
               4,
               5,
               6,
@@ -10339,27 +10346,33 @@
           "bloom": null,
           "harvest": {
             "model_months": [
+              1,
+              2,
+              3,
               4,
               5,
               6,
               7
             ],
             "empty": false,
-            "recall": 0.2857142857142857,
-            "precision": 0.5,
-            "jaccard": 0.2222222222222222
+            "recall": 0.7142857142857143,
+            "precision": 0.7142857142857143,
+            "jaccard": 0.5555555555555556
           },
           "peak_harvest": {
             "model_months": [
+              1,
+              2,
+              3,
               4,
               5,
               6,
               7
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.25,
-            "jaccard": 0.2
+            "recall": 1.0,
+            "precision": 0.2857142857142857,
+            "jaccard": 0.2857142857142857
           },
           "r_planting_rule": null,
           "ranked_risks": [],
@@ -11691,19 +11704,22 @@
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3,
               4,
               5,
               6,
-              8,
               9,
               10,
-              11
+              11,
+              12
             ],
             "harvest": [
               1,
               2,
+              3,
+              4,
               5,
               6,
               7,
@@ -11717,47 +11733,12 @@
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3,
               4,
               5,
               6,
-              8,
-              9,
-              10,
-              11
-            ],
-            "empty": false,
-            "recall": 1.0,
-            "precision": 0.2222222222222222,
-            "jaccard": 0.2222222222222222
-          },
-          "harvest": {
-            "model_months": [
-              1,
-              2,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ],
-            "empty": false,
-            "recall": 0.6666666666666666,
-            "precision": 0.4,
-            "jaccard": 0.3333333333333333
-          },
-          "peak_harvest": {
-            "model_months": [
-              1,
-              2,
-              5,
-              6,
-              7,
-              8,
               9,
               10,
               11,
@@ -11768,13 +11749,54 @@
             "precision": 0.2,
             "jaccard": 0.2
           },
+          "harvest": {
+            "model_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "empty": false,
+            "recall": 1.0,
+            "precision": 0.5,
+            "jaccard": 0.5
+          },
+          "peak_harvest": {
+            "model_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "empty": false,
+            "recall": 1.0,
+            "precision": 0.16666666666666666,
+            "jaccard": 0.16666666666666666
+          },
           "r_planting_rule": null,
           "ranked_risks": [
             "chill_shortfall"
           ],
           "managed_recurring": [
             "disease_weather",
-            "harvest_heavy_rain"
+            "harvest_heavy_rain",
+            "pollination_weather"
           ]
         }
       },

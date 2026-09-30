@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-09-30 — Bud-stage freeze and pollination gap from innov8.ag review
+
+- Reviewed innov8.ag Market Insights from its public page and page code. Adopted two ideas that fit the product and have published thresholds: frost checked at the bud stage (NC State critical temperatures) and honey bee flight hours (12.8 °C, 09:00–17:00) with a pollination gap of 4 or more flowering days in a row without flight (UF/IFAS IN1237 receptivity). Rejected fixed-from-1-January GDD stages, frost kill percentages, sine-interpolated hours and the market features. Notes in `docs/research/2026-09-30/innov8_market_insights_review.md`.
+- Both are ranked families and managed-cycle scan measures in `stage_thermal_v3` only. Across 71 presets only Burgaw, NC gains a ranked risk (bud-stage freeze, 8 of 15 winters). Scan recall of published harvest months rose from 0.79 to 0.81; chill-clock benchmark scores did not change. 130 server tests passed and legacy v2 reproduced 18 of 18 snapshots exactly. Dashboard, breeder guide (P47–P49, Q14) and production README updated. The bee model uses temperature only, so it is an upper bound and not validated against pollination records.
+
 ## 2026-09-30 — Formula guide for breeder review
 
 - Added `docs/weather/production/model_formulas_for_breeder_review.html` so a breeder can review and comment on every formula without reading code. It covers chill hours and portions, budbreak, degree-day stages, production-system rules, when the winter calendar applies, the managed-cycle scan, risk events and ranking with Wilson intervals, the hourly disease models, unranked exposures and planting. It also has a 46-row settings template and 13 questions, each with a comment box, a notes download and a print layout.

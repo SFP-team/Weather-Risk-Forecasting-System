@@ -21,7 +21,9 @@
     "stage_thermal_v3 uses the 100-hour chill requirement from the supervisor's later R workflow; stage_risks_v2 and the legacy profiles remain as comparisons.",
     "Dynamic Model chill portions are reported beside chill hours for every winter; the requirement and classification still use chill hours.",
     "stage_thermal_v3 replaces the daily disease proxy with hourly wetness: UF Blueberry Advisory System anthracnose and Strawberry Advisory System Botrytis indices from grid temperature and dewpoint.",
-    "Where the chill-triggered calendar does not apply (tropics, evergreen or unknown majority, or fewer than 12 calendar winters), a managed-cycle scan of 24 cycle-start dates gives favourable flowering and harvest months instead of no window."
+    "Where the chill-triggered calendar does not apply (tropics, evergreen or unknown majority, or fewer than 12 calendar winters), a managed-cycle scan of 24 cycle-start dates gives favourable flowering and harvest months instead of no window.",
+    "stage_thermal_v3 checks the bud stage (budbreak to the day before flowering) for freezes at NC State critical temperatures: -6.7 C until half the heat to flowering, then -3.9 C. Bud-stage freeze is a ranked risk family and a crop-loss measure in the managed-cycle scan.",
+    "stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures."
   ],
   "limitations": [
     "Constants encode a UF-type low-chill southern highbush under open field + ground; they are provisional assumptions, not measured genotype parameters. Northern-highbush and rabbiteye regions are modelled as if planted with this type.",
@@ -30,13 +32,14 @@
     "UTC hours for chill and daily windows; the infection model assigns wet periods to local solar days (UTC plus longitude/15 hours). The original R requested local solar time; the difference affects window edges only.",
     "Frequencies come from at most 15 winters; 95% Wilson intervals are shown and are wide. Do not over-read differences between sites.",
     "Infection-risk days are weather favourability from grid wetness (RH >=90%), not canopy wetness, inoculum or disease incidence. Longest dry spell is not a soil water balance.",
-    "Pollination-unfavourable days are an operational cold-or-wet proxy, not measured bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison.",
+    "Pollination-unfavourable days are an operational cold-or-wet proxy, not measured bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. Honey bee flight hours use temperature only: rain, wind and cloud are not in the hourly archive, so they are an upper bound, and bumble bees fly at lower temperatures.",
+    "Bud-stage freeze thresholds are NC State critical temperatures for highbush buds applied from grid minimum temperature; radiation-frost fields can be 10 to 12 F colder than open, warmer sites.",
     "Fruit frost at or below 0 C is exposure, not a cultivar-specific injury threshold. Warm hours above 21 C are not measured chill negation.",
-    "The 50% frequency and 12-winter evidence gates are an explicit reporting policy, not biological loss thresholds. Dry spells, pollination weather and warm winter have no defined loss event.",
+    "The 50% frequency and 12-winter evidence gates are an explicit reporting policy, not biological loss thresholds. Dry spells and warm winter have no defined loss event.",
     "Stage thermal requirements are a Waldo translation checked against published spans, not a fit to observed phenology; the literature benchmark compares months with regional practice, not field observations.",
     "No cultivar ranking, no soil scoring, no tunnel or pot effects, no forecast, no independent phenology validation yet."
   ],
-  "code_sha256": "9b66b50f040b948e027d8b5643aa1dba998c05721974dad3717f9a7dbf6c135e",
+  "code_sha256": "504c6bb07ee39b82fe20a65fda64900aa3eff88878c69ecb1f433337dd61f9c2",
   "sites": {
     "Waldo": {
       "latitude": 29.795286,
@@ -132,7 +135,18 @@
           "anthracnose_moderate": 0.15,
           "anthracnose_high": 0.5,
           "botrytis_moderate": 0.5,
-          "botrytis_high": 0.7
+          "botrytis_high": 0.7,
+          "bud_freeze_model": "ncstate_stage_critical",
+          "bud_freeze_early_c": -6.7,
+          "bud_freeze_late_c": -3.9,
+          "bud_freeze_split_fraction": 0.5,
+          "bee_flight_model": "honeybee_daytime_temperature",
+          "bee_flight_threshold_c": 12.8,
+          "bee_flight_local_hours": [
+            9,
+            16
+          ],
+          "pollination_gap_days": 4
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -393,6 +407,41 @@
             "label": "High infection-risk days",
             "unit": "days",
             "note": "Days from flowering start to harvest end with anthracnose index >=0.50, or during flowering Botrytis index >=0.70 (BAS/SAS high-risk classes). Hourly infection-model profiles only."
+          },
+          {
+            "key": "bud_tmin_min_c",
+            "stage": "buds",
+            "label": "Lowest bud-stage temperature",
+            "unit": "\u00b0C",
+            "note": "Minimum daily Tmin from budbreak to the day before flowering starts. Bud-freeze profiles only."
+          },
+          {
+            "key": "bud_freeze_days",
+            "stage": "buds",
+            "label": "Bud-stage freeze exposure",
+            "unit": "days",
+            "note": "Days from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) until half the heat to flowering, then -3.9 C (25 F). Exposure, not an injury probability. Bud-freeze profiles only."
+          },
+          {
+            "key": "flowering_bee_flight_hours_mean",
+            "stage": "flower",
+            "label": "Honey bee flight hours",
+            "unit": "hours/day",
+            "note": "Mean daily hours from 09:00 to 17:00 local solar time with air temperature at or above 12.8 C (55 F), the honey bee foraging threshold. Rain, wind and cloud are not included, so this is an upper bound; bumble bees fly at lower temperatures. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_no_flight_days",
+            "stage": "flower",
+            "label": "Days without honey bee flight",
+            "unit": "days",
+            "note": "Flowering days with no daytime hour at or above 12.8 C. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_longest_no_flight_run",
+            "stage": "flower",
+            "label": "Longest run without honey bee flight",
+            "unit": "days",
+            "note": "Longest run of consecutive flowering days with no daytime hour at or above 12.8 C. Blueberry flowers stay receptive for about 3 to 5 days (UF/IFAS IN1237). Bee-flight profiles only."
           }
         ],
         "classification": {
@@ -610,6 +659,51 @@
                 {
                   "title": "UF/IFAS: Protecting blueberries from freezes in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/HS216"
+                }
+              ]
+            },
+            "bud_freeze": {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 15,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 15,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 15,
+                  "mean": 2.534004720052083,
+                  "sd": 2.567583285107089,
+                  "median": 2.05999755859375,
+                  "p10": -0.12600097656249992,
+                  "p90": 5.3600219726562495,
+                  "min": -2.0,
+                  "max": 8.1400146484375
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
                 }
               ]
             },
@@ -848,14 +942,47 @@
             },
             "pollination_weather": {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 15,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 15,
+                  "mean": 0.8666666666666667,
+                  "sd": 0.990430401872025,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 2.0,
+                  "min": 0.0,
+                  "max": 3.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 15,
+                  "mean": 1.5333333333333334,
+                  "sd": 2.1995670569671746,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 4.6,
+                  "min": 0.0,
+                  "max": 7.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 15,
+                  "mean": 7.32247426576914,
+                  "sd": 0.6655991976044965,
+                  "median": 7.4411764705882355,
+                  "p10": 6.390470788428814,
+                  "p90": 7.918433179723502,
+                  "min": 5.935483870967742,
+                  "max": 7.962962962962963
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 15,
                   "mean": 13.333333333333334,
@@ -877,14 +1004,22 @@
                   "max": 12.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 15/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -1127,6 +1262,51 @@
               ]
             },
             {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 15,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 15,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 15,
+                  "mean": 2.534004720052083,
+                  "sd": 2.567583285107089,
+                  "median": 2.05999755859375,
+                  "p10": -0.12600097656249992,
+                  "p90": 5.3600219726562495,
+                  "min": -2.0,
+                  "max": 8.1400146484375
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
+                }
+              ]
+            },
+            {
               "risk": "flowering_freeze",
               "label": "Flowering freeze exposure",
               "stage": "flower",
@@ -1248,14 +1428,47 @@
             },
             {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 15,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 15,
+                  "mean": 0.8666666666666667,
+                  "sd": 0.990430401872025,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 2.0,
+                  "min": 0.0,
+                  "max": 3.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 15,
+                  "mean": 1.5333333333333334,
+                  "sd": 2.1995670569671746,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 4.6,
+                  "min": 0.0,
+                  "max": 7.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 15,
+                  "mean": 7.32247426576914,
+                  "sd": 0.6655991976044965,
+                  "median": 7.4411764705882355,
+                  "p10": 6.390470788428814,
+                  "p90": 7.918433179723502,
+                  "min": 5.935483870967742,
+                  "max": 7.962962962962963
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 15,
                   "mean": 13.333333333333334,
@@ -1277,14 +1490,22 @@
                   "max": 12.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 15/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -1675,9 +1896,59 @@
               "p90": 5.199999999999999,
               "min": 0.0,
               "max": 8.0
+            },
+            "bud_tmin_min_c": {
+              "n": 15,
+              "mean": 2.534004720052083,
+              "sd": 2.567583285107089,
+              "median": 2.05999755859375,
+              "p10": -0.12600097656249992,
+              "p90": 5.3600219726562495,
+              "min": -2.0,
+              "max": 8.1400146484375
+            },
+            "bud_freeze_days": {
+              "n": 15,
+              "mean": 0.0,
+              "sd": 0.0,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "flowering_bee_flight_hours_mean": {
+              "n": 15,
+              "mean": 7.32247426576914,
+              "sd": 0.6655991976044965,
+              "median": 7.4411764705882355,
+              "p10": 6.390470788428814,
+              "p90": 7.918433179723502,
+              "min": 5.935483870967742,
+              "max": 7.962962962962963
+            },
+            "flowering_no_flight_days": {
+              "n": 15,
+              "mean": 1.5333333333333334,
+              "sd": 2.1995670569671746,
+              "median": 1.0,
+              "p10": 0.0,
+              "p90": 4.6,
+              "min": 0.0,
+              "max": 7.0
+            },
+            "flowering_longest_no_flight_run": {
+              "n": 15,
+              "mean": 0.8666666666666667,
+              "sd": 0.990430401872025,
+              "median": 1.0,
+              "p10": 0.0,
+              "p90": 2.0,
+              "min": 0.0,
+              "max": 3.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells, pollination weather and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -1746,7 +2017,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 2,
               "harvest_infection_days": 2,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": -0.3900146484375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.903225806451613,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -1816,7 +2092,12 @@
               "flowering_infection_days": 4,
               "fruit_infection_days": 1,
               "harvest_infection_days": 6,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 3.3800048828125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.419354838709677,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -1886,7 +2167,12 @@
               "flowering_infection_days": 4,
               "fruit_infection_days": 3,
               "harvest_infection_days": 14,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 1.6300048828125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.714285714285714,
+              "flowering_no_flight_days": 3,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -1956,7 +2242,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 4,
               "harvest_infection_days": 16,
-              "crop_high_infection_days": 6
+              "crop_high_infection_days": 6,
+              "bud_tmin_min_c": 0.27001953125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.378378378378378,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -2026,7 +2317,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 10,
               "harvest_infection_days": 15,
-              "crop_high_infection_days": 3
+              "crop_high_infection_days": 3,
+              "bud_tmin_min_c": 6.08001708984375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 5.935483870967742,
+              "flowering_no_flight_days": 7,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -2096,7 +2392,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 6,
               "harvest_infection_days": 6,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": 1.1400146484375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.962962962962963,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2166,7 +2467,12 @@
               "flowering_infection_days": 4,
               "fruit_infection_days": 0,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 3.239990234375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.928571428571429,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2236,7 +2542,12 @@
               "flowering_infection_days": 11,
               "fruit_infection_days": 3,
               "harvest_infection_days": 15,
-              "crop_high_infection_days": 8
+              "crop_high_infection_days": 8,
+              "bud_tmin_min_c": 8.1400146484375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.741935483870968,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2306,7 +2617,12 @@
               "flowering_infection_days": 9,
               "fruit_infection_days": 5,
               "harvest_infection_days": 12,
-              "crop_high_infection_days": 4
+              "crop_high_infection_days": 4,
+              "bud_tmin_min_c": 1.69000244140625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.325581395348837,
+              "flowering_no_flight_days": 4,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -2376,7 +2692,12 @@
               "flowering_infection_days": 4,
               "fruit_infection_days": 2,
               "harvest_infection_days": 8,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 4.1099853515625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.4411764705882355,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -2446,7 +2767,12 @@
               "flowering_infection_days": 11,
               "fruit_infection_days": 1,
               "harvest_infection_days": 5,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 0.8900146484375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.055555555555555,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -2516,7 +2842,12 @@
               "flowering_infection_days": 5,
               "fruit_infection_days": 7,
               "harvest_infection_days": 9,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 4.280029296875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.84,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2586,7 +2917,12 @@
               "flowering_infection_days": 3,
               "fruit_infection_days": 4,
               "harvest_infection_days": 13,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 2.05999755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.884615384615385,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2656,7 +2992,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 7,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": 3.489990234375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.818181818181818,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -2726,7 +3067,12 @@
               "flowering_infection_days": 3,
               "fruit_infection_days": 2,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": -2.0,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.487804878048781,
+              "flowering_no_flight_days": 5,
+              "flowering_longest_no_flight_run": 3
             },
             "issues": {}
           }
@@ -2762,6 +3108,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 2,
+                  "valid_years": 15,
+                  "frequency": 0.13333333333333333
+                },
                 "flowering_freeze": {
                   "years_with_event": 6,
                   "valid_years": 15,
@@ -2786,14 +3137,21 @@
                   "years_with_event": 11,
                   "valid_years": 15,
                   "frequency": 0.7333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.13333333333333333,
                 "flowering_freeze": 0.4,
                 "fruit_frost": 0.2,
                 "fruit_heat": 0.006896551724137931,
                 "harvest_heavy_rain": 0.07758973662399148,
-                "disease_weather": 0.15971480620253667
+                "disease_weather": 0.15971480620253667,
+                "pollination": 0.0488613158505724
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -2821,6 +3179,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
+                },
                 "flowering_freeze": {
                   "years_with_event": 2,
                   "valid_years": 15,
@@ -2845,14 +3208,21 @@
                   "years_with_event": 13,
                   "valid_years": 15,
                   "frequency": 0.8666666666666667
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.016565313520061953,
                 "harvest_heavy_rain": 0.08280602137246017,
-                "disease_weather": 0.174940870618484
+                "disease_weather": 0.174940870618484,
+                "pollination": 0.03331531830351657
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -2880,6 +3250,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
+                },
                 "flowering_freeze": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -2904,14 +3279,21 @@
                   "years_with_event": 13,
                   "valid_years": 15,
                   "frequency": 0.8666666666666667
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.06033187049129077,
                 "harvest_heavy_rain": 0.0747610782784082,
-                "disease_weather": 0.1891929191232066
+                "disease_weather": 0.1891929191232066,
+                "pollination": 0.01836926961926962
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -2939,6 +3321,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -2963,14 +3350,21 @@
                   "years_with_event": 10,
                   "valid_years": 15,
                   "frequency": 0.6666666666666666
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.09022124252559036,
                 "harvest_heavy_rain": 0.08032474603682034,
-                "disease_weather": 0.19900857382476175
+                "disease_weather": 0.19900857382476175,
+                "pollination": 0.006516290726817042
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -2998,6 +3392,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3022,14 +3421,21 @@
                   "years_with_event": 9,
                   "valid_years": 15,
                   "frequency": 0.6
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.10379021461630157,
                 "harvest_heavy_rain": 0.08159871976048445,
-                "disease_weather": 0.21950233775308864
+                "disease_weather": 0.21950233775308864,
+                "pollination": 0.0022988505747126436
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3057,6 +3463,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3081,14 +3492,21 @@
                   "years_with_event": 10,
                   "valid_years": 15,
                   "frequency": 0.6666666666666666
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.18268474215842634,
                 "harvest_heavy_rain": 0.08835088140828178,
-                "disease_weather": 0.24598402411308876
+                "disease_weather": 0.24598402411308876,
+                "pollination": 0.002564102564102564
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3115,6 +3533,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3139,14 +3562,21 @@
                   "years_with_event": 11,
                   "valid_years": 15,
                   "frequency": 0.7333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.31816409711146554,
                 "harvest_heavy_rain": 0.10936393418391391,
-                "disease_weather": 0.31353295104391293
+                "disease_weather": 0.31353295104391293,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3174,6 +3604,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3198,14 +3633,21 @@
                   "years_with_event": 12,
                   "valid_years": 15,
                   "frequency": 0.8
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.4311561174177273,
                 "harvest_heavy_rain": 0.13947830241072728,
-                "disease_weather": 0.3695141956012877
+                "disease_weather": 0.3695141956012877,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3233,6 +3675,11 @@
                 7
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3257,14 +3704,21 @@
                   "years_with_event": 12,
                   "valid_years": 15,
                   "frequency": 0.8
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5328706570347438,
                 "harvest_heavy_rain": 0.16072975103008472,
-                "disease_weather": 0.4776246554039693
+                "disease_weather": 0.4776246554039693,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3293,6 +3747,11 @@
                 7
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3317,14 +3776,21 @@
                   "years_with_event": 11,
                   "valid_years": 15,
                   "frequency": 0.7333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5287037037037037,
                 "harvest_heavy_rain": 0.1539217938161208,
-                "disease_weather": 0.5797353521687406
+                "disease_weather": 0.5797353521687406,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3351,6 +3817,11 @@
                 8
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3375,14 +3846,21 @@
                   "years_with_event": 12,
                   "valid_years": 15,
                   "frequency": 0.8
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.6021895424836601,
                 "harvest_heavy_rain": 0.1547834895916097,
-                "disease_weather": 0.6871852623645486
+                "disease_weather": 0.6871852623645486,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3411,6 +3889,11 @@
                 8
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3435,14 +3918,21 @@
                   "years_with_event": 13,
                   "valid_years": 15,
                   "frequency": 0.8666666666666667
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5489145658263307,
                 "harvest_heavy_rain": 0.1686006056111729,
-                "disease_weather": 0.7510943573258281
+                "disease_weather": 0.7510943573258281,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3470,6 +3960,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3494,14 +3989,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5629575163398693,
                 "harvest_heavy_rain": 0.15395752575813756,
-                "disease_weather": 0.8014845443218058
+                "disease_weather": 0.8014845443218058,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3529,6 +4031,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3553,14 +4060,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5796241830065358,
                 "harvest_heavy_rain": 0.1486236791881953,
-                "disease_weather": 0.8117818718401588
+                "disease_weather": 0.8117818718401588,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3587,6 +4101,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3611,14 +4130,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.42272875816993466,
                 "harvest_heavy_rain": 0.12245914745914746,
-                "disease_weather": 0.7995744775319538
+                "disease_weather": 0.7995744775319538,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3646,6 +4172,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3670,14 +4201,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.24599243206054347,
                 "harvest_heavy_rain": 0.0743175565544376,
-                "disease_weather": 0.6894002212189457
+                "disease_weather": 0.6894002212189457,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3704,6 +4242,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3728,14 +4271,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.10220241632006338,
                 "harvest_heavy_rain": 0.046853804024335706,
-                "disease_weather": 0.5199587261468601
+                "disease_weather": 0.5199587261468601,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3765,6 +4315,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -3789,14 +4344,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.023242630385487528,
                 "harvest_heavy_rain": 0.06262802029106788,
-                "disease_weather": 0.37586765330491856
+                "disease_weather": 0.37586765330491856,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3825,6 +4387,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -3849,14 +4416,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.07142857142857142,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06154748731419762,
-                "disease_weather": 0.26296969151322735
+                "disease_weather": 0.26296969151322735,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -3886,6 +4460,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 1,
                   "valid_years": 14,
@@ -3910,14 +4489,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.07142857142857142,
                 "fruit_frost": 0.5,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06490918729034842,
-                "disease_weather": 0.2086040268754948
+                "disease_weather": 0.2086040268754948,
+                "pollination": 0.004201680672268907
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -3949,6 +4535,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 1,
                   "valid_years": 14,
@@ -3973,14 +4564,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.07142857142857142,
                 "fruit_frost": 0.8571428571428571,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06764159056442227,
-                "disease_weather": 0.17788352530115498
+                "disease_weather": 0.17788352530115498,
+                "pollination": 0.0162957929236999
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -4012,6 +4610,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 3,
                   "valid_years": 14,
@@ -4036,14 +4639,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.21428571428571427,
                 "fruit_frost": 1.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08147076112051475,
-                "disease_weather": 0.16816872788576878
+                "disease_weather": 0.16816872788576878,
+                "pollination": 0.03991724738675958
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -4074,6 +4684,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 9,
                   "valid_years": 14,
@@ -4098,14 +4713,21 @@
                   "years_with_event": 11,
                   "valid_years": 14,
                   "frequency": 0.7857142857142857
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.6428571428571429,
                 "fruit_frost": 0.42857142857142855,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08541750901279242,
-                "disease_weather": 0.17288759832383876
+                "disease_weather": 0.17288759832383876,
+                "pollination": 0.07916087038569965
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -4138,6 +4760,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 10,
                   "valid_years": 14,
@@ -4162,14 +4789,21 @@
                   "years_with_event": 11,
                   "valid_years": 14,
                   "frequency": 0.7857142857142857
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.7142857142857143,
                 "fruit_frost": 0.21428571428571427,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08345994941602967,
-                "disease_weather": 0.16890087909548068
+                "disease_weather": 0.16890087909548068,
+                "pollination": 0.09123746285703598
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -4188,6 +4822,8 @@
               "01-15",
               "02-01",
               "02-15",
+              "03-01",
+              "04-01",
               "09-01",
               "09-15",
               "10-01"
@@ -4200,6 +4836,7 @@
               1,
               2,
               3,
+              4,
               9,
               10
             ],
@@ -4208,6 +4845,7 @@
               2,
               4,
               5,
+              6,
               10,
               11,
               12
@@ -4215,6 +4853,11 @@
             "unconstrained": false
           },
           "measures": [
+            {
+              "key": "bud_freeze",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "tolerance": 0.07142857142857142
+            },
             {
               "key": "flowering_freeze",
               "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
@@ -4239,9 +4882,14 @@
               "key": "disease_weather",
               "definition": "share of flowering-to-harvest days at moderate or higher infection risk (hourly model) or meeting the daily disease rule (legacy profiles)",
               "tolerance": 0.012048192771084338
+            },
+            {
+              "key": "pollination",
+              "definition": "share of flowering days with no honey bee flight hour",
+              "tolerance": 0.05
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start whose flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",
@@ -4567,7 +5215,18 @@
           "anthracnose_moderate": 0.15,
           "anthracnose_high": 0.5,
           "botrytis_moderate": 0.5,
-          "botrytis_high": 0.7
+          "botrytis_high": 0.7,
+          "bud_freeze_model": "ncstate_stage_critical",
+          "bud_freeze_early_c": -6.7,
+          "bud_freeze_late_c": -3.9,
+          "bud_freeze_split_fraction": 0.5,
+          "bee_flight_model": "honeybee_daytime_temperature",
+          "bee_flight_threshold_c": 12.8,
+          "bee_flight_local_hours": [
+            9,
+            16
+          ],
+          "pollination_gap_days": 4
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -4828,6 +5487,41 @@
             "label": "High infection-risk days",
             "unit": "days",
             "note": "Days from flowering start to harvest end with anthracnose index >=0.50, or during flowering Botrytis index >=0.70 (BAS/SAS high-risk classes). Hourly infection-model profiles only."
+          },
+          {
+            "key": "bud_tmin_min_c",
+            "stage": "buds",
+            "label": "Lowest bud-stage temperature",
+            "unit": "\u00b0C",
+            "note": "Minimum daily Tmin from budbreak to the day before flowering starts. Bud-freeze profiles only."
+          },
+          {
+            "key": "bud_freeze_days",
+            "stage": "buds",
+            "label": "Bud-stage freeze exposure",
+            "unit": "days",
+            "note": "Days from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) until half the heat to flowering, then -3.9 C (25 F). Exposure, not an injury probability. Bud-freeze profiles only."
+          },
+          {
+            "key": "flowering_bee_flight_hours_mean",
+            "stage": "flower",
+            "label": "Honey bee flight hours",
+            "unit": "hours/day",
+            "note": "Mean daily hours from 09:00 to 17:00 local solar time with air temperature at or above 12.8 C (55 F), the honey bee foraging threshold. Rain, wind and cloud are not included, so this is an upper bound; bumble bees fly at lower temperatures. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_no_flight_days",
+            "stage": "flower",
+            "label": "Days without honey bee flight",
+            "unit": "days",
+            "note": "Flowering days with no daytime hour at or above 12.8 C. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_longest_no_flight_run",
+            "stage": "flower",
+            "label": "Longest run without honey bee flight",
+            "unit": "days",
+            "note": "Longest run of consecutive flowering days with no daytime hour at or above 12.8 C. Blueberry flowers stay receptive for about 3 to 5 days (UF/IFAS IN1237). Bee-flight profiles only."
           }
         ],
         "classification": {
@@ -5045,6 +5739,51 @@
                 {
                   "title": "UF/IFAS: Protecting blueberries from freezes in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/HS216"
+                }
+              ]
+            },
+            "bud_freeze": {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 15,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 15,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 15,
+                  "mean": 3.343339029947917,
+                  "sd": 2.92181234719379,
+                  "median": 4.4000244140625,
+                  "p10": -0.6879760742187496,
+                  "p90": 6.16400146484375,
+                  "min": -2.3499755859375,
+                  "max": 7.489990234375
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
                 }
               ]
             },
@@ -5283,14 +6022,47 @@
             },
             "pollination_weather": {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 15,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 15,
+                  "mean": 0.7333333333333333,
+                  "sd": 0.8837151016885368,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 1.5999999999999996,
+                  "min": 0.0,
+                  "max": 3.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 15,
+                  "mean": 1.3333333333333333,
+                  "sd": 2.0930724738891344,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 4.199999999999999,
+                  "min": 0.0,
+                  "max": 7.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 15,
+                  "mean": 7.421662268164875,
+                  "sd": 0.5928999692001858,
+                  "median": 7.551724137931035,
+                  "p10": 6.4846345514950166,
+                  "p90": 7.903846153846154,
+                  "min": 6.068181818181818,
+                  "max": 7.961538461538462
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 15,
                   "mean": 11.6,
@@ -5312,14 +6084,22 @@
                   "max": 8.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 15/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -5562,6 +6342,51 @@
               ]
             },
             {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 15,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 15,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 15,
+                  "mean": 3.343339029947917,
+                  "sd": 2.92181234719379,
+                  "median": 4.4000244140625,
+                  "p10": -0.6879760742187496,
+                  "p90": 6.16400146484375,
+                  "min": -2.3499755859375,
+                  "max": 7.489990234375
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
+                }
+              ]
+            },
+            {
               "risk": "flowering_freeze",
               "label": "Flowering freeze exposure",
               "stage": "flower",
@@ -5683,14 +6508,47 @@
             },
             {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 15,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2039
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 15,
+                  "mean": 0.7333333333333333,
+                  "sd": 0.8837151016885368,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 1.5999999999999996,
+                  "min": 0.0,
+                  "max": 3.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 15,
+                  "mean": 1.3333333333333333,
+                  "sd": 2.0930724738891344,
+                  "median": 1.0,
+                  "p10": 0.0,
+                  "p90": 4.199999999999999,
+                  "min": 0.0,
+                  "max": 7.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 15,
+                  "mean": 7.421662268164875,
+                  "sd": 0.5928999692001858,
+                  "median": 7.551724137931035,
+                  "p10": 6.4846345514950166,
+                  "p90": 7.903846153846154,
+                  "min": 6.068181818181818,
+                  "max": 7.961538461538462
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 15,
                   "mean": 11.6,
@@ -5712,14 +6570,22 @@
                   "max": 8.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 15/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/15 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -6110,9 +6976,59 @@
               "p90": 2.5999999999999996,
               "min": 0.0,
               "max": 7.0
+            },
+            "bud_tmin_min_c": {
+              "n": 15,
+              "mean": 3.343339029947917,
+              "sd": 2.92181234719379,
+              "median": 4.4000244140625,
+              "p10": -0.6879760742187496,
+              "p90": 6.16400146484375,
+              "min": -2.3499755859375,
+              "max": 7.489990234375
+            },
+            "bud_freeze_days": {
+              "n": 15,
+              "mean": 0.0,
+              "sd": 0.0,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "flowering_bee_flight_hours_mean": {
+              "n": 15,
+              "mean": 7.421662268164875,
+              "sd": 0.5928999692001858,
+              "median": 7.551724137931035,
+              "p10": 6.4846345514950166,
+              "p90": 7.903846153846154,
+              "min": 6.068181818181818,
+              "max": 7.961538461538462
+            },
+            "flowering_no_flight_days": {
+              "n": 15,
+              "mean": 1.3333333333333333,
+              "sd": 2.0930724738891344,
+              "median": 1.0,
+              "p10": 0.0,
+              "p90": 4.199999999999999,
+              "min": 0.0,
+              "max": 7.0
+            },
+            "flowering_longest_no_flight_run": {
+              "n": 15,
+              "mean": 0.7333333333333333,
+              "sd": 0.8837151016885368,
+              "median": 1.0,
+              "p10": 0.0,
+              "p90": 1.5999999999999996,
+              "min": 0.0,
+              "max": 3.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells, pollination weather and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -6181,7 +7097,12 @@
               "flowering_infection_days": 3,
               "fruit_infection_days": 4,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": -2.3499755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.4,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -6251,7 +7172,12 @@
               "flowering_infection_days": 5,
               "fruit_infection_days": 0,
               "harvest_infection_days": 2,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 4.4000244140625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.655172413793103,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6321,7 +7247,12 @@
               "flowering_infection_days": 4,
               "fruit_infection_days": 3,
               "harvest_infection_days": 11,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 2.44000244140625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.515151515151516,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6391,7 +7322,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 6,
               "harvest_infection_days": 9,
-              "crop_high_infection_days": 3
+              "crop_high_infection_days": 3,
+              "bud_tmin_min_c": 1.05999755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.515151515151516,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6461,7 +7397,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 8,
               "harvest_infection_days": 16,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": 6.41998291015625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.482142857142857,
+              "flowering_no_flight_days": 5,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -6531,7 +7472,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 6,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 1.65997314453125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.961538461538462,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -6601,7 +7547,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 2,
               "harvest_infection_days": 1,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 5.760009765625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.785714285714286,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -6671,7 +7622,12 @@
               "flowering_infection_days": 12,
               "fruit_infection_days": 3,
               "harvest_infection_days": 13,
-              "crop_high_infection_days": 7
+              "crop_high_infection_days": 7,
+              "bud_tmin_min_c": 4.6099853515625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.884615384615385,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -6741,7 +7697,12 @@
               "flowering_infection_days": 8,
               "fruit_infection_days": 9,
               "harvest_infection_days": 10,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 5.239990234375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.488372093023256,
+              "flowering_no_flight_days": 3,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6811,7 +7772,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 1,
               "harvest_infection_days": 10,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 7.489990234375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.551724137931035,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6881,7 +7847,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 2,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 0.77001953125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.40625,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -6951,7 +7922,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 7,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": 5.780029296875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.916666666666667,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -7021,7 +7997,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 5,
               "harvest_infection_days": 7,
-              "crop_high_infection_days": 0
+              "crop_high_infection_days": 0,
+              "bud_tmin_min_c": -1.65997314453125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.827586206896552,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -7091,7 +8072,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 7,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 4.010009765625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.866666666666666,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -7161,7 +8147,12 @@
               "flowering_infection_days": 1,
               "fruit_infection_days": 1,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 4.52001953125,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.068181818181818,
+              "flowering_no_flight_days": 7,
+              "flowering_longest_no_flight_run": 3
             },
             "issues": {}
           }
@@ -7198,6 +8189,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 2,
+                  "valid_years": 15,
+                  "frequency": 0.13333333333333333
+                },
                 "flowering_freeze": {
                   "years_with_event": 5,
                   "valid_years": 15,
@@ -7222,14 +8218,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.13333333333333333,
                 "flowering_freeze": 0.3333333333333333,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.00985663082437276,
                 "harvest_heavy_rain": 0.07655999695556774,
-                "disease_weather": 0.1460265817245441
+                "disease_weather": 0.1460265817245441,
+                "pollination": 0.04326180722742072
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7256,6 +8259,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 2,
                   "valid_years": 15,
@@ -7280,14 +8288,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.2,
                 "fruit_heat": 0.030705526357700273,
                 "harvest_heavy_rain": 0.07655184494080515,
-                "disease_weather": 0.15891102895691675
+                "disease_weather": 0.15891102895691675,
+                "pollination": 0.018620416322029227
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7315,6 +8330,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
+                },
                 "flowering_freeze": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -7339,14 +8359,21 @@
                   "years_with_event": 9,
                   "valid_years": 15,
                   "frequency": 0.6
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.10085143864243788,
                 "harvest_heavy_rain": 0.08198405136787677,
-                "disease_weather": 0.1782586080542015
+                "disease_weather": 0.1782586080542015,
+                "pollination": 0.011728280004142074
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7374,6 +8401,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7398,14 +8430,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.14026535890304007,
                 "harvest_heavy_rain": 0.08098598513459193,
-                "disease_weather": 0.19003068177606183
+                "disease_weather": 0.19003068177606183,
+                "pollination": 0.0036591478696741853
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7433,6 +8472,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7457,14 +8501,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.15014022209674385,
                 "harvest_heavy_rain": 0.07371680997067995,
-                "disease_weather": 0.20464949324186532
+                "disease_weather": 0.20464949324186532,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7492,6 +8543,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7516,14 +8572,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.24147667147667148,
                 "harvest_heavy_rain": 0.08259080024971865,
-                "disease_weather": 0.23186405585293077
+                "disease_weather": 0.23186405585293077,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7550,6 +8613,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7574,14 +8642,21 @@
                   "years_with_event": 8,
                   "valid_years": 15,
                   "frequency": 0.5333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.4086828181565023,
                 "harvest_heavy_rain": 0.10912259082350034,
-                "disease_weather": 0.30552089333020954
+                "disease_weather": 0.30552089333020954,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7610,6 +8685,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7634,14 +8714,21 @@
                   "years_with_event": 9,
                   "valid_years": 15,
                   "frequency": 0.6
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5067331728012844,
                 "harvest_heavy_rain": 0.1422010968576597,
-                "disease_weather": 0.3636054979598008
+                "disease_weather": 0.3636054979598008,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7669,6 +8756,11 @@
                 7
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7693,14 +8785,21 @@
                   "years_with_event": 12,
                   "valid_years": 15,
                   "frequency": 0.8
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5948672743951382,
                 "harvest_heavy_rain": 0.16547647137191077,
-                "disease_weather": 0.4807684061487698
+                "disease_weather": 0.4807684061487698,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7729,6 +8828,11 @@
                 7
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7753,14 +8857,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5396634560256852,
                 "harvest_heavy_rain": 0.17497605832144209,
-                "disease_weather": 0.5839092512248133
+                "disease_weather": 0.5839092512248133,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7787,6 +8898,11 @@
                 8
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7811,14 +8927,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.6324455337690632,
                 "harvest_heavy_rain": 0.1702222045659198,
-                "disease_weather": 0.6961755506942442
+                "disease_weather": 0.6961755506942442,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7847,6 +8970,11 @@
                 8
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7871,14 +8999,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.5713398692810457,
                 "harvest_heavy_rain": 0.16056111729081693,
-                "disease_weather": 0.7536923587338691
+                "disease_weather": 0.7536923587338691,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7905,6 +9040,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7929,14 +9069,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.6200980392156862,
                 "harvest_heavy_rain": 0.1285629094055123,
-                "disease_weather": 0.8056919164624541
+                "disease_weather": 0.8056919164624541,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -7964,6 +9111,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -7988,14 +9140,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.6465359477124184,
                 "harvest_heavy_rain": 0.1362189982002846,
-                "disease_weather": 0.8285817960486567
+                "disease_weather": 0.8285817960486567,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8023,6 +9182,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8047,14 +9211,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.4956154684095861,
                 "harvest_heavy_rain": 0.13172923209687917,
-                "disease_weather": 0.8420321211551746
+                "disease_weather": 0.8420321211551746,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8082,6 +9253,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8106,14 +9282,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.31167755991285406,
                 "harvest_heavy_rain": 0.08106386162022401,
-                "disease_weather": 0.7440179841076546
+                "disease_weather": 0.7440179841076546,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8140,6 +9323,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8164,14 +9352,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.11262407355286612,
                 "harvest_heavy_rain": 0.04286307973067059,
-                "disease_weather": 0.5769794228349387
+                "disease_weather": 0.5769794228349387,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8200,6 +9395,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8224,14 +9424,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.038840155945419105,
                 "harvest_heavy_rain": 0.05302283491565899,
-                "disease_weather": 0.4273753290869748
+                "disease_weather": 0.4273753290869748,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8260,6 +9467,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -8284,14 +9496,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.07142857142857142,
                 "fruit_heat": 0.0027472527472527475,
                 "harvest_heavy_rain": 0.052658031545098904,
-                "disease_weather": 0.2973551331270356
+                "disease_weather": 0.2973551331270356,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8321,6 +9540,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -8345,14 +9569,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.2857142857142857,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.05943536842390119,
-                "disease_weather": 0.22510132424659315
+                "disease_weather": 0.22510132424659315,
+                "pollination": 0.0021645021645021645
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -8381,6 +9612,11 @@
                 3
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -8405,14 +9641,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.7142857142857143,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.055685527502870355,
-                "disease_weather": 0.1874369333204914
+                "disease_weather": 0.1874369333204914,
+                "pollination": 0.006488749345892203
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -8444,6 +9687,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 2,
                   "valid_years": 14,
@@ -8468,14 +9716,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.14285714285714285,
                 "fruit_frost": 0.8571428571428571,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06752645564377269,
-                "disease_weather": 0.1681857355189619
+                "disease_weather": 0.1681857355189619,
+                "pollination": 0.023437914742262568
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -8506,6 +9761,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 7,
                   "valid_years": 14,
@@ -8530,14 +9790,21 @@
                   "years_with_event": 11,
                   "valid_years": 14,
                   "frequency": 0.7857142857142857
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.5,
                 "fruit_frost": 0.7142857142857143,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.0811960607572921,
-                "disease_weather": 0.1670674396526594
+                "disease_weather": 0.1670674396526594,
+                "pollination": 0.05047143845108991
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -8571,6 +9838,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
+                },
                 "flowering_freeze": {
                   "years_with_event": 8,
                   "valid_years": 14,
@@ -8595,14 +9867,21 @@
                   "years_with_event": 10,
                   "valid_years": 14,
                   "frequency": 0.7142857142857143
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 14,
+                  "frequency": 0.07142857142857142
                 }
               },
               "measures": {
+                "bud_freeze": 0.07142857142857142,
                 "flowering_freeze": 0.5714285714285714,
                 "fruit_frost": 0.2857142857142857,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.07527211681699317,
-                "disease_weather": 0.16104166285364552
+                "disease_weather": 0.16104166285364552,
+                "pollination": 0.07642506555823576
               },
               "rankable": true,
               "recurring_crop_loss": [
@@ -8654,6 +9933,11 @@
           },
           "measures": [
             {
+              "key": "bud_freeze",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "tolerance": 0.07142857142857142
+            },
+            {
               "key": "flowering_freeze",
               "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
               "tolerance": 0.07142857142857142
@@ -8677,9 +9961,14 @@
               "key": "disease_weather",
               "definition": "share of flowering-to-harvest days at moderate or higher infection risk (hourly model) or meeting the daily disease rule (legacy profiles)",
               "tolerance": 0.012345679012345678
+            },
+            {
+              "key": "pollination",
+              "definition": "share of flowering days with no honey bee flight hour",
+              "tolerance": 0.05263157894736842
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start whose flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",
@@ -9005,7 +10294,18 @@
           "anthracnose_moderate": 0.15,
           "anthracnose_high": 0.5,
           "botrytis_moderate": 0.5,
-          "botrytis_high": 0.7
+          "botrytis_high": 0.7,
+          "bud_freeze_model": "ncstate_stage_critical",
+          "bud_freeze_early_c": -6.7,
+          "bud_freeze_late_c": -3.9,
+          "bud_freeze_split_fraction": 0.5,
+          "bee_flight_model": "honeybee_daytime_temperature",
+          "bee_flight_threshold_c": 12.8,
+          "bee_flight_local_hours": [
+            9,
+            16
+          ],
+          "pollination_gap_days": 4
         },
         "hemisphere": "south",
         "method": "open-field-production-v3",
@@ -9267,6 +10567,41 @@
             "label": "High infection-risk days",
             "unit": "days",
             "note": "Days from flowering start to harvest end with anthracnose index >=0.50, or during flowering Botrytis index >=0.70 (BAS/SAS high-risk classes). Hourly infection-model profiles only."
+          },
+          {
+            "key": "bud_tmin_min_c",
+            "stage": "buds",
+            "label": "Lowest bud-stage temperature",
+            "unit": "\u00b0C",
+            "note": "Minimum daily Tmin from budbreak to the day before flowering starts. Bud-freeze profiles only."
+          },
+          {
+            "key": "bud_freeze_days",
+            "stage": "buds",
+            "label": "Bud-stage freeze exposure",
+            "unit": "days",
+            "note": "Days from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) until half the heat to flowering, then -3.9 C (25 F). Exposure, not an injury probability. Bud-freeze profiles only."
+          },
+          {
+            "key": "flowering_bee_flight_hours_mean",
+            "stage": "flower",
+            "label": "Honey bee flight hours",
+            "unit": "hours/day",
+            "note": "Mean daily hours from 09:00 to 17:00 local solar time with air temperature at or above 12.8 C (55 F), the honey bee foraging threshold. Rain, wind and cloud are not included, so this is an upper bound; bumble bees fly at lower temperatures. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_no_flight_days",
+            "stage": "flower",
+            "label": "Days without honey bee flight",
+            "unit": "days",
+            "note": "Flowering days with no daytime hour at or above 12.8 C. Bee-flight profiles only."
+          },
+          {
+            "key": "flowering_longest_no_flight_run",
+            "stage": "flower",
+            "label": "Longest run without honey bee flight",
+            "unit": "days",
+            "note": "Longest run of consecutive flowering days with no daytime hour at or above 12.8 C. Blueberry flowers stay receptive for about 3 to 5 days (UF/IFAS IN1237). Bee-flight profiles only."
           }
         ],
         "classification": {
@@ -9484,6 +10819,51 @@
                 {
                   "title": "UF/IFAS: Protecting blueberries from freezes in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/HS216"
+                }
+              ]
+            },
+            "bud_freeze": {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 13,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2281
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 13,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 13,
+                  "mean": 4.138460599459135,
+                  "sd": 3.966828925293883,
+                  "median": 3.3599853515625,
+                  "p10": -0.7059814453125,
+                  "p90": 9.403979492187501,
+                  "min": -0.80999755859375,
+                  "max": 11.6099853515625
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/13 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
                 }
               ]
             },
@@ -9722,14 +11102,47 @@
             },
             "pollination_weather": {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 13,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2281
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 13,
+                  "mean": 0.5384615384615384,
+                  "sd": 0.7762500258061849,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 1.8000000000000007,
+                  "min": 0.0,
+                  "max": 2.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 13,
+                  "mean": 0.6923076923076923,
+                  "sd": 0.9473309334313418,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 2.0,
+                  "min": 0.0,
+                  "max": 2.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 13,
+                  "mean": 7.553506676207296,
+                  "sd": 0.36616809390578153,
+                  "median": 7.621621621621622,
+                  "p10": 7.075747508305648,
+                  "p90": 7.931851851851852,
+                  "min": 6.954545454545454,
+                  "max": 8.0
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 13,
                   "mean": 12.307692307692308,
@@ -9751,14 +11164,22 @@
                   "max": 3.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 13/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/13 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -10001,6 +11422,51 @@
               ]
             },
             {
+              "risk": "bud_freeze",
+              "label": "Bud-stage freeze exposure",
+              "stage": "buds",
+              "years_with_event": 0,
+              "valid_years": 13,
+              "total_years": 15,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2281
+              ],
+              "exposure": {
+                "bud_freeze_days": {
+                  "n": 13,
+                  "mean": 0.0,
+                  "sd": 0.0,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 0.0,
+                  "min": 0.0,
+                  "max": 0.0
+                },
+                "bud_tmin_min_c": {
+                  "n": 13,
+                  "mean": 4.138460599459135,
+                  "sd": 3.966828925293883,
+                  "median": 3.3599853515625,
+                  "p10": -0.7059814453125,
+                  "p90": 9.403979492187501,
+                  "min": -0.80999755859375,
+                  "max": 11.6099853515625
+                }
+              },
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/13 is below the 50% reporting gate.",
+              "rank": null,
+              "event_definition": "At least one day from budbreak to the day before flowering with Tmin at or below the NC State critical temperature for the bud stage: -6.7 C (20 F) once flowers protrude from the bud, until half the heat to flowering, then -3.9 C (25 F) at half corolla length. Grid minimum temperature, not bush-level; exposure, not predicted injury.",
+              "evidence": [
+                {
+                  "title": "NC State: Blueberry freeze damage and protection measures",
+                  "url": "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures"
+                }
+              ]
+            },
+            {
               "risk": "flowering_freeze",
               "label": "Flowering freeze exposure",
               "stage": "flower",
@@ -10122,14 +11588,47 @@
             },
             {
               "risk": "pollination_weather",
-              "label": "Pollination-unfavourable weather",
+              "label": "Pollination gap",
               "stage": "flower",
-              "years_with_event": null,
+              "years_with_event": 0,
               "valid_years": 13,
               "total_years": 15,
-              "frequency": null,
-              "ci95": null,
+              "frequency": 0.0,
+              "ci95": [
+                0.0,
+                0.2281
+              ],
               "exposure": {
+                "flowering_longest_no_flight_run": {
+                  "n": 13,
+                  "mean": 0.5384615384615384,
+                  "sd": 0.7762500258061849,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 1.8000000000000007,
+                  "min": 0.0,
+                  "max": 2.0
+                },
+                "flowering_no_flight_days": {
+                  "n": 13,
+                  "mean": 0.6923076923076923,
+                  "sd": 0.9473309334313418,
+                  "median": 0.0,
+                  "p10": 0.0,
+                  "p90": 2.0,
+                  "min": 0.0,
+                  "max": 2.0
+                },
+                "flowering_bee_flight_hours_mean": {
+                  "n": 13,
+                  "mean": 7.553506676207296,
+                  "sd": 0.36616809390578153,
+                  "median": 7.621621621621622,
+                  "p10": 7.075747508305648,
+                  "p90": 7.931851851851852,
+                  "min": 6.954545454545454,
+                  "max": 8.0
+                },
                 "flowering_pollination_unfavourable_days": {
                   "n": 13,
                   "mean": 12.307692307692308,
@@ -10151,14 +11650,22 @@
                   "max": 3.0
                 }
               },
-              "eligibility": "definition_pending",
-              "reason": "Exposure only: no defensible event or loss threshold has been defined. Complete weather windows: 13/15.",
+              "eligibility": "below_frequency",
+              "reason": "Event frequency 0/13 is below the 50% reporting gate.",
               "rank": null,
-              "event_definition": "No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.",
+              "event_definition": "At least 4 consecutive flowering days with no hour from 09:00 to 17:00 local solar time at or above 12.8 C, the honey bee foraging threshold. Blueberry flowers stay receptive for about 3 to 5 days, so flowers opening at the start of such a run may miss honey bee visits. Temperature only: rain, wind and cloud are not included, and bumble bees fly at lower temperatures.",
               "evidence": [
                 {
-                  "title": "UF/IFAS: Pollination best practices in southern highbush blueberry in Florida",
+                  "title": "UF/IFAS IN1237: Pollination best practices in southern highbush blueberry in Florida",
                   "url": "https://ask.ifas.ufl.edu/publication/IN1237"
+                },
+                {
+                  "title": "UMaine Extension: honeybee flight activity index (Thorp 1996 threshold)",
+                  "url": "https://extension.umaine.edu/ipm/background-honeybee-flight-activity-index/"
+                },
+                {
+                  "title": "DeVetter et al. 2022: decision support for highbush blueberry pollination",
+                  "url": "https://doi.org/10.3389/fsufs.2022.1006201"
                 }
               ]
             },
@@ -10549,9 +12056,59 @@
               "p90": 7.0,
               "min": 1.0,
               "max": 9.0
+            },
+            "bud_tmin_min_c": {
+              "n": 13,
+              "mean": 4.138460599459135,
+              "sd": 3.966828925293883,
+              "median": 3.3599853515625,
+              "p10": -0.7059814453125,
+              "p90": 9.403979492187501,
+              "min": -0.80999755859375,
+              "max": 11.6099853515625
+            },
+            "bud_freeze_days": {
+              "n": 13,
+              "mean": 0.0,
+              "sd": 0.0,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "flowering_bee_flight_hours_mean": {
+              "n": 13,
+              "mean": 7.553506676207296,
+              "sd": 0.36616809390578153,
+              "median": 7.621621621621622,
+              "p10": 7.075747508305648,
+              "p90": 7.931851851851852,
+              "min": 6.954545454545454,
+              "max": 8.0
+            },
+            "flowering_no_flight_days": {
+              "n": 13,
+              "mean": 0.6923076923076923,
+              "sd": 0.9473309334313418,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 2.0,
+              "min": 0.0,
+              "max": 2.0
+            },
+            "flowering_longest_no_flight_run": {
+              "n": 13,
+              "mean": 0.5384615384615384,
+              "sd": 0.7762500258061849,
+              "median": 0.0,
+              "p10": 0.0,
+              "p90": 1.8000000000000007,
+              "min": 0.0,
+              "max": 2.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells, pollination weather and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -10620,7 +12177,12 @@
               "flowering_infection_days": 9,
               "fruit_infection_days": 9,
               "harvest_infection_days": 14,
-              "crop_high_infection_days": 4
+              "crop_high_infection_days": 4,
+              "bud_tmin_min_c": -0.78997802734375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.071428571428571,
+              "flowering_no_flight_days": 2,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -10690,7 +12252,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 5,
               "harvest_infection_days": 13,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": 9.5999755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.933333333333334,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -10760,7 +12327,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 7,
               "harvest_infection_days": 17,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": -0.3699951171875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.764705882352941,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -10830,7 +12402,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 6,
               "harvest_infection_days": 16,
-              "crop_high_infection_days": 7
+              "crop_high_infection_days": 7,
+              "bud_tmin_min_c": 3.3599853515625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.90625,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -10891,7 +12468,12 @@
               "flowering_infection_days": null,
               "fruit_infection_days": null,
               "harvest_infection_days": null,
-              "crop_high_infection_days": null
+              "crop_high_infection_days": null,
+              "bud_tmin_min_c": null,
+              "bud_freeze_days": null,
+              "flowering_bee_flight_hours_mean": null,
+              "flowering_no_flight_days": null,
+              "flowering_longest_no_flight_run": null
             },
             "issues": {
               "crop_stages": "No crop windows: the chill requirement was not reached."
@@ -10963,7 +12545,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 3,
               "harvest_infection_days": 20,
-              "crop_high_infection_days": 7
+              "crop_high_infection_days": 7,
+              "bud_tmin_min_c": -0.80999755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.093023255813954,
+              "flowering_no_flight_days": 2,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -11033,7 +12620,12 @@
               "flowering_infection_days": 0,
               "fruit_infection_days": 8,
               "harvest_infection_days": 13,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 4.29998779296875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 8.0,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -11103,7 +12695,12 @@
               "flowering_infection_days": 6,
               "fruit_infection_days": 13,
               "harvest_infection_days": 13,
-              "crop_high_infection_days": 4
+              "crop_high_infection_days": 4,
+              "bud_tmin_min_c": 2.69000244140625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.621621621621622,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -11173,7 +12770,12 @@
               "flowering_infection_days": 2,
               "fruit_infection_days": 3,
               "harvest_infection_days": 16,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 2.280029296875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.387096774193548,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -11243,7 +12845,12 @@
               "flowering_infection_days": 5,
               "fruit_infection_days": 7,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 3
+              "crop_high_infection_days": 3,
+              "bud_tmin_min_c": 5.05999755859375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.363636363636363,
+              "flowering_no_flight_days": 2,
+              "flowering_longest_no_flight_run": 2
             },
             "issues": {}
           },
@@ -11313,7 +12920,12 @@
               "flowering_infection_days": 1,
               "fruit_infection_days": 8,
               "harvest_infection_days": 8,
-              "crop_high_infection_days": 1
+              "crop_high_infection_days": 1,
+              "bud_tmin_min_c": 5.989990234375,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.925925925925926,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -11383,7 +12995,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 7,
               "harvest_infection_days": 21,
-              "crop_high_infection_days": 9
+              "crop_high_infection_days": 9,
+              "bud_tmin_min_c": 11.6099853515625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 6.954545454545454,
+              "flowering_no_flight_days": 2,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           },
@@ -11444,7 +13061,12 @@
               "flowering_infection_days": null,
               "fruit_infection_days": null,
               "harvest_infection_days": null,
-              "crop_high_infection_days": null
+              "crop_high_infection_days": null,
+              "bud_tmin_min_c": null,
+              "bud_freeze_days": null,
+              "flowering_bee_flight_hours_mean": null,
+              "flowering_no_flight_days": null,
+              "flowering_longest_no_flight_run": null
             },
             "issues": {
               "crop_stages": "No crop windows: the chill requirement was not reached."
@@ -11516,7 +13138,12 @@
               "flowering_infection_days": 7,
               "fruit_infection_days": 5,
               "harvest_infection_days": 15,
-              "crop_high_infection_days": 6
+              "crop_high_infection_days": 6,
+              "bud_tmin_min_c": 8.6199951171875,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.791666666666667,
+              "flowering_no_flight_days": 0,
+              "flowering_longest_no_flight_run": 0
             },
             "issues": {}
           },
@@ -11586,7 +13213,12 @@
               "flowering_infection_days": 1,
               "fruit_infection_days": 4,
               "harvest_infection_days": 3,
-              "crop_high_infection_days": 2
+              "crop_high_infection_days": 2,
+              "bud_tmin_min_c": 2.260009765625,
+              "bud_freeze_days": 0,
+              "flowering_bee_flight_hours_mean": 7.382352941176471,
+              "flowering_no_flight_days": 1,
+              "flowering_longest_no_flight_run": 1
             },
             "issues": {}
           }
@@ -11622,6 +13254,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11646,14 +13283,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.09804713804713804,
                 "harvest_heavy_rain": 0.10181874673974355,
-                "disease_weather": 0.5601398175159847
+                "disease_weather": 0.5601398175159847,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11681,6 +13325,11 @@
                 4
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11705,14 +13354,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.11197780353386762,
                 "harvest_heavy_rain": 0.08598044691800474,
-                "disease_weather": 0.5003111116701304
+                "disease_weather": 0.5003111116701304,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11740,6 +13396,11 @@
                 5
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11764,14 +13425,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.06737801354506161,
                 "harvest_heavy_rain": 0.07069497157580022,
-                "disease_weather": 0.4061074336685639
+                "disease_weather": 0.4061074336685639,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11800,6 +13468,11 @@
                 6
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11824,14 +13497,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.021080368906455864,
                 "harvest_heavy_rain": 0.09441659745950956,
-                "disease_weather": 0.3150651691729245
+                "disease_weather": 0.3150651691729245,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11860,6 +13540,11 @@
                 7
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11884,14 +13569,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.006060606060606061,
                 "harvest_heavy_rain": 0.10604216864924182,
-                "disease_weather": 0.22805635246444186
+                "disease_weather": 0.22805635246444186,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11921,6 +13613,11 @@
                 8
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -11945,14 +13642,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.1205890742591138,
-                "disease_weather": 0.16333573446843516
+                "disease_weather": 0.16333573446843516,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -11982,6 +13686,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12006,14 +13715,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.2,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.103776140410143,
-                "disease_weather": 0.12182571135035965
+                "disease_weather": 0.12182571135035965,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12042,6 +13758,11 @@
                 9
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12066,14 +13787,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.3333333333333333,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.11427691198879499,
-                "disease_weather": 0.1084185373971315
+                "disease_weather": 0.1084185373971315,
+                "pollination": 0.002150537634408602
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12102,6 +13830,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 2,
                   "valid_years": 15,
@@ -12126,14 +13859,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.4666666666666667,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.1157268880262043,
-                "disease_weather": 0.11925991536142114
+                "disease_weather": 0.11925991536142114,
+                "pollination": 0.01585139318885449
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12163,6 +13903,11 @@
                 10
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 3,
                   "valid_years": 15,
@@ -12187,14 +13932,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.2,
                 "fruit_frost": 0.4,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.12901691854435257,
-                "disease_weather": 0.13744638120439626
+                "disease_weather": 0.13744638120439626,
+                "pollination": 0.03221808699857073
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12223,6 +13975,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 4,
                   "valid_years": 15,
@@ -12247,14 +14004,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.26666666666666666,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.15122602710934183,
-                "disease_weather": 0.14808766891414663
+                "disease_weather": 0.14808766891414663,
+                "pollination": 0.05286845207402792
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12284,6 +14048,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 3,
                   "valid_years": 15,
@@ -12308,14 +14077,21 @@
                   "years_with_event": 15,
                   "valid_years": 15,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.2,
                 "fruit_frost": 0.13333333333333333,
                 "fruit_heat": 0.0022988505747126436,
                 "harvest_heavy_rain": 0.15741781482996425,
-                "disease_weather": 0.16003646384570883
+                "disease_weather": 0.16003646384570883,
+                "pollination": 0.05057489797435751
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12344,6 +14120,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -12368,14 +14149,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 1,
+                  "valid_years": 15,
+                  "frequency": 0.06666666666666667
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.004170739654610622,
                 "harvest_heavy_rain": 0.16816606979220283,
-                "disease_weather": 0.18007039192795737
+                "disease_weather": 0.18007039192795737,
+                "pollination": 0.04055200532117673
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12404,6 +14192,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12428,14 +14221,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.010766592510196515,
                 "harvest_heavy_rain": 0.15947288469825352,
-                "disease_weather": 0.20329267246607843
+                "disease_weather": 0.20329267246607843,
+                "pollination": 0.024210789525593836
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12463,6 +14263,11 @@
                 11
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12487,14 +14292,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.023416651462628477,
                 "harvest_heavy_rain": 0.14564178449681162,
-                "disease_weather": 0.22352424133723586
+                "disease_weather": 0.22352424133723586,
+                "pollination": 0.0159507454760761
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12523,6 +14335,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12547,14 +14364,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.020066748066748064,
                 "harvest_heavy_rain": 0.13729888642971855,
-                "disease_weather": 0.25216170382445624
+                "disease_weather": 0.25216170382445624,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12582,6 +14406,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12606,14 +14435,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.010564102564102564,
                 "harvest_heavy_rain": 0.134034159363796,
-                "disease_weather": 0.2979576217283667
+                "disease_weather": 0.2979576217283667,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12641,6 +14477,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -12665,14 +14506,21 @@
                   "years_with_event": 14,
                   "valid_years": 15,
                   "frequency": 0.9333333333333333
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.008266237251744498,
                 "harvest_heavy_rain": 0.1456649957539745,
-                "disease_weather": 0.3407597868823506
+                "disease_weather": 0.3407597868823506,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12701,6 +14549,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -12725,14 +14578,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.01664649360301534,
                 "harvest_heavy_rain": 0.15383942915187715,
-                "disease_weather": 0.3991800845865026
+                "disease_weather": 0.3991800845865026,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12760,6 +14620,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -12784,14 +14649,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.020833333333333332,
                 "harvest_heavy_rain": 0.15330703055961964,
-                "disease_weather": 0.42697113574600865
+                "disease_weather": 0.42697113574600865,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12819,6 +14691,11 @@
                 12
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -12843,14 +14720,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.05716489841203799,
                 "harvest_heavy_rain": 0.14139241667000016,
-                "disease_weather": 0.4656529290810781
+                "disease_weather": 0.4656529290810781,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12878,6 +14762,11 @@
                 2
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -12902,14 +14791,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.09274891774891773,
                 "harvest_heavy_rain": 0.11848612183875126,
-                "disease_weather": 0.5013739851078196
+                "disease_weather": 0.5013739851078196,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12936,6 +14832,11 @@
                 2
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -12960,14 +14861,21 @@
                   "years_with_event": 12,
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.06234742700908114,
                 "harvest_heavy_rain": 0.09505272150440662,
-                "disease_weather": 0.5417621938909487
+                "disease_weather": 0.5417621938909487,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -12995,6 +14903,11 @@
                 3
               ],
               "events": {
+                "bud_freeze": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "flowering_freeze": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -13019,14 +14932,21 @@
                   "years_with_event": 14,
                   "valid_years": 14,
                   "frequency": 1.0
+                },
+                "pollination_weather": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 }
               },
               "measures": {
+                "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
                 "fruit_heat": 0.05718318948132612,
                 "harvest_heavy_rain": 0.10408743383380772,
-                "disease_weather": 0.5648045438129281
+                "disease_weather": 0.5648045438129281,
+                "pollination": 0.0
               },
               "rankable": true,
               "recurring_crop_loss": [],
@@ -13075,6 +14995,11 @@
           },
           "measures": [
             {
+              "key": "bud_freeze",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "tolerance": 0.07142857142857142
+            },
+            {
               "key": "flowering_freeze",
               "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
               "tolerance": 0.07142857142857142
@@ -13098,9 +15023,14 @@
               "key": "disease_weather",
               "definition": "share of flowering-to-harvest days at moderate or higher infection risk (hourly model) or meeting the daily disease rule (legacy profiles)",
               "tolerance": 0.00909090909090909
+            },
+            {
+              "key": "pollination",
+              "definition": "share of flowering days with no honey bee flight hour",
+              "tolerance": 0.0392156862745098
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start whose flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",

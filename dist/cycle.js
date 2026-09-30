@@ -26,8 +26,8 @@ const CycleView = (() => {
     stage_gdd_not_met: 'Stage heat requirement not reached', incomplete_stage_dates: 'Incomplete temperature history after budbreak',
     incomplete_metrics: 'Some stage exposures are unavailable' })[status] || 'Stage timing unavailable';
   const share = value => finite(value) ? `${number(value * 100, 1)}%` : 'Unavailable';
-  const measureNames = { flowering_freeze: 'Flowering freeze', fruit_frost: 'Fruit frost', fruit_heat: 'Fruit heat',
-    harvest_heavy_rain: 'Harvest heavy rain', disease_weather: 'Disease weather' };
+  const measureNames = { bud_freeze: 'Bud freeze', flowering_freeze: 'Flowering freeze', fruit_frost: 'Fruit frost', fruit_heat: 'Fruit heat',
+    harvest_heavy_rain: 'Harvest heavy rain', disease_weather: 'Disease weather', pollination: 'Days without bee flight' };
 
   function model(p, winter) {
     const season = winter === 'typical' ? null : p.seasons.find(row => String(row.winter_year) === winter);
@@ -138,7 +138,7 @@ const CycleView = (() => {
     const available = stage.span.every(finite) && stage.span[1] >= stage.span[0];
     const metrics = p.metric_catalog.filter(metric => metric.stage === selected && metric.key !== 'warm_midwinter_hours');
     const events = Object.values(p.risks.by_id).filter(event => event.risk !== 'warm_midwinter' && (event.stage === selected || metrics.some(metric => metric.key in (event.exposure ?? {}))));
-    const budNote = selected === 'buds' ? `<div class="cycle-explanation"><p>Assumed budbreak <strong>${date(view.anchor, view.offset('budbreak'), !!view.season)}</strong>. No separate bud-stage exposure metric is available.</p><details><summary>Timing assumptions · ${escape(stageClockLabel(a))}</summary><p>${escape(stageTiming(a))}</p><p>These are timing assumptions, not observed plant stages.</p></details></div>` : '';
+    const budNote = selected === 'buds' ? `<div class="cycle-explanation"><p>Assumed budbreak <strong>${date(view.anchor, view.offset('budbreak'), !!view.season)}</strong>.${metrics.length ? ' Bud-stage freeze uses NC State critical temperatures for the bud stage.' : ' No separate bud-stage exposure metric is available.'}</p><details><summary>Timing assumptions · ${escape(stageClockLabel(a))}</summary><p>${escape(stageTiming(a))}</p><p>These are timing assumptions, not observed plant stages.</p></details></div>` : '';
     return `<header class="cycle-detail-heading"><div><span class="stamp">${view.season ? `Winter ${view.season.winter_year}` : 'Historical exposure summary'}${hypothetical ? ' · Hypothetical exposures' : ''}</span><h3 id="cycle-detail-title">${stage.title}</h3></div><p>${available ? `${hypothetical ? 'Hypothetical' : view.season ? 'Modelled' : 'Median'} window<br><strong>${date(view.anchor, stage.span[0], !!view.season)} to ${date(view.anchor, stage.span[1], !!view.season)}</strong>` : escape(reason(view.season?.status))}</p></header>
       ${view.season && view.season.status !== 'complete' ? `<p class="cycle-notice">${escape(reason(view.season.status))}. Missing values are not zero exposure.</p>` : ''}
       <div class="cycle-metrics">${metrics.map(metric => metricCard(p, view, metric)).join('')}</div>${budNote}

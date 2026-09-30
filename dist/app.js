@@ -197,7 +197,7 @@ function renderProduction(){
     <details><summary>Sensitivity, assumptions and changes from the R workflow</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Profile sensitivity"><table><thead><tr><th>Profile</th><th>Chill definition</th><th>Requirement h</th><th>Stage clock</th><th>Mean chill</th><th>Majority</th><th>Flowering start</th><th>Harvest start</th><th>Flowering freeze</th></tr></thead><tbody>${sens}</tbody></table></div><ul class="small">${p.changes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><ul class="small">${p.limitations.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details></div>`;
   CycleView.mount(node,p,{site:assessmentName(),system:$('system').value,view});
 }
-const stageNames={chill:'Winter context',flower:'Flowering',fruit:'Fruit development',harvest:'Harvest',whole:'Across crop stages'};
+const stageNames={chill:'Winter context',buds:'Bud development',flower:'Flowering',fruit:'Fruit development',harvest:'Harvest',whole:'Across crop stages'};
 function showView(name,focus=false){
   if(!$(`panel-${name}`))return;
   currentView=name;
@@ -282,7 +282,9 @@ function renderOverview(){
   };
   const dry=available?rk.exposures.fruit_max_dry_days:null;
   const warm=p?.warm_midwinter_fallback;
-  $('exposure-highlights').innerHTML=signal('Pollination weather','flowering_pollination_unfavourable_days','flower')+
+  // Profiles with the bee-flight model show honey bee flight hours; older payloads keep the cold-or-wet day proxy.
+  const bee=available&&rk.exposures.flowering_bee_flight_hours_mean?.n?rk.exposures:null;
+  $('exposure-highlights').innerHTML=(bee?signal('Honey bee flight','flowering_bee_flight_hours_mean','flower',`<p>Days without flight: ${fmt(bee.flowering_no_flight_days?.mean)} · longest run ${fmt(bee.flowering_longest_no_flight_run?.mean)} days (means)</p>`):signal('Pollination weather','flowering_pollination_unfavourable_days','flower'))+
     (available?signal('Warm midwinter','warm_midwinter_hours','chill'):`<article class="signal-card"><span class="eyebrow">Winter context · daily fallback</span><h3>Warm midwinter days</h3><div class="metric">${fmt(warm?.summary.mean)}${warm?.summary.mean!=null?'<small>days</small>':''}</div><p>${warm?`Daily Tmax >21°C · ${warm.summary.n} valid winters`:'Daily fallback unavailable'}</p><p class="signal-context">Days, not estimated hours or measured chill negation.</p><button type="button" class="text-button" data-open-view="season">View window &amp; definition →</button></article>`)+
     signal('Fruit frost exposure','fruit_frost_days','fruit')+
     signal('Longest flowering dry run','flowering_max_dry_days','flower',`<p>Fruit-development mean: ${fmt(dry?.mean)}${dry?.mean!=null?' days':''}${dry?` · ${dry.n} valid winters`:''}</p>`);

@@ -2,9 +2,9 @@ import math
 import unittest
 import numpy as np
 import pandas as pd
-from production import (analyse, chill_clock, chill_portions, classification, CYCLE_STARTS, Days, empty_row,
-                        infection_risk, longest_run, managed_cycles, months_between, profile, reach, risks, season,
-                        SCAN_MEASURES, select_favourable, stage_dates, stage_metrics, window, winter_months,
+from production import (analyse, bee_flight_hours, chill_clock, chill_portions, classification, CYCLE_STARTS, Days,
+                        empty_row, infection_risk, longest_run, managed_cycles, months_between, profile, reach, risks,
+                        season, SCAN_MEASURES, select_favourable, stage_dates, stage_metrics, window, winter_months,
                         warm_midwinter_daily, wilson, PROFILES)
 
 
@@ -429,9 +429,10 @@ class ThermalClockTests(unittest.TestCase):
 class ManagedCycleTests(unittest.TestCase):
     @staticmethod
     def scan(daily):
-        """Scan with dry (zero-index) infection weather so tests isolate the start-date logic."""
+        """Scan with dry (zero-index) infection weather and full bee-flight days so tests isolate the start-date logic."""
         dry = pd.DataFrame(0., index=daily.index, columns=['anthracnose', 'botrytis'])
-        return managed_cycles(Days(daily, dry), profile('stage_thermal_v3'), range(2011, 2026))
+        bee = pd.Series(8., index=daily.index)
+        return managed_cycles(Days(daily, dry, bee), profile('stage_thermal_v3'), range(2011, 2026))
 
     def test_favourable_starts_avoid_recurring_harvest_rain(self):
         daily = flat_daily()
@@ -488,7 +489,9 @@ class ManagedCycleTests(unittest.TestCase):
         scan = self.scan(daily)
         self.assertEqual(scan['favourable']['budbreak'], list(CYCLE_STARTS[2:20]))
         loss = {s['budbreak']: s['recurring_crop_loss'] for s in scan['starts']}
-        self.assertEqual((loss['01-15'], loss['11-15'], loss['06-01']), (['flowering_freeze'], ['fruit_frost'], []))
+        # January frost hits the late bud stage of the 1 and 15 January starts as well as their flowering.
+        self.assertEqual((loss['01-15'], loss['11-15'], loss['06-01']),
+                         (['bud_freeze', 'flowering_freeze'], ['fruit_frost'], []))
         daily = flat_daily()
         daily.loc['2015-06-01', 'precip_mm'] = 12.
         self.assertTrue(self.scan(daily)['favourable']['unconstrained'])
@@ -500,12 +503,13 @@ class ManagedCycleTests(unittest.TestCase):
         november = next(s for s in scan['starts'] if s['budbreak'] == '11-15')
         self.assertEqual(november['stalled_cycles'], 14)
         self.assertEqual(november['events']['flowering_freeze']['frequency'], 1.)
-        self.assertEqual(november['recurring_crop_loss'], ['flowering_freeze', 'fruit_frost'])
+        self.assertEqual(november['recurring_crop_loss'], ['bud_freeze', 'flowering_freeze', 'fruit_frost'])
         self.assertNotIn('11-15', scan['favourable']['budbreak'])
 
     def test_selection_survives_non_transitive_near_ties(self):
         keys = [key for key, _ in SCAN_MEASURES]
-        start = lambda name, *shares: {'budbreak': name, 'measures': dict(zip(keys, (0., 0., *shares)))}
+        start = lambda name, *shares: {'budbreak': name,
+                                       'measures': {**dict.fromkeys(keys, 0.), **dict(zip(keys[-3:], shares))}}
         cyclic = [start('a', 0., .1, .2), start('b', .2, 0., .1), start('c', .1, .2, 0.)]
         tolerance = dict.fromkeys(keys, .1)
         self.assertEqual([s['budbreak'] for s in select_favourable(cyclic, tolerance)], ['a', 'b', 'c'])
@@ -574,6 +578,58 @@ class InfectionTests(unittest.TestCase):
         self.assertEqual(m['crop_high_infection_days'], 1)
         legacy = stage_metrics(days, profile('stage_risks_v2'), flowering, (pd.Timestamp('2020-03-03'),) * 2, harvest, flowering[0])
         self.assertIsNone(legacy['crop_high_infection_days'])
+
+
+class BudAndBeeTests(unittest.TestCase):
+    def setUp(self):
+        self.p = profile('stage_thermal_v3')
+
+    def test_bee_flight_hours_count_warm_local_daytime_hours(self):
+        t = pd.Series(10., index=pd.date_range('2020-03-01', '2020-03-04', freq='h', inclusive='left'))
+        # At 82 W local solar time is UTC - 5 h: 09:00-11:00 local on 2 March is 14:00-16:00 UTC.
+        t.loc['2020-03-02 14:00':'2020-03-02 16:00'] = [12.8, 20., 20.]
+        t.loc['2020-03-02 22:00'] = 30.  # 17:00 local, after the daytime window
+        hours = bee_flight_hours(t, -82., self.p)
+        self.assertEqual((hours.loc['2020-03-01'], hours.loc['2020-03-02']), (0, 3))
+        t.loc['2020-03-01 15:00'] = np.nan  # 10:00 local on 1 March
+        self.assertTrue(np.isnan(bee_flight_hours(t, -82., self.p).loc['2020-03-01']))
+
+    def test_pollination_gap_needs_a_run_of_days_without_flight(self):
+        daily = flat_daily(start='2020-03-01', end='2020-03-12')
+        bee = pd.Series([8, 0, 0, 0, 8, 0, 0, 0, 0, 8, 8, 8], index=daily.index, dtype=float)
+        flowering = (pd.Timestamp('2020-03-01'), pd.Timestamp('2020-03-10'))
+        m = stage_metrics(Days(daily, bee=bee), self.p, flowering, (pd.Timestamp('2020-03-11'),) * 2,
+                          (pd.Timestamp('2020-03-12'),) * 2, flowering[0])
+        self.assertEqual((m['flowering_no_flight_days'], m['flowering_longest_no_flight_run']), (7, 4))
+        self.assertAlmostEqual(m['flowering_bee_flight_hours_mean'], 2.4)
+        rows = []
+        for i in range(12):
+            row = empty_row(2011 + i, 'north', pd.Timestamp('2010-11-01'), pd.Timestamp('2011-05-01'))
+            row.update(chill_hours=320, freeze_hours=0, freeze_risk_months=0, winter_month_tmin_lowest_c=9.,
+                       winter_month_tmean_lowest_c=14.)
+            row['metrics']['flowering_longest_no_flight_run'] = 4 if i < 6 else 3
+            rows.append(row)
+        gap = risks(rows, self.p)['by_id']['pollination_weather']
+        self.assertEqual((gap['years_with_event'], gap['valid_years'], gap['eligibility']), (6, 12, 'ranked'))
+        self.assertNotIn('bud_freeze', risks(rows, profile('stage_risks_v2'))['by_id'])
+
+    def test_bud_freeze_uses_early_then_late_critical_temperature(self):
+        daily = flat_daily(start='2020-01-01', end='2020-06-30')
+        bud = pd.Timestamp('2020-01-01')
+        (flowering, harvest), _ = stage_dates(Days(daily), bud, self.p)
+        self.assertEqual(flowering[0], pd.Timestamp('2020-01-10'))  # 10 degree-days a day from 2 January
+        fruit = (flowering[1] + pd.Timedelta(days=1), harvest[0] - pd.Timedelta(days=1))
+
+        def freeze(day, tmin, p=self.p):
+            weather = daily.copy()
+            weather.loc[day, 'tmin_c'] = tmin
+            return stage_metrics(Days(weather), p, flowering, fruit, harvest, bud, bud)['bud_freeze_days']
+        self.assertEqual(freeze('2020-01-03', -5.), 0)   # 20 degree-days after budbreak: early stage, -6.7 C
+        self.assertEqual(freeze('2020-01-03', -6.7), 1)
+        self.assertEqual(freeze('2020-01-07', -5.), 1)   # 60 degree-days: late stage, -3.9 C
+        self.assertEqual(freeze('2020-01-10', -9.), 0)   # flowering has started; the flowering rule applies
+        self.assertIsNone(freeze('2020-01-07', -9., profile('stage_risks_v2')))
+
 
 
 

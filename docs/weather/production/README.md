@@ -50,9 +50,9 @@ The result carries `chill_clock.applicable` and its reasons. Tropical, evergreen
 
 Where the chill clock does not apply, the scan gives the production window. Elsewhere it runs as a comparison labelled "if managed as an evergreen cycle". Each of 24 start dates, the 1st and 15th of every month, is treated as a managed budbreak and followed through the same thermal clock in every year.
 
-- A cycle whose flowering lasts over 66 days, or whose first harvest comes over 150 days after flowering starts, has stalled in cold weather. Stalled cycles count as failed cycles for flowering freeze and fruit frost.
-- A start needs at least 12 complete cycles. If flowering freeze or fruit frost hits at least half of its cycles, it is recurring crop loss and not favourable.
-- The remaining starts are compared on five measures: flowering-freeze share of cycles, fruit-frost share of cycles, and the share of stage days with fruit heat, harvest heavy rain or moderate-or-higher infection risk. Favourable starts are the Pareto front, meaning no other start is at least as good on every measure and better on one. Starts within one affected cycle or one affected day per cycle of a front start on every measure are added as near ties.
+- A cycle whose flowering lasts over 66 days, or whose first harvest comes over 150 days after flowering starts, has stalled in cold weather. Stalled cycles count as failed cycles for bud-stage freeze, flowering freeze and fruit frost.
+- A start needs at least 12 complete cycles. If bud-stage freeze, flowering freeze or fruit frost hits at least half of its cycles, it is recurring crop loss and not favourable.
+- The remaining starts are compared on seven measures: the bud-freeze, flowering-freeze and fruit-frost shares of cycles, and the share of stage days with fruit heat, harvest heavy rain, moderate-or-higher infection risk or no honey bee flight. Favourable starts are the Pareto front, meaning no other start is at least as good on every measure and better on one. Starts within one affected cycle or one affected day per cycle of a front start on every measure are added as near ties.
 - The favourable flowering and harvest months are the union over favourable starts. `unconstrained` means weather does not separate the start dates, so timing is a market or management choice.
 
 The scan assumes management can start a cycle on any date. Flower-bud induction and market timing are not modelled.
@@ -63,9 +63,19 @@ The scan assumes management can start a cycle on any date. Flower-bud induction 
 
 Flowering days count when either index reaches moderate. Fruit-development and harvest days use anthracnose only, because the Botrytis equation describes flower infection. The disease-weather risk event needs at least one high-risk day between flowering start and harvest end. The 90% threshold was validated against station sensors, not grid humidity, so these counts are weather favourability and not disease incidence.
 
+## Bud-stage freeze and pollination gap
+
+Both were added on 30 September 2026 after reviewing innov8.ag's Market Insights, which tracks frost at bud break and bee-flight hours in bloom (`docs/research/2026-09-30/innov8_market_insights_review.md`). Our versions follow published thresholds and use the hourly archive directly.
+
+- **Bud-stage freeze.** The bud stage runs from budbreak to the day before flowering, a window the model previously did not check. NC State Extension gives damage below 20 °F (−6.7 °C) once flowers protrude from the bud and below 25 to 26 °F at half corolla length. The model uses −6.7 °C until the stage degree-days reach half of the 85 needed for flowering, then −3.9 °C (25 °F). An event is one bud-stage day at or below its critical temperature.
+- **Honey bee flight hours.** A flight hour is an hour from 09:00 to 17:00 local solar time at or above 12.8 °C (55 °F), the foraging threshold in Thorp (1996) also used by the University of Maine honeybee flight index. Rain, wind and cloud are not in the hourly archive, so counts are an upper bound, and bumble bees fly at lower temperatures.
+- **Pollination gap.** At least 4 consecutive flowering days without a flight hour. Blueberry flowers are receptive for 3 to 5 days (UF/IFAS IN1237), and DeVetter et al. (2022) give at least 4. This defines the pollination family in v3; the older cold-or-wet day counts stay as descriptive exposures.
+
+Across the 71 presets, only Burgaw, NC gains a ranked risk: bud-stage freeze in 8 of 15 winters. There the model breaks buds in early January (median 4 January) because 100 chill hours come early, weeks before the March to April bloom growers report. The result describes a low-chill southern highbush planted that far north. Along the transect, bud freeze occurs in 0 of 15 winters at Waldo, 3 at Tallahassee and Alma, and 4 at Loris. Pollination gaps occur in 0, 3, 2 and 4 winters there, and in 6 at Burgaw. Tropical and evergreen sites show neither.
+
 ## Risks
 
-A risk headlines only when its event occurs in at least 50% of at least 12 complete winters. Complete records stay in `risks.by_id`; qualifying records go to `ranked` and the rest to `demoted` with reasons. Wilson 95% intervals show sampling uncertainty. Six families can rank: chill shortfall, flowering Tmin ≤ −2.2 °C, fruit-development Tmax ≥ 35 °C, harvest rain ≥ 10 mm, fruit-development Tmin ≤ 0 °C, and disease weather. These are screening conventions, not equal-severity damage thresholds. Where the scan is primary, the dashboard reports the risks that recur at the favourable starts.
+A risk headlines only when its event occurs in at least 50% of at least 12 complete winters. Complete records stay in `risks.by_id`; qualifying records go to `ranked` and the rest to `demoted` with reasons. Wilson 95% intervals show sampling uncertainty. Eight families can rank: chill shortfall, bud-stage freeze, flowering Tmin ≤ −2.2 °C, fruit-development Tmax ≥ 35 °C, harvest rain ≥ 10 mm, disease weather, fruit-development Tmin ≤ 0 °C, and pollination gap. These are screening conventions, not equal-severity damage thresholds. Where the scan is primary, the dashboard reports the risks that recur at the favourable starts.
 
 ## Literature benchmark
 
@@ -78,7 +88,7 @@ Results for the 46 sites that grow southern highbush:
 | Sites with no production window | 14 | 0 |
 | Chill-clock harvest midpoint inside published months | 19/32 | 25/27 |
 | Chill-clock bloom midpoint inside published months | 6/20 | 13/19 |
-| Managed-cycle sites, mean recall of published harvest months | none | 0.79 over 19 sites |
+| Managed-cycle sites, mean recall of published harvest months | none | 0.81 over 19 sites |
 | Production-system class, exact match | 35/46 | 35/46 |
 
 By region, the chill-clock harvest midpoint landed in published months at 14/14 US transect sites (v2 10/15), 4/4 Chilean sites (v2 1/5), 4/6 other Latin American sites (v2 2/6) and 8/9 rest-of-world sites (v2 10/12). Peru and Mexico had no v2 window. In the Peru, Chile and Mexico group, the seven scan sites cover 81% of their published harvest months on average. At Chao, Peru, the scan gives harvest August to December against published August to January.
@@ -102,7 +112,8 @@ The supervisor's R planting rule, budbreak minus 105 to 30 days, recovers 38% of
 |---|---|---|
 | Infection-risk days (v3) | Flowering days with anthracnose or Botrytis at moderate or higher; fruit-development and harvest days with anthracnose at moderate or higher; high-risk days from flowering start to harvest end | Hourly grid wetness, not canopy wetness, inoculum or incidence. |
 | Disease-favourable weather (v2 and legacy) | Daily 15 ≤ Tmean ≤ 28 °C **and** RHmean ≥ 85% **and** rain ≥ 0.1 mm | Kept for comparison profiles only. Not a pathogen model. |
-| Pollination-unfavourable weather | Flowering days with Tmax < 15 °C **or** rain ≥ 1 mm | Operational cold or wet proxy. Daily rain may fall outside bee-foraging hours. |
+| Honey bee flight hours (v3) | Hours from 09:00 to 17:00 local solar time at or above 12.8 °C in each flowering day; days with none; longest run of such days | Temperature only, an upper bound. Feeds the pollination gap. |
+| Pollination-unfavourable weather | Flowering days with Tmax < 15 °C **or** rain ≥ 1 mm | Older cold or wet proxy, kept as a descriptive exposure. Daily rain may fall outside bee-foraging hours. |
 | Supervisor cold-and-dry hypothesis | Flowering days with Tmax < 15 °C **and** rain < 1 mm | Separate comparison only. |
 | Warm midwinter | Hourly T > 21 °C, 15 Nov–15 Feb north or 15 May–15 Aug south | A warm-exposure count, not chill cancelled. Locations without hourly data get complete-window daily Tmax > 21 °C **days**. |
 | Berry-stage frost exposure | Fruit-development days with Tmin ≤ 0 °C | Exposure, not confirmed tissue damage. |
@@ -143,3 +154,5 @@ On the server, from `/media/fpt/fpt2/Weather_Claude/code`:
 Split the snapshots locally with `python3 scripts/split_snapshots.py <file>`. No weather acquisition runs.
 
 2026-09-28 verification: the server suite passed 127 tests. With `stage_risks_v2` as primary, the API reproduced all 18 committed v2 snapshots exactly. Browser checks covered Arcadia, Chao and a live Clinton, NC coordinate, all five views at 390 px without page overflow, and the benchmark page.
+
+2026-09-30 verification after the bud-freeze and bee-flight additions: 130 server tests passed, and v2 again reproduced all 18 committed v2 snapshots exactly. The benchmark's chill-clock scores are unchanged; managed-cycle recall of published harvest months rose from 0.79 to 0.81 and precision from 0.70 to 0.72. Burgaw's overview, bud-development lane and scan table were checked in the browser with no page errors and no overflow at 390 px.
