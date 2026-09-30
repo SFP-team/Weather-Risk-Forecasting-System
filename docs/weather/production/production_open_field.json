@@ -17,7 +17,7 @@
     "The stage_risks_v2 profile preserves the legacy chill and phenology constants. Crop exposures use each winter calendar, not the median calendar.",
     "Disease weather combines complete flowering, fruit-development and harvest windows into one event family.",
     "Warm midwinter hours use fixed hemisphere dates and remain available when the chill requirement fails.",
-    "stage_thermal_v3 (primary): flowering and fruit development accumulate daily GDD after budbreak instead of fixed day offsets; durations equal the legacy offsets at Waldo on median and shorten or lengthen with temperature elsewhere. Flowering spans 290 GDD (Kovaleski et al. 2015) instead of 21 days.",
+    "stage_thermal_v3 (primary): flowering and fruit development accumulate daily GDD after budbreak instead of fixed day offsets, so stages shorten in warm weather and lengthen in cool weather. The flowering-start and harvest sums are the Waldo medians of the GDD the legacy offsets covered from the legacy 50-hour chill date; with the 100-hour requirement Waldo flowers about 18 days later than under the legacy profiles, and its harvest window moves by only a few days. Flowering spans 290 GDD (Kovaleski et al. 2015) instead of 21 days.",
     "stage_thermal_v3 uses the 100-hour chill requirement from the supervisor's later R workflow; stage_risks_v2 and the legacy profiles remain as comparisons.",
     "Dynamic Model chill portions are reported beside chill hours for every winter; the requirement and classification still use chill hours.",
     "stage_thermal_v3 replaces the daily disease proxy with hourly wetness: UF Blueberry Advisory System anthracnose and Strawberry Advisory System Botrytis indices from grid temperature and dewpoint.",
@@ -36,7 +36,7 @@
     "Stage thermal requirements are a Waldo translation checked against published spans, not a fit to observed phenology; the literature benchmark compares months with regional practice, not field observations.",
     "No cultivar ranking, no soil scoring, no tunnel or pot effects, no forecast, no independent phenology validation yet."
   ],
-  "code_sha256": "1c310e19d0e22d22bd0efd5e7701b5189ea129956dccdc6d0726ff05a92c5c4a",
+  "code_sha256": "9b66b50f040b948e027d8b5643aa1dba998c05721974dad3717f9a7dbf6c135e",
   "sites": {
     "Waldo": {
       "latitude": 29.795286,

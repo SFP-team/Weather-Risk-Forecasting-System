@@ -41,7 +41,7 @@ Not built: phenology fitted to observed bloom and harvest, chill portions as the
 | 1.6 | Partly done: `chill_portions` moved into production and reported beside chill hours for every winter and in the dashboard. Safe Winter Chill (p10), CP class cuts and a CP trigger remain, pending Paul's chill-metric decision. | 1 |
 | 1.7 | Snapshots, three-site report, runbook and current tests updated for the authorized scope; later chill-method changes will need fresh verification. | complete for this scope |
 
-Current delivered scope: 71 presets show the v3 decision strip, gated risks, infection-model disease evidence, exposures, the managed-cycle scan and planting guidance. Paul/Gerardo review of River Valley and Papanduva is still needed. River Valley now models harvest 2 April–6 May under v3, closer to the supervisor's early-April expectation than v2's 23 April–2 June.
+Current delivered scope: 71 presets show the v3 decision strip, gated risks, infection-model disease evidence, exposures, the managed-cycle scan and planting guidance. Paul/Gerardo review of River Valley and Papanduva is still needed. Under v3 River Valley reaches 100 chill hours in only 10 of 15 winters, so its primary window comes from the managed-cycle scan; the hypothetical chill-clock harvest of 3 April–6 May is nearer the supervisor's early-April expectation than v2's 23 April–2 June.
 
 ### Phase 2 — Phenology and evidence (≈ 18 builder-days; calendar gated on data)
 

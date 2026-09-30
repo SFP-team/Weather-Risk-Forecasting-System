@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-09-30 — Corrected two v3 statements
+
+- Rechecked v3 claims against the committed snapshots while preparing a before/after explanation. The thermal constants do not keep Waldo's old calendar: with 100 chill hours its flowering start moves from 20 January to 7 February, while harvest moves only from 31 March–10 May to 4 April–12 May. Fixed the API change list, the production README and the regenerated packet and snapshots.
+- River Valley's 3 April–6 May v3 harvest is a hypothetical chill-clock calendar. Only 10 of 15 winters reach 100 hours, so the managed-cycle scan is its primary window. Corrected the handover and plan, and recorded that 10 of the 18 pilot sites, all in central and south Florida, now use the scan.
+
 ## 2026-09-28 — Production v3, literature benchmark and decision-first dashboard
 
 - Reviewed the v2 model against its own outputs and the literature. Fixed day offsets gave every site a 40-day harvest and put central Chile's harvest in Sep–Nov against published Nov–Jan. The 50 h chill requirement sat below published Emerald values, and the daily disease rule had no source. v2 gave no production window at 14 of 46 southern-highbush benchmark sites, including all of Peru and Mexico.
