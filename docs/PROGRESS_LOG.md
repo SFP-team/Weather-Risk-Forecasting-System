@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-09-30 — Formula guide for breeder review
+
+- Added `docs/weather/production/model_formulas_for_breeder_review.html` so a breeder can review and comment on every formula without reading code. It covers chill hours and portions, budbreak, degree-day stages, production-system rules, when the winter calendar applies, the managed-cycle scan, risk events and ranking with Wilson intervals, the hourly disease models, unranked exposures and planting. It also has a 46-row settings template and 13 questions, each with a comment box, a notes download and a print layout.
+- The Waldo 2016–17 worked example, the chill-portion table and the infection-index tables were recomputed with the production code; the trace reproduced the model's chill, budbreak, flowering and harvest dates. Verified in a browser, on a phone-width layout and in Chrome print output. No model behaviour changed.
+
 ## 2026-09-30 — Corrected two v3 statements
 
 - Rechecked v3 claims against the committed snapshots while preparing a before/after explanation. The thermal constants do not keep Waldo's old calendar: with 100 chill hours its flowering start moves from 20 January to 7 February, while harvest moves only from 31 March–10 May to 4 April–12 May. Fixed the API change list, the production README and the regenerated packet and snapshots.
