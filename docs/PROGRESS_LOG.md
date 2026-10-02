@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-02 — End-to-end test and "no data" fixes
+
+- Three test agents covered about 80 global coordinates, API input edge cases and browser flows at 1440 and 390 px. Causes of "no data": the UI was served without its `/api` proxy (start it with `node scripts/preview-ui.mjs`, not a plain static server); 1,509 small-island land polygons have no hourly cache and returned HTTP 500; coastal and city-centre pins up to about 2 km outside the Natural Earth coastline were refused as ocean; coordinate fields dropped decimal commas, N/S/E/W letters and pasted pairs, which silently changed or blocked the location.
+- Fixed: hourly gaps now return the daily climate with production marked unavailable; pins within 5 km of mapped land are accepted with `land_snap_km` in provenance (source cell still from the original pin); strict parameter parsing with specific 400 messages, 422 for sea points, 500 JSON with server-side tracebacks, health reports busy. UI accepts decimal commas, hemisphere letters, DMS/DDM and pasted pairs, word-prefix search with Enter picking the top result, automatic retry after a self-cancelled request, clearer error text. Server suite 140 tests passed; live checks: Bermuda, Malé, Tahiti daily-only; Hong Kong, Copenhagen, Miami accepted; open sea 422.
+- Not fixed (needs decisions): download of about 409 extra hourly blocks for islands, northern-highbush stage constants, planting guidance for arbitrary pins, polar ice classified as Deciduous.
+
 ## 2026-09-30 — Bud-stage freeze and pollination gap from innov8.ag review
 
 - Reviewed innov8.ag Market Insights from its public page and page code. Adopted two ideas that fit the product and have published thresholds: frost checked at the bud stage (NC State critical temperatures) and honey bee flight hours (12.8 °C, 09:00–17:00) with a pollination gap of 4 or more flowering days in a row without flight (UF/IFAS IN1237 receptivity). Rejected fixed-from-1-January GDD stages, frost kill percentages, sine-interpolated hours and the market features. Notes in `docs/research/2026-09-30/innov8_market_insights_review.md`.

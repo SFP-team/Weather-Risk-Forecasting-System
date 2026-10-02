@@ -10,7 +10,7 @@ import pandas as pd
 import zarr
 
 from discover import BASE, STORES
-from hourly_archive import hourly_from_cache
+from hourly_archive import ArchiveGap, hourly_from_cache
 from location_api import hourly_for
 
 
@@ -67,8 +67,16 @@ class HourlyArchiveTests(unittest.TestCase):
 
     def test_missing_chunk_is_not_zarr_fill(self):
         (self.cache / 'T2M/0.0.1').unlink()
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(RuntimeError) as caught:
             hourly_from_cache(self.root, 43., -92.5)
+        self.assertNotIsInstance(caught.exception, ArchiveGap)  # Recorded download vanished: integrity failure.
+
+    def test_never_downloaded_chunk_is_a_gap(self):
+        self.db.execute('DELETE FROM objects WHERE url LIKE ?', ('%/T2M/0.0.1',))
+        self.db.commit()
+        with self.assertRaises(ArchiveGap):
+            hourly_for(43., -92.5, self.root)
+        self.assertTrue((hourly_from_cache(self.root, 43., -180.)[0].tmean_c == 5.).all())
 
     def test_corrupt_chunk_is_refused(self):
         path = self.cache / 'T2M/0.0.1'

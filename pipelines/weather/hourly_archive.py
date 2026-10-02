@@ -10,6 +10,10 @@ import numpy as np
 from pilot import Source
 
 
+class ArchiveGap(RuntimeError):
+    """The hourly cell was never downloaded; callers may fall back to daily-only output."""
+
+
 class ArchiveReader:
     """Downloads.get-compatible reader without acquisition or database writes."""
     def __init__(self, root):
@@ -20,8 +24,11 @@ class ArchiveReader:
     def get(self, url, path, api=False):
         row = self.db.execute('SELECT status,sha256 FROM objects WHERE url=?', (url,)).fetchone()
         # KeyError would let Zarr silently substitute fill values for a missing chunk.
-        if not row or row[0] != 'downloaded' or not path.is_file():
-            raise RuntimeError('Required hourly archive object is unavailable; no download attempted')
+        if not row or row[0] != 'downloaded':
+            raise ArchiveGap('Required hourly archive object was never downloaded; no download attempted')
+        # A recorded download whose file vanished is an integrity failure, not a coverage gap.
+        if not path.is_file():
+            raise RuntimeError('Recorded hourly archive object is missing on disk; refusing analysis')
         data = path.read_bytes()
         checksum = hashlib.sha256(data).hexdigest()
         if checksum != row[1]:

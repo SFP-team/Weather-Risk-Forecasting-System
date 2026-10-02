@@ -129,7 +129,7 @@ window.LocationMap = (() => {
       latitudeMessage = '';
       warn('The interactive map could not load. Enter coordinates or choose a saved analysis in the location panel. Map availability does not indicate weather-data availability.');
     };
-    const markerLabel = () => `${selection.label || 'Selected point'}: ${coordinateText(selection.lat, selection.lon)}. Drag to move, or use coordinate entry.`;
+    const markerLabel = () => `${/\d°?, -?\d/.test(selection.label) ? selection.label : `${selection.label || 'Selected point'}: ${coordinateText(selection.lat, selection.lon)}`}. Drag to move, or use coordinate entry.`;
     const makePin = (kind, label) => {
       const element = textNode(kind === 'saved' ? 'button' : 'div', `location-map-pin location-map-pin-${kind}`);
       if (kind === 'saved') element.type = 'button';

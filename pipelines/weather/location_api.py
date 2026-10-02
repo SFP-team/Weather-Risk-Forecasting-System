@@ -2,7 +2,10 @@
 import hashlib
 import json
 import math
+import re
+import sys
 import threading
+import traceback
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -14,13 +17,17 @@ from evaluation_sites import cell_key
 from postprocess import LandMask, extract
 from production import analyse, sensitivity, warm_midwinter_daily, PRIMARY_PROFILE, PROFILES, CHANGES, LIMITATIONS
 from planting import planting_window
-from hourly_archive import hourly_from_cache
+from hourly_archive import ArchiveGap, hourly_from_cache
 
 METHOD='location-evidence-v5'
 PRODUCTION_PROFILE=PRIMARY_PROFILE
 BENCHMARK=Path(__file__).with_name('benchmark_sites.json')
 LAND=None
 BUSY=threading.Lock()
+ARCHIVE_GAP='The hourly archive has no downloaded data for this 0.5 x 0.625 degree cell, so chill, the crop calendar and stage risks are not computed here. Daily weather is shown; no substitute hourly series is generated.'
+# ASCII decimal degrees with an optional sign and exponent; one decimal point or comma, no underscores.
+NUMBER=re.compile(r'[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?',re.ASCII)
+FAILED={'error':'The archive could not analyse this point. No substitute result was generated.','code':'analysis_failed'}
 
 
 def avg(values):
@@ -89,10 +96,10 @@ def summarize(frame,hourly,lat):
     return annual,monthly,climatology
 
 
-def production_block(hourly,padded,lat,lon):
+def production_block(hourly,padded,lat,lon,reason=None):
     """Existing-data production analysis; daily warm-weather context is not an hourly calendar substitute."""
     if hourly is None or padded is None:
-        result={'status':'unavailable','reason':'Complete hourly temperature is not exposed for this coordinate by the current location adapter. The chill-triggered calendar and stage risks require a complete extracted hourly series; no substitute calendar is generated.'}
+        result={'status':'unavailable','reason':reason or 'Complete hourly temperature is not exposed for this coordinate by the current location adapter. The chill-triggered calendar and stage risks require a complete extracted hourly series; no substitute calendar is generated.'}
         if padded is not None:
             result['warm_midwinter_fallback']=warm_midwinter_daily(padded.set_index('time'),lat)
         return result
@@ -113,7 +120,9 @@ def analyze(lat,lon):
     if frame is None:return {'error':provenance['reason'],'status':'unsupported_location'}
     match=next((s for s in known_sites() if abs(s['lat']-lat)<1e-7 and abs(s['lon']-lon)<1e-7),None)
     site=match or {'name':'Selected location','lat':lat,'lon':lon}
-    hourly,hourly_source=hourly_for(lat,lon)
+    gap=None
+    try:hourly,hourly_source=hourly_for(lat,lon)
+    except ArchiveGap:hourly=hourly_source=None;gap=ARCHIVE_GAP;provenance['limitations']=[*provenance['limitations'],gap]
     # 2010 padding also covers the first northern daily warm-weather fallback.
     padded,_=extract(ROOT,lat,lon,LAND,padding=True)
     sp=ROOT/'data/normalized/soilgrids/pilot_soil.json'
@@ -123,7 +132,7 @@ def analyze(lat,lon):
     soil=[{k:r[k] for k in ('property','depth','statistic','value','unit','status','cell_lon','cell_lat','sha256')} for r in soil]
     annual,monthly,climatology=summarize(frame.set_index('time'),None if hourly is None else hourly.tmean_c,lat)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
-        'soil':soil,'production':production_block(hourly,padded,lat,lon),'hourly_source':hourly_source,
+        'soil':soil,'production':production_block(hourly,padded,lat,lon,gap),'hourly_source':hourly_source,
         'planting':planting_window(site),
         'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_source['sha256'] if hourly_source else None,
         'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
@@ -131,28 +140,51 @@ def analyze(lat,lon):
     return result
 
 
+def coordinate(query,name,bound):
+    """One strictly parsed decimal-degree value, or ValueError with a message naming the parameter."""
+    values=query.get(name)
+    if not values:
+        hint=' Use latitude= and longitude= (not lat, lon or lng).' if any(k in query for k in ('lat','lon','lng')) else ''
+        raise ValueError(f'Missing {name}.{hint}')
+    if len(values)>1:raise ValueError(f'Give {name} only once.')
+    text=values[0].strip()
+    if not NUMBER.fullmatch(text):raise ValueError(f'{name.capitalize()} is not a number. Use decimal degrees such as 29.41.')
+    value=float(text.replace(',','.'))
+    if not -bound<=value<=bound:raise ValueError(f'{name.capitalize()} must be between -{bound} and {bound} degrees.')
+    return value
+
+
+def reply(status,result):
+    return status,json.dumps(result,allow_nan=False).encode()
+
+
+def respond(target):
+    """HTTP status and serialized JSON for one GET; serialization failures become 500 JSON, not dropped connections."""
+    parsed=urlsplit(target)
+    if parsed.path=='/api/health':return reply(200,{'status':'busy' if BUSY.locked() else 'ready','mode':'private-read-only-prototype'})
+    if parsed.path!='/api/analysis':return reply(404,{'error':'Not found'})
+    query=parse_qs(parsed.query,keep_blank_values=True)
+    try:lat,lon=coordinate(query,'latitude',90),coordinate(query,'longitude',180)
+    except ValueError as exc:return reply(400,{'error':str(exc)})
+    if not BUSY.acquire(blocking=False):return reply(503,{'error':'Another analysis is running. Please try again shortly.'})
+    try:
+        result=analyze(lat,lon)
+        return reply(422 if result.get('status')=='unsupported_location' else 200,result)
+    except Exception:
+        print(traceback.format_exc(),file=sys.stderr,flush=True)  # Traceback only; the query is never logged.
+        return reply(500,FAILED)
+    finally:BUSY.release()
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self,*args):pass  # Do not log user coordinates.
     def do_GET(self):
-        parsed=urlsplit(self.path)
-        status=200
-        if parsed.path=='/api/health':result={'status':'ready','mode':'private-read-only-prototype'}
-        elif parsed.path!='/api/analysis':status,result=404,{'error':'Not found'}
-        elif not BUSY.acquire(blocking=False):status,result=503,{'error':'Another analysis is running. Please try again shortly.'}
-        else:
-            try:
-                q=parse_qs(parsed.query)
-                result=analyze(float(q['latitude'][0]),float(q['longitude'][0]))
-            except (ValueError,KeyError,IndexError):status,result=400,{'error':'Invalid coordinate input'}
-            except Exception:status,result=500,{'error':'Archive analysis failed. No substitute result was generated.'}
-            finally:BUSY.release()
-        payload=json.dumps(result,allow_nan=False).encode()
+        status,payload=respond(self.path)
         self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Cache-Control','no-store')
         self.send_header('Content-Length',str(len(payload)));self.end_headers();self.wfile.write(payload)
 
 
 if __name__=='__main__':
-    import sys
     if '--snapshots' in sys.argv:
         sites=[s for s in known_sites() if s['name'] in ('Papanduva','Citra','Waldo') or s.get('role')]
         snapshots={s['name']:analyze(s['lat'],s['lon']) for s in sites}

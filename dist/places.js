@@ -311,9 +311,12 @@ window.PlaceNames = (() => {
     for (const entry of entries) {
       const rank = matchRank(entry, normalized, terms);
       if (!Number.isFinite(rank)) continue;
+      // Natural Earth lists more prominent settlements later (Lima, Peru after Lima, Ohio), so a later same-name place ranks first.
+      const place = entry.result.type === 'place';
       let index = 0;
       while (index < best.length && (best[index].rank < rank
-        || (best[index].rank === rank && best[index].entry.result.name.localeCompare(entry.result.name) <= 0))) index++;
+        || (best[index].rank === rank && !(place && best[index].entry.result.type === 'place' && best[index].entry.result.name === entry.result.name)
+          && best[index].entry.result.name.localeCompare(entry.result.name) <= 0))) index++;
       if (index >= size) continue;
       best.splice(index, 0, {entry, rank});
       if (best.length > size) best.pop();

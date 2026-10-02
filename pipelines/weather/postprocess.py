@@ -14,8 +14,10 @@ import subprocess
 import numpy as np
 import pandas as pd
 import requests
-from shapely.geometry import Point, shape
-from shapely import make_valid
+from shapely.geometry import Point, box, shape
+from shapely import STRtree, make_valid
+from shapely.affinity import scale
+from shapely.ops import nearest_points
 from shapely.prepared import prep
 import zarr
 
@@ -24,6 +26,7 @@ from pilot import GROUPS, NAMES, digest, nearest_indices, quality
 
 ROOT = Path('/media/fpt/fpt2/Weather_Claude')
 LAND_API = 'https://api.github.com/repos/nvkelso/natural-earth-vector/contents/geojson/ne_10m_land.geojson'
+COAST_TOLERANCE_KM = 5.
 
 
 def fetch_land(root):
@@ -77,6 +80,7 @@ class LandMask:
         if digest(data) != self.metadata['sha256']:
             raise RuntimeError('Land-mask checksum mismatch')
         self.geometries = []
+        self.shapes = []
         self.repaired = 0
         self.excluded_placeholders = 0
         for feature in json.loads(data)['features']:
@@ -89,13 +93,39 @@ class LandMask:
             if not geometry.is_valid:
                 geometry = make_valid(geometry)
                 self.repaired += 1
+            self.shapes.append(geometry)
             self.geometries.append(prep(geometry))
-        self.metadata = {**self.metadata, 'processing_version': 'land-mask-v2',
-                         'excluded_null_island_features': self.excluded_placeholders}
+        self.tree = STRtree(self.shapes)
+        self.metadata = {**self.metadata, 'processing_version': 'land-mask-v3',
+                         'excluded_null_island_features': self.excluded_placeholders,
+                         'coast_tolerance_km': COAST_TOLERANCE_KM}
 
     def covers(self, lat, lon):
         point = Point((lon+180) % 360-180, lat)
         return any(g.covers(point) for g in self.geometries)
+
+    def distance_km(self, lat, lon, limit=COAST_TOLERANCE_KM):
+        """Great-circle km to the nearest mask land if within `limit`, 0 on land, else None."""
+        if self.covers(lat, lon):
+            return 0.
+        lon = (lon+180) % 360-180
+        # Clip candidates to a window slightly wider than `limit`, then search with longitude
+        # scaled by cos(latitude) so the planar nearest point approximates the great-circle one.
+        k = max(math.cos(math.radians(lat)), 1e-6)
+        dy = 1.1*limit/111.
+        dx = min(180., dy/k)
+        best = None
+        for shift in (0., -360., 360.):  # Natural Earth splits land at the antimeridian.
+            x = lon+shift
+            window = box(x-dx, lat-dy, x+dx, lat+dy)
+            for i in self.tree.query(window):
+                piece = self.shapes[i].intersection(window)
+                if piece.is_empty:
+                    continue
+                q = nearest_points(scale(piece, k, 1., origin=(0, 0)), Point(x*k, lat))[0]
+                d = km_distance(lat, x, q.y, q.x/k)
+                best = d if best is None else min(best, d)
+        return best if best is not None and best <= limit else None
 
 
 def km_distance(lat1, lon1, lat2, lon2):
@@ -109,9 +139,10 @@ def extract(root, lat, lon, land, padding=False):
     if not (math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
         raise ValueError('Latitude/longitude must be finite and in range')
     request = {'latitude': lat, 'longitude': lon}
-    if not land.covers(lat, lon):
+    snap = land.distance_km(lat, lon)
+    if snap is None:
         return None, {'status': 'unsupported_location', 'request': request,
-                      'reason': 'Not land in the supplied cartographic mask; ocean or unresolved small island/coastline. No inland snapping.'}
+                      'reason': f'This point is in the sea or more than {COAST_TOLERANCE_KM:g} km from land in our coastline map. Move the pin onto land.'}
     state = json.loads((root / 'state/global.json').read_text())
     if state['status'] != 'complete':
         raise RuntimeError('Global archive has not completed validation')
@@ -151,6 +182,10 @@ def extract(root, lat, lon, land, padding=False):
                 'limitations': ['Gridded weather, not on-farm observations or a cultivar recommendation.',
                                 'Coastal source cells may represent mixed land/ocean.',
                                 'UTC daily aggregation is not a local biological day.']}
+    if snap:
+        # The original pin still selects the source cells; this only records how far it sits off mapped land.
+        metadata['land_snap_km'] = round(snap, 2)
+        metadata['limitations'].append(f'The pin is {snap:.2f} km off land in the cartographic coastline map; accepted within the {COAST_TOLERANCE_KM:g} km coastal tolerance without moving it.')
     return frame, metadata
 
 

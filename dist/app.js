@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 let catalog={}, active=null, serial=0, pendingRequest=null, locationMap=null, currentView='overview';
 let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved assessment';
 let draftPlace=null,activePlace=null,areaSelection=null;
-let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1;
+let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1,searchLoading=false,searchPickFirst=false;
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -11,6 +11,45 @@ const mean=a=>{a=good(a);return a.length?a.reduce((s,v)=>s+v,0)/a.length:null};
 const median=a=>{a=good(a).sort((x,y)=>x-y);return a.length?(a[Math.floor((a.length-1)/2)]+a[Math.floor(a.length/2)])/2:null};
 const fmt=(v,d=1)=>v===null||v===undefined?'Unavailable':Number(v).toLocaleString('en-US',{maximumFractionDigits:d});
 function validPoint(p){return Number.isFinite(p.lat)&&Number.isFinite(p.lon)&&Math.abs(p.lat)<=90&&Math.abs(p.lon)<=180}
+// Typed or pasted coordinates: decimal point or comma, +/-, N/S/E/W, degree signs, DMS and DDM. Errors keep the finite value for order hints.
+const COORD_AXES={lat:{name:'Latitude',max:90,hemi:'NS',example:'29.65'},lon:{name:'Longitude',max:180,hemi:'EW',example:'-82.32'}};
+const coordText=text=>String(text??'').replace(/[−–—]/g,'-').replace(/[′’‘´`]/g,"'").replace(/[″“”]|''/g,'"').replace(/[º˚]/g,'°').trim().toUpperCase();
+function parseCoord(text,axis){
+  const a=COORD_AXES[axis],error=`${a.name} must be a number between -${a.max} and ${a.max}, e.g. ${a.example}`,fail={value:NaN,error};
+  let s=coordText(text),h='',sign=1;
+  if(!s)return fail;
+  if(/^[NSEW]/.test(s)){h=s[0];s=s.slice(1).trim()}
+  if(/[NSEW]$/.test(s)){if(h)return fail;h=s.at(-1);s=s.slice(0,-1).trim()}
+  if(h&&!a.hemi.includes(h))return {value:NaN,error:`${a.name} takes ${a.hemi[0]} or ${a.hemi[1]}, not ${h}. ${error}`};
+  if(/^[+-]/.test(s)){sign=s[0]==='-'?-1:1;s=s.slice(1).trim();if(h&&sign<0)return fail}
+  if(!s.includes('.')&&s.split(',').length===2)s=s.replace(',','.');
+  const p=s.match(/^(\d+(?:\.\d*)?|\.\d+)\s*°?\s*(?:(\d+(?:\.\d*)?)\s*'?\s*(?:(\d+(?:\.\d*)?)\s*"?)?)?$/);
+  if(!p||p[2]!==undefined&&(p[1].includes('.')||Number(p[2])>=60)||p[3]!==undefined&&(p[2].includes('.')||Number(p[3])>=60))return fail;
+  let value=sign*(h==='S'||h==='W'?-1:1)*(Number(p[1])+Number(p[2]??0)/60+Number(p[3]??0)/3600);
+  if(p[2]!==undefined)value=Number(value.toFixed(6));
+  return Math.abs(value)<=a.max?{value}:{value,error};
+}
+// A pasted pair: '29.65, -82.32', '29.65 -82.32', '29,65; -82,32', '29.65N 82.32W', DMS pairs or a Google Maps '@lat,lon' URL.
+function parsePair(text){
+  const s=coordText(text),at=s.match(/@(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/),splits=[];
+  if(at)splits.push([at[1],at[2]]);
+  else{
+    const commas=s.split(','),hemi=s.match(/^(.+?[NSEW])[\s,;]*(.+[NSEW])$/)??s.match(/^([NSEW].+?)[\s,;]*([NSEW].+)$/);
+    for(const parts of [s.split(/\s*[;|\t]\s*/),s.split(/,\s+/),commas.length===4?[commas.slice(0,2).join(','),commas.slice(2).join(',')]:commas,hemi?.slice(1),s.split(/\s+/)])if(parts?.length===2)splits.push(parts,[parts[1],parts[0]]);
+  }
+  let fallback=null;
+  for(const [i,[a,b]] of splits.entries()){
+    // Reversed order is only accepted when hemisphere letters say so.
+    if(i%2&&!/[NSEW]/.test(a+b))continue;
+    const lat=parseCoord(a,'lat'),lon=parseCoord(b,'lon');
+    if(!lat.error&&!lon.error)return {lat:lat.value,lon:lon.value};
+    if(!fallback&&Number.isFinite(lat.value)&&Number.isFinite(lon.value))fallback={lat:lat.value,lon:lon.value,error:lat.error??lon.error};
+  }
+  return fallback;
+}
+function coordinateHint(lat,lon,pair){
+  $('coordinate-hint').hidden=!(Math.abs(lon)<=90&&(Math.abs(lat)>90&&Math.abs(lat)<=180||pair&&Math.abs(lat)>60));
+}
 function coordinateName(p){return validPoint(p)?`${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}`:'Enter valid coordinates'}
 function assessmentName(){return activePlace?.display_name??coordinateName(active.site)}
 function placeRegion(p){
@@ -320,8 +359,12 @@ function setBusy(busy){
   $('analyze').disabled=busy||!validPoint(draft);$('cancel-analysis').hidden=!busy;
   $('location-form').setAttribute('aria-busy',String(busy));
 }
+// The server keeps working on an aborted analysis, so a request right after a cancel can meet a 503 busy.
+let apiAbandonedAt=-Infinity;
+const BUSY_RETRY_SECONDS=[1,2,4,8];
 function cancelRequest(){
   if(!pendingRequest)return;
+  if(pendingRequest.api)apiAbandonedAt=Date.now();
   serial++;pendingRequest.abort();pendingRequest=null;setBusy(false);
   $('results').hidden=!active;
   $('status').textContent='Request cancelled. The previous assessment, if shown, is unchanged.';
@@ -335,7 +378,12 @@ function selectLocation(lat,lon,name='Selected point',{recenter=true}={}){
   setDraftPlace(saved?.site.name);
   locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter});
   document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
-  $('error').hidden=true;setBusy(false);updateDraftNotice();
+  $('error').hidden=true;$('coordinate-hint').hidden=true;setBusy(false);updateDraftNotice();
+  $('status').textContent=`${coordinateName(draft)} selected. Choose Analyze location to request evidence for this point.`;
+}
+function selectPair({lat,lon}){
+  selectLocation(lat,lon,'Entered coordinates');
+  coordinateHint(lat,lon,true);
 }
 function selectSaved(name){
   const entry=catalog[name];if(!entry)return;
@@ -345,10 +393,13 @@ function selectSaved(name){
 // A proxy without the archive, a tunnel page or a static host can answer with non-JSON.
 async function readJson(res){try{return await res.json()}catch(e){if(e.name==='AbortError')throw e;return null}}
 function archiveError(res,body){
-  if(!body||body.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Saved locations still work; reconnect the local archive tunnel to analyze other coordinates.'),{kind:'offline'});
+  if(body?.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Saved locations still work; reconnect the local archive tunnel to analyze other coordinates.'),{kind:'offline'});
+  if(!body||res.status===404&&!body.error)return Object.assign(Error('The page is being served without the archive connection. Start it with scripts/preview-ui.mjs.'),{kind:'offline'});
   if(res.status===503||res.status===429)return Object.assign(Error(body.error??'The archive is processing another analysis. Wait for it to finish, then analyze again.'),{kind:'busy'});
+  if(res.status>=500)return Error(`${body.error??'The archive could not complete this analysis.'} Try a point a few km away.`);
   return Error(body.error??'The archive could not return an assessment. No result was substituted.');
 }
+const sleep=(ms,signal)=>new Promise((done,fail)=>{const t=setTimeout(done,ms);signal.addEventListener('abort',()=>{clearTimeout(t);fail(signal.reason)},{once:true})});
 async function loadSaved(entry,signal){
   if(entry.annual)return entry;
   const res=await fetch(entry.file,{signal}),full=res.ok?await readJson(res):null;
@@ -361,7 +412,7 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
     $('error').textContent='Enter a latitude from −90 to 90 and longitude from −180 to 180.';$('error').hidden=false;return;
   }
   cancelRequest();
-  const request=++serial,controller=new AbortController();pendingRequest=controller;
+  const request=++serial,controller=new AbortController(),retryBusy=Date.now()-apiAbandonedAt<20000;pendingRequest=controller;
   const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
   areaSelection=null;
   draft={lat,lon,name:saved?.site.name??'Selected point'};
@@ -372,15 +423,21 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
   $('error').hidden=true;$('draft-notice').hidden=true;$('results').hidden=true;
   $('status').textContent=saved?'Opening saved location evidence…':'Reading the private historical archive. No new weather download is requested.';
   setBusy(true);
-  const timer=setTimeout(()=>controller.abort(),90000);
+  const timer=setTimeout(()=>{if(controller.api)apiAbandonedAt=Date.now();controller.abort()},90000);
   try{
     let result;
     if(saved)result=await loadSaved(saved,controller.signal);
     else{
-      const res=await fetch(`/api/analysis?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`,{signal:controller.signal});
-      const body=await readJson(res);
-      if(!res.ok||!body||body.error)throw archiveError(res,body);
-      result=body;
+      controller.api=true;
+      for(let attempt=0;;attempt++){
+        const res=await fetch(`/api/analysis?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`,{signal:controller.signal});
+        const body=await readJson(res);
+        if(res.ok&&body&&!body.error){result=body;break}
+        const error=archiveError(res,body);
+        if(error.kind!=='busy'||!retryBusy||attempt>=BUSY_RETRY_SECONDS.length)throw error;
+        $('status').textContent='Finishing the previous request…';
+        await sleep(BUSY_RETRY_SECONDS[attempt]*1000,controller.signal);
+      }
     }
     if(request!==serial)return;
     resultOrigin=saved?'Saved location assessment':'Connected archive assessment';
@@ -415,7 +472,7 @@ function presets(){
   $('preset-count').textContent=`${entries.length} saved locations`;
 }
 function closeSearch(){
-  searchSerial++;clearTimeout(searchTimer);searchResults=[];searchIndex=-1;
+  searchSerial++;clearTimeout(searchTimer);searchResults=[];searchIndex=-1;searchLoading=false;searchPickFirst=false;
   $('search-results').hidden=true;$('search-results').replaceChildren();
   $('site-search').setAttribute('aria-expanded','false');
   $('site-search').removeAttribute('aria-activedescendant');
@@ -438,18 +495,26 @@ function savedSearchResults(query){
   const normalized=normalizeSearch(query),terms=normalized.split(' ');
   if(!normalized)return [];
   return Object.values(catalog).filter(({site})=>{
-    const fields=normalizeSearch([site.name,site.region,site.county].filter(Boolean).join(' '));
-    return terms.every(term=>fields.includes(term));
+    // Word prefixes, so 'Lima' does not match 'Clima'.
+    const words=normalizeSearch([site.name,site.region,site.county].filter(Boolean).join(' ')).split(' ');
+    return terms.every(term=>words.some(word=>word.startsWith(term)));
   }).sort((a,b)=>{
     const rank=site=>normalizeSearch(site.name)===normalized?0:normalizeSearch(site.name).startsWith(normalized)?1:2;
     return rank(a.site)-rank(b.site)||a.site.name.localeCompare(b.site.name);
   }).map(({site})=>({id:`saved:${site.name}`,type:'saved',name:site.name,county:site.county,region:site.region,country:site.country}));
 }
+// A typed coordinate pair comes first, then exact-name saved locations and places, other exact names, saved locations, then reference places and areas.
+function searchResultList(query,places=[]){
+  const pair=parsePair(query),normalized=normalizeSearch(query);
+  const coordinates=pair&&!pair.error?[{id:'coordinates',type:'coordinates',name:coordinateName(pair),lat:pair.lat,lon:pair.lon}]:[];
+  const rank=result=>result.type==='coordinates'?-1:normalizeSearch(result.name)===normalized?(result.type==='saved'||result.type==='place'?0:1):result.type==='saved'?2:3;
+  return [...coordinates,...savedSearchResults(query),...places].map((result,i)=>[rank(result),i,result]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(row=>row[2]);
+}
 function renderSearchResults(results){
   const selectedId=searchResults[searchIndex]?.id;
   searchResults=[];searchIndex=-1;
   $('site-search').removeAttribute('aria-activedescendant');
-  const labels={saved:'Saved locations',place:'Places',region:'Regions',country:'Countries'};
+  const labels={coordinates:'Coordinates',saved:'Saved locations',place:'Places',region:'Regions',country:'Countries'};
   $('search-results').innerHTML=[...new Set(results.map(result=>result.type))].map(type=>{
     const label=labels[type];
     const rows=results.filter(result=>result.type===type);
@@ -457,7 +522,7 @@ function renderSearchResults(results){
     return `<div class="search-section" role="group" aria-label="${label}"><p class="search-section-title" aria-hidden="true">${label}</p>${rows.map(result=>{
       const index=searchResults.push(result)-1;
       const context=[result.county,result.region,result.country].filter(value=>value&&value!==result.name).join(' · ');
-      const action=type==='saved'?'Select saved location, then analyze':type==='place'?'Select point, then analyze':'View area, choose analysis point';
+      const action=type==='saved'?'Select saved location, then analyze':type==='place'||type==='coordinates'?'Select point, then analyze':'View area, choose analysis point';
       return `<button id="search-option-${index}" class="search-option" type="button" role="option" tabindex="-1" aria-selected="false" data-search-index="${index}"><span>${esc(result.name)}</span><small>${esc(context?`${context} · ${action}`:action)}</small></button>`;
     }).join('')}</div>`;
   }).join('');
@@ -470,24 +535,33 @@ function searchPlaces(){
   closeSearch();
   const query=$('site-search').value.trim(),request=searchSerial;
   if(!query){$('search-status').textContent='Type a city, region or country. Search works without the weather archive.';return}
-  renderSearchResults(savedSearchResults(query));
+  renderSearchResults(searchResultList(query));
   $('search-status').textContent=searchResults.length?`${searchResults.length} saved matches available. Searching the local place reference…`:'Searching the local place reference…';
+  searchLoading=true;
   searchTimer=setTimeout(async()=>{
     try{
       const response=await window.PlaceNames.search(query,{limit:15});
       if(request!==searchSerial)return;
       if(!response.available)throw Error('Place reference unavailable');
-      renderSearchResults([...savedSearchResults(query),...response.results]);
+      renderSearchResults(searchResultList(query,response.results));
     }catch{
       if(request!==searchSerial)return;
-      renderSearchResults(savedSearchResults(query));
+      renderSearchResults(searchResultList(query));
       $('search-status').textContent=searchResults.length?`Place reference search is unavailable. ${searchResults.length} saved matches remain selectable. Use arrow keys and Enter to select, or use the map or coordinates.`:'Place reference search is unavailable. No saved locations match. Use the map, coordinates or browse the saved locations below.';
     }
+    searchLoading=false;
+    // Enter pressed before the reference search finished picks the best result now.
+    if(searchPickFirst){searchPickFirst=false;selectSearchResult(0)}
   },180);
 }
 function selectSearchResult(index){
   const result=searchResults[index];if(!result)return;
   closeSearch();$('site-search').value=result.name;
+  if(result.type==='coordinates'){
+    selectPair(result);
+    $('search-status').textContent='Coordinates selected. Analysis has not been requested.';
+    return;
+  }
   if(result.type==='saved'){
     selectSaved(result.name);
     $('search-status').textContent='Saved location selected. Choose Analyze location to open its evidence.';
@@ -503,7 +577,7 @@ function selectSearchResult(index){
   draft={lat:NaN,lon:NaN,name:''};$('latitude').value='';$('longitude').value='';
   setDraftPlace();locationMap?.focusArea(result.bounds);
   document.querySelectorAll('[data-site]').forEach(button=>button.setAttribute('aria-pressed','false'));
-  $('error').hidden=true;setBusy(false);updateDraftNotice();
+  $('error').hidden=true;$('coordinate-hint').hidden=true;setBusy(false);updateDraftNotice();
   $('status').textContent=`Viewing ${result.name}. Choose an analysis point. No region-wide weather has been requested.`;
   $('search-status').textContent='Area opened. The map frames its principal polygon extent. Click a point or enter coordinates before analyzing.';
 }
@@ -514,11 +588,18 @@ $('site-search').addEventListener('keydown',event=>{
     event.preventDefault();closeSearch();$('search-status').textContent='Search results closed. Edit the search to look again.';return;
   }
   if(event.key==='Tab'){closeSearch();return}
+  if(event.key==='Enter'&&searchIndex<0&&searchLoading){event.preventDefault();searchPickFirst=true;return}
   if(!searchResults.length)return;
   if(event.key==='ArrowDown'||event.key==='ArrowUp'){
     event.preventDefault();
     setSearchIndex(searchIndex<0?(event.key==='ArrowDown'?0:searchResults.length-1):(searchIndex+(event.key==='ArrowDown'?1:-1)+searchResults.length)%searchResults.length);
-  }else if(event.key==='Enter'&&searchIndex>=0){event.preventDefault();selectSearchResult(searchIndex)}
+  }else if(event.key==='Enter'){event.preventDefault();selectSearchResult(Math.max(searchIndex,0))}
+});
+$('site-search').addEventListener('paste',event=>{
+  const text=event.clipboardData?.getData('text')??'',pair=parsePair(text);
+  if(!pair||pair.error)return;
+  event.preventDefault();$('site-search').value=text.trim();selectPair(pair);
+  $('search-status').textContent='Coordinates selected. Analysis has not been requested.';
 });
 $('search-results').addEventListener('mousedown',event=>event.preventDefault());
 $('search-results').addEventListener('click',event=>{
@@ -528,18 +609,42 @@ document.addEventListener('pointerdown',event=>{
   if(event.target!==$('site-search')&&!$('search-results').contains(event.target))closeSearch();
 });
 $('presets').addEventListener('click',e=>{const b=e.target.closest('[data-site]');if(b)selectSaved(b.dataset.site)});
-for(const id of ['latitude','longitude'])$(id).addEventListener('input',()=>{
-  cancelRequest();
-  areaSelection=null;
-  const lat=$('latitude').valueAsNumber,lon=$('longitude').valueAsNumber;
-  const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
-  draft={lat,lon,name:saved?.site.name??'Entered coordinates'};
-  setDraftPlace(saved?.site.name);
-  if(validPoint(draft))locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter:false});
-  document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
-  setBusy(false);updateDraftNotice();
-});
-$('location-form').addEventListener('submit',e=>{e.preventDefault();analyze($('latitude').valueAsNumber,$('longitude').valueAsNumber)});
+for(const [id,axis] of [['latitude','lat'],['longitude','lon']]){
+  const field=$(id);
+  // Typing stays silent; draft follows what the text means, including a pair typed into one field.
+  field.addEventListener('input',()=>{
+    cancelRequest();
+    areaSelection=null;
+    const pair=parseCoord(field.value,axis).error?parsePair(field.value):null;
+    const lat=parseCoord($('latitude').value,'lat'),lon=parseCoord($('longitude').value,'lon');
+    const point=pair&&!pair.error?pair:{lat:lat.error?NaN:lat.value,lon:lon.error?NaN:lon.value};
+    const saved=Object.values(catalog).find(r=>samePoint(r.site,point));
+    draft={...point,name:saved?.site.name??'Entered coordinates'};
+    setDraftPlace(saved?.site.name);
+    $('coordinate-hint').hidden=true;
+    if(validPoint(draft)){locationMap?.setSelection(draft.lat,draft.lon,{label:draftPlace.display_name,recenter:false});$('error').hidden=true}
+    document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
+    setBusy(false);updateDraftNotice();
+  });
+  field.addEventListener('change',()=>commitCoordinate(id,axis));
+  field.addEventListener('keydown',event=>{if(event.key==='Enter')commitCoordinate(id,axis,true)});
+  field.addEventListener('paste',event=>{
+    const text=event.clipboardData?.getData('text')??'',pair=parseCoord(text,axis).error?parsePair(text):null;
+    if(pair&&!pair.error){event.preventDefault();selectPair(pair);return}
+    setTimeout(()=>commitCoordinate(id,axis));
+  });
+}
+// On commit a pair fills both fields; otherwise the error shows and the text is left as typed. `all` also reports the other field.
+function commitCoordinate(id,axis,all=false){
+  const text=$(id).value,one=parseCoord(text,axis),pair=one.error?parsePair(text):null;
+  if(pair&&!pair.error){selectPair(pair);return pair}
+  const lat=parseCoord($('latitude').value,'lat'),lon=parseCoord($('longitude').value,'lon');
+  const error=pair?.error??one.error??(all?lat.error??lon.error:undefined);
+  $('error').textContent=error??'';$('error').hidden=!error;
+  if(pair)coordinateHint(pair.lat,pair.lon,true);else coordinateHint(lat.value,lon.value,false);
+  return error||lat.error||lon.error?null:{lat:lat.value,lon:lon.value};
+}
+$('location-form').addEventListener('submit',e=>{e.preventDefault();const point=commitCoordinate('latitude','lat',true);if(point)analyze(point.lat,point.lon)});
 $('cancel-analysis').onclick=cancelRequest;
 $('change-location').onclick=()=>{
   $('latitude').focus({preventScroll:true});
