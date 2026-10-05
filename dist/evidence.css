@@ -1,0 +1,80 @@
+/* Regional evidence panel. All selectors are prefixed regional- so the panel
+ * can be inlined into exported snapshots without touching app styles. */
+.regional-evidence { --regional-ink: var(--ink, #1d1d1f); --regional-muted: var(--muted, #707070); --regional-line: var(--line, #d6d6d6); --regional-paper: var(--paper, #fff); --regional-soft: var(--soft, #f5f5f7); --regional-accent: var(--accent, #0066cc); --regional-warning: var(--warning, #805018);
+  min-width: 0; color: var(--regional-ink); font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+.regional-evidence p, .regional-evidence h3, .regional-evidence h4, .regional-evidence h5, .regional-evidence h6 { margin: 0; }
+.regional-evidence p + p { margin-top: 8px; }
+.regional-head { display: grid; gap: 6px; }
+.regional-title { font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -.02em; }
+.regional-meta { font: 11px/1.6 var(--mono, ui-monospace, monospace); color: var(--regional-muted); }
+.regional-status { margin-top: 18px; padding: 20px 24px; border: 1px solid var(--regional-line); border-radius: 28px; background: var(--regional-soft); }
+.regional-evidence[data-status=unavailable] .regional-status { background: #fff7ee; border-color: #d5b59c; color: #763e1b; }
+.regional-evidence[data-status=unresolved] .regional-status, .regional-evidence[data-status=no_match] .regional-status { background: #fff9ee; border-color: #e0cc9b; color: #775320; }
+.regional-lead { font-size: 15px; font-weight: 600; }
+.regional-reason { font-size: 13px; }
+.regional-note, .regional-coverage, .regional-filter-status, .regional-scope { font-size: 12px; color: var(--regional-muted); }
+.regional-status .regional-note { color: inherit; }
+.regional-evidence > .regional-coverage { margin-top: 14px; }
+.regional-notes { display: grid; gap: 8px; margin-top: 16px; font-size: 12px; color: var(--regional-muted); }
+.regional-notes p + p { margin-top: 0; }
+.regional-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.regional-filter-button { min-height: 44px; padding: 9px 16px; border: 1px solid var(--regional-line); border-radius: 9999px; background: var(--regional-paper); color: var(--regional-muted); font-size: 12px; font-weight: 500; cursor: pointer; }
+.regional-filter-button:hover { background: var(--regional-soft); color: var(--regional-ink); }
+.regional-filter-button[aria-pressed=true] { background: var(--regional-ink); border-color: var(--regional-ink); color: #fff; }
+.regional-filter-button:focus-visible, .regional-evidence summary:focus-visible, .regional-evidence a:focus-visible { outline: 3px solid var(--regional-accent); outline-offset: 3px; }
+.regional-filter-status { margin-top: 12px; }
+.regional-empty { margin-top: 12px; padding: 16px 20px; border: 1px dashed var(--regional-line); border-radius: 20px; font-size: 13px; }
+.regional-group { margin-top: 28px; }
+.regional-group[hidden], .regional-card[hidden], .regional-empty[hidden] { display: none; }
+.regional-group-title { font-size: 17px; font-weight: 600; line-height: 1.35; }
+.regional-group > .regional-note { margin-top: 4px; }
+.regional-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; margin-top: 16px; }
+.regional-card { min-width: 0; padding: 24px; border: 1px solid var(--regional-line); border-radius: 28px; background: var(--regional-paper); }
+.regional-group-country .regional-card { background: var(--regional-soft); }
+.regional-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.regional-tag { display: inline-block; max-width: 100%; padding: 4px 10px; border: 1px solid var(--regional-line); border-radius: 9999px; background: var(--regional-paper); font-size: 11px; color: var(--regional-muted); }
+.regional-kind-event { color: var(--regional-ink); }
+.regional-scope-region { border-color: var(--regional-accent); color: var(--regional-accent); }
+.regional-outside { background: #fff9ee; border-color: #e0cc9b; color: var(--regional-warning); }
+.regional-card-title { margin-top: 14px !important; font-size: 16px; font-weight: 600; line-height: 1.35; }
+.regional-subtitle { font-size: 14px; font-weight: 600; }
+.regional-scope { margin-top: 6px !important; }
+.regional-event-note { margin-top: 10px !important; padding-left: 10px; border-left: 2px solid var(--regional-line); font-size: 12px; color: var(--regional-muted); }
+.regional-summary { margin-top: 12px !important; font-size: 13px; }
+.regional-facts { display: grid; gap: 8px; margin: 14px 0 0; }
+.regional-fact { display: grid; grid-template-columns: minmax(96px, 30%) minmax(0, 1fr); gap: 10px; }
+.regional-fact dt { font-size: 11px; color: var(--regional-muted); }
+.regional-fact dd { margin: 0; font-size: 12px; min-width: 0; }
+.regional-label { font-size: 11px; font-weight: 600; color: var(--regional-muted); }
+.regional-limitations { margin-top: 14px; }
+.regional-limitations ul, .regional-citations, .regional-sources { margin: 6px 0 0; padding-left: 18px; font-size: 12px; }
+.regional-limitations li + li, .regional-citation + .regional-citation, .regional-source + .regional-source { margin-top: 6px; }
+.regional-sources { padding-left: 0; list-style: none; }
+.regional-source { padding: 14px 0; border-top: 1px solid var(--regional-line); }
+.regional-citation > span { display: block; color: var(--regional-muted); }
+.regional-missing { color: var(--regional-warning) !important; }
+.regional-details { margin-top: 14px; border-top: 1px solid var(--regional-line); }
+.regional-details > summary { min-height: 44px; padding: 12px 0; font-size: 12px; font-weight: 500; cursor: pointer; }
+.regional-related { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--regional-line); }
+.regional-library { margin-top: 28px; }
+.regional-hash { font: 11px/1.5 var(--mono, ui-monospace, monospace); word-break: break-all; }
+.regional-evidence a { color: var(--regional-accent); text-underline-offset: 3px; word-break: break-all; }
+
+@media (max-width: 520px) {
+  .regional-status { padding: 18px; border-radius: 22px; }
+  .regional-card { padding: 18px; border-radius: 22px; }
+  .regional-title { font-size: 20px; }
+  .regional-fact { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .regional-filter-button { padding-inline: 12px; }
+}
+
+@media print {
+  .regional-filter, .regional-filter-status, .regional-empty { display: none !important; }
+  .regional-group[hidden], .regional-card[hidden] { display: block !important; }
+  .regional-cards { display: block; }
+  .regional-card { margin-top: 10px; padding: 14px; border-radius: 12px; break-inside: avoid; }
+  .regional-status { padding: 12px 14px; border-radius: 12px; }
+  .regional-evidence details::details-content { display: block; content-visibility: visible; }
+  .regional-evidence details > * { display: block !important; }
+  .regional-evidence a { color: inherit; }
+}

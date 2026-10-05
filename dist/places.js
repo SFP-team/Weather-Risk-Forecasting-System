@@ -25,16 +25,17 @@ window.PlaceNames = (() => {
       loading = (async () => {
         const response = await fetch(dataURL, {credentials: 'same-origin'});
         if (!response.ok) throw new Error('Geographic reference request failed.');
-        const bytes = new Uint8Array(await response.arrayBuffer());
-        let data;
+        let bytes = new Uint8Array(await response.arrayBuffer());
         // A server may send the .gz file as bytes or apply Content-Encoding.
         if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
           if (typeof DecompressionStream !== 'function') throw new Error('Gzip decoding is unavailable.');
           const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-          data = await new Response(stream).json();
-        } else {
-          data = JSON.parse(new TextDecoder().decode(bytes));
+          bytes = new Uint8Array(await new Response(stream).arrayBuffer());
         }
+        const data = JSON.parse(new TextDecoder().decode(bytes));
+        // Evidence crosswalks use polygon IDs, which are meaningful only in this exact reference.
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        const geographySha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
         if (data.version !== 1 || !data.entities?.length || !data.areas?.length
           || !data.arcs?.length || !data.places?.length || !data.transform?.scale) {
           throw new Error('Geographic reference format is unsupported.');
@@ -69,7 +70,7 @@ window.PlaceNames = (() => {
           vectors[i * 3 + 2] = Math.sin(lat);
         }
         return {arcs, countries, regions, entities: data.entities, places: data.places,
-          vectors, transform: data.transform};
+          vectors, transform: data.transform, geographySha256};
       })().catch(() => null);
     }
     return loading;
@@ -365,7 +366,8 @@ window.PlaceNames = (() => {
           : 'The country contains the point; a named containing region is not represented.';
       if (nearest.distance_km > nearLimitKm) note += ' No represented settlement is within 100 km, so the label uses the containing area.';
     }
-    return {label, region, country, nearest, source: sourceText, note: `${note} ${caveat}`};
+    return {label, region, country, region_id: regionId >= 0 ? regionId : null,
+      geography_sha256: data.geographySha256, nearest, source: sourceText, note: `${note} ${caveat}`};
   }
 
   return {lookup, search};

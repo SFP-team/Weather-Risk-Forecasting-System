@@ -4,6 +4,7 @@ let catalog={}, active=null, serial=0, pendingRequest=null, locationMap=null, cu
 let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved assessment';
 let draftPlace=null,activePlace=null,areaSelection=null;
 let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1,searchLoading=false,searchPickFirst=false;
+let regionalLibrary={status:'loading',registry:null},activeRegionalEvidence=null;
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -106,6 +107,46 @@ function renderAssessmentPlace(){
   const cycleLabel=$('production-content').querySelector('.cycle-header .stamp');
   if(cycleLabel)cycleLabel.textContent=`${name} · Seasonal exposure`;
   $('place-evidence').innerHTML=`<h3>Place-name context</h3><p>${esc(nearestPlace(p))}</p><p>${esc(p.note)}</p>${p.source?`<p>Source: ${esc(p.source)}</p>`:''}<p>Place names are display context only. They do not change weather coordinates, source cells or planting-region guidance.</p>`;
+  renderRegionalEvidence();
+}
+function regionalEvidenceFor(result,place){
+  const registry=regionalLibrary.registry;
+  const empty={status:regionalLibrary.status,version:registry?.version??null,reviewed_on:registry?.reviewed_on??null,
+    location:{latitude:result.site.lat,longitude:result.site.lon,country:place?.country??null,region:place?.region??null},
+    geographies:[],records:[],sources:[],baseline_end:result.provenance?.end??null,
+    reason:regionalLibrary.status==='loading'?'The regional report library is loading. Weather results remain usable.':
+      'The regional report library could not load. Weather results are unchanged; reload the page to try again.'};
+  let selection=empty;
+  if(regionalLibrary.status==='available'){
+    try{selection=window.RegionalEvidence.select(registry,place,{baselineEnd:empty.baseline_end})}
+    catch{selection={...empty,status:'unavailable',reason:'Regional evidence could not be matched. Weather results are unchanged.'}}
+  }
+  return {...selection,weather_analysis_id:result.analysis_id??null,weather_method_version:result.method_version,
+    matching_basis:'Containing country and region in the local Natural Earth reference, not nearest settlement or field observations.'};
+}
+function renderRegionalEvidence(){
+  if(!active)return;
+  const panel=$('regional-evidence-content');
+  activeRegionalEvidence=regionalEvidenceFor(active,activePlace);
+  try{
+    if(!window.RegionalEvidence?.render)throw Error('Regional component unavailable');
+    window.RegionalEvidence.render(panel,activeRegionalEvidence);
+  }catch{
+    activeRegionalEvidence={...activeRegionalEvidence,status:'unavailable',records:[],sources:[],geographies:[],
+      reason:'The regional evidence panel is unavailable. Weather results are unchanged.'};
+    panel.textContent=activeRegionalEvidence.reason;
+  }
+  const evidence=activeRegionalEvidence;
+  $('regional-evidence-summary').textContent=evidence.status==='available'?
+    `${evidence.records.length} source-checked regional records. Reported practice and events are separate from the calculated weather risks; they are not observations at this pin.`:
+    evidence.reason;
+}
+async function loadRegionalEvidence(){
+  try{
+    if(!window.RegionalEvidence?.load)throw Error('Regional component unavailable');
+    regionalLibrary={status:'available',registry:await window.RegionalEvidence.load()};
+  }catch{regionalLibrary={status:'unavailable',registry:null}}
+  renderRegionalEvidence();
 }
 function finishPlaceLookup(context,place){
   // An old lookup may update its committed assessment, never a newer pin or result.
@@ -116,6 +157,8 @@ function finishPlaceLookup(context,place){
   context.display_name=context.saved_name||context.label;
   context.region=available?place.region:null;
   context.country=available?place.country:null;
+  context.region_id=available?place.region_id??null:null;
+  context.geography_sha256=available?place.geography_sha256??null:null;
   context.nearest=available?place.nearest:null;
   context.source=available?place.source:null;
   context.note=place?.note||'The local place-name reference could not load. Coordinate entry and weather analysis still work.';
@@ -126,7 +169,7 @@ function finishPlaceLookup(context,place){
 function placeContext(point,savedName=null){
   const valid=validPoint(point),label=coordinateName(point);
   const context={lat:point.lat,lon:point.lon,saved_name:savedName,display_name:savedName||label,label,
-    status:valid?'pending':'invalid',region:null,country:null,nearest:null,source:null,
+    status:valid?'pending':'invalid',region:null,country:null,region_id:null,geography_sha256:null,nearest:null,source:null,
     note:valid?'Place names load separately from weather evidence. No coordinates are sent to a geocoder.':'Enter valid coordinates to look up place names.'};
   if(valid)Promise.resolve().then(()=>window.PlaceNames.lookup(point.lat,point.lon))
     .then(place=>finishPlaceLookup(context,place),()=>finishPlaceLookup(context,null));
@@ -679,6 +722,7 @@ $('export-json').onclick=()=>{
   if(!active)return;
   const view=document.querySelector('.cycle-panel')?.dataset;
   download(JSON.stringify({...active,location_context:activePlace,management:systems[$('system').value][0],management_evidence:'qualitative only',
+    regional_evidence:activeRegionalEvidence??regionalEvidenceFor(active,activePlace),
     cycle_view:view?.winter?{winter:view.winter,stage:view.stage}:null},null,2),'application/json',exportName(activePlace,active,'json'));
 };
 $('export').onclick=async()=>{
@@ -687,6 +731,11 @@ $('export').onclick=async()=>{
   // Render hidden climate charts at their real width before cloning the immutable report.
   const previous=currentView;showView('climate');charts();
   const content=$('results').cloneNode(true);showView(previous);
+  const regionalSnapshot=activeRegionalEvidence??regionalEvidenceFor(snapshot,placeSnapshot);
+  const regionalPanel=content.querySelector('#regional-evidence-content');
+  // Exports retain every matched record, regardless of the interactive category filter.
+  if(window.RegionalEvidence?.render)window.RegionalEvidence.render(regionalPanel,regionalSnapshot,{snapshot:true});
+  else regionalPanel.textContent=regionalSnapshot.reason;
   if(placeSnapshot.status==='pending'){
     content.querySelector('#assessment-place-note').textContent='Place names were still resolving when this report was saved. Coordinate identity is retained.';
     content.querySelector('#place-evidence').textContent='Place names were pending at export. No settlement, country or region was assigned. Weather coordinates and planting-region guidance are unchanged.';
@@ -703,7 +752,7 @@ $('export').onclick=async()=>{
   content.querySelectorAll('details').forEach(d=>d.open=true);
   button.disabled=true;
   try{
-    const styles=await Promise.all(['style.css','cycle.css'].map(async path=>{
+    const styles=await Promise.all(['style.css','cycle.css','evidence.css'].map(async path=>{
       const res=await fetch(path);if(!res.ok)throw Error('Report styles could not load. No incomplete report was saved.');return res.text();
     }));
     download(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(placeSnapshot.display_name)} | Blueberry assessment</title><style>${styles.join('\n')}</style></head><body class="export-document"><main><p class="stamp export-heading">Historical baseline ${esc(baselineYears(snapshot))} · ${esc(system)} · ${esc(snapshot.analysis_id??'saved-snapshot')}</p>${content.outerHTML}</main></body></html>`,'text/html',exportName(placeSnapshot,snapshot,'html'));
@@ -727,6 +776,7 @@ async function initialize(){
   if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
 }
 initialize();
+loadRegionalEvidence();
 $('connection').textContent='Saved locations · archive not connected';
 if(['127.0.0.1','localhost'].includes(location.hostname)){
   fetch('/api/health').then(r=>r.ok?r.json():null).then(r=>{

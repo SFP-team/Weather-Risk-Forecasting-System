@@ -1,6 +1,6 @@
 # IBO reports and the weather app: collection, findings and integration decision
 
-Reviewed 2026-10-05. Research and document acquisition only. No application code, model constants, benchmark expectations, saved assessments or weather archives changed. The UI and API were not started. The prior full review of the supplied 2026 report was reused.
+Reviewed 2026-10-05. The review itself was research and document acquisition only: no application code, model constants, benchmark expectations, saved assessments or weather archives changed, and the prior full review of the supplied 2026 report was reused. The regional evidence layer recommended below was built later the same day; see the implementation section.
 
 ## Decision
 
@@ -8,7 +8,13 @@ Build a versioned regional evidence layer first. Use it for source-cited context
 
 The strongest new finding is that reported harvest shifts can come from management, not temperature. The 2025 report explicitly attributes Peru's delayed 2024 start to delayed pruning. Another useful finding is methodological: reports revise earlier numbers, change season labels and repeat text. A searchable pile of PDFs without those distinctions would produce plausible but wrong analytics.
 
-This is an integration recommendation, not an implemented RAG service or a calibrated crop model.
+The evidence layer is now implemented; see the next section. There is still no RAG service or calibrated crop model.
+
+## Implementation (2026-10-05)
+
+The first step of the decision is built. `dist/evidence/ibo-regional-v1.json` holds 91 records checked against the complete 2023, 2025 and 2026 reports: 39 events, 42 practice records and 10 constraints across 51 geographic scopes in 23 countries. Statements repeated across editions are extra citations on one record (172 citations in total), not extra events. A new Regional evidence tab shows the records for the pin's country and region next to the calculated risks, not mixed into them, with category filters and page citations. HTML and JSON exports keep every matched record.
+
+Matching uses polygon IDs tied to the hash of the existing Natural Earth bundle instead of names. Testing showed why: by name, Washington, DC received the Pacific Northwest heat-dome record, because the reference labels both places "Washington". Browser checks covered all 71 presets, six live coordinates, failure and stale-lookup states and real exports; the weather payloads did not change. Details are in the [UI runbook](../../UI_RUNBOOK.md#regional-evidence). Question answering over the reports, report-derived model parameters and further downloads were not added.
 
 ## 1. What was acquired and read
 

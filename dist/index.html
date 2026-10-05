@@ -6,7 +6,8 @@
   <meta name="description" content="Historical climate, seasonal weather exposures and regional blueberry planting guidance by location.">
   <link rel="icon" href="assets/blueberry-breeding-lab.png" type="image/png">
   <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
-  <script src="vendor/maplibre-gl.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="places.js" defer></script><script src="app.js" defer></script>
+  <link rel="stylesheet" href="evidence.css">
+  <script src="vendor/maplibre-gl.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="places.js" defer></script><script src="evidence.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
@@ -50,6 +51,7 @@
       <button role="tab" id="tab-season" aria-controls="panel-season" aria-selected="false" tabindex="-1" data-view="season">Season &amp; exposures</button>
       <button role="tab" id="tab-climate" aria-controls="panel-climate" aria-selected="false" tabindex="-1" data-view="climate">Climate history</button>
       <button role="tab" id="tab-site" aria-controls="panel-site" aria-selected="false" tabindex="-1" data-view="site">Soil &amp; setup</button>
+      <button role="tab" id="tab-regional" aria-controls="panel-regional" aria-selected="false" tabindex="-1" data-view="regional">Regional evidence</button>
       <button role="tab" id="tab-evidence" aria-controls="panel-evidence" aria-selected="false" tabindex="-1" data-view="evidence">Methods &amp; data</button>
     </nav>
     <section id="panel-overview" class="view-panel" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
@@ -57,6 +59,7 @@
       <section class="overview-risks" aria-labelledby="risks-heading"><div class="section-title"><div><p class="eyebrow">Historical recurrence, not predicted loss</p><h2 id="risks-heading">Recurring weather risks</h2></div><button type="button" data-open-view="season">View seasonal exposures →</button></div><div id="headline-risks"></div></section>
       <section aria-labelledby="exposures-heading"><div class="section-title"><div><p class="eyebrow">Descriptive measures</p><h2 id="exposures-heading">Additional weather exposures</h2></div><span class="small">Historical means unless labelled otherwise</span></div><div id="exposure-highlights" class="signal-grid"></div></section>
       <section id="planting" aria-labelledby="planting-heading"><div class="section-title"><div><p class="eyebrow">Establishment, not the annual crop cycle</p><h2 id="planting-heading">Regional planting window</h2></div><span class="badge" id="planting-badge"></span></div><div id="planting-content" class="planting-panel"></div></section>
+      <section aria-labelledby="regional-overview-heading"><div class="section-title"><div><p class="eyebrow">Reports, not calculated risks</p><h2 id="regional-overview-heading">Regional evidence</h2></div><button type="button" data-open-view="regional">Explore regional reports</button></div><p id="regional-evidence-summary" class="small" role="status">Loading the reviewed report library.</p></section>
     </section>
     <section id="panel-season" class="view-panel" role="tabpanel" aria-labelledby="tab-season" tabindex="0" hidden><div id="production" class="production"><div class="section-title"><div><p class="eyebrow">Provisional bearing-plant calendar</p><h2>Season &amp; exposures</h2></div><span class="badge" id="production-badge"></span></div><div id="production-content"></div></div></section>
     <section id="panel-climate" class="view-panel" role="tabpanel" aria-labelledby="tab-climate" tabindex="0" hidden>
@@ -65,6 +68,7 @@
       <details><summary>Annual values and definitions</summary><div id="annual-table" class="table-scroll" tabindex="0" role="region" aria-label="Annual climate values"></div><p class="small">Reference chill is 0–7.2°C inclusive, November through February north / May through August south, UTC. Other annual metrics use January through December. Dry spells stop at year boundaries. Exposure thresholds are not crop-damage estimates.</p></details>
     </section>
     <section id="panel-site" class="view-panel" role="tabpanel" aria-labelledby="tab-site" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Mapped estimates, not a field soil test</p><h2>Soil properties</h2></div><span class="badge" id="soil-status"></span></div><div id="soil-content"></div><div class="section-title"><div><p class="eyebrow">Qualitative management assumptions</p><h2 id="management-title"></h2></div><span class="badge">Not calibrated</span></div><div class="management-grid" id="management"></div></section>
+    <section id="panel-regional" class="view-panel" role="tabpanel" aria-labelledby="tab-regional" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Source-checked IBO reports</p><h2>Regional evidence</h2></div><span class="badge">Context, not field observations</span></div><div id="regional-evidence-content"></div></section>
     <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Sources &amp; uncertainty</p><h2>Methods, coverage &amp; limits</h2></div></div><p id="connection" class="small" role="status">Checking archive connection</p><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details><p class="benchmark-link"><a href="benchmark.html">Model versus published regional practice</a></p></section>
   </div>
   <noscript><p class="notice">Climate analysis requires JavaScript. No analysis has been loaded.</p></noscript>

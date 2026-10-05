@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-05: Regional evidence tab from the IBO reports
+
+- Added a sixth dashboard tab, Regional evidence, backed by `dist/evidence/ibo-regional-v1.json`: 91 records checked against the complete IBO 2023, 2025 and 2026 reports (39 events, 42 practice, 10 constraints; 51 scopes in 23 countries; 172 page citations). Cards state scope, period, crop context and limitations and link to the cited pages; filters cover harvest, management, weather and resources. HTML and JSON exports keep every matched record and the weather analysis ID. Weather calculations, constants, snapshots and backend code are unchanged.
+- Records match the pin's containing country and region polygon. Region IDs are tied to the SHA-256 of the existing Natural Earth bundle, which fixed a reproduced error: matched by name, Washington, DC had received the Pacific Northwest heat-dome record. A hash mismatch, missing library or geography, or a stale lookup shows no evidence and leaves the weather untouched.
+- Browser checks: 71 presets with unchanged weather payloads (61 matched, 10 no curated match), six live coordinates including daily-only Bermuda, fault and stale-lookup states, keyboard tabs, 390 px layout and real exported HTML/JSON. `node --check` passed for `app.js`, `places.js` and `evidence.js`; the Python suite was not rerun because no backend code changed.
+
 ## 2026-10-05: IBO report collection and integration decision
 
 - Retrieved complete 2010 USHBC precursor, 2022, 2023 and 2025 PDFs on the designated server; reused the supplied 2026 report and prior review. Five complete reports total 802 physical PDF pages. Also retained a separate 38-slide 2016-data preview, a limited 2012 public transcript and seven 2024 secondary excerpts. Full 2021 and 2024 remain access-blocked; the inventory distinguishes older confirmed editions, previews, broken/truncated copies and unread sources. No registration forms, paid access or weather downloads.

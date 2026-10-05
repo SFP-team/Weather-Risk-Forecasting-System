@@ -1,6 +1,6 @@
 # Map-first climate workspace
 
-Design revision: 2026-09-23. The map now uses MapLibre with an English-first OpenFreeMap style and browser-local place context. The assessment remains vanilla JavaScript; the weather and planting contracts are unchanged. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
+Design revision: 2026-10-05. A sixth view, Regional evidence, shows source-checked IBO report records for the pin's containing country and region. The map uses MapLibre with an English-first OpenFreeMap style and browser-local place context. The assessment remains vanilla JavaScript; the weather and planting contracts are unchanged. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
 
 ## Product boundary
 
@@ -16,21 +16,22 @@ The connected private API reads daily weather and complete hourly series for sup
 3. **Read what is available.** Show daily rows, hourly access, applicable calendar, planting-guide availability and soil records separately. Connection status concerns service access, not scientific validity. Missing information never receives a low-risk colour or zero value.
 4. **Understand the main evidence.** The overview shows the production-system hypothesis, assumed harvest window, qualifying recurring risks and descriptive signals. No blended suitability score or invented severity categories.
 5. **Inspect the season.** Choose a winter and stage. Read its modelled dates, exposure values, historical comparison and missing-data reasons. Keep hourly warm-midwinter context independent of crop timing.
-6. **Check context and assumptions.** Climate history, soil/setup and methods/data have their own views. Detailed tables and scientific definitions remain accessible without dominating the initial screen.
-7. **Save the same result.** HTML includes all views, place-name context and expanded definitions. JSON retains the unchanged original analysis plus separate `location_context`, management and winter/stage metadata. Pending name lookup exports keep coordinates and explicitly mark names pending. Neither export recalculates science.
+6. **Check context and assumptions.** Climate history, soil/setup, regional evidence and methods/data have their own views. Regional evidence keeps reported practice and events apart from the calculated weather risks and cites report pages; it is neither a field observation nor a model input. Detailed tables and scientific definitions remain accessible without dominating the initial screen.
+7. **Save the same result.** HTML includes all views, place-name context, every matched regional record and expanded definitions. JSON retains the unchanged original analysis plus separate `location_context`, `regional_evidence`, management and winter/stage metadata. Pending name lookup exports keep coordinates and explicitly mark names pending. Neither export recalculates science.
 
 ## Information architecture
 
 | View | First screen | Detail layer |
 |---|---|---|
 | Explore | Global map, saved-location filter, coordinates, explicit Analyze | Basemap attribution, input help, source-cell overlay and archive scope |
-| Overview | System hypothesis, assumed harvest, risk count; recurrence cards with k/n; four exposure families; one establishment window | Event definitions, Wilson intervals, sources and excluded-assessment reasons |
+| Overview | System hypothesis, assumed harvest, risk count; recurrence cards with k/n; four exposure families; one establishment window; regional evidence count | Event definitions, Wilson intervals, sources and excluded-assessment reasons |
 | Season & exposures | Winter selector, categorical stage colours, full-width timeline, selected-stage metric cards | Exact values, historical distribution, coverage, eligibility, full calendar and per-winter tables |
 | Climate history | Six annual/reference-winter cards and two selectable charts | Annual values and definitions; no confusion with crop-stage windows |
 | Soil & setup | Acquired records with property/depth uncertainty and selected setup notes | Missing soil, geographic-grid limitations, pot substrate and irrigation requirements |
+| Regional evidence | Report records for the containing country and region, filterable by harvest, management, weather and resources | Report scope, period, crop context, limitations, cited pages, attribution, reuse terms and PDF hashes |
 | Methods & data | Interpretation limits, source resolution, daily/hourly/soil coverage and all assessments | Analysis ID, method versions, source hashes, quality flags and provenance |
 
-The five assessment views use one tab panel at a time. Tab, arrow keys, Home and End operate the tabs. Stage selection uses native buttons. Details/summary controls provide progressive disclosure without a second data model.
+The six assessment views use one tab panel at a time. Tab, arrow keys, Home and End operate the tabs. Stage selection uses native buttons. Details/summary controls provide progressive disclosure without a second data model.
 
 ## Metric presentation rules
 
@@ -42,6 +43,14 @@ The five assessment views use one tab panel at a time. Tab, arrow keys, Home and
 - The new primary production-window timeline starts at budbreak, matching its existing backend dry-spell/radiation/GDD window. Legacy profiles retain their season-start interval. This is a presentation correction, not a formula change.
 - Establishment is separate from the bearing-plant timeline. Display the source's regional precision and nursery assumptions. Unsupported geography declines; sharing a weather cell does not assign a planting region.
 - Evergreen and unclassified results do not get an applicable chill-triggered crop timeline. Hypothetical calculated exposures are explicitly labelled. Independent winter weather remains useful.
+
+## Regional evidence contract
+
+- Regional evidence is report context beside the weather results, not a model input. The registry `dist/evidence/ibo-regional-v1.json` holds paraphrased statements from the complete IBO 2023, 2025 and 2026 reports, each with page citations, period, crop context and limitations. "Source-checked" means checked against the cited page, not against field observations.
+- One record per event or practice. Later editions that repeat it add citations to that record; they never count as separate events or toward recurrence.
+- Country records match the containing country. Regional records also need the containing polygon ID from the crosswalk, which is valid only for the geography bundle whose SHA-256 the registry names. A hash mismatch shows no records instead of matching by name.
+- Evidence attaches to the committed assessment. Loading, unavailable, unresolved and no-match states stay distinct and never alter weather values or imply low risk.
+- Exports keep every matched record, the library version and `weather_analysis_id`; the original analysis ID still identifies the weather calculation.
 
 ## Visual and interaction system
 
@@ -61,8 +70,8 @@ The selected pin is distinct from the dashed hourly source-cell rectangle. The r
 
 ## Verification contract
 
-Exercise all saved locations and views; compare displayed metric values with the unchanged analysis payload. Include zero and missing values, recurrence ties, unranked and evergreen cases, selected winter/stage retention, keyboard navigation, supported and daily-only land pins, offshore refusal, disconnected and delayed responses, and map failures. Inspect desktop and mobile; check narrow-width overflow. Download actual HTML/JSON, open the HTML independently and check all views, expanded definitions and retained selections. Software consistency does not establish scientific validity.
+Exercise all saved locations and views; compare displayed metric values with the unchanged analysis payload. Include zero and missing values, recurrence ties, unranked and evergreen cases, selected winter/stage retention, keyboard navigation, supported and daily-only land pins, offshore refusal, disconnected and delayed responses, and map failures. For regional evidence, include matched, no-match, unresolved and failed-library states, a geography hash mismatch and stale lookups. Inspect desktop and mobile; check narrow-width overflow. Download actual HTML/JSON, open the HTML independently and check all views, expanded definitions and retained selections. Software consistency does not establish scientific validity.
 
 ## What this revision does not deploy
 
-No new weather acquisition, weather interpolation, external geocoding service, authenticated team gateway, durable jobs/cache, management calibration or cultivar model. The existing private API and local preview remain the runtime. GitHub publication does not redeploy the hosted Sites application.
+No new weather acquisition, weather interpolation, external geocoding service, authenticated team gateway, durable jobs/cache, management calibration, cultivar model, report question answering or report-derived model parameters. The existing private API and local preview remain the runtime. GitHub publication does not redeploy the hosted Sites application.
