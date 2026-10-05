@@ -1,0 +1,431 @@
+{
+  "investigation_date": "2026-10-05",
+  "application_commit": "b91cd610e0193f30416da8be2d317909327ed8f5",
+  "method": "Read-only postprocess.extract against stored NASA POWER daily archive; compare with already saved stage_thermal_v3 2022 seasons. No recalibration, weather acquisition or API startup.",
+  "source_report_url": "https://web.archive.org/web/20240807150457id_/https://www.berriesza.co.za/wp-content/uploads/2023/08/Global-State-IBO2023.pdf",
+  "source_sha256": "ecdb37aef241b17bcb944171b363184bf917bbe3e4c90fd02b4f4bd0097fc229",
+  "limits": [
+    "Seven sample cells, not a representative validation set. Four US points describe the same weather episode and are not four independent validation events.",
+    "US window includes March 12 and 13 UTC to accommodate the report's local night of March 12.",
+    "Chile/NZ report regional events, not measured weather at benchmark coordinates. No loss fractions are fitted.",
+    "Daily gridded Tmin is not canopy temperature. NZ report particularly concerns rabbiteye; current model profile is low-chill SHB.",
+    "Current recurrent-risk counts are not compared to the frequency of mentions in reports."
+  ],
+  "cases": [
+    {
+      "benchmark_id": "us-ga-alma",
+      "requested_coordinate": [
+        31.5396,
+        -82.4624
+      ],
+      "report_edition": 2023,
+      "reported_geography": "Georgia, US state",
+      "comparison_window_utc": {
+        "start": "2022-03-12",
+        "end_exclusive": "2022-03-14"
+      },
+      "daily_minimum_c": -3.12,
+      "daily_minimum_date": "2022-03-13",
+      "days_tmin_le_0_c": 1,
+      "days_tmin_le_minus_2_2_c": 1,
+      "daily_rows": 2,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 31.5,
+        "source_longitude": -82.5,
+        "source_cell_center_on_land": true,
+        "distance_km": 5.664973372533176,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2021-12-31",
+          "2022-03-03"
+        ],
+        "fruit": [
+          "2022-03-04",
+          "2022-04-05"
+        ],
+        "harvest": [
+          "2022-04-06",
+          "2022-05-17"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 0,
+        "flower_freeze_days": 3,
+        "fruit_frost_days": 1
+      },
+      "interpretation": "Freeze exposure consistent at this sample cell; not a loss validation.",
+      "report_pdf_pages": [
+        45
+      ]
+    },
+    {
+      "benchmark_id": "us-ga-homerville",
+      "requested_coordinate": [
+        31.0366,
+        -82.7471
+      ],
+      "report_edition": 2023,
+      "reported_geography": "Georgia, US state",
+      "comparison_window_utc": {
+        "start": "2022-03-12",
+        "end_exclusive": "2022-03-14"
+      },
+      "daily_minimum_c": -2.53,
+      "daily_minimum_date": "2022-03-13",
+      "days_tmin_le_0_c": 1,
+      "days_tmin_le_minus_2_2_c": 1,
+      "daily_rows": 2,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 31.0,
+        "source_longitude": -82.5,
+        "source_cell_center_on_land": true,
+        "distance_km": 23.896367324096467,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2021-12-29",
+          "2022-02-25"
+        ],
+        "fruit": [
+          "2022-02-26",
+          "2022-03-30"
+        ],
+        "harvest": [
+          "2022-03-31",
+          "2022-05-12"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 0,
+        "flower_freeze_days": 1,
+        "fruit_frost_days": 1
+      },
+      "interpretation": "Freeze exposure consistent at this sample cell; not a loss validation.",
+      "report_pdf_pages": [
+        45
+      ]
+    },
+    {
+      "benchmark_id": "us-nc-elizabethtown",
+      "requested_coordinate": [
+        34.6293,
+        -78.6053
+      ],
+      "report_edition": 2023,
+      "reported_geography": "North Carolina, US state",
+      "comparison_window_utc": {
+        "start": "2022-03-12",
+        "end_exclusive": "2022-03-14"
+      },
+      "daily_minimum_c": -5.47,
+      "daily_minimum_date": "2022-03-13",
+      "days_tmin_le_0_c": 1,
+      "days_tmin_le_minus_2_2_c": 1,
+      "daily_rows": 2,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 34.5,
+        "source_longitude": -78.75,
+        "source_cell_center_on_land": true,
+        "distance_km": 19.551757690072527,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2022-02-11",
+          "2022-03-31"
+        ],
+        "fruit": [
+          "2022-04-01",
+          "2022-04-30"
+        ],
+        "harvest": [
+          "2022-05-01",
+          "2022-06-06"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 7,
+        "flower_freeze_days": 2,
+        "fruit_frost_days": 0
+      },
+      "interpretation": "Freeze exposure consistent at this sample cell; not a loss validation.",
+      "report_pdf_pages": [
+        45
+      ]
+    },
+    {
+      "benchmark_id": "us-nc-burgaw",
+      "requested_coordinate": [
+        34.5527,
+        -77.9261
+      ],
+      "report_edition": 2023,
+      "reported_geography": "North Carolina, US state",
+      "comparison_window_utc": {
+        "start": "2022-03-12",
+        "end_exclusive": "2022-03-14"
+      },
+      "daily_minimum_c": -5.24,
+      "daily_minimum_date": "2022-03-13",
+      "days_tmin_le_0_c": 1,
+      "days_tmin_le_minus_2_2_c": 1,
+      "daily_rows": 2,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": 34.5,
+        "source_longitude": -78.125,
+        "source_cell_center_on_land": true,
+        "distance_km": 19.14029700630904,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2022-02-03",
+          "2022-03-27"
+        ],
+        "fruit": [
+          "2022-03-28",
+          "2022-05-01"
+        ],
+        "harvest": [
+          "2022-05-02",
+          "2022-06-07"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 6,
+        "flower_freeze_days": 4,
+        "fruit_frost_days": 0
+      },
+      "interpretation": "Freeze exposure consistent at this sample cell; not a loss validation.",
+      "report_pdf_pages": [
+        45
+      ]
+    },
+    {
+      "benchmark_id": "cl-linares-maule",
+      "requested_coordinate": [
+        -35.8467,
+        -71.5931
+      ],
+      "report_edition": 2023,
+      "reported_geography": "Linares to Chillan",
+      "comparison_window_utc": {
+        "start": "2022-11-01",
+        "end_exclusive": "2022-12-01"
+      },
+      "daily_minimum_c": 7.59,
+      "daily_minimum_date": "2022-11-06",
+      "days_tmin_le_0_c": 0,
+      "days_tmin_le_minus_2_2_c": 0,
+      "daily_rows": 30,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": -36.0,
+        "source_longitude": -71.875,
+        "source_cell_center_on_land": true,
+        "distance_km": 30.576435982822115,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2022-09-15",
+          "2022-11-01"
+        ],
+        "fruit": [
+          "2022-11-02",
+          "2022-11-26"
+        ],
+        "harvest": [
+          "2022-11-27",
+          "2023-01-05"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 0,
+        "flower_freeze_days": 0,
+        "fruit_frost_days": 0
+      },
+      "interpretation": "Reported regional freeze not represented at this sample cell; unresolved location/grid/species mismatch, not a proven model error.",
+      "report_pdf_pages": [
+        33,
+        34
+      ]
+    },
+    {
+      "benchmark_id": "cl-chillan-nuble",
+      "requested_coordinate": [
+        -36.6066,
+        -72.1034
+      ],
+      "report_edition": 2023,
+      "reported_geography": "Linares to Chillan",
+      "comparison_window_utc": {
+        "start": "2022-11-01",
+        "end_exclusive": "2022-12-01"
+      },
+      "daily_minimum_c": 7.66,
+      "daily_minimum_date": "2022-11-05",
+      "days_tmin_le_0_c": 0,
+      "days_tmin_le_minus_2_2_c": 0,
+      "daily_rows": 30,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": -36.5,
+        "source_longitude": -71.875,
+        "source_cell_center_on_land": true,
+        "distance_km": 23.59495418373235,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2022-08-21",
+          "2022-10-20"
+        ],
+        "fruit": [
+          "2022-10-21",
+          "2022-11-22"
+        ],
+        "harvest": [
+          "2022-11-23",
+          "2023-01-01"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 0,
+        "flower_freeze_days": 0,
+        "fruit_frost_days": 0
+      },
+      "interpretation": "Reported regional freeze not represented at this sample cell; unresolved location/grid/species mismatch, not a proven model error.",
+      "report_pdf_pages": [
+        33,
+        34
+      ]
+    },
+    {
+      "benchmark_id": "nz-waikato-ohaupo",
+      "requested_coordinate": [
+        -37.9236,
+        175.3067
+      ],
+      "report_edition": 2023,
+      "reported_geography": "Waikato region",
+      "comparison_window_utc": {
+        "start": "2022-10-01",
+        "end_exclusive": "2022-11-01"
+      },
+      "daily_minimum_c": 5.15,
+      "daily_minimum_date": "2022-10-06",
+      "days_tmin_le_0_c": 0,
+      "days_tmin_le_minus_2_2_c": 0,
+      "daily_rows": 31,
+      "weather_source": {
+        "source": "met_daily",
+        "profile": "power-native-daily-utc-v1",
+        "source_latitude": -38.0,
+        "source_longitude": 175.0,
+        "source_cell_center_on_land": true,
+        "distance_km": 28.19806110615188,
+        "units": {
+          "tmin_c": "C",
+          "tmax_c": "C",
+          "tmean_c": "C",
+          "precip_mm": "mm",
+          "rh_mean_pct": "%",
+          "wind_mean_m_s": "m/s",
+          "dewpoint_mean_c": "C"
+        }
+      },
+      "saved_model_2022": {
+        "status": "complete",
+        "flowering": [
+          "2022-09-27",
+          "2022-11-07"
+        ],
+        "fruit": [
+          "2022-11-08",
+          "2022-12-12"
+        ],
+        "harvest": [
+          "2022-12-13",
+          "2023-01-31"
+        ]
+      },
+      "saved_stage_freeze_counts": {
+        "bud_freeze_days": 0,
+        "flower_freeze_days": 0,
+        "fruit_frost_days": 0
+      },
+      "interpretation": "Reported regional freeze not represented at this sample cell; unresolved location/grid/species mismatch, not a proven model error.",
+      "report_pdf_pages": [
+        67
+      ]
+    }
+  ]
+}

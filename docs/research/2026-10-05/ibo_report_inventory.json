@@ -1,0 +1,248 @@
+{
+  "review_date": "2026-10-05",
+  "scope": "Publicly retrievable English IBO global reports and clearly labelled predecessors/previews; one verified copy per edition. Existing supplied 2026 PDF and prior review reused. Not a claim that every edition ever published was obtained.",
+  "archive_location": "Designated server, data/reference/ibo_reports/",
+  "raw_documents_in_git": false,
+  "application_changed": false,
+  "editions": [
+    {
+      "id": "ushbc-2007",
+      "edition": 2007,
+      "kind": "precursor",
+      "status": "confirmed_by_reference_only",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/2017/05/22/dual-opportunity-for-global-blueberry-industry-says-brazelton/",
+      "note": "2016 described as sixth edition since 2007 launch; no full 2007 source located."
+    },
+    {
+      "id": "ushbc-2008",
+      "edition": 2008,
+      "kind": "precursor",
+      "status": "confirmed_by_reference_only",
+      "full_text_read": false,
+      "source_url": "https://www.oregonblueberry.com/update/USHBC-report.pdf",
+      "source_pages": [
+        3,
+        48
+      ],
+      "note": "2010 report identifies 2008 predecessor. No full 2008 source located."
+    },
+    {
+      "id": "ushbc-2010",
+      "edition": 2010,
+      "publication_year": 2011,
+      "kind": "complete_precursor_report",
+      "status": "pdf_acquired",
+      "full_text_read": true,
+      "source_url": "https://www.oregonblueberry.com/update/USHBC-report.pdf",
+      "server_asset": "2010/report.pdf",
+      "bytes": 1943583,
+      "sha256": "e5f84f9219a3648f94e1ecc21d5b0dc7fab866d66d260a0ed29b1ddb05d9fd41",
+      "pdf_pages": 51,
+      "review_coverage": "Full text reviewed; parent title/method checks.",
+      "rights": "Copyright USHBC; no broad reuse grant identified.",
+      "warnings": [
+        "Running headers incorrectly say 2008; use 2010 cover and February 2011 publication date.",
+        "Pounds/acres, not metric. Mostly 2009/10 south, 2010 north."
+      ]
+    },
+    {
+      "id": "nabc-2012",
+      "edition": 2012,
+      "publication_year": 2013,
+      "kind": "precursor_web_transcript",
+      "status": "public_html_acquired_original_pdf_unavailable",
+      "full_text_read": false,
+      "source_url": "https://www.scribd.com/document/252726092/World-Blueberry-Acreage-and-Production-2013",
+      "server_asset": "2012/public_page.html",
+      "bytes": 1611660,
+      "sha256": "35bef400515d0e10f55957d61b9356d94d9d9dcc51a467880ec5923774ee8eb0",
+      "review_coverage": "Readable narrative transcript reviewed; original PDF fidelity and completeness not verified.",
+      "rights": "Third-party upload; permission unverified, All Rights Reserved. Research leads only, not approved app corpus.",
+      "warnings": [
+        "Platform says 73 pages; report headers say 76.",
+        "Column-scrambled tables not accepted as numeric records."
+      ]
+    },
+    {
+      "id": "ibo-2014",
+      "edition": 2014,
+      "publication_year": 2015,
+      "kind": "full_report_not_acquired",
+      "status": "historical_member_or_paid_access",
+      "full_text_read": false,
+      "source_url": "https://web.archive.org/web/20160701003955/http://www.internationalblueberry.org/downloads/world-blueberry-statistics-and-global-analysis-2015-pdf-study-10/",
+      "note": "World Blueberry Statistics and Global Analysis 2015 PDF study, 2014 data. Archived product listing, not acquired."
+    },
+    {
+      "id": "ibo-2016",
+      "edition": 2016,
+      "publication_year": 2017,
+      "kind": "full_report_not_acquired",
+      "status": "historical_member_or_paid_access",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/2017/05/03/2016-global-blueberry-statistics-and-intelligence-report-is-now-available-at-the-ibos-library/",
+      "note": "Full Global Blueberry Statistics and Intelligence Report not acquired. Separate preview below."
+    },
+    {
+      "id": "ibo-2016-preview",
+      "edition": 2016,
+      "publication_year": 2017,
+      "kind": "preview_presentation_not_full_report",
+      "status": "pdf_acquired",
+      "full_text_read": true,
+      "source_url": "https://web.archive.org/web/20200212130624id_/https://static1.squarespace.com/static/581373dbe4fcb5675436dbf7/t/58dd0a421b10e38a0a19447f/1490881114392/Cort+Brazelton+GBC2017.pdf",
+      "server_asset": "2016_preview/preview.pdf",
+      "bytes": 5930489,
+      "sha256": "72cc28d6d629235c8befe10d9557cba8fdddb9ffcf6a13a987c1acb72ead1384",
+      "pdf_pages": 38,
+      "review_coverage": "Extracted text plus all 15 extraction-empty/title/map slides visually inspected.",
+      "rights": "Copyright IBO; no blanket reuse grant identified in deck.",
+      "warnings": [
+        "2016 denotes 2015/16 south. Do not apply modern season-start year convention.",
+        "Forecast slides are not observations."
+      ]
+    },
+    {
+      "id": "ibo-2018-search",
+      "edition": 2018,
+      "kind": "edition_unconfirmed",
+      "status": "no_distinct_edition_identified",
+      "full_text_read": false,
+      "source_url": "https://www.oregonblueberry.com/update-S2018/world-production.html",
+      "note": "2018 write-up uses 2016 data. Not counted as a separate annual report; nonexistence not established."
+    },
+    {
+      "id": "ibo-2019",
+      "edition": 2019,
+      "kind": "full_report_not_acquired",
+      "status": "member_or_paid_access",
+      "full_text_read": false,
+      "source_url": "https://stories.agronometrics.com/agronometrics-co-authors-ibo-2019-state-of-the-global-blueberry-industry-report/",
+      "note": "158-page report confirmed; full public copy not located. Archived free preview requires checkout; not submitted."
+    },
+    {
+      "id": "ibo-2020",
+      "edition": 2020,
+      "kind": "americas_digital_special_edition",
+      "status": "original_app_unavailable",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/2020/11/24/agronometrics-in-charts-ibo-releases-the-blueberry-data-for-the-americas/",
+      "note": "Original report.internationalblueberry.org fails TLS, HTTP returns 404. Wayback capture contains Dash shell, not recoverable report data. Announcement read; not a global PDF."
+    },
+    {
+      "id": "ibo-2021",
+      "edition": 2021,
+      "kind": "full_report_not_acquired",
+      "status": "registration_required_or_truncated_archive",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/2021-report/",
+      "mirror_page": "https://www.berriesza.co.za/ibo-state-of-the-industryreport2021/",
+      "attempted_pdf_url": "https://web.archive.org/web/20240225094136id_/https://www.berriesza.co.za/wp-content/uploads/2021/08/IBO-2021-Final-interactive.pdf",
+      "note": "Public mirror now 404. Archived fragment 1048576 bytes vs 33805426 declared; no readable full document. Not counted as downloaded report. Official form not submitted."
+    },
+    {
+      "id": "ibo-2022",
+      "edition": 2022,
+      "kind": "complete_annual_report",
+      "status": "pdf_acquired",
+      "full_text_read": true,
+      "source_url": "https://web.archive.org/web/20240714175843id_/https://www.berriesza.co.za/wp-content/uploads/2022/11/IBO-2022.pdf",
+      "landing_url": "https://www.internationalblueberry.org/2022-report/",
+      "mirror_page": "https://www.berriesza.co.za/global-state-of-the-blueberry-industry-report-2022/",
+      "server_asset": "2022/report.pdf",
+      "bytes": 29044638,
+      "sha256": "17d0ba6bfa9c231b5e5cb3413b950981c3853220226d1e314255b76ab24a82c3",
+      "pdf_pages": 198,
+      "main_observation_season": "2021 north, 2021/22 south; some 2022 events",
+      "review_coverage": "Every extracted page read; substantive selected charts inspected, not every chart digitized.",
+      "rights": "No explicit broad reuse grant located; free availability is not a redistribution licence.",
+      "warnings": [
+        "Production rows on p22 disagree with p23; preserve table-specific provenance.",
+        "Earlier incomplete Wayback captures rejected."
+      ]
+    },
+    {
+      "id": "ibo-2023",
+      "edition": 2023,
+      "kind": "complete_annual_report",
+      "status": "pdf_acquired",
+      "full_text_read": true,
+      "source_url": "https://web.archive.org/web/20240807150457id_/https://www.berriesza.co.za/wp-content/uploads/2023/08/Global-State-IBO2023.pdf",
+      "landing_url": "https://www.internationalblueberry.org/2023-report/",
+      "mirror_page": "https://www.berriesza.co.za/global-state-of-the-industry-report-2023/",
+      "server_asset": "2023/report.pdf",
+      "bytes": 12130503,
+      "sha256": "ecdb37aef241b17bcb944171b363184bf917bbe3e4c90fd02b4f4bd0097fc229",
+      "pdf_pages": 114,
+      "main_observation_season": "2022 north, 2022/23 south; some 2023 events",
+      "review_coverage": "All extracted pages read in spreads and raw order; relevant selected charts inspected.",
+      "rights": "Broad reuse with attribution, PDF112 / printed223.",
+      "warnings": [
+        "Two-page spreads, normally printed 2N-2 and 2N-1 for PDF page N; verify citation per page.",
+        "Revises earlier values; carried-forward text and conflicting totals remain."
+      ]
+    },
+    {
+      "id": "ibo-2024",
+      "edition": 2024,
+      "kind": "full_report_not_acquired",
+      "status": "registration_required_secondary_excerpts_acquired",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/2024-report/",
+      "excerpt_index": "https://italianberry.it/tag/ibo-report-2024",
+      "server_asset": "2024/secondary_italianberry_excerpts_20261005.txt",
+      "bytes": 37237,
+      "sha256": "d9624bd0dffb3de45eca717a387005f6f6d259ee5c6725d3c4a29250ee620d2e",
+      "review_coverage": "Seven abridged country/production excerpts reviewed, not full report. Health/quality/sustainability excerpts and webinar not part of that set.",
+      "rights": "Full report terms unverified; Italian Berry excerpts have separate rights.",
+      "note": "Official form not submitted. Public mirror/flipbook and archived page searches found no complete ungated PDF. No claim that no public copy exists anywhere."
+    },
+    {
+      "id": "ibo-2025",
+      "edition": 2025,
+      "kind": "complete_annual_report",
+      "status": "pdf_acquired",
+      "full_text_read": true,
+      "source_url": "https://online.flippingbook.com/view/768531494/",
+      "landing_url": "https://www.internationalblueberry.org/2025-report/",
+      "server_asset": "2025/report.pdf",
+      "bytes": 28551433,
+      "sha256": "02321bf9bebe1d3ba199aa31a42752c1f43966257424a14972864ef68836ec98",
+      "pdf_pages": 145,
+      "printed_pages": 288,
+      "main_observation_season": "2024 north, 2024/25 south; some 2025 events",
+      "review_coverage": "All substantive printed-page text reviewed; key image tables/charts inspected. Parent checked remaining sparse pages 14,22,30,264,270,274,285; p22 includes a price chart. Not every plotted point digitized.",
+      "rights": "Broad reuse with attribution, printed280 / PDF141.",
+      "warnings": [
+        "PDF spreads and cover/back-cover exceptions require explicit printed-page mapping.",
+        "Downloaded revision created 2025-11-07. Back cover incorrectly says 2024.",
+        "Temporary signed download URLs deliberately excluded."
+      ]
+    },
+    {
+      "id": "ibo-2026",
+      "edition": 2026,
+      "kind": "complete_annual_report",
+      "status": "previously_supplied_pdf_reused",
+      "full_text_read": true,
+      "source_url": "https://www.internationalblueberry.org/report-2026/",
+      "server_asset": "2026/report.pdf",
+      "bytes": 27903060,
+      "sha256": "2a510c2f2a8b84899b6f602460972bec29bf5e3d5472a7b64d537e88a7633217",
+      "pdf_pages": 294,
+      "main_observation_season": "2025 north, 2025/26 south; some 2026 events and forecasts",
+      "review_coverage": "Prior complete review reused; only targeted checks for cross-edition synthesis this task.",
+      "rights": "Broad reuse with attribution, PDF285.",
+      "warnings": [
+        "Supplied source, not newly fetched from public download link.",
+        "Events after 2025 cannot be checked against existing weather baseline."
+      ]
+    }
+  ],
+  "search_limits": [
+    "Registration forms and member/paid access not bypassed. No accounts created, purchases or contacts sent.",
+    "Older series was not reliably annual. 2011/2013/2015/2017 publication labels can refer to 2010/2012/2014/2016 data editions.",
+    "An unavailable full text is not substituted with an excerpt or a broken PDF and marked complete."
+  ]
+}

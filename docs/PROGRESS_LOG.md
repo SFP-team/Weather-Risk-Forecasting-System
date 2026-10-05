@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-05: IBO report collection and integration decision
+
+- Retrieved complete 2010 USHBC precursor, 2022, 2023 and 2025 PDFs on the designated server; reused the supplied 2026 report and prior review. Five complete reports total 802 physical PDF pages. Also retained a separate 38-slide 2016-data preview, a limited 2012 public transcript and seven 2024 secondary excerpts. Full 2021 and 2024 remain access-blocked; the inventory distinguishes older confirmed editions, previews, broken/truncated copies and unread sources. No registration forms, paid access or weather downloads.
+- Read the acquired substantive text and inspected relevant charts. Recorded differing year conventions, historical revisions and shared source lineage. Peru's delayed pruning in 2024 shows why temperature alone cannot predict managed harvest timing. Recommended a reviewed regional evidence layer and dated event registry, then citation-first retrieval; no model or RAG implementation. Review, source manifest and comparison JSON are in `docs/research/2026-10-05/`.
+- Ran read-only archive extraction for seven new event comparisons. Four GA/NC cells show freezing on 13 March 2022; the sampled Linares, Chillan and Waikato cells do not reproduce the reported regional freezes. These are unresolved geography/weather/species checks, not crop-loss validation. No application tests, recalibration, API/UI startup or deployment.
+
 ## 2026-10-02 — End-to-end test and "no data" fixes
 
 - Three test agents covered about 80 global coordinates, API input edge cases and browser flows at 1440 and 390 px. Causes of "no data": the UI was served without its `/api` proxy (start it with `node scripts/preview-ui.mjs`, not a plain static server); 1,509 small-island land polygons have no hourly cache and returned HTTP 500; coastal and city-centre pins up to about 2 km outside the Natural Earth coastline were refused as ocean; coordinate fields dropped decimal commas, N/S/E/W letters and pasted pairs, which silently changed or blocked the location.
