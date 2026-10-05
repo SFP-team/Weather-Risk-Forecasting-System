@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-05: Explaining locations with no production window
+
+- A pin labelled "Near Yakima" (46.738, −121.456) had no flowering or harvest window. Its weather cell, centred 46.5, −121.25 in the Cascade Range, is too cool for the v3 stage constants. Budbreak arrives 26 May to 7 Jul, a later stage misses its heat requirement within the 300-day horizon in 14 of 15 winters, and no scan start completed a cycle. Naantali, Finland behaves the same. Yakima city, Prosser, Corvallis and South Haven, MI keep calendars. Lynden, Cherryfield and Lac-Saint-Jean fall back to scan windows, and all 71 presets have windows.
+- The Production window card and the scan panel now state the cause. Top risks reads "Not assessed" or lists recurring freeze families instead of "None recurring", and scan windows quote the chill-clock reason. Frontend only; browser-verified with no page errors and no overflow at 390 px.
+- Open: northern-highbush and cool-climate stage constants, and whether scan cycles that miss the 300-day horizon should count as stalled.
+
 ## 2026-10-05: Regional evidence tab from the IBO reports
 
 - Added a sixth dashboard tab, Regional evidence, backed by `dist/evidence/ibo-regional-v1.json`: 91 records checked against the complete IBO 2023, 2025 and 2026 reports (39 events, 42 practice, 10 constraints; 51 scopes in 23 countries; 172 page citations). Cards state scope, period, crop context and limitations and link to the cited pages; filters cover harvest, management, weather and resources. HTML and JSON exports keep every matched record and the weather analysis ID. Weather calculations, constants, snapshots and backend code are unchanged.

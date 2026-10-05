@@ -225,6 +225,24 @@ function monthRuns(months){
   return runs.map(([a,b])=>a===b?MONTHS[a-1]:`${MONTHS[a-1]}–${MONTHS[b-1]}`).join(', ');
 }
 function riskLabel(p,id){return p.risks?.by_id?.[id]?.label??String(id).replaceAll('_',' ')}
+// Why a managed-cycle scan has no favourable start; null when it has one. Shared with cycle.js.
+function scanGap(p,m){
+  const fav=m?.favourable??{};
+  if(!m?.starts?.length||fav.unconstrained||(fav.budbreak??[]).length)return null;
+  const need=m.policy?.min_valid_years??12,total=m.starts.length;
+  const loss=m.starts.filter(s=>s.recurring_crop_loss?.length),rest=total-loss.length;
+  const most=Math.max(0,...m.starts.map(s=>s.cycles??0));
+  const counts=p.status_counts??{},winters=p.seasons?.length??0;
+  const cold=(counts.stage_gdd_not_met??0)+(counts.gdd_not_met_within_horizon??0);
+  const tooCool=!loss.length&&winters>0&&cold*2>=winters,parts=[];
+  if(tooCool)parts.push(`Too cool for the model's stage constants: in ${cold} of ${winters} winters a crop stage did not reach its heat requirement within the ${p.assumptions?.stage_horizon_days??300}-day stage horizon.`);
+  if(loss.length)parts.push(`At ${loss.length} of ${total} start dates, bud freeze, flowering freeze or fruit frost recurs in ${pct0(m.policy?.min_frequency??0.5)} or more of cycles.`);
+  if(rest)parts.push(loss.length?`The other ${rest} have fewer than ${need} complete cycles with full weather.`:
+    most===0?`No managed start date completed a cycle${tooCool?' either':''}.`:
+    most<need?`No managed start date completed ${need} cycles (at most ${most}).`:`No managed start date has ${need} complete cycles with full weather.`);
+  if(tooCool)parts.push('The constants describe a low-chill southern highbush, so this is a model limit, not proof that blueberries cannot fruit here.');
+  return {title:loss.length?'No favourable start':'No complete crop cycle',text:parts.join(' '),loss,need,tooCool};
+}
 function baselineYears(r){
   const y=r.production?.years??[r.annual[0]?.year,r.annual.at(-1)?.year];
   return y.every(Number.isFinite)?`${y[0]}–${y[1]}`:'years unavailable';
@@ -310,18 +328,29 @@ function decisionStrip(){
     timing=dates(`${md(cal.flowering_start?.median_date)} – ${md(cal.flowering_end?.median_date)}`,`${md(cal.harvest_start?.median_date)} – ${md(cal.harvest_end?.median_date)}`)+chip()+
       `<p>Median chill-triggered dates across ${cal.flowering_start?.n??0} winters of historical ${years} weather. Not a forecast.${majority==='Transitional'?' Tentative: no production system reaches a two-thirds majority.':''}</p>`;
   }else if(managed){
-    timing=fav.unconstrained?`<p class="summary-value small-value">Weather does not separate start dates</p>${chip('Management scenario · ')}<p>Cycle timing is a market or management choice. The chill-triggered calendar does not apply here.</p>`:
-      dates(monthRuns(fav.flowering_months),monthRuns(fav.harvest_months))+chip('Management scenario · ')+`<p>Favourable cycle starts ${esc((fav.budbreak??[]).map(md).join(', '))} (budbreak), historical ${years} weather. The chill-triggered calendar does not apply here.</p>`;
+    const gap=scanGap(p,managed),why=(p.chill_clock?.reasons??[]).join(' '),notApplied=`The chill-triggered calendar does not apply here.${why?` ${why}`:''}`;
+    timing=gap?`<p class="summary-value small-value">${esc(gap.title)}</p>${chip('Management scenario · ')}<p>${esc(gap.tooCool?gap.text:`${gap.text} ${notApplied}`)}</p>`:
+      fav.unconstrained?`<p class="summary-value small-value">Weather does not separate start dates</p>${chip('Management scenario · ')}<p>Cycle timing is a market or management choice. ${esc(notApplied)}</p>`:
+      dates(monthRuns(fav.flowering_months),monthRuns(fav.harvest_months))+chip('Management scenario · ')+`<p>Favourable cycle starts ${esc((fav.budbreak??[]).map(md).join(', '))} (budbreak), historical ${years} weather. ${esc(notApplied)}</p>`;
   }else{
     const why=available?((p.chill_clock?.reasons??[]).join(' ')||'Evergreen or unclassified locations need a management-defined crop calendar.'):(p?.reason??'Complete hourly weather is unavailable for this point.');
     timing=`<p class="summary-value">No supported calendar</p>${chip()}<p>${esc(why)}</p>`;
   }
   let top;
   if(managed){
-    const starts=managed.starts.filter(s=>(fav.budbreak??[]).includes(s.budbreak)),gate=pct0(managed.policy?.min_frequency);
-    const rows=(fav.recurring??[]).map(id=>{const f=good(starts.map(s=>s.events?.[id]?.frequency));return [riskLabel(p,id),f.length?pctRange(f):'Unavailable']});
-    top=rows.length?`${risks(rows)}<p>Share of cycles with at least one event, across the favourable starts. Each recurs in ${gate} or more of cycles at one or more of them. Exposure frequency, not loss probability.</p>`:
-      `<p class="summary-value small-value">None recurring</p><p>No risk recurs in ${gate} or more of cycles at the favourable starts. This does not establish low risk.</p>`;
+    const gap=scanGap(p,managed),gate=pct0(managed.policy?.min_frequency);
+    if(gap?.loss.length){
+      const ids=[...new Set(gap.loss.flatMap(s=>s.recurring_crop_loss))];
+      const rows=ids.map(id=>{const at=gap.loss.filter(s=>s.recurring_crop_loss.includes(id)),f=good(at.map(s=>s.events?.[id]?.frequency));return [riskLabel(p,id),`${at.length} start${at.length===1?'':'s'} · ${f.length?pctRange(f):'Unavailable'}`]});
+      top=`${risks(rows)}<p>No favourable start. Share of cycles with at least one event, at the start dates where it recurs in ${gate} or more of cycles. Exposure frequency, not loss probability.</p>`;
+    }else if(gap){
+      top=`<p class="summary-value small-value">Not assessed</p><p>No start date has ${gap.need} complete cycles with full weather, so recurrence cannot be measured. Missing evidence is not low risk.</p>`;
+    }else{
+      const starts=managed.starts.filter(s=>(fav.budbreak??[]).includes(s.budbreak));
+      const rows=(fav.recurring??[]).map(id=>{const f=good(starts.map(s=>s.events?.[id]?.frequency));return [riskLabel(p,id),f.length?pctRange(f):'Unavailable']});
+      top=rows.length?`${risks(rows)}<p>Share of cycles with at least one event, across the favourable starts. Each recurs in ${gate} or more of cycles at one or more of them. Exposure frequency, not loss probability.</p>`:
+        `<p class="summary-value small-value">None recurring</p><p>No risk recurs in ${gate} or more of cycles at the favourable starts. This does not establish low risk.</p>`;
+    }
   }else if(available&&p.risks.ranked.length){
     const ranked=p.risks.ranked;
     top=`${risks(ranked.slice(0,3).map(x=>[x.label,pct0(x.frequency)]))}<p>Share of assessable winters with at least one event${ranked.length>3?`; ${ranked.length-3} more ranked below`:''}. Exposure frequency, not loss probability.</p>`;

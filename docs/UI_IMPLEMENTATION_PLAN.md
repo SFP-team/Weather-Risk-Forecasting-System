@@ -43,6 +43,7 @@ The six assessment views use one tab panel at a time. Tab, arrow keys, Home and 
 - The new primary production-window timeline starts at budbreak, matching its existing backend dry-spell/radiation/GDD window. Legacy profiles retain their season-start interval. This is a presentation correction, not a formula change.
 - Establishment is separate from the bearing-plant timeline. Display the source's regional precision and nursery assumptions. Unsupported geography declines; sharing a weather cell does not assign a planting region.
 - Evergreen and unclassified results do not get an applicable chill-triggered crop timeline. Hypothetical calculated exposures are explicitly labelled. Independent winter weather remains useful.
+- An empty managed-cycle scan states its cause: too cool to complete a cycle, recurring freeze at every assessable start, or too few complete cycles. Never show an empty favourable set as "None recurring"; that reads as low risk.
 
 ## Regional evidence contract
 
