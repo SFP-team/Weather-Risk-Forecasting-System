@@ -2,6 +2,8 @@
 
 Updated 2026-10-05 for the Regional evidence tab, which shows source-checked IBO report records beside the weather results. The production v3 payload, Overview decision strip, managed-cycle scan panel, 71 saved locations and literature benchmark page are unchanged. This is a historical research workspace, not a cultivar recommendation or weather forecast. The vanilla-JavaScript frontend uses the lab logo, system fonts, white/gray surfaces, black type, restrained blue pill controls and 28px shadowless cards/map. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
 
+For a plain-language explanation of the current app, read the [user guide](APP_USER_GUIDE.md). It includes calendar requirements, missing-result meanings, and the reported Near Yakima example.
+
 ## Map-first workflow
 
 - Search places by name, region or country using the local Natural Earth reference. Results include geographic context; saved sites appear in their own group and browse list. Matching ignores accents/case and supports country aliases and multiple terms. Arrow keys, Enter and Escape operate results. Smaller villages and street addresses may be absent; coordinates remain available. Search needs no archive connection and sends no geocoder queries.

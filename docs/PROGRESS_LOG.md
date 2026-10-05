@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-05: Complete user guide and current-state explanation
+
+- Added `APP_USER_GUIDE.md` in simplified technical English, with a formal ASD-STE100 compliance disclaimer. Covers completed improvements, current project stage, all six tabs, calendar requirements, risk interpretation, missing values, service errors, the reported screenshot, and approved future work.
+- Clarified different production/reference chill definitions and the all-endpoints calendar dependency. Recorded existing summary-wording and scan-accounting limitations rather than describing them as fixed.
+- Checked current source constants, all 71 saved assessments, selected risk counts, the 91-record evidence library, and all 28 guide links. No model changes, service startup, new live-pin run, or backend test run.
+
 ## 2026-10-05: Approval for cool-climate phenology and scan accounting
 
 - The user reports Paul's sign-off for both open items. Recorded the next steps in the handover: separate thermal non-completion from missing weather and actual freeze exposure, then review sourced cultivar-specific settings rather than applying one northern-highbush profile to every cold location.
