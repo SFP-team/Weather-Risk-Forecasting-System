@@ -1,5 +1,10 @@
 # Project progress log
 
+## 2026-10-05: Approval for cool-climate phenology and scan accounting
+
+- The user reports Paul's sign-off for both open items. Recorded the next steps in the handover: separate thermal non-completion from missing weather and actual freeze exposure, then review sourced cultivar-specific settings rather than applying one northern-highbush profile to every cold location.
+- Target cultivars, production systems and site-year observations would support calibration and validation. Approval is not evidence for particular coefficients. No code, model settings or runtime changed; no tests run for this documentation-only update.
+
 ## 2026-10-05: Explaining locations with no production window
 
 - A pin labelled "Near Yakima" (46.738, −121.456) had no flowering or harvest window. Its weather cell, centred 46.5, −121.25 in the Cascade Range, is too cool for the v3 stage constants. Budbreak arrives 26 May to 7 Jul, a later stage misses its heat requirement within the 300-day horizon in 14 of 15 winters, and no scan start completed a cycle. Naantali, Finland behaves the same. Yakima city, Prosser, Corvallis and South Haven, MI keep calendars. Lynden, Cherryfield and Lac-Saint-Jean fall back to scan windows, and all 71 presets have windows.
