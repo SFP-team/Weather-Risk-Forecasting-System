@@ -1,5 +1,18 @@
 # Project progress log
 
+## 2026-10-12: Plain-language platform explainer for presentations
+
+- Added `docs/presentation/platform_explained.html` with 12 screenshots of the running app. In very simple words it explains:
+  - the weather source and grid;
+  - what "Mean 199 chill hours · 28.6 chill portions" means;
+  - the production-system rule and the 2018 calendar chain;
+  - medians and p10/p90, and an annotated copy of the Season & exposures window;
+  - the calendar-or-scan tests and the managed-cycle scan;
+  - top risks, planting guidance and regional evidence;
+  - the other tabs, limits, an FAQ and a glossary.
+- The worked example uses Papanduva. The 2018 chain, recomputed from the server archive, matches the model's dates.
+- Checked in a browser at 1440 and 390 px with no errors or overflow. Documentation only.
+
 ## 2026-10-12: Corrections, request safety, supervised API and scheduled evidence jobs
 
 - **Scan accounting (Paul-approved).**

@@ -6,6 +6,8 @@ This guide describes the current code and saved results. It does not describe a 
 
 The text uses short sentences, defined technical terms, and direct instructions. It follows ASD-STE100 writing principles. Formal compliance with the ASD-STE100 dictionary and all rules has not been certified. Screen labels and code names retain their exact spelling.
 
+For a presentation with pictures of every screen, open [How the blueberry weather platform works](presentation/platform_explained.html) in a browser. It explains the same calculations step by step with the Papanduva example.
+
 ## Contents
 
 1. [The present project stage](#1-the-present-project-stage)
