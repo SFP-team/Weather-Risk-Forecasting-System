@@ -128,6 +128,12 @@ PROFILES['stage_thermal_v3'] = {
     'pollination_gap_days': 4,
     # Median dates count 29 February out of day offsets so leap winters do not shift them a day late.
     'leap_day_offsets': 'corrected',
+    # Planting window from the supervisor's R workflow (southern_brazil_blueberry_climate_analogs.R, lines 91-92 and
+    # 1219-1220): it ends 30 days before modelled budbreak and lasts 75 days. The R labels the offsets preliminary and
+    # cites no source; the literature benchmark finds the rule's months overlap published planting months about a third
+    # of the time. Adopted by the user on 2026-10-12 as the app's planting window.
+    'planting_end_before_budbreak_days': 30,
+    'planting_window_length_days': 75,
 }
 
 CHANGES = [
@@ -151,6 +157,7 @@ CHANGES = [
     'stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures.',
     'The managed-cycle scan gives every start and year one of four outcomes: complete, stalled slow, stalled at the stage horizon, or weather incomplete. Freeze families count complete cycles only; stalled cycles form a separate crop-loss family, cycle failure, instead of counting as freezes. Weather-incomplete cycles are left out of every count.',
     'stage_thermal_v3 median dates leave 29 February out of day offsets, so winters that cross a leap day no longer shift them one day late.',
+    'stage_thermal_v3 adds the supervisor\'s planting rule. Planting ends 30 days before modelled budbreak and lasts 75 days. Each winter gets its own window, and the typical window counts back from the median budbreak, not from medians of month-days. It is the app\'s planting window. Regional home-garden seasons stay as a published comparison where a guide exists.',
 ]
 
 LIMITATIONS = [
@@ -220,6 +227,7 @@ OPTIONAL_METRICS = {**dict.fromkeys(INFECTION_METRICS, 'infection_model'), **dic
                     **dict.fromkeys(BEE_METRICS, 'bee_flight_model')}
 CLASSES = ('Evergreen', 'Semi-evergreen', 'Deciduous')
 THERMAL_STAGES = ('flowering_start_gdd', 'flowering_end_gdd', 'harvest_start_gdd', 'harvest_end_gdd')
+PLANTING_KEYS = ('planting_end_before_budbreak_days', 'planting_window_length_days')
 
 
 def pollination_proxy(p):
@@ -249,11 +257,20 @@ def profile(name):
         raise ValueError('Unknown stage clock')
     if p.get('leap_day_offsets') not in (None, 'corrected'):
         raise ValueError('Unknown leap-day offset rule')
+    planting = [p.get(k) for k in PLANTING_KEYS]
+    if any(v is not None for v in planting) and not all(isinstance(v, int) and v > 0 for v in planting):
+        raise ValueError('Planting offsets need two positive whole-day values')
     if clock == 'thermal':
         req = [p.get(k) for k in THERMAL_STAGES]
         if not all(isinstance(v, (int, float)) and v > 0 for v in req) or req[0] >= req[1] or req[2] >= req[3]:
             raise ValueError('Thermal stage clock needs positive, ordered stage requirements')
     return p
+
+
+def planting_offsets(p):
+    """(days before budbreak at which planting ends, window length in days) for profiles with the planting rule."""
+    before, length = (p.get(k) for k in PLANTING_KEYS)
+    return None if before is None else (before, length)
 
 
 def hemisphere(lat):
@@ -658,6 +675,10 @@ def season(hourly, daily, lat, year, p, days=None):
     hemi = hemisphere(lat)
     start, end = window(year, hemi)
     row = empty_row(year, hemi, start, end)
+    planting = planting_offsets(p)
+    if planting:
+        row['planting'] = None
+        row['offset_days'].update(planting_start=None, planting_end=None)
     days = Days(daily) if days is None else days
     row['winter_month_tmin_lowest_c'], row['winter_month_tmean_lowest_c'] = month_means(daily, year, hemi)
     row['freeze_risk_months'] = freeze_risk_months(daily, start, end, p['frost_threshold_c'])
@@ -715,6 +736,11 @@ def season(hourly, daily, lat, year, p, days=None):
                harvest=[str(x.date()) for x in harvest])
     dates = dict(chill=chill_date, budbreak=bud, flowering_start=flowering[0], flowering_end=flowering[1],
                  harvest_start=harvest[0], harvest_end=harvest[1])
+    if planting:
+        before, length = planting
+        dates['planting_start'] = bud - d(days=before + length)
+        dates['planting_end'] = bud - d(days=before)
+        row['planting'] = [str(dates['planting_start'].date()), str(dates['planting_end'].date())]
     row['offset_days'] = {k: int((v - start).days) for k, v in dates.items()}
     production_start = bud if p.get('require_applicable_calendar') else start
     row['metrics'] = stage_metrics(days, p, flowering, fruit, harvest, production_start, bud)
@@ -781,11 +807,13 @@ def leap_days(first, offset):
     return sum(first < pd.Timestamp(year, 2, 29) <= last for year in range(first.year, last.year + 1) if isleap(year))
 
 
-def calendar(rows, hemi, leap_corrected=False):
+def calendar(rows, hemi, leap_corrected=False, planting=None):
     """Offsets from the season anchor across years, reconstructed on the same anchor (fixes the R -31 day shift).
 
     The anchors span no 29 February. `leap_corrected` drops 29 February from each offset before the statistics, so
-    leap winters do not shift dates a day late; legacy profiles keep raw day counts."""
+    leap winters do not shift dates a day late; legacy profiles keep raw day counts. `planting` (days before budbreak at
+    which planting ends, window length) adds one planting window counted back from the median budbreak, with the p10
+    and p90 budbreak as its spread; medians of planting month-days would not make one window."""
     anchor = pd.Timestamp('2001-04-01') if hemi == 'south' else pd.Timestamp('2000-11-01')  # both non-leap spans
     out = {'anchor': 'season start (1 Nov north, 1 Apr south)' + ('; 29 February not counted' if leap_corrected else '')}
 
@@ -799,6 +827,14 @@ def calendar(rows, hemi, leap_corrected=False):
             for q in ('median', 'p10', 'p90'):
                 s[q + '_date'] = (anchor + pd.Timedelta(days=round(s[q]))).strftime('%m-%d')
         out[key] = s
+    if planting and out['budbreak']['n']:
+        before, length = planting
+        for key, back in (('planting_start', before + length), ('planting_end', before)):
+            s = {'n': out['budbreak']['n'], 'derived_from': 'budbreak'}
+            for q in ('median', 'p10', 'p90'):
+                s[q] = round(out['budbreak'][q]) - back  # the same rounded day the budbreak date shows
+                s[q + '_date'] = (anchor + pd.Timedelta(days=s[q])).strftime('%m-%d')
+            out[key] = s
     return out
 
 
@@ -1210,7 +1246,7 @@ def analyse(hourly, daily, lat, profile_name, years=range(2011, 2026), dewpoint=
               'warm_midwinter_hours': stats(valid(rows, 'warm_midwinter_hours', None)),
               'metric_catalog': metric_catalog(p),
               'classification': classes,
-              'calendar': calendar(rows, hemi, p.get('leap_day_offsets') == 'corrected'),
+              'calendar': calendar(rows, hemi, p.get('leap_day_offsets') == 'corrected', planting_offsets(p)),
               'risks': risks(rows, p, classes, clock),
               'seasons': rows}
     if clock is not None:
@@ -1282,8 +1318,8 @@ def fmt(v, digits=1):
 def render(report):
     def sources(items):
         return '<ul>' + ''.join(
-            f'<li><a href="{html.escape(s["url"], quote=True)}">{html.escape(s["title"])}</a></li>'
-            for s in items) + '</ul>' if items else ''
+            f'<li><a href="{html.escape(s["url"], quote=True)}">{html.escape(s["title"])}</a></li>' if s.get('url')
+            else f'<li>{html.escape(s["title"])}</li>' for s in items) + '</ul>' if items else ''
 
     parts = ['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Open-field production analysis</title>',
              '<style>body{font:16px system-ui;max-width:1200px;margin:40px auto;padding:20px;color:#222}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px;border-bottom:1px solid #ccc;text-align:left;vertical-align:top}.scroll{overflow:auto}li{margin:8px 0}h3{margin-top:28px}.k{font-size:13px;color:#555}summary{cursor:pointer}</style></head><body>',
@@ -1294,18 +1330,26 @@ def render(report):
     for name, site in report['sites'].items():
         parts.append(f'<h2>{html.escape(name)}</h2>')
         planting = site['planting']
-        parts.append('<h3>Regional establishment guidance</h3>')
-        parts.append(f'<p>{html.escape(planting["label"])}</p>')
+        parts.append('<h3>Planting window</h3>')
+        parts.append(f'<p><strong>{html.escape(planting["label"])}</strong></p>')
         if planting['window']:
             w = planting['window']
             parts.append(f'<p>{html.escape(w["start"])} to {html.escape(w["end"])}'
                          + (' across the year boundary' if w['crosses_year'] else '') + '.</p>')
         else:
             parts.append(f'<p>{html.escape(planting["reason"])}</p>')
-        parts.extend(f'<p>{html.escape(planting[key])}</p>' for key in ('precision', 'basis'))
+        parts.extend(f'<p>{html.escape(planting[key])}</p>' for key in ('rule', 'basis', 'precision') if planting.get(key))
         parts.append('<ul>' + ''.join(f'<li>{html.escape(x)}</li>'
                                      for x in planting['assumptions'] + planting['limitations']) + '</ul>')
         parts.append(sources(planting['sources']))
+        published = planting.get('published')
+        if published:
+            parts.append(f'<h4>Published regional season: {html.escape(published["region"])}</h4>')
+            parts.append(f'<p>{html.escape(published["label"])}. {html.escape(published["basis"])} '
+                         f'{html.escape(published["precision"])}</p>')
+            parts.append('<ul>' + ''.join(f'<li>{html.escape(x)}</li>'
+                                         for x in [*published['conditions'], published['caveat']]) + '</ul>')
+            parts.append(sources(published['sources']))
         a = site['analysis']
         c, cal, rk = a['classification'], a['calendar'], a['risks']
         catalog = a['metric_catalog']
@@ -1407,7 +1451,7 @@ def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary=PRIMARY_PROFIL
         analysis = analyse(hourly.tmean_c, daily, site['lat'], primary, **weather)
         report['sites'][name] = {
             'latitude': site['lat'], 'longitude': site['lon'],
-            'planting': planting_window(site),
+            'planting': planting_window(site, analysis),
             'analysis': analysis,
             'sensitivity': sensitivity(hourly.tmean_c, daily, site['lat'], list(PROFILES), **weather,
                                        primary=analysis, primary_profile=primary),

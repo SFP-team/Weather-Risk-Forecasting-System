@@ -93,7 +93,7 @@ def assess(site, hourly, daily, profile_name):
     classes = result['classification']['multi_feature']
     windows = stage_windows(result)
     budbreak = result['calendar']['budbreak'].get('median_date') if windows['source'] == 'chill_clock' else None
-    # Supervisor's R rule, tested here rather than adopted: plant from 105 to 30 days before median budbreak.
+    # Supervisor's R rule, the app's planting window since 2026-10-12: plant from 105 to 30 days before median budbreak.
     planting = months_between(month_day(budbreak, -105), month_day(budbreak, -30)) if budbreak else []
     return {
         'system': classes['majority'], 'system_share': classes['majority_share'],
@@ -187,8 +187,9 @@ def render(report):
                  'calendar for every profile; midpoint shares are the fraction of sites whose window midpoint falls in a published '
                  'month, and the gap is the mean circular distance in months. Recall: share of published months covered by modelled '
                  'months; precision: share of modelled months that are published. Managed cycles report the union of favourable '
-                 'start windows; an empty favourable window scores recall 0. The R planting rule (105 to 30 days before median '
-                 'budbreak) is tested against published planting months, not adopted.</p>')
+                 'start windows; an empty favourable window scores recall 0. The R planting rule plants from 105 to 30 days '
+                 'before median budbreak. It has been the app\'s planting window since 2026-10-12, and the benchmark tests it '
+                 'against published planting months.</p>')
     for group in (g for g in report['summary'] if any(r['group'] == g for r in report['sites'])):
         parts.append(f'<h2>{html.escape(group)}</h2>')
         members = sorted((r for r in report['sites'] if r['group'] == group), key=lambda r: -r['lat'])

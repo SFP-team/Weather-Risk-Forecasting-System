@@ -1,5 +1,15 @@
 # Project progress log
 
+## 2026-10-12: Planting window calculated from modelled budbreak
+
+- **Decision.** The user approved Paul's R planting rule as the app's planting window. Planting ends 30 days before modelled budbreak and lasts 75 days. The R labels the offsets preliminary and cites no source, so the app says so.
+- **Model.** Only `stage_thermal_v3` has the rule. Each winter gets its own window, and the typical window counts back once from the median budbreak, with the p10 and p90 budbreak as its spread. This avoids the R bug that took medians of month-days and could draw reversed or phantom windows. Legacy profiles are unchanged.
+- **API.** The planting block (`budbreak-planting-v1`) is available, not applicable ("Set by management" or "No calculated window") or unavailable. The UF/IFAS, UGA and Embrapa regional seasons stay as a "Published season" line for registered regions only. Dropped pins get a calculated window but never a published season.
+- **UI.** The Overview card and panel show the calculated window. The Season timeline has a new Planting lane before budbreak, and the calendar tables have planting rows and a per-winter column.
+- **Results.** 41 of the 71 saved locations get a window: Papanduva 19 Apr to 3 Jul, Waldo 11 Oct to 25 Dec, Alma 30 Sep to 14 Dec. The other 30 have none: 18 set by management and 12 with too few calendar winters. In the literature benchmark the rule covers 38% of published planting months at 15 sites, and its months usually start earlier. No weather, calendar or risk number changed in any snapshot.
+- **Verification.** 251 server tests passed in staging, 8 of them new. Legacy parity held at 18 sites with 0 differences. The changed files are deployed with matching hashes, and only `blueberry-ui-api` was restarted. Snapshots, the production packet and the benchmark were regenerated. Browser checks at 1440 and 390 px covered six presets, a live pin and a single winter, with no errors, CSP violations or overflow.
+- **Docs.** The user guide, runbooks, production README, formula guide and explainer now describe the calculated window, with three explainer screenshots recaptured.
+
 ## 2026-10-12: Plain-language platform explainer for presentations
 
 - Added `docs/presentation/platform_explained.html` with 12 screenshots of the running app. In very simple words it explains:

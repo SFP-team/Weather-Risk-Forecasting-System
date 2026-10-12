@@ -6,7 +6,7 @@
     "stage_thermal_v3"
   ],
   "registry_sha256": "fd81e8c4538c5f5d24874866a5ce481fc28ac4fe04459b0880b728c598371e81",
-  "code_sha256": "db4007dc4f3ee8d1a49255d0fea30ac052469b44a7893e4f914c2627bb87170d",
+  "code_sha256": "768e7ae084c1437d8319def942ab9e3417e38aba5e85ca7a84b6cdf9177fd472",
   "caveats": [
     "Published months describe regional practice across cultivars, management and years; the model uses one 0.5 x 0.625 degree grid cell with one UF-type low-chill southern-highbush parameter set.",
     "Northern-highbush and rabbiteye regions are included to expose transfer limits; disagreement there can reflect species differences rather than weather errors.",

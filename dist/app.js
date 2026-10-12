@@ -106,7 +106,7 @@ function renderAssessmentPlace(){
   $('summary').querySelector('[data-assessment-name]').textContent=name;
   const cycleLabel=$('production-content').querySelector('.cycle-header .stamp');
   if(cycleLabel)cycleLabel.textContent=`${name} · Seasonal exposure`;
-  $('place-evidence').innerHTML=`<h3>Place-name context</h3><p>${esc(nearestPlace(p))}</p><p>${esc(p.note)}</p>${p.source?`<p>Source: ${esc(p.source)}</p>`:''}<p>Place names are display context only. They do not change weather coordinates, source cells or planting-region guidance.</p>`;
+  $('place-evidence').innerHTML=`<h3>Place-name context</h3><p>${esc(nearestPlace(p))}</p><p>${esc(p.note)}</p>${p.source?`<p>Source: ${esc(p.source)}</p>`:''}<p>Place names are display context only. They do not change weather coordinates, source cells, the planting window or which published planting season is shown.</p>`;
   renderRegionalEvidence();
 }
 function regionalEvidenceFor(result,place){
@@ -191,6 +191,7 @@ function management(){
 }
 function renderSoil(){if(!active)return;const soil=active.soil??[];$('soil-status').textContent=soil.length?`${soil.length}/45 mapped records`:'Not acquired';if(!soil.length){$('soil-content').innerHTML='<div class="soil-note">No soil snapshot is available at this coordinate. Weather results remain usable; soil suitability is not assessed.</div>';return}const rows=[];for(const p of ['phh2o','soc','sand','silt','clay'])for(const depth of ['0-5cm','5-15cm','15-30cm']){const r=soil.filter(x=>x.property===p&&x.depth===depth),v=s=>r.find(x=>x.statistic===s)?.value;rows.push(`<tr><td>${({phh2o:'pH in water',soc:'Organic carbon',sand:'Sand',silt:'Silt',clay:'Clay'})[p]}</td><td>${depth}</td><td>${fmt(v('mean'))} ${esc(r[0]?.unit??'')}</td><td>${fmt(v('Q0.05'))}–${fmt(v('Q0.95'))}</td></tr>`)}$('soil-content').innerHTML=($('system').value.endsWith('pots')?'<div class="soil-note">For pots, these native-soil estimates are site context only. Substrate, irrigation water and container drainage have not been assessed.</div>':'')+`<div class="table-scroll"><table><thead><tr><th>Property</th><th>Depth</th><th>Mean</th><th>5th–95th bounds</th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="small">ISRIC SoilGrids predictions, not field measurements. Bounds describe prediction uncertainty. WCS returned geographic-grid samples; native-grid parity and field drainage remain unverified.</p>`}
 const CLASSES=['Evergreen','Semi-evergreen','Deciduous'],STAGES=[['chill','Chill fulfilled'],['budbreak','Budbreak'],['flowering_start','Flowering start'],['flowering_end','Flowering end'],['harvest_start','Harvest start'],['harvest_end','Harvest end']];
+const PLANTING_STAGES=[['planting_start','Planting start'],['planting_end','Planting end']];
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const md=s=>{if(!s)return 'Unavailable';const [m,d]=s.split('-');return `${Number(d)} ${MONTHS[Number(m)-1]}`};
 const pct=v=>v===null||v===undefined?'Unavailable':`${fmt(v*100,2)}%`;
@@ -262,14 +263,27 @@ const eligibilityLabel={ranked:'Recurring risk',below_frequency:'Below recurrenc
 function sourceLinks(sources){
   return (sources??[]).map(s=>{const url=Shared.safeURL(s.url);return url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>`:esc(s.title)}).join(' · ');
 }
+// Planting payloads from budbreak-planting-v1 carry a window counted back from modelled budbreak plus any published
+// regional season; older payloads carry only the regional guide.
+const calculatedPlanting=p=>p?.method==='budbreak-planting-v1';
+function publishedSeason(pub){
+  return pub?`<div class="planting-published"><span class="stamp">Published season · ${esc(pub.region)}</span><h3>${esc(pub.label)}</h3><p class="small">${esc(pub.precision)}</p><details><summary>Source, conditions and limits</summary><p>${esc(pub.basis)}</p><ul>${[...pub.conditions,pub.caveat].map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="evidence-sources">${sourceLinks(pub.sources)}</p></details></div>`:'';
+}
 function renderPlanting(){
   if(!active)return;
   const p=active.planting,node=$('planting-content');
-  $('planting-badge').textContent=p?.status==='available'?'Regional field guidance':'No applicable regional window';
-  if(!p){node.innerHTML='<p>No establishment guidance accompanies this result.</p>';return}
-  node.innerHTML=`<div class="planting-window"><span class="stamp">${esc(p.region??'Region not established')}</span><h3>${esc(p.label)}</h3><p>${esc(p.precision)}</p>${p.status==='available'&&p.window?`<p class="small">${p.window.crosses_year?'This regional window crosses the calendar-year boundary.':''}</p>`:`<p>${esc(p.reason??'No source-supported regional establishment window is available.')}</p>`}</div>
+  if(!p){$('planting-badge').textContent='Not assessed';node.innerHTML='<p>No planting information accompanies this result.</p>';return}
+  if(!calculatedPlanting(p)){
+    $('planting-badge').textContent=p.status==='available'?'Regional field guidance':'No applicable regional window';
+    node.innerHTML=`<div class="planting-window"><span class="stamp">${esc(p.region??'Region not established')}</span><h3>${esc(p.label)}</h3><p>${esc(p.precision)}</p>${p.status==='available'&&p.window?`<p class="small">${p.window.crosses_year?'This regional window crosses the calendar-year boundary.':''}</p>`:`<p>${esc(p.reason??'No source-supported regional establishment window is available.')}</p>`}</div>
     <div class="planting-guidance"><p>This is regional nursery-establishment guidance, not an annual planting date or a first-harvest prediction.</p><details><summary>Sources, stock requirements and limits</summary><p>${esc(p.basis)}</p>
     <h3>Conditions and limits</h3><ul>${[...p.assumptions,...p.limitations].map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p>Not numerically adjusted for tunnels, pots or irrigation.</p><h3>Regional sources</h3><p class="evidence-sources">${sourceLinks(p.sources)}</p><p class="small">Method: ${esc(p.method)}</p></details></div>`;
+    return;
+  }
+  const available=p.status==='available';
+  $('planting-badge').textContent=available?'Calculated from budbreak':p.status==='not_applicable'?'Not applicable here':'Unavailable';
+  node.innerHTML=`<div class="planting-window"><span class="stamp">${available?'Calculated planting window':p.status==='not_applicable'?'Planting rule does not apply here':'Not assessed'}</span><h3>${esc(p.label)}</h3>${available?`<p>${esc(p.rule)} ${esc(p.basis)}</p><p class="small">${esc(p.precision)}</p>${p.window?.crosses_year?'<p class="small">This window crosses the calendar-year boundary.</p>':''}`:`<p>${esc(p.reason)}</p>`}</div>
+    <div class="planting-guidance"><p>Nursery planting before the first budbreak. It is not the yearly crop cycle or a first-harvest forecast.</p>${publishedSeason(p.published)}<details><summary>Rule, assumptions and limits</summary><ul>${[...p.assumptions,...p.limitations].map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="evidence-sources">${sourceLinks(p.sources)}</p><p class="small">Method: ${esc(p.method)}</p></details></div>`;
 }
 function riskRows(records){
   return records.map(r=>`<tr><td>${esc(r.rank??'Not ranked')}</td><th scope="row">${esc(r.label)}<span class="risk-stage">${esc(r.stage)}</span></th>
@@ -297,16 +311,17 @@ function renderProduction(){
   const rule=r=>{const x=c[r];const counts=CLASSES.map(k=>`${k.replace('Semi-evergreen','Semi')} ${x.year_counts[k]}`).join(' · ');return `<tr><td>${r==='chill_only'?'Chill-only':'Multi-feature'}</td><td>${esc(c.mean_based[r]??'Unavailable')}</td><td>${esc(counts)}</td><td><strong>${esc(x.majority?systemLabel(x.majority):'Unavailable')}</strong>${x.majority_share!==null&&x.majority_share!==undefined?` <span class="small">${x.majority==='Transitional'?'largest class ':''}${pct(x.majority_share)} of ${esc(x.valid_years)}</span>`:''}</td></tr>`};
   const metrics=p.metric_catalog;
   const exposureRows=metrics.map(m=>{const s=rk.exposures[m.key]??p[m.key];return `<tr><th scope="row">${esc(m.label)}<span class="risk-stage">${esc(m.stage)} · ${esc(m.unit)}</span></th><td>${fmt(s?.mean,2)}</td><td>${fmt(s?.median,2)}</td><td>${fmt(s?.p10,2)} to ${fmt(s?.p90,2)}</td><td>${esc(s?.n??0)} / ${p.seasons.length}</td><td>${esc(m.note)}</td></tr>`}).join('');
-  const seasons=p.seasons.map(s=>`<tr><th scope="row">${esc(s.winter_year)}</th><td>${esc(s.status)}</td><td>${esc(c.per_year[s.winter_year]?.multi_feature??'Unclassified')}</td><td>${esc(s.chill_date??'Unavailable')}</td><td>${esc(s.budbreak_date??'Unavailable')}</td><td>${s.flowering?esc(s.flowering.join(' to ')):'Unavailable'}</td><td>${s.harvest?esc(s.harvest.join(' to ')):'Unavailable'}</td><td>${s.warm_midwinter_window?esc(s.warm_midwinter_window.join(' to ')):'Unavailable'}</td>${metrics.map(m=>`<td>${fmt(m.key in s?s[m.key]:s.metrics?.[m.key],2)}${s.issues?.[m.key]?`<span class="risk-stage">${esc(s.issues[m.key])}</span>`:''}</td>`).join('')}</tr>`).join('');
+  const plantingColumn=p.seasons.some(s=>'planting' in s);
+  const seasons=p.seasons.map(s=>`<tr><th scope="row">${esc(s.winter_year)}</th><td>${esc(s.status)}</td><td>${esc(c.per_year[s.winter_year]?.multi_feature??'Unclassified')}</td>${plantingColumn?`<td>${s.planting?esc(s.planting.join(' to ')):'Unavailable'}</td>`:''}<td>${esc(s.chill_date??'Unavailable')}</td><td>${esc(s.budbreak_date??'Unavailable')}</td><td>${s.flowering?esc(s.flowering.join(' to ')):'Unavailable'}</td><td>${s.harvest?esc(s.harvest.join(' to ')):'Unavailable'}</td><td>${s.warm_midwinter_window?esc(s.warm_midwinter_window.join(' to ')):'Unavailable'}</td>${metrics.map(m=>`<td>${fmt(m.key in s?s[m.key]:s.metrics?.[m.key],2)}${s.issues?.[m.key]?`<span class="risk-stage">${esc(s.issues[m.key])}</span>`:''}</td>`).join('')}</tr>`).join('');
   const sens=Object.entries(p.sensitivity).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v.chill_definition==='below_7_2'?'T &lt; 7.2°C':'0–7.2°C'}</td><td>${esc(v.chill_requirement_hours)}</td><td>${esc(stageClockLabel(v))}</td><td>${fmt(v.chill_hours_mean,0)}</td><td>${esc(v.majority_multi_feature?systemLabel(v.majority_multi_feature):'Unavailable')}</td><td>${md(v.flowering_start_median)}</td><td>${md(v.harvest_start_median)}</td><td>${pct(v.flowering_freeze_frequency)}</td></tr>`).join('');
   node.innerHTML=`${open?'':'<div class="soil-note">Evaluated for open field + ground. Growing setup changes qualitative notes only; no tunnel or pot adjustment is applied.</div>'}
     <div class="production-reference"><div class="prod-grid"><article class="prod-panel"><span class="stamp">System hypothesis</span><div class="metric">${esc(systemLabel(c.multi_feature.majority))}</div><p class="small">${c.multi_feature.majority==='Transitional'?`No class reaches two-thirds of ${esc(c.multi_feature.valid_years)} valid winters (${esc(classCounts(c.multi_feature))}).`:`Two-thirds majority across ${esc(c.multi_feature.valid_years)} valid winters.`} Mean chill ${fmt(p.chill_hours.mean,0)} h, p10 to p90 ${fmt(p.chill_hours.p10,0)} to ${fmt(p.chill_hours.p90,0)} h${p.chill_portions?`; ${fmt(p.chill_portions.mean,1)} Dynamic Model chill portions, p10 to p90 ${fmt(p.chill_portions.p10,1)} to ${fmt(p.chill_portions.p90,1)}`:''}.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="System classification"><table><thead><tr><th>Rule</th><th>From means</th><th>Per-winter counts</th><th>Majority</th></tr></thead><tbody>${rule('chill_only')}${rule('multi_feature')}</tbody></table></div><p class="small">Evergreen &lt;${esc(a.evergreen_chill_max)} h with warm winter months and no freezing; Deciduous ≥${esc(a.deciduous_chill_min)} h; otherwise semi-evergreen. A climate hypothesis, not a cultivar verdict.</p></article>
-    <article class="prod-panel"><span class="stamp">${hypothetical?'Hypothetical chill-triggered calendar; not applicable':tentative?'Tentative chill-triggered calendar; no two-thirds majority':'Assumed bearing-plant calendar'} · ${esc(stageClockLabel(a))}</span>${hypothetical&&reasons.length?`<ul class="small calendar-reasons">${reasons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}<div class="table-scroll" tabindex="0" role="region" aria-label="Assumed calendar"><table><thead><tr><th>Stage</th><th>Median</th><th>p10 to p90</th><th>Winters</th></tr></thead><tbody>${STAGES.map(([k,l])=>`<tr><td>${l}</td><td>${md(cal[k]?.median_date)}</td><td>${md(cal[k]?.p10_date)} to ${md(cal[k]?.p90_date)}</td><td>${esc(cal[k]?.n??0)}</td></tr>`).join('')}</tbody></table></div><p class="small">${esc(stageTiming(a))} Provisional bearing-plant constants, not an establishment plan.</p></article></div>
+    <article class="prod-panel"><span class="stamp">${hypothetical?'Hypothetical chill-triggered calendar; not applicable':tentative?'Tentative chill-triggered calendar; no two-thirds majority':'Assumed bearing-plant calendar'} · ${esc(stageClockLabel(a))}</span>${hypothetical&&reasons.length?`<ul class="small calendar-reasons">${reasons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}<div class="table-scroll" tabindex="0" role="region" aria-label="Assumed calendar"><table><thead><tr><th>Stage</th><th>Median</th><th>p10 to p90</th><th>Winters</th></tr></thead><tbody>${(cal.planting_start?[...PLANTING_STAGES,...STAGES]:STAGES).map(([k,l])=>`<tr><td>${l}</td><td>${md(cal[k]?.median_date)}</td><td>${md(cal[k]?.p10_date)} to ${md(cal[k]?.p90_date)}</td><td>${esc(cal[k]?.n??0)}</td></tr>`).join('')}</tbody></table></div><p class="small">${esc(stageTiming(a))}${cal.planting_start?` Planting counts back from the median budbreak. It ends ${esc(a.planting_end_before_budbreak_days)} days before budbreak and lasts ${esc(a.planting_window_length_days)} days. Its p10 and p90 come from the budbreak spread.`:''} Provisional bearing-plant constants.</p></article></div>
     <article class="prod-panel"><h3>Exposure catalogue</h3><p class="small">${hypothetical?'Crop-stage exposures use hypothetical chill-triggered dates, not an applicable crop calendar. ':''}Warm mid-winter hours are independent winter context. Missing values are not zero; counts and thresholds are not estimates of crop loss.</p><div class="table-scroll" tabindex="0" role="region" aria-label="All exposure summaries"><table class="exposure-table"><thead><tr><th>Metric / unit</th><th>Mean</th><th>Median</th><th>p10 to p90</th><th>Valid winters</th><th>Definition and limits</th></tr></thead><tbody>${exposureRows}</tbody></table></div></article>
-    <details><summary>Every winter, all exposure values and missing-data reasons</summary><p class="small">Warm-window end dates are inclusive. Each crop exposure uses that winter's own modelled stage, not a median or timing-spread window.${hypothetical?' Crop-stage values are hypothetical, not applicable risk labels.':''}</p><div class="table-scroll" tabindex="0" role="region" aria-label="Per-winter dates and all exposures"><table class="winter-table"><thead><tr><th>Winter</th><th>Status</th><th>Class</th><th>Chill date</th><th>Budbreak</th><th>Flowering</th><th>Harvest</th><th>Warm winter window</th>${metrics.map(m=>`<th>${esc(m.label)} · ${esc(m.unit)}</th>`).join('')}</tr></thead><tbody>${seasons}</tbody></table></div></details>
+    <details><summary>Every winter, all exposure values and missing-data reasons</summary><p class="small">Warm-window end dates are inclusive. Each crop exposure uses that winter's own modelled stage, not a median or timing-spread window.${hypothetical?' Crop-stage values are hypothetical, not applicable risk labels.':''}</p><div class="table-scroll" tabindex="0" role="region" aria-label="Per-winter dates and all exposures"><table class="winter-table"><thead><tr><th>Winter</th><th>Status</th><th>Class</th>${plantingColumn?'<th>Planting</th>':''}<th>Chill date</th><th>Budbreak</th><th>Flowering</th><th>Harvest</th><th>Warm winter window</th>${metrics.map(m=>`<th>${esc(m.label)} · ${esc(m.unit)}</th>`).join('')}</tr></thead><tbody>${seasons}</tbody></table></div></details>
     <details><summary>Sensitivity, assumptions and changes from the R workflow</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Profile sensitivity"><table><thead><tr><th>Profile</th><th>Chill definition</th><th>Requirement h</th><th>Stage clock</th><th>Mean chill</th><th>Majority</th><th>Flowering start</th><th>Harvest start</th><th>Flowering freeze</th></tr></thead><tbody>${sens}</tbody></table></div><ul class="small">${p.changes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><ul class="small">${p.limitations.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details></div>`;
-  CycleView.mount(node,p,{site:assessmentName(),system:$('system').value,view});
+  CycleView.mount(node,p,{site:assessmentName(),system:$('system').value,view,planting:active.planting});
 }
 const stageNames={chill:'Winter context',buds:'Bud development',flower:'Flowering',fruit:'Fruit development',harvest:'Harvest',whole:'Across crop stages'};
 function showView(name,focus=false){
@@ -330,7 +345,7 @@ function chillShortfall(p,applies){
   const cause=counts?counts.chill_not_met>0&&counts.chill_not_met*2>=failed:event.years_with_event>0;
   return `<p class="summary-context">Chill shortfall: ${esc(event.years_with_event)} of ${esc(event.valid_years)} winters (${pct0(event.frequency)}) below the ${esc(p.assumptions?.chill_requirement_hours)}-hour requirement.${cause?' This is why the winter calendar does not apply.':''}</p>`;
 }
-// Supervisor's quick read: production system, production window, top risks, planting guidance.
+// Supervisor's quick read: production system, production window, top risks, planting window.
 function decisionStrip(){
   const r=active,p=r.production,available=p?.status==='available',a=available?p.assumptions:null,years=baselineYears(r);
   const mf=available?p.classification.multi_feature:null,majority=mf?.majority??null;
@@ -383,9 +398,12 @@ function decisionStrip(){
   }else top='<p class="summary-value small-value">Not assessed</p><p>Stage risks need complete hourly weather. Missing evidence is not low risk.</p>';
   top+=chillShortfall(p,applies);
   const pl=r.planting;
-  const planting=pl?.status==='available'?`<p class="summary-value small-value">${esc(pl.label)}</p><p class="summary-fact">${esc(pl.region)} · regional guidance</p><p>Nursery establishment, not the annual crop cycle. ${esc(pl.precision)}</p>`:
-    `<p class="summary-value small-value">No regional window</p><p>${esc(pl?.reason??'No source-supported regional establishment window is available.')}</p>`;
-  return card(1,'Production system',system)+card(2,'Production window',timing+seasonLink)+card(3,'Top risks',top)+card(4,'Planting guidance',planting);
+  const published=calculatedPlanting(pl)&&pl.published?`<p class="summary-fact">Published season: ${esc(pl.published.label)} · ${esc(pl.published.region)} guide</p>`:'';
+  const planting=!calculatedPlanting(pl)?(pl?.status==='available'?`<p class="summary-value small-value">${esc(pl.label)}</p><p class="summary-fact">${esc(pl.region)} · regional guidance</p><p>Nursery establishment, not the annual crop cycle. ${esc(pl.precision)}</p>`:
+    `<p class="summary-value small-value">No regional window</p><p>${esc(pl?.reason??'No source-supported regional establishment window is available.')}</p>`):
+    pl.status==='available'?`<p class="summary-value small-value">${esc(pl.label)}</p><p class="summary-fact">${esc(pl.rule)} Typical budbreak ${md(pl.budbreak?.median)}.</p>${published}<p>Nursery planting before the first budbreak, from the supervisor's R workflow. Not validated.</p>`:
+    `<p class="summary-value small-value">${esc(pl.label)}</p><p>${esc(pl.reason)}</p>${published}`;
+  return card(1,'Production system',system)+card(2,'Production window',timing+seasonLink)+card(3,'Top risks',top)+card(4,'Planting window',planting);
 }
 function renderOverview(){
   if(!active)return;
@@ -397,7 +415,8 @@ function renderOverview(){
     [true,`Daily weather · ${active.provenance.rows.toLocaleString()} rows`],
     [available,available?'Hourly analysis available':'Hourly analysis unavailable'],
     [applicable||Boolean(managed),applicable?'Chill-triggered crop calendar':managed?'Managed-cycle scenario':'No applicable crop calendar'],
-    [active.planting?.status==='available',active.planting?.status==='available'?'Regional planting guide':'Planting guide unavailable'],
+    [active.planting?.status==='available',!calculatedPlanting(active.planting)?(active.planting?.status==='available'?'Regional planting guide':'Planting guide unavailable'):
+      active.planting.status==='available'?'Calculated planting window':'No calculated planting window'],
     [active.soil?.length===45,`Soil · ${active.soil?.length??0}/45 records`],
   ];
   $('coverage-summary').innerHTML=chips.map(([ok,text])=>`<span class="coverage-chip${ok?'':' is-limited'}">${esc(text)}</span>`).join('');
@@ -797,7 +816,7 @@ $('export').onclick=async()=>{
   else regionalPanel.textContent=regionalSnapshot.reason;
   if(placeSnapshot.status==='pending'){
     content.querySelector('#assessment-place-note').textContent='Place names were still resolving when this report was saved. Coordinate identity is retained.';
-    content.querySelector('#place-evidence').textContent='Place names were pending at export. No settlement, country or region was assigned. Weather coordinates and planting-region guidance are unchanged.';
+    content.querySelector('#place-evidence').textContent='Place names were pending at export. No settlement, country or region was assigned. Weather coordinates and the planting window are unchanged.';
   }
   content.querySelectorAll('.actions,.view-tabs,.cycle-stage-controls,[data-open-view],[data-explore-stage]').forEach(n=>n.remove());
   content.querySelector('.cycle-panel')?.classList.add('is-snapshot');

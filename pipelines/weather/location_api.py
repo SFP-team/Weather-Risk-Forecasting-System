@@ -222,9 +222,10 @@ def analyze(lat,lon):
     # Public, derived point summaries only. Raw paths/requests stay server-side.
     soil=[{k:r[k] for k in ('property','depth','statistic','value','unit','status','cell_lon','cell_lat','sha256')} for r in soil]
     annual,monthly,climatology=summarize(frame.set_index('time'),None if hourly is None else hourly.tmean_c,lat)
+    production=production_block(hourly,padded,lat,lon,gap)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
-        'soil':soil,'production':production_block(hourly,padded,lat,lon,gap),'hourly_source':hourly_source,
-        'planting':planting_window(site),
+        'soil':soil,'production':production,'hourly_source':hourly_source,
+        'planting':planting_window(site,production),
         'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_source['sha256'] if hourly_source else None,
         'weather_content_sha256':hashlib.sha256(pd.util.hash_pandas_object(frame,index=False).values.tobytes()).hexdigest()}
     result['analysis_id']=hashlib.sha256(json.dumps(result,sort_keys=True,allow_nan=False).encode()).hexdigest()[:20]

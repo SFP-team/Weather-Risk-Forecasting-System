@@ -51,3 +51,5 @@ The user subsequently authorized implementation and online planting research. Ex
 - River Valley's preserved model still has median harvest **23 April–2 June**, not early April: harvest heavy rain qualifies in **14/14**, disease-weather in **12/14** assessable winters. The discrepancy is recorded for phenology review; the weather evidence is not suppressed to match the spoken expectation.
 
 These are provisional implementation decisions, not a record of subsequent supervisor sign-off or scientific validation.
+
+Update, 2026-10-12: the user approved Paul's rule as the app's planting window, reversing the regional-season choice above. The app plants from 105 to 30 days before modelled budbreak and keeps the regional seasons as a published comparison. The offsets remain unvalidated. See [production method notes](production/README.md).

@@ -181,6 +181,8 @@ main { max-width: 1600px; margin: auto; padding: 0 max(clamp(16px, 3.33vw, 48px)
 .planting-guidance li { margin: 8px 0; }
 .evidence-sources { font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
 .planting-window p { font-size: 13px; color: var(--muted); }
+.planting-published { margin: 16px 0; padding: 16px 18px; border-radius: 18px; background: var(--paper, #fff); }
+.planting-published h3 { font-size: 17px; line-height: 1.3; margin: 8px 0 6px; }
 .risk { min-width: 0; padding: 28px; background: var(--soft); border-radius: 28px; }
 .risk-top { display: flex; justify-content: space-between; gap: 10px; }
 .risk-top h3 { font-size: 15px; }

@@ -12,6 +12,10 @@ const CycleView = (() => {
     { id: 'harvest', title: 'Harvest', subtitle: 'Harvest-stage exposures' },
     { id: 'whole', title: 'Production window', subtitle: 'Dry spells, light & warmth' },
   ];
+  // Payloads with the planting rule draw nursery planting first, but only where the chill-triggered calendar applies,
+  // matching the planting block's not_applicable status. Older payloads keep the six crop lanes.
+  const plantingStage = { id: 'planting', title: 'Planting', subtitle: 'Before the first budbreak' };
+  const stagesFor = p => chillCalendarApplies(p) && p.calendar?.planting_start?.n ? [plantingStage, ...stages] : stages;
   const escape = Shared.escapeHTML;
   const finite = value => typeof value === 'number' && Number.isFinite(value);
   const number = (value, digits = 2) => finite(value) ? value.toLocaleString('en-US', { maximumFractionDigits: digits }) : 'Unavailable';
@@ -37,6 +41,7 @@ const CycleView = (() => {
     const offset = (key, quantile = 'median') => season ? season.offset_days?.[key] : p.calendar?.[key]?.[quantile];
     const interval = (id, qStart = 'median', qEnd = 'median') => {
       switch (id) {
+        case 'planting': return [offset('planting_start', qStart), offset('planting_end', qEnd)];
         case 'chill': return [0, winterEnd - 1];
         // Bud-stage exposures run from budbreak; the forcing period after chill is drawn separately and not measured.
         case 'buds': return [offset('budbreak', qStart), shift(offset('flowering_start', qEnd), -1)];
@@ -47,28 +52,32 @@ const CycleView = (() => {
         case 'whole': return [p.assumptions?.require_applicable_calendar ? offset('budbreak', qStart) : 0, offset('harvest_end', qEnd)];
       }
     };
-    const rows = stages.map(stage => ({ ...stage, span: interval(stage.id), spread: season ? null : interval(stage.id, 'p10', 'p90'),
+    const rows = stagesFor(p).map(stage => ({ ...stage, span: interval(stage.id), spread: season ? null : interval(stage.id, 'p10', 'p90'),
       forcing: stage.id === 'buds' ? [offset('chill'), shift(offset('budbreak'), -1)] : null }));
     // Keep the same horizon when switching winters. Do not clip a late season.
     const ends = p.seasons.map(row => row.offset_days?.harvest_end).filter(finite);
     const latest = Math.max(winterEnd, ...ends.map(value => value + 1));
     const lastDate = new Date(anchor + latest * DAY);
     const end = Date.UTC(lastDate.getUTCFullYear(), lastDate.getUTCMonth() + 1, 1);
+    // Planting can start before the season anchor (1 Nov north, 1 Apr south), so the axis then opens on an earlier month.
+    const earliest = Math.min(0, ...[p.calendar?.planting_start?.p10, ...p.seasons.map(row => row.offset_days?.planting_start)].filter(finite));
+    const firstDate = new Date(anchor + earliest * DAY);
+    const first = earliest < 0 ? (Date.UTC(firstDate.getUTCFullYear(), firstDate.getUTCMonth(), 1) - anchor) / DAY : 0;
     const chill = season ? [season.chill_hours, season.chill_portions] : [p.chill_hours?.mean, p.chill_portions?.mean];
     const chillNote = [finite(chill[0]) ? `${number(chill[0], 0)} chill hours` : '', finite(chill[1]) ? `${number(chill[1], 1)} chill portions` : '']
       .filter(Boolean).join(' · ');
-    return { season, anchor, rows, offset, days: (end - anchor) / DAY, chillNote: chillNote && (season ? chillNote : `Mean ${chillNote}`) };
+    return { season, anchor, rows, offset, first, days: (end - anchor) / DAY, chillNote: chillNote && (season ? chillNote : `Mean ${chillNote}`) };
   }
 
   function diagram(view, selected) {
-    const left = 180, width = 750, right = left + width, top = 62, pitch = 46, height = top + stages.length * pitch + 4;
-    const x = offset => left + offset / view.days * width;
+    const left = 180, width = 750, right = left + width, top = 62, pitch = 46, height = top + view.rows.length * pitch + 4;
+    const x = offset => left + (offset - view.first) / (view.days - view.first) * width;
     const months = [];
-    let cursor = new Date(view.anchor);
+    let cursor = new Date(view.anchor + view.first * DAY);
     while ((cursor.getTime() - view.anchor) / DAY < view.days) {
       const offset = (cursor.getTime() - view.anchor) / DAY;
       const month = cursor.toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' });
-      const year = view.season && (offset === 0 || cursor.getUTCMonth() === 0) ? ` ${cursor.getUTCFullYear()}` : '';
+      const year = view.season && (offset === view.first || cursor.getUTCMonth() === 0) ? ` ${cursor.getUTCFullYear()}` : '';
       months.push(`<line x1="${x(offset)}" x2="${x(offset)}" y1="42" y2="${height - 12}" class="cycle-gridline"/>
         <text x="${x(offset) + 4}" y="25" class="cycle-month">${month}${year}</text>`);
       cursor = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
@@ -137,7 +146,7 @@ const CycleView = (() => {
       <div>${metricCard(p, view, metric)}<details class="cycle-context-evidence"><summary>Window, interpretation & sources</summary><p>${window ? `${escape(window[0])} to ${escape(window[1])}, inclusive UTC dates.` : 'Exact UTC windows are listed in the full per-winter record below.'}</p>${assessment ? assessmentDetail(assessment, !!view.season) : '<p>No assessment is available.</p>'}</details></div></section>`;
   }
 
-  function detail(p, view, selected, hypothetical) {
+  function detail(p, view, selected, hypothetical, planting) {
     const stage = view.rows.find(row => row.id === selected), a = p.assumptions;
     const available = stage.span.every(finite) && stage.span[1] >= stage.span[0];
     const metrics = p.metric_catalog.filter(metric => metric.stage === selected && metric.key !== 'warm_midwinter_hours');
@@ -145,9 +154,13 @@ const CycleView = (() => {
     const forcing = stage.forcing?.every(finite) && stage.forcing[1] >= stage.forcing[0] ? stage.forcing : null;
     const budWindow = available ? ` (${date(view.anchor, stage.span[0], !!view.season)} to ${date(view.anchor, stage.span[1], !!view.season)})` : '';
     const budNote = selected === 'buds' ? `<div class="cycle-explanation"><p>Assumed budbreak <strong>${date(view.anchor, view.offset('budbreak'), !!view.season)}</strong>. ${metrics.length ? `Bud-stage exposures cover budbreak to the day before flowering starts${budWindow}, using NC State critical temperatures for the bud stage.` : `The bud window runs from budbreak to the day before flowering starts${budWindow}. No separate bud-stage exposure metric is available.`}${forcing ? ` Forcing after chill, ${date(view.anchor, forcing[0], !!view.season)} to ${date(view.anchor, forcing[1], !!view.season)}, is drawn as a thin bar and is not measured.` : ''}</p><details><summary>Timing assumptions · ${escape(stageClockLabel(a))}</summary><p>${escape(stageTiming(a))}</p><p>These are timing assumptions, not observed plant stages.</p></details></div>` : '';
+    const published = planting?.published;
+    const plantingNote = selected === 'planting' ? `<div class="cycle-explanation"><p>${available
+      ? `The window ends ${escape(a.planting_end_before_budbreak_days)} days before ${view.season ? "this winter's" : 'the typical'} budbreak, ${date(view.anchor, view.offset('budbreak'), !!view.season)}, and lasts ${escape(a.planting_window_length_days)} days.`
+      : 'The model found no budbreak this winter, so there is no planting window.'} The app measures no weather risks for planting.</p>${published ? `<p>Published season for ${escape(published.region)}: ${escape(published.label)}. It comes from a regional guide, not from this calculation.</p>` : ''}${planting?.limitations?.length ? `<details><summary>Limits of the planting rule</summary><ul>${planting.limitations.map(item => `<li>${escape(item)}</li>`).join('')}</ul></details>` : ''}</div>` : '';
     return `<header class="cycle-detail-heading"><div><span class="stamp">${view.season ? `Winter ${escape(view.season.winter_year)}` : 'Historical exposure summary'}${hypothetical ? ' · Hypothetical exposures' : ''}</span><h3 id="cycle-detail-title">${stage.title}</h3></div><p>${available ? `${hypothetical ? 'Hypothetical' : view.season ? 'Modelled' : 'Median'} window<br><strong>${date(view.anchor, stage.span[0], !!view.season)} to ${date(view.anchor, stage.span[1], !!view.season)}</strong>` : escape(reason(view.season?.status))}</p></header>
       ${view.season && view.season.status !== 'complete' ? `<p class="cycle-notice">${escape(reason(view.season.status))}. Missing values are not zero exposure.</p>` : ''}
-      <div class="cycle-metrics">${metrics.map(metric => metricCard(p, view, metric)).join('')}</div>${budNote}
+      <div class="cycle-metrics">${metrics.map(metric => metricCard(p, view, metric)).join('')}</div>${budNote}${plantingNote}
       ${events.length ? `<details class="cycle-stage-evidence"><summary>Historical event definitions, eligibility & sources · ${events.length} assessments</summary>${events.map(event => assessmentDetail(event, !!view.season)).join('')}</details>` : ''}
       ${selected === 'harvest' ? '<p class="cycle-footnote">Rainfall totals and day counts describe different exposures. Neither is an estimate of crop loss.</p>' : ''}
       ${selected === 'whole' ? `<p class="cycle-footnote">${p.assumptions?.require_applicable_calendar ? 'Production metrics cover budbreak through harvest end.' : 'This legacy profile covers season start through harvest end.'} Totals do not locate dry spells or radiation extremes within that window.</p>` : ''}`;
@@ -225,7 +238,7 @@ const CycleView = (() => {
       ${unsupported ? `<div class="cycle-notice"><p>${hypothetical ? `No applicable chill-triggered crop timeline.${reasons.length ? '' : ' Evergreen production needs a management anchor; an unclassified result has no supported crop calendar.'} Retained crop-stage exposures are hypothetical.${managed ? ' The managed-cycle scan above gives the production window for this location.' : ''}` : 'No winter records are available for a crop timeline.'} Warm midwinter context remains independent.</p>${hypothetical && reasons.length ? `<ul>${reasons.map(item => `<li>${escape(item)}</li>`).join('')}</ul>` : ''}</div>` : ''}
       ${!unsupported && majority === 'Transitional' ? '<p class="cycle-notice">Tentative calendar: no production system reaches a two-thirds majority across winters.</p>' : ''}
       ${context.system !== 'open_ground' ? '<p class="cycle-notice">Open-field baseline shown. No tunnel or pot adjustment is applied.</p>' : ''}
-      <div class="cycle-layout"><div class="cycle-chart-side"><div class="cycle-nav-heading"><h4>${hypothetical ? 'Hypothetical stage exposures' : 'Crop stages & analysis windows'}</h4><span>Colours identify stages, not severity</span></div><div class="cycle-stage-controls" role="group" aria-label="${hypothetical ? 'Select a hypothetical stage' : 'Select a stage'}">${stages.map(stage => `<button type="button" data-cycle-stage="${stage.id}" data-stage="${stage.id}" aria-pressed="false" aria-controls="cycle-detail"><i aria-hidden="true"></i>${stage.title}</button>`).join('')}</div>
+      <div class="cycle-layout"><div class="cycle-chart-side"><div class="cycle-nav-heading"><h4>${hypothetical ? 'Hypothetical stage exposures' : 'Crop stages & analysis windows'}</h4><span>Colours identify stages, not severity</span></div><div class="cycle-stage-controls" role="group" aria-label="${hypothetical ? 'Select a hypothetical stage' : 'Select a stage'}">${stagesFor(p).map(stage => `<button type="button" data-cycle-stage="${stage.id}" data-stage="${stage.id}" aria-pressed="false" aria-controls="cycle-detail"><i aria-hidden="true"></i>${stage.title}</button>`).join('')}</div>
       <div class="cycle-scroll" tabindex="0" role="region" aria-label="Modelled monthly timeline. Scroll horizontally to see all months." aria-describedby="cycle-scroll-hint"${unsupported ? ' hidden' : ''}></div>
       <p class="cycle-scroll-hint" id="cycle-scroll-hint"${unsupported ? ' hidden' : ''}>Timeline scrolls horizontally on smaller screens. Stage dates are also shown below.</p>
       <div class="cycle-legend"${unsupported ? ' hidden' : ''}><span><i class="cycle-key-solid"></i>Analysis window</span><span class="cycle-spread-key"><i class="cycle-key-spread"></i>p10 start to p90 end</span><span><i class="cycle-key-forcing"></i>Forcing after chill, not measured</span><span><i class="cycle-key-marker"></i>Chill fulfilled / budbreak</span></div>
@@ -242,7 +255,7 @@ const CycleView = (() => {
       // Primary: the scan is the production window, so it leads. Comparison: it follows the chill-triggered view.
       root.insertBefore(section, managed ? panel : reference);
     }
-    let selected = stages.some(stage => stage.id === context.view?.stage) ? context.view.stage : 'flower';
+    let selected = stagesFor(p).some(stage => stage.id === context.view?.stage) ? context.view.stage : 'flower';
     const selector = panel.querySelector('#cycle-winter');
     const winter = String(context.view?.winter ?? 'typical');
     if (winter === 'typical' || p.seasons.some(row => String(row.winter_year) === winter)) selector.value = winter;
@@ -254,11 +267,11 @@ const CycleView = (() => {
       panel.querySelector('.cycle-winter-context').innerHTML = winterContext(p, view);
       const detailPanel = panel.querySelector('.cycle-detail');
       detailPanel.dataset.stage = selected;
-      detailPanel.innerHTML = detail(p, view, selected, hypothetical);
+      detailPanel.innerHTML = detail(p, view, selected, hypothetical, context.planting);
       panel.querySelector('.cycle-spread-key').hidden = !!view.season;
       panel.querySelector('.cycle-chart-note').textContent = view.season
         ? 'Dates and totals belong to this winter. The year label refers to the winter, not necessarily the harvest year. Each metric uses its own modelled analysis window.'
-        : 'Solid bars use median stage boundaries. Outlines span the 10th-percentile start to the 90th-percentile end across valid winters. They show timing spread, not confidence limits or a single observed season. Exposure means are calculated from each winter’s own dates, not the median window.';
+        : `Solid bars use median stage boundaries. Outlines span the 10th-percentile start to the 90th-percentile end across valid winters. They show timing spread, not confidence limits or a single observed season. Exposure means are calculated from each winter’s own dates, not the median window.${view.rows.some(row => row.id === 'planting') ? ' The planting bar counts back from the median budbreak, and its outline from the 10th- and 90th-percentile budbreak.' : ''}`;
       panel.querySelectorAll('[data-cycle-stage]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cycleStage === selected)));
       if (announce) {
         // One short line instead of re-reading the whole detail region on every change.
@@ -277,7 +290,7 @@ const CycleView = (() => {
   }
 
   function select(root, stage) {
-    if (!stages.some(item => item.id === stage)) return false;
+    if (![plantingStage, ...stages].some(item => item.id === stage)) return false;
     const button = root.querySelector(`[data-cycle-stage="${stage}"]`);
     if (!button) return false;
     button.click();

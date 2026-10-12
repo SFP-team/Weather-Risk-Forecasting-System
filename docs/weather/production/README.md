@@ -126,7 +126,7 @@ Where v3 still misses:
 - Penguin, Tasmania shows 58 mean chill hours, which is implausible for 41°S. The coastal grid cell appears dominated by sea temperatures.
 - Classification matches 8 of 17 rest-of-world sites. Some misses are managed evergreen or mixed practice in climates the model reads otherwise: Wolseley, Mengzi, Marondera, Huelva and Morocco. Others are mild maritime deciduous regions the model calls transitional or semi-evergreen: George, Penguin and Waikato.
 
-The supervisor's R planting rule, budbreak minus 105 to 30 days, recovers 38% of published planting months with 33% precision on 15 sites. It is still not adopted.
+The supervisor's R planting rule, budbreak minus 105 to 30 days, recovers 38% of published planting months with 33% precision on 15 sites. On the US transect, 14 sites, recall is 0.48 and precision 0.37. The rule's months usually start earlier than published planting months, and Osorno's overlap is 0. The app adopted the rule on 2026-10-12; see the planting window section below.
 
 ## Added exposure definitions
 
@@ -150,17 +150,33 @@ Sources and limits:
 - [UF/IFAS freeze guidance](https://ask.ifas.ufl.edu/publication/HS216) says temperatures above 70 °F, about 21.1 °C, between mid-November and mid-February may negate some chill. The six-month southern shift is a convention.
 - [NC State freeze guidance](https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures) describes stage-dependent sensitivity. Neither 0 °C nor −2.2 °C is a universal southern-highbush injury threshold.
 
-## One establishment planting window
+## Planting window
 
-**Decision: use regional establishment guidance, not budbreak minus 105 to 30 days.** The reviewed sources do not support the offset rule, and the benchmark result above does not rescue it. Nursery planting and mature-plant flowering are different operations.
+**Decision, 2026-10-12: the app's planting window is the supervisor's R rule.** The user approved making Paul's rule the planting window, as his 2026-09-21 River Valley review asked. This reverses the 2026-09-22 change that had replaced the rule with regional home-garden guides because the offsets had no source. The regional guides stay as a published season comparison. Nursery planting and mature-plant flowering are still different operations.
 
-| Registered region | Displayed window | Basis and precision |
+The rule ends planting 30 days before modelled budbreak and lasts 75 days, so planting runs from 105 to 30 days before budbreak. The source is Paul's private R workflow `southern_brazil_blueberry_climate_analogs.R`, lines 91-92 and 1219-1220. The R labels the offsets preliminary and cites no source, and nobody has validated them. Only the primary profile `stage_thermal_v3` carries the rule, as `planting_end_before_budbreak_days: 30` and `planting_window_length_days: 75`. `stage_risks_v2` and `legacy_paul_v1` have no planting rule.
+
+Each winter gets its own window, from that winter's modelled budbreak minus 105 days to minus 30 days. Season rows carry `planting: [start, end]` and `offset_days.planting_start/end`; the offsets can be negative because planting often starts before the season anchor. The typical window is one window counted back from the median budbreak. Its earliest start is the 10th-percentile budbreak minus 105 days, and its latest end is the 90th-percentile budbreak minus 30 days. The R took medians of planting month-days separately, which can give reversed or phantom windows, such as several windows with an April wrap. Deriving one window from the median budbreak fixes that.
+
+The planting block uses method `budbreak-planting-v1` and one of three statuses:
+
+- `available`: a window, its spread, the budbreak median, p10, p90 and winter count, the rule, basis and precision. Example: Waldo, 11 Oct to 25 Dec from a median budbreak of 24 Jan over 15 winters.
+- `not_applicable`: the chill-triggered calendar does not apply. The label is "Set by management" where the chill requirement does not apply, and "No calculated window" where it applies but too few winters produce a chill-triggered calendar, as at River Valley with 10 of 15.
+- `unavailable`: the point has no hourly crop calendar. The label is "Planting window unavailable".
+
+Across the 71 saved locations, 41 get a calculated window, 18 are "Set by management" and 12 show "No calculated window". Six windows cross the year end.
+
+Registered saved locations in Florida, Georgia or Santa Catarina also carry a `published` season, method `regional-establishment-v1`, shown even where the calculated window does not apply. 30 locations carry one: 22 Florida, 6 Georgia and 2 Santa Catarina.
+
+| Registered region | Published season | Basis and precision |
 |---|---|---|
 | Florida | Mid-December to mid-February | [UF/IFAS CIR1192](https://ask.ifas.ufl.edu/publication/MG359) (now MG359), bare-root or container plants. "Mid" is approximate. This is home-garden guidance, not a commercial or evergreen model. Commercial guidance differs: [UF/IFAS HS1525](https://journals.flvc.org/edis/article/view/140453) (July 2026) advises planting in the early-spring and fall root-growth periods, and reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting. The app no longer tells Florida growers to remove first-season flowers. |
 | Georgia | Winter, approximately December–February | [UGA Circular 946](https://fieldreport.caes.uga.edu/publications/C946/home-garden-blueberries/) says winter transplanting without dates. The months are a display convention. |
 | Santa Catarina | Winter while dormant, approximately June–August | [Embrapa-authored guidance in Revista Cultivar](https://revistacultivar.com.br/artigos/grande-potencial) gives no dates. June–August is a display convention. |
 
-Coordinates outside a registered region get an explicit unavailable result. Assumptions are healthy nursery stock, a prepared well-drained acidic root zone, irrigation, and local confirmation of soil workability and freeze protection. No pot or tunnel adjustment is made. No sign-off from Paul is recorded for replacing his offset rule; the choice between his offsets, these home-garden windows and commercial windows is still open.
+A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. The window comes from modelled budbreak, not observed dates, and the app does not check frost, heat or rain inside it. Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection. It is a one-time establishment window, not annual replanting or a first-year harvest forecast. No pot or tunnel adjustment is made.
+
+In the literature benchmark the rule covers 38% of published planting months on 15 southern-highbush sites, with 33% precision. Published December to February in Florida and Georgia compares with the rule's September or October to December. Paul has not supplied a source for the offsets, and no one has checked them against planting records.
 
 ## Reproduction and verification
 
@@ -182,3 +198,5 @@ The location API caches successful (200) analyses: an in-memory LRU of 64 result
 2026-09-30 verification after the bud-freeze and bee-flight additions: 130 server tests passed, and v2 again reproduced all 18 committed v2 snapshots exactly. The benchmark's chill-clock scores are unchanged; managed-cycle recall of published harvest months rose from 0.79 to 0.81 and precision from 0.70 to 0.72. Burgaw's overview, bud-development lane and scan table were checked in the browser with no page errors and no overflow at 390 px.
 
 2026-10-12 verification after the scan accounting change, the leap-day correction, the API hardening and the planting text update: 160 server tests passed in a staging copy. With `stage_risks_v2` as primary, all 18 committed v2 snapshots matched apart from two fields outside the profile output: the land-mask version label, which the deployed code already reports differently, and the Florida planting text. Every committed sensitivity entry, including the reused primary, matched exactly.
+
+2026-10-12 verification after the planting window change: 251 server tests passed in a staging copy, 8 more than before: 4 planting-rule tests in `tests/weather/test_production.py` and 4 in the new `tests/weather/test_planting.py`. Legacy parity with `stage_risks_v2` held on 18 sites with 0 differences. All 71 saved snapshots differ from the previous commit only in planting fields, one new `production.changes` entry and `analysis_id`; no weather, calendar or risk number changed, and the benchmark scores are unchanged. The snapshots, this packet and the benchmark were regenerated. The code was deployed to `code/` with matching SHA-256 hashes, only `blueberry-ui-api` was restarted, and the live API returned 30 Sep to 14 Dec for an Alma coordinate. Browser checks at 1440 and 390 px covered Waldo, Alma, Papanduva, Burgaw, Arcadia, River Valley, the live Clinton pin and Waldo winter 2011 with no page errors, no CSP violations and no page overflow.

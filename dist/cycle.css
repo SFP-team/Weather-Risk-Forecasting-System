@@ -17,6 +17,7 @@
 .cycle-panel [data-stage="fruit"] { --stage: #5d66a0; --stage-soft: #f0f1f8; }
 .cycle-panel [data-stage="harvest"] { --stage: #8b7138; --stage-soft: #f7f3e8; }
 .cycle-panel [data-stage="whole"] { --stage: #39756b; --stage-soft: #edf4f0; }
+.cycle-panel [data-stage="planting"] { --stage: #7a5a46; --stage-soft: #f5efe9; }
 .cycle-panel p { margin: 0; line-height: 1.6; }
 .cycle-panel h3, .cycle-panel h4 { color: var(--ink, #1d1d1f); }
 .cycle-panel .stamp { font: 500 11px/1.5 var(--font, system-ui, sans-serif); letter-spacing: .025em; color: var(--muted, #707070); }

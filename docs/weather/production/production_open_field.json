@@ -25,7 +25,8 @@
     "stage_thermal_v3 checks the bud stage (budbreak to the day before flowering) for freezes at NC State critical temperatures: -6.7 C until half the heat to flowering, then -3.9 C. Bud-stage freeze is a ranked risk family and a crop-loss measure in the managed-cycle scan.",
     "stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures.",
     "The managed-cycle scan gives every start and year one of four outcomes: complete, stalled slow, stalled at the stage horizon, or weather incomplete. Freeze families count complete cycles only; stalled cycles form a separate crop-loss family, cycle failure, instead of counting as freezes. Weather-incomplete cycles are left out of every count.",
-    "stage_thermal_v3 median dates leave 29 February out of day offsets, so winters that cross a leap day no longer shift them one day late."
+    "stage_thermal_v3 median dates leave 29 February out of day offsets, so winters that cross a leap day no longer shift them one day late.",
+    "stage_thermal_v3 adds the supervisor's planting rule. Planting ends 30 days before modelled budbreak and lasts 75 days. Each winter gets its own window, and the typical window counts back from the median budbreak, not from medians of month-days. It is the app's planting window. Regional home-garden seasons stay as a published comparison where a guide exists."
   ],
   "limitations": [
     "Constants encode a UF-type low-chill southern highbush under open field + ground; they are provisional assumptions, not measured genotype parameters. Northern-highbush and rabbiteye regions are modelled as if planted with this type.",
@@ -41,44 +42,77 @@
     "Stage thermal requirements are a Waldo translation checked against published spans, not a fit to observed phenology; the literature benchmark compares months with regional practice, not field observations.",
     "No cultivar ranking, no soil scoring, no tunnel or pot effects, no forecast, no independent phenology validation yet."
   ],
-  "code_sha256": "5df27f0e527d17bf91fba9730bac60942ffd9d1e8cff5d12ab91f108e8a5a046",
+  "code_sha256": "95b026ffc574745d4c6daed246d0761ebf7e334433a8980b92cf75fae9c885aa",
   "sites": {
     "Waldo": {
       "latitude": 29.795286,
       "longitude": -82.129853,
       "planting": {
-        "method": "regional-establishment-v1",
+        "method": "budbreak-planting-v1",
+        "published": {
+          "method": "regional-establishment-v1",
+          "region": "Florida",
+          "label": "Mid-December to mid-February",
+          "window": {
+            "start": "12-15",
+            "end": "02-15",
+            "crosses_year": true
+          },
+          "basis": "UF/IFAS CIR1192 recommends mid-December to mid-February for bare-root or container-grown blueberries in Florida.",
+          "precision": "Approximate mid-month guidance, not exact weather-safe dates.",
+          "conditions": [
+            "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
+            "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
+          ],
+          "caveat": "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule.",
+          "sources": [
+            {
+              "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
+              "url": "https://ask.ifas.ufl.edu/publication/MG359"
+            },
+            {
+              "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
+              "url": "https://journals.flvc.org/edis/article/view/140453"
+            }
+          ]
+        },
+        "window": {
+          "start": "10-11",
+          "end": "12-25",
+          "crosses_year": false
+        },
+        "spread": {
+          "start": "09-15",
+          "end": "01-13"
+        },
+        "budbreak": {
+          "median": "01-24",
+          "p10": "12-29",
+          "p90": "02-12",
+          "winters": 15
+        },
+        "rule": "Plant from 105 to 30 days before the typical modelled budbreak.",
         "assumptions": [
-          "Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.",
-          "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
-          "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
+          "Open-field nursery plants put in the ground before the first modelled budbreak, in a prepared, well-drained acidic root zone with irrigation available."
         ],
         "limitations": [
-          "Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.",
+          "The 30- and 75-day offsets come from the supervisor's R workflow, which labels them preliminary and cites no source.",
+          "The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it.",
+          "No one has checked the rule against planting records. In the literature benchmark its months usually start earlier than the published planting months.",
+          "Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.",
           "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
-          "No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.",
-          "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule."
+          "The app applies no tunnel or pot adjustment."
         ],
-        "status": "available",
-        "label": "Mid-December to mid-February",
-        "region": "Florida",
-        "window": {
-          "start": "12-15",
-          "end": "02-15",
-          "crosses_year": true
-        },
-        "basis": "UF/IFAS CIR1192 recommends mid-December to mid-February for bare-root or container-grown blueberries in Florida.",
-        "precision": "Approximate mid-month guidance, not exact weather-safe dates.",
         "sources": [
           {
-            "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
-            "url": "https://ask.ifas.ufl.edu/publication/MG359"
-          },
-          {
-            "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
-            "url": "https://journals.flvc.org/edis/article/view/140453"
+            "title": "Supervisor's R workflow, southern_brazil_blueberry_climate_analogs.R, planting offsets at lines 91-92 and 1219-1220. Not public.",
+            "url": null
           }
         ],
+        "status": "available",
+        "label": "11 Oct to 25 Dec",
+        "basis": "Typical modelled budbreak is 24 Jan, the median of 15 winters. Planting ends 30 days before it and lasts 75 days.",
+        "precision": "The window comes from modelled budbreak, not observed dates. In early winters planting can start on 15 Sep, and in late winters it can end on 13 Jan. These limits use the 10th and 90th percentiles of budbreak.",
         "reason": null
       },
       "analysis": {
@@ -153,7 +187,9 @@
             16
           ],
           "pollination_gap_days": 4,
-          "leap_day_offsets": "corrected"
+          "leap_day_offsets": "corrected",
+          "planting_end_before_budbreak_days": 30,
+          "planting_window_length_days": 75
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -626,6 +662,26 @@
             "median_date": "05-12",
             "p10_date": "05-07",
             "p90_date": "05-27"
+          },
+          "planting_start": {
+            "n": 15,
+            "derived_from": "budbreak",
+            "median": -21,
+            "median_date": "10-11",
+            "p10": -47,
+            "p10_date": "09-15",
+            "p90": -2,
+            "p90_date": "10-30"
+          },
+          "planting_end": {
+            "n": 15,
+            "derived_from": "budbreak",
+            "median": 54,
+            "median_date": "12-25",
+            "p10": 28,
+            "p10_date": "11-29",
+            "p90": 73,
+            "p90_date": "01-13"
           }
         },
         "risks": {
@@ -1996,7 +2052,9 @@
               "flowering_start": 108,
               "flowering_end": 138,
               "harvest_start": 163,
-              "harvest_end": 199
+              "harvest_end": 199,
+              "planting_start": -15,
+              "planting_end": 60
             },
             "metrics": {
               "flower_tmin_min_c": 2.42999267578125,
@@ -2031,7 +2089,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2010-10-17",
+              "2010-12-31"
+            ]
           },
           {
             "winter_year": 2012,
@@ -2071,7 +2133,9 @@
               "flowering_start": 96,
               "flowering_end": 126,
               "harvest_start": 151,
-              "harvest_end": 189
+              "harvest_end": 189,
+              "planting_start": -19,
+              "planting_end": 56
             },
             "metrics": {
               "flower_tmin_min_c": -3.1500244140625,
@@ -2106,7 +2170,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2011-10-13",
+              "2011-12-27"
+            ]
           },
           {
             "winter_year": 2013,
@@ -2146,7 +2214,9 @@
               "flowering_start": 87,
               "flowering_end": 128,
               "harvest_start": 164,
-              "harvest_end": 207
+              "harvest_end": 207,
+              "planting_start": -31,
+              "planting_end": 44
             },
             "metrics": {
               "flower_tmin_min_c": -2.030029296875,
@@ -2181,7 +2251,11 @@
               "flowering_no_flight_days": 3,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2012-10-01",
+              "2012-12-15"
+            ]
           },
           {
             "winter_year": 2014,
@@ -2221,7 +2295,9 @@
               "flowering_start": 112,
               "flowering_end": 148,
               "harvest_start": 177,
-              "harvest_end": 213
+              "harvest_end": 213,
+              "planting_start": -8,
+              "planting_end": 67
             },
             "metrics": {
               "flower_tmin_min_c": 0.739990234375,
@@ -2256,7 +2332,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2013-10-24",
+              "2014-01-07"
+            ]
           },
           {
             "winter_year": 2015,
@@ -2296,7 +2376,9 @@
               "flowering_start": 60,
               "flowering_end": 121,
               "harvest_start": 150,
-              "harvest_end": 189
+              "harvest_end": 189,
+              "planting_start": -54,
+              "planting_end": 21
             },
             "metrics": {
               "flower_tmin_min_c": -4.780029296875,
@@ -2331,7 +2413,11 @@
               "flowering_no_flight_days": 7,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2014-09-08",
+              "2014-11-22"
+            ]
           },
           {
             "winter_year": 2016,
@@ -2371,7 +2457,9 @@
               "flowering_start": 120,
               "flowering_end": 146,
               "harvest_start": 172,
-              "harvest_end": 207
+              "harvest_end": 207,
+              "planting_start": 2,
+              "planting_end": 77
             },
             "metrics": {
               "flower_tmin_min_c": 4.280029296875,
@@ -2406,7 +2494,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2015-11-03",
+              "2016-01-17"
+            ]
           },
           {
             "winter_year": 2017,
@@ -2446,7 +2538,9 @@
               "flowering_start": 98,
               "flowering_end": 125,
               "harvest_start": 154,
-              "harvest_end": 192
+              "harvest_end": 192,
+              "planting_start": -21,
+              "planting_end": 54
             },
             "metrics": {
               "flower_tmin_min_c": 4.5,
@@ -2481,7 +2575,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2016-10-11",
+              "2016-12-25"
+            ]
           },
           {
             "winter_year": 2018,
@@ -2521,7 +2619,9 @@
               "flowering_start": 104,
               "flowering_end": 134,
               "harvest_start": 166,
-              "harvest_end": 206
+              "harvest_end": 206,
+              "planting_start": -10,
+              "planting_end": 65
             },
             "metrics": {
               "flower_tmin_min_c": 1.1400146484375,
@@ -2556,7 +2656,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2017-10-22",
+              "2018-01-05"
+            ]
           },
           {
             "winter_year": 2019,
@@ -2596,7 +2700,9 @@
               "flowering_start": 71,
               "flowering_end": 113,
               "harvest_start": 147,
-              "harvest_end": 188
+              "harvest_end": 188,
+              "planting_start": -45,
+              "planting_end": 30
             },
             "metrics": {
               "flower_tmin_min_c": -0.760009765625,
@@ -2631,7 +2737,11 @@
               "flowering_no_flight_days": 4,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2018-09-17",
+              "2018-12-01"
+            ]
           },
           {
             "winter_year": 2020,
@@ -2671,7 +2781,9 @@
               "flowering_start": 98,
               "flowering_end": 131,
               "harvest_start": 152,
-              "harvest_end": 192
+              "harvest_end": 192,
+              "planting_start": -21,
+              "planting_end": 54
             },
             "metrics": {
               "flower_tmin_min_c": 0.79998779296875,
@@ -2706,7 +2818,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2019-10-11",
+              "2019-12-25"
+            ]
           },
           {
             "winter_year": 2021,
@@ -2746,7 +2862,9 @@
               "flowering_start": 87,
               "flowering_end": 122,
               "harvest_start": 153,
-              "harvest_end": 192
+              "harvest_end": 192,
+              "planting_start": -31,
+              "planting_end": 44
             },
             "metrics": {
               "flower_tmin_min_c": -1.1300048828125,
@@ -2781,7 +2899,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2020-10-01",
+              "2020-12-15"
+            ]
           },
           {
             "winter_year": 2022,
@@ -2821,7 +2943,9 @@
               "flowering_start": 117,
               "flowering_end": 141,
               "harvest_start": 168,
-              "harvest_end": 203
+              "harvest_end": 203,
+              "planting_start": 4,
+              "planting_end": 79
             },
             "metrics": {
               "flower_tmin_min_c": -0.79998779296875,
@@ -2856,7 +2980,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2021-11-05",
+              "2022-01-19"
+            ]
           },
           {
             "winter_year": 2023,
@@ -2896,7 +3024,9 @@
               "flowering_start": 90,
               "flowering_end": 115,
               "harvest_start": 144,
-              "harvest_end": 183
+              "harvest_end": 183,
+              "planting_start": -27,
+              "planting_end": 48
             },
             "metrics": {
               "flower_tmin_min_c": 5.72998046875,
@@ -2931,7 +3061,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2022-10-05",
+              "2022-12-19"
+            ]
           },
           {
             "winter_year": 2024,
@@ -2971,7 +3105,9 @@
               "flowering_start": 102,
               "flowering_end": 134,
               "harvest_start": 163,
-              "harvest_end": 198
+              "harvest_end": 198,
+              "planting_start": -18,
+              "planting_end": 57
             },
             "metrics": {
               "flower_tmin_min_c": 3.3499755859375,
@@ -3006,7 +3142,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2023-10-14",
+              "2023-12-28"
+            ]
           },
           {
             "winter_year": 2025,
@@ -3046,7 +3186,9 @@
               "flowering_start": 76,
               "flowering_end": 116,
               "harvest_start": 149,
-              "harvest_end": 186
+              "harvest_end": 186,
+              "planting_start": -49,
+              "planting_end": 26
             },
             "metrics": {
               "flower_tmin_min_c": -4.9000244140625,
@@ -3081,7 +3223,11 @@
               "flowering_no_flight_days": 5,
               "flowering_longest_no_flight_run": 3
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2024-09-13",
+              "2024-11-27"
+            ]
           }
         ],
         "chill_clock": {
@@ -5428,38 +5574,71 @@
       "latitude": 29.410918,
       "longitude": -82.143678,
       "planting": {
-        "method": "regional-establishment-v1",
+        "method": "budbreak-planting-v1",
+        "published": {
+          "method": "regional-establishment-v1",
+          "region": "Florida",
+          "label": "Mid-December to mid-February",
+          "window": {
+            "start": "12-15",
+            "end": "02-15",
+            "crosses_year": true
+          },
+          "basis": "UF/IFAS CIR1192 recommends mid-December to mid-February for bare-root or container-grown blueberries in Florida.",
+          "precision": "Approximate mid-month guidance, not exact weather-safe dates.",
+          "conditions": [
+            "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
+            "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
+          ],
+          "caveat": "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule.",
+          "sources": [
+            {
+              "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
+              "url": "https://ask.ifas.ufl.edu/publication/MG359"
+            },
+            {
+              "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
+              "url": "https://journals.flvc.org/edis/article/view/140453"
+            }
+          ]
+        },
+        "window": {
+          "start": "10-12",
+          "end": "12-26",
+          "crosses_year": false
+        },
+        "spread": {
+          "start": "09-13",
+          "end": "01-17"
+        },
+        "budbreak": {
+          "median": "01-25",
+          "p10": "12-27",
+          "p90": "02-16",
+          "winters": 15
+        },
+        "rule": "Plant from 105 to 30 days before the typical modelled budbreak.",
         "assumptions": [
-          "Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.",
-          "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
-          "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
+          "Open-field nursery plants put in the ground before the first modelled budbreak, in a prepared, well-drained acidic root zone with irrigation available."
         ],
         "limitations": [
-          "Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.",
+          "The 30- and 75-day offsets come from the supervisor's R workflow, which labels them preliminary and cites no source.",
+          "The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it.",
+          "No one has checked the rule against planting records. In the literature benchmark its months usually start earlier than the published planting months.",
+          "Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.",
           "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
-          "No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.",
-          "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule."
+          "The app applies no tunnel or pot adjustment."
         ],
-        "status": "available",
-        "label": "Mid-December to mid-February",
-        "region": "Florida",
-        "window": {
-          "start": "12-15",
-          "end": "02-15",
-          "crosses_year": true
-        },
-        "basis": "UF/IFAS CIR1192 recommends mid-December to mid-February for bare-root or container-grown blueberries in Florida.",
-        "precision": "Approximate mid-month guidance, not exact weather-safe dates.",
         "sources": [
           {
-            "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
-            "url": "https://ask.ifas.ufl.edu/publication/MG359"
-          },
-          {
-            "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
-            "url": "https://journals.flvc.org/edis/article/view/140453"
+            "title": "Supervisor's R workflow, southern_brazil_blueberry_climate_analogs.R, planting offsets at lines 91-92 and 1219-1220. Not public.",
+            "url": null
           }
         ],
+        "status": "available",
+        "label": "12 Oct to 26 Dec",
+        "basis": "Typical modelled budbreak is 25 Jan, the median of 15 winters. Planting ends 30 days before it and lasts 75 days.",
+        "precision": "The window comes from modelled budbreak, not observed dates. In early winters planting can start on 13 Sep, and in late winters it can end on 17 Jan. These limits use the 10th and 90th percentiles of budbreak.",
         "reason": null
       },
       "analysis": {
@@ -5534,7 +5713,9 @@
             16
           ],
           "pollination_gap_days": 4,
-          "leap_day_offsets": "corrected"
+          "leap_day_offsets": "corrected",
+          "planting_end_before_budbreak_days": 30,
+          "planting_window_length_days": 75
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -6007,6 +6188,26 @@
             "median_date": "05-13",
             "p10_date": "04-30",
             "p90_date": "05-24"
+          },
+          "planting_start": {
+            "n": 15,
+            "derived_from": "budbreak",
+            "median": -20,
+            "median_date": "10-12",
+            "p10": -49,
+            "p10_date": "09-13",
+            "p90": 2,
+            "p90_date": "11-03"
+          },
+          "planting_end": {
+            "n": 15,
+            "derived_from": "budbreak",
+            "median": 55,
+            "median_date": "12-26",
+            "p10": 26,
+            "p10_date": "11-27",
+            "p90": 77,
+            "p90_date": "01-17"
           }
         },
         "risks": {
@@ -7377,7 +7578,9 @@
               "flowering_start": 95,
               "flowering_end": 129,
               "harvest_start": 158,
-              "harvest_end": 193
+              "harvest_end": 193,
+              "planting_start": -25,
+              "planting_end": 50
             },
             "metrics": {
               "flower_tmin_min_c": -0.44000244140625,
@@ -7412,7 +7615,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2010-10-07",
+              "2010-12-21"
+            ]
           },
           {
             "winter_year": 2012,
@@ -7452,7 +7659,9 @@
               "flowering_start": 94,
               "flowering_end": 122,
               "harvest_start": 147,
-              "harvest_end": 186
+              "harvest_end": 186,
+              "planting_start": -20,
+              "planting_end": 55
             },
             "metrics": {
               "flower_tmin_min_c": -2.80999755859375,
@@ -7487,7 +7696,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2011-10-12",
+              "2011-12-26"
+            ]
           },
           {
             "winter_year": 2013,
@@ -7527,7 +7740,9 @@
               "flowering_start": 85,
               "flowering_end": 117,
               "harvest_start": 158,
-              "harvest_end": 198
+              "harvest_end": 198,
+              "planting_start": -31,
+              "planting_end": 44
             },
             "metrics": {
               "flower_tmin_min_c": -1.280029296875,
@@ -7562,7 +7777,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2012-10-01",
+              "2012-12-15"
+            ]
           },
           {
             "winter_year": 2014,
@@ -7602,7 +7821,9 @@
               "flowering_start": 110,
               "flowering_end": 142,
               "harvest_start": 172,
-              "harvest_end": 208
+              "harvest_end": 208,
+              "planting_start": -10,
+              "planting_end": 65
             },
             "metrics": {
               "flower_tmin_min_c": 2.17999267578125,
@@ -7637,7 +7858,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2013-10-22",
+              "2014-01-05"
+            ]
           },
           {
             "winter_year": 2015,
@@ -7677,7 +7902,9 @@
               "flowering_start": 58,
               "flowering_end": 113,
               "harvest_start": 141,
-              "harvest_end": 182
+              "harvest_end": 182,
+              "planting_start": -55,
+              "planting_end": 20
             },
             "metrics": {
               "flower_tmin_min_c": -4.57000732421875,
@@ -7712,7 +7939,11 @@
               "flowering_no_flight_days": 5,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2014-09-07",
+              "2014-11-21"
+            ]
           },
           {
             "winter_year": 2016,
@@ -7752,7 +7983,9 @@
               "flowering_start": 120,
               "flowering_end": 145,
               "harvest_start": 170,
-              "harvest_end": 206
+              "harvest_end": 206,
+              "planting_start": 3,
+              "planting_end": 78
             },
             "metrics": {
               "flower_tmin_min_c": 4.40997314453125,
@@ -7787,7 +8020,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2015-11-04",
+              "2016-01-18"
+            ]
           },
           {
             "winter_year": 2017,
@@ -7827,7 +8064,9 @@
               "flowering_start": 113,
               "flowering_end": 140,
               "harvest_start": 164,
-              "harvest_end": 198
+              "harvest_end": 198,
+              "planting_start": 0,
+              "planting_end": 75
             },
             "metrics": {
               "flower_tmin_min_c": -0.260009765625,
@@ -7862,7 +8101,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2016-11-01",
+              "2017-01-15"
+            ]
           },
           {
             "winter_year": 2018,
@@ -7902,7 +8145,9 @@
               "flowering_start": 103,
               "flowering_end": 128,
               "harvest_start": 162,
-              "harvest_end": 203
+              "harvest_end": 203,
+              "planting_start": -11,
+              "planting_end": 64
             },
             "metrics": {
               "flower_tmin_min_c": 3.52001953125,
@@ -7937,7 +8182,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2017-10-21",
+              "2018-01-04"
+            ]
           },
           {
             "winter_year": 2019,
@@ -7977,7 +8226,9 @@
               "flowering_start": 69,
               "flowering_end": 111,
               "harvest_start": 142,
-              "harvest_end": 185
+              "harvest_end": 185,
+              "planting_start": -45,
+              "planting_end": 30
             },
             "metrics": {
               "flower_tmin_min_c": -0.15997314453125,
@@ -8012,7 +8263,11 @@
               "flowering_no_flight_days": 3,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2018-09-17",
+              "2018-12-01"
+            ]
           },
           {
             "winter_year": 2020,
@@ -8052,7 +8307,9 @@
               "flowering_start": 109,
               "flowering_end": 137,
               "harvest_start": 157,
-              "harvest_end": 195
+              "harvest_end": 195,
+              "planting_start": -3,
+              "planting_end": 72
             },
             "metrics": {
               "flower_tmin_min_c": 1.53997802734375,
@@ -8087,7 +8344,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2019-10-29",
+              "2020-01-12"
+            ]
           },
           {
             "winter_year": 2021,
@@ -8127,7 +8388,9 @@
               "flowering_start": 85,
               "flowering_end": 116,
               "harvest_start": 146,
-              "harvest_end": 185
+              "harvest_end": 185,
+              "planting_start": -37,
+              "planting_end": 38
             },
             "metrics": {
               "flower_tmin_min_c": 0.19000244140625,
@@ -8162,7 +8425,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2020-09-25",
+              "2020-12-09"
+            ]
           },
           {
             "winter_year": 2022,
@@ -8202,7 +8469,9 @@
               "flowering_start": 116,
               "flowering_end": 139,
               "harvest_start": 165,
-              "harvest_end": 200
+              "harvest_end": 200,
+              "planting_start": 4,
+              "planting_end": 79
             },
             "metrics": {
               "flower_tmin_min_c": -0.1400146484375,
@@ -8237,7 +8506,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2021-11-05",
+              "2022-01-19"
+            ]
           },
           {
             "winter_year": 2023,
@@ -8277,7 +8550,9 @@
               "flowering_start": 85,
               "flowering_end": 113,
               "harvest_start": 137,
-              "harvest_end": 177
+              "harvest_end": 177,
+              "planting_start": -32,
+              "planting_end": 43
             },
             "metrics": {
               "flower_tmin_min_c": 2.83001708984375,
@@ -8312,7 +8587,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2022-09-30",
+              "2022-12-14"
+            ]
           },
           {
             "winter_year": 2024,
@@ -8352,7 +8631,9 @@
               "flowering_start": 100,
               "flowering_end": 129,
               "harvest_start": 157,
-              "harvest_end": 193
+              "harvest_end": 193,
+              "planting_start": -19,
+              "planting_end": 56
             },
             "metrics": {
               "flower_tmin_min_c": 3.34002685546875,
@@ -8387,7 +8668,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2023-10-13",
+              "2023-12-27"
+            ]
           },
           {
             "winter_year": 2025,
@@ -8427,7 +8712,9 @@
               "flowering_start": 63,
               "flowering_end": 106,
               "harvest_start": 141,
-              "harvest_end": 179
+              "harvest_end": 179,
+              "planting_start": -51,
+              "planting_end": 24
             },
             "metrics": {
               "flower_tmin_min_c": -3.1300048828125,
@@ -8462,7 +8749,11 @@
               "flowering_no_flight_days": 7,
               "flowering_longest_no_flight_run": 3
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2024-09-11",
+              "2024-11-25"
+            ]
           }
         ],
         "chill_clock": {
@@ -10807,34 +11098,67 @@
       "latitude": -26.312389,
       "longitude": -50.080639,
       "planting": {
-        "method": "regional-establishment-v1",
-        "assumptions": [
-          "Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.",
-          "Dormant nursery plants; the source prefers two-year-old stock.",
-          "Irrigation must be available to prevent establishment losses; confirm local cultivar and nursery practice."
-        ],
-        "limitations": [
-          "Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.",
-          "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
-          "No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.",
-          "Embrapa-authored guidance hosted by Revista Cultivar (2015), not a validated Papanduva planting-date trial or an evergreen-stock schedule."
-        ],
-        "status": "available",
-        "label": "Winter while dormant (approximately June\u2013August)",
-        "region": "Santa Catarina, southern Brazil",
+        "method": "budbreak-planting-v1",
+        "published": {
+          "method": "regional-establishment-v1",
+          "region": "Santa Catarina, southern Brazil",
+          "label": "Winter while dormant (approximately June\u2013August)",
+          "window": {
+            "start": "06-01",
+            "end": "08-31",
+            "crosses_year": false
+          },
+          "basis": "The Embrapa-authored Grande potencial recommends transplanting nursery plants in winter while dormant. Southern meteorological winter provides the displayed months; observed nursery dormancy takes precedence.",
+          "precision": "Season only. June\u2013August is a display convention; the source specifies winter dormancy, not dates.",
+          "conditions": [
+            "Dormant nursery plants; the source prefers two-year-old stock.",
+            "Irrigation must be available to prevent establishment losses; confirm local cultivar and nursery practice."
+          ],
+          "caveat": "Embrapa-authored guidance hosted by Revista Cultivar (2015), not a validated Papanduva planting-date trial or an evergreen-stock schedule.",
+          "sources": [
+            {
+              "title": "Embrapa authors: Grande potencial (\u00c9poca de plantio), Revista Cultivar",
+              "url": "https://revistacultivar.com.br/artigos/grande-potencial"
+            }
+          ]
+        },
         "window": {
-          "start": "06-01",
-          "end": "08-31",
+          "start": "04-19",
+          "end": "07-03",
           "crosses_year": false
         },
-        "basis": "The Embrapa-authored Grande potencial recommends transplanting nursery plants in winter while dormant. Southern meteorological winter provides the displayed months; observed nursery dormancy takes precedence.",
-        "precision": "Season only. June\u2013August is a display convention; the source specifies winter dormancy, not dates.",
+        "spread": {
+          "start": "04-06",
+          "end": "07-20"
+        },
+        "budbreak": {
+          "median": "08-02",
+          "p10": "07-20",
+          "p90": "08-19",
+          "winters": 13
+        },
+        "rule": "Plant from 105 to 30 days before the typical modelled budbreak.",
+        "assumptions": [
+          "Open-field nursery plants put in the ground before the first modelled budbreak, in a prepared, well-drained acidic root zone with irrigation available."
+        ],
+        "limitations": [
+          "The 30- and 75-day offsets come from the supervisor's R workflow, which labels them preliminary and cites no source.",
+          "The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it.",
+          "No one has checked the rule against planting records. In the literature benchmark its months usually start earlier than the published planting months.",
+          "Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.",
+          "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
+          "The app applies no tunnel or pot adjustment."
+        ],
         "sources": [
           {
-            "title": "Embrapa authors: Grande potencial (\u00c9poca de plantio), Revista Cultivar",
-            "url": "https://revistacultivar.com.br/artigos/grande-potencial"
+            "title": "Supervisor's R workflow, southern_brazil_blueberry_climate_analogs.R, planting offsets at lines 91-92 and 1219-1220. Not public.",
+            "url": null
           }
         ],
+        "status": "available",
+        "label": "19 Apr to 3 Jul",
+        "basis": "Typical modelled budbreak is 2 Aug, the median of 13 winters. Planting ends 30 days before it and lasts 75 days.",
+        "precision": "The window comes from modelled budbreak, not observed dates. In early winters planting can start on 6 Apr, and in late winters it can end on 20 Jul. These limits use the 10th and 90th percentiles of budbreak.",
         "reason": null
       },
       "analysis": {
@@ -10909,7 +11233,9 @@
             16
           ],
           "pollination_gap_days": 4,
-          "leap_day_offsets": "corrected"
+          "leap_day_offsets": "corrected",
+          "planting_end_before_budbreak_days": 30,
+          "planting_window_length_days": 75
         },
         "hemisphere": "south",
         "method": "open-field-production-v3",
@@ -11383,6 +11709,26 @@
             "median_date": "12-06",
             "p10_date": "11-29",
             "p90_date": "12-15"
+          },
+          "planting_start": {
+            "n": 13,
+            "derived_from": "budbreak",
+            "median": 18,
+            "median_date": "04-19",
+            "p10": 5,
+            "p10_date": "04-06",
+            "p90": 35,
+            "p90_date": "05-06"
+          },
+          "planting_end": {
+            "n": 13,
+            "derived_from": "budbreak",
+            "median": 93,
+            "median_date": "07-03",
+            "p10": 80,
+            "p10_date": "06-20",
+            "p90": 110,
+            "p90_date": "07-20"
           }
         },
         "risks": {
@@ -12753,7 +13099,9 @@
               "flowering_start": 130,
               "flowering_end": 171,
               "harvest_start": 205,
-              "harvest_end": 259
+              "harvest_end": 259,
+              "planting_start": 11,
+              "planting_end": 86
             },
             "metrics": {
               "flower_tmin_min_c": 0.16998291015625,
@@ -12788,7 +13136,11 @@
               "flowering_no_flight_days": 2,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2011-04-12",
+              "2011-06-26"
+            ]
           },
           {
             "winter_year": 2012,
@@ -12828,7 +13180,9 @@
               "flowering_start": 138,
               "flowering_end": 167,
               "harvest_start": 201,
-              "harvest_end": 246
+              "harvest_end": 246,
+              "planting_start": 24,
+              "planting_end": 99
             },
             "metrics": {
               "flower_tmin_min_c": 9.40997314453125,
@@ -12863,7 +13217,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2012-04-25",
+              "2012-07-09"
+            ]
           },
           {
             "winter_year": 2013,
@@ -12903,7 +13261,9 @@
               "flowering_start": 154,
               "flowering_end": 187,
               "harvest_start": 221,
-              "harvest_end": 267
+              "harvest_end": 267,
+              "planting_start": 36,
+              "planting_end": 111
             },
             "metrics": {
               "flower_tmin_min_c": 2.75,
@@ -12938,7 +13298,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2013-05-07",
+              "2013-07-21"
+            ]
           },
           {
             "winter_year": 2014,
@@ -12978,7 +13342,9 @@
               "flowering_start": 149,
               "flowering_end": 180,
               "harvest_start": 208,
-              "harvest_end": 252
+              "harvest_end": 252,
+              "planting_start": 33,
+              "planting_end": 108
             },
             "metrics": {
               "flower_tmin_min_c": 3.46002197265625,
@@ -13013,7 +13379,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2014-05-04",
+              "2014-07-18"
+            ]
           },
           {
             "winter_year": 2015,
@@ -13044,7 +13414,9 @@
               "flowering_start": null,
               "flowering_end": null,
               "harvest_start": null,
-              "harvest_end": null
+              "harvest_end": null,
+              "planting_start": null,
+              "planting_end": null
             },
             "metrics": {
               "flower_tmin_min_c": null,
@@ -13081,7 +13453,8 @@
             },
             "issues": {
               "crop_stages": "No crop windows: the chill requirement was not reached."
-            }
+            },
+            "planting": null
           },
           {
             "winter_year": 2016,
@@ -13121,7 +13494,9 @@
               "flowering_start": 116,
               "flowering_end": 158,
               "harvest_start": 198,
-              "harvest_end": 250
+              "harvest_end": 250,
+              "planting_start": -4,
+              "planting_end": 71
             },
             "metrics": {
               "flower_tmin_min_c": 2.82000732421875,
@@ -13156,7 +13531,11 @@
               "flowering_no_flight_days": 2,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2016-03-28",
+              "2016-06-11"
+            ]
           },
           {
             "winter_year": 2017,
@@ -13196,7 +13575,9 @@
               "flowering_start": 144,
               "flowering_end": 169,
               "harvest_start": 197,
-              "harvest_end": 247
+              "harvest_end": 247,
+              "planting_start": 27,
+              "planting_end": 102
             },
             "metrics": {
               "flower_tmin_min_c": 10.33001708984375,
@@ -13231,7 +13612,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2017-04-28",
+              "2017-07-12"
+            ]
           },
           {
             "winter_year": 2018,
@@ -13271,7 +13656,9 @@
               "flowering_start": 135,
               "flowering_end": 171,
               "harvest_start": 200,
-              "harvest_end": 249
+              "harvest_end": 249,
+              "planting_start": 14,
+              "planting_end": 89
             },
             "metrics": {
               "flower_tmin_min_c": 1.40997314453125,
@@ -13306,7 +13693,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2018-04-15",
+              "2018-06-29"
+            ]
           },
           {
             "winter_year": 2019,
@@ -13346,7 +13737,9 @@
               "flowering_start": 138,
               "flowering_end": 168,
               "harvest_start": 198,
-              "harvest_end": 242
+              "harvest_end": 242,
+              "planting_start": 23,
+              "planting_end": 98
             },
             "metrics": {
               "flower_tmin_min_c": 7.46002197265625,
@@ -13381,7 +13774,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2019-04-24",
+              "2019-07-08"
+            ]
           },
           {
             "winter_year": 2020,
@@ -13421,7 +13818,9 @@
               "flowering_start": 132,
               "flowering_end": 164,
               "harvest_start": 192,
-              "harvest_end": 239
+              "harvest_end": 239,
+              "planting_start": 14,
+              "planting_end": 89
             },
             "metrics": {
               "flower_tmin_min_c": 1.80999755859375,
@@ -13456,7 +13855,11 @@
               "flowering_no_flight_days": 2,
               "flowering_longest_no_flight_run": 2
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2020-04-15",
+              "2020-06-29"
+            ]
           },
           {
             "winter_year": 2021,
@@ -13496,7 +13899,9 @@
               "flowering_start": 135,
               "flowering_end": 161,
               "harvest_start": 192,
-              "harvest_end": 242
+              "harvest_end": 242,
+              "planting_start": 18,
+              "planting_end": 93
             },
             "metrics": {
               "flower_tmin_min_c": 9.239990234375,
@@ -13531,7 +13936,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2021-04-19",
+              "2021-07-03"
+            ]
           },
           {
             "winter_year": 2022,
@@ -13571,7 +13980,9 @@
               "flowering_start": 118,
               "flowering_end": 161,
               "harvest_start": 203,
-              "harvest_end": 254
+              "harvest_end": 254,
+              "planting_start": 4,
+              "planting_end": 79
             },
             "metrics": {
               "flower_tmin_min_c": 1.08001708984375,
@@ -13606,7 +14017,11 @@
               "flowering_no_flight_days": 2,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2022-04-05",
+              "2022-06-19"
+            ]
           },
           {
             "winter_year": 2023,
@@ -13637,7 +14052,9 @@
               "flowering_start": null,
               "flowering_end": null,
               "harvest_start": null,
-              "harvest_end": null
+              "harvest_end": null,
+              "planting_start": null,
+              "planting_end": null
             },
             "metrics": {
               "flower_tmin_min_c": null,
@@ -13674,7 +14091,8 @@
             },
             "issues": {
               "crop_stages": "No crop windows: the chill requirement was not reached."
-            }
+            },
+            "planting": null
           },
           {
             "winter_year": 2024,
@@ -13714,7 +14132,9 @@
               "flowering_start": 160,
               "flowering_end": 183,
               "harvest_start": 211,
-              "harvest_end": 256
+              "harvest_end": 256,
+              "planting_start": 47,
+              "planting_end": 122
             },
             "metrics": {
               "flower_tmin_min_c": 10.53997802734375,
@@ -13749,7 +14169,11 @@
               "flowering_no_flight_days": 0,
               "flowering_longest_no_flight_run": 0
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2024-05-18",
+              "2024-08-01"
+            ]
           },
           {
             "winter_year": 2025,
@@ -13789,7 +14213,9 @@
               "flowering_start": 136,
               "flowering_end": 169,
               "harvest_start": 201,
-              "harvest_end": 249
+              "harvest_end": 249,
+              "planting_start": 13,
+              "planting_end": 88
             },
             "metrics": {
               "flower_tmin_min_c": 7.05999755859375,
@@ -13824,7 +14250,11 @@
               "flowering_no_flight_days": 1,
               "flowering_longest_no_flight_run": 1
             },
-            "issues": {}
+            "issues": {},
+            "planting": [
+              "2025-04-14",
+              "2025-06-28"
+            ]
           }
         ],
         "chill_clock": {

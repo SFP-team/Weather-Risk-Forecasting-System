@@ -1,10 +1,16 @@
-"""Cited nursery-establishment seasons, separate from a bearing plant's phenology.
+"""Planting window: calculated from modelled budbreak, with any published regional season beside it.
 
-The sources do not establish a global weather or budbreak-offset planting formula.
-Resolve only registry geography; never infer a region from a shared weather cell.
+The window follows the supervisor's R workflow (southern_brazil_blueberry_climate_analogs.R): planting ends 30 days
+before modelled budbreak and lasts 75 days. production.calendar() derives one window from the median budbreak. The
+regional guides below are shown as a published comparison; they are resolved only from registry geography, never
+inferred from a shared weather cell.
 """
 
-METHOD = 'regional-establishment-v1'
+METHOD = 'budbreak-planting-v1'
+PUBLISHED_METHOD = 'regional-establishment-v1'
+MONTHS = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+RULE_SOURCE = {'title': "Supervisor's R workflow, southern_brazil_blueberry_climate_analogs.R, planting offsets at lines "
+                        "91-92 and 1219-1220. Not public.", 'url': None}
 REGIONS = {
     'Citra': 'florida', 'Waldo': 'florida', 'Central Florida': 'florida', 'South Florida': 'florida',
     'Florida': 'florida', 'Georgia': 'georgia', 'Santa Catarina': 'southern_brazil',
@@ -49,28 +55,79 @@ GUIDANCE = {
                      'url': 'https://revistacultivar.com.br/artigos/grande-potencial'}],
     },
 }
+ASSUMPTIONS = ['Open-field nursery plants put in the ground before the first modelled budbreak, in a prepared, '
+               'well-drained acidic root zone with irrigation available.']
+LIMITATIONS = [
+    "The 30- and 75-day offsets come from the supervisor's R workflow, which labels them preliminary and cites no source.",
+    'The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it.',
+    'No one has checked the rule against planting records. In the literature benchmark its months usually start earlier '
+    'than the published planting months.',
+    'Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.',
+    'This is a one-time establishment window, not annual replanting or a first-year harvest forecast.',
+    'The app applies no tunnel or pot adjustment.',
+]
 
 
-def planting_window(site):
-    """Return one establishment window, or explicit absence of regional guidance."""
+def day_label(month_day):
+    """'08-02' -> '2 Aug'."""
+    month, day = map(int, month_day.split('-'))
+    return f'{day} {MONTHS[month - 1]}'
+
+
+def published_season(site):
+    """The cited regional establishment season for a registered location, or None."""
     region = REGIONS.get(site.get('region'))
-    base = {
-        'method': METHOD,
-        'assumptions': ['Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.'],
-        'limitations': [
-            'Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.',
-            'This is a one-time establishment window, not annual replanting or a first-year harvest forecast.',
-            'No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.',
-        ],
-    }
     if region is None:
-        return {**base, 'status': 'unavailable', 'label': 'Regional planting window unavailable',
-                'window': None, 'region': site.get('region'), 'basis': 'No regional guide has been assigned to this registered location.',
-                'precision': 'Not assessed', 'sources': [],
-                'reason': 'Regional planting guidance and nursery-stock context are needed. Coordinates or a shared weather cell alone do not establish them.'}
+        return None
     guide = GUIDANCE[region]
-    return {**base, 'status': 'available', 'label': guide['label'], 'region': guide['region'],
+    return {'method': PUBLISHED_METHOD, 'region': guide['region'], 'label': guide['label'],
             'window': {'start': guide['start'], 'end': guide['end'], 'crosses_year': guide['start'] > guide['end']},
-            'basis': guide['basis'], 'precision': guide['precision'],
-            'assumptions': base['assumptions'] + guide['conditions'],
-            'limitations': base['limitations'] + [guide['caveat']], 'sources': guide['sources'], 'reason': None}
+            'basis': guide['basis'], 'precision': guide['precision'], 'conditions': guide['conditions'],
+            'caveat': guide['caveat'], 'sources': guide['sources']}
+
+
+def planting_window(site, production=None):
+    """One planting window counted back from modelled budbreak, or the reason there is none.
+
+    `production` is the analyse() result for the location. The window exists only where the chill-triggered calendar
+    applies: the rule counts back from a winter-triggered budbreak, which evergreen, tropical and too-cool locations lack.
+    """
+    production = production or {}
+    p = production.get('assumptions') or {}
+    before, length = p.get('planting_end_before_budbreak_days'), p.get('planting_window_length_days')
+    base = {'method': METHOD, 'published': published_season(site), 'window': None, 'spread': None, 'budbreak': None,
+            'rule': (f'Plant from {before + length} to {before} days before the typical modelled budbreak.'
+                     if before else None),
+            'assumptions': ASSUMPTIONS, 'limitations': LIMITATIONS, 'sources': [RULE_SOURCE]}
+    calendar = production.get('calendar') or {}
+    start, end, budbreak = (calendar.get(key) or {} for key in ('planting_start', 'planting_end', 'budbreak'))
+    if not production or production.get('status', 'available') != 'available':
+        return {**base, 'status': 'unavailable', 'label': 'Planting window unavailable', 'precision': 'Not assessed',
+                'basis': None,
+                'reason': ('The app calculates the planting window from the hourly crop calendar, which is unavailable '
+                           'for this point.')}
+    clock = production.get('chill_clock')
+    if clock is not None and not clock['applicable']:
+        managed = clock.get('chill_requirement_applies') is False
+        return {**base, 'status': 'not_applicable', 'label': 'Set by management' if managed else 'No calculated window',
+                'precision': 'Not assessed', 'basis': None,
+                'reason': ' '.join([*clock['reasons'],
+                                    'The planting rule counts back from a budbreak triggered by winter chill, so it gives no window here.',
+                                    *(['In warm or evergreen systems the grower sets the crop cycle by management.'] if managed else [])])}
+    if not before or not start.get('n'):
+        return {**base, 'status': 'unavailable', 'label': 'Planting window unavailable', 'precision': 'Not assessed',
+                'basis': None,
+                'reason': ('This model version has no planting rule.' if not before
+                           else 'No winter produced a modelled budbreak, so there is no date to count back from.')}
+    window = {'start': start['median_date'], 'end': end['median_date'],
+              'crosses_year': start['median_date'] > end['median_date']}
+    return {**base, 'status': 'available', 'label': f"{day_label(window['start'])} to {day_label(window['end'])}",
+            'window': window, 'spread': {'start': start['p10_date'], 'end': end['p90_date']},
+            'budbreak': {'median': budbreak['median_date'], 'p10': budbreak['p10_date'], 'p90': budbreak['p90_date'],
+                         'winters': budbreak['n']},
+            'basis': (f"Typical modelled budbreak is {day_label(budbreak['median_date'])}, the median of {budbreak['n']} "
+                      f'winters. Planting ends {before} days before it and lasts {length} days.'),
+            'precision': (f"The window comes from modelled budbreak, not observed dates. In early winters planting can start "
+                          f"on {day_label(start['p10_date'])}, and in late winters it can end on {day_label(end['p90_date'])}. "
+                          'These limits use the 10th and 90th percentiles of budbreak.'),
+            'reason': None}

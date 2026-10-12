@@ -8,7 +8,7 @@
 :root {
   --ink: #1d1d1f; --muted: #5f6368; --line: #e3e3e6; --paper: #fff; --mist: #f5f5f7; --accent: #0066cc;
   --chill: #547b93; --chill-soft: #edf3f7; --buds: #647b43; --buds-soft: #f1f4e9; --flower: #8c6178; --flower-soft: #f7eff3;
-  --fruit: #5d66a0; --fruit-soft: #f0f1f8; --harvest: #8b7138; --harvest-soft: #f7f3e8; --whole: #39756b; --whole-soft: #edf4f0;
+  --fruit: #5d66a0; --fruit-soft: #f0f1f8; --harvest: #8b7138; --harvest-soft: #f7f3e8; --whole: #39756b; --whole-soft: #edf4f0; --plant: #7a5a44; --plant-soft: #f5efe9;
   --deciduous: #3d5a73; --semi: #8fb0c6; --evergreen: #6f9a62;
 }
 * { box-sizing: border-box; }
@@ -143,7 +143,7 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
     <li><a href="#scan">The managed-cycle scan</a></li>
     <li><a href="#window">Production window card</a></li>
     <li><a href="#risks">Top risks</a></li>
-    <li><a href="#planting">Planting guidance</a></li>
+    <li><a href="#planting">Planting window</a></li>
     <li><a href="#evidence">Regional evidence</a></li>
     <li><a href="#tabs">The other tabs</a></li>
     <li><a href="#trust">How much to trust it</a></li>
@@ -158,7 +158,7 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
 <section class="slide" id="start">
   <p class="kicker">UF Blueberry Breeding Lab · weather platform</p>
   <h1>How the blueberry weather platform works</h1>
-  <p class="lead">This guide explains every part of the app in plain words: the production system, the production window, the top risks, the planting guidance, the regional evidence, and how to read the Season &amp; exposures window with its colours, dotted boxes and chill numbers.</p>
+  <p class="lead">This guide explains every part of the app in plain words: the production system, the production window, the top risks, the planting window, the regional evidence, and how to read the Season &amp; exposures window with its colours, dotted boxes and chill numbers.</p>
   <p class="lead">The running example is Papanduva in Santa Catarina, Brazil, the location in your screenshot. Every Papanduva number in this guide comes from the app's saved result.</p>
   <div class="say"><b>Say it in one line</b>The app looks at 15 years of past weather at a place and asks: if blueberries grew here, when would they flower and fruit, and how often did bad weather hit those stages?</div>
   <p class="small">Prepared 12 October 2026 from the current code (crop model <code>stage_thermal_v3</code>) and the saved Papanduva, Arcadia and Chao results. Screenshots come from the running app.</p>
@@ -174,7 +174,7 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
     <div class="card"><span class="step-num">3</span><h3>Build a crop calendar</h3><p>For every past year, the model counts winter cold and then spring warmth to estimate budbreak, flowering, fruit growth and harvest.</p></div>
     <div class="card"><span class="step-num">4</span><h3>Count bad weather</h3><p>It checks each crop stage for frost, heat, heavy rain, disease-friendly weather and poor bee weather, and counts in how many years each one happened.</p></div>
   </div>
-  <p style="margin-top:18px">On top of that, the app adds two pieces of outside knowledge. Planting guidance comes from university extension guides. Regional evidence comes from International Blueberry Organization (IBO) industry reports. Neither of them changes the weather numbers.</p>
+  <p style="margin-top:18px">The planting window is counted back from the modelled budbreak, using a rule from the supervisor's R workflow. On top of that, the app adds two pieces of outside knowledge. Published planting seasons come from university extension guides and appear as a comparison line. Regional evidence comes from International Blueberry Organization (IBO) industry reports. Neither of them changes the weather numbers.</p>
   <figure><img src="img/start.webp" alt="Start screen of the app: location search and saved locations on the left, world map with saved pins on the right."><figcaption>The start screen. Choose a place on the left or on the map, then press Analyze location.</figcaption></figure>
   <h3>What the app is not</h3>
   <div class="grid two">
@@ -308,7 +308,7 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
   <p class="kicker">Part 5 · Overview card 01</p>
   <h2>Production system: what kind of winter does this place have?</h2>
   <div class="say"><b>Say it in one line</b>Each winter gets a label from its cold, and the place gets the label that at least two winters in three share.</div>
-  <figure><img src="img/overview-cards.webp" alt="The four Overview cards for Papanduva: Semi-evergreen; flowering 15 Aug to 17 Sep and harvest 19 Oct to 6 Dec; top risks harvest heavy rain 100% and disease-favourable weather 100%; planting winter while dormant, approximately June to August."><figcaption>The four Overview cards for Papanduva. This part explains card 01.</figcaption></figure>
+  <figure><img src="img/overview-cards.webp" alt="The four Overview cards for Papanduva: Semi-evergreen; flowering 15 Aug to 17 Sep and harvest 19 Oct to 6 Dec; top risks harvest heavy-rain exposure 100% and disease-favourable weather 100%; planting window 19 Apr to 3 Jul, 105 to 30 days before the typical modelled budbreak of 2 Aug, with the published season Winter while dormant, approximately June to August, Santa Catarina, southern Brazil guide."><figcaption>The four Overview cards for Papanduva. This part explains card 01.</figcaption></figure>
   <h3>Step 1: label every winter</h3>
   <table>
     <thead><tr><th>Label</th><th>Rule for one winter</th></tr></thead>
@@ -432,74 +432,80 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
   <div class="say"><b>Say it in one line</b>Each row is a crop stage; the solid bar is its typical dates, the dotted box is its early-to-late range, and the colours only name the stage.</div>
   <p>This is a redrawing of your screenshot with numbers added. The real screenshot follows below.</p>
   <div class="scroll">
-  <svg class="chart" viewBox="0 0 1200 470" role="img" aria-label="Annotated copy of the Papanduva Season and exposures timeline with numbered callouts.">
-    <rect x="10" y="196" width="1180" height="58" rx="8" fill="#f7eff3"/>
+  <svg class="chart" viewBox="0 0 1200 530" role="img" aria-label="Annotated copy of the Papanduva Season and exposures timeline, with a Planting row above Winter chill and numbered callouts.">
+    <rect x="10" y="256" width="1180" height="58" rx="8" fill="#f7eff3"/>
     <text x="24" y="50" font-size="13" fill="#555" letter-spacing="1.5">ANALYSIS WINDOW</text>
     <g stroke="#e6e6ea">
-      <line x1="250" y1="62" x2="250" y2="440"/><line x1="348.2" y1="62" x2="348.2" y2="440"/><line x1="449.6" y1="62" x2="449.6" y2="440"/><line x1="547.8" y1="62" x2="547.8" y2="440"/><line x1="649.3" y1="62" x2="649.3" y2="440"/><line x1="750.7" y1="62" x2="750.7" y2="440"/><line x1="848.9" y1="62" x2="848.9" y2="440"/><line x1="950.4" y1="62" x2="950.4" y2="440"/><line x1="1048.5" y1="62" x2="1048.5" y2="440"/>
+      <line x1="250" y1="62" x2="250" y2="500"/><line x1="348.2" y1="62" x2="348.2" y2="500"/><line x1="449.6" y1="62" x2="449.6" y2="500"/><line x1="547.8" y1="62" x2="547.8" y2="500"/><line x1="649.3" y1="62" x2="649.3" y2="500"/><line x1="750.7" y1="62" x2="750.7" y2="500"/><line x1="848.9" y1="62" x2="848.9" y2="500"/><line x1="950.4" y1="62" x2="950.4" y2="500"/><line x1="1048.5" y1="62" x2="1048.5" y2="500"/>
     </g>
     <g font-size="15" fill="#444">
       <text x="256" y="50">Apr</text><text x="354" y="50">May</text><text x="456" y="50">Jun</text><text x="554" y="50">Jul</text><text x="655" y="50">Aug</text><text x="757" y="50">Sep</text><text x="855" y="50">Oct</text><text x="956" y="50">Nov</text><text x="1054" y="50">Dec</text>
     </g>
     <g fill="#1d1d1f">
-      <text x="24" y="101" font-size="17" font-weight="700">Winter chill</text><text x="24" y="121" font-size="14" fill="#555">1 Apr to 30 Sept</text>
-      <text x="24" y="161" font-size="17" font-weight="700">Bud development</text><text x="24" y="181" font-size="14" fill="#555">2 Aug to 14 Aug</text>
-      <text x="24" y="221" font-size="17" font-weight="700">Flowering</text><text x="24" y="241" font-size="14" fill="#555">15 Aug to 17 Sept</text>
-      <text x="24" y="281" font-size="17" font-weight="700">Fruit development</text><text x="24" y="301" font-size="14" fill="#555">18 Sept to 18 Oct</text>
-      <text x="24" y="341" font-size="17" font-weight="700">Harvest</text><text x="24" y="361" font-size="14" fill="#555">19 Oct to 6 Dec</text>
-      <text x="24" y="401" font-size="17" font-weight="700">Production window</text><text x="24" y="421" font-size="14" fill="#555">2 Aug to 6 Dec</text>
+      <text x="24" y="101" font-size="17" font-weight="700">Planting</text><text x="24" y="121" font-size="14" fill="#555">19 Apr to 3 Jul</text>
+      <text x="24" y="161" font-size="17" font-weight="700">Winter chill</text><text x="24" y="181" font-size="14" fill="#555">1 Apr to 30 Sept</text>
+      <text x="24" y="221" font-size="17" font-weight="700">Bud development</text><text x="24" y="241" font-size="14" fill="#555">2 Aug to 14 Aug</text>
+      <text x="24" y="281" font-size="17" font-weight="700">Flowering</text><text x="24" y="301" font-size="14" fill="#555">15 Aug to 17 Sept</text>
+      <text x="24" y="341" font-size="17" font-weight="700">Fruit development</text><text x="24" y="361" font-size="14" fill="#555">18 Sept to 18 Oct</text>
+      <text x="24" y="401" font-size="17" font-weight="700">Harvest</text><text x="24" y="421" font-size="14" fill="#555">19 Oct to 6 Dec</text>
+      <text x="24" y="461" font-size="17" font-weight="700">Production window</text><text x="24" y="481" font-size="14" fill="#555">2 Aug to 6 Dec</text>
     </g>
-    <rect x="250" y="97" width="598.9" height="16" rx="4" fill="#547b93"/>
-    <text x="838" y="110" font-size="13" fill="#fff" text-anchor="end">Mean 199 chill hours · 28.6 chill portions</text>
-    <line x1="583.8" y1="83" x2="583.8" y2="127" stroke="#1d1d1f" stroke-width="2"/><circle cx="583.8" cy="83" r="4" fill="#1d1d1f"/>
-    <rect x="610" y="150" width="140.7" height="30" rx="5" fill="#f1f4e9" stroke="#647b43" stroke-dasharray="4 3"/>
-    <rect x="583.8" y="161" width="68.7" height="8" rx="2" fill="#f1f4e9" stroke="#647b43"/>
-    <rect x="652.5" y="157" width="42.6" height="16" rx="4" fill="#647b43"/>
-    <line x1="652.5" y1="143" x2="652.5" y2="187" stroke="#1d1d1f" stroke-width="2"/><circle cx="652.5" cy="143" r="4" fill="#1d1d1f"/>
-    <rect x="642.7" y="210" width="206.2" height="30" rx="5" fill="#f7eff3" stroke="#8c6178" stroke-dasharray="4 3"/>
-    <rect x="695.1" y="217" width="111.3" height="16" rx="4" fill="#8c6178"/>
-    <rect x="780.2" y="270" width="157.1" height="30" rx="5" fill="#f0f1f8" stroke="#5d66a0" stroke-dasharray="4 3"/>
-    <rect x="806.4" y="277" width="101.4" height="16" rx="4" fill="#5d66a0"/>
-    <rect x="881.6" y="330" width="216" height="30" rx="5" fill="#f7f3e8" stroke="#8b7138" stroke-dasharray="4 3"/>
-    <rect x="907.8" y="337" width="160.4" height="16" rx="4" fill="#8b7138"/>
-    <rect x="610" y="390" width="487.6" height="30" rx="5" fill="#edf4f0" stroke="#39756b" stroke-dasharray="4 3"/>
-    <rect x="652.5" y="397" width="415.7" height="16" rx="4" fill="#39756b"/>
+    <rect x="266.4" y="90" width="346.9" height="30" rx="5" fill="#f5efe9" stroke="#7a5a44" stroke-dasharray="4 3"/>
+    <rect x="308.9" y="97" width="248.8" height="16" rx="4" fill="#7a5a44"/>
+    <rect x="250" y="157" width="598.9" height="16" rx="4" fill="#547b93"/>
+    <text x="838" y="170" font-size="13" fill="#fff" text-anchor="end">Mean 199 chill hours · 28.6 chill portions</text>
+    <line x1="583.8" y1="143" x2="583.8" y2="187" stroke="#1d1d1f" stroke-width="2"/><circle cx="583.8" cy="143" r="4" fill="#1d1d1f"/>
+    <rect x="610" y="210" width="140.7" height="30" rx="5" fill="#f1f4e9" stroke="#647b43" stroke-dasharray="4 3"/>
+    <rect x="583.8" y="221" width="68.7" height="8" rx="2" fill="#f1f4e9" stroke="#647b43"/>
+    <rect x="652.5" y="217" width="42.6" height="16" rx="4" fill="#647b43"/>
+    <line x1="652.5" y1="203" x2="652.5" y2="247" stroke="#1d1d1f" stroke-width="2"/><circle cx="652.5" cy="203" r="4" fill="#1d1d1f"/>
+    <rect x="642.7" y="270" width="206.2" height="30" rx="5" fill="#f7eff3" stroke="#8c6178" stroke-dasharray="4 3"/>
+    <rect x="695.1" y="277" width="111.3" height="16" rx="4" fill="#8c6178"/>
+    <rect x="780.2" y="330" width="157.1" height="30" rx="5" fill="#f0f1f8" stroke="#5d66a0" stroke-dasharray="4 3"/>
+    <rect x="806.4" y="337" width="101.4" height="16" rx="4" fill="#5d66a0"/>
+    <rect x="881.6" y="390" width="216" height="30" rx="5" fill="#f7f3e8" stroke="#8b7138" stroke-dasharray="4 3"/>
+    <rect x="907.8" y="397" width="160.4" height="16" rx="4" fill="#8b7138"/>
+    <rect x="610" y="450" width="487.6" height="30" rx="5" fill="#edf4f0" stroke="#39756b" stroke-dasharray="4 3"/>
+    <rect x="652.5" y="457" width="415.7" height="16" rx="4" fill="#39756b"/>
     <g stroke="#1d1d1f" stroke-width="1.5">
-      <line x1="290" y1="74" x2="300" y2="97"/>
-      <line x1="560" y1="70" x2="580" y2="82"/>
-      <line x1="568" y1="165" x2="583" y2="165"/>
-      <line x1="632" y1="128" x2="648" y2="141"/>
-      <line x1="990" y1="318" x2="990" y2="337"/>
-      <line x1="1112" y1="345" x2="1098" y2="345"/>
+      <line x1="647" y1="105" x2="614" y2="105"/>
+      <line x1="290" y1="134" x2="300" y2="157"/>
+      <line x1="600" y1="140" x2="587" y2="143"/>
+      <line x1="568" y1="225" x2="583" y2="225"/>
+      <line x1="632" y1="188" x2="648" y2="201"/>
+      <line x1="990" y1="378" x2="990" y2="397"/>
+      <line x1="1112" y1="405" x2="1098" y2="405"/>
     </g>
     <g font-size="14" font-weight="700" text-anchor="middle" fill="#fff">
-      <circle cx="285" cy="64" r="13" fill="#111"/><text x="285" y="69">1</text>
-      <circle cx="550" cy="62" r="13" fill="#111"/><text x="550" y="67">2</text>
-      <circle cx="555" cy="165" r="13" fill="#111"/><text x="555" y="170">3</text>
-      <circle cx="622" cy="120" r="13" fill="#111"/><text x="622" y="125">4</text>
-      <circle cx="990" cy="306" r="13" fill="#111"/><text x="990" y="311">5</text>
-      <circle cx="1126" cy="345" r="13" fill="#111"/><text x="1126" y="350">6</text>
-      <circle cx="215" cy="225" r="13" fill="#111"/><text x="215" y="230">7</text>
-      <circle cx="215" cy="405" r="13" fill="#111"/><text x="215" y="410">8</text>
-      <circle cx="230" cy="44" r="13" fill="#111"/><text x="230" y="49">9</text>
+      <circle cx="660" cy="105" r="13" fill="#111"/><text x="660" y="110">1</text>
+      <circle cx="285" cy="124" r="13" fill="#111"/><text x="285" y="129">2</text>
+      <circle cx="612" cy="137" r="13" fill="#111"/><text x="612" y="142">3</text>
+      <circle cx="555" cy="225" r="13" fill="#111"/><text x="555" y="230">4</text>
+      <circle cx="622" cy="180" r="13" fill="#111"/><text x="622" y="185">5</text>
+      <circle cx="990" cy="366" r="13" fill="#111"/><text x="990" y="371">6</text>
+      <circle cx="1126" cy="405" r="13" fill="#111"/><text x="1126" y="410">7</text>
+      <circle cx="215" cy="285" r="13" fill="#111"/><text x="215" y="290">8</text>
+      <circle cx="215" cy="465" r="13" fill="#111"/><text x="215" y="470">9</text>
+      <circle cx="230" cy="44" r="13" fill="#111"/><text x="230" y="49">10</text>
     </g>
   </svg>
   </div>
   <ol class="callouts">
-    <li><span class="n">1</span><span><b>Winter chill bar.</b> The window in which the app counts cold: 1 April to 30 September at Papanduva. The text inside gives the averages for this place: 199 chill hours and 28.6 chill portions (Part 4).</span></li>
-    <li><span class="n">2</span><span><b>Black pin on the chill bar.</b> The typical day the 100-hour cold dose was complete: 12 July, the median of 13 years. The legend calls it "Chill fulfilled".</span></li>
-    <li><span class="n">3</span><span><b>Thin outlined bar in the bud row.</b> "Forcing after chill": the weeks after the cold dose while the plant collects its first 150 heat units, here 12 July to 1 August. The buds are still closed, so the app measures no risks in this stretch. That is why the legend says "not measured".</span></li>
-    <li><span class="n">4</span><span><b>Black pin on the bud row.</b> Typical budbreak: 2 August. The bud development stage runs from budbreak to the day before flowering, 2 to 14 August.</span></li>
-    <li><span class="n">5</span><span><b>Solid coloured bar.</b> The typical dates of a stage: the median start to the median end. Harvest here runs from 19 October to 6 December. The app checks each stage's weather inside each year's own window.</span></li>
-    <li><span class="n">6</span><span><b>Dotted box.</b> How early and how late the stage got across the years: from the p10 start to the p90 end. The harvest box runs from 11 October to 15 December. A wide box means the stage moved a lot between years. It is not an error margin.</span></li>
-    <li><span class="n">7</span><span><b>Pink row.</b> The selected stage. You picked Flowering with the stage buttons above the chart, so its row is highlighted and its numbers appear under the chart.</span></li>
-    <li><span class="n">8</span><span><b>Production window row.</b> The whole crop season in one bar, from budbreak to the end of harvest: 2 August to 6 December. Its dotted box runs from 20 July to 15 December.</span></li>
-    <li><span class="n">9</span><span><b>Month ruler.</b> It starts in April because Papanduva is in the southern hemisphere, where the counting year starts on 1 April. For a Florida location it starts in November.</span></li>
+    <li><span class="n">1</span><span><b>Planting row.</b> The one-time window for putting nursery plants in the ground, drawn before budbreak: 19 April to 3 July. It ends 30 days before the typical budbreak and lasts 75 days. Its dotted box runs from 6 April to 20 July, from the early winters to the late ones. The row only appears where the chill-triggered calendar applies (Part 13).</span></li>
+    <li><span class="n">2</span><span><b>Winter chill bar.</b> The window in which the app counts cold: 1 April to 30 September at Papanduva. The text inside gives the averages for this place: 199 chill hours and 28.6 chill portions (Part 4).</span></li>
+    <li><span class="n">3</span><span><b>Black pin on the chill bar.</b> The typical day the 100-hour cold dose was complete: 12 July, the median of 13 years. The legend calls it "Chill fulfilled".</span></li>
+    <li><span class="n">4</span><span><b>Thin outlined bar in the bud row.</b> "Forcing after chill": the weeks after the cold dose while the plant collects its first 150 heat units, here 12 July to 1 August. The buds are still closed, so the app measures no risks in this stretch. That is why the legend says "not measured".</span></li>
+    <li><span class="n">5</span><span><b>Black pin on the bud row.</b> Typical budbreak: 2 August. The bud development stage runs from budbreak to the day before flowering, 2 to 14 August.</span></li>
+    <li><span class="n">6</span><span><b>Solid coloured bar.</b> The typical dates of a stage: the median start to the median end. Harvest here runs from 19 October to 6 December. The app checks each stage's weather inside each year's own window.</span></li>
+    <li><span class="n">7</span><span><b>Dotted box.</b> How early and how late the stage got across the years: from the p10 start to the p90 end. The harvest box runs from 11 October to 15 December. A wide box means the stage moved a lot between years. It is not an error margin.</span></li>
+    <li><span class="n">8</span><span><b>Pink row.</b> The selected stage. You picked Flowering with the stage buttons above the chart, so its row is highlighted and its numbers appear under the chart.</span></li>
+    <li><span class="n">9</span><span><b>Production window row.</b> The whole crop season in one bar, from budbreak to the end of harvest: 2 August to 6 December. Its dotted box runs from 20 July to 15 December.</span></li>
+    <li><span class="n">10</span><span><b>Month ruler.</b> The counting year starts on 1 April in the southern hemisphere and on 1 November in the north, so this redrawing starts in April. When planting starts before that date, the app opens the ruler earlier. The real Papanduva chart below runs from March to December, and Waldo in Florida runs from September to June.</span></li>
   </ol>
   <h3>The colours</h3>
-  <div class="key"><span><i style="background:var(--chill)"></i>Winter chill</span><span><i style="background:var(--buds)"></i>Bud development</span><span><i style="background:var(--flower)"></i>Flowering</span><span><i style="background:var(--fruit)"></i>Fruit development</span><span><i style="background:var(--harvest)"></i>Harvest</span><span><i style="background:var(--whole)"></i>Production window</span></div>
+  <div class="key"><span><i style="background:var(--plant)"></i>Planting</span><span><i style="background:var(--chill)"></i>Winter chill</span><span><i style="background:var(--buds)"></i>Bud development</span><span><i style="background:var(--flower)"></i>Flowering</span><span><i style="background:var(--fruit)"></i>Fruit development</span><span><i style="background:var(--harvest)"></i>Harvest</span><span><i style="background:var(--whole)"></i>Production window</span></div>
   <p>Each colour only names a stage, like colours on a subway map. A colour never means good, bad or dangerous. The app says so in the corner of the chart: "Colours identify stages, not severity".</p>
-  <figure><img src="img/season-timeline.webp" alt="The real Papanduva timeline with stage buttons, six rows and the legend: analysis window, p10 start to p90 end, forcing after chill not measured, chill fulfilled or budbreak."><figcaption>The real chart, with its legend at the bottom: solid bar = analysis window, dotted box = p10 start to p90 end, thin bar = forcing after chill, not measured, black pin = chill fulfilled or budbreak.</figcaption></figure>
+  <figure><img src="img/season-timeline.webp" alt="The real Papanduva timeline with seven stage buttons, Flowering selected, a month ruler from March to December, and seven rows: Planting 19 Apr to 3 Jul, Winter chill 1 Apr to 30 Sept, Bud development 2 Aug to 14 Aug, Flowering 15 Aug to 17 Sept, Fruit development 18 Sept to 18 Oct, Harvest 19 Oct to 6 Dec and Production window 2 Aug to 6 Dec. The legend reads analysis window, p10 start to p90 end, forcing after chill not measured, chill fulfilled or budbreak."><figcaption>The real chart, with the Planting row on top and its legend at the bottom: solid bar = analysis window, dotted box = p10 start to p90 end, thin bar = forcing after chill, not measured, black pin = chill fulfilled or budbreak.</figcaption></figure>
   <h3>The grey strip above the chart</h3>
   <table>
     <tbody>
@@ -647,26 +653,38 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
 
 <section class="slide" id="planting">
   <p class="kicker">Part 13 · Overview card 04</p>
-  <h2>Planting guidance</h2>
-  <div class="say"><b>Say it in one line</b>Planting guidance is a one-time nursery planting season copied from a regional university guide; it is not calculated from the weather.</div>
-  <p>This card answers a different question from the rest of the app. It is about putting young nursery plants in the ground once, not about the yearly flowering and harvest of grown plants.</p>
-  <h3>How the app chooses the guidance</h3>
-  <p>Each saved location carries a region name. The app looks that name up in a short list of three regions, each with a written source:</p>
+  <h2>Planting window</h2>
+  <div class="say"><b>Say it in one line</b>Plant young nursery plants once, from 105 to 30 days before the modelled budbreak.</div>
+  <p>This card answers a different question from the rest of the app. It is about putting young nursery plants in the ground once, before their first budbreak. It is not about the yearly flowering and harvest of grown plants, and it is not a first-harvest forecast.</p>
+  <h3>How the app calculates the window</h3>
+  <p>The rule comes from Paul's R workflow, <code>southern_brazil_blueberry_climate_analogs.R</code>, lines 91-92 and 1219-1220. Planting ends 30 days before the modelled budbreak and lasts 75 days. So the window runs from 105 to 30 days before budbreak.</p>
+  <p>At Papanduva the typical budbreak is 2 August, the median of 13 winters. Counting back gives a window from 19 April to 3 July. In early winters planting can start on 6 April, and in late winters it can end on 20 July. Those two limits use the 10th and 90th percentiles of budbreak, the same p10 and p90 as the dotted boxes.</p>
+  <p>The app counts one window back from the median budbreak. It does not take the median of each planting date on its own. The R code did that, and separate medians of month and day can give a window that runs backwards or splits into pieces, for example around an April year wrap. One budbreak date gives one clean window.</p>
+  <h3>The published season beside it</h3>
+  <p>Saved locations registered in three regions also show a published season from a regional guide, as a smaller second line headed "Published season". It is there for comparison only:</p>
   <table>
-    <thead><tr><th>Region</th><th>Window shown</th><th>Source</th></tr></thead>
+    <thead><tr><th>Region</th><th>Published season shown</th><th>Source</th></tr></thead>
     <tbody>
       <tr><td>Florida</td><td>Mid-December to mid-February</td><td>UF/IFAS home-garden guide (CIR1192, now MG359). The card also cites the newer commercial guide HS1525, which advises planting in the spring and fall root-growth periods.</td></tr>
       <tr><td>Georgia</td><td>Winter, about December to February</td><td>UGA Extension Circular 946. It says "winter" without dates, so the months are a display choice.</td></tr>
       <tr><td>Santa Catarina, Brazil</td><td>Winter while dormant, about June to August</td><td>Embrapa authors in Revista Cultivar. They say "in winter, while dormant", so the months are a display choice.</td></tr>
     </tbody>
   </table>
-  <p>Papanduva is registered in Santa Catarina, so it shows "Winter while dormant (approximately June to August)".</p>
-  <figure><img src="img/overview-planting.webp" alt="Regional planting window panel for Papanduva: winter while dormant, approximately June to August, Santa Catarina, southern Brazil."><figcaption>The planting panel lower on the Overview, with its conditions, limits and sources.</figcaption></figure>
-  <h3>What it does not do</h3>
+  <p>Papanduva is registered in Santa Catarina, so under its calculated window it shows "Published season: Winter while dormant (approximately June–August)".</p>
+  <figure><img src="img/overview-planting.webp" alt="Planting panel for Papanduva headed Calculated planting window: 19 Apr to 3 Jul, plant from 105 to 30 days before the typical modelled budbreak of 2 Aug, the median of 13 winters; in early winters planting can start on 6 Apr and in late winters it can end on 20 Jul. Beside it a white box, Published season, Santa Catarina, southern Brazil: Winter while dormant, approximately June to August, with folds for Source, conditions and limits and for Rule, assumptions and limits."><figcaption>The planting panel lower on the Overview: the calculated window on the left, the published season in the white box, and folds with the rule, sources and limits.</figcaption></figure>
+  <h3>How far to trust it</h3>
   <ul>
-    <li>A pin you drop on the map has no registered region, so it shows "Planting guide unavailable", even inside Florida. The app never guesses a region from a town name or a weather box.</li>
-    <li>It uses no weather. It does not move the window in warm or cold years.</li>
-    <li>It does not use the rule in Paul's R workflow, which plants 105 to 30 days before budbreak. Which rule to show is still an open question for Paul.</li>
+    <li>The R workflow labels the 30- and 75-day offsets "preliminary" and cites no source. Nobody has checked them against planting records.</li>
+    <li>In the literature benchmark the rule's months usually start earlier than the published planting months. Over the 15 southern-highbush sites where it could be scored, it covers 38% of the published planting months, and 33% of its own months are published ones. In Florida and Georgia, for example, guides say December to February, while the rule gives September or October to December.</li>
+    <li>The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it, and it makes no adjustment for tunnels or pots.</li>
+    <li>Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.</li>
+  </ul>
+  <h3>When there is no calculated window</h3>
+  <ul>
+    <li>At warm or evergreen sites such as Arcadia the chill requirement does not apply, so the card says "Set by management". The grower sets the crop cycle there.</li>
+    <li>Where the chill requirement applies but too few winters reach a chill-triggered calendar, the card says "No calculated window". River Valley is an example: only 10 of 15 winters gave a calendar.</li>
+    <li>Both kinds of place still show their published season if they are registered in Florida, Georgia or Santa Catarina. Arcadia and River Valley show "Mid-December to mid-February".</li>
+    <li>A pin you drop on the map gets a calculated window from its own budbreak, but never a published season, even inside Florida. The app never guesses a region from a town name or a weather box.</li>
   </ul>
 </section>
 
@@ -741,7 +759,7 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
   <details class="faq"><summary>Does 100% mean the crop fails every year?</summary><p>No. It means the event happened at least once in every year checked. One wet harvest day counts the same as twelve. Look at the averages in the card's definition box to judge how serious it was.</p></details>
   <details class="faq"><summary>Do the colours show danger?</summary><p>No. On the Season tab each colour only names a crop stage. In the scan strip, black means favourable and the striped and brick-red boxes mark blocked start dates.</p></details>
   <details class="faq"><summary>Why do the bars move when I pick another winter?</summary><p>Each year has its own weather, so its own chill date and heat totals. A warm spring moves flowering and harvest earlier.</p></details>
-  <details class="faq"><summary>Why does my dropped pin say "Planting guide unavailable"?</summary><p>Planting guidance only exists for saved locations registered in Florida, Georgia or Santa Catarina. A new pin has no registered region, and the app does not guess one.</p></details>
+  <details class="faq"><summary>Why does my dropped pin show no published season?</summary><p>Published seasons only exist for saved locations registered in Florida, Georgia or Santa Catarina. A new pin has no registered region, and the app does not guess one. The pin still gets a calculated planting window from its own modelled budbreak.</p></details>
   <details class="faq"><summary>Is this a forecast for next season?</summary><p>No. It summarises the winters of 2011 to 2025. Next season can be earlier or later than anything shown.</p></details>
   <details class="faq"><summary>What happens where there is no hourly weather?</summary><p>Some islands and coasts have only daily weather. The app then shows the climate history, but no chill hours, calendar or stage risks, because those need hourly temperature. It never invents hourly values.</p></details>
   <details class="faq"><summary>Why might a cold place get "No favourable start"?</summary><p>The heat settings describe a Florida-type plant. In a short, cool summer the model plant cannot collect enough heat, so the runs stall. This is a limit of the settings, not proof that blueberries cannot grow there.</p></details>
@@ -765,8 +783,10 @@ footer { padding: 30px clamp(20px, 5vw, 88px) 60px; color: var(--muted); font-si
     <dt>Horizon</dt><dd>The longest the model waits for a stage: 300 days. Budbreak may take up to 450 days from the start of winter.</dd>
     <dt>Median</dt><dd>The middle value when the years are put in order.</dd>
     <dt>p10 and p90</dt><dd>The points with 1 year in 10 earlier, and 1 year in 10 later. Together they make the dotted boxes.</dd>
+    <dt>Planting window</dt><dd>A one-time season for planting nursery plants, from 105 to 30 days before the typical modelled budbreak. Based on preliminary offsets from the supervisor's R workflow. Not validated.</dd>
     <dt>Production system</dt><dd>Deciduous, semi-evergreen or evergreen: the climate label from chill hours and winter mildness.</dd>
     <dt>Production window</dt><dd>When the plant typically flowers and is harvested at the place.</dd>
+    <dt>Published season</dt><dd>A planting season copied from a regional university guide, shown beside the planting window for comparison. Only for saved locations registered in Florida, Georgia or Santa Catarina.</dd>
     <dt>stage_thermal_v3</dt><dd>The name of the current crop model: version 3, with stages driven by heat units.</dd>
     <dt>Unvalidated</dt><dd>Not yet compared with dated records from real farms.</dd>
     <dt>UTC</dt><dd>The world clock that the app uses to count days.</dd>

@@ -766,6 +766,52 @@ class LeapDayTests(unittest.TestCase):
             del PROFILES['_leap']
 
 
+class PlantingRuleTests(unittest.TestCase):
+    def test_each_winter_plants_105_to_30_days_before_its_own_budbreak(self):
+        hourly, daily = synthetic()
+        row = season(hourly, daily, 29.8, 2020, profile('stage_thermal_v3'))
+        bud = pd.Timestamp(row['budbreak_date'])
+        expected = [bud - pd.Timedelta(days=105), bud - pd.Timedelta(days=30)]
+        self.assertEqual(row['planting'], [str(day.date()) for day in expected])
+        # Planting before 1 November gives negative offsets from the season start.
+        start = pd.Timestamp(row['season_start'])
+        self.assertEqual([row['offset_days']['planting_start'], row['offset_days']['planting_end']],
+                         [(day - start).days for day in expected])
+        self.assertLess(row['offset_days']['planting_start'], 0)
+
+    def test_winter_without_budbreak_has_no_planting(self):
+        hourly, daily = synthetic(hourly_temp=15.)  # never below 7.2 C, so the chill requirement fails
+        row = season(hourly, daily, 29.8, 2020, profile('stage_thermal_v3'))
+        self.assertEqual((row['status'], row['planting'], row['offset_days']['planting_start']), ('chill_not_met', None, None))
+
+    def test_typical_window_counts_back_from_the_median_budbreak(self):
+        rows = []
+        for year, budbreak in ((2019, 80), (2020, 90), (2021, 101)):
+            row = empty_row(year, 'north', pd.Timestamp(f'{year - 1}-11-01'), pd.Timestamp(f'{year}-05-01'))
+            row['offset_days']['budbreak'] = budbreak
+            rows.append(row)
+        typical = calendar(rows, 'north', planting=(30, 75))
+        # Median budbreak 90 (30 January): planting from 17 October to 31 December. The spread runs from the p10
+        # budbreak (82) minus 105 days to the p90 budbreak (98.8, shown as 99) minus 30 days.
+        self.assertEqual((typical['planting_start']['median_date'], typical['planting_end']['median_date']), ('10-17', '12-31'))
+        self.assertEqual((typical['planting_start']['p10_date'], typical['planting_end']['p90_date']), ('10-09', '01-09'))
+        self.assertEqual(typical['planting_start']['n'], 3)
+        self.assertNotIn('planting_start', calendar(rows, 'north'))
+
+    def test_rule_is_v3_only_and_validated(self):
+        self.assertEqual([name for name, p in PROFILES.items() if 'planting_end_before_budbreak_days' in p], ['stage_thermal_v3'])
+        legacy = analyse(*synthetic(), 29.8, 'stage_risks_v2', years=range(2020, 2021))
+        self.assertNotIn('planting', legacy['seasons'][0])
+        self.assertNotIn('planting_start', legacy['calendar'])
+        PROFILES['_planting'] = {**PROFILES['stage_thermal_v3'], 'planting_window_length_days': 0}
+        try:
+            with self.assertRaisesRegex(ValueError, 'Planting offsets'):
+                profile('_planting')
+        finally:
+            del PROFILES['_planting']
+
+
+
 class HelperTests(unittest.TestCase):
     def test_months_between_wraps_year(self):
         self.assertEqual(months_between('11-20', '02-03'), [1, 2, 11, 12])

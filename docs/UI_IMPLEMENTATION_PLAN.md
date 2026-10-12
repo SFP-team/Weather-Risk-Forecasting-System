@@ -1,19 +1,19 @@
 # Map-first climate workspace
 
-Design revision: 2026-10-05. A sixth view, Regional evidence, shows source-checked IBO report records for the pin's containing country and region. The map uses MapLibre with an English-first OpenFreeMap style and browser-local place context. The assessment remains vanilla JavaScript; the weather and planting contracts are unchanged. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
+Design revision: 2026-10-05. A sixth view, Regional evidence, shows source-checked IBO report records for the pin's containing country and region. The map uses MapLibre with an English-first OpenFreeMap style and browser-local place context. The assessment remains vanilla JavaScript; the weather contract is unchanged. Planting revision, 2026-10-12: the planting window is calculated from modelled budbreak, with the regional published season kept as a comparison line. Verification and operating instructions belong in [UI_RUNBOOK.md](UI_RUNBOOK.md).
 
 ## Product boundary
 
 Help a user choose a location, understand its historical weather evidence, inspect susceptible crop stages and save a reproducible report. This is not a forecast, orchard-suitability verdict or cultivar recommendation.
 
-The connected private API reads daily weather and complete hourly series for supported land points from the existing archives. The hourly adapter verifies cached source objects without network fallback; the 19 previously indexed cells retain their normalized series. Selecting a point still does not imply an applicable crop calendar, available soil or regional planting guidance. Missing/corrupt installed hourly objects fail closed. The remaining service roadmap is in [FUTURE_PLAN.md](FUTURE_PLAN.md).
+The connected private API reads daily weather and complete hourly series for supported land points from the existing archives. The hourly adapter verifies cached source objects without network fallback; the 19 previously indexed cells retain their normalized series. Selecting a point still does not imply an applicable crop calendar, a calculated planting window, a published planting season or available soil. Missing/corrupt installed hourly objects fail closed. The remaining service roadmap is in [FUTURE_PLAN.md](FUTURE_PLAN.md).
 
 ## User journey
 
 1. **Choose a place.** Search by settlement name, region or country in the local reference, or choose a saved research site. Case/accent-insensitive results include geographic context and support arrows, Enter and Escape. A settlement selects its reference coordinates. A region or country frames its principal polygon and requires a specific map point or coordinates before Analyze is enabled. This is not a worldwide street-address service; many smaller settlements are absent. Saved sites remain a separate search group and browse list.
    A local Natural Earth lookup supplies the containing country/region and nearest represented settlement. Show `Near NAME` within 100 km on represented land; otherwise use the containing area or coordinates. Saved farm names remain primary. Names do not move the pin or assign scientific/planting metadata.
 2. **Request an analysis.** Map movement never invokes the archive. Analyze is explicit. Distinguish the draft pin from the committed result; a changed pin leaves the previous location's name and coordinates on its assessment with a visible notice.
-3. **Read what is available.** Show daily rows, hourly access, applicable calendar, planting-guide availability and soil records separately. Connection status concerns service access, not scientific validity. Missing information never receives a low-risk colour or zero value.
+3. **Read what is available.** Show daily rows, hourly access, applicable calendar, calculated planting window and soil records separately. Connection status concerns service access, not scientific validity. Missing information never receives a low-risk colour or zero value.
 4. **Understand the main evidence.** The overview shows the production-system hypothesis, assumed harvest window, qualifying recurring risks and descriptive signals. No blended suitability score or invented severity categories.
 5. **Inspect the season.** Choose a winter and stage. Read its modelled dates, exposure values, historical comparison and missing-data reasons. Keep hourly warm-midwinter context independent of crop timing.
 6. **Check context and assumptions.** Climate history, soil/setup, regional evidence and methods/data have their own views. Regional evidence keeps reported practice and events apart from the calculated weather risks and cites report pages; it is neither a field observation nor a model input. Detailed tables and scientific definitions remain accessible without dominating the initial screen.
@@ -24,7 +24,7 @@ The connected private API reads daily weather and complete hourly series for sup
 | View | First screen | Detail layer |
 |---|---|---|
 | Explore | Global map, saved-location filter, coordinates, explicit Analyze | Basemap attribution, input help, source-cell overlay and archive scope |
-| Overview | System hypothesis, assumed harvest, risk count; recurrence cards with k/n; four exposure families; one establishment window; regional evidence count | Event definitions, Wilson intervals, sources and excluded-assessment reasons |
+| Overview | System hypothesis, assumed harvest, risk count; recurrence cards with k/n; four exposure families; one calculated planting window with any published season; regional evidence count | Event definitions, Wilson intervals, sources and excluded-assessment reasons |
 | Season & exposures | Winter selector, categorical stage colours, full-width timeline, selected-stage metric cards | Exact values, historical distribution, coverage, eligibility, full calendar and per-winter tables |
 | Climate history | Six annual/reference-winter cards and two selectable charts | Annual values and definitions; no confusion with crop-stage windows |
 | Soil & setup | Acquired records with property/depth uncertainty and selected setup notes | Missing soil, geographic-grid limitations, pot substrate and irrigation requirements |
@@ -41,7 +41,7 @@ The six assessment views use one tab panel at a time. Tab, arrow keys, Home and 
 - Fruit frost retains its units, stage window and exposure-not-injury caveat. Zero stays distinct from unavailable.
 - Daily-only warm context says **days**, never estimated hours. Hourly windows cannot be synthesized from that fallback.
 - The new primary production-window timeline starts at budbreak, matching its existing backend dry-spell/radiation/GDD window. Legacy profiles retain their season-start interval. This is a presentation correction, not a formula change.
-- Establishment is separate from the bearing-plant timeline. Display the source's regional precision and nursery assumptions. Unsupported geography declines; sharing a weather cell does not assign a planting region.
+- Establishment is a one-time nursery operation, not part of the bearing-plant cycle. The Season timeline draws a first "Planting" lane before budbreak, only where the chill-triggered calendar applies. The Overview shows the window calculated from modelled budbreak, plant from 105 to 30 days before, with the published regional season for registered saved locations in Florida, Georgia and Santa Catarina. A dropped pin gets a calculated window but never a published season; sharing a weather cell or a place name does not assign a planting region.
 - Evergreen and unclassified results do not get an applicable chill-triggered crop timeline. Hypothetical calculated exposures are explicitly labelled. Independent winter weather remains useful.
 - An empty managed-cycle scan states its cause: too cool to complete a cycle, recurring freeze at every assessable start, or too few complete cycles. Never show an empty favourable set as "None recurring"; that reads as low risk.
 

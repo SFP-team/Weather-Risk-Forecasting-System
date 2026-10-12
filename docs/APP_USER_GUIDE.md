@@ -53,7 +53,7 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 | Weather risks | Events, frequencies, and exclusions are displayed. | Exposure is not crop damage or expected yield loss. |
 | Regional evidence | 91 reviewed records from three IBO report editions are available. | Coverage is partial. Reports are not field observations at the pin. |
 | Soil | Some pilot-site records are available. | Collection stopped after source failures. Most arbitrary pins have no soil records. |
-| Planting guidance | Selected registered regions have source-based guidance. | It does not cover every coordinate. |
+| Planting window | The app calculates a nursery planting window from modelled budbreak wherever the chill-triggered calendar applies. Registered saved locations in Florida, Georgia and Santa Catarina also show a published season for comparison. | The rule's offsets are not validated. Locations without the chill-triggered calendar get no calculated window. |
 | Scientific validation | Regional literature comparisons and limited station checks exist. | Independent cultivar-by-site-by-year validation is not complete. |
 | Public deployment | The current code is on GitHub. | The older hosted app has not received the current changes. |
 
@@ -226,23 +226,45 @@ Sometimes the winter calendar does not apply because some winters do not reach t
 
 The ranking measures frequency, not damage severity. A frequent rain event can rank above a less frequent but destructive freeze.
 
-### 5.4 Planting guidance
+### 5.4 Planting window
 
-This card concerns the establishment of nursery plants. It does not describe budbreak, flowering, or harvest on mature plants.
+This card concerns the establishment of nursery plants. It does not describe budbreak, flowering, or harvest on mature plants. It is a one-time establishment window, not annual replanting or a first-year harvest forecast.
 
-Current guidance covers selected registered locations in Florida, Georgia, and Santa Catarina.
+The app counts back from modelled budbreak. Planting ends 30 days before budbreak and lasts 75 days, so the window runs from 105 to 30 days before budbreak. The rule comes from the supervisor's R workflow, `southern_brazil_blueberry_climate_analogs.R`, lines 91-92 and 1219-1220. That workflow labels the offsets preliminary and cites no source.
 
-Only saved locations in those regions receive this guidance. Any other coordinate shows "Planting guide unavailable", even inside Florida. Place-name matching does not assign planting guidance.
+The typical window counts back from the median budbreak. Its spread uses the budbreak spread. The earliest start is the 10th-percentile budbreak minus 105 days. The latest end is the 90th-percentile budbreak minus 30 days. Each winter also gets its own window from that winter's budbreak.
 
-The displayed windows come from home-garden extension guides. UF/IFAS commercial guidance (HS1525, July 2026) advises planting during the early-spring and fall root-growth periods. It also reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting.
+Two examples:
 
-"No regional window" means the app has no supported planting recommendation for this result. It does not mean planting is impossible.
+- Papanduva shows "19 Apr to 3 Jul". Typical budbreak is 2 Aug over 13 winters, and the spread runs from 6 Apr to 20 Jul.
+- Waldo shows 11 Oct to 25 Dec. Typical budbreak is 24 Jan over 15 winters, and the spread runs from 15 Sep to 13 Jan.
+
+Registered saved locations in Florida, Georgia and Santa Catarina also show a "Published season" box. It holds the regional home-garden guide for comparison. Papanduva's reads "Winter while dormant (approximately June–August)". Waldo's reads "Mid-December to mid-February". UF/IFAS commercial guidance, HS1525 from July 2026, advises planting during the early-spring and fall root-growth periods instead. The published season shows even where the calculated window does not apply.
+
+A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. For example, a live pin near Clinton, NC showed 1 Oct to 15 Dec, with budbreak on 14 Jan.
+
+When there is no calculated window, the card says why:
+
+- "Set by management" means the chill requirement does not apply. These are warm or evergreen-majority systems, where the grower sets the crop cycle by management. Arcadia is an example.
+- "No calculated window" means the chill requirement applies, but too few winters produce a chill-triggered calendar. River Valley is an example, with 10 of 15 winters.
+- "Planting window unavailable" means the point has no hourly crop calendar.
+
+None of these means planting is impossible.
+
+Limits:
+
+- The window comes from modelled budbreak, not observed dates. The app does not check frost, heat or rain inside it.
+- No one has checked the rule against planting records.
+- Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.
+- The app applies no tunnel or pot adjustment.
+
+In the literature benchmark, the rule covers 38% of published planting months over 15 southern-highbush sites, and 33% of its months are published. Its months usually start earlier than the published ones. In Florida and Georgia, guides publish December to February, while the rule gives September or October to December.
 
 ## 6. The six tabs
 
 | Tab | Information shown | How to use it |
 |---|---|---|
-| Overview | System class, crop window, top risks, planting guidance, and additional weather measures. | Read this first. Then check the basis of each result. |
+| Overview | System class, crop window, top risks, planting window, and additional weather measures. | Read this first. Then check the basis of each result. |
 | Season & exposures | Stage timeline, individual winters, weather measures by stage, and cycle-start scan. | Check when exposure occurs and which years support the result. |
 | Climate history | Annual and monthly weather summaries. | Examine weather independently of a successful crop calendar. |
 | Soil & setup | Available soil estimates and growing-setup notes. | Identify information that needs local soil and management checks. |
@@ -453,7 +475,7 @@ The current interface does not ask for cultivar-specific stage settings. It uses
 | Honey bee temperature measure | Valid flowering dates, longitude, and complete required daytime hourly temperatures. |
 | Ranked winter risk | A defined event, applicable calculation, at least 12 valid winters, and event frequency of at least 50%. |
 | Selected managed-cycle window | At least one start passes the scan's complete-evidence, exclusion, and comparison rules. Daily-only fallback does not run production analysis. |
-| Planting guide | An applicable registered region and source-supported establishment guidance. |
+| Planting window | An applicable chill-triggered calendar with modelled budbreak. A published season also needs a registered saved location in Florida, Georgia or Santa Catarina. |
 | Soil section | Stored soil records for the selected coordinates. |
 | Regional evidence | A loaded report library and a supported country/region boundary match. A crop calendar is not required. |
 
@@ -572,7 +594,7 @@ This interpretation uses the earlier verified response for 46.738354, −121.456
 | Mean 4,095 chill hours | Mean production-model chill count under its six-month, below-7.2 °C rule. Below-zero hours count too. |
 | 77.8 chill portions | An alternative Dynamic Model chill measure. It does not currently trigger budbreak or classification. |
 | Flowering and harvest unavailable | The model did not produce a qualifying complete calendar or selected scan window. |
-| Planting guide unavailable | No applicable registered planting guidance is attached. This is independent of calendar failure. |
+| No calculated planting window | The winter calendar did not qualify, so the app cannot count back from budbreak. A dropped pin never gets a published season. This is a consequence of the calendar result, not a separate failure. |
 | Soil 0/45 records | No stored soil records are attached to this point. This did not cause the calendar failure. |
 | Open field + ground | The outdoor assessment context. It is not a recommendation to establish a farm there. |
 
@@ -629,7 +651,10 @@ These results concern this grid cell under the current model. The crop constants
 | Suspect rainfall | Source screening flagged rainfall as unsuitable for dependent calculations. | Do not replace the missing rainfall-derived value with zero. |
 | No regional evidence | The reviewed library has no supported match, or matching failed. | Read whether the cause is no records, missing boundaries, or library failure. |
 | Soil unavailable | No applicable stored soil records. | Obtain local soil information separately. |
-| Planting guide unavailable | No applicable planting guidance in the current registry. | Request local establishment guidance. |
+| No calculated planting window | The app could not calculate a window from budbreak. The card says which case applies. | Read the card's label before deciding anything. |
+| Set by management | The chill requirement does not apply. The grower sets the crop cycle by management. | Use local establishment practice. |
+| No calculated window | The chill requirement applies, but too few winters produce a chill-triggered calendar. | Check the winter status. Use the published season, if shown, only as a comparison. |
+| Planting window unavailable | The point has no hourly crop calendar. | Request local establishment guidance. |
 | A displayed zero | The calculation returned zero in its valid source window. | Check the source and limitations. Grid zero does not establish field safety. |
 
 A failed disease measure does not mean there was no disease.
@@ -718,7 +743,7 @@ Maine, Quebec, or Finland must not automatically receive northern-highbush setti
 
 - Validate stage dates with cultivar-specific field observations.
 - Separate model error from weather-grid bias, especially near mountains and coasts.
-- Expand planting guidance for arbitrary pins where sources support it.
+- Validate the 30- and 75-day planting offsets against planting records.
 - Resolve soil-data source failures without repeating completed downloads.
 - Decide whether to acquire the separately identified island hourly gaps.
 - Improve the cold-climate classification rule, which can label very cold or polar locations Deciduous without establishing suitability.
@@ -751,6 +776,7 @@ This guide distinguishes software checks from scientific validation.
 
 - On 12 October 2026, 241 server tests passed in a staging copy of the deployed code, and 34 browser-code tests passed locally.
 - With the old crop settings, the new code reproduced the 18 earlier saved assessments exactly. Only the planting text and a land-mask label differ.
+- On 12 October 2026, the planting window change passed 251 server tests in a staging copy, including 8 new planting tests. The older crop settings reproduced 18 saved sites with 0 differences. The live server returned 30 Sep to 14 Dec for an Alma coordinate. Browser checks at 1440 and 390 px covered Waldo, Alma, Papanduva, Burgaw, Arcadia, River Valley, a live Clinton pin and Waldo winter 2011, with no page errors and no page overflow. 34 browser-code tests passed. No weather, calendar or risk number changed in the 71 saved assessments.
 - Browser checks on 12 October covered six saved locations and two live coordinates. They found no page errors, no blocked map resources, and no page overflow at 390 px.
 - Earlier browser checks covered saved and live locations, errors, mobile layouts, and exports.
 - The regional-evidence change preserved the weather results in all 71 saved assessments.
