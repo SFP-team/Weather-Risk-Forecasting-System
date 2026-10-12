@@ -186,17 +186,41 @@
     {
       "id": "ibo-2024",
       "edition": 2024,
-      "kind": "full_report_not_acquired",
-      "status": "registration_required_secondary_excerpts_acquired",
-      "full_text_read": false,
+      "kind": "complete_annual_report",
+      "status": "pdf_acquired_user_supplied",
+      "full_text_read": true,
       "source_url": "https://www.internationalblueberry.org/2024-report/",
+      "acquisition": "Complete PDF supplied by the user on 2026-10-12. The user's copy docs/report-2024.pdf stays untracked.",
+      "server_asset": "2024/report.pdf",
+      "server_text_assets": [
+        "2024/report.txt",
+        "2024/report_printed_pages.txt",
+        "2024/manifest.json"
+      ],
+      "previous_manifest": "2024/manifest_20261005.json",
+      "bytes": 20956493,
+      "sha256": "ca9f428c45fb81877248eeec0fe137887612d9cb3307159cf3560310feefa16a",
+      "pdf_pages": 121,
+      "printed_pages": 238,
+      "page_mapping": "119 two-page spreads plus covers; printed page P is on PDF page floor(P/2)+1.",
+      "main_observation_season": "Mainly the 2023 season and the 2023/24 split season",
+      "review_status": "Read on 2026-10-12 in five region slices for the regional evidence registry. Every quote checked against its cited printed page by script; every summary reviewed against its quotes. 9 proposals rejected. Audit file: docs/research/2026-10-05/ibo_2024_extraction.json.",
+      "rights": "Broad reuse with attribution, printed235 / PDF118. Attribution: Source: International Blueberry Organization (IBO).",
       "excerpt_index": "https://italianberry.it/tag/ibo-report-2024",
-      "server_asset": "2024/secondary_italianberry_excerpts_20261005.txt",
-      "bytes": 37237,
-      "sha256": "d9624bd0dffb3de45eca717a387005f6f6d259ee5c6725d3c4a29250ee620d2e",
-      "review_coverage": "Seven abridged country/production excerpts reviewed, not full report. Health/quality/sustainability excerpts and webinar not part of that set.",
-      "rights": "Full report terms unverified; Italian Berry excerpts have separate rights.",
-      "note": "Official form not submitted. Public mirror/flipbook and archived page searches found no complete ungated PDF. No claim that no public copy exists anywhere."
+      "history": {
+        "kind_2026_10_05": "full_report_not_acquired",
+        "status_2026_10_05": "registration_required_secondary_excerpts_acquired",
+        "server_asset": "2024/secondary_italianberry_excerpts_20261005.txt",
+        "bytes": 37237,
+        "sha256": "d9624bd0dffb3de45eca717a387005f6f6d259ee5c6725d3c4a29250ee620d2e",
+        "review_coverage": "Seven abridged country/production excerpts reviewed, not full report. Health/quality/sustainability excerpts and webinar not part of that set.",
+        "rights": "Full report terms unverified; Italian Berry excerpts have separate rights.",
+        "note": "Official form not submitted. Public mirror/flipbook and archived page searches found no complete ungated PDF. No claim that no public copy exists anywhere."
+      },
+      "warnings": [
+        "Two-page spreads; use the printed-page mapping for every citation.",
+        "The PDF is not in Git."
+      ]
     },
     {
       "id": "ibo-2025",
@@ -240,7 +264,7 @@
       ]
     }
   ],
-  "updated_2026_10_12": "Added related IBO presentation sources (available, not read) and third-party copies seen and rejected, from docs/research/2026-10-11/review/astra_ibo_evidence_review.md section 4.",
+  "updated_2026_10_12": "Added related IBO presentation sources (available, not read) and third-party copies seen and rejected, from docs/research/2026-10-11/review/astra_ibo_evidence_review.md section 4. Later the same day the user supplied the complete 2024 report; the ibo-2024 entry now records it. Of the annual editions from 2021 on, only the 2021 full report is missing. The 2022 complete copy is not used in the registry because equivalent reuse permission was not established.",
   "related_sources": [
     {
       "id": "ibo-summit-sa-2025-presentations",
@@ -280,7 +304,7 @@
       "edition": 2024,
       "url": "https://www.scribd.com/document/868719668/report-2024",
       "status": "rejected",
-      "reason": "Third-party upload (121 pages) marked 'All Rights Reserved'. Not an IBO channel; do not import. The 2024 report is behind IBO's free lead form; filling it is a human decision."
+      "reason": "Third-party upload (121 pages) marked 'All Rights Reserved'. Not an IBO channel; do not import. The 2024 report is behind IBO's free lead form; filling it is a human decision. Update 2026-10-12: the user supplied the complete 2024 report, recorded under ibo-2024."
     },
     {
       "id": "scribd-ibo-2025",

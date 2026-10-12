@@ -53,3 +53,5 @@ The user subsequently authorized implementation and online planting research. Ex
 These are provisional implementation decisions, not a record of subsequent supervisor sign-off or scientific validation.
 
 Update, 2026-10-12: the user approved Paul's rule as the app's planting window, reversing the regional-season choice above. The app plants from 105 to 30 days before modelled budbreak and keeps the regional seasons as a published comparison. The offsets remain unvalidated. See [production method notes](production/README.md).
+
+Update, 2026-10-12: the user set the chill requirement of `stage_thermal_v3` to 50 hours. With it, River Valley's chill-triggered calendar applies again, in 14 of 15 winters. Median flowering runs 5 February to 27 February and harvest 24 March to 29 April, nearer the early-April harvest Paul expected. The only ranked risk is harvest heavy rain, in 11 of 14 winters. The decisions recorded above are unchanged. See [production method notes](production/README.md).

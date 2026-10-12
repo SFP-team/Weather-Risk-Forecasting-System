@@ -92,7 +92,7 @@ class LocationTests(unittest.TestCase):
         self.assertEqual(block['scope'],'open_ground')
         self.assertEqual(block['status_counts'],{'complete':15})
         self.assertEqual(block['classification']['multi_feature']['majority'],'Deciduous')
-        self.assertEqual(block['calendar']['chill']['median_date'],'11-05')  # 100 h at 5 C under the v3 primary
+        self.assertEqual(block['calendar']['chill']['median_date'],'11-03')  # 50 h at 5 C under the v3 primary
         self.assertEqual(block['profile'],'stage_thermal_v3')
         self.assertEqual(block['managed_cycle']['role'],'comparison')
         frost=block['risks']['by_id']['fruit_frost']

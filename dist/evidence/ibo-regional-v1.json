@@ -1,9 +1,9 @@
 {
  "schema_version": 1,
- "version": "ibo-regional-2026-10-12",
+ "version": "ibo-regional-2026-10-12b",
  "reviewed_on": "2026-10-12",
- "scope_note": "Curated, source-checked paraphrases from the complete IBO global reports for 2023, 2025 and 2026, whose reuse-with-attribution terms were verified. Statements describe reported regional practice, events and constraints; they are not field observations, model output, forecasts or recommendations for this location. Reported losses are industry estimates. Repeated mentions across editions share one source family and are not independent confirmation.",
- "coverage_note": "Partial coverage: only selected benchmark regions and countries are included, and only statements checked against the cited pages. Absence of a record is not evidence that an event did not occur or that a practice is not used. The 2021, 2022 and 2024 editions and other sources are not included.",
+ "scope_note": "Curated, source-checked paraphrases from the complete IBO global reports for 2023, 2024, 2025 and 2026, whose reuse-with-attribution terms were verified. Statements describe reported regional practice, events and constraints; they are not field observations, model output, forecasts or recommendations for this location. Reported losses are industry estimates. Repeated mentions across editions share one source family and are not independent confirmation.",
+ "coverage_note": "Partial coverage: only selected benchmark regions and countries are included, and only statements checked against the cited pages. Absence of a record is not evidence that an event did not occur or that a practice is not used. The 2021 and 2022 editions and other sources are not included.",
  "geography_reference": {
   "file": "geography/places-v1.json.gz",
   "sha256": "72a5dea4d7b0d898e3fafe6c9550c4bbc304c6a0c4a19806b0bfff9fc0ae64d2",
@@ -61,6 +61,25 @@
     ],
     "pdf_pages": [
      112
+    ]
+   }
+  },
+  {
+   "id": "ibo-2024",
+   "title": "Global State of the Blueberry Industry Report 2024",
+   "edition": 2024,
+   "url": "https://www.internationalblueberry.org/2024-report/",
+   "sha256": "ca9f428c45fb81877248eeec0fe137887612d9cb3307159cf3560310feefa16a",
+   "pdf_pages": 121,
+   "source_family": "ibo-global-reports",
+   "attribution": "Source: International Blueberry Organization (IBO)",
+   "license": {
+    "label": "Reuse with attribution",
+    "printed_pages": [
+     235
+    ],
+    "pdf_pages": [
+     118
     ]
    }
   },
@@ -603,6 +622,16 @@
    "precision": "region"
   },
   {
+   "id": "AU",
+   "country_code": "AU",
+   "country_names": [
+    "Australia"
+   ],
+   "region_names": [],
+   "label": "Australia, country context",
+   "precision": "country"
+  },
+  {
    "id": "AU-NSW",
    "country_code": "AU",
    "country_names": [
@@ -738,12 +767,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "North Carolina growers moving away from early-blooming varieties because of frost",
-   "summary": "IBO 2023 says North Carolina's windy freezes make overhead-irrigation frost protection unviable and often harmful, row covers are not feasible for bushes, and growers are removing early bloomers such as 'Star' for later-blooming varieties. IBO 2025 and 2026 repeat that the state's varietal mix is shifting away from earlier varieties more prone to frost.",
+   "summary": "IBO 2023 says North Carolina's windy freezes make overhead-irrigation frost protection unviable and often harmful, row covers are not feasible for bushes, and growers are removing early bloomers such as 'Star' for later-blooming varieties. IBO 2024, 2025 and 2026 repeat that the state's varietal mix is shifting away from earlier varieties more prone to frost.",
    "geography_ids": [
     "US-NC"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -761,6 +790,16 @@
      ],
      "pdf_pages": [
       45
+     ],
+     "locator": "US report team narrative: North Carolina"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      94
+     ],
+     "pdf_pages": [
+      48
      ],
      "locator": "US report team narrative: North Carolina"
     },
@@ -1005,12 +1044,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Georgia shifting from aging rabbiteye to southern highbush",
-   "summary": "IBO 2025 and 2026 report expansion of southern highbush in Georgia as rabbiteye area declines, with many rabbiteye farms 15-20 years old. More Optimus and other University of Florida varieties are being planted, and Farthing is described as the leading southern highbush cultivar. IBO 2023 reported rabbiteye at about 30% of Georgia.",
+   "summary": "IBO 2024, 2025 and 2026 report expansion of southern highbush in Georgia as rabbiteye area declines, with many rabbiteye farms 15-20 years old. More Optimus and other University of Florida varieties are being planted, and Farthing is described as the leading southern highbush cultivar. IBO 2023 reported rabbiteye at about 30% of Georgia.",
    "geography_ids": [
     "US-GA"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1030,6 +1069,16 @@
       45
      ],
      "locator": "US report team narrative: rabbiteye share"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      94
+     ],
+     "pdf_pages": [
+      48
+     ],
+     "locator": "US report team narrative: Georgia"
     },
     {
      "source_id": "ibo-2025",
@@ -1113,7 +1162,7 @@
    "kind": "event",
    "topic": "weather",
    "title": "Florida winters: 2023 crop setback, better 2024, colder 2024-25 delayed crop",
-   "summary": "IBO 2025 says Florida's 2023 early crop was affected by 'unprecedented temperatures over Christmas' and a hurricane before that. In 2024 cold winter temperatures arrived earlier, giving more chill hours before open bloom and less need for freeze protection during pollination. In winter 2024-25 colder conditions left the crop both delayed and short. IBO 2023 separately reported that September and October 2022 hurricanes and extremely cold temperatures late in 2022 cut the 2023 crop significantly.",
+   "summary": "IBO 2025 says Florida's 2023 early crop was affected by 'unprecedented temperatures over Christmas' and a hurricane before that. In 2024 cold winter temperatures arrived earlier, giving more chill hours before open bloom and less need for freeze protection during pollination. In winter 2024-25 colder conditions left the crop both delayed and short. IBO 2023 separately reported that September and October 2022 hurricanes and extremely cold temperatures late in 2022 cut the 2023 crop significantly. IBO 2024 gives the same account of the fall 2022 hurricane and the Christmas 2022 temperatures, and says the 2023 crop ended about 20% short of what the industry had hoped for.",
    "geography_ids": [
     "US-FL"
    ],
@@ -1140,6 +1189,16 @@
      "locator": "US report team narrative: Florida"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      94
+     ],
+     "pdf_pages": [
+      48
+     ],
+     "locator": "US report team narrative: Florida"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       103
@@ -1162,12 +1221,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Florida is the earliest US producer; peak in April",
-   "summary": "IBO 2025 calls Florida the country's earliest producer with its peak in April; in 2024 some May crops went unpicked when prices fell. IBO 2023 said Florida now holds about 10% of the March-April-May US market window it once dominated.",
+   "summary": "IBO 2025 calls Florida the country's earliest producer with its peak in April; in 2024 some May crops went unpicked when prices fell. IBO 2023 and 2024 said Florida now holds about 10% of the March-April-May US market window it once dominated.",
    "geography_ids": [
     "US-FL"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023 and 2025",
+    "label": "Season pattern described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1185,6 +1244,16 @@
      ],
      "pdf_pages": [
       44
+     ],
+     "locator": "US report team narrative: Florida"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      94
+     ],
+     "pdf_pages": [
+      48
      ],
      "locator": "US report team narrative: Florida"
     },
@@ -1291,16 +1360,140 @@
    ]
   },
   {
+   "id": "us-ca-2023-rain-late-peak",
+   "kind": "event",
+   "topic": "weather",
+   "title": "California flooding and pollination-time rain delayed the 2023 peak by six weeks",
+   "summary": "IBO 2024 says California had flooding in late 2022 and early 2023. It is understood that heavy rain during the bushes' pollination period delayed the crop, so the 2023 California peak ran six weeks later than normal and overlapped other growing regions to an unprecedented degree.",
+   "geography_ids": [
+    "US-CA"
+   ],
+   "period": {
+    "label": "Late 2022 to early 2023 (flooding and rain); 2023 peak harvest about six weeks late",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial blueberries; Central California named as June market leader; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "us-ca-rain-flooding-2022-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      93
+     ],
+     "pdf_pages": [
+      47
+     ],
+     "locator": "US report team narrative: market movement and California"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The rain is given as the understood cause of the delay, not a measured crop response.",
+    "No rainfall amounts, flood locations or loss figures are given."
+   ]
+  },
+  {
+   "id": "us-pnw-2023-pollination-weather",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Pacific Northwest 2023: cool rain and hot days hit pollination, fifth bad weather year",
+   "summary": "IBO 2024 says the Pacific Northwest had another extremely challenging year in 2023, its fifth in a row with weather-related problems. One industry representative called Oregon's yield the poorest in 25 years, after a mix of cool, rainy days and very hot days that both deterred pollinators. Oregon was more affected than Washington because its industry is more concentrated, but both states saw significant volume declines. Weather effects also stopped Oregon and Washington from selling their usual September late-season volume.",
+   "geography_ids": [
+    "US-PNW"
+   ],
+   "period": {
+    "label": "2023 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Northern highbush region; cultivars not specified for the 2023 losses.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "us-pnw-pollination-weather-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      23
+     ],
+     "pdf_pages": [
+      12
+     ],
+     "locator": "Industry trends: weather events"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      93
+     ],
+     "pdf_pages": [
+      47
+     ],
+     "locator": "US report team narrative: Pacific Northwest"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The 25-year low is one industry representative's view; no yield figures are given for the states.",
+    "No dates, temperatures or rainfall values are reported."
+   ]
+  },
+  {
+   "id": "us-se-2023-freeze-reprieve",
+   "kind": "event",
+   "topic": "weather",
+   "title": "North Carolina and Georgia largely avoid spring freeze damage in 2023",
+   "summary": "IBO 2024 says North Carolina and Georgia bounced back from the 2022 freeze events to harvest very strong crops in 2023, a record crop in Georgia's case. 2023 was a year of reprieve for North Carolina, which came very close to its crop records after several years of windborne spring freezes. The state largely avoided that problem in 2023.",
+   "geography_ids": [
+    "US-NC",
+    "US-GA"
+   ],
+   "period": {
+    "label": "2023 spring and harvest season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial southern highbush and rabbiteye; cultivars not specified for 2023.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "us-southeast-freeze-reprieve-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      94
+     ],
+     "pdf_pages": [
+      48
+     ],
+     "locator": "US report team narrative: Southeast (North Carolina and Georgia)"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Records the absence of a damaging freeze as reported; no temperatures, dates or crop figures are given in the narrative."
+   ]
+  },
+  {
    "id": "ca-bc-harvest",
    "kind": "practice",
    "topic": "harvest",
    "title": "British Columbia harvest timing: Duke from early July",
-   "summary": "IBO 2025 reports the first hand harvest of the earliest Duke in the east Fraser Valley in the first week of July 2024, with machine harvest about two weeks later, described as typical timing. IBO 2023 reported the 2022 crop about two weeks late after a cool, wet April-May: Duke hand harvest began about 11 July and machine harvest about 20 July.",
+   "summary": "IBO 2025 reports the first hand harvest of the earliest Duke in the east Fraser Valley in the first week of July 2024, with machine harvest about two weeks later, described as typical timing. IBO 2023 reported the 2022 crop about two weeks late after a cool, wet April-May: Duke hand harvest began about 11 July and machine harvest about 20 July. IBO 2024 reports 2023 hand harvest in the Fraser Valley from the first week of July, machine harvest from mid-July and the peak in the last two weeks of July.",
    "geography_ids": [
     "CA-BC"
    ],
    "period": {
-    "label": "2022 and 2024 seasons, as reported",
+    "label": "2022, 2023 and 2024 seasons, as reported",
     "start": null,
     "end": null,
     "precision": "season"
@@ -1322,6 +1515,17 @@
      "locator": "BC Blueberry Council member report"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      102,
+      103
+     ],
+     "pdf_pages": [
+      52
+     ],
+     "locator": "BC Blueberry Council member summary"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       109
@@ -1337,16 +1541,138 @@
    ]
   },
   {
+   "id": "ca-bc-2023-05-bloom-heat",
+   "kind": "event",
+   "topic": "weather",
+   "title": "British Columbia heat during bloom, mid-May 2023, cut the crop",
+   "summary": "IBO 2024 reports a cool early spring in British Columbia that delayed bloom until May in many regions. Abnormally hot weather came on suddenly in mid-May, with daily maximum temperatures above 30°C for a few days, and pollination was severely impacted. Bloom became very concentrated, and pollination experts link the heat to poor fruit set and small fruit. The summer was then dry. Levies indicate a 2023 crop of 104 million pounds, a drop of nearly 39%.",
+   "geography_ids": [
+    "CA-BC"
+   ],
+   "period": {
+    "label": "Mid-May 2023 heat during bloom, after a cool early spring",
+    "start": "2023-05-01",
+    "end": "2023-05-31",
+    "precision": "month"
+   },
+   "crop_context": "Northern highbush in the Fraser Valley; impact varied by region and cultivar; many 'Duke' fields had little fruit after the first pick.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "ca-bc-bloom-heat-2023-05",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      102
+     ],
+     "pdf_pages": [
+      52
+     ],
+     "locator": "BC Blueberry Council member summary"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      104
+     ],
+     "pdf_pages": [
+      53
+     ],
+     "locator": "Canada report team narrative"
+    }
+   ],
+   "limitations": [
+    "Association summary for the province; impact varied by Fraser Valley region and cultivar.",
+    "The 30°C figure is a reported daily maximum for a few days, not a station record at this map point.",
+    "The 104 million lb figure comes from levies and is in pounds."
+   ]
+  },
+  {
+   "id": "ca-bc-bloom-weather-disease",
+   "kind": "constraint",
+   "topic": "weather",
+   "title": "British Columbia: bloom weather limits pollination and wet springs and falls favour disease",
+   "summary": "IBO 2024 says variable weather in British Columbia makes crop size and harvest timing hard to predict each year. Pollination is often impacted when cool and rainy or overly warm weather coincides with bloom, and the region lacks enough honeybee colonies for rent. High precipitation in spring and fall makes fungal diseases and fruit rots hard to control.",
+   "geography_ids": [
+    "CA-BC"
+   ],
+   "period": {
+    "label": "Recurring conditions described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush; diseases named are Phomopsis and Godronia cankers, mummyberry, Botrytis and Anthracnose fruit rots.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      103
+     ],
+     "pdf_pages": [
+      52
+     ],
+     "locator": "BC Blueberry Council member summary"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "General description of the province; no weather thresholds or disease incidence figures are given."
+   ]
+  },
+  {
+   "id": "ca-bc-cultivar-shift",
+   "kind": "practice",
+   "topic": "management",
+   "title": "British Columbia: Elliott replaced by Calypso, earlier varieties sought",
+   "summary": "IBO 2024 says 'Duke' is more than half of British Columbia acreage, followed by 'Bluecrop', 'Elliott', 'Calypso' and 'Draper'. 'Elliott' fields are starting to be removed, mainly for 'Calypso'. Growers are looking to early and mid-season varieties with July and August harvest dates, to reduce overlap with late-season fresh imports from Peru.",
+   "geography_ids": [
+    "CA-BC"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush: Duke, Bluecrop, Elliott, Calypso, Draper; small plantings of Top Shelf and Valor.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      103
+     ],
+     "pdf_pages": [
+      52
+     ],
+     "locator": "BC Blueberry Council member summary"
+    }
+   ],
+   "limitations": [
+    "Association summaries for the province; timing differs by cultivar and site.",
+    "Does not identify which varieties are planted at a given farm."
+   ]
+  },
+  {
    "id": "mx-protected-share",
    "kind": "practice",
    "topic": "management",
    "title": "Share of Mexican blueberry area under structure, by edition",
-   "summary": "IBO country metrics put Mexico's area 'under structure' at 77% for 2022/23 (IBO 2023, with hydroponics 78%), 80% for 2024/25 (IBO 2025) and 80% for 2025/26 (IBO 2026). Later editions list hydroponics as not reported.",
+   "summary": "IBO country metrics put Mexico's area 'under structure' at 77% for 2022/23 (IBO 2023, with hydroponics 78%), 80% for 2023/24 (IBO 2024), 80% for 2024/25 (IBO 2025) and 80% for 2025/26 (IBO 2026). Later editions list hydroponics as not reported.",
    "geography_ids": [
     "MX"
    ],
    "period": {
-    "label": "Seasons 2022/23, 2024/25 and 2025/26, each as reported",
+    "label": "Seasons 2022/23, 2023/24, 2024/25 and 2025/26, each as reported",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1366,6 +1692,16 @@
       51
      ],
      "locator": "Mexico 2022/2023 production metrics"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      111
+     ],
+     "pdf_pages": [
+      56
+     ],
+     "locator": "Mexico 2023/2024 production metrics"
     },
     {
      "source_id": "ibo-2025",
@@ -1398,12 +1734,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Central Mexico: mostly tunnels, pruning-programmed cycles",
-   "summary": "IBO 2023 says Central Mexico, led by Jalisco and then Michoacán, is mostly under tunnels with a mix of substrate and in-ground, and that tunnels are critical because solar radiation can burn berries. IBO 2025 and 2026 describe southern highbush 'tropicalized' in Jalisco since about 2005 through pruning, variety choice, soil management and tunnels.",
+   "summary": "IBO 2023 says Central Mexico, led by Jalisco and then Michoacán, is mostly under tunnels with a mix of substrate and in-ground, and that tunnels are critical because solar radiation can burn berries. IBO 2024, 2025 and 2026 describe southern highbush 'tropicalized' in Jalisco since about 2005 through pruning, variety choice, soil management and tunnels.",
    "geography_ids": [
     "MX-CENTRAL"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1421,6 +1757,16 @@
      ],
      "pdf_pages": [
       52
+     ],
+     "locator": "Mexico report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      114
+     ],
+     "pdf_pages": [
+      58
      ],
      "locator": "Mexico report team narrative"
     },
@@ -1456,12 +1802,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Central Mexico harvest window moved toward late winter and spring",
-   "summary": "IBO 2023 and 2025 report that many Central Mexico growers shifted from the September-December fall window toward late winter-spring harvest peaking in March-April, using pruning, because of Peruvian competition. IBO 2025 says late-year exports to the US fell 62% in 2024 versus 2021; IBO 2026 gives a 64% fall-volume reduction between 2021 and 2024.",
+   "summary": "IBO 2023 and 2025 report that many Central Mexico growers shifted from the September-December fall window toward late winter-spring harvest peaking in March-April, using pruning, because of Peruvian competition. IBO 2024 repeats the shift away from the September-December window and the March-April peak. IBO 2025 says late-year exports to the US fell 62% in 2024 versus 2021; IBO 2026 gives a 64% fall-volume reduction between 2021 and 2024.",
    "geography_ids": [
     "MX-CENTRAL"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1479,6 +1825,18 @@
      ],
      "pdf_pages": [
       52
+     ],
+     "locator": "Mexico report team narrative: harvest windows"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      113,
+      114
+     ],
+     "pdf_pages": [
+      57,
+      58
      ],
      "locator": "Mexico report team narrative: harvest windows"
     },
@@ -1514,12 +1872,12 @@
    "kind": "constraint",
    "topic": "weather",
    "title": "Frost at about 1,800 m limits spring-targeted pruning in Mexico",
-   "summary": "IBO 2025 and 2026 report that growers at about 1,800 m above sea level face likely frosts in late December and January, when plants pruned in summer for spring fruit would be flowering, so most growers there keep the fall window and finish harvest by year end.",
+   "summary": "IBO 2025 and 2026 report that growers at about 1,800 m above sea level face likely frosts in late December and January, when plants pruned in summer for spring fruit would be flowering, so most growers there keep the fall window and finish harvest by year end. IBO 2024 says the likelihood of hail and frosts keeps growers at higher altitudes, such as parts of Michoacan, in their September to November window.",
    "geography_ids": [
     "MX"
    ],
    "period": {
-    "label": "Recurring condition described in IBO 2025 and 2026",
+    "label": "Recurring condition described in IBO 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1530,6 +1888,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      114
+     ],
+     "pdf_pages": [
+      58
+     ],
+     "locator": "Mexico report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -1599,12 +1967,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Sinaloa: substrate, few tunnels, later harvest and drought",
-   "summary": "IBO 2023 and 2025 say Sinaloa has large tracts mostly in substrate, with tunnels mostly unnecessary, harvesting slightly later than Central Mexico. IBO 2025 adds that grower appetite is reduced by weather problems, thrips and less water amid persistent drought.",
+   "summary": "IBO 2023, 2024 and 2025 say Sinaloa has large tracts mostly in substrate, with tunnels mostly unnecessary, harvesting slightly later than Central Mexico. IBO 2025 adds that grower appetite is reduced by weather problems, thrips and less water amid persistent drought.",
    "geography_ids": [
     "MX-SIN"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1622,6 +1990,16 @@
      ],
      "pdf_pages": [
       52
+     ],
+     "locator": "Mexico report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      114
+     ],
+     "pdf_pages": [
+      58
      ],
      "locator": "Mexico report team narrative"
     },
@@ -1679,6 +2057,130 @@
    ]
   },
   {
+   "id": "mx-2023-heat-stress",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Mexico 2023: heat stress and some plant deaths, worst in Sinaloa",
+   "summary": "IBO 2024 says that in 2023 Mexican growers faced thrips and elevated temperatures that stressed plants and in some cases killed them. The problem was felt most in Sinaloa but was nationwide. It did not affect large areas, but on some farms it was reportedly killing around 3-4% of plants. These factors also caused delays of two to three weeks. The trends section also names heat pressure on Mexican plants among the 2023 weather problems.",
+   "geography_ids": [
+    "MX",
+    "MX-SIN"
+   ],
+   "period": {
+    "label": "2023, as stated; months not given",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Southern highbush; varieties and systems not specified for the losses.",
+   "evidence_type": "interview_estimate",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "mx-heat-stress-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      113
+     ],
+     "pdf_pages": [
+      57
+     ],
+     "locator": "Mexico report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      23
+     ],
+     "pdf_pages": [
+      12
+     ],
+     "locator": "Industry trends: weather events"
+    }
+   ],
+   "limitations": [
+    "The 3-4% plant loss applies to particular farms, not the national area.",
+    "No temperatures or dates are given; the report does not say which months of 2023 were affected.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "IBO 2025 says heat-stress plant deaths seen in 2022-23 were not repeated in 2023-24; IBO 2024 gives no months, so this account may describe that 2022-23 episode."
+   ]
+  },
+  {
+   "id": "mx-substrate-pot-size",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Most Mexican substrate blueberries are in 25-30 litre pots",
+   "summary": "IBO 2024 estimates that around 90% of substrate plantings in Mexico are in smaller pots of 25-30 litres. Experts see larger 35-40l pots as preferable, but these go mainly into new plantings, and plants in existing pots are rarely moved to larger ones.",
+   "geography_ids": [
+    "MX"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Substrate (pot) plantings; varieties not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      114
+     ],
+     "pdf_pages": [
+      58
+     ],
+     "locator": "Mexico report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The 90% share is an estimate of substrate plantings only, not of all Mexican blueberry area."
+   ]
+  },
+  {
+   "id": "mx-varietal-conversion",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Mexico converting from open varieties like Biloxi to proprietary varieties",
+   "summary": "IBO 2024 says about 70% of Mexico's cultivated hectares are now proprietary varieties. Biloxi, the main open variety, fell from more than a third of farms two years earlier to 20%. One early-producing variety from a US company went from around 5% of area to a projected 15% by the end of the year. Many new plantings are young, which the report links to temporarily lower yields.",
+   "geography_ids": [
+    "MX"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush; Biloxi named as the main open variety; proprietary varieties not named.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      114
+     ],
+     "pdf_pages": [
+      58
+     ],
+     "locator": "Mexico report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "Shares are approximate industry estimates and mix farm counts and area."
+   ]
+  },
+  {
    "id": "pe-2024-delayed-pruning",
    "kind": "event",
    "topic": "management",
@@ -1730,7 +2232,7 @@
    "kind": "event",
    "topic": "weather",
    "title": "El Niño 2023 production shock in Peru",
-   "summary": "IBO 2025 says the 2023 El Niño supply shock upended global markets; Ventura proved especially susceptible to extreme temperatures, and Lima and departments further south were less affected. IBO 2026 says the worst effects were in varieties that were not truly zero-chill, which struggled with bud and flower differentiation in the heat, while fruit grown further south performed better. IBO 2025 country tables give production of 299.67 thousand t in 2022/23 and 233.87 thousand t in 2023/24.",
+   "summary": "IBO 2025 says the 2023 El Niño supply shock upended global markets; Ventura proved especially susceptible to extreme temperatures, and Lima and departments further south were less affected. IBO 2026 says the worst effects were in varieties that were not truly zero-chill, which struggled with bud and flower differentiation in the heat, while fruit grown further south performed better. IBO 2024 also says truly no-chill varieties bred for heat fared better than low-chill ones, and that industry consensus put Biloxi and Ventura among the worst affected, though Ventura did better on some farms. IBO 2024 and 2025 country tables give production of 299.67 thousand t in 2022/23 and 233.87 thousand t in 2023/24.",
    "geography_ids": [
     "PE"
    ],
@@ -1746,6 +2248,36 @@
    "source_family": "ibo-global-reports",
    "event_id": "pe-el-nino-2023",
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      46
+     ],
+     "pdf_pages": [
+      24
+     ],
+     "locator": "South America production table"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      25
+     ],
+     "pdf_pages": [
+      13
+     ],
+     "locator": "Industry trends"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -1835,12 +2367,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Coastal Peru: open-field, evergreen systems with pruning-timed harvests",
-   "summary": "IBO 2023 describes Peruvian production as mostly open field with substrate and high-density plantings increasing, little protective covering needed, evergreen systems, and pruning used to manipulate harvest times. IBO 2026 says that for the most part there is no need for covers over fields.",
+   "summary": "IBO 2023 describes Peruvian production as mostly open field with substrate and high-density plantings increasing, little protective covering needed, evergreen systems, and pruning used to manipulate harvest times. IBO 2024 also says Peruvian companies can manipulate production timing through pruning. IBO 2026 says that for the most part there is no need for covers over fields.",
    "geography_ids": [
     "PE"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2026",
+    "label": "Practice described in IBO 2023, 2024 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -1860,6 +2392,16 @@
      "pdf_pages": [
       30,
       31
+     ],
+     "locator": "Peru report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
      ],
      "locator": "Peru report team narrative"
     },
@@ -2059,6 +2601,339 @@
    ]
   },
   {
+   "id": "pe-2023-el-nino-yaku-minimum-temperatures",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Peru 2023: El Niño and Cyclone Yaku raised minimum temperatures",
+   "summary": "IBO 2024 reports, from ProArándanos, that in 2023 the El Niño phenomenon and Cyclone Yaku significantly lifted minimum temperatures. This altered the plants' phenological cycles and hit blueberry production. The effect was most evident in the northern region, where varieties that need more cold hours had large falls in production. ProArándanos also says El Niño brought high temperatures year-round, which affected fruit production and export volumes.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "2023 (2023-24 campaign)",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial blueberries; varieties that need more cold hours named as worst hit, cultivars not specified.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "pe-el-nino-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      55
+     ],
+     "pdf_pages": [
+      28
+     ],
+     "locator": "ProArándanos member summary"
+    }
+   ],
+   "limitations": [
+    "No temperature values are given, and Cyclone Yaku is not dated.",
+    "The northern emphasis is qualitative; no regional loss figures are given.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-2023-04-heat-vegetative-growth",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Peru April-May 2023: heat drove strong vegetative growth, an early sign of a short crop",
+   "summary": "IBO 2024 says many stakeholders knew a short season was likely around April and May 2023. By then vegetative growth was much more pronounced than in previous years because of hot conditions, which generally means less fruit. The report adds that the industry was too young to understand an El Niño with such prolonged warm temperatures. The industry trends section names one reason the impact was so severe: reliance on certain public varieties that tend to revert to vegetative growth instead of fruit growth in hot conditions.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "Around April and May 2023",
+    "start": "2023-04-01",
+    "end": "2023-05-31",
+    "precision": "month"
+   },
+   "crop_context": "Commercial blueberries; public varieties prone to vegetative growth in heat, Biloxi and Ventura usually named.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "pe-el-nino-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      25
+     ],
+     "pdf_pages": [
+      13
+     ],
+     "locator": "Industry trends"
+    }
+   ],
+   "limitations": [
+    "The months are approximate ('around April and May'); no field dates or temperatures are given.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-2023-el-nino-north-altitude-gradient",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Peru 2023: El Niño damage was worse further north and lighter at altitude",
+   "summary": "IBO 2024 says the negative effects of El Niño on Peruvian blueberry fields in 2023 varied with geography, altitude and variety. As a rule of thumb, though not consistently, the further north a field was the worse it fared, and the higher into the Andes the better. Growers with proprietary genetics bred for heat tolerance, and most growers in southern Peru, had largely stable production while national volume fell.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "2023 El Niño (2023-24 season)",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial blueberries; proprietary genetics bred for heat tolerance fared better.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "pe-el-nino-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    }
+   ],
+   "limitations": [
+    "The report calls the north and altitude pattern a rule of thumb that does not hold consistently.",
+    "No altitudes, latitudes or loss rates are given.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-lam-2023-olmos-el-nino",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Olmos 2023: particularly badly affected by El Niño",
+   "summary": "IBO 2024 says Olmos, a centre of recent Peruvian growth opened up about a decade ago by a large-scale irrigation project, was particularly badly affected by the El Niño phenomenon.",
+   "geography_ids": [
+    "PE-LAM"
+   ],
+   "period": {
+    "label": "2023 El Niño (2023-24 season)",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Large commercial plantings; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "pe-el-nino-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    }
+   ],
+   "limitations": [
+    "IBO 2024 names Olmos but not Lambayeque; the registry's link of Olmos to Lambayeque comes from IBO 2023 and 2025.",
+    "No loss figures or dates are given.",
+    "Regional industry report, not an observation at this map point or farm."
+   ]
+  },
+  {
+   "id": "pe-2023-24-el-nino-later-season",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Peru 2023-24: El Niño moved volume later in the season",
+   "summary": "IBO 2024 says Peru's 2023-24 shortfall was not as drastic as some climate disruptions elsewhere, but the shift in the timing of volume was significant. Substantial volumes moved out of the Northern Hemisphere fall window into winter and early spring. In the peak export months of September and October, shipments were down 55% and 36%. Late volumes rose somewhat but nowhere near made up for the earlier declines. The NABC report in the US section says El Niño pushed the Peruvian season later, and US imports from Peru peaked in November 2023, against October in 2022.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "2023-24 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial blueberries; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "pe-el-nino-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      63,
+      64
+     ],
+     "pdf_pages": [
+      32,
+      33
+     ],
+     "locator": "Peru report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      85
+     ],
+     "pdf_pages": [
+      43
+     ],
+     "locator": "NABC member summary (US imports from Peru)"
+    }
+   ],
+   "limitations": [
+    "Export and import timing reflects pruning and market decisions as well as weather; it is not a harvest date.",
+    "Figures are trade volumes, not field yields.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-ventura-later-pruning-insurance",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Peru: one grower plans later Ventura production after El Niño losses",
+   "summary": "IBO 2024 reports one grower's claim that on its farms Ventura fell by 50% against 15% for Biloxi. The report stresses that this is a local comment that may not apply to others. Some growers now plan to keep Biloxi as a buffer for such weather events. Pruning is usually timed so Ventura fruits first for China at the start of the season. As 'insurance', that producer plans later Ventura production so the plants can build up more cool hours, and will prune Biloxi earlier for the Chinese market.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "Practice and plans described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush; Biloxi and Ventura named.",
+   "evidence_type": "interview_estimate",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    }
+   ],
+   "limitations": [
+    "The report says this is the localized comment of one grower and may not apply to others.",
+    "Pruning dates and cool-hour amounts are not given.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-flatten-curve-pruning",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Peru: larger growers spread harvest beyond the September-October peak",
+   "summary": "IBO 2024 says the Peruvian industry, particularly larger growers, has been working in recent years to 'flatten the curve' from its traditional peaks of September and October. Growers often focus on supplying Asia in July and send more to Europe over the Northern Hemisphere winter. Companies in regions closer to the equator can shift production timing through pruning, fertility and other practices. As labor becomes less available, many large companies expect to extend their season.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Commercial blueberries; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    }
+   ],
+   "limitations": [
+    "No regional calendars or pruning dates are given.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "pe-varietal-diversification-2023",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Peru: certified varieties rose to 65 in 2023",
+   "summary": "IBO 2024 reports ProArándanos data showing that Peru had 65 certified blueberry varieties in 2023, against 13 in 2016 and 32 in 2019. The report team says growers with proprietary heat-tolerant genetics fared much better in the 2023 El Niño, and that appetite in Peru for new plantings of high-quality genetics, or conversion to them, remains strong.",
+   "geography_ids": [
+    "PE"
+   ],
+   "period": {
+    "label": "Varietal count at 2023 and trend described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "65 certified varieties in 2023; proprietary heat-tolerant genetics named.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      62
+     ],
+     "pdf_pages": [
+      32
+     ],
+     "locator": "ProArándanos member summary"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      64
+     ],
+     "pdf_pages": [
+      33
+     ],
+     "locator": "Peru report team narrative"
+    }
+   ],
+   "limitations": [
+    "A count of certified varieties does not give planted area by variety.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
    "id": "cl-2022-11-frost-hail",
    "kind": "event",
    "topic": "weather",
@@ -2188,12 +3063,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Chile: northern highbush dominates; low-chill limited to the north",
-   "summary": "IBO 2025 says the largest Chilean regions are dominated by northern highbush. Industry views place the southern limit for low-chill plantings around the Maule region, about 100 km north of Chillán (Ñuble, the blueberry epicentre), with a northern band around Santiago and small volumes near Ovalle. Low-chill has been grown since about 2014 in pots and under tunnels, or at least netting.",
+   "summary": "IBO 2025 says the largest Chilean regions are dominated by northern highbush. IBO 2024 and 2025 relay industry views that place the southern limit for low-chill plantings around the Maule region, about 100 km north of Chillán (Ñuble, the blueberry epicentre), with a northern band around Santiago and small volumes near Ovalle. Low-chill has been grown since about 2014 in pots and under tunnels, or at least netting.",
    "geography_ids": [
     "CL"
    ],
    "period": {
-    "label": "Practice described in IBO 2025",
+    "label": "Practice described in IBO 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2204,6 +3079,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      70
+     ],
+     "pdf_pages": [
+      36
+     ],
+     "locator": "Chile report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -2231,16 +3116,102 @@
    ]
   },
   {
+   "id": "cl-2023-24-el-nino-limited-impact",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Chile 2023-24: El Niño heat affected Chile far less than Peru",
+   "summary": "IBO 2024 says the hot El Niño weather behind Peru's supply shortage did not affect Chilean production nearly to the same degree in the 2023-24 season.",
+   "geography_ids": [
+    "CL"
+   ],
+   "period": {
+    "label": "2023-24 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Commercial blueberries; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "cl-el-nino-2023-24",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      69
+     ],
+     "pdf_pages": [
+      35
+     ],
+     "locator": "Chile report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      68
+     ],
+     "pdf_pages": [
+      35
+     ],
+     "locator": "ASOEX committee member summary"
+    }
+   ],
+   "limitations": [
+    "No temperatures or regional detail are given for Chile.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "cl-varietal-transition-duke",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Chile: slow move away from Duke-dominated northern highbush",
+   "summary": "IBO 2024 says Chile is in a slow-moving transition to better-performing cultivars. It says Chile's climate suits mid and high chill northern highbush cultivars, which take longer from field establishment to commercial yield when growers convert to new varieties. Supply is dominated by Duke, which tends to yield around 10MT/ha. Most new genetic introductions are higher chill genetics, driven mainly by North American partners.",
+   "geography_ids": [
+    "CL"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Mainly northern highbush; Duke dominant, Legacy named; southern highbush in certain areas.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      69,
+      70
+     ],
+     "pdf_pages": [
+      35,
+      36
+     ],
+     "locator": "Chile report team narrative"
+    }
+   ],
+   "limitations": [
+    "Yield figures are typical values quoted by industry sources, not measured at this point.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
    "id": "co-three-peaks",
    "kind": "practice",
    "topic": "harvest",
    "title": "Colombian highlands: three production peaks set by pruning",
-   "summary": "IBO 2023 reports plantings at 2,600-3,000 m in Boyacá and Cundinamarca with three peaks (December, April, September). IBO 2025 gives the largest peak in November-December, then May-June, then September. Both say little change in day length lets pruning induce production when managers choose.",
+   "summary": "IBO 2023 reports plantings at 2,600-3,000 m in Boyacá and Cundinamarca with three peaks (December, April, September). IBO 2024 and 2025 give the largest peak in November-December, then May-June, then September. All say little change in day length lets pruning induce production when managers choose.",
    "geography_ids": [
     "CO-HIGHLANDS"
    ],
    "period": {
-    "label": "Calendars described in IBO 2023 and 2025 (they differ)",
+    "label": "Calendars described in IBO 2023, 2024 and 2025 (they differ)",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2253,6 +3224,17 @@
    "citations": [
     {
      "source_id": "ibo-2023",
+     "printed_pages": [
+      50,
+      51
+     ],
+     "pdf_pages": [
+      26
+     ],
+     "locator": "Colombia narrative"
+    },
+    {
+     "source_id": "ibo-2024",
      "printed_pages": [
       50,
       51
@@ -2328,16 +3310,54 @@
    ]
   },
   {
+   "id": "co-highlands-open-field-macrotunnels",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Colombian highlands: open field is standard; macro-tunnels preferred where protected",
+   "summary": "IBO 2024 says open field is the standard production method for most crops in Colombia, including blueberries. Where growers use protected systems, macro-tunnels like those used in Mexico have become the preferred choice over greenhouses, which also hold a portion of production. It calls the Boyacá and Cundinamarca plains a challenging region, with cold, rainy nights and warm days.",
+   "geography_ids": [
+    "CO-HIGHLANDS"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush grown as no-chill evergreen production; open field, macro-tunnels or greenhouses.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      51
+     ],
+     "pdf_pages": [
+      26
+     ],
+     "locator": "Colombia narrative"
+    }
+   ],
+   "limitations": [
+    "The open-field statement is made for Colombia as a whole; most production is in Boyacá and Cundinamarca.",
+    "IBO 2025 and 2026 say most larger operations are under tunnel-style greenhouses; the editions differ on how common protection is.",
+    "Regional industry report, not an observation at this map point or farm."
+   ]
+  },
+  {
    "id": "ar-protected",
    "kind": "practice",
    "topic": "management",
    "title": "Argentina: majority of orchards in protected systems against rain and hail",
-   "summary": "IBO 2023, 2025 and 2026 say that, with a climatic tendency towards rain and hail events, the majority of Argentine blueberry orchards are now planted in protected systems. IBO 2023 metrics list 60% under structure for 2022/23.",
+   "summary": "IBO 2023, 2024, 2025 and 2026 say that, with a climatic tendency towards rain and hail events, the majority of Argentine blueberry orchards are now planted in protected systems. IBO 2023 metrics list 60% under structure for 2022/23.",
    "geography_ids": [
     "AR"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2365,6 +3385,16 @@
      ],
      "pdf_pages": [
       36
+     ],
+     "locator": "Argentina report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      76
+     ],
+     "pdf_pages": [
+      39
      ],
      "locator": "Argentina report team narrative"
     },
@@ -2399,12 +3429,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Argentina harvest earlier than Chile; historic market window September-October",
-   "summary": "IBO 2023 and 2025 describe Argentina's historic market window as September to early October, earlier than Chile; IBO 2023 says new Australian genetics harvest from July. IBO 2026 refers to the key harvesting window from August to November.",
+   "summary": "IBO 2023, 2024 and 2025 describe Argentina's historic market window as September to early October, earlier than Chile; IBO 2023 says new Australian genetics harvest from July. IBO 2026 refers to the key harvesting window from August to November.",
    "geography_ids": [
     "AR"
    ],
    "period": {
-    "label": "Windows described in IBO 2023, 2025 and 2026 (they differ)",
+    "label": "Windows described in IBO 2023, 2024, 2025 and 2026 (they differ)",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2422,6 +3452,16 @@
      ],
      "pdf_pages": [
       36
+     ],
+     "locator": "Argentina report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      75
+     ],
+     "pdf_pages": [
+      38
      ],
      "locator": "Argentina report team narrative"
     },
@@ -2452,16 +3492,63 @@
    ]
   },
   {
+   "id": "ar-varietal-renewal",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Argentina: varietal renewal with US and Australian genetics",
+   "summary": "IBO 2024 says adopting new varieties is one way Argentine growers are trying to stay competitive. A U.S.-headquartered nursery introduced new cultivars in the 90s, and its genetics drove a boom around 14 years ago. An Australian breeder's Argentine partner had its first commercial crop with new genetics in 2022. IBO 2024 metrics list 'New Genetics' at 5.00% for 2023/2024.",
+   "geography_ids": [
+    "AR"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "New cultivars from a U.S.-headquartered nursery and an Australian breeder; species not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      76
+     ],
+     "pdf_pages": [
+      39
+     ],
+     "locator": "Argentina report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      71
+     ],
+     "pdf_pages": [
+      36
+     ],
+     "locator": "Argentina production metrics"
+    }
+   ],
+   "limitations": [
+    "The metrics do not state what the 5.00% new genetics share is measured against.",
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
    "id": "ec-year-round",
    "kind": "practice",
    "topic": "harvest",
    "title": "Ecuador: year-round production; pruning trials for two crops",
-   "summary": "IBO 2025 says Ecuador can produce year-round, with about 95% of volume in the Andes, and that a European company near Guayaquil is trialling pruning and other techniques for two crops a year.",
+   "summary": "IBO 2024 and 2025 say Ecuador can produce year-round, with about 95% of volume in the Andes. IBO 2025 says that a European company near Guayaquil is trialling pruning and other techniques for two crops a year.",
    "geography_ids": [
     "EC"
    ],
    "period": {
-    "label": "Practice described in IBO 2025",
+    "label": "Practice described in IBO 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2472,6 +3559,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      51
+     ],
+     "pdf_pages": [
+      26
+     ],
+     "locator": "Ecuador narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -2484,6 +3581,43 @@
     }
    ],
    "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
+   ]
+  },
+  {
+   "id": "ec-andes-coastal-trials-varieties",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Ecuador: Andean plantings, coastal trials and a Biloxi-led varietal mix",
+   "summary": "IBO 2024 says Ecuador's industry began in 2015, with production spread along the Andes on both sides of the equator. There are trial plantings in coastal areas such as Santa Elena, Manabi and El Oro. Ecuadorian and multinational companies are trialling new varieties for overseas markets. The varietal mix is around a third Biloxi, 27% Atlas Blue and 13% Emerald.",
+   "geography_ids": [
+    "EC"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Biloxi, Atlas Blue and Emerald lead the mix; Apolo, Stellar, Presto, Jewel, Legacy, Star, Eureka and Dazzle also planted.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      51
+     ],
+     "pdf_pages": [
+      26
+     ],
+     "locator": "Ecuador narrative"
+    }
+   ],
+   "limitations": [
+    "Varietal shares are approximate and the area base is not stated.",
     "Country-level industry context; it does not establish the system, cultivar or timing at this map point."
    ]
   },
@@ -2535,16 +3669,53 @@
    ]
   },
   {
+   "id": "ke-trials-march-may",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Kenya: trials, possible March-May production and double cropping",
+   "summary": "IBO 2024 reports trials in Kenya and Uganda, where production could run from March to May, with the option to double crop on evergreen low-chill varieties.",
+   "geography_ids": [
+    "KE"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Evergreen low-chill varieties.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      207
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Africa narrative: other origins"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The text describes trials and potential, not established commercial production, and covers Kenya and Uganda together."
+   ]
+  },
+  {
    "id": "cn-yunnan-calendar",
    "kind": "practice",
    "topic": "harvest",
    "title": "Yunnan harvest runs from about November-December to May-June",
-   "summary": "IBO 2023 says Yunnan starts in December, peaks from February to mid-April and runs to May, with some higher-altitude growers extending to late May-June. IBO 2025 says the earliest notable volumes now arrive in November and the season runs to about June.",
+   "summary": "IBO 2023 says Yunnan starts in December, peaks from February to mid-April and runs to May, with some higher-altitude growers extending to late May-June. IBO 2024 repeats the December to May pattern and says the extremes are being extended to November and June. IBO 2025 says the earliest notable volumes now arrive in November and the season runs to about June.",
    "geography_ids": [
     "CN-YN"
    ],
    "period": {
-    "label": "Calendars described in IBO 2023 and 2025",
+    "label": "Calendars described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2562,6 +3733,16 @@
      ],
      "pdf_pages": [
       58
+     ],
+     "locator": "China report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
      ],
      "locator": "China report team narrative"
     },
@@ -2671,12 +3852,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Shandong: back-wall greenhouses for earlier fruit on a minority of area",
-   "summary": "IBO 2025 reports that Shandong greenhouses with back walls harvest from March to late May, overlapping Yunnan, but cover only about 10% of Shandong area; the rest is open field or tunnels. Shandong was chosen for sandy acidic soils and a temperate coastal climate.",
+   "summary": "IBO 2024 and 2025 report that Shandong greenhouses with back walls harvest from March to late May, overlapping Yunnan, but cover only about 10% of Shandong area; the rest is open field or tunnels. Shandong was chosen for sandy acidic soils and a temperate coastal climate.",
    "geography_ids": [
     "CN-SD"
    ],
    "period": {
-    "label": "Practice described in IBO 2025",
+    "label": "Practice described in IBO 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2687,6 +3868,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -2707,12 +3898,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Liaoning and Jilin end the Chinese season, often in August",
-   "summary": "IBO 2023 and 2025 say the Chinese season ends in Liaoning and Jilin, often wrapping up in August when late-summer rains arrive. IBO 2025 adds that frosts are more prevalent in Liaoning and Jilin and open-field weather events divert crop to processing.",
+   "summary": "IBO 2023, 2024 and 2025 say the Chinese season ends in Liaoning and Jilin, often wrapping up in August when late-summer rains arrive. IBO 2024 and 2025 add that frosts are more prevalent in Liaoning and Jilin and open-field weather events divert crop to processing.",
    "geography_ids": [
     "CN-NE"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023 and 2025",
+    "label": "Season pattern described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2730,6 +3921,17 @@
      ],
      "pdf_pages": [
       58
+     ],
+     "locator": "China report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128,
+      129
+     ],
+     "pdf_pages": [
+      65
      ],
      "locator": "China report team narrative"
     },
@@ -2804,12 +4006,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Guizhou: largest area, mostly smallholder rabbiteye for juice",
-   "summary": "IBO 2023, 2025 and 2026 say Guizhou has the largest blueberry plantings in China, but most production is from small growers of rabbiteye cultivars that mainly go to juice-grade processing.",
+   "summary": "IBO 2023, 2024, 2025 and 2026 say Guizhou has the largest blueberry plantings in China, but most production is from small growers of rabbiteye cultivars that mainly go to juice-grade processing.",
    "geography_ids": [
     "CN-GZ"
    ],
    "period": {
-    "label": "Practice described in IBO 2023, 2025 and 2026",
+    "label": "Practice described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2827,6 +4029,16 @@
      ],
      "pdf_pages": [
       58
+     ],
+     "locator": "China report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
      ],
      "locator": "China report team narrative"
     },
@@ -2861,12 +4073,12 @@
    "kind": "constraint",
    "topic": "weather",
    "title": "Sichuan: spring rains and harvest heat give inconsistent quality",
-   "summary": "IBO 2025 and 2026 describe Sichuan as high-altitude and colder with a slightly later season, and known for spring rains and heat during harvest that make quality inconsistent; the same is said of Anhui and Guizhou.",
+   "summary": "IBO 2024, 2025 and 2026 describe Sichuan as high-altitude and colder with a slightly later season, and known for spring rains and heat during harvest that make quality inconsistent; the same is said of Anhui and Guizhou.",
    "geography_ids": [
     "CN-SC"
    ],
    "period": {
-    "label": "Recurring condition described in IBO 2025 and 2026",
+    "label": "Recurring condition described in IBO 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2877,6 +4089,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -2908,12 +4130,12 @@
    "kind": "constraint",
    "topic": "resources",
    "title": "China: arable-land policy limits new blueberry plantings",
-   "summary": "IBO 2023 and 2025 report that Beijing's land-use policy puts greater emphasis on using arable land for rice, wheat and corn, making farmland for new blueberry farms hard to secure; lease compensation was reported at US$25,000-60,000 per hectare (2023) and US$32,000-64,000 per hectare (2025). IBO 2026 reports a relative relaxation of some restrictions, though land acquisition is still a challenge.",
+   "summary": "IBO 2023, 2024 and 2025 report that Beijing's land-use policy puts greater emphasis on using arable land for rice, wheat and corn, making farmland for new blueberry farms hard to secure; lease compensation was reported at US$25,000-60,000 per hectare (2023), US$30,000-100,000 per hectare (2024) and US$32,000-64,000 per hectare (2025). IBO 2026 reports a relative relaxation of some restrictions, though land acquisition is still a challenge.",
    "geography_ids": [
     "CN"
    ],
    "period": {
-    "label": "Policy context described in IBO 2023, 2025 and 2026",
+    "label": "Policy context described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -2932,6 +4154,16 @@
      ],
      "pdf_pages": [
       58
+     ],
+     "locator": "China report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      127
+     ],
+     "pdf_pages": [
+      64
      ],
      "locator": "China report team narrative"
     },
@@ -2962,16 +4194,319 @@
    ]
   },
   {
+   "id": "cn-yunnan-2023-01-cold-snap",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Yunnan 2023 season: January cold snap hit open fields",
+   "summary": "IBO 2024 reports that Yunnan was affected by weather-related challenges in the 2023 season, including a cold snap in January that heavily impacted crops in certain areas, especially open fields. Industry stakeholders still estimated a 10-15% production increase for the 2023 season, largely due to maturing fields.",
+   "geography_ids": [
+    "CN-YN"
+   ],
+   "period": {
+    "label": "January, in the 2023 Yunnan season",
+    "start": "2023-01-01",
+    "end": "2023-01-31",
+    "precision": "month"
+   },
+   "crop_context": "Southern highbush; open fields most affected.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "cn-yunnan-cold-snap-2023-01",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The text says 'a cold snap in January' within the 2023 season and gives no day; January 2023 is the reading of that phrase.",
+    "The 10-15% figure is a stakeholder estimate for the whole province, and the loss from the cold snap is not quantified."
+   ]
+  },
+  {
+   "id": "cn-yunnan-high-altitude-off-season",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Yunnan: mid and high-chill blueberries at 2,000 m for September-October",
+   "summary": "IBO 2024 reports that some Yunnan growers produce mid and high-chill blueberries at 2,000 meters above sea level, hoping to supply the scarce months of September and October. The report calls this an anomaly for now and says yields are reportedly affected by the low photoperiod at that latitude.",
+   "geography_ids": [
+    "CN-YN"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Mid and high-chill blueberries at about 2,000 m.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Described as an anomaly, not a general practice; the yield effect is not quantified."
+   ]
+  },
+  {
+   "id": "cn-shandong-2023-heat-shrivel",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Shandong 2023: June to early July heat caused fruit shrivel",
+   "summary": "IBO 2024 says Shandong was hit by floods for several seasons, but conditions were better in 2023. An extreme heat spell in June and early July 2023 caused fruit shrivel, and part of the Shandong crop was diverted to processing. The season ended when rains came in August, as is usual.",
+   "geography_ids": [
+    "CN-SD"
+   ],
+   "period": {
+    "label": "June to early July 2023",
+    "start": "2023-06-01",
+    "end": "2023-07-31",
+    "precision": "month"
+   },
+   "crop_context": "Northern highbush; Bluecrop and Duke predominate in Shandong.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "cn-shandong-heat-2023-06",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      129
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The heat spell ran through June and early July; the stored end date covers all of July and is not an exact event date.",
+    "The share of the crop diverted to processing is not quantified."
+   ]
+  },
+  {
+   "id": "cn-shandong-liaoning-summer-window",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Liaoning and Shandong supply China in June and July",
+   "summary": "IBO 2024 says Liaoning and Shandong serve the Chinese market in summer with production in June and July. The season in Shandong and nearby provinces ends when rains come in August.",
+   "geography_ids": [
+    "CN-LN",
+    "CN-SD"
+   ],
+   "period": {
+    "label": "Season pattern described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush, mainly open field under tunnels in Shandong.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128,
+      129
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Greenhouse growers in Shandong harvest earlier, from March to late May; this window refers to the main crop."
+   ]
+  },
+  {
+   "id": "cn-north-coastal-weather-risks",
+   "kind": "constraint",
+   "topic": "weather",
+   "title": "Northeastern coastal regions: winter cold, dry winds, spring freezes and summer rain",
+   "summary": "IBO 2024 says the coastal growing regions of northeastern China, though mild compared with inland areas, still have harsh winter cold with intense dry winds, disruptive spring freezes and untimely summer rains. Shandong is described as more temperate than the more extreme areas of the northeast.",
+   "geography_ids": [
+    "CN-LN",
+    "CN-SD"
+   ],
+   "period": {
+    "label": "Recurring condition described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The text refers to the coastal growing regions of the northeast without naming provinces; the match to Liaoning and Shandong is inferred from the surrounding paragraph."
+   ]
+  },
+  {
+   "id": "cn-north-greenhouses",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Northern China: 'half hoop' greenhouses for earlier fruit and protection",
+   "summary": "IBO 2024 says some northern growers grow blueberries in greenhouses to start earlier and to protect the crop from harsh winter and spring weather. Many of these greenhouses use the traditional 'half hoop' design with north-facing earthen walls.",
+   "geography_ids": [
+    "CN"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Greenhouse production with north-facing earthen walls; cultivars not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The text says 'some northern growers' right after naming Liaoning and Jilin; it does not give the share of area under greenhouses."
+   ]
+  },
+  {
+   "id": "cn-northeast-cultivated-lowbush",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Jilin and northern Liaoning: cold-hardy lowbush and half-high in rows",
+   "summary": "IBO 2024 says extreme winters in Jilin, Heilongjiang and the continental north of Liaoning have made highbush hard to grow. Trials led by Jilin Agricultural University found cold-hardy lowbush and 'half high' cultivars more likely to crop and survive. Cold hardiness, snow cover protection due to plant height, and tolerance of difficult soil and moisture led to large-scale planting in rows.",
+   "geography_ids": [
+    "CN-NE"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Cultivated lowbush and half-high blueberries planted in rows.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      223
+     ],
+     "pdf_pages": [
+      112
+     ],
+     "locator": "Wild blueberries section, Chinese wild blueberries"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The report says most cultivated lowbush output is probably counted in China's highbush figures, so its area is not reported separately.",
+    "Heilongjiang is also named but has no geography in the registry."
+   ]
+  },
+  {
+   "id": "cn-guizhou-humid-expansion",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Growers test southern highbush in humid Guizhou as Yunnan fills up",
+   "summary": "IBO 2024 says that because Yunnan plantings are highly saturated and agricultural land is restricted, growers are investigating other warm but much more humid regions for southern highbush, including Guizhou, Guangxi and Guangdong.",
+   "geography_ids": [
+    "CN-GZ"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush; trials or early plantings, scale not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      128
+     ],
+     "pdf_pages": [
+      65
+     ],
+     "locator": "China report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Investigation stage only; no area, results or timing are given.",
+    "Guangxi and Guangdong are also named but have no geography in the registry."
+   ]
+  },
+  {
    "id": "es-huelva-tunnels",
    "kind": "practice",
    "topic": "management",
    "title": "Huelva: production mainly under macro-tunnels",
-   "summary": "IBO 2023 says Huelva, about 90% of Spanish production, is mainly under macro-tunnels, with about 97% under tunnels according to the report team.",
+   "summary": "IBO 2023 says Huelva, about 90% of Spanish production, is mainly under macro-tunnels, with about 97% under tunnels according to the report team. IBO 2024 says the majority of Huelva's blueberry sector is under tunnels.",
    "geography_ids": [
     "ES-H"
    ],
    "period": {
-    "label": "Practice described in IBO 2023",
+    "label": "Practice described in IBO 2023 and 2024",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3001,6 +4536,16 @@
       77
      ],
      "locator": "Spain report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      167
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
     }
    ],
    "limitations": [
@@ -3012,12 +4557,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Huelva harvest runs January to early July, strongest April-May",
-   "summary": "IBO 2023's Spain member summary gives Huelva's season from January to the first weeks of July, and the report team says Spain's season is concentrated, with 70% of volume between April and mid-May. IBO 2025 (Freshuelva) says harvest runs January to July and starts earlier each year as early varieties spread; IBO 2026 says April and May remain Spain's strongest months.",
+   "summary": "IBO 2023's Spain member summary gives Huelva's season from January to the first weeks of July, and the report team says Spain's season is concentrated, with 70% of volume between April and mid-May. IBO 2025 (Freshuelva) says harvest runs January to July and starts earlier each year as early varieties spread; IBO 2024 and 2026 say April and May remain the strongest months.",
    "geography_ids": [
     "ES-H"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023, 2025 and 2026",
+    "label": "Season pattern described in IBO 2023, 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3039,6 +4584,18 @@
       77
      ],
      "locator": "Spain member summary and report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      165,
+      167
+     ],
+     "pdf_pages": [
+      83,
+      84
+     ],
+     "locator": "Spain member summary (Freshuelva) and report team narrative"
     },
     {
      "source_id": "ibo-2025",
@@ -3251,12 +4808,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Northern Spain: high-chill blueberries for June-July",
-   "summary": "IBO 2023 and 2025 describe northern Spain (Asturias, Cantabria, Galicia) as open-field, small-parcel high-chill production aimed at June and July.",
+   "summary": "IBO 2023 and 2025 describe northern Spain (Asturias, Cantabria, Galicia) as open-field, small-parcel high-chill production aimed at June and July. IBO 2024 also describes high-chill production in Galicia aimed at June and July.",
    "geography_ids": [
     "ES-NORTH"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3280,6 +4837,16 @@
      "locator": "Spain member summary and report team narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      167
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       189
@@ -3295,16 +4862,264 @@
    ]
   },
   {
+   "id": "es-huelva-2023-warm-winter",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Huelva 2023 season: warm November to January minimums cut chill and production",
+   "summary": "IBO 2024 says, citing Freshuelva, that minimum temperatures in November, December and January were above average for those months, which did not favour chill-hour accumulation. Freshuelva says this led to a production decline of around 25% in the 2023 season. The report team adds that young fields from variety changes also explain part of the drop.",
+   "geography_ids": [
+    "ES-H"
+   ],
+   "period": {
+    "label": "November to January before the 2023 Huelva season",
+    "start": "2022-11-01",
+    "end": "2023-01-31",
+    "precision": "month"
+   },
+   "crop_context": "Southern highbush; Snowchaser and Ventura named as the main varieties.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "es-huelva-2022-23-warm-winter",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      165
+     ],
+     "pdf_pages": [
+      83
+     ],
+     "locator": "Spain member summary (Freshuelva)"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      166
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The source names the months but not the years; November and December 2022 and January 2023 are inferred from the 2023 campaign.",
+    "Around 25% is an association estimate for the province, not a measured loss at this map point."
+   ]
+  },
+  {
+   "id": "es-huelva-2023-cold-sizing",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Huelva late February to early March 2023: cold reduced berry size",
+   "summary": "IBO 2024 says, citing Freshuelva, that cold in the last weeks of February and the first weeks of March 2023 led to a decrease in berry sizing, on top of the lower production. The report team says Spain and Morocco both had delayed seasons and production declines in 2023.",
+   "geography_ids": [
+    "ES-H"
+   ],
+   "period": {
+    "label": "Last weeks of February to first weeks of March 2023",
+    "start": "2023-02-01",
+    "end": "2023-03-31",
+    "precision": "season"
+   },
+   "crop_context": "Southern highbush.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "es-huelva-2023-cold",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      165
+     ],
+     "pdf_pages": [
+      83
+     ],
+     "locator": "Spain member summary (Freshuelva)"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      166
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The stored start and end dates bound the words 'last weeks of February' and 'first weeks of March'; they are not exact event dates.",
+    "No temperatures or size figures are given.",
+    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+   ]
+  },
+  {
+   "id": "es-huelva-2023-water",
+   "kind": "constraint",
+   "topic": "resources",
+   "title": "Huelva 2023: reduced water allotments and saline water",
+   "summary": "IBO 2024 says, citing Freshuelva, that water problems added to the poor weather in the 2023 season. Reduced water allotments hurt crop quality, and the water in some areas has high saline concentrations. Freshuelva names labour, together with water, as a limiting factor for the crop.",
+   "geography_ids": [
+    "ES-H"
+   ],
+   "period": {
+    "label": "2023 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Irrigated southern highbush.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      165
+     ],
+     "pdf_pages": [
+      83
+     ],
+     "locator": "Spain member summary (Freshuelva)"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "No allotment cut or salinity figures are given; 'some areas' are not named."
+   ]
+  },
+  {
+   "id": "es-2023-24-drought",
+   "kind": "constraint",
+   "topic": "resources",
+   "title": "Spain: one of the worst droughts since 1997, irrigation restrictions",
+   "summary": "IBO 2024 says Spain has been dealing with one of its worst droughts since 1997, and irrigation restrictions apply to the industry. Rainfall improved from October 2023, but dams and reservoirs were not yet at a level that would ease the restrictions; the rain kept them from tightening further. The report team says water shortages have held back growers' expansion and variety conversion plans.",
+   "geography_ids": [
+    "ES"
+   ],
+   "period": {
+    "label": "Drought to mid-2024; rainfall improved from October 2023",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified; blueberry growers often also grow other berries.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      166,
+      167
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "Restriction levels are not given.",
+    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+   ]
+  },
+  {
+   "id": "es-2023-summer-heat",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Spain summer 2023: long extreme heat stressed plants",
+   "summary": "IBO 2024 says 2023 had a very hot summer in Spain. Fields suffered abnormally long periods of extreme heat, with plant stress and yellowing leaves. By October there were signs of plant recovery, and the 2024 season saw markedly better yields.",
+   "geography_ids": [
+    "ES"
+   ],
+   "period": {
+    "label": "Summer 2023",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "spain-summer-heat-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      167
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "No temperatures, dates or affected areas are given."
+   ]
+  },
+  {
+   "id": "es-huelva-variety-shift",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Huelva: switching from Snowchaser and Ventura to spread the season",
+   "summary": "IBO 2024 says Spain's main varieties are early Snowchaser and early-midseason Ventura, which retailers now find less desirable. Because Huelva's production is highly concentrated in April and May, some growers are changing their cultivar mix to spread the season, the earliest window being late November in limited volumes. Traits sought include higher yields and greater heat tolerance. One cooperative with almost a third of Spanish production has converted a third of its hectares to new cultivars.",
+   "geography_ids": [
+    "ES-H"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush; Snowchaser and Ventura, with new cultivars replacing them.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      166,
+      167
+     ],
+     "pdf_pages": [
+      84
+     ],
+     "locator": "Spain report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Conversion figures describe one cooperative, not the whole province."
+   ]
+  },
+  {
    "id": "ma-agadir-system",
    "kind": "practice",
    "topic": "management",
    "title": "Agadir: substrate under tall canary greenhouses",
-   "summary": "IBO 2023 and 2025 describe Agadir production in substrate with proprietary southern highbush under tall 'canary greenhouse' protection, in contrast to more open-field and tunnel set-ups in the north. IBO 2025 says this southern expansion let Morocco produce earlier, with a peak window from January to April.",
+   "summary": "IBO 2023, 2024 and 2025 describe Agadir production in substrate with proprietary southern highbush under tall 'canary greenhouse' protection, in contrast to more open-field and tunnel set-ups in the north. IBO 2024 and 2025 say this southern expansion let Morocco produce earlier, with a peak window from January to April.",
    "geography_ids": [
     "MA-SMD"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3326,6 +5141,16 @@
      "locator": "Morocco narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      171
+     ],
+     "pdf_pages": [
+      86
+     ],
+     "locator": "Morocco report team narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       193
@@ -3345,12 +5170,12 @@
    "kind": "constraint",
    "topic": "resources",
    "title": "Agadir: drought, reverse osmosis and desalination",
-   "summary": "IBO 2023 reports several years of drought around Agadir, with growers deploying reverse osmosis for irrigation as dam levels fell, and a desalination plant operating for agriculture with variable reliability. IBO 2025 says, for Morocco generally, that water scarcity is being overcome with desalinisation plants.",
+   "summary": "IBO 2023 reports several years of drought around Agadir, with growers deploying reverse osmosis for irrigation as dam levels fell, and a desalination plant operating for agriculture with variable reliability. IBO 2024 says severe drought means many Agadir growers rely on desalinated water that still needs reverse osmosis. IBO 2025 says, for Morocco generally, that water scarcity is being overcome with desalinisation plants.",
    "geography_ids": [
     "MA-SMD"
    ],
    "period": {
-    "label": "Conditions described in IBO 2023 and 2025",
+    "label": "Conditions described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3372,6 +5197,16 @@
      "locator": "Morocco narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      169
+     ],
+     "pdf_pages": [
+      85
+     ],
+     "locator": "Morocco report team narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       193
@@ -3391,12 +5226,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Northern Morocco: open field and tunnels, timing similar to Spain",
-   "summary": "IBO 2025 says northern Morocco (Larache, Rabat) began low-chill production in the mid-2000s in open field and tunnels, slightly earlier than Spain in normal weather, with weather that tends to mimic Spain's.",
+   "summary": "IBO 2025 says northern Morocco (Larache, Rabat) began low-chill production in the mid-2000s in open field and tunnels, slightly earlier than Spain in normal weather, with weather that tends to mimic Spain's. IBO 2024 also dates the first low-chill production around Larache and Rabat to the mid-2000s and says growing conditions there are more similar to southern Spain.",
    "geography_ids": [
     "MA-NORTH"
    ],
    "period": {
-    "label": "Practice described in IBO 2025",
+    "label": "Practice described in IBO 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3407,6 +5242,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      171
+     ],
+     "pdf_pages": [
+      86
+     ],
+     "locator": "Morocco report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -3427,7 +5272,7 @@
    "kind": "event",
    "topic": "weather",
    "title": "Morocco early 2023: cold delayed the crop about three weeks",
-   "summary": "IBO 2023 reports colder weather in 2023 delayed Morocco and Spain by about three weeks. IBO 2025 says a cold spell at the start of 2023 caused Morocco's first volume decline in more than a decade.",
+   "summary": "IBO 2023 reports colder weather in 2023 delayed Morocco and Spain by about three weeks. IBO 2025 says a cold spell at the start of 2023 caused Morocco's first volume decline in more than a decade. IBO 2024 says yields fell in that first decline because of weather issues including a cold spell in late January and early February.",
    "geography_ids": [
     "MA"
    ],
@@ -3452,6 +5297,16 @@
       79
      ],
      "locator": "Morocco narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      169
+     ],
+     "pdf_pages": [
+      85
+     ],
+     "locator": "Morocco report team narrative"
     },
     {
      "source_id": "ibo-2025",
@@ -3508,16 +5363,169 @@
    ]
   },
   {
+   "id": "ma-agadir-2023-08-heat",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Agadir August 2023: temperature reached 52°C",
+   "summary": "IBO 2024 says, in the IBO President's message, that Agadir reached 52°C in August 2023. The message gives this as an example of growing weather impacts, alongside El Nino in Peru and heat spells elsewhere.",
+   "geography_ids": [
+    "MA-SMD"
+   ],
+   "period": {
+    "label": "August 2023",
+    "start": "2023-08-01",
+    "end": "2023-08-31",
+    "precision": "month"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "ma-agadir-heat-2023-08",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      8
+     ],
+     "pdf_pages": [
+      5
+     ],
+     "locator": "IBO President's message"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The 52°C figure is a report statement, not verified station data or a crop-damage threshold.",
+    "No crop impact is stated for this heat.",
+    "One sentence in the IBO President's message; no station or source is given for the 52°C figure."
+   ]
+  },
+  {
+   "id": "ma-heatwave-wind",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Morocco: southern heatwave hit the crop; wind damaged structures north and south",
+   "summary": "IBO 2024 says that, like Spain, the south of Morocco had a heatwave that impacted the crop. In both the south and the north, wind events caused some structural damage, but this was not considered a significant cause of the lower production. The report does not date these events; it mentions them after the 2023 season and the delayed 2024 season.",
+   "geography_ids": [
+    "MA",
+    "MA-SMD",
+    "MA-NORTH"
+   ],
+   "period": {
+    "label": "Not dated; reported with the 2023 and 2024 seasons",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified; protected structures implied by 'structural damage'.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "ma-heatwave-wind-2023-24",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      171
+     ],
+     "pdf_pages": [
+      86
+     ],
+     "locator": "Morocco report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The report gives no dates, temperatures or wind speeds.",
+    "It is not clear whether the heatwave is the August 2023 Agadir heat named elsewhere in the report."
+   ]
+  },
+  {
+   "id": "ma-north-water",
+   "kind": "constraint",
+   "topic": "resources",
+   "title": "Northern Morocco: water shortage less serious than around Agadir",
+   "summary": "IBO 2024 says water shortage is not as serious in the north of Morocco, where the industry began, as in Agadir. Growing conditions there are more similar to southern Spain, and growth in the north has recently outpaced Agadir.",
+   "geography_ids": [
+    "MA-NORTH"
+   ],
+   "period": {
+    "label": "Conditions described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      171
+     ],
+     "pdf_pages": [
+      86
+     ],
+     "locator": "Morocco report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "A comparison with Agadir, not a statement of water access at any farm."
+   ]
+  },
+  {
+   "id": "ma-atlas-midchill",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Morocco's Atlas Mountains: mid-chill blueberries for late June and July",
+   "summary": "IBO 2024 says limited plantings of mid-chill blueberries in Morocco's Atlas Mountains are reaching the market, aimed at the late June and July windows. Production cost there is understood to be low.",
+   "geography_ids": [
+    "MA"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Mid-chill highbush; cultivars not named.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      171
+     ],
+     "pdf_pages": [
+      86
+     ],
+     "locator": "Morocco report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "Plantings are described as limited; no area or location within the Atlas is given."
+   ]
+  },
+  {
    "id": "pt-system",
    "kind": "practice",
    "topic": "management",
    "title": "Portugal: protected low-chill in the south, open-field high-chill in the north",
-   "summary": "IBO 2023 and 2025 describe southern Portugal as Huelva-like with much production under protected tunnels, and the hilly north as mostly open field with mid- and high-chill Duke and Legacy. Supply runs from March to end of July, with small volumes to October from pruning. IBO 2023 says Portugal struggles with water availability, with rainwater harvesting from tunnels specifically in the Odemira area.",
+   "summary": "IBO 2023, 2024 and 2025 describe southern Portugal as Huelva-like with much production under protected tunnels, and the hilly north as mostly open field with mid- and high-chill Duke and Legacy. Supply runs from March to end of July, with small volumes to October from pruning. IBO 2023 and 2024 say Portugal struggles with water availability, with rainwater harvesting from tunnels specifically in the Odemira area.",
    "geography_ids": [
     "PT"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3539,6 +5547,16 @@
      "locator": "Portugal narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      160
+     ],
+     "pdf_pages": [
+      81
+     ],
+     "locator": "Portugal narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       179
@@ -3552,6 +5570,44 @@
    "limitations": [
     "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
     "North/south qualifiers come from the report; no mapped boundary."
+   ]
+  },
+  {
+   "id": "pt-2023-drought",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Portugal 2023: drought effects reduced yields; volume flat",
+   "summary": "IBO 2024 says Portugal had difficult growing conditions in 2023 with the ongoing effects of drought. The industry avoided an overall decline, with volume flat, likely because yield reductions were offset by younger plantings coming into production.",
+   "geography_ids": [
+    "PT"
+   ],
+   "period": {
+    "label": "2023 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "portugal-drought-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      159
+     ],
+     "pdf_pages": [
+      80
+     ],
+     "locator": "Southern Europe/North Africa report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The report says 'last year'; in this 2024 edition that means 2023.",
+    "The yield reduction is the report's likely explanation, not a measured figure."
    ]
   },
   {
@@ -3703,12 +5759,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "Poland: drip irrigation universal, little protected cropping",
-   "summary": "IBO 2025 reports that Polish commercial blueberry farms are drip irrigated, most with fertigation, fresh fruit is hand-picked, and machine harvest happens on bigger farms usually only at season end for processing. Country metrics in IBO 2023 (2022) and IBO 2025 (2024) both list 3% of area under structure.",
+   "summary": "IBO 2024 and 2025 report that Polish commercial blueberry farms are drip irrigated, most with fertigation, fresh fruit is hand-picked, and machine harvest happens on bigger farms usually only at season end for processing. Country metrics in IBO 2023 (2022), IBO 2024 (2023) and IBO 2025 (2024) all list 3% of area under structure.",
    "geography_ids": [
     "PL"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3728,6 +5784,18 @@
       85
      ],
      "locator": "Poland production metrics"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      181,
+      184
+     ],
+     "pdf_pages": [
+      91,
+      93
+     ],
+     "locator": "Poland production metrics and Polish Blueberry Promotion Foundation summary"
     },
     {
      "source_id": "ibo-2025",
@@ -3806,12 +5874,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Germany: harvest end of June to mid-September; about 70% in Lüneburg Heath",
-   "summary": "IBO 2023 and 2025 give Germany's production window as end of June to mid-September with a large July peak, Duke leading, and about 70% of production in Lüneburg Heath (between Hanover and Hamburg). IBO 2025 gives average farm size about 3.5 ha, mostly in soil.",
+   "summary": "IBO 2023, 2024 and 2025 give Germany's production window as end of June to mid-September with a large July peak, Duke leading, and about 70% of production in Lüneburg Heath (between Hanover and Hamburg). IBO 2024 and 2025 give average farm size about 3.5 ha, mostly in soil.",
    "geography_ids": [
     "DE"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023 and 2025",
+    "label": "Season pattern described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3829,6 +5897,16 @@
      ],
      "pdf_pages": [
       92
+     ],
+     "locator": "Western/Central Europe narrative: Germany"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      191
+     ],
+     "pdf_pages": [
+      96
      ],
      "locator": "Western/Central Europe narrative: Germany"
     },
@@ -3886,16 +5964,64 @@
    ]
   },
   {
+   "id": "de-2023-07-rain",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Germany July to August 2023: heavy rain caused mould, soft fruit and harvest problems",
+   "summary": "IBO 2024 says Germany had a lot of rain from July to August 2023. It hampered production and fruit quality, with mould and soft fruit leading to lower packouts and volume. Harvest was also hard because the main northern German growing region has clay-like soils that are difficult to walk on in wet weather. The report team says the wet summer hit production heavily, particularly in Germany, the Netherlands and Belgium.",
+   "geography_ids": [
+    "DE"
+   ],
+   "period": {
+    "label": "July to August 2023",
+    "start": "2023-07-01",
+    "end": "2023-08-31",
+    "precision": "month"
+   },
+   "crop_context": "Northern highbush, mostly open field in soil; Duke leading.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "nw-europe-summer-rain-2023",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      190
+     ],
+     "pdf_pages": [
+      96
+     ],
+     "locator": "Western/Central Europe report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      192
+     ],
+     "pdf_pages": [
+      97
+     ],
+     "locator": "Western/Central Europe narrative: Germany"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "No rainfall totals or loss figures for Germany are given.",
+    "The clay-like soil remark refers to the leading northern region, not all of Germany."
+   ]
+  },
+  {
    "id": "ro-soils-frost",
    "kind": "constraint",
    "topic": "resources",
    "title": "Romania: high-pH clay soils and April frost at altitude",
-   "summary": "IBO 2025 and 2026 report that most Romanian farms grow in open soil beds on clay soils with unusually high pH, newer farms use pots, and water availability is good. At higher altitude April frost hits Duke and Legacy in bloom, so many growers have turned to Elliott for later production; hail is local.",
+   "summary": "IBO 2025 and 2026 report that most Romanian farms grow in open soil beds on clay soils with unusually high pH, newer farms use pots, and water availability is good. IBO 2024, 2025 and 2026 say that at higher altitude April frost hits Duke and Legacy in bloom, so many growers have turned to Elliott for later production; hail is local.",
    "geography_ids": [
     "RO"
    ],
    "period": {
-    "label": "Conditions described in IBO 2025 and 2026",
+    "label": "Conditions described in IBO 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3906,6 +6032,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      179
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Romania"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -3943,16 +6079,94 @@
    ]
   },
   {
+   "id": "ro-harvest",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Romania: season from mid-June to late September, peak in July",
+   "summary": "IBO 2024 says Romania supplies fresh blueberries in June, but its season lasts longer, in 2022 from 17 June to 28 September. It tends to peak in July, and sometimes in August depending on conditions. The report team says earliness to fill the June gap between the Spanish and Polish seasons drives the industry in more southerly areas such as Romania and Serbia.",
+   "geography_ids": [
+    "RO"
+   ],
+   "period": {
+    "label": "Season pattern described in IBO 2024 (2022 dates as example)",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush; Duke the most common cultivar.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      177,
+      179
+     ],
+     "pdf_pages": [
+      89,
+      90
+     ],
+     "locator": "Eastern Europe report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The 17 June to 28 September dates are for 2022 only.",
+    "Peak month varies with conditions."
+   ]
+  },
+  {
+   "id": "ro-soils-open-field",
+   "kind": "constraint",
+   "topic": "resources",
+   "title": "Romania: open-field production, acidic soils north of the Carpathians",
+   "summary": "IBO 2024 says almost all Romanian production is in open fields rather than pots. North of the Carpathian mountains the soil is rather acidic, which suits this type of cultivation. With the right soil preparation there are also significant plantings south of the range.",
+   "geography_ids": [
+    "RO"
+   ],
+   "period": {
+    "label": "Conditions described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush; open field in soil.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      179
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Romania"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "IBO 2025 and 2026 describe clay soils with unusually high pH; the 2024 acidic-soil remark covers only the area north of the Carpathians.",
+    "IBO 2025 and 2026 describe clay soils with unusually high pH; the two editions describe different parts of the country or differ."
+   ]
+  },
+  {
    "id": "rs-water",
    "kind": "constraint",
    "topic": "resources",
    "title": "Serbia: mineral-rich water needs reverse osmosis",
-   "summary": "IBO 2025 and 2026 report Serbian water as plentiful but mineral-rich, requiring reverse-osmosis filtration; a high proportion of farms have anti-hail nets, and fertigation and potted substrate are common.",
+   "summary": "IBO 2025 and 2026 report Serbian water as plentiful but mineral-rich, requiring reverse-osmosis filtration. IBO 2024, 2025 and 2026 say a high proportion of farms have anti-hail nets, and fertigation and potted substrate are common.",
    "geography_ids": [
     "RS"
    ],
    "period": {
-    "label": "Conditions described in IBO 2025 and 2026",
+    "label": "Conditions described in IBO 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -3963,6 +6177,16 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      178
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Serbia"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -3989,6 +6213,117 @@
    "limitations": [
     "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
     "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+   ]
+  },
+  {
+   "id": "rs-2023-05-rain",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Serbia May 2023: very rainy month before harvest softened fruit",
+   "summary": "IBO 2024 says Serbia had a very rainy May 2023 before harvest, which in some cases led to fruit softness and other quality defects. Serbia still overtook Portugal as a major June supplier that year.",
+   "geography_ids": [
+    "RS"
+   ],
+   "period": {
+    "label": "May 2023",
+    "start": "2023-05-01",
+    "end": "2023-05-31",
+    "precision": "month"
+   },
+   "crop_context": "Not specified; Duke is the predominant cultivar in Serbia.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "serbia-rain-2023-05",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      178
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Serbia"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "No rainfall totals or loss figures are given; effects were 'in cases', not industry-wide."
+   ]
+  },
+  {
+   "id": "rs-harvest",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Serbia: June and July harvest, concentrated by reliance on Duke",
+   "summary": "IBO 2024 says Serbia targets the June market window, with sales also in July. Its mountainous terrain allows growers to shift harvest windows with different varieties, but Duke predominates, so harvests are more concentrated than elsewhere. There is a general reluctance to adopt new varieties.",
+   "geography_ids": [
+    "RS"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Northern highbush; Duke predominant.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      178
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Serbia"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "June and July describe market targeting and sales, not field harvest dates at this map point."
+   ]
+  },
+  {
+   "id": "rs-soils-wells",
+   "kind": "constraint",
+   "topic": "resources",
+   "title": "Serbia: best soils in the west and southwest; deep wells for irrigation",
+   "summary": "IBO 2024 says the highest Serbian yields tend to come from the west and southwest because of soil quality. Water is less regulated than in Western Europe, and farmers can drill deep wells for irrigation.",
+   "geography_ids": [
+    "RS"
+   ],
+   "period": {
+    "label": "Conditions described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      178
+     ],
+     "pdf_pages": [
+      90
+     ],
+     "locator": "Eastern Europe narrative: Serbia"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "Water source depends on the farm; rainfall does not establish water access."
    ]
   },
   {
@@ -4166,12 +6501,12 @@
    "kind": "practice",
    "topic": "management",
    "title": "South Africa: mostly substrate, about 12% under tunnels",
-   "summary": "IBO 2023 and 2025 describe a high proportion of South African fields in pots/substrate and about 12% of production under tunnels, targeting earlier fruit. The 2025 country metrics box lists under-structure share as not reported.",
+   "summary": "IBO 2023 and 2025 describe a high proportion of South African fields in pots/substrate and about 12% of production under tunnels, targeting earlier fruit. IBO 2024 repeats the high substrate share and the about 12% under tunnels. The 2024 and 2025 country metrics boxes list under-structure share as not reported.",
    "geography_ids": [
     "ZA"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4191,6 +6526,26 @@
       102
      ],
      "locator": "South Africa report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      212
+     ],
+     "pdf_pages": [
+      107
+     ],
+     "locator": "South Africa report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      208
+     ],
+     "pdf_pages": [
+      105
+     ],
+     "locator": "South Africa production metrics"
     },
     {
      "source_id": "ibo-2025",
@@ -4279,12 +6634,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Western Cape: about a month behind the north, peak October-November",
-   "summary": "IBO 2025 reports the Western Cape running about a month behind the north, with a peak in October-November that clashes with Peru, and growers seeking varieties that finish by September; the Western Cape within 250 km of Cape Town is about 60% of the industry.",
+   "summary": "IBO 2025 reports the Western Cape running about a month behind the north, with a peak in October-November that clashes with Peru, and growers seeking varieties that finish by September; the Western Cape within 250 km of Cape Town is about 60% of the industry. IBO 2024 also places the Western Cape peak in October-November, when Peru is most active, and puts the Western Cape at around 60% of plantings.",
    "geography_ids": [
     "ZA-WC"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2025",
+    "label": "Season pattern described in IBO 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4295,6 +6650,18 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      211,
+      212
+     ],
+     "pdf_pages": [
+      106,
+      107
+     ],
+     "locator": "South Africa report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -4328,6 +6695,223 @@
    ],
    "limitations": [
     "Regional industry report, not an observation at this map point or farm."
+   ]
+  },
+  {
+   "id": "za-2023-cold-winter",
+   "kind": "event",
+   "topic": "weather",
+   "title": "South Africa 2023: long, cold winter delayed harvests 3-4 weeks",
+   "summary": "IBO 2024 reports that a prolonged and very cold winter by South African standards in 2023 meant fruit took longer to get the heat units needed to ripen. Harvests across South Africa were 3-4 weeks late, with some farms up to six weeks late and others one week late, depending on variety and microclimate. The report says these weather issues led to harvest delays and a decrease in export volume of around 12.5%. Berries South Africa also describes a cooler, longer winter that delayed the season.",
+   "geography_ids": [
+    "ZA"
+   ],
+   "period": {
+    "label": "2023 winter and season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "za-2023-cold-winter",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      211
+     ],
+     "pdf_pages": [
+      106
+     ],
+     "locator": "South Africa report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      210
+     ],
+     "pdf_pages": [
+      106
+     ],
+     "locator": "Berries South Africa member summary"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      23
+     ],
+     "pdf_pages": [
+      12
+     ],
+     "locator": "Global overview narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The 12.5% figure is a decline in export volume, not a measured crop loss, and the report links it to weather and harvest delays together.",
+    "No temperature or chill values are given."
+   ]
+  },
+  {
+   "id": "za-wc-2023-wet-winter",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Western Cape 2023: much wetter winter, pollination hit and isolated floods",
+   "summary": "IBO 2024 reports that conditions in the Western Cape in the 2023 winter were much wetter than usual. The intense rain came before fruit set, so it had little effect on fruit, but it affected pollination in the early varieties. Flooding in isolated cases destroyed infrastructure and carried away blueberry pots, but the report says this was not a large factor in the national volume decline.",
+   "geography_ids": [
+    "ZA-WC"
+   ],
+   "period": {
+    "label": "2023 winter",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Early varieties affected at pollination; potted plants mentioned.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "za-wc-2023-wet-winter",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      211
+     ],
+     "pdf_pages": [
+      106
+     ],
+     "locator": "South Africa report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "No rainfall amounts, dates, farm counts or loss figures are given."
+   ]
+  },
+  {
+   "id": "za-north-2023-dormancy",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Northern South Africa 2023: cold winter left plants dormant and late",
+   "summary": "IBO 2024 reports that the 2023 winter weather had less impact in South Africa's north than elsewhere, but plants there were still very dormant and slow to start. It also says Zimbabwe's yields were down for weather reasons similar to those that affected northern South Africa.",
+   "geography_ids": [
+    "ZA-NORTH"
+   ],
+   "period": {
+    "label": "2023 winter and season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "za-2023-cold-winter",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      211
+     ],
+     "pdf_pages": [
+      106
+     ],
+     "locator": "South Africa report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      206
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Zimbabwe narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The report does not name provinces for 'the north' and gives no yield or delay figures for the north alone."
+   ]
+  },
+  {
+   "id": "za-lp-season-2024",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Limpopo: earlier season peaking September-October",
+   "summary": "IBO 2024 reports that Limpopo and South Africa's northwest hold most plantings outside the Western Cape, and that both have earlier seasons that peak in September and October.",
+   "geography_ids": [
+    "ZA-LP"
+   ],
+   "period": {
+    "label": "Season pattern described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      212
+     ],
+     "pdf_pages": [
+      107
+     ],
+     "locator": "South Africa report team narrative: regions"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The September-October peak is given for Limpopo and the northwest together."
+   ]
+  },
+  {
+   "id": "za-zw-cultivar-pruning-overlap",
+   "kind": "practice",
+   "topic": "management",
+   "title": "South Africa and Zimbabwe: new cultivars and pruning extend overlap with Europe's summer",
+   "summary": "IBO 2024 says growers outside Europe can now overlap more with the European summer season because of new cultivars and different pruning methods, and names South Africa and Zimbabwe as examples.",
+   "geography_ids": [
+    "ZA",
+    "ZW"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "New cultivars; pruning methods not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      193
+     ],
+     "pdf_pages": [
+      97
+     ],
+     "locator": "Europe market narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The statement comes from the European market section and gives no months or cultivar names."
    ]
   },
   {
@@ -4447,12 +7031,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Zimbabwe harvest mid-May to mid-October, peak August",
-   "summary": "IBO 2023 and 2025 describe Zimbabwe's harvest beginning mid-to-late May (early volumes from April or late March), peaking in August and finishing in mid-October; most farms are within 100 km of Harare and more are open field than in South Africa. IBO 2025 names wet weather and occasional hail from October as a risk.",
+   "summary": "IBO 2023, 2024 and 2025 describe Zimbabwe's harvest beginning mid-to-late May (early volumes from April or late March), peaking in August and finishing in mid-October; most farms are within 100 km of Harare and more are open field than in South Africa. IBO 2024 and 2025 name wet weather and occasional hail from October as a risk.",
    "geography_ids": [
     "ZW"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023 and 2025",
+    "label": "Season pattern described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4474,6 +7058,16 @@
      "locator": "Zimbabwe narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      206
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Zimbabwe narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       241
@@ -4490,11 +7084,123 @@
    ]
   },
   {
+   "id": "zw-2023-late-season",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Zimbabwe 2023: delayed crop, harvest ran to end of November",
+   "summary": "IBO 2024 reports that in 2023 Zimbabwe picked for five weeks longer than normal, until the end of November, past the usual mid-October finish. The report gives two reasons: growers took the chance to supply a market short of Peruvian fruit, and the crop was delayed. One grower reports hail in week 43. Yields were down for weather reasons similar to those in northern South Africa, though the season was seen as very good.",
+   "geography_ids": [
+    "ZW"
+   ],
+   "period": {
+    "label": "2023 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Southern highbush, mostly open field.",
+   "evidence_type": "interview_estimate",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "zw-2023-late-season",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      206
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Zimbabwe narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The longer harvest was partly a market choice, not only a weather effect.",
+    "No yield figures or hail damage are given."
+   ]
+  },
+  {
+   "id": "zw-harvest-target-september",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Zimbabwe: aim to finish 90% of the crop by end of September",
+   "summary": "IBO 2024 says the Zimbabwean industry aims as a rule of thumb to have 90% of the crop picked by the end of September. Fruit blemishes hurt returns in October, when Peru and South Africa supply heavily, and wet weather and occasional hail start in October.",
+   "geography_ids": [
+    "ZW"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      206
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Zimbabwe narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "A stated industry aim, not a measured harvest share."
+   ]
+  },
+  {
+   "id": "zw-substrate-trials",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Zimbabwe: early substrate plantings east of Harare; financing pushes soil planting",
+   "summary": "IBO 2024 reports early-stage substrate plantings east of Harare, with plants in pots at higher density. Difficulty getting finance is leading some growers to plant in soil instead, including plants moved from pots they have outgrown.",
+   "geography_ids": [
+    "ZW"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Open field soil planting and early-stage potted substrate east of Harare.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      206
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Zimbabwe narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The 20MT/ha figure is an expectation, not a measured yield."
+   ]
+  },
+  {
    "id": "na-kavango-frost",
    "kind": "event",
    "topic": "weather",
    "title": "Northern Namibia frosts, 2023 and 2024",
-   "summary": "IBO 2025 and 2026 report that the inland northern projects near Rundu and Divundu had not had a 'true frost' in 30 years before 2023, when the crop was almost wiped out by multiple frosts; in 2024 the Rundu farm was again hit, losing a large portion of expected crop, while Divundu fared better. The report had no direct grower interviews.",
+   "summary": "IBO 2025 and 2026 report that the inland northern projects near Rundu and Divundu had not had a 'true frost' in 30 years before 2023, when the crop was almost wiped out by multiple frosts; in 2024 the Rundu farm was again hit, losing a large portion of expected crop, while Divundu fared better. The report had no direct grower interviews. IBO 2024 also reports the 2023 frost, saying that after 30 years without a 'true frost' in the northern inland a severe frost incident wiped out the majority of the crop, according to one grower.",
    "geography_ids": [
     "NA-KAV"
    ],
@@ -4510,6 +7216,16 @@
    "source_family": "ibo-global-reports",
    "event_id": "na-kavango-frost-2023-2024",
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      207
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Namibia narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -4534,6 +7250,80 @@
    "limitations": [
     "Secondhand account without dates or loss percentages.",
     "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+   ]
+  },
+  {
+   "id": "na-kavango-harvest",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Northern Namibia harvest: late May to early October, peak August to mid-September",
+   "summary": "IBO 2024 reports that northern Namibia's production window is very similar to Zimbabwe's. First fruit comes at the end of May or first week of June, the peak runs from August to the second week of September, and harvest usually ends in early October, when tropical thunderstorms can affect quality.",
+   "geography_ids": [
+    "NA-KAV"
+   ],
+   "period": {
+    "label": "Season pattern described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      207
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Namibia narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The window is given for northern Namibia as a whole, not for a named farm."
+   ]
+  },
+  {
+   "id": "na-kavango-inland-siting",
+   "kind": "practice",
+   "topic": "management",
+   "title": "Northern Namibia: inland sites chosen for fewer frosts, water and labour",
+   "summary": "IBO 2024 reports that Namibia's coastal areas are known for frosts, so the leading northern projects near Rundu, Divundu and the Caprivi Strip are inland where frosts have historically been less common. Growers chose these sites for that, for better access to water and for plentiful labour, over the better logistics of the coast.",
+   "geography_ids": [
+    "NA-KAV"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      207
+     ],
+     "pdf_pages": [
+      104
+     ],
+     "locator": "Namibia narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Lower frost prevalence is historical; the same page reports a severe frost in 2023 (see na-kavango-frost)."
    ]
   },
   {
@@ -4578,12 +7368,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Northern NSW (Coffs Harbour): August-November concentration",
-   "summary": "IBO 2025 says Australian supply is heavily concentrated in August-November from Coffs Harbour, estimated at 75-80% of national volume, with rabbiteye in summer. IBO 2023 says Coffs Harbour has been beset by weather troubles for several years, driving diversification.",
+   "summary": "IBO 2025 says Australian supply is heavily concentrated in August-November from Coffs Harbour, estimated at 75-80% of national volume, with rabbiteye in summer. IBO 2024 also reports the August-November concentration with Coffs Harbour planting behind much of the growth. IBO 2023 says Coffs Harbour has been beset by weather troubles for several years, driving diversification.",
    "geography_ids": [
     "AU-NSW"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2023 and 2025",
+    "label": "Season pattern described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4601,6 +7391,16 @@
      ],
      "pdf_pages": [
       65
+     ],
+     "locator": "Australia report team narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      139
+     ],
+     "pdf_pages": [
+      70
      ],
      "locator": "Australia report team narrative"
     },
@@ -4663,12 +7463,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Western Australia: pruning spreads harvest from March to January",
-   "summary": "IBO 2025 reports the farms of one Western Australia-based breeder, between Gingin and Manjimup, using pruning and farm methods to fill gaps, with harvest from March to January of the following year. IBO 2023 describes the area as dry and Mediterranean with fewer pests.",
+   "summary": "IBO 2025 reports the farms of one Western Australia-based breeder, between Gingin and Manjimup, using pruning and farm methods to fill gaps, with harvest from March to January of the following year. IBO 2023 describes the area as dry and Mediterranean with fewer pests, and IBO 2024 as dry with fewer pest pressures.",
    "geography_ids": [
     "AU-WA"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4690,6 +7490,16 @@
      "locator": "Australia report team narrative"
     },
     {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      139
+     ],
+     "pdf_pages": [
+      70
+     ],
+     "locator": "Australia report team narrative"
+    },
+    {
      "source_id": "ibo-2025",
      "printed_pages": [
       156
@@ -4703,6 +7513,128 @@
    "limitations": [
     "Regional industry report, not an observation at this map point or farm.",
     "IBO 2025 describes one breeder's farms, not all Western Australian growers."
+   ]
+  },
+  {
+   "id": "au-2023-normal-conditions",
+   "kind": "event",
+   "topic": "weather",
+   "title": "Australia 2023: return to more normal weather after extreme years",
+   "summary": "IBO 2024 reports, from the Australian Blueberry Growers Association, that 2023 saw a return to more 'normal' conditions after a few years of extreme weather, and yields were up considerably. Production from July 2023 to April 2024 was up 30.9% on the year before. The report team says quality was reportedly much higher.",
+   "geography_ids": [
+    "AU"
+   ],
+   "period": {
+    "label": "2023; production compared for July 2023 to April 2024",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "au-2023-normal-season",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      138
+     ],
+     "pdf_pages": [
+      70
+     ],
+     "locator": "ABGA member summary"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      140
+     ],
+     "pdf_pages": [
+      71
+     ],
+     "locator": "Australia report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "National statement; the registry has no Australia country geography, so it is attached to the three state geographies.",
+    "The 30.9% rise is a national production change, not a state figure."
+   ]
+  },
+  {
+   "id": "au-qld-fnq-window",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Far North Queensland targets the March to May window",
+   "summary": "IBO 2024 says Far North Queensland, around the Atherton Tablelands and the drier area to its west, has emerged as a growing region that targets the March to May window, though volumes are limited. At least two major breeders are trialling or commercializing varieties there. Queensland also has a large operation in Mundubbera and smaller farms around Bundaberg.",
+   "geography_ids": [
+    "AU-QLD"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified; new varieties under trial by breeding companies.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      139
+     ],
+     "pdf_pages": [
+      70
+     ],
+     "locator": "Australia report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "Volumes are described as limited; the window applies to Far North Queensland, not the whole state."
+   ]
+  },
+  {
+   "id": "au-nsw-nambucca-window",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "Nambucca Valley plantings aim to extend the NSW window",
+   "summary": "IBO 2024 says growers are exploring geographic diversification to supply outside the August to November peak. The Nambucca Valley, south of Coffs Harbour, has recent plantings targeting a slight window extension.",
+   "geography_ids": [
+    "AU-NSW"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      139
+     ],
+     "pdf_pages": [
+      70
+     ],
+     "locator": "Australia report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The size of the window extension is not given."
    ]
   },
   {
@@ -4843,12 +7775,12 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "New Zealand season: peak November-May",
-   "summary": "IBO 2025 describes a main domestic season from November, peaking November-May, with southern highbush in the north targeting August-October and rabbiteye exports mostly February-April. IBO 2026 notes Hawke's Bay greenhouse production to end of May, while frosts earlier in May end the season for many others.",
+   "summary": "IBO 2025 describes a main domestic season from November, peaking November-May, with southern highbush in the north targeting August-October and rabbiteye exports mostly February-April. IBO 2024 also describes southern highbush planted for the August-October window. IBO 2024 and 2026 note Hawke's Bay greenhouse production to end of May, while frosts earlier in May end the season for many others.",
    "geography_ids": [
     "NZ"
    ],
    "period": {
-    "label": "Season pattern described in IBO 2025 and 2026",
+    "label": "Season pattern described in IBO 2024, 2025 and 2026",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4859,6 +7791,17 @@
    "source_family": "ibo-global-reports",
    "event_id": null,
    "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      144,
+      145
+     ],
+     "pdf_pages": [
+      73
+     ],
+     "locator": "New Zealand report team narrative"
+    },
     {
      "source_id": "ibo-2025",
      "printed_pages": [
@@ -4885,16 +7828,183 @@
    ]
   },
   {
+   "id": "nz-2023-24-mild-season",
+   "kind": "event",
+   "topic": "weather",
+   "title": "New Zealand 2023/24: mild, fairly dry season with high yields",
+   "summary": "IBO 2024 reports that the 2023/24 New Zealand season was mild and reasonably dry, in contrast with the frost, floods and Cyclone Gabrielle of the prior season. Many growers reported their highest yields ever in some blocks. Less rain meant lower disease pressure and more marketable fruit, but invertebrate pest pressure increased. A source called it a 'stellar season' in Waikato and Hawke's Bay.",
+   "geography_ids": [
+    "NZ",
+    "NZ-WKO",
+    "NZ-HKB"
+   ],
+   "period": {
+    "label": "2023/24 season",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "nz-2023-24-mild-season",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      143,
+      144
+     ],
+     "pdf_pages": [
+      72,
+      73
+     ],
+     "locator": "BBNZ member summary"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      144
+     ],
+     "pdf_pages": [
+      73
+     ],
+     "locator": "New Zealand report team narrative"
+    }
+   ],
+   "limitations": [
+    "Regional industry report, not an observation at this map point or farm.",
+    "The 'stellar season' description comes from one source.",
+    "Yield gains are reported by growers for some blocks; no figures are given."
+   ]
+  },
+  {
+   "id": "nz-2022-23-weather-grower-dropoff",
+   "kind": "event",
+   "topic": "weather",
+   "title": "New Zealand: grower numbers fell after major weather events",
+   "summary": "IBO 2024 reports Blueberries New Zealand figures of 68 growers and 5 exporting groups, against 125 growers and 9 exporting groups in 2023. BBNZ says the major weather events can likely be the cause of the large drop off of growers. The prior season had intensive frost, flooding and Cyclone Gabrielle.",
+   "geography_ids": [
+    "NZ"
+   ],
+   "period": {
+    "label": "After the 2022/23 season; membership counts as reported in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "season"
+   },
+   "crop_context": "Not specified.",
+   "evidence_type": "association_report",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": "nz-2022-23-weather-events",
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      143
+     ],
+     "pdf_pages": [
+      72
+     ],
+     "locator": "BBNZ member summary"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "BBNZ gives the weather link as likely, not confirmed.",
+    "The counts are BBNZ membership figures; the date of the 68-grower figure is not stated."
+   ]
+  },
+  {
+   "id": "nz-near-year-round-supply",
+   "kind": "practice",
+   "topic": "harvest",
+   "title": "New Zealand: February-May peak, nearly year-round supply",
+   "summary": "IBO 2024 says New Zealand's peak production runs from February to May. Through agronomic techniques, variety choice and growing from Northland to Southland, the country is approaching year-round supply when weather allows, with a dip in June-July. Northland operations can start limited volumes in late June or early July.",
+   "geography_ids": [
+    "NZ"
+   ],
+   "period": {
+    "label": "Season pattern described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush in the north; PNW-type varieties in the South Island.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      144,
+      145
+     ],
+     "pdf_pages": [
+      73
+     ],
+     "locator": "New Zealand report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "The peak months differ from IBO 2025, which gives a November-May peak; see the nz-harvest record.",
+    "Year-round supply depends on weather conditions, as the text states."
+   ]
+  },
+  {
+   "id": "nz-tunnel-southern-highbush",
+   "kind": "practice",
+   "topic": "management",
+   "title": "New Zealand growth from tunnel-grown southern highbush",
+   "summary": "IBO 2024 says much of New Zealand's growth comes from relatively new plantings of premium southern highbush grown under tunnels. Growth is concentrated in the northern North Island, where fruit can be produced earlier.",
+   "geography_ids": [
+    "NZ"
+   ],
+   "period": {
+    "label": "Practice described in IBO 2024",
+    "start": null,
+    "end": null,
+    "precision": "reported_practice"
+   },
+   "crop_context": "Southern highbush under tunnels, several genetics providers.",
+   "evidence_type": "industry_narrative",
+   "review_status": "source_checked",
+   "source_family": "ibo-global-reports",
+   "event_id": null,
+   "citations": [
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      144,
+      145
+     ],
+     "pdf_pages": [
+      73
+     ],
+     "locator": "New Zealand report team narrative"
+    }
+   ],
+   "limitations": [
+    "Country-level industry context; it does not establish the system, cultivar or timing at this map point.",
+    "No tunnel area or share is given."
+   ]
+  },
+  {
    "id": "in-monsoon",
    "kind": "practice",
    "topic": "harvest",
    "title": "India: mid-February to early June season before monsoon",
-   "summary": "IBO 2023 and 2025 describe India as tropical/subtropical with summer monsoons, mainly low-chill southern highbush with cultivar choice and agronomy used to avoid heavy rain, and a main season from mid-February to early June; protected systems are used for pest pressure.",
+   "summary": "IBO 2023, 2024 and 2025 describe India as tropical/subtropical with summer monsoons, mainly low-chill southern highbush with cultivar choice and agronomy used to avoid heavy rain, and a main season from mid-February to early June; protected systems are used for pest pressure.",
    "geography_ids": [
     "IN"
    ],
    "period": {
-    "label": "Practice described in IBO 2023 and 2025",
+    "label": "Practice described in IBO 2023, 2024 and 2025",
     "start": null,
     "end": null,
     "precision": "reported_practice"
@@ -4912,6 +8022,18 @@
      ],
      "pdf_pages": [
       69
+     ],
+     "locator": "India narrative"
+    },
+    {
+     "source_id": "ibo-2024",
+     "printed_pages": [
+      149,
+      150
+     ],
+     "pdf_pages": [
+      75,
+      76
      ],
      "locator": "India narrative"
     },

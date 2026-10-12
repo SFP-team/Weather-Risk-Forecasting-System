@@ -77,8 +77,10 @@ PROFILES['stage_risks_v2'] = {
 # - flowering end = start + 290 GDD: the F10-F90 span of the Kovaleski et al. 2015 (JASHS 140:38) whole-plant
 #   bloom curves at Citra, 293 (Emerald) and 287 (Jewel) GDD from 1 January with hydrogen cyanamide. Only the span
 #   is used. The paper's printed daily formula (Tmax - Tmin)/2 is a typo for the mean.
-# - 100 chill hours: the supervisor's later R workflow; the low end of the 100-400 h adaptation range Lyrene 2008
-#   (HortScience 43:1606) gives for Emerald, not a measured flowering minimum. Chill definition unchanged.
+# - 50 chill hours: set by the user on 2026-10-12, the same requirement as the legacy profiles. The supervisor's later
+#   R workflow uses 100 h, the low end of the 100-400 h adaptation range Lyrene 2008 (HortScience 43:1606) gives for
+#   Emerald; neither value is a measured flowering minimum. legacy_paul_100h_v1 and bounded_uf_100h_v1 keep 100 h as
+#   sensitivity comparisons. Chill definition unchanged.
 # - base 7 C was derived for bloom (Kirk & Isaacs 2012); its use for fruit development and the 30 C cap (no rate
 #   data above 26 C) are extrapolations that only limit hot-season behaviour.
 # - disease weather uses hourly wetness: UF Blueberry Advisory System anthracnose index (Wilson et al. 1990;
@@ -98,7 +100,7 @@ PROFILES['stage_risks_v2'] = {
 #   4 days (DeVetter et al. 2022, Front. Sustain. Food Syst. 6:1006201). Bumble bees fly at lower temperatures.
 PROFILES['stage_thermal_v3'] = {
     **PROFILES['stage_risks_v2'],
-    'chill_requirement_hours': 100,
+    'chill_requirement_hours': 50,
     'stage_clock': 'thermal',
     'stage_gdd_upper_c': 30.0,
     'stage_horizon_days': 300,
@@ -130,8 +132,8 @@ PROFILES['stage_thermal_v3'] = {
     'leap_day_offsets': 'corrected',
     # Planting window from the supervisor's R workflow (southern_brazil_blueberry_climate_analogs.R, lines 91-92 and
     # 1219-1220): it ends 30 days before modelled budbreak and lasts 75 days. The R labels the offsets preliminary and
-    # cites no source; the literature benchmark finds the rule's months overlap published planting months about a third
-    # of the time. Adopted by the user on 2026-10-12 as the app's planting window.
+    # cites no source. With the 50-hour requirement the literature benchmark finds the rule's months cover about a fifth
+    # of published planting months and usually start earlier. Adopted by the user on 2026-10-12 as the app's planting window.
     'planting_end_before_budbreak_days': 30,
     'planting_window_length_days': 75,
 }
@@ -148,8 +150,8 @@ CHANGES = [
     'The stage_risks_v2 profile preserves the legacy chill and phenology constants. Crop exposures use each winter calendar, not the median calendar.',
     'Disease weather combines complete flowering, fruit-development and harvest windows into one event family.',
     'Warm midwinter hours use fixed hemisphere dates and remain available when the chill requirement fails.',
-    'stage_thermal_v3 (primary): flowering and fruit development accumulate daily GDD after budbreak instead of fixed day offsets, so stages shorten in warm weather and lengthen in cool weather. The flowering-start and harvest sums are the Waldo medians of the GDD the legacy offsets covered from the legacy 50-hour chill date; with the 100-hour requirement Waldo flowers about 18 days later than under the legacy profiles, and its harvest window moves by only a few days. Flowering spans 290 GDD (Kovaleski et al. 2015) instead of 21 days.',
-    'stage_thermal_v3 uses the 100-hour chill requirement from the supervisor\'s later R workflow; stage_risks_v2 and the legacy profiles remain as comparisons.',
+    'stage_thermal_v3 (primary): flowering and fruit development accumulate daily GDD after budbreak instead of fixed day offsets, so stages shorten in warm weather and lengthen in cool weather. The flowering-start and harvest sums are the Waldo medians of the GDD the legacy offsets covered from the legacy 50-hour chill date, which is also the v3 requirement, so Waldo\'s median flowering start (22 January) and harvest (29 March to 10 May) stay within two days of the legacy profiles. Flowering spans 290 GDD (Kovaleski et al. 2015) instead of 21 days.',
+    'stage_thermal_v3 uses a 50-hour chill requirement, set by the user on 2026-10-12. The supervisor\'s later R workflow uses 100 hours; legacy_paul_100h_v1 and bounded_uf_100h_v1 keep that value as sensitivity comparisons.',
     'Dynamic Model chill portions are reported beside chill hours for every winter; the requirement and classification still use chill hours.',
     'stage_thermal_v3 replaces the daily disease proxy with hourly wetness: UF Blueberry Advisory System anthracnose and Strawberry Advisory System Botrytis indices from grid temperature and dewpoint.',
     'Where the chill-triggered calendar does not apply (tropics, evergreen or unknown majority, or fewer than 12 calendar winters), a managed-cycle scan of 24 cycle-start dates gives favourable flowering and harvest months instead of no window.',

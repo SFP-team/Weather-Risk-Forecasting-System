@@ -51,7 +51,7 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 | Saved locations | 71 saved assessments are available. | Saved assessments do not require a new server calculation. |
 | Crop calendar | Temperature-based version 3 is implemented. | Parameters describe a provisional low-chill southern-highbush scenario. |
 | Weather risks | Events, frequencies, and exclusions are displayed. | Exposure is not crop damage or expected yield loss. |
-| Regional evidence | 91 reviewed records from three IBO report editions are available. | Coverage is partial. Reports are not field observations at the pin. |
+| Regional evidence | 156 reviewed records from four IBO report editions are available. | Coverage is partial. Reports are not field observations at the pin. |
 | Soil | Some pilot-site records are available. | Collection stopped after source failures. Most arbitrary pins have no soil records. |
 | Planting window | The app calculates a nursery planting window from modelled budbreak wherever the chill-triggered calendar applies. Registered saved locations in Florida, Georgia and Santa Catarina also show a published season for comparison. | The rule's offsets are not validated. Locations without the chill-triggered calendar get no calculated window. |
 | Scientific validation | Regional literature comparisons and limited station checks exist. | Independent cultivar-by-site-by-year validation is not complete. |
@@ -222,7 +222,7 @@ The lower winter-risk cards and the scan can therefore show different results. C
 
 In a scan, "Cycle failure" means that 50% or more of the cycles from a start date do not complete. Freeze rows count only complete cycles.
 
-Sometimes the winter calendar does not apply because some winters do not reach the chill requirement. A line under Top risks then gives the number of those winters, for example "Chill shortfall: 6 of 15 winters (40%) below the 100-hour requirement".
+Sometimes the winter calendar does not apply because some winters do not reach the chill requirement. A line under Top risks then gives the number of those winters. At Arcadia, for example, 3 of 15 winters (20%) stay below the 50-hour requirement.
 
 The ranking measures frequency, not damage severity. A frequent rain event can rank above a less frequent but destructive freeze.
 
@@ -236,17 +236,17 @@ The typical window counts back from the median budbreak. Its spread uses the bud
 
 Two examples:
 
-- Papanduva shows "19 Apr to 3 Jul". Typical budbreak is 2 Aug over 13 winters, and the spread runs from 6 Apr to 20 Jul.
-- Waldo shows 11 Oct to 25 Dec. Typical budbreak is 24 Jan over 15 winters, and the spread runs from 15 Sep to 13 Jan.
+- Papanduva shows "9 Apr to 23 Jun". Typical budbreak is 23 Jul over 15 winters, and the spread runs from 18 Mar to 5 Jul.
+- Waldo shows 23 Sep to 7 Dec. Typical budbreak is 6 Jan over 15 winters, and the spread runs from 1 Sep to 24 Dec.
 
 Registered saved locations in Florida, Georgia and Santa Catarina also show a "Published season" box. It holds the regional home-garden guide for comparison. Papanduva's reads "Winter while dormant (approximately June–August)". Waldo's reads "Mid-December to mid-February". UF/IFAS commercial guidance, HS1525 from July 2026, advises planting during the early-spring and fall root-growth periods instead. The published season shows even where the calculated window does not apply.
 
-A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. For example, a live pin near Clinton, NC showed 1 Oct to 15 Dec, with budbreak on 14 Jan.
+A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. For example, a live pin near Clinton, NC showed 25 Sep to 9 Dec, with budbreak on 8 Jan.
 
 When there is no calculated window, the card says why:
 
 - "Set by management" means the chill requirement does not apply. These are warm or evergreen-majority systems, where the grower sets the crop cycle by management. Arcadia is an example.
-- "No calculated window" means the chill requirement applies, but too few winters produce a chill-triggered calendar. River Valley is an example, with 10 of 15 winters.
+- "No calculated window" means the chill requirement applies, but too few winters produce a chill-triggered calendar. PF Berry is an example, with 11 of 15 winters.
 - "Planting window unavailable" means the point has no hourly crop calendar.
 
 None of these means planting is impossible.
@@ -258,7 +258,7 @@ Limits:
 - Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection.
 - The app applies no tunnel or pot adjustment.
 
-In the literature benchmark, the rule covers 38% of published planting months over 15 southern-highbush sites, and 33% of its months are published. Its months usually start earlier than the published ones. In Florida and Georgia, guides publish December to February, while the rule gives September or October to December.
+In the literature benchmark, the rule covers 22% of published planting months over 17 southern-highbush sites, and 21% of its months are published. Its months usually start earlier than the published ones. In Florida and Georgia, guides publish December to February, while the rule gives September or October to December.
 
 ## 6. The six tabs
 
@@ -323,9 +323,9 @@ The app does not calculate a soil suitability score. Local drainage, irrigation 
 
 ### 6.4 Regional evidence
 
-The library contains 91 records from the complete IBO 2023, 2025, and 2026 reports.
+The library contains 156 records from the complete IBO 2023, 2024, 2025, and 2026 reports.
 
-It covers 51 geographic scopes across 23 countries. It is not an exhaustive global library.
+It covers 52 geographic scopes across 23 countries. It is not an exhaustive global library.
 
 Cards distinguish:
 
@@ -360,14 +360,14 @@ These degree-days are not calendar days.
 The current sequence is:
 
 1. Start the fixed winter counting period.
-2. Find when accumulated chill reaches 100 hours.
+2. Find when accumulated chill reaches 50 hours.
 3. Accumulate 150 GDD above 7 °C from the chill date to estimate budbreak.
 4. Accumulate heat after budbreak to estimate flowering.
 5. Accumulate heat after flowering starts to estimate harvest.
 
 | Endpoint | Current heat requirement | Starting point |
 |---|---:|---|
-| Budbreak | 150 GDD | Date the 100-hour chill requirement is reached |
+| Budbreak | 150 GDD | Date the 50-hour chill requirement is reached |
 | Flowering start | 85 GDD | Budbreak |
 | Flowering end | 375 GDD | Budbreak |
 | Harvest start | 633 GDD | Flowering start |
@@ -542,7 +542,7 @@ The scan also shows percentages of affected stage days. Always read the denomina
 
 | Event | Current calculation | Limit |
 |---|---|---|
-| Chill shortfall | Winter chill below the assumed 100 hours where that requirement applies. | Not a universal cultivar requirement. |
+| Chill shortfall | Winter chill below the assumed 50 hours where that requirement applies. | Not a universal cultivar requirement. |
 | Bud-stage freeze | Daily minimum at or below −6.7 °C early, then −3.9 °C after half the modelled heat to flowering. | Bud stage is estimated; plant damage is not measured. |
 | Flowering freeze | At least one flowering day at or below −2.2 °C. | Not a universal flower-kill temperature. |
 | Fruit-stage frost | At least one fruit-development day at or below 0 °C. | Exposure is not confirmed injury. |
@@ -777,6 +777,8 @@ This guide distinguishes software checks from scientific validation.
 - On 12 October 2026, 241 server tests passed in a staging copy of the deployed code, and 34 browser-code tests passed locally.
 - With the old crop settings, the new code reproduced the 18 earlier saved assessments exactly. Only the planting text and a land-mask label differ.
 - On 12 October 2026, the planting window change passed 251 server tests in a staging copy, including 8 new planting tests. The older crop settings reproduced 18 saved sites with 0 differences. The live server returned 30 Sep to 14 Dec for an Alma coordinate. Browser checks at 1440 and 390 px covered Waldo, Alma, Papanduva, Burgaw, Arcadia, River Valley, a live Clinton pin and Waldo winter 2011, with no page errors and no page overflow. 34 browser-code tests passed. No weather, calendar or risk number changed in the 71 saved assessments.
+- On 12 October 2026, the chill requirement changed from 100 to 50 hours. 251 server tests passed in staging, and the older crop settings reproduced 18 saved sites with 0 differences. All 71 saved assessments changed only in the production and planting results; daily weather, climate and soil did not change. Browser checks at 1440 and 390 px covered River Valley, Waldo, Papanduva and Arcadia and showed the badge "50 h chill requirement", with no page errors and no page overflow. 34 browser-code tests passed.
+- On 12 October 2026, the complete IBO 2024 report was added to the regional evidence library, which now holds 156 records. Every quote was checked against its printed page. 34 browser-code tests passed. The Regional evidence tab lists the report editions 2023, 2024, 2025 and 2026. Browser checks on 11 saved locations showed 2024 citations, with no page errors and no page overflow at 1440 and 390 px.
 - Browser checks on 12 October covered six saved locations and two live coordinates. They found no page errors, no blocked map resources, and no page overflow at 390 px.
 - Earlier browser checks covered saved and live locations, errors, mobile layouts, and exports.
 - The regional-evidence change preserved the weather results in all 71 saved assessments.

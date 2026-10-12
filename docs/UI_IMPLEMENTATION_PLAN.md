@@ -47,7 +47,7 @@ The six assessment views use one tab panel at a time. Tab, arrow keys, Home and 
 
 ## Regional evidence contract
 
-- Regional evidence is report context beside the weather results, not a model input. The registry `dist/evidence/ibo-regional-v1.json` holds paraphrased statements from the complete IBO 2023, 2025 and 2026 reports, each with page citations, period, crop context and limitations. "Source-checked" means checked against the cited page, not against field observations.
+- Regional evidence is report context beside the weather results, not a model input. The registry `dist/evidence/ibo-regional-v1.json` holds paraphrased statements from the complete IBO 2023, 2024, 2025 and 2026 reports, each with page citations, period, crop context and limitations. "Source-checked" means checked against the cited page, not against field observations.
 - One record per event or practice. Later editions that repeat it add citations to that record; they never count as separate events or toward recurrence.
 - Country records match the containing country. Regional records also need the containing polygon ID from the crosswalk, which is valid only for the geography bundle whose SHA-256 the registry names. A hash mismatch shows no records instead of matching by name.
 - Evidence attaches to the committed assessment. Loading, unavailable, unresolved and no-match states stay distinct and never alter weather values or imply low risk.

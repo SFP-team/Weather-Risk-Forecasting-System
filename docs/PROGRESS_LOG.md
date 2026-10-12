@@ -1,5 +1,19 @@
 # Project progress log
 
+## 2026-10-12: Chill requirement 50 hours and the IBO 2024 report
+
+- **Chill requirement.** At the user's request `stage_thermal_v3` now needs 50 chill hours, not 100, the same as the legacy profiles. Nothing else in the model changed, and the 100-hour profiles stay as sensitivity comparisons.
+  - The winter calendar now applies at 50 of the 71 saved locations, up from 41. Nine moved from the scan, among them River Valley, Dole, Barben, Wauchula and Sebring. No production-system majority changed.
+  - Waldo flowers from 22 January and harvests 29 March to 10 May, within two days of the legacy calendar the thermal sums came from. Papanduva gets a calendar in all 15 winters, and River Valley in 14, with harvest 24 March to 29 April.
+  - Burgaw now breaks bud on 29 December, so flowering freeze ranks there in 11 of 15 winters. Pollination gaps rank at Burgaw, Elizabethtown and Loris.
+  - Planting windows: 50 locations now get one. The rule's overlap with published planting months falls to 22%.
+  - Verification: 251 server tests passed after updating one test that pinned the 100-hour chill date. Legacy parity held at 18 sites with 0 differences. The change is deployed with matching hashes, and snapshots, packet and benchmark were regenerated. Browser checks covered River Valley, Waldo, Papanduva and Arcadia.
+- **IBO 2024 report.** The user supplied the complete 2024 edition. It is stored on the server with text and an updated manifest, not in Git. Its licence on printed p.235 allows reuse with attribution.
+  - Five region agents proposed 2024 citations and records with verbatim quotes. A script checked every quote against its printed page, and each summary was reviewed by hand. 9 proposals were rejected.
+  - The registry now holds 156 records, up from 91, with 301 citations, 127 of them from 2024. New events include Huelva's warm 2022/23 winter cutting chill, South Africa's cold 2023 winter, Peru's El Nino detail and British Columbia's bloom heat. The audit file is `docs/research/2026-10-05/ibo_2024_extraction.json`.
+  - Verification: the library validator and 34 UI tests passed. The Regional evidence tab shows editions 2023 to 2026 at 11 checked presets.
+- **Docs.** The formula guide's Waldo example was recomputed for 50 hours. The explainer, production README, user guide, runbooks, plans and IBO review were updated, and the UI was left running throughout.
+
 ## 2026-10-12: Planting window calculated from modelled budbreak
 
 - **Decision.** The user approved Paul's R planting rule as the app's planting window. Planting ends 30 days before modelled budbreak and lasts 75 days. The R labels the offsets preliminary and cites no source, so the app says so.

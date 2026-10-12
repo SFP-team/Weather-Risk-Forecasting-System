@@ -1,0 +1,2218 @@
+{
+ "attribution": "Quotations: Source: International Blueberry Organization (IBO), Global State of the Blueberry Industry Report 2024. Reused under the report's licence, printed p.235 (PDF p.118).",
+ "source": "ibo-2024",
+ "sha256": "ca9f428c45fb81877248eeec0fe137887612d9cb3307159cf3560310feefa16a",
+ "reviewed_on": "2026-10-12",
+ "method": "Five region slices proposed citations and records with verbatim quotes from report_printed_pages.txt (raw-order text per printed page). The coordinator checked every quote against its cited printed page (whitespace, case, quote style and line-end hyphens ignored), checked PDF page = floor(printed/2)+1, validated the schema, then reviewed each summary against its quotes.",
+ "citations_added": [
+  {
+   "record_id": "us-nc-frost-varieties",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     94
+    ],
+    "pdf_pages": [
+     48
+    ],
+    "locator": "US report team narrative: North Carolina"
+   },
+   "quotes": [
+    {
+     "printed_page": 94,
+     "text": "windborne freezes that so frequently plague the industry in the springtime and are unable to be mitigated by overhead irrigation"
+    },
+    {
+     "printed_page": 94,
+     "text": "the industry carries the legacy of a previous strategy oriented towards early production, so there is a large portion of plantings that, until replaced with other cultivars, will always be susceptible to March freezes"
+    },
+    {
+     "printed_page": 94,
+     "text": "\"On the highbush side there's also a trend towards varieties that ripen later, but it's a really slow process to take acres out and replant,\" as one North Carolina stakeholder noted. \"That'll be a long, slow trend to take out the early bloomers.\""
+    }
+   ]
+  },
+  {
+   "record_id": "us-ga-cultivar-shift",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     94
+    ],
+    "pdf_pages": [
+     48
+    ],
+    "locator": "US report team narrative: Georgia"
+   },
+   "quotes": [
+    {
+     "printed_page": 94,
+     "text": "there has been an expansion of new acres for southern highbush amidst a decline in the surface area dedicated to rabbiteyes"
+    },
+    {
+     "printed_page": 94,
+     "text": "are also showing signs of age with a large portion of rabbiteye farms in Georgia being 15-20 years old"
+    },
+    {
+     "printed_page": 94,
+     "text": "variety and others from the University of Florida, while the Farthing variety is widely adopted as the leading Southern Highbush cultivar in Georgia."
+    }
+   ]
+  },
+  {
+   "record_id": "us-fl-chill-winters",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     94
+    ],
+    "pdf_pages": [
+     48
+    ],
+    "locator": "US report team narrative: Florida"
+   },
+   "quotes": [
+    {
+     "printed_page": 94,
+     "text": "Further south, in Florida a hurricane in the fall of 2022 had a very significant impact on production in the south-central part of the state, while unprecedented temperatures over the Christmas period of 2022 also affected some of the early crop from central Florida to north Florida."
+    },
+    {
+     "printed_page": 94,
+     "text": "In the end the crop was about 20% short of what the industry was hoping for, but leading into the 2024 season there were no such weather events to such an extreme"
+    }
+   ]
+  },
+  {
+   "record_id": "us-fl-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     94
+    ],
+    "pdf_pages": [
+     48
+    ],
+    "locator": "US report team narrative: Florida"
+   },
+   "quotes": [
+    {
+     "printed_page": 94,
+     "text": "The state now occupies just 10% of a March-April-May window in which it used to account for practically 100% of supply"
+    },
+    {
+     "printed_page": 94,
+     "text": "With a prevalence of farms with plants that are 10-12 years old, many are being changed to higher-yielding varieties from the University of Florida/IFAS breeding program"
+    },
+    {
+     "printed_page": 94,
+     "text": "many growers leave late-season fruit on the bushes due to low market pricing and high costs of labor."
+    }
+   ]
+  },
+  {
+   "record_id": "ca-bc-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     102,
+     103
+    ],
+    "pdf_pages": [
+     52
+    ],
+    "locator": "BC Blueberry Council member summary"
+   },
+   "quotes": [
+    {
+     "printed_page": 102,
+     "text": "Hand harvest started in the Fraser Valley in the first week of July, with machine harvest starting in mid-July. Peak harvest occurred in the last two weeks of July."
+    },
+    {
+     "printed_page": 103,
+     "text": "'Duke' comprises more than half of the current acreage and is the most widely planted cultivar, followed by 'Bluecrop'"
+    },
+    {
+     "printed_page": 103,
+     "text": "Over half of BC's blueberry crop is harvested by machine for processed markets, and machine harvesting for fresh market has been steadily increasing as well."
+    }
+   ]
+  },
+  {
+   "record_id": "mx-protected-share",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     111
+    ],
+    "pdf_pages": [
+     56
+    ],
+    "locator": "Mexico 2023/2024 production metrics"
+   },
+   "quotes": [
+    {
+     "printed_page": 111,
+     "text": "Mexico 2023/2024 Production Metrics Hectares Planted: 11,970Ha Organic: 8.00% Under Structure: 80.00% Hydroponics: Not Reported"
+    }
+   ]
+  },
+  {
+   "record_id": "mx-central-tunnels",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     114
+    ],
+    "pdf_pages": [
+     58
+    ],
+    "locator": "Mexico report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "From around 2005, pioneering nurseries, marketers, growers and breeders from Chile and the U.S. teamed up with Mexican producers and agronomists to 'tropicalize' southern highbush blueberries in the states of Jalisco and Michoacan, fine tuning practices around pruning, varietal selection, chemistry, soil management and protective systems such as tunnels."
+    },
+    {
+     "printed_page": 114,
+     "text": "The latter is critical in Central Mexico as radiation has the potential to burn the berries"
+    },
+    {
+     "printed_page": 114,
+     "text": "Jalisco is the leading producing area, and is a part of the country where there is a prevalence of farms under tunnels with a mix of both substrate and in-ground farms."
+    }
+   ]
+  },
+  {
+   "record_id": "mx-central-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     113,
+     114
+    ],
+    "pdf_pages": [
+     57,
+     58
+    ],
+    "locator": "Mexico report team narrative: harvest windows"
+   },
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "this was attributed to Central Mexican growers shifting away from the fall production window of September to December in favour of the industry's more 'natural' timing of late winter into the spring with peak volumes in March and April."
+    },
+    {
+     "printed_page": 113,
+     "text": "certain growers attempting to shift volume concentration out of the winter-spring harvest window into spring, in order to avoid clashing with competition from Peru"
+    }
+   ]
+  },
+  {
+   "record_id": "mx-altitude-frost",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     114
+    ],
+    "pdf_pages": [
+     58
+    ],
+    "locator": "Mexico report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "for growers located at higher altitudes such as parts of Michoacan, the likelihood of hail and frosts impedes their ability to change outside their more natural window of September to November."
+    }
+   ]
+  },
+  {
+   "record_id": "mx-sinaloa-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     114
+    ],
+    "pdf_pages": [
+     58
+    ],
+    "locator": "Mexico report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "a state where investors are more likely to find large, contiguous tracts of land than in Central Mexico"
+    },
+    {
+     "printed_page": 114,
+     "text": "The cost of production is also cheaper in Sinaloa as tunnels are mostly not needed, and the majority of fruit is grown in substrate and is harvested slightly later than in Central Mexico."
+    },
+    {
+     "printed_page": 114,
+     "text": "in Sinaloa there is less need and one is more likely to encounter open fields or less capital-intensive protective infrastructure such as shaded netting."
+    }
+   ]
+  },
+  {
+   "record_id": "pe-el-nino-2023",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     46
+    ],
+    "pdf_pages": [
+     24
+    ],
+    "locator": "South America production table"
+   },
+   "quotes": [
+    {
+     "printed_page": 46,
+     "text": "Peru 243.53 18.20 261.73 285.58 14.09 299.67 223.87 10.00 233.87"
+    }
+   ]
+  },
+  {
+   "record_id": "pe-el-nino-2023",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     64
+    ],
+    "pdf_pages": [
+     33
+    ],
+    "locator": "Peru report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "at the high extremes of that bell curve with hot weather, the zero-chill varieties tend to prove their worth due to breeding that has conditioned them for heat tolerance, and a genuine lack of need for cool nights to spur fruit bud and flower differentiation for production."
+    },
+    {
+     "printed_page": 64,
+     "text": "and those with proprietary genetics designed for heat tolerance also fared much better; the latter actually reaped enormous rewards (as did most growers in southern Peru) with largely stable production while national volume fell and prices rose."
+    },
+    {
+     "printed_page": 64,
+     "text": "A large portion of Peru's surface area dedicated to blueberries comprises the varieties Biloxi and Ventura, and it is the industry consensus that overall these varieties suffered from much worse falls than others."
+    }
+   ]
+  },
+  {
+   "record_id": "pe-el-nino-2023",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     25
+    ],
+    "pdf_pages": [
+     13
+    ],
+    "locator": "Industry trends"
+   },
+   "quotes": [
+    {
+     "printed_page": 25,
+     "text": "Usually this comment relates to the dominant Biloxi and Ventura varieties, although whether or not Ventura should be lumped in with Biloxi in this regard is disputed as on some farms it fared substantially better."
+    },
+    {
+     "printed_page": 25,
+     "text": "Varieties that have been bred for resilience to hot conditions performed very well, which proved the value – in certain microclimates – of growing truly no-chill varieties rather than low-chill varieties."
+    }
+   ]
+  },
+  {
+   "record_id": "pe-coastal-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     64
+    ],
+    "pdf_pages": [
+     33
+    ],
+    "locator": "Peru report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "Peruvian companies, particularly in the regions in a closer band to the equator, do have the option of manipulating production timing through pruning, fertility and other practices,"
+    }
+   ]
+  },
+  {
+   "record_id": "cl-chill-zones",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     70
+    ],
+    "pdf_pages": [
+     36
+    ],
+    "locator": "Chile report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 70,
+     "text": "The southerly limit for planting of the latter is regarded as the Maule region, which is about 100km north of Chile's blueberry epicentre around Chillan in the region of Ñuble."
+    },
+    {
+     "printed_page": 70,
+     "text": "The northerly band for such low-chill varieties is around the nation's capital Santiago, as well as in limited volumes a few hours' drive north of there in Ovalle. Such low-chill genetics have been grown in Chile since around 2014 in pots and under tunnels, or at least under netting depending on the microclimate."
+    }
+   ]
+  },
+  {
+   "record_id": "co-three-peaks",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     50,
+     51
+    ],
+    "pdf_pages": [
+     26
+    ],
+    "locator": "Colombia narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 50,
+     "text": "the international ventures from Chile, the U.S. and elsewhere that entered Colombia have planted between 2,600-3,000 meters above sea level, under the moniker of 'tropical blueberries at altitude'."
+    },
+    {
+     "printed_page": 51,
+     "text": "There are approximately three peaks in production, the first and largest being in November-December, then May-June, and again in September."
+    },
+    {
+     "printed_page": 51,
+     "text": "Most of this production sits in the mountainous plains of Boyacá and Cundinamarca to the north of Colombia's capital Bogota, where very little difference in daylight hours throughout the year allows for pruning to induce production as desired by farm managers."
+    }
+   ]
+  },
+  {
+   "record_id": "ar-protected",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     76
+    ],
+    "pdf_pages": [
+     39
+    ],
+    "locator": "Argentina report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 76,
+     "text": "With a climatic tendency towards rain and hail events, the majority of blueberry orchards are now planted in protected systems."
+    },
+    {
+     "printed_page": 76,
+     "text": "but the majority is grown in the Northeast (Corrientes, Entre Rios) and Northwest (Salta, Tucuman, Catamarca)."
+    }
+   ]
+  },
+  {
+   "record_id": "ar-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     75
+    ],
+    "pdf_pages": [
+     38
+    ],
+    "locator": "Argentina report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 75,
+     "text": "As one of the pioneers of South American production at the turn of the Millennium, harvesting earlier than Chile with a privileged position in overseas markets in September and early October."
+    }
+   ]
+  },
+  {
+   "record_id": "ec-year-round",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     51
+    ],
+    "pdf_pages": [
+     26
+    ],
+    "locator": "Ecuador narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 51,
+     "text": "Like Colombia, Ecuador is able to produce blueberries year-round, and it has a nascent export industry although most fruit is sold domestically."
+    },
+    {
+     "printed_page": 51,
+     "text": "Around 95% of volume from Ecuador's estimated plantings are currently concentrated in the Andes, and most of those plantings are still very young."
+    }
+   ]
+  },
+  {
+   "record_id": "cn-yunnan-calendar",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     128
+    ],
+    "pdf_pages": [
+     65
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Yunnan's blueberry production starts in December with small volumes, peaks from February to mid-April and continues until May, although the timing extremes are progressively being extended – to November at the earliest stage and June at the late stage."
+    },
+    {
+     "printed_page": 128,
+     "text": "from the lower altitude tropical area around Xishuangbanna to Jianshui at 1,500m and Qujing at 2,000m."
+    }
+   ]
+  },
+  {
+   "record_id": "cn-shandong-greenhouse",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     128
+    ],
+    "pdf_pages": [
+     65
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Shandong growers producing in greenhouses with back walls are able to achieve overlap with Yunnan with a March to late May window. However, this growing method only represents around 10% of the planting area, with most Shandong production grown in open fields under tunnels."
+    },
+    {
+     "printed_page": 128,
+     "text": "Shandong was where China's modern blueberry industry began, selected for its sandy and acidic soil conditions in select locations of the province, and a more temperate coastal climate than other more extreme areas of the northeast"
+    }
+   ]
+  },
+  {
+   "record_id": "cn-northeast-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     128,
+     129
+    ],
+    "pdf_pages": [
+     65
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "The season finishes in the northeastern provinces of Liaoning and Jilin, often winding up in August when late summer rains arrive."
+    },
+    {
+     "printed_page": 129,
+     "text": "Frosts tend to be more prevalent in Liaoning and Jilin, which are to the north of Shandong and are a bit later in their production, and when it comes to open field production such weather events often lead to crop diversions towards processing"
+    }
+   ]
+  },
+  {
+   "record_id": "cn-guizhou-rabbiteye",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     128
+    ],
+    "pdf_pages": [
+     65
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Readers will note that Guizhou has the highest plantings of blueberries in China, but for context most of its production is from small growers producing rabbiteye cultivars that mainly go to juice grade processing with minimal impact on the fresh blueberry market."
+    }
+   ]
+  },
+  {
+   "record_id": "cn-sichuan-quality",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     128
+    ],
+    "pdf_pages": [
+     65
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "In close proximity to Yunnan, the province of Sichuan is also characterized by high altitudes and has a colder climate, which has implications for the varietal mix that can be planted with a slightly later season."
+    },
+    {
+     "printed_page": 128,
+     "text": "But the province is known for its spring rains and heat during the harvesting period, with a broad reputation for inconsistent quality. The same could be said of some other southern highbush-growing provinces such as Anhui and Guizhou."
+    }
+   ]
+  },
+  {
+   "record_id": "cn-land-policy",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     127
+    ],
+    "pdf_pages": [
+     64
+    ],
+    "locator": "China report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 127,
+     "text": "led to an adjustment in land use policy from Beijing that has placed a greater emphasis on utilizing arable land for rice, wheat, and corn, whilst also giving more negotiating power to individual plot holders"
+    },
+    {
+     "printed_page": 127,
+     "text": "often with significant financial compensation from US$30,000-100,000 per hectare required."
+    },
+    {
+     "printed_page": 127,
+     "text": "In practice, this has made securing farmland very difficult as laws are now applied more strictly"
+    }
+   ]
+  },
+  {
+   "record_id": "au-coffs-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     139
+    ],
+    "pdf_pages": [
+     70
+    ],
+    "locator": "Australia report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 139,
+     "text": "with aggressive planting in the Coffs Harbour region of New South Wales (NSW) responsible for much of the growth in recent years and consumer demand that has responded in kind, albeit with a heavy concentration of volume between August and November."
+    }
+   ]
+  },
+  {
+   "record_id": "au-wa-pruning",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     139
+    ],
+    "pdf_pages": [
+     70
+    ],
+    "locator": "Australia report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 139,
+     "text": "Western Australia (WA) is another growth region worth watching. The state has a dry climate with fewer pest pressures than in the country's concentrated east, with a wide variety of microclimates."
+    },
+    {
+     "printed_page": 139,
+     "text": "is developing new farms with next-generation genetics between Gingin north of Perth and Manjimup in the state's Southern Forests region."
+    }
+   ]
+  },
+  {
+   "record_id": "nz-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     144,
+     145
+    ],
+    "pdf_pages": [
+     73
+    ],
+    "locator": "New Zealand report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 144,
+     "text": "There used to be a peak in the Southern Hemisphere summer but that has flattened out somewhat in recent years with southern highbush varieties planted to capture the August-September-October window."
+    },
+    {
+     "printed_page": 145,
+     "text": "with protected operations under greenhouses and glasshouses in Hawke's Bay. This allows for production through to the end of May, whereas frosts earlier in the month tend to signal the end of the season for many growers in the region."
+    },
+    {
+     "printed_page": 144,
+     "text": "In the South Island conditions are more similar to North America's Pacific Northwest, albeit with reduced temperature extremes, so varieties suited to Oregon, Washington"
+    }
+   ]
+  },
+  {
+   "record_id": "in-monsoon",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     149,
+     150
+    ],
+    "pdf_pages": [
+     75,
+     76
+    ],
+    "locator": "India narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 149,
+     "text": "for the most part it comprises tropical and sub-tropical climates coupled with summer monsoons. To adapt to these conditions, India's emerging blueberry industry has planted primarily low-chill southern highbush varieties, utilizing a mix of cultivar selection and agronomic techniques to avoid heavy rains with a main season that runs from mid-February to early June."
+    },
+    {
+     "printed_page": 150,
+     "text": "pest pressures and it is understood more expensive protected farming systems have been deployed."
+    },
+    {
+     "printed_page": 149,
+     "text": "with no conclusive consensus among contributors as to the regions which are most suited for competitive quality, unit costs, and logistics."
+    }
+   ]
+  },
+  {
+   "record_id": "es-huelva-tunnels",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     167
+    ],
+    "pdf_pages": [
+     84
+    ],
+    "locator": "Spain report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 167,
+     "text": "there have been questions around how their deployment would look given the majority of Huelva's blueberry sector is under tunnels, which would need to be removed to facilitate these machines"
+    }
+   ]
+  },
+  {
+   "record_id": "es-huelva-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     165,
+     167
+    ],
+    "pdf_pages": [
+     83,
+     84
+    ],
+    "locator": "Spain member summary (Freshuelva) and report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 165,
+     "text": "The incorporation of earlier-growing varieties has allowed us to expand the range of our market and have production from January, thus gaining market share from other sources."
+    },
+    {
+     "printed_page": 167,
+     "text": "Production in Huelva also has a history of highly concentrated production – between 70% and 80% - occurring within a three-week period in April and May"
+    }
+   ]
+  },
+  {
+   "record_id": "es-north-highchill",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     167
+    ],
+    "pdf_pages": [
+     84
+    ],
+    "locator": "Spain report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 167,
+     "text": "Aside from Huelva, blueberries are also grown in Galicia in northern Spain where high-chill blueberries are grown with production oriented towards June and July."
+    }
+   ]
+  },
+  {
+   "record_id": "ma-agadir-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     171
+    ],
+    "pdf_pages": [
+     86
+    ],
+    "locator": "Morocco report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 171,
+     "text": "blueberry cultivation in Agadir was pioneered with substrate production of proprietary southern highbush genetics, good agronomic management and tall 'canary greenhouse' protection. It is a geographical expansion that has allowed the country to produce earlier with a peak window from January to April."
+    }
+   ]
+  },
+  {
+   "record_id": "ma-agadir-water",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     169
+    ],
+    "pdf_pages": [
+     85
+    ],
+    "locator": "Morocco report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 169,
+     "text": "In the southern area of Agadir the cost of production has risen due to severe drought conditions which mean many rely on desalinated water."
+    },
+    {
+     "printed_page": 169,
+     "text": "It's of lower quality and at a higher price, and you still need reverse osmosis plants to bring it to a lower level of electrical conductivity, but it works"
+    }
+   ]
+  },
+  {
+   "record_id": "ma-north-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     171
+    ],
+    "pdf_pages": [
+     86
+    ],
+    "locator": "Morocco report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 171,
+     "text": "This northern region, around Larache and Rabat, is where there were the first forays into low-chill blueberry production in Morocco in the mid-2000s"
+    },
+    {
+     "printed_page": 171,
+     "text": "However, the shortage of water is not as serious in the north of Morocco where the country's blueberry industry began and growing conditions are more similar to southern Spain."
+    }
+   ]
+  },
+  {
+   "record_id": "ma-2023-cold",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     169
+    ],
+    "pdf_pages": [
+     85
+    ],
+    "locator": "Morocco report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 169,
+     "text": "Moroccan blueberry production declined for the first time in 2023 following more than a decade of breakneck growth, as yields fell due to weather-related issues including a cold spell in late January and early February."
+    }
+   ]
+  },
+  {
+   "record_id": "pt-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     160
+    ],
+    "pdf_pages": [
+     81
+    ],
+    "locator": "Portugal narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 160,
+     "text": "Southern Portugal has a similar although milder climate to Huelva with much production under protected tunnels, whereas in the hilly north there are more open field farms with mid-chill and high-chill varieties such as Duke,Legacy and new proprietary genetics in that category."
+    },
+    {
+     "printed_page": 160,
+     "text": "can produce fruit from March until the end of July, although with pruning of modern genetics it is possible that smaller quantities could be made available in October-November"
+    },
+    {
+     "printed_page": 160,
+     "text": "Like Spain and Morocco, Portugal also struggles with water availability and this is driving innovations in water efficiency such as installing systems to harvest rainwater from tunnels that cover crops, although that is specifically in the area of Odemira"
+    }
+   ]
+  },
+  {
+   "record_id": "pl-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     181,
+     184
+    ],
+    "pdf_pages": [
+     91,
+     93
+    ],
+    "locator": "Poland production metrics and Polish Blueberry Promotion Foundation summary"
+   },
+   "quotes": [
+    {
+     "printed_page": 184,
+     "text": "Polish commercial blueberry farms are drip irrigated, and most of them are equipped with fertigation systems with different levels of technical sophistication. In general, blueberry fruit for the fresh market is hand-picked."
+    },
+    {
+     "printed_page": 184,
+     "text": "Machine harvest takes place on bigger farms, usually only at the end of the season and the fruit is destined for processing."
+    },
+    {
+     "printed_page": 181,
+     "text": "Hectares Planted: 12,594Ha Organic: 3.00% Under Structure: 3.00% Hydroponics: NotReported New Genetics: 10.00%"
+    }
+   ]
+  },
+  {
+   "record_id": "de-luneburg-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     191
+    ],
+    "pdf_pages": [
+     96
+    ],
+    "locator": "Western/Central Europe narrative: Germany"
+   },
+   "quotes": [
+    {
+     "printed_page": 191,
+     "text": "Around 70% of the country's blueberries are grown in the region of Lüneburg Heath between Hanover and Hamburg, with the remainder spread across Germany."
+    },
+    {
+     "printed_page": 191,
+     "text": "The average farm in Germany is around 3.5ha and most are soil plantings, but there are some very limited trials in pots with substrate."
+    },
+    {
+     "printed_page": 191,
+     "text": "The production window for Germany runs from the end of June until mid-September with a large peak in July. Duke is the leading variety"
+    }
+   ]
+  },
+  {
+   "record_id": "ro-soils-frost",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     179
+    ],
+    "pdf_pages": [
+     90
+    ],
+    "locator": "Eastern Europe narrative: Romania"
+   },
+   "quotes": [
+    {
+     "printed_page": 179,
+     "text": "In higher altitude areas there is a greater risk of frosts in April, which is when Duke (the most common cultivar) and Legacy blueberry bushes are in blossom; hence many growers have turned to the Elliott variety to avoid frost damage with later production."
+    }
+   ]
+  },
+  {
+   "record_id": "rs-water",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     178
+    ],
+    "pdf_pages": [
+     90
+    ],
+    "locator": "Eastern Europe narrative: Serbia"
+   },
+   "quotes": [
+    {
+     "printed_page": 178,
+     "text": "a high proportion of farms have anti-hail nets, modern irrigation and fertigation systems are common, and more and more farms have been planted in pots with substrate over more recent years."
+    }
+   ]
+  },
+  {
+   "record_id": "za-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     212
+    ],
+    "pdf_pages": [
+     107
+    ],
+    "locator": "South Africa report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 212,
+     "text": "The industry is technically astute and dominated by large vertically integrated international programs, with a high proportion of fruit grown in substrate and around 12% produced under tunnels."
+    }
+   ]
+  },
+  {
+   "record_id": "za-system",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     208
+    ],
+    "pdf_pages": [
+     105
+    ],
+    "locator": "South Africa production metrics"
+   },
+   "quotes": [
+    {
+     "printed_page": 208,
+     "text": "South Africa 2023/2024 Production Metrics Hectares Planted: 2,803Ha Organic: NotReported Under Structure: NotReported Hydroponics: NotReported"
+    }
+   ]
+  },
+  {
+   "record_id": "za-wc-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     211,
+     212
+    ],
+    "pdf_pages": [
+     106,
+     107
+    ],
+    "locator": "South Africa report team narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 211,
+     "text": "with the highest concentration of hectares located in the Western Cape where harvests peak in the October-November period when Peru too is most active."
+    },
+    {
+     "printed_page": 212,
+     "text": "many growers are attempting to expand the 'shoulders' of production to avoid having such pronounced peaks in October-November. That is the natural window for the Western Cape, which accounts for around 60% of South Africa's blueberry plantings"
+    }
+   ]
+  },
+  {
+   "record_id": "zw-harvest",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     206
+    ],
+    "pdf_pages": [
+     104
+    ],
+    "locator": "Zimbabwe narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 206,
+     "text": "Historically the Zimbabwean season has tended to begin in mid-to-late May although early volumes can commence as early as late March, peaking in August and finishing up in mid-October"
+    },
+    {
+     "printed_page": 206,
+     "text": "With most plantings within a 100km radius of the capital Harare and a prevalence of open field planting"
+    },
+    {
+     "printed_page": 206,
+     "text": "Zimbabwe tends to have wet weather and occasionally hail starting in October as well, which also incentivizes getting the crop harvested before then."
+    }
+   ]
+  },
+  {
+   "record_id": "na-kavango-frost",
+   "citation": {
+    "source_id": "ibo-2024",
+    "printed_pages": [
+     207
+    ],
+    "pdf_pages": [
+     104
+    ],
+    "locator": "Namibia narrative"
+   },
+   "quotes": [
+    {
+     "printed_page": 207,
+     "text": "leading projects in the north – the most established project being near Rundu and others in Divundu and the Caprivi Strip – are all inland in places that have historically had less prevalence of frosts"
+    },
+    {
+     "printed_page": 207,
+     "text": "However, after 30 years without a \"true frost\" in the northern inland of Namibia, they experienced a severe frost incident that \"basically wiped out the majority of their crop\", according to one grower."
+    },
+    {
+     "printed_page": 207,
+     "text": "Namibia had been expected to increase its volume in 2023, but instead saw volume decline."
+    }
+   ]
+  }
+ ],
+ "records_added": [
+  {
+   "id": "us-ca-2023-rain-late-peak",
+   "quotes": [
+    {
+     "printed_page": 93,
+     "text": "by June the average price was down year-over-year, and in July the reduction was drastic, spurred in part by a late peak for California that ran six weeks later than normal; the state experienced flooding in late 2022 and early 2023"
+    },
+    {
+     "printed_page": 93,
+     "text": "it is understood that heavy rain during the blueberry bushes' pollination period is what caused the delay, and thus an unprecedented level overlap with other growing regions."
+    },
+    {
+     "printed_page": 93,
+     "text": "The total market movement in June was up by almost half with 39% of all volume sold in that month coming from Central California as the market leader in that month."
+    }
+   ]
+  },
+  {
+   "id": "us-pnw-2023-pollination-weather",
+   "quotes": [
+    {
+     "printed_page": 93,
+     "text": "relatively less later-season fruit from the Pacific Northwest, a region that had yet another extremely challenging year – its fifth in a row – due to weather-related problems."
+    },
+    {
+     "printed_page": 93,
+     "text": "One industry representative said the yield in Oregon was the poorest they had seen in 25 years, wrought by a mix of cool, rainy days and also very hot days both deterring pollinators in different ways."
+    },
+    {
+     "printed_page": 93,
+     "text": "so its volumes were relatively more affected by this weather phenomenon, but both states and British Columbia saw significant declines in volume."
+    },
+    {
+     "printed_page": 93,
+     "text": "Both Oregon and Washington State often sell a sizeable volume of late-season fruit in the September window, but that was not the case in 2023 as weather effects prevented them from capitalizing on the scarcity induced by Peru."
+    },
+    {
+     "printed_page": 23,
+     "text": "Growers in North America's Pacific Northwest also suffered greatly due to yet another year of problematic weather."
+    }
+   ]
+  },
+  {
+   "id": "ca-bc-2023-05-bloom-heat",
+   "quotes": [
+    {
+     "printed_page": 102,
+     "text": "The 2023 season was characterized by cool early spring conditions followed by a very sudden onset of heat during bloom and subsequently dry summer."
+    },
+    {
+     "printed_page": 102,
+     "text": "bloom was delayed until May in many regions due to the cool spring weather. When abnormally hot weather came on suddenly in mid-May, with daily maximum temperatures exceeding 30"
+    },
+    {
+     "printed_page": 102,
+     "text": "for a few days in May, pollination was severely impacted. The cool spring and sudden onset of high temperatures caused a very concentrated bloom period in most regions of the Fraser Valley."
+    },
+    {
+     "printed_page": 102,
+     "text": "Pollination experts believe that these high temperatures during bloom led to adverse effects on pollen viability, pollen-tube growth, and bee activity as well as concentration of the bloom period, all likely contributing to poor fruit set and small fruit size."
+    },
+    {
+     "printed_page": 104,
+     "text": "It is astounding to observe that levies collected indicate a crop of just 104 million pounds for British Columbia in 2023, signifying a precipitous drop of nearly 39%."
+    }
+   ]
+  },
+  {
+   "id": "ca-bc-bloom-weather-disease",
+   "quotes": [
+    {
+     "printed_page": 103,
+     "text": "Variable weather patterns continue to impact plant development, making it difficult to predict the size of the crop and the timing of harvest each year. Pollination is often impacted when cool and rainy or overly warm weather conditions coincide with bloom."
+    },
+    {
+     "printed_page": 103,
+     "text": "Moreover, there is an insufficient number of honeybee colonies available for rental in the region to pollinate the crop."
+    },
+    {
+     "printed_page": 103,
+     "text": "Anthracnose fruit rots can be challenging to control in this region due to the high precipitation in the spring and fall."
+    }
+   ]
+  },
+  {
+   "id": "ca-bc-cultivar-shift",
+   "quotes": [
+    {
+     "printed_page": 103,
+     "text": "'Elliott' fields are starting to be removed in favour of other cultivars, primarily 'Calypso', which will soon become the third most important cultivar in the region in terms of volume as new acreages enter production."
+    },
+    {
+     "printed_page": 103,
+     "text": "'Duke' comprises more than half of the current acreage and is the most widely planted cultivar, followed by 'Bluecrop', 'Elliott', 'Calypso', and 'Draper'."
+    },
+    {
+     "printed_page": 103,
+     "text": "BC growers are looking to early and mid-season varieties (July and August harvesting dates), especially for marketing fresh products, to reduce the overlap with fresh blueberry imports from Peru in the late season."
+    },
+    {
+     "printed_page": 103,
+     "text": "Depending on the size of the crop, between 45-65% of BC's production goes to the processed market."
+    }
+   ]
+  },
+  {
+   "id": "us-se-2023-freeze-reprieve",
+   "quotes": [
+    {
+     "printed_page": 94,
+     "text": "In the Southeast, both North Carolina and Georgia bounced back from terrible freeze events in 2022 to harvest very strong crops in 2023 – a record crop in Georgia's case"
+    },
+    {
+     "printed_page": 94,
+     "text": "2023 was a year of reprieve for North Carolina, which was very close to matching previous crop records after several years of windborne freezes"
+    },
+    {
+     "printed_page": 94,
+     "text": "The state managed to largely avoid this problem last year, but it isn't going away"
+    }
+   ]
+  },
+  {
+   "id": "mx-2023-heat-stress",
+   "quotes": [
+    {
+     "printed_page": 113,
+     "text": "In 2023 the sector had to contend with not only the usual threats posed by the pest thrips, but also elevated temperatures that put plants under stress and even induced plant death in some cases"
+    },
+    {
+     "printed_page": 113,
+     "text": "an issue that was felt more acutely in Sinaloa but was nationwide, and did not affect large swathes of orchards but in particular cases was reportedly killing off around 3-4% of plants on some farms. These factors also led to delays of two to three weeks."
+    },
+    {
+     "printed_page": 23,
+     "text": "Both these countries have also faced weather difficulties of their own, with elevated heat pressure putting plants under stress in Mexico"
+    }
+   ]
+  },
+  {
+   "id": "mx-substrate-pot-size",
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "it is estimated that around 90% of substrate plantings in Mexico are in smaller pots of 25-30 litres in size. Whilst expert observations are that larger pots of 35-40l are preferable, these are mainly being deployed in new plantings, but plants in existing pots are not being transplanted to larger ones to any great degree."
+    }
+   ]
+  },
+  {
+   "id": "mx-varietal-conversion",
+   "quotes": [
+    {
+     "printed_page": 114,
+     "text": "the cultivar make-up of Mexico's blueberry has been overhauled to an extent with 70% of cultivated hectares now comprising proprietary varieties"
+    },
+    {
+     "printed_page": 114,
+     "text": "One particular early-producing variety from a leading U.S.-headquartered nursery and genetics company has gone from representing around 5% of Mexico's blueberry surface area to projections of reaching 15% by the end of the year. In contrast, the predominant open variety Biloxi accounted for more than a third of farms two years ago but now that share is down to 20%."
+    },
+    {
+     "printed_page": 114,
+     "text": "the more structural change of temporarily lower yields occasioned by a large-scale transition to new blueberry varieties"
+    }
+   ]
+  },
+  {
+   "id": "pe-2023-el-nino-yaku-minimum-temperatures",
+   "quotes": [
+    {
+     "printed_page": 55,
+     "text": "The El Niño phenomenon and Cyclone Yaku significantly lifted minimum temperatures, altering the phenological cycles of the plants and impacting the production of our blueberries."
+    },
+    {
+     "printed_page": 55,
+     "text": "This situation was most evident in the northern region, especially harming blueberry varieties that genetically require a higher quantity of cold hours, which suffered from large falls in production."
+    },
+    {
+     "printed_page": 55,
+     "text": "However, last year exported volumes were affected by El Niño with high temperatures year-round, affecting fruit production."
+    }
+   ]
+  },
+  {
+   "id": "pe-2023-04-heat-vegetative-growth",
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "Many industry stakeholders were already aware that a short season was likely afoot around April and May when it became apparent that vegetative growth in plants was much more pronounced than in previous years due to hot conditions, which generally indicates less fruit growth."
+    },
+    {
+     "printed_page": 64,
+     "text": "the industry also hadn't been around long enough to adequately understand the consequences of an El Niño like this with such prolonged warm temperatures."
+    },
+    {
+     "printed_page": 25,
+     "text": "One reason El Niño's impact was so severe in Peru is the industry's continued reliance on certain public varieties that are more susceptible to reverting to vegetative growth instead of fruit growth when faced with hot conditions."
+    }
+   ]
+  },
+  {
+   "id": "pe-2023-el-nino-north-altitude-gradient",
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "The extent of negative effects on blueberry fields in Peru varied according to geography, altitude and variety. As a rule of thumb, but by no means consistently across the board, the further north you were the worse it was, the higher you were into the Andes the better it was,"
+    },
+    {
+     "printed_page": 64,
+     "text": "and those with proprietary genetics designed for heat tolerance also fared much better; the latter actually reaped enormous rewards (as did most growers in southern Peru) with largely stable production while national volume fell and prices rose."
+    }
+   ]
+  },
+  {
+   "id": "pe-lam-2023-olmos-el-nino",
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "One of the hotbeds of Peru's industry growth in recent years, Olmos, which around a decade ago was opened up by a large-scale irrigation project that activated new plantings from some of the world's largest blueberry companies, was particularly badly affected by the El Niño phenomenon."
+    }
+   ]
+  },
+  {
+   "id": "pe-2023-24-el-nino-later-season",
+   "quotes": [
+    {
+     "printed_page": 63,
+     "text": "It is important to note that while Peru's final 23-24 season shortfall was not as drastic as some industries have experienced during major climatic disruptions (some have seen more than 50% drops), the reallocation of timing of the volume was significant."
+    },
+    {
+     "printed_page": 63,
+     "text": "The movement of substantial volumes out of the Northern Hemisphere fall window into the winter and early spring was impactful."
+    },
+    {
+     "printed_page": 63,
+     "text": "In Peru's peak export months of September and October, shipments were down 55% and 36% respectively,"
+    },
+    {
+     "printed_page": 64,
+     "text": "experience a relative influx in late volumes, which clashed with supply from Chile and Mexico, but this nowhere near compensated for the volume declines experienced earlier in the campaign."
+    },
+    {
+     "printed_page": 85,
+     "text": "Total blueberry imports from Peru were down 25% in total volume from 2022 to 2023, with a flatter distribution curve and a peak month of November in 2023 compared to October in 2022. The challenge of El Niño pushed the Peruvian season later and resulted in less volume overall."
+    }
+   ]
+  },
+  {
+   "id": "pe-ventura-later-pruning-insurance",
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "Whilst such discussions tend to lump Biloxi and Ventura together, one grower claims that of those two varieties in their operations, the drop-off for Ventura (-50%) was far greater than for Biloxi (-15%), which actually proved quite resilient for their specific farms."
+    },
+    {
+     "printed_page": 64,
+     "text": "It must be emphasized that this is the localized comment of one grower and may not apply to others, but in this case it has prompted plans by some growers to keep Biloxi as a reliable buffer for such weather events."
+    },
+    {
+     "printed_page": 64,
+     "text": "For that company, and others, pruning is usually undertaken to produce Ventura first so that its relatively larger-sized berries can be shipped to China at the start of the season,"
+    },
+    {
+     "printed_page": 64,
+     "text": "as a kind of \"insurance\" policy that same producer will be aiming for later production of Ventura so that it can build up more cool hours, and instead will prune the Biloxi bushes earlier for targeting the Chinese market."
+    }
+   ]
+  },
+  {
+   "id": "pe-flatten-curve-pruning",
+   "quotes": [
+    {
+     "printed_page": 64,
+     "text": "In general, the industry – particularly larger growers - has been recalibrating over the course of recent years to \"flatten the curve\" from its traditional peaks of September and October, and there is often a relatively strong focus on supplying Asia in July, and sending more to Europe over the Northern Hemisphere winter."
+    },
+    {
+     "printed_page": 64,
+     "text": "Peruvian companies, particularly in the regions in a closer band to the equator, do have the option of manipulating production timing through pruning, fertility and other practices,"
+    },
+    {
+     "printed_page": 64,
+     "text": "As labor becomes less available and the need to increase efficiencies with existing infrastructure increases, many large companies anticipate the need to extend their season and flatten their curve."
+    }
+   ]
+  },
+  {
+   "id": "pe-varietal-diversification-2023",
+   "quotes": [
+    {
+     "printed_page": 62,
+     "text": "In 2023 there was a certified total of 65 different blueberry varieties in Peru – a significant varietal increase considering that in 2016 there were just 13 varieties certified and in 2019 there were 32 registered."
+    },
+    {
+     "printed_page": 64,
+     "text": "and those with proprietary genetics designed for heat tolerance also fared much better; the latter actually reaped enormous rewards (as did most growers in southern Peru) with largely stable production while national volume fell and prices rose."
+    },
+    {
+     "printed_page": 64,
+     "text": "Thus, the appetite in Peru for new plantings of high quality genetics or conversions to them remains strong, from practically every global breeding company of note and also autochthonous Peruvian companies that have their own genetics programs."
+    }
+   ]
+  },
+  {
+   "id": "co-highlands-open-field-macrotunnels",
+   "quotes": [
+    {
+     "printed_page": 51,
+     "text": "Open field is the standard production method for most crops in Colombia, including blueberries, but for those who do grow under protected systems, macro-tunnels similar to what are utilised in Mexico have become the preferred choice over greenhouses, for which there is also a portion of production."
+    },
+    {
+     "printed_page": 51,
+     "text": "Most of this production sits in the mountainous plains of Boyacá and Cundinamarca to the north of Colombia's capital Bogota, where very little difference in daylight hours throughout the year allows for pruning to induce production as desired by farm managers."
+    },
+    {
+     "printed_page": 51,
+     "text": "It is a challenging region to produce in however, with growers needing to contend with cold, rainy nights and warm days."
+    }
+   ]
+  },
+  {
+   "id": "ec-andes-coastal-trials-varieties",
+   "quotes": [
+    {
+     "printed_page": 51,
+     "text": "Ecuador's industry is much younger, having begun in 2015 with its production spread along the Andes Mountains in various locations on both sides of the equator. There are also trial plantings in coastal areas such as Santa Elena, Manabi and El Oro;"
+    },
+    {
+     "printed_page": 51,
+     "text": "Both Ecuadorian and multinational companies are conducting trials and tests with new varieties with the goal of meeting demand in overseas markets. The varietal mix is around a third Biloxi, 27% Atlas Blue and 13% Emerald,"
+    }
+   ]
+  },
+  {
+   "id": "cl-2023-24-el-nino-limited-impact",
+   "quotes": [
+    {
+     "printed_page": 69,
+     "text": "received some alleviation from its woes in the 2023-24 season thanks to the shortage of supply from its northern neighbor due to the El Niño weather phenomenon; hot weather that didn't affect Chilean production nearly to the same degree."
+    },
+    {
+     "printed_page": 68,
+     "text": "During the first stage of the season the quality was very good, and the delay in the fruit ripening allowed harvesting at a good pace and being able to reach the markets with very good quality and consistency."
+    },
+    {
+     "printed_page": 68,
+     "text": "Then came the much-announced delayed production from Peru, which, together with the highly concentrated volume from Chile, generated aggregated volumes in export markets that were higher than in previous seasons,"
+    }
+   ]
+  },
+  {
+   "id": "cl-varietal-transition-duke",
+   "quotes": [
+    {
+     "printed_page": 69,
+     "text": "The country has faced difficulties with profitability and market positioning for several years, amidst a slow-moving transition to better-performing cultivars that is yet to gain the necessary traction for its impact to be felt globally"
+    },
+    {
+     "printed_page": 69,
+     "text": "Other influencing factors include a climate that is more conducive to mid and high chill northern highbush type cultivars that have a longer timeline from field establishment to commercial yield when converting to new varieties (although southern highbush are grown in certain areas),"
+    },
+    {
+     "printed_page": 70,
+     "text": "Currently the Chilean supply is dominated by the Duke variety which only tends to yield around 10MT/ha, while Legacy can yield up to 30MT/ha but is seen as less attractive to many global buyers."
+    },
+    {
+     "printed_page": 70,
+     "text": "The genetic introductions taking place in Chile can be put into two categories: higher chill genetics that represent most of the change taking place and driven primarily by North American partners;"
+    }
+   ]
+  },
+  {
+   "id": "ar-varietal-renewal",
+   "quotes": [
+    {
+     "printed_page": 76,
+     "text": "The adoption of new varieties has been another strategy for Argentina's growers to lift their competitiveness. A U.S.-headquartered nursery led the way in introducing new cultivars to the country in the 90s and its genetics contributed to a boom around 14 years ago"
+    },
+    {
+     "printed_page": 76,
+     "text": "while one leading Australian breeder has an Argentine partner that had its first commercial crop with new genetics in 2022 and has expressed intentions to ramp over time."
+    },
+    {
+     "printed_page": 71,
+     "text": "Argentina 2023/2024 Production Metrics Hectares Planted: 2,100Ha Organic: 70.00% Under Structure: 60.00% Hydroponics: NotReported New Genetics: 5.00%"
+    }
+   ]
+  },
+  {
+   "id": "cn-yunnan-2023-01-cold-snap",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Industry stakeholders estimate a 10-15% increase in production for Yunnan in the 2023 season, largely due to the impact of maturing fields because the province was affected by weather-related challenges, including a cold snap in January that heavily impacted crops in certain areas, especially those with open fields."
+    }
+   ]
+  },
+  {
+   "id": "cn-yunnan-high-altitude-off-season",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "There are reports of Yunnan growers producing mid and high-chill blueberries at 2,000 meters above sea level in the hope of hitting the market in the scarcest months of September and October, although this is rather an anomaly at this point in time and yields are reportedly affected due to the low photoperiod at that latitude."
+    }
+   ]
+  },
+  {
+   "id": "cn-shandong-2023-heat-shrivel",
+   "quotes": [
+    {
+     "printed_page": 129,
+     "text": "In Shandong, where the varieties Bluecrop and Duke predominate, the industry was hit by floods for several seasons but conditions were better in 2023, although there was an extreme heat spell in June and early July that led to incidences of fruit shrivel."
+    },
+    {
+     "printed_page": 129,
+     "text": "In general, the season in Shandong and the surrounding provinces winds up when rains come in August, and this was the case last year as well."
+    },
+    {
+     "printed_page": 129,
+     "text": "(as did the aforementioned fruit shrivel problems for a portion of the Shandong crop)."
+    }
+   ]
+  },
+  {
+   "id": "cn-shandong-liaoning-summer-window",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Liaoning and Shandong play a critical role in servicing China during summer with production in June and July"
+    },
+    {
+     "printed_page": 129,
+     "text": "In general, the season in Shandong and the surrounding provinces winds up when rains come in August, and this was the case last year as well."
+    }
+   ]
+  },
+  {
+   "id": "cn-north-coastal-weather-risks",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "It is important to note that while comparatively mild, the coastal growing regions of the northeast still have harsh winter cold conditions with intense dry winds as well as disruptive spring freezes and untimely summer rains."
+    }
+   ]
+  },
+  {
+   "id": "cn-north-greenhouses",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "Some northern growers start earlier as growers cultivate their blueberries in greenhouses to induce earlier production and protect their crop from the harsh winter and spring climatic events. Many of these greenhouses follow the traditional 'half hoop' design with north-facing earthen walls, used for decades in other crops as well."
+    }
+   ]
+  },
+  {
+   "id": "cn-northeast-cultivated-lowbush",
+   "quotes": [
+    {
+     "printed_page": 223,
+     "text": "In the far northern provinces of Jilin, Heilongjiang and the continental north of Liaoning, the extreme winters have proven a challenge for traditional highbush production."
+    },
+    {
+     "printed_page": 223,
+     "text": "showed that the cold hardy Lowbush and 'Half High' cultivars were more likely to crop and survive in the harsh conditions."
+    },
+    {
+     "printed_page": 223,
+     "text": "Cold hardiness, increased likelihood of protection from snow cover (due to plant height) and apparent tolerance of difficult soil and moisture conditions have led to the large-scale planting of Cultivated Lowbush (in rows) and 'Half High' blueberries."
+    }
+   ]
+  },
+  {
+   "id": "cn-guizhou-humid-expansion",
+   "quotes": [
+    {
+     "printed_page": 128,
+     "text": "because of the high saturation of plantings in Yunnan and agricultural land restrictions more broadly, growers are investigating the potential of other warm"
+    },
+    {
+     "printed_page": 128,
+     "text": "much more humid - regions for southern highbush blueberry production, including Guizhou, Guangxi and Guangdong."
+    }
+   ]
+  },
+  {
+   "id": "au-2023-normal-conditions",
+   "quotes": [
+    {
+     "printed_page": 138,
+     "text": "After a few years of extreme weather, 2023 saw a return to more 'normal' conditions for the Australian blueberry industry. This meant yields were up considerably from the year before"
+    },
+    {
+     "printed_page": 138,
+     "text": "Production volumes from July 2023 to April 2024 were up 30.9% from the year before"
+    },
+    {
+     "printed_page": 140,
+     "text": "The average retail price in 2023 and early 2024 was down even though quality was reportedly much higher"
+    }
+   ]
+  },
+  {
+   "id": "au-qld-fnq-window",
+   "quotes": [
+    {
+     "printed_page": 139,
+     "text": "the northernmost plantings of note being around the mango- and banana-producing region of the Atherton Tablelands of tropical Far North Queensland, and to its west where conditions are drier."
+    },
+    {
+     "printed_page": 139,
+     "text": "The emergence of FNQ as an Australian growing region has successfully targeted the March to May window, albeit with limited volumes."
+    },
+    {
+     "printed_page": 139,
+     "text": "Also in Queensland there is a large operation in Mundubbera, a region better known for its citrus and table grapes, as well as smaller farms in the macadamia-growing area of Bundaberg."
+    }
+   ]
+  },
+  {
+   "id": "au-nsw-nambucca-window",
+   "quotes": [
+    {
+     "printed_page": 139,
+     "text": "the market opportunities in other months or even during shoulder periods have led growers to explore geographical diversification. One region targeting a slight window extension, and where there have been recent plantings, is the Nambucca Valley to the south of Coffs Harbour."
+    }
+   ]
+  },
+  {
+   "id": "nz-2023-24-mild-season",
+   "quotes": [
+    {
+     "printed_page": 143,
+     "text": "This season, the weather was relatively mild allowing a much more conducive growing season. Many growers reported highest yields in some blocks than ever before."
+    },
+    {
+     "printed_page": 143,
+     "text": "Given the lower impacts of rain, disease and pathogen pressure was lower this season. This in turn resulted in a larger amount of marketable fruit and reduced lower grade fruit (i.e. jam quality)."
+    },
+    {
+     "printed_page": 143,
+     "text": "However, while disease/pathogen pressure was reduced, invertebrate pest pressure increased with the favourable weather."
+    },
+    {
+     "printed_page": 144,
+     "text": "New Zealand's blueberry industry had a much more positive 2023-24 season characterized by mild, reasonably dry conditions, good yields"
+    },
+    {
+     "printed_page": 144,
+     "text": "In the main growing regions of the Waikato and Hawke's Bay it was a \"stellar season\" from a production standpoint, according to one source"
+    }
+   ]
+  },
+  {
+   "id": "nz-2022-23-weather-grower-dropoff",
+   "quotes": [
+    {
+     "printed_page": 143,
+     "text": "The New Zealand Blueberry industry (BBNZ) consists of 68 Growers, 13 Associate members, and 5 exporting groups."
+    },
+    {
+     "printed_page": 143,
+     "text": "In 2023, grower numbers were 125, exporting groups were 9."
+    },
+    {
+     "printed_page": 143,
+     "text": "The major weather events can likely be the cause of the large drop off of growers."
+    },
+    {
+     "printed_page": 143,
+     "text": "the prior season which saw major weather events like intensive frost, flooding events, and Cyclone Gabrielle."
+    }
+   ]
+  },
+  {
+   "id": "nz-near-year-round-supply",
+   "quotes": [
+    {
+     "printed_page": 144,
+     "text": "New Zealand has its peak production period from February to May, although through the use of agronomic techniques, varietal selection, varietal cropping and geographical diversity (the fruit is grown from Northland to Southland, close to 2,000km apart) New Zealand is now approaching a 52-week supply scenario if weather conditions are conducive to it, albeit with a dip in June-July."
+    },
+    {
+     "printed_page": 145,
+     "text": "The aforementioned Northland region is also home to various operations including one of New Zealand's leading fruit companies, which can start production in limited volumes in late June or early July."
+    }
+   ]
+  },
+  {
+   "id": "nz-tunnel-southern-highbush",
+   "quotes": [
+    {
+     "printed_page": 145,
+     "text": "much of New Zealand's growth can also be attributed to relatively new hectarage dedicated to more premium market-oriented southern highbush varieties produced under tunnels, from a variety of genetics providers."
+    },
+    {
+     "printed_page": 144,
+     "text": "This production window extension is aided by a concentration of growth in the northern parts of the North Island where fruit can be produced earlier."
+    }
+   ]
+  },
+  {
+   "id": "es-huelva-2023-warm-winter",
+   "quotes": [
+    {
+     "printed_page": 165,
+     "text": "in terms of temperatures the minimums produced in November, December and January were above the average for those months, which did not favor the accumulative process for cold hours. All of this led to a decline in production of around 25%."
+    },
+    {
+     "printed_page": 166,
+     "text": "Weather does not explain the reduction entirely however, as varietal transition efforts over the past few years mean there is a large portion of young fields that are in the early stages of their upward yield curve."
+    }
+   ]
+  },
+  {
+   "id": "es-huelva-2023-cold-sizing",
+   "quotes": [
+    {
+     "printed_page": 165,
+     "text": "In addition to this reduction in production, the cold of the last weeks of February and the first weeks of March led to a decrease in berry sizing."
+    },
+    {
+     "printed_page": 166,
+     "text": "Competitive pressure was less pronounced in 2023 as both Spain and Morocco experienced delayed seasons and production declines"
+    }
+   ]
+  },
+  {
+   "id": "es-huelva-2023-water",
+   "quotes": [
+    {
+     "printed_page": 165,
+     "text": "Problems with water have added to these climatological conditions, as a factor that is very limiting for the crop as its reduction in allotments has led to negative repercussions"
+    },
+    {
+     "printed_page": 165,
+     "text": "with the water in some areas having high saline concentrations."
+    },
+    {
+     "printed_page": 165,
+     "text": "The availability of labor is, together with water, one of the limiting factors for the crop"
+    }
+   ]
+  },
+  {
+   "id": "es-2023-24-drought",
+   "quotes": [
+    {
+     "printed_page": 167,
+     "text": "Spain has been dealing with one of its worst droughts since 1997 and irrigation restrictions have been placed on industry."
+    },
+    {
+     "printed_page": 167,
+     "text": "Rainfall levels have improved since October 2023, but dams and reservoirs are not yet at a satisfactory level for water restrictions to change, although the occurrence of rain has at least meant that water restrictions haven't tightened further."
+    },
+    {
+     "printed_page": 166,
+     "text": "among them water shortages that have impeded both growers' expansion and varietal conversion plans"
+    }
+   ]
+  },
+  {
+   "id": "es-2023-summer-heat",
+   "quotes": [
+    {
+     "printed_page": 167,
+     "text": "2023 saw a very hot summer though fortunately reports are that although fields suffered from abnormally extended periods of extreme summer heat, leading to plant stress and the yellowing of leaves, the 2024 season saw markedly better yields."
+    },
+    {
+     "printed_page": 167,
+     "text": "It was reported that by October there were signs of plant health recovery"
+    }
+   ]
+  },
+  {
+   "id": "es-huelva-variety-shift",
+   "quotes": [
+    {
+     "printed_page": 166,
+     "text": "The industry's main two varieties are the early-season Snowchaser and the early-midseason Ventura, both which have become less desirable for retailers"
+    },
+    {
+     "printed_page": 167,
+     "text": "Production in Huelva also has a history of highly concentrated production – between 70% and 80% - occurring within a three-week period in April and May"
+    },
+    {
+     "printed_page": 167,
+     "text": "those who can afford it and see the option as economically viable have explored switching up their cultivar mix in pursuit of a more spread out campaign with different windows, the earliest being in late November in limited volumes."
+    },
+    {
+     "printed_page": 167,
+     "text": "Other traits growers reportedly seek include higher yields, greater heat tolerance, and characteristics that are more valued by the market"
+    },
+    {
+     "printed_page": 166,
+     "text": "one grower cooperative that accounts for almost a third of Spanish blueberry production has already converted a third of its hectares to new cultivars."
+    }
+   ]
+  },
+  {
+   "id": "ma-agadir-2023-08-heat",
+   "quotes": [
+    {
+     "printed_page": 8,
+     "text": "Weather impacts will continue to increase, as exemplified by what happened in Peru with El Niño during the 2023-2024 production season, or by Agadir reaching 52°C in August of 2023, and heat spells in many other locations."
+    }
+   ]
+  },
+  {
+   "id": "ma-heatwave-wind",
+   "quotes": [
+    {
+     "printed_page": 171,
+     "text": "Like Spain, the south of Morocco experienced a heatwave which impacted the crop, while in both the south and the north there were wind events that caused some structural damage, although this was not considered a significant contributing factor to the lower production."
+    }
+   ]
+  },
+  {
+   "id": "ma-north-water",
+   "quotes": [
+    {
+     "printed_page": 171,
+     "text": "However, the shortage of water is not as serious in the north of Morocco where the country's blueberry industry began and growing conditions are more similar to southern Spain. That region has been undergoing something of a renaissance with growth actually outpacing Agadir of late."
+    }
+   ]
+  },
+  {
+   "id": "ma-atlas-midchill",
+   "quotes": [
+    {
+     "printed_page": 171,
+     "text": "The market is also starting to see the result of limited plantings of mid-chill blueberries grown in Morocco's Atlas Mountains, targeting the late June and July market windows."
+    },
+    {
+     "printed_page": 171,
+     "text": "but it is understood that the cost of production in the region is low"
+    }
+   ]
+  },
+  {
+   "id": "pt-2023-drought",
+   "quotes": [
+    {
+     "printed_page": 159,
+     "text": "Despite difficult growing conditions with the ongoing effects of drought last year, Portugal's industry avoided an overall decline with volume remaining flat, likely due to yield reductions being offset by the effects of younger, maturing plantings."
+    }
+   ]
+  },
+  {
+   "id": "de-2023-07-rain",
+   "quotes": [
+    {
+     "printed_page": 192,
+     "text": "Germany experienced a lot of rainfall from July to August in 2023, which hampered production and meant the industry struggled with fruit quality, with the wet conditions leading to instances of mold and soft fruit, and thus lower packouts and volume."
+    },
+    {
+     "printed_page": 192,
+     "text": "Harvesting the fruit was also challenging, as the leading northern German cultivation region is characterised by clay-like soils that make it difficult to walk on the farm in such wet weather."
+    },
+    {
+     "printed_page": 190,
+     "text": "Production in this region was heavily impacted by a wet summer, particularly in Germany, the Netherlands and Belgium"
+    }
+   ]
+  },
+  {
+   "id": "ro-harvest",
+   "quotes": [
+    {
+     "printed_page": 179,
+     "text": "Romania can and does supply fresh blueberries to the European market during the historically scarce (although now less so) month of June, but its season lasts longer (In 2022 from 17 June to 28 September) and tends to have a peak in July, and sometimes in August depending on conditions."
+    },
+    {
+     "printed_page": 177,
+     "text": "earliness is a key industry driver to fill the critical June supply gap between the end of the Spanish season and the start of the Polish season in July"
+    }
+   ]
+  },
+  {
+   "id": "ro-soils-open-field",
+   "quotes": [
+    {
+     "printed_page": 179,
+     "text": "Almost all production in Romania is in open fields rather than being in pots; to the north of the Carpathian mountains the soil is rather acidic and thus lends itself to this type of cultivation, although with the right soil preparation there are also significant plantings to the south of the range."
+    }
+   ]
+  },
+  {
+   "id": "rs-2023-05-rain",
+   "quotes": [
+    {
+     "printed_page": 178,
+     "text": "In that time the industry has overtaken Portugal as a major supplier during the June window, and this was achieved in 2023 despite a very rainy month of May in the lead up to harvests which in cases led to fruit softness and other quality defects."
+    }
+   ]
+  },
+  {
+   "id": "rs-harvest",
+   "quotes": [
+    {
+     "printed_page": 178,
+     "text": "Targeting the lucrative market window of June, but also with sales in July when volume tends to clash with more competing origins and prices decline"
+    },
+    {
+     "printed_page": 178,
+     "text": "Serbia's mountainous terrain allows for the manipulation of harvest windows with different varieties, although the predominant cultivar is Duke, leading to more concentrated harvests than in other industries."
+    },
+    {
+     "printed_page": 178,
+     "text": "There is a general reluctance to adopt new varieties and only a few players are undertaking trials or the commercial development of the latest genetics."
+    }
+   ]
+  },
+  {
+   "id": "rs-soils-wells",
+   "quotes": [
+    {
+     "printed_page": 178,
+     "text": "Production is widely dispersed geographically, but the highest yields tend to be achieved in the west and southwest due to the quality of soil."
+    },
+    {
+     "printed_page": 178,
+     "text": "In general, water is less regulated than in Western Europe and farmers are able to drill deep wells to access water for irrigation."
+    },
+    {
+     "printed_page": 178,
+     "text": "The hilly terrain makes it difficult to secure contiguous plots of land"
+    }
+   ]
+  },
+  {
+   "id": "za-2023-cold-winter",
+   "quotes": [
+    {
+     "printed_page": 211,
+     "text": "weather issues of its own led to harvest delays and an ultimate decrease in export volume of around 12.5%, notwithstanding a far superior season overall financially."
+    },
+    {
+     "printed_page": 211,
+     "text": "A prolonged and very cold winter by South African standards meant that fruit took longer to get the heat units necessary to ripen"
+    },
+    {
+     "printed_page": 211,
+     "text": "For South Africa overall, harvests were 3-4 weeks late, although some farms were as late as six weeks while others were just a week late, depending on the variety and microclimate."
+    },
+    {
+     "printed_page": 210,
+     "text": "Increased mean temperatures in South American production areas, and a cooler, longer winter in South Africa both resulted in delayed seasons for the respective countries"
+    },
+    {
+     "printed_page": 23,
+     "text": "was unable to fully capitalize on its competitor's shortfall due to a prolonged cold and wet winter that delayed the crop"
+    }
+   ]
+  },
+  {
+   "id": "za-wc-2023-wet-winter",
+   "quotes": [
+    {
+     "printed_page": 211,
+     "text": "while in the Western Cape conditions were much wetter than usual – a fact that didn't have a great impact on fruit as it hadn't set yet at the time of intense rainfall but did affect pollination in the early varieties."
+    },
+    {
+     "printed_page": 211,
+     "text": "There was also flooding which in isolated cases destroyed infrastructure and carried away blueberry pots in the current, but this was not a large contributing factor to the decline in volumes."
+    }
+   ]
+  },
+  {
+   "id": "za-north-2023-dormancy",
+   "quotes": [
+    {
+     "printed_page": 211,
+     "text": "The weather conditions were less impactful in the country's north, but still meant that plants were very dormant and were delayed in coming out of the blocks."
+    },
+    {
+     "printed_page": 206,
+     "text": "even though yields were down for similar weather-related reasons that affected northern South Africa."
+    }
+   ]
+  },
+  {
+   "id": "za-lp-season-2024",
+   "quotes": [
+    {
+     "printed_page": 212,
+     "text": "with the remainder split mainly between the northern region of Limpopo and South Africa's northwest, both with earlier seasons that peak in September and October."
+    },
+    {
+     "printed_page": 212,
+     "text": "Limpopo's established farms, which are relatively younger, are getting into their peaks."
+    }
+   ]
+  },
+  {
+   "id": "za-zw-cultivar-pruning-overlap",
+   "quotes": [
+    {
+     "printed_page": 193,
+     "text": "The ability of growers outside of Europe to overlap with the summer season has increased thanks to the adoption of new cultivars and different pruning methods in certain countries, for example South Africa, Zimbabwe"
+    }
+   ]
+  },
+  {
+   "id": "zw-2023-late-season",
+   "quotes": [
+    {
+     "printed_page": 206,
+     "text": "peaking in August and finishing up in mid-October, although this is a finishing date that the industry far outstretched in 2023 as both an opportunistic response to supply shortages from Peru, and the consequence of a delayed crop."
+    },
+    {
+     "printed_page": 206,
+     "text": "But in 2023 the industry harvested blueberries for five weeks more than normal, picking until the end of November. \"We even got hail in week 43 which normally would have cut our season"
+    },
+    {
+     "printed_page": 206,
+     "text": "The general consensus is that Zimbabwe had a very good season in 2023, even though yields were down for similar weather-related reasons that affected northern South Africa."
+    }
+   ]
+  },
+  {
+   "id": "zw-harvest-target-september",
+   "quotes": [
+    {
+     "printed_page": 206,
+     "text": "As a rule of thumb, the industry aims to have 90% of the crop done by the end of September, as even the slightest blemish on fruit will impact returns in October when there is a heavy supply from Peru and South Africa."
+    },
+    {
+     "printed_page": 206,
+     "text": "Zimbabwe tends to have wet weather and occasionally hail starting in October as well"
+    }
+   ]
+  },
+  {
+   "id": "zw-substrate-trials",
+   "quotes": [
+    {
+     "printed_page": 206,
+     "text": "The expectation is that young fields will be yielding at least 20MT/ha by their third year, whilst there have been some early-stage forays into substrate planting to the east of Harare with higher density of plants in pots"
+    },
+    {
+     "printed_page": 206,
+     "text": "In contrast, the difficulty in securing financing is leading some to opt instead for the economics of planting in the soil, including from pots where the plants have matured and outgrown the space."
+    }
+   ]
+  },
+  {
+   "id": "na-kavango-harvest",
+   "quotes": [
+    {
+     "printed_page": 207,
+     "text": "Northern Namibia's production window is very similar to Zimbabwe's, with the first fruit at the end of May or the first week of June, and peaking in August through to the second week of September."
+    },
+    {
+     "printed_page": 207,
+     "text": "Harvesting is usually finished in early October when tropical thunderstorms have the potential to affect quality."
+    }
+   ]
+  },
+  {
+   "id": "na-kavango-inland-siting",
+   "quotes": [
+    {
+     "printed_page": 207,
+     "text": "The country's coastal areas are renowned for their frosts, which is why leading projects in the north"
+    },
+    {
+     "printed_page": 207,
+     "text": "are all inland in places that have historically had less prevalence of frosts, with growers favoring those conditions combined with better access to water and abundant labor over what would be better logistics if their farms were located near the coast."
+    }
+   ]
+  },
+  {
+   "id": "ke-trials-march-may",
+   "quotes": [
+    {
+     "printed_page": 207,
+     "text": "Further north, trials are taking place in the equatorial states of Uganda and Kenya where there is potential for production from March to May, with the potential to double crop on evergreen low chill varieties if desired."
+    }
+   ]
+  }
+ ],
+ "rejected": [
+  {
+   "kind": "citation",
+   "record_id": "us-se-freeze-2022-03",
+   "pages": [
+    94
+   ],
+   "reason": "2024 only says both states had freeze events in 2022; no dates or losses, so it does not support the record."
+  },
+  {
+   "kind": "record",
+   "id": "us-machine-harvest-fresh",
+   "title": "Machine harvesting for fresh in US regions: Pacific Northwest, California, Florida and Georgia",
+   "reason": "Machine harvesting is outside the registry scope (weather, calendar, protection, cultivar, water and soil)."
+  },
+  {
+   "kind": "record",
+   "id": "mx-central-land-size",
+   "title": "Central Mexico farm sizes top out at about 40-50 ha",
+   "reason": "Farm size is farm structure, not a production constraint in the registry scope."
+  },
+  {
+   "kind": "citation",
+   "record_id": "nz-waikato-2022-10-frost",
+   "pages": [
+    143,
+    144
+   ],
+   "reason": "2024 only recalls intensive frost in 2022/23 in general terms; no month, region or loss."
+  },
+  {
+   "kind": "citation",
+   "record_id": "nz-hb-2023-floods",
+   "pages": [
+    143,
+    144
+   ],
+   "reason": "2024 only recalls flooding and Cyclone Gabrielle in general terms; no region or loss."
+  },
+  {
+   "kind": "record",
+   "id": "cn-wild-winter-weather",
+   "title": "Chinese wild blueberries: harvest depends on winter weather",
+   "reason": "Wild Vaccinium harvest, not cultivated blueberry production."
+  },
+  {
+   "kind": "record",
+   "id": "au-wa-heat-45c",
+   "title": "Western Australia: high quality despite heat above 45°C",
+   "reason": "Undated, one breeder reporting on its own genetics; low evidential value."
+  },
+  {
+   "kind": "record",
+   "id": "in-land-fragmentation",
+   "title": "India: large landholdings are hard to secure",
+   "reason": "Landholding size is farm structure, not a production constraint in the registry scope."
+  },
+  {
+   "kind": "record",
+   "id": "de-machine-harvest",
+   "title": "Germany: more machine harvesting for the fresh market",
+   "reason": "Machine harvesting is outside the registry scope."
+  }
+ ],
+ "page_mapping": "Spread PDF: printed page P is on PDF page floor(P/2)+1.",
+ "registry_version": "ibo-regional-2026-10-12b",
+ "counts": {
+  "records_before": 91,
+  "records_after": 156,
+  "records_added": 65,
+  "existing_records_cited": 43,
+  "citations_added_to_existing": 46,
+  "ibo_2024_citations_total": 127,
+  "rejected": 9
+ },
+ "notes_by_region": {
+  "G1_north_america": [
+   "mx-2023-24-heat not cited: IBO 2024 p.113 reports 2023 heat stress with plant deaths of about 3-4% on some farms, worst in Sinaloa. IBO 2025 (per the existing record) says heat-stress plant deaths of 2022-23 were not repeated in 2023-24. IBO 2024 does not say which months of 2023, so its event may be the 2022-23 one, or it may conflict with IBO 2025 for fall 2023. Proposed as a separate record mx-2023-heat-stress with a new event_id. Quote p.113: 'In 2023 the sector had to contend with not only the usual threats posed by the pest thrips, but also elevated temperatures that put plants under stress and even induced plant death in some cases'.",
+   "Survey p.20 says 'In Mexico, where producers saw production decrease due to a particularly warm spring'. The survey rates the 2023 season, but the Mexican production fall in the metrics is for 2023/2024 (67.32 vs 75.87 thousand MT, p.105, p.111). The spring is not dated, so it was not used in a record.",
+   "us-fl-chill-winters: IBO 2024 p.94 adds that the 2023 Florida crop was 'about 20% short of what the industry was hoping for' and that 'leading into the 2024 season there were no such weather events to such an extreme'. Not added to the summary per the brief. The coordinator may add a sentence. IBO 2024 agrees with IBO 2025 on the fall 2022 hurricane and Christmas 2022 temperatures, so the 'describe the 2022-23 winter differently' limitation still refers only to IBO 2023 vs 2025.",
+   "ca-bc-harvest: cited with no summary change. IBO 2024 p.102 gives the 2023 season: hand harvest in the Fraser Valley from the first week of July, machine harvest from mid-July, peak in the last two weeks of July, Calypso from the end of July and Elliott from mid-August. Optional summary sentence if the coordinator wants 2023 in the record: 'IBO 2024 reports 2023 hand harvest in the Fraser Valley from the first week of July and machine harvest from mid-July.' The period label would then become '2022, 2023 and 2024 seasons, as reported'.",
+   "mx-central-harvest: IBO 2024 p.113 says growers were 'attempting to shift volume concentration out of the winter-spring harvest window into spring'. This seems to be a slip for the fall window, since p.114 and the same sentence refer to the September-November or September-December window. It is quoted only for the Peru motive. IBO 2024 does not name pruning as the method, so the proposed summary keeps pruning attributed to 2023 and 2025.",
+   "mx-altitude-frost: IBO 2024 p.114 adds hail, names parts of Michoacan and gives the window as September to November. It gives no elevation and no December-January timing. The 2024 claim is added as its own sentence and not merged into the 1,800 m claim.",
+   "us-se-freeze-2022-03: the 2024 citation (p.94) supports only that both states had terrible freeze events in 2022 and that North Carolina has had several years of springtime windborne freezes. It gives no dates or losses, so the coordinator may prefer to drop this citation.",
+   "us-pnw-2021-2022 not cited: IBO 2024 p.93 says 2023 was the region's 'fifth in a row' weather-problem year but does not describe the 2021 heat dome or the 2021-22 winter. The 2023 season is proposed as a new record, us-pnw-2023-pollination-weather.",
+   "us-ca-freeze-2022 not cited: IBO 2024 describes a different event, the flooding and rain of late 2022 and early 2023. That event is proposed as us-ca-2023-rain-late-peak.",
+   "No 2024 support found for us-nc-soils-water, us-nc-harvest, us-nc-2025-harvest-rain, us-ga-helene-2024-09, us-ga-2025-01-cold-snow, us-fl-2026-frost or mx-water-2026. The 2024 text has no North Carolina soils, harvest months or water statements, and no Mexico water statement.",
+   "Not proposed as records (outside scope or too thin): one company applying Mexican substrate learnings in Florida (p.94); Florida citrus land that could convert to blueberries (p.94-95); Oregon's 2023 overtime rule (p.99); Mexican labour scarcity and new labour laws (p.113), which do not say production is limited; BC Blueberry Scorch Virus symptoms possibly accentuated by 2021 heat and 2022 early-season cold stress (p.102), which is framed as a possibility.",
+   "ca-bc-2023-05-bloom-heat: the 30 degree line extracts as '30° ◦' then 'C' on the next line, so the quote stops at 'exceeding 30' and a second quote starts at 'for a few days in May'. Please check this against the PDF if exact rendering matters."
+  ],
+  "G2_south_america": [
+   "pe-ica-south (contradiction, p.64): IBO 2024 agrees southern growers did better but says southward diversification in response to the El Niño year 'seems unlikely': \"Despite the relatively better performance for growers in southern Peru, geographic diversification southward in response to this El Niño year seems unlikely,\". Not cited as support. IBO 2024 does not name Ica in the El Niño discussion; p.61 only gives Ica 11% of 2023-24 exports.",
+   "pe-el-nino-2023 (figure differences, not cited for these): the 2023-24 fall is given four ways. p.53 metrics: production -21.96% to 233.87 (000)MT, 93.34% of the change from yield. p.55 ProArándanos: exports of 224,889Mt, down 21%. p.63 report team: \"Peru's blueberry volumes in the 2023-24 season fell by 25% to 215,000MT\". p.14 pricing: exports down 23%. Only the p.46 table, which matches the existing 299.67 and 233.87, is proposed as a citation.",
+   "pe-el-nino-2023 (p.64): IBO 2024 says the industry consensus is that Biloxi and Ventura both fell much more than other varieties, while one grower saw Ventura -50% against Biloxi -15%. p.25 says it is disputed whether Ventura should be lumped with Biloxi because on some farms it fared substantially better. The existing summary's 'Ventura proved especially susceptible' is from IBO 2025; IBO 2024 is mixed on Ventura against Biloxi.",
+   "pe-harvest (not cited, months differ): IBO 2024 gives Peru's peak as September and October (p.63 'peak export months of September and October'; p.64 'traditional peaks of September and October') and the trends section gives 'its peak window between September and December' (p.23). IBO 2026's September to November peak and nine-month season are not stated in IBO 2024. The flatten-the-curve detail is proposed as new record pe-flatten-curve-pruning.",
+   "pe-coastal-system: cited only for pruning used to shift harvest timing (p.64). IBO 2024 does not restate open field, substrate or cover needs in prose; the p.53 metrics list 'Under Structure: 3.00%' for Peru 2023/2024, which is consistent with little covering but is not proposed as support.",
+   "pe-2024-delayed-pruning: not in IBO 2024. The edition covers 2023-24 and does not report early-2024 pruning decisions.",
+   "pe-2025-cloudy-winter, cl-2025-26-early-ripening: later seasons; nothing in IBO 2024.",
+   "pe-water-ro: no IBO 2024 mention of reverse osmosis, Chavimochic, coastal rainfall or water limits for Peru. p.64 only says Olmos 'around a decade ago was opened up by a large-scale irrigation project'.",
+   "pe-lambayeque-early: IBO 2024 does not mention an earlier Lambayeque window. p.61 gives Lambayeque 18% of 2023-24 exports (an export share, not hectares). New record pe-lam-2023-olmos-el-nino assigns the Olmos statement to PE-LAM; IBO 2024 itself does not say Olmos is in Lambayeque.",
+   "cl-2022-11-frost-hail and cl-2022-12-heat: not mentioned in IBO 2024. The edition's Chile text covers 2023-24 only.",
+   "Chile 2023 weather: IBO 2024 has no frost, hail, rain or flood account for Chile. The only weather statement is that El Niño heat did not affect Chile nearly as much as Peru (p.69). ASOEX's 'delay in the fruit ripening' (p.68) has no stated cause; it is included in cl-2023-24-el-nino-limited-impact with a limitation saying so. Drop that sentence if the coordinator wants weather-attributed content only.",
+   "co-tunnels (not cited, differs): IBO 2024 p.51 says \"Open field is the standard production method for most crops in Colombia, including blueberries\", with macro-tunnels preferred over greenhouses where protection is used. It does not mention hail or larger operations under tunnels. It does repeat the cold, rainy nights and warm days challenge. Proposed as new record co-highlands-open-field-macrotunnels instead of a citation.",
+   "co-three-peaks: IBO 2024 p.51 calendar (November-December largest, then May-June, then September) matches IBO 2025, not IBO 2023. p.49 also calls November and December Colombia's highest-volume production months.",
+   "Colombia country-level statements skipped because the group has no CO country geography: Biloxi predominant, then Emerald, Legacy and Victoria; long nursery backlogs for newer genetics; no more than 30ha planted in the past year (p.50); remaining plantings in Antioquia and near the Ecuador border (p.51).",
+   "ar-protected: IBO 2024 p.71 metrics list 'Under Structure: 60.00%' for 2023/2024, the same share IBO 2023 gave for 2022/23. Not added to the summary, to avoid new 2024 details in an existing record.",
+   "ar-harvest: IBO 2024 p.75-76 also gives Argentina's 2023 overseas sales as starting in August, peaking in October and carrying through to December in limited volumes. This is a sales window and was not proposed as a harvest record.",
+   "Argentina production metrics p.71: production -18.62% in 2023/24 with 53.31% of the change from yield; no weather cause is given, so no event record.",
+   "Closing comments p.227 mention 'yield reductions in key growing regions tied to climatic issues (Peru and others)' and the foreword p.8 cites 'what happened in Peru with El Niño during the 2023-2024 production season'. Both are general and add nothing beyond the Peru records, so they are not cited.",
+   "p.129 (China section): Peru's exports to China fell 30% in 2023 due to El Niño, though July and August volumes were higher year-on-year. This is trade data and was not proposed."
+  ],
+  "G3_asia_pacific": [
+   "au-nnsw-2022-floods not cited. IBO 2024 p.140 says 'this followed a 16% decline for the previous season due to wet weather, pollination challenges and disease issues'. 'This past season' is the July 2023 to April 2024 crop (p.138-139), so 2024 seems to place the 16% fall in 2022/23, while IBO 2023 places it in 2021/22. The IBO 2024 table on p.131 shows Australia rising from 17.40 (2021/22) to 18.13 (2022/23). The passage also does not mention Northern NSW or floods. Treated as a possible year revision, not support.",
+   "nz-harvest: IBO 2024 p.144 gives the peak as 'February to May', while the record (IBO 2025) says peaking November-May. Cited only for the southern highbush August-October window, Hawke's Bay greenhouses to end of May with May frosts, and South Island PNW-type varieties (pp.144-145). The Feb-May peak is proposed separately as nz-near-year-round-supply. The coordinator may prefer to drop the citation if any peak-month difference counts as a revision.",
+   "cn-land-policy: IBO 2024 p.127 gives compensation of US$30,000-100,000 per hectare, different from 2023 and 2025. The proposed summary lists it by edition, following the record's existing convention. p.127 also says new growth will come mostly from converting existing orchards of non-essential crops; not proposed as a separate record.",
+   "cn-yunnan-2024-dry-heat not cited: IBO 2024 covers the 2023 season. Note that IBO 2024 p.128 gives a 10-15% Yunnan increase for the 2023 season, the same range IBO 2025 gives for 2024. Do not merge the two.",
+   "cn-yunnan-induction not cited: IBO 2024 does not mention shade cloth or off-cycle systems. The nearest item is high-altitude mid/high-chill growing for September-October (p.128), proposed as cn-yunnan-high-altitude-off-season.",
+   "cn-liaoning-monsoon-undated not cited: IBO 2024 p.129 says Shandong 'was hit by floods for several seasons' and p.128 mentions 'untimely summer rains' in the coastal northeast. There is no monsoon, no Liaoning harvest rain event and no loss statement, so it is not the same event.",
+   "cn-yunnan-2023-01-cold-snap: p.128 says 'a cold snap in January' within 'the 2023 season'. Stored as January 2023; the year comes from the season label.",
+   "au-2023-normal-conditions: national statement. The registry has no AU country geography, so it is tagged AU-NSW, AU-QLD and AU-WA. The coordinator may prefer to drop it or retag it.",
+   "au-wa-heat-45c: p.139 says 'Last year'. The edition was published in September 2024, but the text gives no months, so the period has null dates.",
+   "cn-north-coastal-weather-risks: p.128 refers to 'the coastal growing regions of the northeast' without naming provinces. The CN-LN and CN-SD tags come from the paragraph context.",
+   "nz-waikato-2022-10-frost and nz-hb-2023-floods: IBO 2024 (pp.143-144) only recalls the 2022/23 frost, floods and Cyclone Gabrielle in general terms. It gives no region, month or loss figure, so the support is for the events taking place, not for their details.",
+   "Not proposed: machine harvesting at northern NSW farms (p.139), not a listed practice type. Australian picker wage of close to AUD$30 an hour (p.140), a cost and not stated as limiting production. Victoria and Tasmania mid-chill work (p.140), no registry geography. Indian tariffs, imports and IP (p.150). Coir companies' interest in India (p.150), plans only. China IP and market sections (pp.126-130). The global survey (p.20) says China's responses were more positive, particularly from Yunnan, and Australia's favourable; this is not weather or practice.",
+   "Industry trends pp.23-28 and the wild blueberry section pp.220-225 were searched. Only p.223 (Chinese wild and cultivated lowbush) names my geographies."
+  ],
+  "G4_europe_north_africa": [
+   "es-huelva-2023-cold (Task A, not cited): IBO 2024 does not repeat late January to March cold causing flowering problems. Freshuelva (p.165) blames the 2023 decline of around 25% mainly on warm November to January minimums that cut chill, and says cold in the 'last weeks of February and the first weeks of March led to a decrease in berry sizing'. Different cause and effect, so proposed as new records es-huelva-2023-warm-winter and es-huelva-2023-cold-sizing (the latter reuses event_id es-huelva-2023-cold because it is the same cold period).",
+   "es-huelva-harvest: p.159 says 'the end of Huelva's (southern Spain) season in early June' and p.177 speaks of a June gap 'between the end of the Spanish season and the start of the Polish season in July'. This conflicts with the record's 'first weeks of July' end (from IBO 2023). Not quoted as support for the season end; the citation supports only January start and the April-May concentration.",
+   "es-huelva-water (Task A, not cited): IBO 2024 describes reduced allotments and saline water in the 2023 season (p.165) and Spain's drought since 1997 with restrictions (p.167), not the 2024-season cutbacks of up to 25% or the 2025 drought break. Proposed as new records es-huelva-2023-water and es-2023-24-drought. p.165 does repeat that labour, together with water, limits the crop, which matches the record's 2025 statement.",
+   "ma-2023-cold: p.23 (Industry trends) says 'Morocco suffering from a heat spell at the start of 2023', while p.169 says a 'cold spell in late January and early February'. The two pages of the same edition disagree; only p.169 is cited. p.169 also gives a more precise window (late January and early February) than the record's 'Start of 2023' label; no label change proposed because the brief limits label edits to edition lists.",
+   "ma-heatwave-wind: p.171 does not date the southern heatwave or the wind events. p.8 gives Agadir reaching 52°C in August 2023. The two may be the same heat, but the report does not link them, so they are separate records with separate event_ids.",
+   "Morocco 2024: p.171 says the 2024 season 'has been delayed' but gives no weather cause, so no event record. Dakhla (p.171: windy, mild, low chill, flat 'Canarian greenhouses', limited water and labour, about 1,200km south of Agadir) is outside the group's geographies; not recorded.",
+   "pt-2023-drought: p.159 says Portugal's volume 'remaining flat', but the IBO table on p.155-156 shows Portugal at 18.50 (000) MT in 2022 and 22.05 in 2023. The record states the narrative only and flags it in limitations.",
+   "Poland: IBO 2024 has no 2023 frost, drought or other weather event for Poland, Lublin or Podlaskie. pl-2024-05-frost, pl-2025-05-frost and pl-bialystok-2021-cold are not supported. p.200 (UK narrative) says 'In 2023, the Polish season started a bit late as well' with no cause; p.177 places the start of the Polish season in July. pl-harvest (August peak) is not stated in 2024 text; not cited.",
+   "Germany: de-2024-frost is not supported (the 2024 edition was written before that event). France, not Germany, is named as frost-prone and spared spring frost in 2023 (p.190, p.192).",
+   "rs-water: cited for the anti-hail net, fertigation and potted substrate part only (p.178). IBO 2024 says water is less regulated and farmers drill deep wells; it does not mention mineral-rich water or reverse osmosis.",
+   "ro-soils-frost: cited for the April frost, Duke/Legacy and Elliott part only (p.179). p.179 says soils north of the Carpathians are 'rather acidic', while the record (from 2025 and 2026) says clay soils with unusually high pH. These may be different areas; not cited for the soil claim, and flagged in new record ro-soils-open-field.",
+   "Near-misses not recorded: Spanish growers buying mechanical harvesters despite tunnels (p.167); Zaragoza under consideration for new plantings (p.167); one Portuguese company supplying from mid-February until Polish volumes arrive (p.160); Romania regarded as a better option for high-chill plantings because of lower cost and larger land (p.191); Poland's 2023 high late-August and September demand favouring late varieties (p.184, market)."
+  ],
+  "G5_africa": [
+   "na-kavango-frost: IBO 2024 p.207 (PDF 104) describes 'a severe frost incident' in 2023, singular, while the existing summary (from IBO 2025) says 'multiple frosts'. The loss wording also differs: 2024 says it 'basically wiped out the majority of their crop' (one grower), the record says 'almost wiped out'. Treated as support for the 2023 frost; the coordinator may prefer to soften 'multiple frosts'. The existing sentence 'The report had no direct grower interviews' refers to a later edition; IBO 2024 quotes 'one grower', so the proposed summary keeps that sentence before the IBO 2024 sentence. Quote: 'they experienced a severe frost incident that \"basically wiped out the majority of their crop\", according to one grower.'",
+   "na-kavango-frost: IBO 2024 p.207 also calls 2023/24 'a dreadful season due to weather problems in 2023/24' for Namibia overall.",
+   "za-system: IBO 2024 p.206 (PDF 104, Zimbabwe narrative) says of South Africa 'pot-based substrate production dominates, representing around 60% of the total'. This gives a share the existing record lacks; not proposed as a citation because it comes from the Zimbabwe section, not as a new record because it repeats the substrate practice. The coordinator may add it as a quote. The proposed za-system summary update lists IBO 2024 among editions describing the practice, but IBO 2024 p.212 does not say tunnels target earlier fruit; that phrase is from the earlier editions.",
+   "za-wc-harvest: IBO 2024 pp.211-212 support only the October-November peak overlapping Peru and the around 60% share. They do not state the one-month lag behind the north or the September finish target. IBO 2024 gives 60% as a share of South Africa's 'plantings', not 'industry', and does not mention the 250 km radius.",
+   "za-north-harvest: not cited. IBO 2024 p.212 gives Limpopo and the northwest an earlier season peaking September and October and does not mention June first fruit, the 40% share or Mpumalanga. Not treated as a contradiction because peak months differ from first-fruit months; proposed as new record za-lp-season-2024 for ZA-LP only, since the northwest is not one of the registry geographies.",
+   "ke-year-round: not cited. IBO 2024 p.207 mentions only trials in Kenya and Uganda with potential production from March to May and double cropping on evergreen low-chill varieties, not year-round production with pruning. Proposed as new record ke-trials-march-may. Note that IBO 2026 mentions a January-March target window, which differs from the March-May potential in 2024.",
+   "za-limpopo-2024-frost, za-wc-2024-weather, za-2024-late-winter, za-north-2025-minor-frost, zw-2022-late-rain, zw-2024-compressed, zw-2025-yield: no 2024 support; IBO 2024 covers the 2023 season, and these records concern other years. The 2023 analogues (cold winter, Western Cape wet winter and floods, Zimbabwe delayed crop) are proposed as new records. za-wc-2024-weather says floods hit 'for the second year in a row', which agrees with the 2023 flooding on IBO 2024 p.211.",
+   "zw-2024-compressed and zw-2023-late-season: IBO 2024 p.206 says Zimbabwe yields in 2023 were down for weather reasons similar to northern South Africa but gives no cause in detail; no chill or temperature data.",
+   "Skipped for lack of a registry geography: Aussenkehr substrate trials in southern Namibia, harvests about one week earlier than the Western Cape (p.207); KwaZulu-Natal Midlands 'true winter' (p.212); South Africa's northwest early season (p.212); Zambia (p.207).",
+   "Skipped as outside scope: Zimbabwe financing constraints, energy supply and solar panels, shelf life and logistics (pp.205-207); South Africa airfreight shift, Transnet port problems, market access (pp.210-212); Western Cape farms at about six years 'witnessing slight drops in yield' (p.212), an orchard-age point not tied to weather or a stated practice.",
+   "za-2023-cold-winter uses evidence_type association_report because it combines the report team narrative with the Berries South Africa member summary, following za-north-2025-minor-frost. It also cites the global overview p.23 (PDF 12), which says 'a prolonged cold and wet winter that delayed the crop'. za-north-2023-dormancy reuses event_id za-2023-cold-winter as the same 2023 winter event; the Western Cape wet winter has its own event_id."
+  ]
+ }
+}

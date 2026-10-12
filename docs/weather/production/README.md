@@ -11,7 +11,7 @@ Method `open-field-production-v3`, API `location-evidence-v5`, primary profile `
 The v2 calendar had four defects that a review of its outputs exposed.
 
 1. Stage lengths ignored temperature. All 235 computed calendars in the 18 committed snapshots used flowering at budbreak +14 to +35 days and harvest at flowering start +70 to +110 days, so every site harvested for 40 days. In central Chile this put harvest between September and November; growers harvest November to January.
-2. The 50-hour chill requirement sits below the 100 to 400 hour range Lyrene (2008) gives for Emerald. v3 uses 100 hours, the value in the supervisor's later R workflow.
+2. The chill requirement had no stated cultivar basis. Lyrene (2008) gives 100 to 400 hours for Emerald, and the supervisor's later R workflow uses 100. v3 used 100 hours from 2026-09-28. On 2026-10-12 the user set it to 50 hours, the legacy value. Neither number is a measured flowering minimum for a cultivar.
 3. The daily disease rule (15–28 °C, RH ≥ 85%, rain ≥ 0.1 mm) had no published source. The UF Blueberry Advisory System works from hourly leaf wetness.
 4. The chill clock returned no production window at 14 of 46 benchmark sites that grow southern highbush, including every site in Peru and Mexico. The product must give a window for any land coordinate.
 
@@ -19,7 +19,9 @@ v2 and the older profiles remain as sensitivity comparisons. With `stage_risks_v
 
 ## Stage clock
 
-Chill counts hours below 7.2 °C from 1 November in the north and 1 April in the south, until 100 hours. Dynamic Model chill portions are reported beside chill hours for every winter; they do not trigger anything yet. Budbreak follows at 150 growing degree-days, base 7 °C, as before.
+Chill counts hours below 7.2 °C from 1 November in the north and 1 April in the south, until 50 hours. Dynamic Model chill portions are reported beside chill hours for every winter; they do not trigger anything yet. Budbreak follows at 150 growing degree-days, base 7 °C, as before.
+
+**Decision, 2026-10-12: the chill requirement is 50 hours.** The user asked to make the minimum chill hours 50, not 100. `stage_thermal_v3` now uses `chill_requirement_hours: 50`, like the legacy profiles. `legacy_paul_100h_v1` and `bounded_uf_100h_v1` keep 100 hours and still appear in every sensitivity table. Nothing else changed: the chill definition, chill window, 150 GDD to budbreak, stage sums, classification thresholds and risk thresholds are as before. The production-system classes keep their own limits, under 100 chill hours for Evergreen and 300 or more for Deciduous. The chill-shortfall risk now counts winters below 50 hours.
 
 After budbreak, stages follow daily degree-days with the daily mean capped at 30 °C:
 
@@ -30,9 +32,9 @@ After budbreak, stages follow daily degree-days with the daily mean capped at 30
 | Harvest start | 633 GDD | flowering start |
 | Harvest end | 1242 GDD | flowering start |
 
-Three constants are the Waldo medians of the degree-days that the old fixed offsets covered in 2011–2025, counted from the old 50-hour chill date: 84.9, 632.9 and 1242.4 GDD (`thermal_reference.json`). They do not keep Waldo's old calendar, because v3 also raises the chill requirement to 100 hours. Waldo's median budbreak moves from 6 January to 24 January and flowering start from 20 January to 7 February. The fruit then develops in warmer weather, so harvest lands on 4 April to 12 May, close to the old 31 March to 10 May. Other sites stretch or shrink with their own temperatures. The flowering span of 290 GDD comes from the F10 to F90 span of the Kovaleski et al. (2015) bloom curves at Citra, 293 GDD for Emerald and 287 for Jewel. The 633 GDD to first harvest matches Chilean on-farm sums of 593 (O'Neal) and 665 (Brigitta). The 1242 GDD harvest end has no direct literature support. Published harvest spans run 14 to 51 days, and v3 gives 38 to 43 days at Waldo, Chillán and Grand Junction.
+Three constants are the Waldo medians of the degree-days that the old fixed offsets covered in 2011–2025, counted from the 50-hour chill date: 84.9, 632.9 and 1242.4 GDD (`thermal_reference.json`). With the 50-hour requirement, v3 matches that derivation. Waldo's median budbreak is 6 January, flowering starts 22 January and harvest runs 29 March to 10 May, within two days of the legacy profiles (flowering 20 January, harvest 31 March to 10 May). Under the 100-hour requirement used until 2026-10-12, flowering started 7 February and harvest ran 4 April to 12 May. Other sites stretch or shrink with their own temperatures. The flowering span of 290 GDD comes from the F10 to F90 span of the Kovaleski et al. (2015) bloom curves at Citra, 293 GDD for Emerald and 287 for Jewel. The 633 GDD to first harvest matches Chilean on-farm sums of 593 (O'Neal) and 665 (Brigitta). The 1242 GDD harvest end has no direct literature support. Published harvest spans run 14 to 51 days, and v3 gives 38 to 43 days at Waldo, Chillán and Grand Junction.
 
-The 100-hour requirement also changes which sites get a winter calendar. Of the 18 pilot and panel sites, 8 keep it: Waldo, Citra, Clear Springs, the Georgia sites and Papanduva. The other 10, all in central and south Florida, use the managed-cycle scan as their primary window. Astin East, Okeechobee and Arcadia are evergreen-majority; the other seven reach 100 chill hours in only 4 to 10 of 15 winters.
+The chill requirement also decides which sites get a winter calendar. Of the 18 pilot and panel sites, 14 have one: Citra, Waldo, Clear Springs, Dole, Barben, River Valley, Wauchula, Sebring, Lake Placid, the Georgia/Alma pilot, Homerville, Valdosta, Folkston and Papanduva. The other 4 use the managed-cycle scan as their primary window. Astin East, Okeechobee and Arcadia are evergreen-majority. PF Berry has no two-thirds majority and gives a calendar in only 11 of 15 winters. Under 100 hours, 8 sites had a calendar and 10 used the scan. Across the 71 saved locations the calendar now applies at 50, up from 41.
 
 Median dates count day offsets from the season start. Under `stage_thermal_v3` (profile flag `leap_day_offsets: corrected`), 29 February is left out of each offset before the median is taken, so winters that cross a leap day no longer push median dates one day late. The legacy profiles keep raw day counts. On the 71 presets this moved 27 median dates at 17 sites one day earlier.
 
@@ -93,7 +95,7 @@ Both were added on 30 September 2026 after reviewing innov8.ag's Market Insights
 - **Honey bee flight hours.** A flight hour is an hour from 09:00 to 17:00 local solar time at or above 12.8 °C (55 °F), the foraging threshold in Thorp (1996) also used by the University of Maine honeybee flight index. Rain, wind and cloud are not in the hourly archive, so counts are an upper bound, and bumble bees fly at lower temperatures.
 - **Pollination gap.** At least 4 consecutive flowering days without a flight hour. Blueberry flowers are receptive for 3 to 5 days (UF/IFAS IN1237), and DeVetter et al. (2022) give at least 4. This defines the pollination family in v3; the older cold-or-wet day counts stay as descriptive exposures.
 
-Across the 71 presets, only Burgaw, NC gains a ranked risk: bud-stage freeze in 8 of 15 winters. There the model breaks buds in early January (median 4 January) because 100 chill hours come early, weeks before the March to April bloom growers report. The result describes a low-chill southern highbush planted that far north. Along the transect, bud freeze occurs in 0 of 15 winters at Waldo, 3 at Tallahassee and Alma, and 4 at Loris. Pollination gaps occur in 0, 3, 2 and 4 winters there, and in 6 at Burgaw. Tropical and evergreen sites show neither.
+Across the 71 presets, Burgaw, NC was the only site where bud-stage freeze ranked. With the 50-hour requirement no site ranks it: at Burgaw it occurs in 6 of 15 winters, below the 50% rule, and the coldest bud-stage night was −10.9 °C in winter 2016–17. The model breaks buds early there (median 29 December) because 50 chill hours come by mid-November, weeks before the March to April bloom growers report. The result describes a low-chill southern highbush planted that far north. Burgaw's ranked risks are disease weather (15 of 15), harvest heavy rain (14 of 15), flowering freeze (11 of 15) and pollination gap (9 of 15). Pollination gaps also rank at Elizabethtown (9 of 15) and Loris (8 of 15). Along the transect, bud freeze occurs in 0 of 15 winters at Waldo, 4 at Tallahassee, 6 at Alma and 5 at Loris, and pollination gaps in 0, 5, 3 and 8. Under the 100-hour requirement, Burgaw's budbreak was 4 January, its bud freeze ranked in 8 of 15 winters, and the transect counts were 0, 3, 3 and 4 for bud freeze and 0, 3, 2 and 4 for pollination gaps. Tropical and evergreen sites show neither.
 
 ## Risks
 
@@ -108,12 +110,12 @@ Results for the 46 sites that grow southern highbush:
 | Measure | v2 | v3 |
 |---|---|---|
 | Sites with no production window | 14 | 0 |
-| Chill-clock harvest midpoint inside published months | 19/32 | 25/27 |
-| Chill-clock bloom midpoint inside published months | 6/20 | 13/19 |
-| Managed-cycle sites, mean recall of published harvest months | none | 0.81 over 19 sites |
+| Chill-clock harvest midpoint inside published months | 19/32 | 26/30 |
+| Chill-clock bloom midpoint inside published months | 6/20 | 14/20 |
+| Managed-cycle sites, harvest months recall and precision | none | 0.78 and 0.76 over 16 sites |
 | Production-system class, exact match | 35/46 | 35/46 |
 
-By region, the chill-clock harvest midpoint landed in published months at 14/14 US transect sites (v2 10/15), 4/4 Chilean sites (v2 1/5), 4/6 other Latin American sites (v2 2/6) and 8/9 rest-of-world sites (v2 10/12). Peru and Mexico had no v2 window. In the Peru, Chile and Mexico group, the seven scan sites cover 81% of their published harvest months on average. At Chao, Peru, the scan gives harvest August to December against published August to January.
+By region, the chill-clock harvest midpoint landed in published months at 14/15 US transect sites (v2 10/15), 4/5 Chilean sites (v2 1/5), 4/6 other Latin American sites (v2 2/6) and 8/10 rest-of-world sites (v2 10/12). The misses are Tallahassee, Ovalle, Tafí del Valle, Pelotas, Wolseley and Tzaneen; Ovalle and Tzaneen joined the winter calendar with the 50-hour requirement. Peru and Mexico had no v2 window. In the Peru, Chile and Mexico group, the six scan sites cover 78% of their published harvest months on average. At Chao, Peru, the scan gives harvest August to December against published August to January.
 
 Where v3 still misses:
 
@@ -126,7 +128,7 @@ Where v3 still misses:
 - Penguin, Tasmania shows 58 mean chill hours, which is implausible for 41°S. The coastal grid cell appears dominated by sea temperatures.
 - Classification matches 8 of 17 rest-of-world sites. Some misses are managed evergreen or mixed practice in climates the model reads otherwise: Wolseley, Mengzi, Marondera, Huelva and Morocco. Others are mild maritime deciduous regions the model calls transitional or semi-evergreen: George, Penguin and Waikato.
 
-The supervisor's R planting rule, budbreak minus 105 to 30 days, recovers 38% of published planting months with 33% precision on 15 sites. On the US transect, 14 sites, recall is 0.48 and precision 0.37. The rule's months usually start earlier than published planting months, and Osorno's overlap is 0. The app adopted the rule on 2026-10-12; see the planting window section below.
+The supervisor's R planting rule, budbreak minus 105 to 30 days, recovers 22% of published planting months with 21% precision on 17 sites. On the US transect, 15 sites, recall is 0.28 and precision 0.23. Under the 100-hour requirement the scores were 0.38 and 0.33 on 15 sites, and 0.48 and 0.37 on 14 transect sites. The rule's months start 1 to 6 months before the published months at 19 of 21 scored sites, and Osorno's overlap is 0. The app adopted the rule on 2026-10-12; see the planting window section below.
 
 ## Added exposure definitions
 
@@ -160,11 +162,11 @@ Each winter gets its own window, from that winter's modelled budbreak minus 105 
 
 The planting block uses method `budbreak-planting-v1` and one of three statuses:
 
-- `available`: a window, its spread, the budbreak median, p10, p90 and winter count, the rule, basis and precision. Example: Waldo, 11 Oct to 25 Dec from a median budbreak of 24 Jan over 15 winters.
-- `not_applicable`: the chill-triggered calendar does not apply. The label is "Set by management" where the chill requirement does not apply, and "No calculated window" where it applies but too few winters produce a chill-triggered calendar, as at River Valley with 10 of 15.
+- `available`: a window, its spread, the budbreak median, p10, p90 and winter count, the rule, basis and precision. Example: Waldo, 23 Sep to 7 Dec from a median budbreak of 6 Jan over 15 winters, spread 1 Sep to 24 Dec. Papanduva gets 9 Apr to 23 Jun from a median budbreak of 23 Jul.
+- `not_applicable`: the chill-triggered calendar does not apply. The label is "Set by management" where the chill requirement does not apply, and "No calculated window" where it applies but too few winters produce a chill-triggered calendar, as at PF Berry with 11 of 15.
 - `unavailable`: the point has no hourly crop calendar. The label is "Planting window unavailable".
 
-Across the 71 saved locations, 41 get a calculated window, 18 are "Set by management" and 12 show "No calculated window". Six windows cross the year end.
+Across the 71 saved locations, 50 get a calculated window and 21 do not: 18 are "Set by management" and 3 show "No calculated window" (PF Berry 11 of 15, Penguin 8 of 15 and George 0 of 15 calendar winters). Four windows cross the year end.
 
 Registered saved locations in Florida, Georgia or Santa Catarina also carry a `published` season, method `regional-establishment-v1`, shown even where the calculated window does not apply. 30 locations carry one: 22 Florida, 6 Georgia and 2 Santa Catarina.
 
@@ -176,7 +178,7 @@ Registered saved locations in Florida, Georgia or Santa Catarina also carry a `p
 
 A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. The window comes from modelled budbreak, not observed dates, and the app does not check frost, heat or rain inside it. Growers still need to confirm soil workability, nursery stock, cultivar, plant condition and freeze protection. It is a one-time establishment window, not annual replanting or a first-year harvest forecast. No pot or tunnel adjustment is made.
 
-In the literature benchmark the rule covers 38% of published planting months on 15 southern-highbush sites, with 33% precision. Published December to February in Florida and Georgia compares with the rule's September or October to December. Paul has not supplied a source for the offsets, and no one has checked them against planting records.
+In the literature benchmark the rule covers 22% of published planting months on 17 southern-highbush sites, with 21% precision. Published December to February in Florida and Georgia compares with the rule's September or October to December. Paul has not supplied a source for the offsets, and no one has checked them against planting records.
 
 ## Reproduction and verification
 
@@ -200,3 +202,5 @@ The location API caches successful (200) analyses: an in-memory LRU of 64 result
 2026-10-12 verification after the scan accounting change, the leap-day correction, the API hardening and the planting text update: 160 server tests passed in a staging copy. With `stage_risks_v2` as primary, all 18 committed v2 snapshots matched apart from two fields outside the profile output: the land-mask version label, which the deployed code already reports differently, and the Florida planting text. Every committed sensitivity entry, including the reused primary, matched exactly.
 
 2026-10-12 verification after the planting window change: 251 server tests passed in a staging copy, 8 more than before: 4 planting-rule tests in `tests/weather/test_production.py` and 4 in the new `tests/weather/test_planting.py`. Legacy parity with `stage_risks_v2` held on 18 sites with 0 differences. All 71 saved snapshots differ from the previous commit only in planting fields, one new `production.changes` entry and `analysis_id`; no weather, calendar or risk number changed, and the benchmark scores are unchanged. The snapshots, this packet and the benchmark were regenerated. The code was deployed to `code/` with matching SHA-256 hashes, only `blueberry-ui-api` was restarted, and the live API returned 30 Sep to 14 Dec for an Alma coordinate. Browser checks at 1440 and 390 px covered Waldo, Alma, Papanduva, Burgaw, Arcadia, River Valley, the live Clinton pin and Waldo winter 2011 with no page errors, no CSP violations and no page overflow.
+
+2026-10-12 verification after the 50-hour chill requirement: 251 server tests passed in staging. One test pinned the 100-hour chill date of a synthetic 5 °C winter; it now expects 3 November instead of 5 November. Legacy parity with `stage_risks_v2` held on 18 sites with 0 differences. The code was deployed to `code/` with matching SHA-256 hashes, the pre-change files are in `tmp/opus_stage/code_backup_20261012_chill50/`, and only `blueberry-ui-api` was restarted. The snapshots, this packet and the benchmark were regenerated. All 71 snapshots differ only inside the production and planting blocks and `analysis_id`; daily weather, climate and soil are unchanged. Browser checks at 1440 and 390 px showed the new results and the badge "50 h chill requirement" for River Valley, Waldo, Papanduva and Arcadia, with no page errors, CSP violations or overflow, and 34 UI tests passed.

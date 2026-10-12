@@ -14,6 +14,8 @@ The evidence layer is now implemented; see the next section. There is still no R
 
 The first step of the decision is built. `dist/evidence/ibo-regional-v1.json` holds 91 records checked against the complete 2023, 2025 and 2026 reports: 39 events, 42 practice records and 10 constraints across 51 geographic scopes in 23 countries. Statements repeated across editions are extra citations on one record (172 citations in total), not extra events. A new Regional evidence tab shows the records for the pin's country and region next to the calculated risks, not mixed into them, with category filters and page citations. HTML and JSON exports keep every matched record.
 
+Update, 2026-10-12: the user supplied the complete 2024 report, and it is now in the registry. Version `ibo-regional-2026-10-12b` holds 156 records from the complete 2023, 2024, 2025 and 2026 reports: 67 events, 72 practice records and 17 constraints across 52 geographic scopes (33 regions, 19 country-level) in 23 countries. The 2024 report added 65 records and 46 citations on 43 existing records, for 301 citations in total (2023: 49, 2024: 127, 2025: 79, 2026: 46). The one new scope is Australia country context (`AU`). Five region slices proposed records with verbatim quotes, and a script checked every quote against its cited printed page. 9 proposals were rejected. The audit file with every accepted quote, the rejected items and the cross-edition notes is [ibo_2024_extraction.json](ibo_2024_extraction.json). Contradictions between editions stay visible on the records, not resolved.
+
 Matching uses polygon IDs tied to the hash of the existing Natural Earth bundle instead of names. Testing showed why: by name, Washington, DC received the Pacific Northwest heat-dome record, because the reference labels both places "Washington". Browser checks covered all 71 presets, six live coordinates, failure and stale-lookup states and real exports; the weather payloads did not change. Details are in the [UI runbook](../../UI_RUNBOOK.md#regional-evidence). Question answering over the reports, report-derived model parameters and further downloads were not added.
 
 ## 1. What was acquired and read
@@ -33,13 +35,13 @@ Raw sources, extracted text and per-edition manifests are on the designated serv
 | 2021 | Official/mirror listings and a rejected archived fragment | Full text unavailable. The mirror is now 404; the captured PDF stops at 1 MiB although its header declares about 33.8 MB. No readable full report. |
 | 2022 | Complete 198-page PDF and text | Downloaded an archived public Berries ZA association copy. All extracted pages reviewed and selected substantive charts inspected. |
 | 2023 | Complete 114-PDF-page report in two-page spreads | Archived Berries ZA copy. All extracted text reviewed in layout and raw order; selected charts inspected. PDF and printed page numbers differ. |
-| 2024 | Seven public Italian Berry excerpts published with IBO | Abridged country/production articles, not the full report. No complete ungated PDF located. Full-report registration form not submitted. |
+| 2024 | Complete PDF supplied by the user on 2026-10-12; earlier only seven public Italian Berry excerpts published with IBO | 12th edition, published September 2024. 121 PDF pages in two-page spreads, 238 printed pages; printed page P is on PDF page floor(P/2)+1. SHA-256 ca9f428c45fb81877248eeec0fe137887612d9cb3307159cf3560310feefa16a, 20,956,493 bytes. Reuse with attribution stated on printed p.235, PDF p.118. Read in five region slices for the registry. |
 | 2025 | Complete 145-PDF-page report, 288 printed pages | Public FlippingBook viewer permits unauthenticated PDF download. Full substantive text and key image tables reviewed. Remaining sparse pages also inspected; printed p.22 contains a price chart, not just an advertisement. |
 | 2026 | Existing supplied 294-page PDF, now preserved on server | Prior full review reused, with targeted cross-edition checks. Not counted as a new internet download. |
 
-The complete annual IBO editions available for this synthesis are **2022, 2023, 2025 and 2026**. With the 2010 precursor, there are five complete reports totaling 802 physical PDF pages, plus the separate 38-slide preview. Some PDF pages hold two printed pages. These totals do not count partial documents as complete.
+The complete annual IBO editions available for this synthesis are **2022, 2023, 2025 and 2026**. With the 2010 precursor, there are five complete reports totaling 802 physical PDF pages, plus the separate 38-slide preview. Some PDF pages hold two printed pages. These totals do not count partial documents as complete. Update, 2026-10-12: the complete 2024 report, 121 PDF pages, is now also available.
 
-The search covered official IBO pages and releases, author/publisher material, public industry-association mirrors, indexed copies and Internet Archive captures. No membership was purchased, no access controls were bypassed and no personal details were submitted. Failure to locate a public copy does not establish that none exists. The most useful missing inputs are complete copies of 2021 and 2024.
+The search covered official IBO pages and releases, author/publisher material, public industry-association mirrors, indexed copies and Internet Archive captures. No membership was purchased, no access controls were bypassed and no personal details were submitted. Failure to locate a public copy does not establish that none exists. The most useful missing inputs were complete copies of 2021 and 2024. Since the user supplied 2024 on 2026-10-12, only the 2021 full report is missing.
 
 ### Reading coverage
 
@@ -113,7 +115,7 @@ This prevents using report-mention counts as the denominator for the app's 50% r
 
 ### Rights differ by source and edition
 
-Explicit broad reuse with attribution was located in the 2023 report, printed p.223; 2025, p.280; and 2026, p.285. Credit the source named in each item, such as IBO or Agronometrics and IBO. Equivalent permission was not established for the older material, 2022 or unavailable 2024 full text. Free reading does not by itself establish redistribution rights. The Scribd transcript and Italian Berry excerpts require their own source/rights review before inclusion in a public retrieval corpus. Original files remain private on the server.
+Explicit broad reuse with attribution was located in the 2023 report, printed p.223; 2025, p.280; and 2026, p.285. Credit the source named in each item, such as IBO or Agronometrics and IBO. Equivalent permission was not established for the older material, 2022 or unavailable 2024 full text. Free reading does not by itself establish redistribution rights. The Scribd transcript and Italian Berry excerpts require their own source/rights review before inclusion in a public retrieval corpus. Original files remain private on the server. Update, 2026-10-12: the complete 2024 report states the same reuse terms with attribution on printed p.235, PDF p.118 ("Source: International Blueberry Organization (IBO)"). 2022 permission is still not established.
 
 ## 4. Read-only comparison actually run
 
@@ -225,7 +227,7 @@ Before release, evaluate retrieval on a breeder-reviewed question set with held-
 
 ## 6. Implementation order and remaining prerequisites
 
-1. Complete source/rights review and recover the 2021 and 2024 full reports if the user can supply them or complete IBO's legitimate access process. This need not block a clearly bounded library from the verified complete sources.
+1. Complete source/rights review and recover the 2021 full report if the user can supply it or complete IBO's legitimate access process. The 2024 report was supplied and reviewed on 2026-10-12. This need not block a clearly bounded library from the verified complete sources.
 2. Curate regional claims and dated events, starting with the existing benchmark regions. Publish the evidence view before a chat interface. Keep the old benchmark and numerical model unchanged during this step.
 3. Investigate the regional freeze discrepancies with exact locations and suitable station or field observations. Register evaluation cases before tuning anything.
 4. Add a citation-first question interface when retrieval and evidence records meet the checks above.

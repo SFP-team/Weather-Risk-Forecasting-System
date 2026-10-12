@@ -54,8 +54,8 @@
         "managed_harvest_recall": 0.3333333333333333,
         "managed_harvest_precision": 0.75,
         "planting_assessed": 4,
-        "planting_recall": 0.25,
-        "planting_precision": 0.20833333333333331
+        "planting_recall": 0.08333333333333333,
+        "planting_precision": 0.0625
       }
     },
     "Peru, Chile and Mexico": {
@@ -85,20 +85,20 @@
         "system_mean_score": 0.9545454545454546,
         "system_exact": 10,
         "no_window": 0,
-        "clock_sites": 4,
+        "clock_sites": 5,
         "clock_bloom_midpoint_inside": null,
-        "clock_harvest_midpoint_inside": 1.0,
-        "clock_harvest_gap_months": 0.0,
-        "clock_harvest_recall": 0.7,
-        "clock_harvest_precision": 1.0,
-        "managed_sites": 7,
-        "managed_unconstrained": 2,
+        "clock_harvest_midpoint_inside": 0.8,
+        "clock_harvest_gap_months": 0.2,
+        "clock_harvest_recall": 0.6866666666666666,
+        "clock_harvest_precision": 0.9,
+        "managed_sites": 6,
+        "managed_unconstrained": 1,
         "managed_empty": 0,
-        "managed_harvest_recall": 0.8095238095238095,
-        "managed_harvest_precision": 0.7435374149659862,
-        "planting_assessed": 1,
-        "planting_recall": 0.0,
-        "planting_precision": 0.0
+        "managed_harvest_recall": 0.7777777777777777,
+        "managed_harvest_precision": 0.8396825396825397,
+        "planting_assessed": 2,
+        "planting_recall": 0.375,
+        "planting_precision": 0.375
       }
     },
     "Rest of world": {
@@ -128,17 +128,17 @@
         "system_mean_score": 0.6764705882352942,
         "system_exact": 8,
         "no_window": 0,
-        "clock_sites": 9,
+        "clock_sites": 10,
         "clock_bloom_midpoint_inside": 0.2,
-        "clock_harvest_midpoint_inside": 0.8888888888888888,
-        "clock_harvest_gap_months": 0.1111111111111111,
-        "clock_harvest_recall": 0.46904761904761905,
-        "clock_harvest_precision": 0.8518518518518517,
-        "managed_sites": 8,
+        "clock_harvest_midpoint_inside": 0.8,
+        "clock_harvest_gap_months": 0.2,
+        "clock_harvest_recall": 0.4671428571428572,
+        "clock_harvest_precision": 0.8666666666666666,
+        "managed_sites": 7,
         "managed_unconstrained": 0,
         "managed_empty": 0,
-        "managed_harvest_recall": 0.8908730158730159,
-        "managed_harvest_precision": 0.7663690476190477,
+        "managed_harvest_recall": 0.8752834467120181,
+        "managed_harvest_precision": 0.7568027210884354,
         "planting_assessed": 0,
         "planting_recall": null,
         "planting_precision": null
@@ -171,20 +171,20 @@
         "system_mean_score": 0.9705882352941176,
         "system_exact": 16,
         "no_window": 0,
-        "clock_sites": 14,
-        "clock_bloom_midpoint_inside": 0.7142857142857143,
-        "clock_harvest_midpoint_inside": 1.0,
-        "clock_harvest_gap_months": 0.0,
-        "clock_harvest_recall": 0.6119047619047618,
-        "clock_harvest_precision": 0.9642857142857143,
-        "managed_sites": 3,
+        "clock_sites": 15,
+        "clock_bloom_midpoint_inside": 0.7333333333333333,
+        "clock_harvest_midpoint_inside": 0.9333333333333333,
+        "clock_harvest_gap_months": 0.06666666666666667,
+        "clock_harvest_recall": 0.6377777777777778,
+        "clock_harvest_precision": 0.9222222222222222,
+        "managed_sites": 2,
         "managed_unconstrained": 0,
         "managed_empty": 0,
         "managed_harvest_recall": 1.0,
-        "managed_harvest_precision": 0.4166666666666667,
-        "planting_assessed": 14,
-        "planting_recall": 0.47619047619047616,
-        "planting_precision": 0.37499999999999994
+        "managed_harvest_precision": 0.375,
+        "planting_assessed": 15,
+        "planting_recall": 0.2833333333333333,
+        "planting_precision": 0.2277777777777778
       }
     },
     "All sites growing southern highbush": {
@@ -214,20 +214,20 @@
         "system_mean_score": 0.8586956521739131,
         "system_exact": 35,
         "no_window": 0,
-        "clock_sites": 27,
-        "clock_bloom_midpoint_inside": 0.6842105263157895,
-        "clock_harvest_midpoint_inside": 0.9259259259259259,
-        "clock_harvest_gap_months": 0.07407407407407407,
-        "clock_harvest_recall": 0.5341269841269841,
-        "clock_harvest_precision": 0.8888888888888888,
-        "managed_sites": 19,
-        "managed_unconstrained": 2,
+        "clock_sites": 30,
+        "clock_bloom_midpoint_inside": 0.7,
+        "clock_harvest_midpoint_inside": 0.8666666666666667,
+        "clock_harvest_gap_months": 0.13333333333333333,
+        "clock_harvest_recall": 0.5501587301587301,
+        "clock_harvest_precision": 0.8611111111111109,
+        "managed_sites": 16,
+        "managed_unconstrained": 1,
         "managed_empty": 0,
-        "managed_harvest_recall": 0.8137009189640768,
-        "managed_harvest_precision": 0.7150375939849624,
-        "planting_assessed": 15,
-        "planting_recall": 0.3777777777777777,
-        "planting_precision": 0.3277777777777777
+        "managed_harvest_recall": 0.7787698412698412,
+        "managed_harvest_precision": 0.7553571428571428,
+        "planting_assessed": 17,
+        "planting_recall": 0.21568627450980388,
+        "planting_precision": 0.21078431372549017
       }
     }
   },
@@ -668,23 +668,22 @@
             "Deciduous": 0
           },
           "status_counts": {
-            "complete": 2,
-            "chill_not_met": 13
+            "complete": 12,
+            "chill_not_met": 3
           },
           "chill_hours_mean": 86.46666666666667,
           "chill_portions_mean": 8.517333333333333,
           "window_source": "managed_cycle",
           "unconstrained": false,
           "clock_reasons": [
-            "The evergreen-majority system needs a management-defined crop calendar; the chill-triggered calendar and chill requirement do not apply.",
-            "Only 2/15 winters produce a chill-triggered calendar."
+            "The evergreen-majority system needs a management-defined crop calendar; the chill-triggered calendar and chill requirement do not apply."
           ],
           "calendar": {
-            "budbreak": "01-18",
-            "flowering_start": "01-28",
-            "flowering_end": "02-21",
-            "harvest_start": "03-22",
-            "harvest_end": "04-28"
+            "budbreak": "02-07",
+            "flowering_start": "02-13",
+            "flowering_end": "03-07",
+            "harvest_start": "04-02",
+            "harvest_end": "05-06"
           },
           "windows": {
             "bloom": [
@@ -955,86 +954,87 @@
             "Deciduous": 1
           },
           "status_counts": {
-            "complete": 9,
-            "chill_not_met": 6
+            "complete": 14,
+            "chill_not_met": 1
           },
           "chill_hours_mean": 116.53333333333333,
           "chill_portions_mean": 9.423333333333334,
-          "window_source": "managed_cycle",
+          "window_source": "chill_clock",
           "unconstrained": false,
-          "clock_reasons": [
-            "Only 9/15 winters produce a chill-triggered calendar."
-          ],
+          "clock_reasons": [],
           "calendar": {
-            "budbreak": "02-12",
-            "flowering_start": "02-18",
-            "flowering_end": "03-11",
-            "harvest_start": "04-02",
-            "harvest_end": "05-06"
+            "budbreak": "01-28",
+            "flowering_start": "02-04",
+            "flowering_end": "02-25",
+            "harvest_start": "03-21",
+            "harvest_end": "04-26"
           },
           "windows": {
             "bloom": [
-              1,
-              2,
+              2
+            ],
+            "harvest": [
               3,
+              4
+            ],
+            "planting_r_rule": [
               10,
               11,
               12
-            ],
-            "harvest": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              12
-            ],
-            "planting_r_rule": []
+            ]
           },
           "bloom": {
             "model_months": [
-              1,
-              2,
+              2
+            ],
+            "empty": false,
+            "recall": 0.3333333333333333,
+            "precision": 1.0,
+            "jaccard": 0.3333333333333333,
+            "midpoint_month": 2,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
+          },
+          "harvest": {
+            "model_months": [
               3,
+              4
+            ],
+            "empty": false,
+            "recall": 0.6666666666666666,
+            "precision": 1.0,
+            "jaccard": 0.6666666666666666,
+            "midpoint_month": 4,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
+          },
+          "peak_harvest": {
+            "model_months": [
+              3,
+              4
+            ],
+            "empty": false,
+            "recall": 1.0,
+            "precision": 1.0,
+            "jaccard": 1.0,
+            "midpoint_month": 4,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
+          },
+          "r_planting_rule": {
+            "model_months": [
               10,
               11,
               12
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.5,
-            "jaccard": 0.5
-          },
-          "harvest": {
-            "model_months": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              12
-            ],
-            "empty": false,
-            "recall": 1.0,
-            "precision": 0.5,
-            "jaccard": 0.5
-          },
-          "peak_harvest": {
-            "model_months": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              12
-            ],
-            "empty": false,
-            "recall": 1.0,
+            "recall": 0.3333333333333333,
             "precision": 0.3333333333333333,
-            "jaccard": 0.3333333333333333
+            "jaccard": 0.2
           },
-          "r_planting_rule": null,
-          "ranked_risks": [],
+          "ranked_risks": [
+            "harvest_heavy_rain"
+          ],
           "managed_recurring": [
             "disease_weather",
             "harvest_heavy_rain"
@@ -1248,8 +1248,7 @@
             "Deciduous": 1
           },
           "status_counts": {
-            "complete": 12,
-            "chill_not_met": 3
+            "complete": 15
           },
           "chill_hours_mean": 173.0,
           "chill_portions_mean": 14.670666666666666,
@@ -1257,23 +1256,22 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "02-03",
-            "flowering_start": "02-13",
-            "flowering_end": "03-05",
-            "harvest_start": "04-02",
-            "harvest_end": "05-06"
+            "budbreak": "01-21",
+            "flowering_start": "01-29",
+            "flowering_end": "02-23",
+            "harvest_start": "03-22",
+            "harvest_end": "04-29"
           },
           "windows": {
             "bloom": [
-              2,
-              3
+              1,
+              2
             ],
             "harvest": [
-              4,
-              5
+              3,
+              4
             ],
             "planting_r_rule": [
-              1,
               10,
               11,
               12
@@ -1281,21 +1279,21 @@
           },
           "bloom": {
             "model_months": [
-              2,
-              3
+              1,
+              2
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333,
+            "recall": 1.0,
+            "precision": 1.0,
+            "jaccard": 1.0,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "harvest": {
             "model_months": [
-              4,
-              5
+              3,
+              4
             ],
             "empty": false,
             "recall": 0.6666666666666666,
@@ -1307,28 +1305,27 @@
           },
           "peak_harvest": {
             "model_months": [
-              4,
-              5
+              3,
+              4
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333,
+            "recall": 1.0,
+            "precision": 1.0,
+            "jaccard": 1.0,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "r_planting_rule": {
             "model_months": [
-              1,
               10,
               11,
               12
             ],
             "empty": false,
-            "recall": 0.6666666666666666,
-            "precision": 0.5,
-            "jaccard": 0.4
+            "recall": 0.3333333333333333,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.2
           },
           "ranked_risks": [
             "harvest_heavy_rain"
@@ -1544,8 +1541,7 @@
             "Deciduous": 2
           },
           "status_counts": {
-            "complete": 14,
-            "chill_not_met": 1
+            "complete": 15
           },
           "chill_hours_mean": 209.66666666666666,
           "chill_portions_mean": 17.824666666666666,
@@ -1553,23 +1549,24 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "02-07",
-            "flowering_start": "02-17",
-            "flowering_end": "03-13",
-            "harvest_start": "04-06",
-            "harvest_end": "05-12"
+            "budbreak": "01-12",
+            "flowering_start": "01-25",
+            "flowering_end": "02-25",
+            "harvest_start": "03-24",
+            "harvest_end": "05-01"
           },
           "windows": {
             "bloom": [
-              2,
-              3
+              1,
+              2
             ],
             "harvest": [
+              3,
               4,
               5
             ],
             "planting_r_rule": [
-              1,
+              9,
               10,
               11,
               12
@@ -1577,54 +1574,56 @@
           },
           "bloom": {
             "model_months": [
-              2,
-              3
+              1,
+              2
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333,
-            "midpoint_month": 3,
-            "midpoint_inside": false,
-            "midpoint_gap_months": 1
+            "recall": 1.0,
+            "precision": 1.0,
+            "jaccard": 1.0,
+            "midpoint_month": 2,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
           },
           "harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
-            "recall": 0.6666666666666666,
+            "recall": 1.0,
             "precision": 1.0,
-            "jaccard": 0.6666666666666666,
+            "jaccard": 1.0,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "peak_harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333,
+            "recall": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "r_planting_rule": {
             "model_months": [
-              1,
+              9,
               10,
               11,
               12
             ],
             "empty": false,
-            "recall": 0.6666666666666666,
-            "precision": 0.5,
-            "jaccard": 0.4
+            "recall": 0.3333333333333333,
+            "precision": 0.25,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "harvest_heavy_rain"
@@ -1843,22 +1842,24 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-25",
-            "flowering_start": "02-04",
-            "flowering_end": "03-09",
-            "harvest_start": "04-06",
-            "harvest_end": "05-13"
+            "budbreak": "01-12",
+            "flowering_start": "01-25",
+            "flowering_end": "02-24",
+            "harvest_start": "03-27",
+            "harvest_end": "05-03"
           },
           "windows": {
             "bloom": [
-              2,
-              3
+              1,
+              2
             ],
             "harvest": [
+              3,
               4,
               5
             ],
             "planting_r_rule": [
+              9,
               10,
               11,
               12
@@ -1866,53 +1867,56 @@
           },
           "bloom": {
             "model_months": [
-              2,
-              3
+              1,
+              2
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "recall": 0.5,
+            "precision": 0.5,
+            "jaccard": 0.3333333333333333,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "peak_harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "r_planting_rule": {
             "model_months": [
+              9,
               10,
               11,
               12
             ],
             "empty": false,
             "recall": 0.3333333333333333,
-            "precision": 0.3333333333333333,
-            "jaccard": 0.2
+            "precision": 0.25,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -2139,22 +2143,24 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-24",
-            "flowering_start": "02-07",
-            "flowering_end": "03-09",
-            "harvest_start": "04-04",
-            "harvest_end": "05-12"
+            "budbreak": "01-06",
+            "flowering_start": "01-22",
+            "flowering_end": "02-24",
+            "harvest_start": "03-29",
+            "harvest_end": "05-10"
           },
           "windows": {
             "bloom": [
-              2,
-              3
+              1,
+              2
             ],
             "harvest": [
+              3,
               4,
               5
             ],
             "planting_r_rule": [
+              9,
               10,
               11,
               12
@@ -2162,53 +2168,56 @@
           },
           "bloom": {
             "model_months": [
-              2,
-              3
+              1,
+              2
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "recall": 0.5,
+            "precision": 0.5,
+            "jaccard": 0.3333333333333333,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "peak_harvest": {
             "model_months": [
+              3,
               4,
               5
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 4,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "r_planting_rule": {
             "model_months": [
+              9,
               10,
               11,
               12
             ],
             "empty": false,
             "recall": 0.3333333333333333,
-            "precision": 0.3333333333333333,
-            "jaccard": 0.2
+            "precision": 0.25,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -2421,11 +2430,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-12",
-            "flowering_start": "01-31",
-            "flowering_end": "03-10",
-            "harvest_start": "04-11",
-            "harvest_end": "05-20"
+            "budbreak": "12-24",
+            "flowering_start": "01-09",
+            "flowering_end": "03-07",
+            "harvest_start": "04-10",
+            "harvest_end": "05-19"
           },
           "windows": {
             "bloom": [
@@ -2440,8 +2449,7 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
@@ -2488,17 +2496,17 @@
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
-            "disease_weather"
+            "disease_weather",
+            "flowering_freeze"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -2709,14 +2717,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-04",
-            "flowering_start": "02-02",
-            "flowering_end": "03-14",
-            "harvest_start": "04-14",
-            "harvest_end": "05-21"
+            "budbreak": "12-22",
+            "flowering_start": "01-02",
+            "flowering_end": "03-10",
+            "harvest_start": "04-11",
+            "harvest_end": "05-20"
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3
             ],
@@ -2727,19 +2736,19 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.5,
-            "jaccard": 0.5,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.3333333333333333,
             "midpoint_month": 2,
             "midpoint_inside": false,
             "midpoint_gap_months": 1
@@ -2753,9 +2762,9 @@
             "recall": 0.3333333333333333,
             "precision": 0.5,
             "jaccard": 0.25,
-            "midpoint_month": 5,
-            "midpoint_inside": true,
-            "midpoint_gap_months": 0
+            "midpoint_month": 4,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 1
           },
           "peak_harvest": {
             "model_months": [
@@ -2766,21 +2775,20 @@
             "recall": 0.0,
             "precision": 0.0,
             "jaccard": 0.0,
-            "midpoint_month": 5,
+            "midpoint_month": 4,
             "midpoint_inside": false,
-            "midpoint_gap_months": 1
+            "midpoint_gap_months": 2
           },
           "r_planting_rule": {
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -3038,14 +3046,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-13",
-            "flowering_start": "02-03",
-            "flowering_end": "03-19",
-            "harvest_start": "04-21",
-            "harvest_end": "05-29"
+            "budbreak": "12-22",
+            "flowering_start": "01-09",
+            "flowering_end": "03-12",
+            "harvest_start": "04-18",
+            "harvest_end": "05-24"
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3
             ],
@@ -3056,19 +3065,19 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -3103,13 +3112,12 @@
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -3330,14 +3338,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-13",
-            "flowering_start": "02-02",
-            "flowering_end": "03-14",
-            "harvest_start": "04-13",
-            "harvest_end": "05-23"
+            "budbreak": "12-25",
+            "flowering_start": "01-12",
+            "flowering_end": "03-09",
+            "harvest_start": "04-12",
+            "harvest_end": "05-21"
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3
             ],
@@ -3348,19 +3357,19 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -3395,17 +3404,17 @@
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
-            "disease_weather"
+            "disease_weather",
+            "flowering_freeze"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -3607,17 +3616,17 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-06",
-            "flowering_start": "02-19",
-            "flowering_end": "04-03",
-            "harvest_start": "05-03",
-            "harvest_end": "06-09"
+            "budbreak": "12-27",
+            "flowering_start": "01-18",
+            "flowering_end": "03-30",
+            "harvest_start": "05-01",
+            "harvest_end": "06-06"
           },
           "windows": {
             "bloom": [
+              1,
               2,
-              3,
-              4
+              3
             ],
             "harvest": [
               5,
@@ -3626,23 +3635,22 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
             "model_months": [
+              1,
               2,
-              3,
-              4
+              3
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.6666666666666666,
-            "jaccard": 0.6666666666666666,
-            "midpoint_month": 3,
-            "midpoint_inside": true,
-            "midpoint_gap_months": 0
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.25,
+            "midpoint_month": 2,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 1
           },
           "harvest": {
             "model_months": [
@@ -3674,17 +3682,17 @@
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333
+            "recall": 0.25,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "harvest_heavy_rain",
-            "disease_weather"
+            "disease_weather",
+            "pollination_weather"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -3909,14 +3917,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-06",
-            "flowering_start": "02-15",
-            "flowering_end": "04-09",
-            "harvest_start": "05-06",
-            "harvest_end": "06-12"
+            "budbreak": "12-31",
+            "flowering_start": "01-31",
+            "flowering_end": "04-06",
+            "harvest_start": "05-04",
+            "harvest_end": "06-11"
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3,
               4
@@ -3934,14 +3943,15 @@
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3,
               4
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.6666666666666666,
-            "jaccard": 0.6666666666666666,
+            "precision": 0.5,
+            "jaccard": 0.5,
             "midpoint_month": 3,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -3986,8 +3996,9 @@
           },
           "ranked_risks": [
             "harvest_heavy_rain",
+            "disease_weather",
             "flowering_freeze",
-            "disease_weather"
+            "pollination_weather"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -4196,14 +4207,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-04",
-            "flowering_start": "02-11",
-            "flowering_end": "04-07",
-            "harvest_start": "05-05",
-            "harvest_end": "06-11"
+            "budbreak": "12-29",
+            "flowering_start": "01-31",
+            "flowering_end": "04-05",
+            "harvest_start": "05-03",
+            "harvest_end": "06-10"
           },
           "windows": {
             "bloom": [
+              1,
               2,
               3,
               4
@@ -4215,20 +4227,20 @@
             "planting_r_rule": [
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
             "model_months": [
+              1,
               2,
               3,
               4
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.6666666666666666,
-            "jaccard": 0.6666666666666666,
+            "precision": 0.5,
+            "jaccard": 0.5,
             "midpoint_month": 3,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -4263,19 +4275,18 @@
             "model_months": [
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333
+            "recall": 0.25,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "disease_weather",
             "harvest_heavy_rain",
             "flowering_freeze",
-            "bud_freeze"
+            "pollination_weather"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -4463,11 +4474,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-01",
-            "flowering_start": "01-21",
-            "flowering_end": "03-13",
-            "harvest_start": "04-16",
-            "harvest_end": "05-27"
+            "budbreak": "12-14",
+            "flowering_start": "01-03",
+            "flowering_end": "03-07",
+            "harvest_start": "04-15",
+            "harvest_end": "05-24"
           },
           "windows": {
             "bloom": [
@@ -4480,10 +4491,10 @@
               5
             ],
             "planting_r_rule": [
+              8,
               9,
               10,
-              11,
-              12
+              11
             ]
           },
           "bloom": {
@@ -4528,20 +4539,20 @@
           },
           "r_planting_rule": {
             "model_months": [
+              8,
               9,
               10,
-              11,
-              12
+              11
             ],
             "empty": false,
-            "recall": 0.5,
-            "precision": 0.5,
-            "jaccard": 0.3333333333333333
+            "recall": 0.25,
+            "precision": 0.25,
+            "jaccard": 0.14285714285714285
           },
           "ranked_risks": [
-            "harvest_heavy_rain",
             "disease_weather",
-            "flowering_freeze"
+            "flowering_freeze",
+            "harvest_heavy_rain"
           ],
           "managed_recurring": [
             "disease_weather",
@@ -4732,8 +4743,8 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "04-14",
-            "flowering_start": "04-30",
+            "budbreak": "04-12",
+            "flowering_start": "04-29",
             "flowering_end": "05-29",
             "harvest_start": "06-23",
             "harvest_end": "07-27"
@@ -5020,7 +5031,7 @@
             "flowering_start": "06-01",
             "flowering_end": "06-26",
             "harvest_start": "07-21",
-            "harvest_end": "08-28"
+            "harvest_end": "08-27"
           },
           "windows": {
             "bloom": [
@@ -5897,96 +5908,76 @@
             "Deciduous": 1
           },
           "status_counts": {
-            "complete": 11,
-            "chill_not_met": 4
+            "complete": 12,
+            "chill_not_met": 3
           },
           "chill_hours_mean": 149.6,
           "chill_portions_mean": 35.342000000000006,
-          "window_source": "managed_cycle",
-          "unconstrained": true,
-          "clock_reasons": [
-            "Only 11/15 winters produce a chill-triggered calendar."
-          ],
+          "window_source": "chill_clock",
+          "unconstrained": false,
+          "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-28",
-            "flowering_start": "09-09",
-            "flowering_end": "10-18",
-            "harvest_start": "11-17",
-            "harvest_end": "01-03"
+            "budbreak": "08-12",
+            "flowering_start": "08-27",
+            "flowering_end": "09-30",
+            "harvest_start": "11-09",
+            "harvest_end": "12-27"
           },
           "windows": {
             "bloom": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
               8,
-              9,
-              10,
-              11,
-              12
+              9
             ],
             "harvest": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
               11,
               12
             ],
-            "planting_r_rule": []
+            "planting_r_rule": [
+              4,
+              5,
+              6,
+              7
+            ]
           },
           "bloom": null,
           "harvest": {
             "model_months": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
               11,
               12
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.16666666666666666,
-            "jaccard": 0.16666666666666666
+            "recall": 0.5,
+            "precision": 0.5,
+            "jaccard": 0.3333333333333333,
+            "midpoint_month": 12,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 1
           },
           "peak_harvest": {
             "model_months": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
               11,
               12
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.16666666666666666,
-            "jaccard": 0.16666666666666666
+            "recall": 0.5,
+            "precision": 0.5,
+            "jaccard": 0.3333333333333333,
+            "midpoint_month": 12,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 1
           },
-          "r_planting_rule": null,
+          "r_planting_rule": {
+            "model_months": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "empty": false,
+            "recall": 0.75,
+            "precision": 0.75,
+            "jaccard": 0.6
+          },
           "ranked_risks": [],
           "managed_recurring": [
             "harvest_heavy_rain"
@@ -6154,8 +6145,7 @@
             "Deciduous": 15
           },
           "status_counts": {
-            "complete": 14,
-            "incomplete_stage_dates": 1
+            "complete": 15
           },
           "chill_hours_mean": 1130.4666666666667,
           "chill_portions_mean": 94.43599999999999,
@@ -6163,45 +6153,34 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-07",
-            "flowering_start": "09-08",
-            "flowering_end": "10-30",
-            "harvest_start": "12-01",
-            "harvest_end": "01-13"
+            "budbreak": "07-18",
+            "flowering_start": "08-20",
+            "flowering_end": "10-21",
+            "harvest_start": "11-27",
+            "harvest_end": "01-06"
           },
           "windows": {
             "bloom": [
+              8,
               9,
               10
             ],
             "harvest": [
               1,
+              11,
               12
             ],
             "planting_r_rule": [
               4,
               5,
-              6,
-              7
+              6
             ]
           },
           "bloom": null,
           "harvest": {
             "model_months": [
               1,
-              12
-            ],
-            "empty": false,
-            "recall": 0.6666666666666666,
-            "precision": 1.0,
-            "jaccard": 0.6666666666666666,
-            "midpoint_month": 12,
-            "midpoint_inside": true,
-            "midpoint_gap_months": 0
-          },
-          "peak_harvest": {
-            "model_months": [
-              1,
+              11,
               12
             ],
             "empty": false,
@@ -6212,10 +6191,22 @@
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
+          "peak_harvest": {
+            "model_months": [
+              1,
+              11,
+              12
+            ],
+            "empty": false,
+            "recall": 1.0,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
+            "midpoint_month": 12,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
+          },
           "r_planting_rule": null,
-          "ranked_risks": [
-            "fruit_severe_heat"
-          ],
+          "ranked_risks": [],
           "managed_recurring": [
             "fruit_severe_heat",
             "harvest_heavy_rain"
@@ -6394,26 +6385,27 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-15",
-            "flowering_start": "09-12",
-            "flowering_end": "11-02",
-            "harvest_start": "12-07",
-            "harvest_end": "01-19"
+            "budbreak": "07-04",
+            "flowering_start": "08-23",
+            "flowering_end": "10-24",
+            "harvest_start": "12-01",
+            "harvest_end": "01-12"
           },
           "windows": {
             "bloom": [
+              8,
               9,
-              10,
-              11
+              10
             ],
             "harvest": [
               1,
               12
             ],
             "planting_r_rule": [
+              3,
+              4,
               5,
-              6,
-              7
+              6
             ]
           },
           "bloom": null,
@@ -6617,14 +6609,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-02",
-            "flowering_start": "09-12",
-            "flowering_end": "11-10",
-            "harvest_start": "12-17",
-            "harvest_end": "01-29"
+            "budbreak": "06-20",
+            "flowering_start": "08-31",
+            "flowering_end": "11-01",
+            "harvest_start": "12-11",
+            "harvest_end": "01-25"
           },
           "windows": {
             "bloom": [
+              8,
               9,
               10,
               11
@@ -6634,10 +6627,9 @@
               12
             ],
             "planting_r_rule": [
+              3,
               4,
-              5,
-              6,
-              7
+              5
             ]
           },
           "bloom": null,
@@ -6849,8 +6841,7 @@
             "Deciduous": 15
           },
           "status_counts": {
-            "complete": 13,
-            "stage_gdd_not_met": 1,
+            "complete": 14,
             "incomplete_stage_dates": 1
           },
           "chill_hours_mean": 2017.3333333333333,
@@ -6859,11 +6850,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "09-07",
-            "flowering_start": "10-25",
-            "flowering_end": "12-17",
-            "harvest_start": "01-24",
-            "harvest_end": "04-03"
+            "budbreak": "06-29",
+            "flowering_start": "10-06",
+            "flowering_end": "12-10",
+            "harvest_start": "01-20",
+            "harvest_end": "03-29"
           },
           "windows": {
             "bloom": [
@@ -6874,14 +6865,12 @@
             "harvest": [
               1,
               2,
-              3,
-              4
+              3
             ],
             "planting_r_rule": [
-              5,
-              6,
-              7,
-              8
+              3,
+              4,
+              5
             ]
           },
           "bloom": null,
@@ -6889,13 +6878,12 @@
             "model_months": [
               1,
               2,
-              3,
-              4
+              3
             ],
             "empty": false,
-            "recall": 0.8,
+            "recall": 0.6,
             "precision": 1.0,
-            "jaccard": 0.8,
+            "jaccard": 0.6,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -6904,23 +6892,21 @@
             "model_months": [
               1,
               2,
-              3,
-              4
+              3
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.5,
-            "jaccard": 0.5,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 2,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
           "r_planting_rule": {
             "model_months": [
-              5,
-              6,
-              7,
-              8
+              3,
+              4,
+              5
             ],
             "empty": false,
             "recall": 0.0,
@@ -7734,14 +7720,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-14",
-            "flowering_start": "08-03",
-            "flowering_end": "09-20",
-            "harvest_start": "10-26",
-            "harvest_end": "12-11"
+            "budbreak": "06-26",
+            "flowering_start": "07-20",
+            "flowering_end": "09-12",
+            "harvest_start": "10-19",
+            "harvest_end": "12-09"
           },
           "windows": {
             "bloom": [
+              7,
               8,
               9
             ],
@@ -7753,19 +7740,19 @@
             "planting_r_rule": [
               3,
               4,
-              5,
-              6
+              5
             ]
           },
           "bloom": {
             "model_months": [
+              7,
               8,
               9
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.5,
-            "jaccard": 0.25,
+            "recall": 0.6666666666666666,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.5,
             "midpoint_month": 8,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -7980,14 +7967,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-14",
-            "flowering_start": "08-03",
-            "flowering_end": "09-20",
-            "harvest_start": "10-26",
-            "harvest_end": "12-11"
+            "budbreak": "06-26",
+            "flowering_start": "07-20",
+            "flowering_end": "09-12",
+            "harvest_start": "10-19",
+            "harvest_end": "12-09"
           },
           "windows": {
             "bloom": [
+              7,
               8,
               9
             ],
@@ -7999,12 +7987,12 @@
             "planting_r_rule": [
               3,
               4,
-              5,
-              6
+              5
             ]
           },
           "bloom": {
             "model_months": [
+              7,
               8,
               9
             ],
@@ -8048,8 +8036,7 @@
             "model_months": [
               3,
               4,
-              5,
-              6
+              5
             ],
             "empty": false,
             "recall": 0.0,
@@ -8252,14 +8239,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-19",
-            "flowering_start": "08-04",
-            "flowering_end": "09-17",
-            "harvest_start": "10-20",
-            "harvest_end": "11-30"
+            "budbreak": "07-02",
+            "flowering_start": "07-22",
+            "flowering_end": "09-07",
+            "harvest_start": "10-16",
+            "harvest_end": "11-27"
           },
           "windows": {
             "bloom": [
+              7,
               8,
               9
             ],
@@ -8268,6 +8256,7 @@
               11
             ],
             "planting_r_rule": [
+              3,
               4,
               5,
               6
@@ -8275,13 +8264,14 @@
           },
           "bloom": {
             "model_months": [
+              7,
               8,
               9
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.5,
-            "jaccard": 0.5,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.3333333333333333,
             "midpoint_month": 8,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -8704,14 +8694,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-07",
-            "flowering_start": "08-02",
-            "flowering_end": "09-13",
-            "harvest_start": "10-22",
-            "harvest_end": "12-17"
+            "budbreak": "06-18",
+            "flowering_start": "07-13",
+            "flowering_end": "09-09",
+            "harvest_start": "10-19",
+            "harvest_end": "12-12"
           },
           "windows": {
             "bloom": [
+              7,
               8,
               9
             ],
@@ -8723,19 +8714,19 @@
             "planting_r_rule": [
               3,
               4,
-              5,
-              6
+              5
             ]
           },
           "bloom": {
             "model_months": [
+              7,
               8,
               9
             ],
             "empty": false,
             "recall": 0.5,
-            "precision": 1.0,
-            "jaccard": 0.5,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.4,
             "midpoint_month": 8,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -8759,13 +8750,12 @@
             "model_months": [
               3,
               4,
-              5,
-              6
+              5
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -8968,14 +8958,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-24",
-            "flowering_start": "08-15",
-            "flowering_end": "09-23",
-            "harvest_start": "10-29",
-            "harvest_end": "12-15"
+            "budbreak": "07-08",
+            "flowering_start": "07-26",
+            "flowering_end": "09-07",
+            "harvest_start": "10-18",
+            "harvest_end": "12-10"
           },
           "windows": {
             "bloom": [
+              7,
               8,
               9
             ],
@@ -8985,6 +8976,7 @@
               12
             ],
             "planting_r_rule": [
+              3,
               4,
               5,
               6
@@ -8992,14 +8984,15 @@
           },
           "bloom": {
             "model_months": [
+              7,
               8,
               9
             ],
             "empty": false,
             "recall": 0.6666666666666666,
-            "precision": 1.0,
-            "jaccard": 0.6666666666666666,
-            "midpoint_month": 9,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.5,
+            "midpoint_month": 8,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -9033,14 +9026,15 @@
           },
           "r_planting_rule": {
             "model_months": [
+              3,
               4,
               5,
               6
             ],
             "empty": false,
             "recall": 0.3333333333333333,
-            "precision": 0.3333333333333333,
-            "jaccard": 0.2
+            "precision": 0.25,
+            "jaccard": 0.16666666666666666
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -9232,11 +9226,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "07-06",
-            "flowering_start": "07-31",
-            "flowering_end": "09-11",
-            "harvest_start": "10-22",
-            "harvest_end": "12-16"
+            "budbreak": "06-24",
+            "flowering_start": "07-13",
+            "flowering_end": "09-03",
+            "harvest_start": "10-16",
+            "harvest_end": "12-10"
           },
           "windows": {
             "bloom": [
@@ -9252,8 +9246,7 @@
             "planting_r_rule": [
               3,
               4,
-              5,
-              6
+              5
             ]
           },
           "bloom": {
@@ -9289,13 +9282,12 @@
             "model_months": [
               3,
               4,
-              5,
-              6
+              5
             ],
             "empty": false,
-            "recall": 0.3333333333333333,
-            "precision": 0.25,
-            "jaccard": 0.16666666666666666
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0
           },
           "ranked_risks": [
             "harvest_heavy_rain",
@@ -9428,7 +9420,8 @@
             "Deciduous": 0
           },
           "status_counts": {
-            "chill_not_met": 15
+            "chill_not_met": 13,
+            "complete": 2
           },
           "chill_hours_mean": 18.4,
           "chill_portions_mean": 2.064666666666666,
@@ -9437,14 +9430,14 @@
           "clock_reasons": [
             "Between the tropics the hemisphere-fixed winter window does not define a dormancy season; production cycles are managed.",
             "The evergreen-majority system needs a management-defined crop calendar; the chill-triggered calendar and chill requirement do not apply.",
-            "Only 0/15 winters produce a chill-triggered calendar."
+            "Only 2/15 winters produce a chill-triggered calendar."
           ],
           "calendar": {
-            "budbreak": null,
-            "flowering_start": null,
-            "flowering_end": null,
-            "harvest_start": null,
-            "harvest_end": null
+            "budbreak": "08-08",
+            "flowering_start": "08-15",
+            "flowering_end": "09-04",
+            "harvest_start": "09-26",
+            "harvest_end": "11-02"
           },
           "windows": {
             "bloom": [
@@ -9687,14 +9680,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "01-29",
-            "flowering_start": "03-02",
-            "flowering_end": "04-12",
-            "harvest_start": "05-15",
-            "harvest_end": "06-22"
+            "budbreak": "01-23",
+            "flowering_start": "02-15",
+            "flowering_end": "04-06",
+            "harvest_start": "05-09",
+            "harvest_end": "06-17"
           },
           "windows": {
             "bloom": [
+              2,
               3,
               4
             ],
@@ -9710,13 +9704,14 @@
           },
           "bloom": {
             "model_months": [
+              2,
               3,
               4
             ],
             "empty": false,
-            "recall": 0.0,
-            "precision": 0.0,
-            "jaccard": 0.0,
+            "recall": 0.5,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.25,
             "midpoint_month": 3,
             "midpoint_inside": false,
             "midpoint_gap_months": 1
@@ -9730,7 +9725,7 @@
             "recall": 0.2857142857142857,
             "precision": 1.0,
             "jaccard": 0.2857142857142857,
-            "midpoint_month": 6,
+            "midpoint_month": 5,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -9743,9 +9738,9 @@
             "recall": 0.5,
             "precision": 0.5,
             "jaccard": 0.3333333333333333,
-            "midpoint_month": 6,
-            "midpoint_inside": false,
-            "midpoint_gap_months": 1
+            "midpoint_month": 5,
+            "midpoint_inside": true,
+            "midpoint_gap_months": 0
           },
           "r_planting_rule": null,
           "ranked_risks": [],
@@ -9908,8 +9903,7 @@
             "Deciduous": 3
           },
           "status_counts": {
-            "complete": 13,
-            "chill_not_met": 2
+            "complete": 15
           },
           "chill_hours_mean": 214.86666666666667,
           "chill_portions_mean": 58.25733333333333,
@@ -9917,24 +9911,25 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "02-18",
-            "flowering_start": "03-08",
-            "flowering_end": "04-17",
-            "harvest_start": "05-19",
-            "harvest_end": "07-04"
+            "budbreak": "02-11",
+            "flowering_start": "02-24",
+            "flowering_end": "04-09",
+            "harvest_start": "05-15",
+            "harvest_end": "06-30"
           },
           "windows": {
             "bloom": [
+              2,
               3,
               4
             ],
             "harvest": [
               5,
-              6,
-              7
+              6
             ],
             "planting_r_rule": [
               1,
+              10,
               11,
               12
             ]
@@ -9943,13 +9938,12 @@
           "harvest": {
             "model_months": [
               5,
-              6,
-              7
+              6
             ],
             "empty": false,
             "recall": 0.6666666666666666,
-            "precision": 0.6666666666666666,
-            "jaccard": 0.5,
+            "precision": 1.0,
+            "jaccard": 0.6666666666666666,
             "midpoint_month": 6,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
@@ -9957,13 +9951,12 @@
           "peak_harvest": {
             "model_months": [
               5,
-              6,
-              7
+              6
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 0.3333333333333333,
-            "jaccard": 0.3333333333333333,
+            "precision": 0.5,
+            "jaccard": 0.5,
             "midpoint_month": 6,
             "midpoint_inside": false,
             "midpoint_gap_months": 1
@@ -10116,11 +10109,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "02-25",
-            "flowering_start": "03-23",
+            "budbreak": "02-11",
+            "flowering_start": "03-16",
             "flowering_end": "05-11",
-            "harvest_start": "06-12",
-            "harvest_end": "07-21"
+            "harvest_start": "06-11",
+            "harvest_end": "07-20"
           },
           "windows": {
             "bloom": [
@@ -10134,6 +10127,7 @@
             ],
             "planting_r_rule": [
               1,
+              10,
               11,
               12
             ]
@@ -10148,7 +10142,7 @@
             "recall": 0.5,
             "precision": 1.0,
             "jaccard": 0.5,
-            "midpoint_month": 7,
+            "midpoint_month": 6,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -10522,8 +10516,8 @@
             "Deciduous": 0
           },
           "status_counts": {
-            "chill_not_met": 13,
-            "complete": 2
+            "complete": 6,
+            "chill_not_met": 9
           },
           "chill_hours_mean": 47.53333333333333,
           "chill_portions_mean": 14.834666666666667,
@@ -10531,14 +10525,14 @@
           "unconstrained": false,
           "clock_reasons": [
             "The evergreen-majority system needs a management-defined crop calendar; the chill-triggered calendar and chill requirement do not apply.",
-            "Only 2/15 winters produce a chill-triggered calendar."
+            "Only 6/15 winters produce a chill-triggered calendar."
           ],
           "calendar": {
-            "budbreak": "03-03",
-            "flowering_start": "03-12",
-            "flowering_end": "04-09",
-            "harvest_start": "05-08",
-            "harvest_end": "06-11"
+            "budbreak": "02-26",
+            "flowering_start": "03-08",
+            "flowering_end": "04-01",
+            "harvest_start": "05-04",
+            "harvest_end": "06-07"
           },
           "windows": {
             "bloom": [
@@ -11025,8 +11019,7 @@
             "Deciduous": 15
           },
           "status_counts": {
-            "complete": 14,
-            "incomplete_stage_dates": 1
+            "complete": 15
           },
           "chill_hours_mean": 1133.6,
           "chill_portions_mean": 91.72066666666666,
@@ -11034,50 +11027,53 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-11",
-            "flowering_start": "09-13",
-            "flowering_end": "10-29",
-            "harvest_start": "12-05",
-            "harvest_end": "01-18"
+            "budbreak": "06-26",
+            "flowering_start": "08-11",
+            "flowering_end": "10-15",
+            "harvest_start": "11-23",
+            "harvest_end": "01-06"
           },
           "windows": {
             "bloom": [
+              8,
               9,
               10
             ],
             "harvest": [
               1,
+              11,
               12
             ],
             "planting_r_rule": [
+              3,
               4,
-              5,
-              6,
-              7
+              5
             ]
           },
           "bloom": {
             "model_months": [
+              8,
               9,
               10
             ],
             "empty": false,
-            "recall": 0.0,
-            "precision": 0.0,
-            "jaccard": 0.0,
-            "midpoint_month": 10,
+            "recall": 1.0,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.3333333333333333,
+            "midpoint_month": 9,
             "midpoint_inside": false,
-            "midpoint_gap_months": 2
+            "midpoint_gap_months": 1
           },
           "harvest": {
             "model_months": [
               1,
+              11,
               12
             ],
             "empty": false,
-            "recall": 0.0,
-            "precision": 0.0,
-            "jaccard": 0.0,
+            "recall": 0.25,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.16666666666666666,
             "midpoint_month": 12,
             "midpoint_inside": false,
             "midpoint_gap_months": 1
@@ -11085,6 +11081,7 @@
           "peak_harvest": {
             "model_months": [
               1,
+              11,
               12
             ],
             "empty": false,
@@ -11255,72 +11252,71 @@
             "Deciduous": 0
           },
           "status_counts": {
-            "complete": 10,
-            "chill_not_met": 5
+            "complete": 15
           },
           "chill_hours_mean": 137.26666666666668,
           "chill_portions_mean": 13.747999999999998,
-          "window_source": "managed_cycle",
+          "window_source": "chill_clock",
           "unconstrained": false,
-          "clock_reasons": [
-            "Only 10/15 winters produce a chill-triggered calendar."
-          ],
+          "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-09",
-            "flowering_start": "08-19",
-            "flowering_end": "09-16",
-            "harvest_start": "10-12",
-            "harvest_end": "11-21"
+            "budbreak": "07-14",
+            "flowering_start": "07-29",
+            "flowering_end": "08-31",
+            "harvest_start": "09-29",
+            "harvest_end": "11-09"
           },
           "windows": {
             "bloom": [
+              7,
+              8
+            ],
+            "harvest": [
+              9,
+              10,
+              11
+            ],
+            "planting_r_rule": [
               3,
               4,
               5,
-              6,
-              7
-            ],
-            "harvest": [
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ],
-            "planting_r_rule": []
+              6
+            ]
           },
           "bloom": null,
           "harvest": {
             "model_months": [
-              5,
-              6,
-              7,
-              8,
               9,
-              10
+              10,
+              11
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.8333333333333334,
-            "jaccard": 0.8333333333333334
+            "recall": 0.2,
+            "precision": 0.3333333333333333,
+            "jaccard": 0.14285714285714285,
+            "midpoint_month": 10,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 1
           },
           "peak_harvest": {
             "model_months": [
-              5,
-              6,
-              7,
-              8,
               9,
-              10
+              10,
+              11
             ],
             "empty": false,
-            "recall": 1.0,
-            "precision": 0.3333333333333333,
-            "jaccard": 0.3333333333333333
+            "recall": 0.0,
+            "precision": 0.0,
+            "jaccard": 0.0,
+            "midpoint_month": 10,
+            "midpoint_inside": false,
+            "midpoint_gap_months": 2
           },
           "r_planting_rule": null,
-          "ranked_risks": [],
+          "ranked_risks": [
+            "harvest_heavy_rain",
+            "fruit_severe_heat"
+          ],
           "managed_recurring": []
         }
       },
@@ -11703,22 +11699,22 @@
             "Deciduous": 0
           },
           "status_counts": {
-            "chill_not_met": 14,
-            "complete": 1
+            "complete": 8,
+            "chill_not_met": 7
           },
           "chill_hours_mean": 58.2,
           "chill_portions_mean": 91.22399999999999,
           "window_source": "managed_cycle",
           "unconstrained": false,
           "clock_reasons": [
-            "Only 1/15 winters produce a chill-triggered calendar."
+            "Only 8/15 winters produce a chill-triggered calendar."
           ],
           "calendar": {
-            "budbreak": "09-22",
-            "flowering_start": "10-09",
-            "flowering_end": "11-20",
-            "harvest_start": "12-30",
-            "harvest_end": "02-21"
+            "budbreak": "10-03",
+            "flowering_start": "10-20",
+            "flowering_end": "12-03",
+            "harvest_start": "01-08",
+            "harvest_end": "03-09"
           },
           "windows": {
             "bloom": [
@@ -11808,9 +11804,7 @@
             "jaccard": 0.16666666666666666
           },
           "r_planting_rule": null,
-          "ranked_risks": [
-            "chill_shortfall"
-          ],
+          "ranked_risks": [],
           "managed_recurring": [
             "disease_weather",
             "harvest_heavy_rain",
@@ -11992,14 +11986,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "08-19",
-            "flowering_start": "09-06",
-            "flowering_end": "10-27",
-            "harvest_start": "12-07",
-            "harvest_end": "01-30"
+            "budbreak": "07-28",
+            "flowering_start": "08-22",
+            "flowering_end": "10-20",
+            "harvest_start": "12-01",
+            "harvest_end": "01-26"
           },
           "windows": {
             "bloom": [
+              8,
               9,
               10
             ],
@@ -12008,21 +12003,22 @@
               12
             ],
             "planting_r_rule": [
+              4,
               5,
-              6,
-              7
+              6
             ]
           },
           "bloom": {
             "model_months": [
+              8,
               9,
               10
             ],
             "empty": false,
             "recall": 1.0,
-            "precision": 1.0,
-            "jaccard": 1.0,
-            "midpoint_month": 10,
+            "precision": 0.6666666666666666,
+            "jaccard": 0.6666666666666666,
+            "midpoint_month": 9,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -12035,7 +12031,7 @@
             "recall": 0.3333333333333333,
             "precision": 1.0,
             "jaccard": 0.3333333333333333,
-            "midpoint_month": 1,
+            "midpoint_month": 12,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -12048,7 +12044,7 @@
             "recall": 0.4,
             "precision": 1.0,
             "jaccard": 0.4,
-            "midpoint_month": 1,
+            "midpoint_month": 12,
             "midpoint_inside": true,
             "midpoint_gap_months": 0
           },
@@ -12246,11 +12242,11 @@
             "Between the tropics the hemisphere-fixed winter window does not define a dormancy season; production cycles are managed."
           ],
           "calendar": {
-            "budbreak": "02-05",
-            "flowering_start": "02-18",
-            "flowering_end": "03-23",
-            "harvest_start": "04-22",
-            "harvest_end": "06-01"
+            "budbreak": "02-01",
+            "flowering_start": "02-14",
+            "flowering_end": "03-19",
+            "harvest_start": "04-19",
+            "harvest_end": "05-31"
           },
           "windows": {
             "bloom": [
@@ -12470,14 +12466,15 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "04-21",
-            "flowering_start": "05-02",
-            "flowering_end": "05-27",
-            "harvest_start": "06-20",
-            "harvest_end": "07-24"
+            "budbreak": "04-17",
+            "flowering_start": "04-30",
+            "flowering_end": "05-26",
+            "harvest_start": "06-19",
+            "harvest_end": "07-23"
           },
           "windows": {
             "bloom": [
+              4,
               5
             ],
             "harvest": [
@@ -12686,7 +12683,7 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "05-11",
+            "budbreak": "05-10",
             "flowering_start": "05-21",
             "flowering_end": "06-15",
             "harvest_start": "07-08",
@@ -12917,10 +12914,10 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "05-12",
-            "flowering_start": "05-24",
+            "budbreak": "05-09",
+            "flowering_start": "05-23",
             "flowering_end": "06-20",
-            "harvest_start": "07-20",
+            "harvest_start": "07-19",
             "harvest_end": "09-02"
           },
           "windows": {
@@ -13172,11 +13169,11 @@
           "unconstrained": false,
           "clock_reasons": [],
           "calendar": {
-            "budbreak": "05-10",
-            "flowering_start": "05-23",
-            "flowering_end": "06-22",
-            "harvest_start": "07-23",
-            "harvest_end": "09-15"
+            "budbreak": "05-06",
+            "flowering_start": "05-20",
+            "flowering_end": "06-19",
+            "harvest_start": "07-21",
+            "harvest_end": "09-13"
           },
           "windows": {
             "bloom": [
@@ -13416,8 +13413,7 @@
             "Deciduous": 2
           },
           "status_counts": {
-            "complete": 14,
-            "chill_not_met": 1
+            "complete": 15
           },
           "chill_hours_mean": 177.6,
           "chill_portions_mean": 9.665333333333335,
@@ -13427,11 +13423,11 @@
             "Between the tropics the hemisphere-fixed winter window does not define a dormancy season; production cycles are managed."
           ],
           "calendar": {
-            "budbreak": "08-03",
-            "flowering_start": "08-13",
-            "flowering_end": "09-10",
-            "harvest_start": "10-06",
-            "harvest_end": "11-11"
+            "budbreak": "07-22",
+            "flowering_start": "07-31",
+            "flowering_end": "08-30",
+            "harvest_start": "09-28",
+            "harvest_end": "11-06"
           },
           "windows": {
             "bloom": [
