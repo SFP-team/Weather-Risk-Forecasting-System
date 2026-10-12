@@ -223,7 +223,9 @@ This card concerns the establishment of nursery plants. It does not describe bud
 
 Current guidance covers selected registered locations in Florida, Georgia, and Santa Catarina.
 
-An arbitrary pin can lack planting guidance even inside one of those regions. Place-name matching does not automatically assign planting guidance.
+Only saved locations in those regions receive this guidance. Any other coordinate shows "Planting guide unavailable", even inside Florida. Place-name matching does not assign planting guidance.
+
+The displayed windows come from home-garden extension guides. UF/IFAS commercial guidance (HS1525, July 2026) advises planting during the early-spring and fall root-growth periods. It also reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting.
 
 "No regional window" means the app has no supported planting recommendation for this result. It does not mean planting is impossible.
 
@@ -342,7 +344,7 @@ The current sequence is:
 
 These are current assumptions, not universal blueberry requirements.
 
-The harvest-end requirement is especially uncertain. It was derived from an older Waldo calendar, not fitted directly to observed harvest-end dates.
+Three requirements (85, 633 and 1,242 GDD) were translated from an older fixed-day calendar at Waldo, Florida. The 633 GDD value agrees with one Chilean on-farm season. The harvest-end requirement is especially uncertain. It was not fitted to observed harvest-end dates.
 
 The budbreak search stops 450 days after the winter start. Later stage searches have a 300-day limit from their relevant anchor.
 
@@ -509,7 +511,7 @@ The scan also shows percentages of affected stage days. Always read the denomina
 | Disease-favourable weather | At least one day reaches a high infection-model index during the relevant stages. | Grid humidity estimates wetness. Pathogen presence and disease incidence are not measured. |
 | Pollination gap | At least four flowering days in succession with no qualifying honey bee flight hour. | This is a temperature screen, not observed pollination failure. |
 
-Honey bee flight hours use temperatures of at least 12.8 °C during the model's daytime interval, 09:00 to 17:00 local solar time.
+Honey bee flight hours use temperatures of at least 12.8 °C during the model's daytime interval, 09:00 to 17:00 local time. The model approximates local time as UTC plus longitude/15 hours, rounded to whole hours.
 
 Wind, rain, and cloud do not enter this hourly flight estimate. Other pollinators can behave differently.
 
@@ -604,9 +606,9 @@ The exact per-winter status is more precise than a short summary label. These wo
 | Unavailable | No usable value is supplied for that field. Several causes are possible. | Read its reason and inspect Methods & data. |
 | Hourly analysis unavailable | The required hourly series is absent or unavailable. | Use supported daily climate measures. Do not infer a crop calendar. |
 | No supported calendar | Calendar conditions or inputs do not qualify. | Inspect winter status and the model assumptions. |
-| Chill requirement not reached | Available temperatures did not meet the selected chill threshold. | Check crop suitability of the threshold. Do not fill in dates manually. |
-| Heat requirement not reached | The model did not reach a stage within its search limit. | Check crop settings and whether the grid represents the field. |
-| Incomplete stage dates | Needed temperature data are missing, including beyond the archive end. | Identify the missing date. Separate archive limits from cold-limited development. |
+| Chill requirement not met | Available temperatures did not meet the selected chill threshold. | Check crop suitability of the threshold. Do not fill in dates manually. |
+| Heat requirement not reached, or Stage heat requirement not reached | The model did not reach budbreak or a later stage within its search limit. | Check crop settings and whether the grid represents the field. |
+| Incomplete temperature history after budbreak | Needed temperature data are missing, including beyond the archive end. | Identify the missing date. Separate archive limits from cold-limited development. |
 | No favourable start | No scan candidate survives the evidence and selection rules. | Inspect complete cycles, stalled cycles, and recurring exclusions. |
 | Not assessed or Not ranked | Evidence or applicability does not support that result. | Do not read this as low risk. |
 | None ranked | No winter-risk assessment passes all reporting gates. | Read the excluded assessments. A rare severe event may still matter. |

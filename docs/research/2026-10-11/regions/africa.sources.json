@@ -1,0 +1,2861 @@
+{
+  "slug": "africa",
+  "generated_on": "2026-10-11",
+  "scope": "Blueberry information sources for South Africa, Zimbabwe, Namibia, Kenya, Zambia, Tanzania, Egypt and Tunisia (Morocco excluded), with pan-African weather access notes",
+  "sources": [
+    {
+      "id": "za-steyn-2022-msc-thesis",
+      "name": "Steyn (2022) MSc thesis: Investigating plant growth dynamics of selected southern highbush blueberry cultivars under South African growing conditions",
+      "publisher": "Stellenbosch University (SUNScholar repository)",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape: Hex River valley (33.617 S, 19.492 E, 263 m)",
+        "Western Cape: Wolseley (33.485 S, 19.167 E, 248 m)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice",
+        "research_literature",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://scholar.sun.ac.za/server/api/core/bitstreams/47824860-fa96-4626-b2b2-da6439d6a8f4/content",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "af"
+      ],
+      "temporal_coverage": "2020 and 2021 seasons (orchards planted May 2019)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "site coordinates and altitude",
+        "cultivar (8-42, 9-02)",
+        "date of 50% flowering by cultivar and year",
+        "date of 90% flowering",
+        "peak harvest date",
+        "first harvest timing (end July / early August)",
+        "flowering span (April to October)",
+        "pruning date (last week of November 2019 and 2020)",
+        "beehive placement and removal dates (11 May to 7 September 2020)",
+        "net type and height (20% white net, 4.5 m and 3.5 m)",
+        "long-term site climate (July mean minimum 9.8 C Wolseley, 11 C Hex River)",
+        "weather station used (iLeaf, Hortec)"
+      ],
+      "app_uses": [
+        "calibrate an evergreen managed-cycle window anchored on late-November pruning for za-wc-wolseley",
+        "replace the Wolseley town-centre benchmark coordinate with the trial coordinate",
+        "test GDD from 50% flowering to peak harvest (about 110 days in 2020 for 8-42)",
+        "add pollination-window evidence (hives in May to September)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management",
+        "cultivar",
+        "pollination",
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Full PDF text extracted. Table 1 gives 50% flowering 7 July 2020 and 9 July 2021 (8-42), 21 July 2020 and 6 July 2021 (9-02); 90% flowering 1 Sep 2020, 31 Aug 2021, 14 Sep 2020, 2 Sep 2021; peak harvest 26 Oct 2020, 25 Oct 2021, 9 Nov 2020, 27 Oct 2021. Methods give coordinates, altitudes, net, planting May 2019 and pruning in the last week of November. The scholar.sun.ac.za /bitstreams/.../download URL returned 403; the /server/api/core/bitstreams/.../content URL worked."
+      },
+      "quality_caveats": "Two cultivars, two sites, two seasons; commercial blocks under 20% white net; full Scientia Horticulturae 2023 paper still behind ScienceDirect. Station weather is described but not tabulated in the text extract.",
+      "priority": "P1",
+      "priority_reason": "The only open, dated, cultivar-specific stage observations found for any African site, and it closes the Wolseley pruning-date gap.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "za-sunscholar-blueberry-theses",
+      "name": "SUNScholar: Stellenbosch University blueberry theses (for example Swart 2015 harvest scheduling near George)",
+      "publisher": "Stellenbosch University",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape: George"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "phenology_observation",
+        "management_practice",
+        "cultivar_trial"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://scholar.sun.ac.za/items/0e481f6a-c00c-43de-af79-e17825f99886",
+      "data_urls": [],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en",
+        "af"
+      ],
+      "temporal_coverage": "2010s to present (Swart trial seasons 2010 onward)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "thesis title, author, year",
+        "trial site and cultivar",
+        "budbreak and first-flower dates",
+        "rest-breaking agent product, rate and date",
+        "harvest dates by cultivar"
+      ],
+      "app_uses": [
+        "add George chill-shortfall and cyanamide timing evidence to the management layer",
+        "seed a reviewed list of South African theses for the RAG library"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Item page for Swart 2015 opened; it lists swart_harvest_2015.pdf (2.06 MB) and the English abstract (George too few chill units; Dormex trial on Bluecrisp, Emerald and Star over two seasons). Repository-wide search for other blueberry theses was not run."
+      },
+      "quality_caveats": "Theses are single sites and few seasons. Repository returns 403 or 429 on some bitstream URLs.",
+      "priority": "P2",
+      "priority_reason": "Primary trial data for the George benchmark site; Swart is already partly used.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "za-wcdoa-weather-station-portal",
+      "name": "Western Cape Department of Agriculture Weather Station Data Portal",
+      "publisher": "Western Cape Department of Agriculture (WCDoA)",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://gis.elsenburg.com/apps/wsp/",
+      "data_urls": [
+        "https://gis.elsenburg.com/apps/wsp/php/getstations.php",
+        "https://gis.elsenburg.com/apps/wsp/php/getdaily.php",
+        "https://gis.elsenburg.com/apps/wsp/php/gethourlyall.php",
+        "https://gis.elsenburg.com/apps/wsp/php/getmonthly.php"
+      ],
+      "format": [
+        "api-json",
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "station-dependent; archive start not stated on the portal",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Portal text: 'Data is not verified and is used at own risk. It is important to note that only South African Weather Services (SAWS) data can be used for official purposes.'",
+      "license_url": null,
+      "extractable_fields": [
+        "station_id, station_name, latitude, longitude, altitude",
+        "daily: LogDate, AvgTemp, MinTemp, MaxTemp, Radiation, Windspeed, Rainfall, Humidity, PenmanEto, LeafWetness, SHrs",
+        "hourly: Date, Time, Type, Temp, Rainfall, Humidity, Wind Spd, Wind Dir, Radiation, ETO, Sun Hours"
+      ],
+      "app_uses": [
+        "measure the MERRA-2 and POWER Tmin bias at Hex River (Veldreserwe, about 2 km from the Steyn trial) and George (George PP, about 4 km)",
+        "confirm the late-August 2024 Western Cape frost (Veldreserwe minimum -1.93 C on 29 Aug 2024)",
+        "hourly leaf wetness and humidity for Botrytis and anthracnose index checks"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "disease",
+        "harvest_rain_quality",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Portal page opened; getstations.php returned 37 stations with coordinates and altitude; one getdaily.php call for Veldreserwe 2024-08-20 to 2024-09-08 returned the daily fields listed, including MinTemp -1.93 on 2024-08-29."
+      },
+      "quality_caveats": "Unverified data by the portal's own statement; only 37 stations listed; no station near Wolseley town (nearest Veldreserwe about 32 km). POST-based PHP endpoints are undocumented and may change.",
+      "priority": "P1",
+      "priority_reason": "Free hourly temperature, humidity and leaf wetness next to two benchmark sites, with a confirmed frost record.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "za-wcdoa-capefarmmapper-crops",
+      "name": "CapeFarmMapper 3 (Crops 2023, 2017/18 and 2013/14 census layers)",
+      "publisher": "Western Cape Department of Agriculture",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://gis.elsenburg.com/apps/cfm/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2013/14, 2017/18 and 2023 census iterations",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "CFM disclaimer: 'The information provided on this website comes from multiple sources, and its accuracy is not guaranteed.'",
+      "license_url": null,
+      "extractable_fields": [
+        "crop layer per field polygon (Crops 2023, 2017/18, 2013/14)",
+        "zonal statistics by selected area",
+        "land type memoirs",
+        "cadastral and ward demarcation"
+      ],
+      "app_uses": [
+        "map where Western Cape blueberry blocks are and pick representative grid cells",
+        "weight Western Cape cells by blueberry area instead of town centres"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CFM 3 page opened; the zonal statistics selector lists 'Crops 2023', 'Crops 2017/18' and 'Crops 2013/14'. Whether the blueberry class can be exported as polygons was not tested."
+      },
+      "quality_caveats": "Interactive viewer; bulk export of crop polygons not confirmed; farm-level polygons may be sensitive.",
+      "priority": "P2",
+      "priority_reason": "Only farm-level blueberry location data found in Africa, but extraction route is unproven.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "za-wcdoa-commodity-mapping-2023",
+      "name": "WCDoA: The Mapping of Agricultural Commodity Production and Infrastructure (flyover census 2023), Final Report Part 1",
+      "publisher": "Western Cape Department of Agriculture",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "land_use_or_orchard_census",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.elsenburg.com/wp-content/uploads/2024/03/WCDoA-Mapping-of-Agricultural-Commodity-Final-Report-Part-1.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2013, 2017 and 2023 census iterations",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "crop category",
+        "crop",
+        "hectares 2013, 2017, 2023",
+        "percent change",
+        "comparison with industry figure and source (Berries ZA 2023)"
+      ],
+      "app_uses": [
+        "Western Cape blueberry area trend for weighting and context (465 ha 2013, 824 ha 2017, 1,762 ha 2023)"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF text extracted. Blueberries row: 465 ha (2013), 824 ha (2017), 1,762 ha (2023), +114%. A second table compares 1,762 ha with Berries ZA 2023 figure 1,432 ha (+23%), noting not all producers are Berries ZA members."
+      },
+      "quality_caveats": "Aerial census; differs from industry figures; province totals in the text extract, district split not checked.",
+      "priority": "P2",
+      "priority_reason": "Official area census with three time points.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-wcdoa-media-releases",
+      "name": "WCDoA media releases on weather damage (for example flood damage estimate, 14 July 2023)",
+      "publisher": "Western Cape Department of Agriculture",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape: West Coast, Cape Winelands, Overberg"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.elsenburg.com/damage-to-western-cape-agriculture-infrastructure-estimated-at-r1-053-billion/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2021 to present on elsenburg.com (older not checked)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "release date",
+        "event window",
+        "assessment dates (26 to 30 June 2023)",
+        "districts affected",
+        "damage by category in ZAR (irrigation, fencing, rehabilitation, crop losses, lost wages)"
+      ],
+      "app_uses": [
+        "date-stamp Western Cape flood events (June 2023, September 2023, May 2026) for harvest_heavy_rain and winter flood checks"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Release of 14 July 2023 opened: rapid assessment 26-30 June 2023; crop losses R278 million; rehabilitation R748 million; irrigation R7.7 million."
+      },
+      "quality_caveats": "All-crop totals, no blueberry split; preliminary estimates revised later.",
+      "priority": "P2",
+      "priority_reason": "Official dated damage records for the main blueberry province.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-ndmc-disaster-classifications",
+      "name": "National Disaster Management Centre and COGTA disaster classification notices",
+      "publisher": "NDMC / Department of Cooperative Governance and Traditional Affairs",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape",
+        "Eastern Cape",
+        "Free State",
+        "Northern Cape",
+        "North West",
+        "Mpumalanga"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ndmc.gov.za/",
+      "data_urls": [
+        "https://www.cogta.gov.za/index.php/2026/05/10/the-classification-of-the-recent-severe-weather-events-as-a-national-disaster/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2002 Act onward; notices irregular",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "classification date",
+        "legal basis (Section 23(1)(b) Disaster Management Act)",
+        "event start date",
+        "provinces",
+        "hazard types"
+      ],
+      "app_uses": [
+        "label disaster-scale rain and flood years for Western Cape cells (2023, May 2026)"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "ndmc.gov.za homepage and its Publication and Annual Reports pages opened but listed no notices in the HTML. The COGTA 10 May 2026 classification page failed with a TLS certificate error; its content (national disaster from 4 May 2026) was seen only in search results."
+      },
+      "quality_caveats": "Notices are in the Government Gazette and on several sites; no machine-readable list found.",
+      "priority": "P3",
+      "priority_reason": "Useful labels but coarse and hard to harvest.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-sars-trade-stats",
+      "name": "SARS Trade Statistics data download wizard",
+      "publisher": "South African Revenue Service",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://tools.sars.gov.za/tradestatsportal/data_download.aspx",
+      "data_urls": [
+        "https://www.sars.gov.za/customs-and-excise/trade-statistics/"
+      ],
+      "format": [
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2010 to 2026, monthly",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found (SARS policy SC-GP-15 governs disclosure; not opened)",
+      "license_url": null,
+      "extractable_fields": [
+        "TradeType",
+        "YearMonth",
+        "Tariff",
+        "TariffAndDescription",
+        "CountryOfDestination / CountryOfDestinationName",
+        "CountryOfOrigin / CountryOfOriginName",
+        "StatisticalUnit",
+        "StatisticalQuantity",
+        "CustomsValue",
+        "TransportCode / TransportCodeDescription",
+        "DistrictOfficeCode / DistrictOfficeName"
+      ],
+      "app_uses": [
+        "monthly South African blueberry exports and imports by partner (HS 0810.40) to date harvest peaks",
+        "monthly imports from Zimbabwe and Zambia to test the GAIN June/July statement"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Wizard page opened; field list and years 2010-2026 seen. No query was submitted (form submission avoided)."
+      },
+      "quality_caveats": "HS 0810.40 covers all Vaccinium (cranberries, bilberries, blueberries); national only; customs month, not harvest week; BETA download limits.",
+      "priority": "P1",
+      "priority_reason": "Official monthly trade series with partner detail, free, back to 2010.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "za-ppecb-annual-reports",
+      "name": "PPECB Annual Reports (operations report: volumes inspected by commodity)",
+      "publisher": "Perishable Products Export Control Board",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://annualreports.ppecb.com/2324/part-3-departmental-reports/operations-report/",
+      "data_urls": [
+        "https://annualreports.ppecb.com/2425/wp-content/uploads/2025/08/01_PPECB_AR_24_digital.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2023/24 onward with a separate blueberry row (earlier years in 'other fruit')",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "PPECB site terms: contents and statistics 'may not be reproduced in any form without written permission from PPECB'",
+      "license_url": "https://ppecb.com/wp-content/files/2023/11/PPECB-Website-Privacy-Policy-202311.pdf",
+      "extractable_fields": [
+        "commodity",
+        "volumes inspected (cartons)",
+        "budget",
+        "variance",
+        "narrative on market shares and cold-chain trials"
+      ],
+      "app_uses": [
+        "annual export-volume context for South African seasons (7,867,772 cartons in the 2023/24 report)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2023/24 operations report HTML opened: 'Blueberries (cartons) * 7 867 772', footnote 'Blueberries previously included in other fruit'. The 2024/25 PDF was seen only in search results (8,301,540 cartons)."
+      },
+      "quality_caveats": "Annual only; carton sizes vary; reuse needs written permission.",
+      "priority": "P3",
+      "priority_reason": "Annual totals add little beyond SARS and GAIN.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "za-ppecb-intellex",
+      "name": "PPECB Intellex export and inspection data",
+      "publisher": "Perishable Products Export Control Board",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ppecb.com/",
+      "data_urls": [
+        "https://ppecb.com/intellex-report-login/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "PPECB site terms: statistical pages 'may not be re-distributed to any other Party without written permission from PPECB'",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "possible weekly inspected blueberry volumes by region or port to date harvest peaks"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage says Intellex 'provides online access to up-to-date export and inspection data' with free access 'for a limited time'. The login page redirected to 'Forbidden: Visitors from your country are not permitted'. Update frequency 'weekly' is an [inference]."
+      },
+      "quality_caveats": "Geo-blocked from the US; registration; redistribution not allowed.",
+      "priority": "P2",
+      "priority_reason": "Potentially the best weekly South African series, but blocked and restricted.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-berriesza-member-reports",
+      "name": "Berries ZA export reports, Top 10 planted varieties by province, Research output, Berry Brief",
+      "publisher": "Berries ZA (with AgriHub)",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "by province (variety report)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "cultivar_traits",
+        "industry_report",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.berriesza.co.za/market-access/export-reports/",
+      "data_urls": [
+        "https://www.berriesza.co.za/research-tech-hub/top-10-planted-varieties-in-sa/",
+        "https://www.berriesza.co.za/research-tech-hub/research-output/",
+        "https://www.berriesza.co.za/berry-brief/status-report/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown (site rebuilt 2026; older PDFs such as the 2019 economic report now return 404)",
+      "update_frequency": "weekly",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen: pages describe shipment volumes, destination markets, logistics activity, top ten varieties by hectare per province"
+      ],
+      "app_uses": [
+        "weekly export volume by week to date national peaks",
+        "variety mix by province for cultivar classes"
+      ],
+      "model_families": [
+        "market_timing",
+        "cultivar",
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "All four pages opened but show 'Get access to this content: Login | Register / Apply to become a Member'. The variety page says it ranks the top ten varieties by hectare per province and north versus south. 'weekly' frequency is an [inference] from 'regular reporting on shipment volumes'."
+      },
+      "quality_caveats": "Member-only; terms unknown; an institutional request is needed.",
+      "priority": "P2",
+      "priority_reason": "Highest-value South African industry data, but closed.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-berriesza-ongoing-research",
+      "name": "Berries ZA Ongoing research page (Botrytis spore and weather project and others)",
+      "publisher": "Berries ZA",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "pest_disease_advisory",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.berriesza.co.za/research-tech-hub/ongoing-research/",
+      "data_urls": [
+        "https://www.berriesza.co.za/wp-content/uploads/2026/07/BerriesZA_Research__Development_Framework.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current projects 2024 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "project title",
+        "lead researcher and institution",
+        "pathogen or pest",
+        "planned completion"
+      ],
+      "app_uses": [
+        "track the Stellenbosch Botrytis spore-trap project that links weather to infection risk; candidate validation data for the Botrytis index"
+      ],
+      "model_families": [
+        "disease"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: Botrytis project (Prof. Karin Jacobs) measures spores to identify weather factors linked to infection risk, due 2026; also Alternaria, nursery fungi, thrips nets, SWD postharvest."
+      },
+      "quality_caveats": "Project summaries only; results not public yet.",
+      "priority": "P2",
+      "priority_reason": "Only African lead found for weather-linked Botrytis data.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "za-usda-gain-blueberry",
+      "name": "USDA FAS GAIN South Africa blueberry reports (SF2026-0027, 12 Aug 2026; June 2020 report)",
+      "publisher": "USDA Foreign Agricultural Service, Pretoria",
+      "countries": [
+        "ZA",
+        "ZW",
+        "ZM"
+      ],
+      "subnational_scope": [
+        "Western Cape",
+        "Limpopo",
+        "Northern Cape",
+        "Gauteng"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=South%20African%20Blueberry%20Market%20Analysis_Pretoria_South%20Africa%20-%20Republic%20of_SF2026-0027.pdf",
+      "data_urls": [
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=South+African+Blueberry+Industry+Continues+Strong+Growth_Pretoria_South+Africa+-+Republic+of_06-25-2020"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "MY 2014/15 to 2025/26",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "US federal work; no licence statement seen (public domain status not stated in the report)",
+      "license_url": null,
+      "extractable_fields": [
+        "area planted by marketing year",
+        "production and yield",
+        "exports and imports by marketing year",
+        "export share by market",
+        "provincial production shares",
+        "harvest window by region",
+        "import source and peak (Zimbabwe June/July)"
+      ],
+      "app_uses": [
+        "regional harvest windows for the benchmark",
+        "national frost-year flag (MY 2024/25 frost in the north)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing",
+        "fruit_frost"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2026 PDF converted and read: 38,900 t MY2025/26; area peak 3,800 ha MY2022/23, 2,650 ha MY2025/26; WC 60%, Limpopo 15%, Northern Cape 10%, Gauteng 8%; imports mainly from Zimbabwe, 'peak season for Zimbabwe blueberries is June/July'."
+      },
+      "quality_caveats": "Secondary compilation from Berries ZA and Trade Data Monitor; the Zimbabwe peak sentence is about South African imports.",
+      "priority": "P1",
+      "priority_reason": "Free, citable, recent national summary; resolves context for the Zimbabwe conflict.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "za-dalrrd-abstract-agric-stats",
+      "name": "Abstract of Agricultural Statistics 2025 (Table 41 Strawberries and other berries)",
+      "publisher": "Department of Agriculture (formerly DALRRD), Directorate Statistics and Economic Analysis",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics",
+        "market_prices"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.nda.gov.za/index.php/publication/332-statistical-abstract",
+      "data_urls": [
+        "https://www.nda.gov.za/images/Branches/Economica%20Development%20Trade%20and%20Marketing/Statistc%20and%20%20Economic%20Analysis/economic-analysis/abstract-2025.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1995/96 to 2023/24 (October to September years)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "other berries total production (t)",
+        "gross value",
+        "purchases for processing volume and price"
+      ],
+      "app_uses": [
+        "reference only; blueberries are not named in the 'other berries' footnote"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF opened (TLS certificate chain error required an unverified fetch). Table 41 'Other berries' footnote lists gooseberries, loganberries, blackberries, youngberries, boysenberries and raspberries; 2023/24 other berries 8,097 t."
+      },
+      "quality_caveats": "Blueberries apparently excluded or unlabelled; national annual only.",
+      "priority": "P3",
+      "priority_reason": "Answers the brief question; not useful for the model.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "za-fruit-sa",
+      "name": "Fruit SA (umbrella body)",
+      "publisher": "Fruit SA NPC",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://fruitsa.co.za/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "n/a",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "member association links (Berries ZA, Hortgro, FPEF)"
+      ],
+      "app_uses": [
+        "none directly; route to Berries ZA and FPEF/AgriHub"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened; lists Berries ZA as member and AgriHub, PPECB and DALRRD as affiliates; no blueberry statistics seen."
+      },
+      "quality_caveats": "No blueberry data found.",
+      "priority": "P3",
+      "priority_reason": "Gateway only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "za-saws-climate",
+      "name": "South African Weather Service climate data and Climate Summary of South Africa",
+      "publisher": "South African Weather Service (SAWS)",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.weathersa.co.za/",
+      "data_urls": [
+        "https://journals.co.za/journal/cssa",
+        "https://nccis.saeon.ac.za/?page_id=631"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Climate Summary January 2006 to March 2025 per search snippet; station archives longer",
+      "update_frequency": "monthly",
+      "access": "paid",
+      "license_or_terms": "SAWS distinguishes free 'Public Good' products from fee-based 'Commercial' products (NCCIS page)",
+      "license_url": null,
+      "extractable_fields": [
+        "monthly highlights and impacts",
+        "sequence of weather events",
+        "rainfall maps",
+        "station statistics"
+      ],
+      "app_uses": [
+        "dated frost, hail and flood events for RAG event records",
+        "official station data for bias checks if purchased"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "harvest_rain_quality",
+        "heat"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "weathersa.co.za returns a 632-byte JavaScript shell; journals.co.za/journal/cssa returned 403; the SAEON NCCIS page opened and describes free versus commercial SAWS products."
+      },
+      "quality_caveats": "Station data are fee-based for most users; Climate Summary archive sits on a Sabinet platform.",
+      "priority": "P2",
+      "priority_reason": "Authoritative, but access cost and JS walls.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-arc-agroclimate-portal",
+      "name": "ARC Agro-climatology Web Data Portal (ARC-NRE weather station network)",
+      "publisher": "Agricultural Research Council, Natural Resources and Engineering",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.agroclimate.agric.za/WP/WP/About.php",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "station-dependent; portal states 1,900 stations with 460 active AWS (search snippet)",
+      "update_frequency": "daily",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly air temperature, relative humidity, rainfall, solar radiation, wind (per ARC flyer, search snippet)"
+      ],
+      "app_uses": [
+        "hourly station series near Limpopo and Mpumalanga farms (Tzaneen, Mooketsi) where no free network exists"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "disease"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "About page of the portal opened (4,966 bytes); station counts and pricing were seen only in search results; no data screens opened."
+      },
+      "quality_caveats": "Paid outside academia per search results; not verified on the portal.",
+      "priority": "P2",
+      "priority_reason": "Only dense station network covering the northern provinces.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-landbou-news",
+      "name": "Landbou.com (Landbouweekblad) news archive, Afrikaans",
+      "publisher": "Media24 / Landbou",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.landbou.com/weer/kaapse-storms-lei-tot-sterftes-ontwrigting-en-reuse-skade-20260513-1197",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "af"
+      ],
+      "temporal_coverage": "2010s to present (articles from 2017 seen in search)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "article date",
+        "place names",
+        "rainfall totals reported",
+        "farms affected (for example Belblu blueberry farm near Wolseley)"
+      ],
+      "app_uses": [
+        "event records for Western Cape floods and frosts in Afrikaans sources"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "fruit_frost"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "13 May 2026 article opened: 425-480 mm in the Rawsonville town area, about 625 mm near Klipdrift; 'Belblu, 'n bloubessie plaas buite Wolseley het ook onder die vloed deurgeloop'. Netwerk24 links are paywalled."
+      },
+      "quality_caveats": "Journalism; some content behind Netwerk24 paywall; copyright.",
+      "priority": "P2",
+      "priority_reason": "Afrikaans farm-level event detail not found elsewhere.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "za-santam-crop-insurance",
+      "name": "Santam Agriculture crop insurance pages",
+      "publisher": "Santam",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.santam.co.za/products/agriculture/crop-insurance/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "n/a",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "product types (hail, fire, multi-peril)"
+      ],
+      "app_uses": [
+        "none; no open loss data"
+      ],
+      "model_families": [
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen only in search results; no open claims or loss data were found for any insurer."
+      },
+      "quality_caveats": "No public loss tables.",
+      "priority": "P3",
+      "priority_reason": "Documents the insurance gap.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "zw-msd-dekadal-agromet",
+      "name": "Meteorological Services Department Dekadal Agromet Bulletin",
+      "publisher": "Meteorological Services Department of Zimbabwe (MSD)",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [
+        "all provinces; stations include Marondera, Wedza, Mutoko, Chivhu (Mashonaland East), Belvedere and Kutsaga (Harare)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.weatherzw.org.zw/products/dekadal-agromet-bulletin/",
+      "data_urls": [
+        "https://www.weatherzw.org.zw/documents/889/Agromet_Bulletin_23-06-2026.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2024 to 2026 online (41 bulletins listed); older not online",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "province",
+        "cloud (oktas)",
+        "Gmin (grass minimum)",
+        "minimum and maximum temperature",
+        "relative humidity range",
+        "10-day rainfall total",
+        "wind direction and speed",
+        "evaporation",
+        "sunshine hours",
+        "narrative list of frost-affected places"
+      ],
+      "app_uses": [
+        "check modelled winter frost and chill at Marondera against station minima and grass minima",
+        "date wet late-season spells (for example 2022 late rain, 2025 wet February to May)"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "chill_dormancy",
+        "harvest_rain_quality",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Listing page and the 11-20 June 2026 bulletin opened; PDF text extracted. Table includes Marondera (Gmin E, min 0, max 24, RH 18-100%, rain 000) and Chivhu ground-frost narrative."
+      },
+      "quality_caveats": "Dekadal (10-day) aggregates only; 'E' marks missing values; short online archive; frequency is every 10 days (coded weekly as nearest option).",
+      "priority": "P1",
+      "priority_reason": "Free station minima at Marondera, the Zimbabwe benchmark site.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "zw-hdc-zbga",
+      "name": "Horticultural Development Council, Zimbabwe Berry Growers Association page",
+      "publisher": "Horticultural Development Council (HDC)",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [
+        "Mashonaland East",
+        "Mashonaland West",
+        "Mashonaland Central"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdczim.com/member-associations/zimbabwe-berry-growers-association-zbga/",
+      "data_urls": [
+        "https://www.hdczim.com/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "provinces where blueberries are grown"
+      ],
+      "app_uses": [
+        "extend Zimbabwe regional polygon from 'within 100 km of Harare' to three Mashonaland provinces"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page says blueberries are grown in Mashonaland East, West and Central. hdc.co.zw does not resolve; the body uses hdczim.com."
+      },
+      "quality_caveats": "Thin page; no statistics.",
+      "priority": "P2",
+      "priority_reason": "Official industry statement of where Zimbabwe grows blueberries.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "zw-hdc-ibo-opinion-2026",
+      "name": "Linda Nielsen (HDC CEO), 'Zimbabwe's blueberry boom keeps building momentum' (IBO website, 5 June 2026; republished by FreshFruitPortal)",
+      "publisher": "International Blueberry Organization / FreshFruitPortal",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.freshfruitportal.com/news/2026/06/15/zimbabwe-blueberry-boom/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/2026/06/05/zimbabwes-blueberry-boom-keeps-building-momentum/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2024 to 2026 seasons",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "export season months (April to October)",
+        "share harvested from August (around 60 percent)",
+        "2025 exports (about 9,500 t) and area (about 1,600 acres)",
+        "2026 projections",
+        "season timing note (2025 later than usual)"
+      ],
+      "app_uses": [
+        "resolve the Zimbabwe peak conflict",
+        "record that 2025 matured later and 2024 earlier"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "FreshFruitPortal copy opened and read; it cites the IBO original."
+      },
+      "quality_caveats": "Industry body opinion; area figure in acres differs from IBO's 650-710 ha figures.",
+      "priority": "P1",
+      "priority_reason": "Direct statement from the national body that most volume is harvested from August.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "zw-zimtrade",
+      "name": "ZimTrade trade information portal",
+      "publisher": "ZimTrade",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.zimtrade.co.zw/",
+      "data_urls": [
+        "https://www.zimtrade.co.zw/?s=blueberries"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "news items on China market access and trade fairs"
+      ],
+      "app_uses": [
+        "context only"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage and site search for 'blueberries' opened; results were trade-fair and China tariff articles; no blueberry statistics found. The horticulture sector URL returned 404."
+      },
+      "quality_caveats": "No series found; ZimTrade figures appear in press (for example horticulture exports US$181.7 million in 2025) without a primary table.",
+      "priority": "P3",
+      "priority_reason": "No extractable data found.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "zw-press-herald-tvbrics",
+      "name": "Zimbabwe export press (The Herald via TV BRICS / Zimbabwe Situation, 24 Aug 2026)",
+      "publisher": "Zimbabwe Situation (republishing TV BRICS and The Herald)",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.zimbabwesituation.com/news/zimbabwes-blueberry-exports-surge-as-shipments-to-china-expand/",
+      "data_urls": [
+        "https://www.heraldonline.co.zw/blueberry-exports-surge-76pc-in-h1/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2025 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "H1 export value and volume (US$3.8 million, 1.9 million kg Jan-Jun 2026)",
+        "harvest window (mid-March to end October)",
+        "export window (May to October)",
+        "shipment peak (around September)",
+        "area (650 ha 2025; about 800 ha 2026)"
+      ],
+      "app_uses": [
+        "supporting evidence for the September shipment peak"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Zimbabwe Situation copy opened; The Herald original returned 403."
+      },
+      "quality_caveats": "Secondary news chain; figures attributed to a June 2026 update without a primary table.",
+      "priority": "P3",
+      "priority_reason": "Corroborating only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "zw-zimstat",
+      "name": "Zimbabwe National Statistics Agency (ZIMSTAT)",
+      "publisher": "ZIMSTAT",
+      "countries": [
+        "ZW"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.zimstat.co.zw/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "possible monthly external trade tables by product"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage request timed out twice. 'monthly' is an [inference]."
+      },
+      "quality_caveats": "Unverified.",
+      "priority": "P3",
+      "priority_reason": "Could not open.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "zw-ibo-2024-excerpt-italianberry",
+      "name": "Italian Berry summary of IBO 2024 report: Zimbabwe, Namibia and Zambia",
+      "publisher": "Italian Berry",
+      "countries": [
+        "ZW",
+        "NA",
+        "ZM"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://italianberry.it/en/news/zimbabwe-namibia-zambia-africa-blueberries",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "it"
+      ],
+      "temporal_coverage": "IBO 2024 edition",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Zimbabwe season months and peak",
+        "hail week 43 2023",
+        "Namibia project locations and frost",
+        "Zambia production areas (Lusaka, Mkushi, Livingstone)"
+      ],
+      "app_uses": [
+        "fills the IBO 2024 edition gap in the IBO library"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "fruit_frost",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page fetched (HTTP 200, title matches); content previously used by the benchmark registry; Zambia and Namibia sentences seen in search snippets."
+      },
+      "quality_caveats": "Secondary summary of a paid IBO edition; same author network as IBO.",
+      "priority": "P3",
+      "priority_reason": "Already used; adds the missing 2024 edition only indirectly.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "eu-eurostat-comext-ds045409",
+      "name": "Eurostat Comext DS-045409 (EU trade since 1988 by CN8), monthly imports of CN 0810 40 50 by partner",
+      "publisher": "Eurostat",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409",
+      "data_urls": [
+        "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&freq=M&reporter=EU27_2020&partner=ZW&product=08104050&flow=1&indicators=QUANTITY_IN_100KG&sinceTimePeriod=2022-01"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1988 to present, monthly",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Eurostat copyright notice: reuse of statistical data 'for commercial or non-commercial purposes is authorised provided the source is acknowledged'; editorial content CC BY 4.0",
+      "license_url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+      "extractable_fields": [
+        "reporter",
+        "partner",
+        "product (CN8 08104050: fruit of V. macrocarpon and V. corymbosum)",
+        "flow",
+        "period (YYYY-MM)",
+        "QUANTITY_IN_100KG",
+        "VALUE_IN_EUROS"
+      ],
+      "app_uses": [
+        "monthly arrival curves for Zimbabwe, South Africa, Namibia, Zambia, Egypt and Kenya to date national harvest peaks and year shifts",
+        "test the Zimbabwe peak conflict"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API calls returned monthly EU27 import quantities for ZW, ZA, NA, KE, ZM and EG. Example ZW 2024: Aug 208 t, Sep 976 t, Oct 1,898 t, Nov 295 t."
+      },
+      "quality_caveats": "Arrival month lags harvest by shipping time; CN 08104050 includes cranberries; EU only (UK separate since 2021).",
+      "priority": "P1",
+      "priority_reason": "Free monthly mirror series for every small African exporter with no national data.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uk-hmrc-ots-api",
+      "name": "HMRC uktradeinfo OTS API (monthly UK imports by CN8 and country)",
+      "publisher": "HM Revenue and Customs",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://api.uktradeinfo.com/",
+      "data_urls": [
+        "https://api.uktradeinfo.com/OTS?$filter=CommodityId%20eq%208104050%20and%20CountryId%20eq%20382%20and%20MonthId%20ge%20202201"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly; at least 2022 to 2026 checked",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Open Government Licence v3.0",
+      "license_url": "https://www.uktradeinfo.com/",
+      "extractable_fields": [
+        "MonthId",
+        "FlowTypeId",
+        "CommodityId (8104050)",
+        "CountryId (382 Zimbabwe)",
+        "NetMass (kg)",
+        "Value (GBP)"
+      ],
+      "app_uses": [
+        "UK arrival curve for South African and Zimbabwean fruit"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API returned 32 rows for Zimbabwe since 2022; 2024 UK imports: Aug 40.2 t, Sep 89.6 t, Oct 70.5 t."
+      },
+      "quality_caveats": "UK only; small volumes from Zimbabwe; arrival not harvest month.",
+      "priority": "P2",
+      "priority_reason": "Complements Comext for the UK market.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "un-comtrade-preview-api",
+      "name": "UN Comtrade public preview API (monthly HS 081040 by reporter and partner)",
+      "publisher": "United Nations Statistics Division",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://comtradeplus.un.org/",
+      "data_urls": [
+        "https://comtradeapi.un.org/public/v1/preview/C/M/HS?reporterCode=710&period=202406&partnerCode=716&cmdCode=081040&flowCode=M"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly data where reporters supply it",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "reporterCode",
+        "partnerCode",
+        "period",
+        "cmdCode",
+        "flowCode",
+        "netWgt",
+        "primaryValue"
+      ],
+      "app_uses": [
+        "South African monthly imports from Zimbabwe (June 2024 129.7 t; Aug 2024 46.3 t; Oct 2024 13.0 t) to explain the GAIN June/July statement"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Three single-period preview calls succeeded; the preview allows one period per call and returned HTTP 429 when called fast. Terms page not opened."
+      },
+      "quality_caveats": "Preview limits; HS6 includes cranberries; full API needs a free key [inference].",
+      "priority": "P2",
+      "priority_reason": "Fills partner-month gaps when SARS download is not used.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "na-sasscal-weathernet-mashare",
+      "name": "SASSCAL WeatherNet (station Mashare, Kavango East, and Bagani near Divundu)",
+      "publisher": "Southern African Science Service Centre for Climate Change and Adaptive Land Management (SASSCAL)",
+      "countries": [
+        "NA",
+        "ZM",
+        "BW",
+        "AO",
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Kavango East: Mashare (17.898 S, 20.212 E, 1065 m)",
+        "Kavango East / Zambezi: Bagani"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.sasscalweathernet.org/",
+      "data_urls": [
+        "https://www.sasscalweathernet.org/weatherstat_infosheet_we.php?loggerid_crit=31195",
+        "https://www.sasscalweathernet.org/weatherstat_daily_we.php?loggerid_crit=31195",
+        "https://www.sasscalweathernet.org/weatherstat_hourly_we.php?loggerid_crit=31195"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Mashare: first data 17 Feb 2012 to present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (site has Imprint and Data protection pages only)",
+      "license_url": null,
+      "extractable_fields": [
+        "Date",
+        "Air temp (avg, min, max)",
+        "Precip (total)",
+        "Wind speed and direction (avg, max)",
+        "Surface temp (avg)",
+        "Humidity (avg)",
+        "Barometric pressure",
+        "Solar irradiance (avg, sum)",
+        "Leaf wetness (avg)",
+        "CSV export per month"
+      ],
+      "app_uses": [
+        "validate the 2023 and 2024 Kavango frosts reported by IBO (NA-KAV) against grid Tmin",
+        "bias-correct the Rundu cell"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "heat",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Station info sheet and October 2026 daily table opened (TLS hostname mismatch required an unverified fetch). Mashare installed 17 Feb 2012, moved 4 Mar 2018; daily CSV link 'DAILY-SUMMARY-Mashare-2026-10.csv' shown."
+      },
+      "quality_caveats": "Research network; gaps and decommissioned stations; data-use terms not stated; Mashare station is at the same locality as the Mashare blueberry project, exact distance unknown.",
+      "priority": "P1",
+      "priority_reason": "Free hourly station data at the Namibian blueberry locality where IBO reports damaging frosts.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "na-nab-horticulture-stats",
+      "name": "Namibian Agronomic Board horticulture statistics",
+      "publisher": "Namibian Agronomic Board (NAB)",
+      "countries": [
+        "NA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.nab.com.na/horticulture/horticulture-statistics/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2010/11 to 2018/19",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "grape export tonnage and value",
+        "top ten local purchases and imports",
+        "horticulture totals"
+      ],
+      "app_uses": [
+        "none for blueberries"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened; tables stop at 2018/19 and have no blueberry rows."
+      },
+      "quality_caveats": "Stale; no blueberries.",
+      "priority": "P3",
+      "priority_reason": "Answers the lead; no usable data.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "na-business-press",
+      "name": "Namibian business press on Kavango blueberry projects (The Brief, The Namibian)",
+      "publisher": "The Brief; The Namibian",
+      "countries": [
+        "NA"
+      ],
+      "subnational_scope": [
+        "Kavango East: Mashare, Divundu"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "news_archive",
+        "loss_or_damage",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://thebrief.com.na/2024/07/mashare-blueberry-project-to-expand-production-by-30-hactares/",
+      "data_urls": [
+        "https://www.namibian.com.na/n15b-blueberry-project-planned-for-divundu/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2023 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "project name and locality",
+        "hectares under production",
+        "export target",
+        "frost year and effect",
+        "variety trial count"
+      ],
+      "app_uses": [
+        "event record: 2023 extreme frost at Mashare cut exports",
+        "location points for Mashare and Divundu"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "The Brief (19 Jul 2024) read: Mashare 60 ha, 2023 'extreme frost event' hurt yields, 2024 export target 700 t, about six varieties, centre-pivot area 680 ha. The Namibian Divundu page fetched (HTTP 200, title matches)."
+      },
+      "quality_caveats": "Company statements via press; no dates for the frost nights.",
+      "priority": "P2",
+      "priority_reason": "Independent of IBO for the Kavango frost.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "na-nsa",
+      "name": "Namibia Statistics Agency",
+      "publisher": "Namibia Statistics Agency (NSA)",
+      "countries": [
+        "NA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.nsa.org.na/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "possible national trade bulletins"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened; no blueberry trade table located."
+      },
+      "quality_caveats": "Not checked beyond homepage.",
+      "priority": "P3",
+      "priority_reason": "Comext mirror is easier.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ke-kakuzi-annual-reports",
+      "name": "Kakuzi PLC Annual Report and Financial Statements (blueberry unit)",
+      "publisher": "Kakuzi PLC",
+      "countries": [
+        "KE"
+      ],
+      "subnational_scope": [
+        "Murang'a County: Makuyu"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "production_statistics",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.kakuzi.co.ke/pages/0b7a1f81-99a7-4688-9c00-31138a9aa126/articles/0b7a1f81-99a7-4688-9c00-31138a9aa126.pdf",
+      "data_urls": [
+        "https://www.kakuzi.co.ke/documents/normal/kakuzi%202024%20esg%20report.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2019 pilot to 2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "annual blueberry production (kg)",
+        "area",
+        "markets",
+        "weather remarks (dry quarters)"
+      ],
+      "app_uses": [
+        "annual Kenyan farm output trend for the KE country record; equatorial year-round practice context"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2024 annual report PDF text extracted: 'blueberry production increased to 53,175 kilos (2023: 11,728 kilos)'; new crop marketed mainly to the Middle East. 2025 figure (90 t) seen only in search results."
+      },
+      "quality_caveats": "One company; annual totals only.",
+      "priority": "P2",
+      "priority_reason": "Only primary Kenyan blueberry production series found.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "ke-afa-hcd",
+      "name": "Agriculture and Food Authority, Horticultural Crops Directorate (yearbooks and e-bulletins)",
+      "publisher": "AFA Kenya",
+      "countries": [
+        "KE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://afa.go.ke/resources-afa-year-book-of-statistics/",
+      "data_urls": [
+        "https://www.afa.go.ke/wp-content/uploads/2024/10/afa-first-quarter-e-bulletin-2023-2024.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "yearbooks to 2026 per search snippet",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "check whether blueberries appear as a line item"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "afa.go.ke pages and the PDF timed out; the lead domain horticulture.agricultureauthority.go.ke does not resolve."
+      },
+      "quality_caveats": "Unverified whether blueberries are itemised.",
+      "priority": "P3",
+      "priority_reason": "Could not open; Kenyan volumes are tiny.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "ke-kmd-agromet-maproom",
+      "name": "Kenya Meteorological Department agromet bulletins and ENACTS Map Room",
+      "publisher": "Kenya Meteorological Department (KMD)",
+      "countries": [
+        "KE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid ENACTS (national merged station-satellite)",
+      "categories": [
+        "gridded_weather",
+        "extension_advisory",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://meteo.go.ke/Services/climate-data-management/",
+      "data_urls": [
+        "http://kmddl.meteo.go.ke:8081/maproom/index.html"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "sw"
+      ],
+      "temporal_coverage": "ENACTS typically 1981 onward [inference]",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "dekadal and monthly agromet bulletins",
+        "maproom rainfall and temperature by county"
+      ],
+      "app_uses": [
+        "regional rain context for Murang'a and highland sites"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "KMD services page lists Dekadal and Monthly Agrometeorological Bulletins; KMD Map Room page opened (port 8081)."
+      },
+      "quality_caveats": "Bulletin content not sampled.",
+      "priority": "P3",
+      "priority_reason": "Small Kenyan industry.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "africa-tahmo",
+      "name": "TAHMO (Trans-African Hydro-Meteorological Observatory) station data portal",
+      "publisher": "TAHMO",
+      "countries": [
+        "KE",
+        "TZ",
+        "ZM",
+        "ZW",
+        "ZA",
+        "NA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://tahmo.org/climate-data/",
+      "data_urls": [
+        "https://portal.tahmo.org/login",
+        "https://tahmo.org/wp-content/uploads/2024/01/TAHMO-Data-Policy-V1.0.pdf",
+        "https://tahmo.org/wp-content/uploads/2025/12/TAHMO_SAMPLE_DATA.zip"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "station-dependent",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "TAHMO Data Access Policy v1.0: researchers get free quarterly portal access in CSV; 'Research use does not allow for sharing of the data'; commercial use needs a payment agreement after up to two seasons",
+      "license_url": "https://tahmo.org/wp-content/uploads/2024/01/TAHMO-Data-Policy-V1.0.pdf",
+      "extractable_fields": [
+        "station time series in CSV (variables not sampled)",
+        "cleaned daily precipitation with precip_quality_flag"
+      ],
+      "app_uses": [
+        "fill station gaps in Kenya and Zambia near farms"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "harvest_rain_quality",
+        "disease"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Climate Data page and Data Policy PDF read; portal needs a Google login; station list near blueberry farms not checked. Country list is [inference] from TAHMO's pan-African scope."
+      },
+      "quality_caveats": "No redistribution; registration; station coverage near farms unknown.",
+      "priority": "P3",
+      "priority_reason": "Terms block public display.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "zm-zamberries",
+      "name": "Zambezi Berry Company (ZamBerries) website",
+      "publisher": "Zambezi Berry Company",
+      "countries": [
+        "ZM"
+      ],
+      "subnational_scope": [
+        "Central Province: Chisamba"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://zamberries.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2017 to present",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "farm locality",
+        "area (about 100 ha)",
+        "market access (China, Chisamba origin)"
+      ],
+      "app_uses": [
+        "location point for Zambia"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage fetched (HTTP 200); the 100 ha near Chisamba statement was seen in search snippets of zamberries.com blog pages."
+      },
+      "quality_caveats": "Company marketing content.",
+      "priority": "P3",
+      "priority_reason": "Location only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "zm-zmd",
+      "name": "Zambia Meteorological Department",
+      "publisher": "ZMD",
+      "countries": [
+        "ZM"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.zmd.gov.zm/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "possible agromet bulletins for Chisamba"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened; /maproom/ returned 404; products not sampled."
+      },
+      "quality_caveats": "Not sampled.",
+      "priority": "P3",
+      "priority_reason": "Small industry.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "tz-tma-taha",
+      "name": "Tanzania Meteorological Authority and Tanzania Horticultural Association",
+      "publisher": "TMA; TAHA",
+      "countries": [
+        "TZ"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "weather_stations",
+        "industry_report"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.meteo.go.tz/",
+      "data_urls": [
+        "https://www.taha.or.tz/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "sw",
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "none until a commercial Tanzanian blueberry farm is documented"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Both homepages opened (TMA title 'Mwanzo'); the TMA maproom host refused connection; no blueberry content found."
+      },
+      "quality_caveats": "Only an exporter sourcing page mentions small Iringa blueberry plots (search-only).",
+      "priority": "P3",
+      "priority_reason": "No evidence of a commercial industry.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "eg-freshplaza-egypt",
+      "name": "FreshPlaza Egypt blueberry articles (Green Egypt interview, 7 Oct 2026; Wadi El-Natrun farm launch)",
+      "publisher": "FreshPlaza",
+      "countries": [
+        "EG"
+      ],
+      "subnational_scope": [
+        "Beheira: Wadi El-Natrun"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.freshplaza.com/north-america/article/9880769/the-bet-for-egyptian-blueberries-is-to-develop-super-early-varieties/",
+      "data_urls": [
+        "https://www.freshplaza.com/europe/article/9800045/egypt-launches-large-scale-blueberry-production-in-wadi-el-natrun/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2024 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "season window (starts January, peaks March)",
+        "production 2024 and 2025 (1,050 t; 2,100 t)",
+        "exports (320 t; 1,450 t; 4,902 t Jan-Jun 2026)",
+        "main destinations (Netherlands 77%)",
+        "project area (550 feddans, about 231 ha) and capacity"
+      ],
+      "app_uses": [
+        "Egyptian harvest window for a managed winter system",
+        "location point for Wadi El-Natrun"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Both articles read; figures attributed to IBO 2026 and Blueberries Consulting analytics."
+      },
+      "quality_caveats": "Trade press quoting paid analytics; 2026 H1 export figure exceeds 2025 production, so definitions differ.",
+      "priority": "P2",
+      "priority_reason": "Best open description of Egypt's season.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "eg-arabic-press",
+      "name": "Egyptian Arabic business press on blueberry exports (Economy Plus, 24 Sep 2026; Youm7, 24 Jul 2026)",
+      "publisher": "Economy Plus; Youm7",
+      "countries": [
+        "EG"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://economyplusme.com/185213/",
+      "data_urls": [
+        "https://www.youm7.com/story/2026/7/24/%D8%B5%D8%A7%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%B5%D8%B1-%D9%85%D9%86-%D8%A7%D9%84%D8%AA%D9%88%D8%AA-%D8%AA%D8%B1%D8%AA%D9%81%D8%B9-%D9%84%D9%8030-%D9%85%D9%84%D9%8A%D9%88%D9%86-%D8%AF%D9%88%D9%84%D8%A7%D8%B1-%D9%81%D9%89-4/7487818"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "ar"
+      ],
+      "temporal_coverage": "2025 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "H1 export tonnes and value",
+        "destination shares",
+        "FOB price by destination"
+      ],
+      "app_uses": [
+        "cross-check Egyptian export figures"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Economy Plus read: 4.9 thousand t Jan-Jun 2026 vs 1.34 thousand t, citing Blueberry World Analytics and the IBO report; FOB about US$6.39/kg to the Netherlands. Youm7 read: its 'التوت' figures are raspberries and blackberries, not blueberries."
+      },
+      "quality_caveats": "Arabic 'التوت' can mean any berry or mulberry; only 'التوت الأزرق' is blueberry; figures are second-hand.",
+      "priority": "P3",
+      "priority_reason": "Corroborating; terminology trap noted.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "eg-capmas",
+      "name": "CAPMAS (Central Agency for Public Mobilization and Statistics)",
+      "publisher": "CAPMAS",
+      "countries": [
+        "EG"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.capmas.gov.eg/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "ar",
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not seen"
+      ],
+      "app_uses": [
+        "possible official Egyptian trade tables"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage returned a 1,421-byte JavaScript shell; no data pages reached. agri.gov.eg and capqegypt.com did not resolve."
+      },
+      "quality_caveats": "Not reachable as text.",
+      "priority": "P3",
+      "priority_reason": "Comext mirror covers Egypt better.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "tn-gifruits",
+      "name": "GIFruits (Groupement Interprofessionnel des Fruits) statistics: summer fruit exports",
+      "publisher": "GIFruits, Tunisia",
+      "countries": [
+        "TN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.gifruits.com/",
+      "data_urls": [
+        "https://www.lapresse.tn/2026/07/09/fruits-les-exportations-tunisiennes-ont-rapporte-88-millions-de-dinars/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "fr",
+        "ar"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "exports by fruit (myrtille) in tonnes and dinars",
+        "destinations"
+      ],
+      "app_uses": [
+        "Tunisian blueberry export season (an African producer outside the brief list)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "GIFruits homepage menu shows Statistiques > Exportations > Fruits d'été; La Presse (9 Jul 2026) read: myrtille 4% of summer fruit exports, 751 t to 20 destinations since January."
+      },
+      "quality_caveats": "Statistics pages not opened; Tunisia may belong to another agent's scope.",
+      "priority": "P3",
+      "priority_reason": "Marginal for current benchmark sites.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "africa-chirps-v3",
+      "name": "CHIRPS v3 daily rainfall (0.05 degree)",
+      "publisher": "Climate Hazards Center, UC Santa Barbara",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.05 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.chc.ucsb.edu/data/chirps3",
+      "data_urls": [
+        "https://data.chc.ucsb.edu/products/CHIRPS-2.0/"
+      ],
+      "format": [
+        "api-json",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1981 to near-present; 60 N to 60 S",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "CHIRPS3: 'in the public domain, as registered with Creative Commons, and is licensed under a Creative Commons Attribution 4.0 International License'",
+      "license_url": "https://www.chc.ucsb.edu/data/chirps3",
+      "extractable_fields": [
+        "daily precipitation (mm)"
+      ],
+      "app_uses": [
+        "count harvest heavy-rain days at Marondera, Tzaneen and Western Cape cells; check the May 2026 and September 2023 floods"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CHIRPS v3 page read; v2 page says 'Production of CHIRPS v2 will end after December 2026'."
+      },
+      "quality_caveats": "Rain only; the 2026-09-21 plan named v2, which ends after December 2026.",
+      "priority": "P2",
+      "priority_reason": "Covered globally; Africa note is the v2 end date.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "africa-enacts-iri",
+      "name": "ENACTS (Enhancing National Climate Services) national merged datasets and maprooms",
+      "publisher": "IRI, Columbia University, with national met services",
+      "countries": [
+        "KE",
+        "TZ",
+        "ZM"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid ENACTS (national)",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://iri.columbia.edu/resources/enacts/",
+      "data_urls": [
+        "http://kmddl.meteo.go.ke:8081/maproom/index.html"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "country-dependent",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station-satellite merged rainfall and temperature (per country maproom)"
+      ],
+      "app_uses": [
+        "regional check only"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "IRI page and KMD maproom opened. Tanzania maproom refused connection; Zambia /maproom/ 404; no Zimbabwe ENACTS maproom found."
+      },
+      "quality_caveats": "Uneven availability; no maproom for Zimbabwe, South Africa or Namibia.",
+      "priority": "P3",
+      "priority_reason": "Not where the blueberries are.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "africa-fews-net",
+      "name": "FEWS NET and FEWS NET Data Explorer",
+      "publisher": "FEWS NET (USAID-funded)",
+      "countries": [
+        "KE",
+        "TZ",
+        "ZM",
+        "ZW"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "gridded_weather",
+        "industry_report"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://fews.net/",
+      "data_urls": [
+        "https://fdw.fews.net/"
+      ],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "country-dependent",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "prices, crop production, food security classifications (Data Explorer)"
+      ],
+      "app_uses": [
+        "none direct for blueberries; seasonal rainfall narratives only"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "fews.net homepage lists Kenya, Tanzania, Zambia, Zimbabwe; Data Explorer page offers login and sign-up."
+      },
+      "quality_caveats": "Food-security focus.",
+      "priority": "P3",
+      "priority_reason": "Low relevance.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "africa-ibo-website-news",
+      "name": "International Blueberry Organization website news (Africa items)",
+      "publisher": "International Blueberry Organization",
+      "countries": [
+        "ZA",
+        "ZW",
+        "ZM",
+        "KE",
+        "NA",
+        "EG"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/2025/11/21/global-blueberry-market-2025-africas-rising-influence/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/2026/08/13/south-african-blueberry-season-faces-extreme-weather-realities-resilience-amid-localized-disruption/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2025 to 2026 items checked",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "country hectares (SA 2,803 ha; Zimbabwe 710 ha; Zambia 100 ha; Kenya 50 ha)",
+        "Africa production (49,300 t)",
+        "dated weather impacts (May 2026 Western Cape floods: some growers lost over 70% of volume; 300-400 mm in 2-3 days)"
+      ],
+      "app_uses": [
+        "event and practice records between IBO report editions"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Nov 2025 item read for country hectares; the Aug 2026 South Africa item was read through its FreshFruitPortal republication (https://www.freshfruitportal.com/news/2026/08/31/sa-blueberry-weather/)."
+      },
+      "quality_caveats": "Same author network as IBO reports, so not independent.",
+      "priority": "P2",
+      "priority_reason": "Fills gaps between annual IBO editions with dated events.",
+      "est_effort_days": 0.3
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "AF-01",
+      "title": "Steyn 2022 dated stage table for Hex River and Wolseley",
+      "source_ids": [
+        "za-steyn-2022-msc-thesis",
+        "za-sunscholar-blueberry-theses"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "site_id (new: za-wc-hexriver-trial, za-wc-wolseley-trial)",
+        "lat, lon, elevation_m",
+        "cultivar",
+        "season (2020, 2021)",
+        "stage (50% flowering, 90% flowering, first harvest, peak harvest, pruning, hives in, hives out)",
+        "date",
+        "precision (day | month)",
+        "protection (20% white net, net height)",
+        "system (evergreen, as stated)",
+        "citation (pdf page, table number)"
+      ],
+      "cadence": "one-off backfill",
+      "review_needed": "Confirm which table dates belong to which site; Table 1 (carbohydrate chapter) is Hex River 2020 and 2021. Check that first-harvest dates by site are read from the reproductive chapter, not the abstract.",
+      "licensing_gate": "Thesis terms not stated on the bitstream; display short factual dates with citation; confirm SUNScholar reuse terms before showing figures.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "First dated, cultivar-specific calibration points in Africa; lets the evergreen managed cycle start from late-November pruning at Wolseley."
+    },
+    {
+      "job_id": "AF-02",
+      "title": "Western Cape WCDoA station pull for benchmark and trial sites",
+      "source_ids": [
+        "za-wcdoa-weather-station-portal"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "station_id",
+        "station_name",
+        "lat",
+        "lon",
+        "altitude",
+        "timestamp (hourly) or LogDate (daily)",
+        "temp / AvgTemp, MinTemp, MaxTemp",
+        "Humidity",
+        "Rainfall",
+        "LeafWetness",
+        "Radiation",
+        "Windspeed",
+        "PenmanEto",
+        "SHrs",
+        "qc_flag (added)"
+      ],
+      "cadence": "one-off backfill for Veldreserwe, George PP and Elsenburg, then weekly",
+      "review_needed": "Check archive start per station; flag the portal's 'not verified' status; compare against MERRA-2 cell for Tmin bias and frost nights (for example 29 Aug 2024 -1.93 C).",
+      "licensing_gate": "Portal says data are unverified and only SAWS data are official; ask DOA.GIS@westerncape.gov.za before republishing raw series; derived bias statistics are lower risk.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Station-based Tmin bias and frost detection at two benchmark sites; leaf wetness for disease indices."
+    },
+    {
+      "job_id": "AF-03",
+      "title": "SASSCAL Mashare and Bagani station pull for Kavango frosts",
+      "source_ids": [
+        "na-sasscal-weathernet-mashare",
+        "na-business-press"
+      ],
+      "output": "station table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "station_id (31195 Mashare; Bagani logger)",
+        "date and hour",
+        "air_temp_min, air_temp_avg, air_temp_max",
+        "humidity_avg",
+        "precip_total",
+        "leaf_wetness_avg",
+        "surface_temp_avg"
+      ],
+      "cadence": "one-off backfill 2012 to present, then monthly",
+      "review_needed": "Identify the frost nights in winter 2023 and 2024 and link them to the IBO event na-kavango-frost-2023-2024 as a new event record with day precision.",
+      "licensing_gate": "No licence stated; contact SASSCAL before public display of raw values.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Turns an undated IBO frost narrative into dated, measured frost events and tests why the grid cell misses them."
+    },
+    {
+      "job_id": "AF-04",
+      "title": "Zimbabwe MSD dekadal bulletins to station table and frost events",
+      "source_ids": [
+        "zw-msd-dekadal-agromet"
+      ],
+      "output": "station table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "dekad_start",
+        "dekad_end",
+        "province",
+        "station",
+        "Gmin",
+        "Tmin",
+        "Tmax",
+        "RH_min",
+        "RH_max",
+        "rain_10day_mm",
+        "sunshine_h",
+        "frost_places (from narrative)"
+      ],
+      "cadence": "one-off backfill 2024 to 2026, then every dekad",
+      "review_needed": "Treat 'E' as missing; check column alignment per PDF; keep narrative frost lists as event records with dekad precision.",
+      "licensing_gate": "Terms not found; ask MSD before redistributing tables; citing bulletin facts is low risk.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Free station minima at Marondera for chill and frost checks; dated wet-season ends for harvest rain."
+    },
+    {
+      "job_id": "AF-05",
+      "title": "Monthly trade-mirror arrival curves for African origins",
+      "source_ids": [
+        "eu-eurostat-comext-ds045409",
+        "uk-hmrc-ots-api",
+        "un-comtrade-preview-api",
+        "za-sars-trade-stats"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "origin_country",
+        "reporter (EU27, UK, ZA)",
+        "flow",
+        "product_code (08104050 or 081040)",
+        "period (YYYY-MM)",
+        "net_mass_t",
+        "value",
+        "derived: peak_month, share_by_month, season_start_month"
+      ],
+      "cadence": "one-off backfill 2015 to present, then monthly",
+      "review_needed": "Apply a shipping-lag assumption per route and test it; separate South African imports from Zimbabwe (June peak) from Zimbabwe's exports to Europe (September to October peak).",
+      "licensing_gate": "Eurostat (source acknowledgement) and OGL v3.0 allow display with attribution; check UN Comtrade and SARS terms before showing their numbers.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Year-by-year harvest-timing proxy for Zimbabwe, Namibia, Zambia, Egypt and South Africa; settles the Zimbabwe peak conflict."
+    },
+    {
+      "job_id": "AF-06",
+      "title": "Africa regional evidence library: claim and event records",
+      "source_ids": [
+        "za-usda-gain-blueberry",
+        "zw-hdc-ibo-opinion-2026",
+        "africa-ibo-website-news",
+        "za-wcdoa-media-releases",
+        "za-landbou-news",
+        "na-business-press",
+        "ke-kakuzi-annual-reports",
+        "eg-freshplaza-egypt",
+        "zw-press-herald-tvbrics",
+        "eg-arabic-press",
+        "za-berriesza-ongoing-research",
+        "zw-ibo-2024-excerpt-italianberry"
+      ],
+      "output": "claim records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "id",
+        "kind (practice | event | context)",
+        "topic (harvest | weather | management | market)",
+        "title",
+        "summary",
+        "geography_ids (ZA-WC, ZA-NORTH, ZW, NA-KAV, KE, ZM, EG)",
+        "period (label, start, end, precision)",
+        "crop_context",
+        "evidence_type (government_report | association_report | industry_narrative | news_report | company_report)",
+        "citations (source_id, page or URL, locator)",
+        "limitations",
+        "event_id"
+      ],
+      "cadence": "one-off backfill, then quarterly",
+      "review_needed": "Human checks every figure against the page; mark IBO-network items as non-independent; flag Arabic 'التوت' ambiguity.",
+      "licensing_gate": "Short quotations and facts with links only; no raw article text stored for public RAG.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Adds 2023 to 2026 African events (Western Cape floods June 2023 and May 2026, Kavango frost, Zimbabwe late 2025 season) not in IBO 2023/2025/2026 records."
+    },
+    {
+      "job_id": "AF-07",
+      "title": "Western Cape blueberry location and area layer",
+      "source_ids": [
+        "za-wcdoa-capefarmmapper-crops",
+        "za-wcdoa-commodity-mapping-2023",
+        "zw-hdc-zbga",
+        "zm-zamberries"
+      ],
+      "output": "time series table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "region",
+        "census_year",
+        "crop",
+        "hectares",
+        "source",
+        "polygon or centroid (if exportable)"
+      ],
+      "cadence": "one-off, then per census",
+      "review_needed": "Check whether CFM crop polygons can be exported and whether farm-level display is allowed.",
+      "licensing_gate": "WCDoA permission for any polygon reuse; publish only aggregated area.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Choose representative cells and weight Western Cape results by real blueberry area."
+    },
+    {
+      "job_id": "AF-08",
+      "title": "Access requests for gated South African data",
+      "source_ids": [
+        "za-berriesza-member-reports",
+        "za-ppecb-intellex",
+        "za-saws-climate",
+        "za-arc-agroclimate-portal"
+      ],
+      "output": "claim records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "request target",
+        "contact",
+        "dataset",
+        "fields offered",
+        "cost",
+        "terms",
+        "decision"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Paul or Rohit decides whether to ask Berries ZA for weekly export and variety-by-province reports, and whether SAWS or ARC academic fees apply.",
+      "licensing_gate": "Any granted data likely non-redistributable; keep out of public RAG unless terms allow.",
+      "effort_days": 0.5,
+      "priority": "P2",
+      "app_value": "Would unlock weekly national harvest curves and variety mix by province, the two biggest South African gaps."
+    }
+  ]
+}

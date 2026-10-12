@@ -131,6 +131,20 @@ Newly read cases were checked against the existing NASA POWER daily archive and 
 
 The four US cells agree with a freeze episode. They are not four independent events. The two Chile cells and the NZ cell do not reproduce the reported regional freezing. Those discrepancies require station, exact-location, date and crop-system checks. They are not proof that the reports or the model are wrong. In NZ, the narrative especially concerns rabbiteye, while the app uses a low-chill SHB scenario.
 
+**Correction (2026-10-11).** The Chile and Waikato rows above are inconclusive. Their windows and cells were badly chosen, so they do not show that the grid misses the events.
+
+- **Chile.** The frost happened on the night of 30 to 31 October 2022, before the November window.
+  - Stations: Coihueco −2.0 °C and Linares −2.2 °C on 31 October (RAN Agromet; DMC October 2022 bulletin).
+  - Stored daily minimum at the Chillán cell, which contains Coihueco: +2.24 °C on 30 October UTC and +4.56 °C on 31 October UTC.
+  - The Andean cell to the east: −6.15 °C on 30 October UTC.
+- **Waikato.** Ohaupo lies almost midway between two cells, and the check used the coastal one: +5.15 °C on 6 October UTC.
+  - The inland cell: +0.06 °C.
+  - Hamilton Airport: −2.9 °C on 7 October local time, the lowest October minimum since 1946 (NIWA).
+
+The coordinator re-read these grid values on the server on 11 October 2026. Station minima are 6 to 8 °C below the containing cells, so daily grid Tmin catches the timing but not the size of radiation frosts. Repeat both checks with the station protocol in `docs/research/2026-10-11/review/astra_ibo_evidence_review.md` (section 5.5).
+
+The same review could not find the Mexico 2021/22 value of 74.20 thousand t on 2023 PDF p.51 in the text layer; it appears on pp.18 and 48. Check p.51 visually.
+
 This demonstrates a useful workflow: reports identify cases worth investigating; stored weather tests a specific part of the claim. It does not establish detection accuracy, loss accuracy or future forecast skill. No application test suite was run for this research request.
 
 ## 5. Proposed integration

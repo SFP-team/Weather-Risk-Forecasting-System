@@ -1,0 +1,4208 @@
+{
+  "slug": "chile-argentina-uruguay",
+  "generated_on": "2026-10-11",
+  "scope": "Chile, Argentina and Uruguay: station, phenology, orchard, export, damage and declaration sources for blueberry weather-risk modelling",
+  "sources": [
+    {
+      "id": "cl-ran-agromet-hourly",
+      "name": "Red Agroclimática Nacional (RAN) Agromet: historical station data",
+      "publisher": "Ministerio de Agricultura de Chile (RAN network; stations operated by INIA, FDF, METEOVID and others)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Atacama to Magallanes",
+        "Maule",
+        "Ñuble",
+        "Biobío",
+        "Los Ríos",
+        "Los Lagos"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.agromet.cl/datos-historicos",
+      "data_urls": [
+        "https://www.agromet.cl/reportes-historicos",
+        "https://www.agromet.cl/ext/aux/getGraphData.php?ema_ia_id=107&dateFrom=2022-10-25+00:00:00&dateTo=2022-11-08+00:00:00&portada=false"
+      ],
+      "format": [
+        "html",
+        "xml"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "hourly; most stations registered 2013-03-08 (fecha de alta in the station list), some later; to present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station id (ema)",
+        "institution",
+        "station name",
+        "comuna",
+        "region",
+        "latitude",
+        "longitude",
+        "registration date",
+        "timestamp (hourly)",
+        "mean air temperature C",
+        "hourly minimum temperature C",
+        "hourly maximum temperature C",
+        "relative humidity %",
+        "hourly precipitation mm",
+        "pressure mbar",
+        "max solar radiation W/m2",
+        "max wind speed m/s",
+        "wind direction",
+        "degree days base 10",
+        "chill hours base 7"
+      ],
+      "app_uses": [
+        "detect the 31 Oct 2022 frost at Coihueco, San Ignacio, Longaví and Chillán stations and compare with the MERRA-2 and POWER cells",
+        "fit a monthly or cold-tail Tmin correction for south-central Chile cells",
+        "compute observed chill hours and flowering-window frost counts near cl-linares-maule, cl-chillan-nuble, cl-los-angeles-biobio, cl-osorno-los-lagos"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "heat",
+        "harvest_rain_quality",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened the Datos Históricos and Reportes Históricos pages (form: year, region, comuna, station; history form limited to 3 months per query). Called the XML endpoint used by the open agrometR package for station 107 (FDF Coihueco, -36.557, -71.817) and nine other stations for 25 Oct to 8 Nov 2022: hourly rows with 11 variables; Coihueco minimum -2.0 C at 2022-10-31 06:00. Site TLS certificate chain fails strict verification."
+      },
+      "quality_caveats": "The XML endpoint is undocumented; it may change and should be used politely or with permission. Time zone of timestamps is not stated (local time assumed, [inference]). One station (102 Parral) returned an empty row read as 0.0 C with 0% RH, so missing values must be screened. Station siting is in or near orchards and varies by operator.",
+      "priority": "P1",
+      "priority_reason": "Hourly temperature and humidity at orchard-area stations since 2013, open, and already shows the November 2022 frost that the grid misses.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "cl-inia-agrometeorologia",
+      "name": "Agrometeorología INIA (agrometeorologia.cl) station portal and frost, chill and degree-day products",
+      "publisher": "Instituto de Investigaciones Agropecuarias (INIA)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Arica y Parinacota to Magallanes"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agrometeorologia.cl/",
+      "data_urls": [
+        "https://agrometeorologia.cl/heladas/",
+        "https://agrometeorologia.cl/TA_DIA_MIN",
+        "https://agrometeorologia.cl/evapotranspiracion"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "station-dependent; recent stations added in 2026 list 'datos desde' dates; historical depth per station not stated on the home page",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station code (e.g. INIA-73, EXT-1001)",
+        "station name",
+        "comuna",
+        "operator",
+        "last-hour temperature",
+        "daily minimum",
+        "previous-day maximum",
+        "precipitation",
+        "wind",
+        "chill hours/units/portions (receso invernal)",
+        "frost product (heladas)",
+        "degree days base 5, 10, 12.5",
+        "ETo"
+      ],
+      "app_uses": [
+        "find extra stations near Coihueco (EXT-1001 El Kayser, ARAUCO), El Carmen (INIA-73 Navidad), Linares (INIA-136 Santa Amada) for frost validation",
+        "cross-check RAN station values"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home page lists 481 stations: 183 incorporated from other networks are counted as CEAZA 36, DMC 130 and other institutions 132; station dropdown includes EXT-1001 El Kayser (Coihueco, ARAUCO), INIA-73 Navidad (El Carmen), INIA-351 Quilamapu, INIA-136 Santa Amada (Linares). www. host fails TLS name check; the bare host works. agromet.inia.cl only shows a blank 'Nueva Web' page."
+      },
+      "quality_caveats": "No documented bulk download or API found; data are reached through web queries. Network mixes many operators with different maintenance standards.",
+      "priority": "P2",
+      "priority_reason": "Widest station list in Chile, including forestry-company stations in the Coihueco frost area, but access is manual.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-agrometr-r-package",
+      "name": "agrometR: R package for downloading Red Agroclimática Nacional data",
+      "publisher": "ODES-Chile (Kunst J., Zambrano F.)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://github.com/ODES-Chile/agrometR",
+      "data_urls": [
+        "https://raw.githubusercontent.com/ODES-Chile/agrometR/main/R/get_agro_data_ran.R",
+        "https://raw.githubusercontent.com/ODES-Chile/agrometR/main/data-raw/Emas_18-04-2022.xlsx"
+      ],
+      "format": [
+        "api-json",
+        "xlsx"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "station list dated 18 Apr 2022 (417 stations in README); data as served by agromet.cl",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "GitHub reports License: Other (LICENSE.md present)",
+      "license_url": "https://github.com/ODES-Chile/agrometR",
+      "extractable_fields": [
+        "ema id",
+        "institution",
+        "station name",
+        "comuna",
+        "region",
+        "latitude",
+        "longitude",
+        "fecha de alta",
+        "hourly variables as in cl-ran-agromet-hourly"
+      ],
+      "app_uses": [
+        "reuse the station list (ids and coordinates) to pick RAN stations within 25 km of each benchmark site"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "README, R source for the agromet.cl getGraphData.php call, and the 38 kB station spreadsheet opened; spreadsheet lists 107 FDF Coihueco, 99 FDF Linares 2 (Longaví), 110 FDF San Ignacio, 179 INIA Sta Rosa (Chillán), 181 INIA Navidad (El Carmen) with coordinates."
+      },
+      "quality_caveats": "Third-party wrapper; region names in the 2022 sheet still use Biobío for Ñuble communes. Licence text not read in full.",
+      "priority": "P2",
+      "priority_reason": "Gives a ready station register and the exact request format for the RAN data.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "cl-dmc-servicios-climaticos",
+      "name": "Dirección Meteorológica de Chile, Servicios Climáticos (station metadata, daily reports, data requests, web services)",
+      "publisher": "Dirección Meteorológica de Chile (DMC)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://climatologia.meteochile.gob.cl/application/informacion/fichaDeEstacion/360011",
+      "data_urls": [
+        "https://climatologia.meteochile.gob.cl/application/requerimiento/producto/RE5001"
+      ],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "station-dependent; national synoptic and automatic stations; digitised historical forms also listed",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station code",
+        "latitude",
+        "longitude",
+        "altitude",
+        "surroundings",
+        "daily max/min temperature",
+        "hourly EMA data",
+        "frost and cold-wave monitors"
+      ],
+      "app_uses": [
+        "use Chillán Bernardo O'Higgins (360011, -36.5858, -72.0367, 152 m) and Linares and Los Ángeles stations as long-record anchors for Tmin bias"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Station sheet 360011 opened with coordinates, altitude 152 m and siting note. Menus list Visor EMA, web services, data products (requerimiento/producto RE...) and a login page; registration need is inferred from the login link, not tested."
+      },
+      "quality_caveats": "Downloads and web services appear to sit behind a user login [inference]. Airport stations are not orchard sites.",
+      "priority": "P2",
+      "priority_reason": "Official long-record stations for bias correction, but access needs a free account.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-dmc-boletin-agroclimatico",
+      "name": "DMC Boletín Agroclimático Mensual",
+      "publisher": "Dirección Meteorológica de Chile (Sección de Meteorología Agrícola)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://climatologia.meteochile.gob.cl/application/publicacionesb/boletinAgroclimatico",
+      "data_urls": [
+        "https://climatologia.meteochile.gob.cl/publicaciones/boletinAgroclimatico/boletinAgroclimatico202210.pdf",
+        "https://climatologia.meteochile.gob.cl/publicaciones/boletinAgroclimatico/boletinAgroclimatico202211.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "listing page links issues from 2020-01 to 2026-08 (80 links); older issues not checked",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "month",
+        "station",
+        "monthly mean Tmin and anomaly category",
+        "extreme minimum value and day",
+        "days with frost per station",
+        "heat-wave days",
+        "precipitation and deficit %",
+        "chill and degree-day accumulations"
+      ],
+      "app_uses": [
+        "build dated frost event records: the October 2022 issue lists -2.2 C at Linares on day 31",
+        "validate modelled frost-day counts by month at DMC stations"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "chill_dormancy",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded the October and November 2022 issues (11 and 12 pages). October text: three cold events on days 8-9, 21-22 and 31 with lowest values -2.2 C in Linares, -3.4 C Paillaco, -5.0 C Balmaceda, -3.5 C Punta Arenas (the sentence says 'noviembre' but sits in the October issue and matches station data for 31 Oct). Data credit 'DMC-AGROMET-SERVIMET'."
+      },
+      "quality_caveats": "Narrative PDF with charts; a few typos (month names). Only a handful of stations per zone are named.",
+      "priority": "P1",
+      "priority_reason": "Official monthly record of dated frost minima that confirms the 31 October 2022 event at Linares.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "cl-cr2met",
+      "name": "CR2MET v2.5 gridded daily precipitation and Tmax/Tmin for continental Chile",
+      "publisher": "Center for Climate and Resilience Research (CR2), Juan P. Boisier",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.05 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.cr2.cl/datos-productos-grillados/",
+      "data_urls": [
+        "https://zenodo.org/records/7529682"
+      ],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "1960-2021",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "CC BY 4.0 (Zenodo record)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "daily precipitation",
+        "daily maximum temperature",
+        "daily minimum temperature",
+        "0.05 deg grid cell"
+      ],
+      "app_uses": [
+        "quantify the elevation and valley Tmin contrast inside one MERRA-2 cell in Maule and Ñuble",
+        "train a downscaling offset for 2010-2021 Tmin"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CR2 page describes 0.05 deg daily product 1960-2021 built from ERA5, topography and MODIS LST; Zenodo API shows v2.5 (2023-01-13), files CR2MET_pr_v2.5.zip and CR2MET_txn_v2.5.zip, licence cc-by-4.0. No newer version found in a Zenodo search."
+      },
+      "quality_caveats": "Ends in 2021, so it cannot check the 2022 frost. Statistical model, smoother than stations in frost hollows.",
+      "priority": "P2",
+      "priority_reason": "Open high-resolution Tmin for the 2010-2021 part of the app period.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "cl-cr2-station-data",
+      "name": "CR2 Explorador Climático and observed station temperature files",
+      "publisher": "CR2 / DGF Universidad de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://explorador.cr2.cl/",
+      "data_urls": [
+        "https://www.cr2.cl/datos-de-temperatura/"
+      ],
+      "format": [
+        "html",
+        "zip",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "station files: daily mean temperature 1900s to 2018 (cr2_tasDaily_2018); explorer: DMC and DGA series to recent years",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (a usage registration form is requested on the download page)",
+      "license_url": null,
+      "extractable_fields": [
+        "station metadata csv",
+        "daily mean temperature series",
+        "-9999 missing flag",
+        "explorer: variable, aggregation, period, anomaly"
+      ],
+      "app_uses": [
+        "long-record context for chill and frost climatology at DMC and DGA stations near Chillán, Linares, Los Ángeles"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Explorer is a JavaScript map app (controls seen, no data fetched). Temperature page lists cr2_tasDaily_2018.zip (14.71 MB) and monthly files; 2019 files show 0.00 KB; the page notes Tx/Tn stations exist."
+      },
+      "quality_caveats": "Static files end in 2018; daily mean only in the listed files; explorer is JavaScript-only.",
+      "priority": "P3",
+      "priority_reason": "Useful context, but RAN and DMC cover the app period better.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-ceazamet",
+      "name": "CEAZA-Met station network (Coquimbo region)",
+      "publisher": "Centro de Estudios Avanzados en Zonas Áridas (CEAZA)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Coquimbo"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://www.ceazamet.cl/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "not stated on home page",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station list (e.g. Ovalle [Talhuén], El Palqui [INIA], Camarico [INIA])",
+        "temperature and humidity series (not sampled)"
+      ],
+      "app_uses": [
+        "station check for cl-ovalle-coquimbo low-chill and semi-evergreen hypothesis"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "heat"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home page lists the station network including Ovalle [Talhuén] and several INIA-hosted stations in the Limarí area; 36 CEAZA stations are also mirrored in agrometeorologia.cl."
+      },
+      "quality_caveats": "Download route and terms not found on the home page.",
+      "priority": "P3",
+      "priority_reason": "Only relevant to the small Ovalle site.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-minagri-heladas-monitor",
+      "name": "Monitoreo de heladas, Ministerio de Agricultura (heladas.minagri.gob.cl)",
+      "publisher": "Ministerio de Agricultura de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://heladas.minagri.gob.cl/historial_heladas",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "(from search titles only) station frost monitoring pages and a frost history page"
+      ],
+      "app_uses": [
+        "possible list of dated frost nights by station for event validation"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "HTTPS returns '500 Proxy Error, Error during SSL Handshake' and the read tool reports an expired certificate; page titles 'Historial de Heladas' and station pages such as 'Chile Chico INIA - monitoreo de heladas' were seen only in search results."
+      },
+      "quality_caveats": "Unreachable on 2026-10-11; content not verified.",
+      "priority": "P3",
+      "priority_reason": "Promising frost history, but it could not be opened.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "cl-inia-boletin-riesgos-agroclimaticos",
+      "name": "INIA Boletín Nacional de Análisis de Riesgos Agroclimáticos (monthly, one bulletin per region)",
+      "publisher": "INIA for Ministerio de Agricultura",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "all 16 regions including Maule, Ñuble, Biobío, Araucanía, Los Ríos, Los Lagos, Coquimbo"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "phenology_observation",
+        "loss_or_damage",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "http://riesgoclimatico.inia.cl/public/publicaciones",
+      "data_urls": [
+        "http://riesgoclimatico.inia.cl/public/boletinPDF/1588",
+        "http://riesgoclimatico.inia.cl/public/boletinPDF/1590",
+        "http://riesgoclimatico.inia.cl/public/resumenPDF/77"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "monthly archive listed from September 2018 to September 2026 (earlier pages not checked)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "month",
+        "region",
+        "agroclimatic zone (e.g. Depresión Intermedia, Secano Interior)",
+        "crop group (Frutales menores)",
+        "reported phenological stage",
+        "weather risk narrative",
+        "station-based temperature, rain, chill and degree-day tables",
+        "VCI vegetation condition by commune",
+        "annex damage reports (e.g. frost damage %)"
+      ],
+      "app_uses": [
+        "extract dated stage statements by zone (Maule November 2022: raspberry and blueberry at fruit set; berries at colour break 'pinta' in Secano Interior)",
+        "collect INIA frost-damage annexes cited by emergency decrees"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "bud_flower_freeze",
+        "disease",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Publication list opened (month/year rows back to Sept 2018). Downloaded Nov 2022 Maule (stage text quoted above, also warns of fungal rot after rain) and Nov 2022 Ñuble (19 pages; 'Frutales menores' section empty, no mention of the frost); Oct 2024 Maule, Ñuble and Los Ríos had no blueberry text. Resolución exenta 836/2022 cites an INIA October 2022 Valparaíso annex on frost damage at Putaendo."
+      },
+      "quality_caveats": "Blueberry content is sporadic and qualitative; the same text is sometimes reused across months. PDFs are 2-5 MB each and slow to serve.",
+      "priority": "P1",
+      "priority_reason": "The only official, monthly, region-by-zone source of stage statements and frost-damage annexes in Chile.",
+      "est_effort_days": 3.0
+    },
+    {
+      "id": "cl-inia-pulso-agroclimatico",
+      "name": "INIA Pulso Agroclimático (national monthly bulletin)",
+      "publisher": "INIA",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "extension_advisory",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.inia.cl/2025/11/18/pulso-agroclimatico-noviembre-altas-temperaturas-estarian-adelantando-el-crecimiento-de-los-cultivos-fruticolas-en-plena-temporada/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "launched June 2025 (INIA news of 26 Jun 2025, search result); November 2025 issue opened",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "month",
+        "zone",
+        "phenology advance or delay statement by crop (cherries, blueberries, apples)",
+        "temperature and rain anomalies"
+      ],
+      "app_uses": [
+        "season-level claims on phenology advance (for example 2025-26 early season) to compare with modelled stage dates"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "heat"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "November 2025 news page says high temperatures are advancing phenological stages of cherries, blueberries and apples in the central zone (quote from Raúl Orrego, INIA)."
+      },
+      "quality_caveats": "New series; qualitative.",
+      "priority": "P3",
+      "priority_reason": "Short archive, but matches the IBO 2025-26 early-season claim.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-inia-biblioteca-digital",
+      "name": "INIA Biblioteca Digital (DSpace) blueberry bulletins and manuals",
+      "publisher": "INIA",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature",
+        "extension_advisory",
+        "management_practice",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://biblioteca.inia.cl/",
+      "data_urls": [
+        "https://biblioteca.inia.cl/server/api/core/bitstreams/5ee45ca7-0874-495c-a950-e138901b7568/content",
+        "https://biblioteca.inia.cl/server/api/core/bitstreams/f1e390b9-0991-4333-9d01-9d62fc12032a/content",
+        "https://biblioteca.inia.cl/server/api/core/bitstreams/a0f66be6-e8fe-4456-b97e-57b90f8b7be8/content"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "decades of INIA bulletins; sampled items 2022",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "INIA centre",
+        "year",
+        "region",
+        "cultivar",
+        "stage dates",
+        "frost thresholds",
+        "management practices"
+      ],
+      "app_uses": [
+        "source of dated stage observations and cultivar notes for Maule, Ñuble, Araucanía and Los Lagos"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "cultivar",
+        "management",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "The server/api/core/bitstreams/<id>/content route returned PDFs with HTTP 200 (the /bitstreams/<id>/download web route returns a JavaScript shell, and one bitstream 48a0d50e... returned 401). Earlier 403 errors recorded in the benchmark registry did not recur for these items."
+      },
+      "quality_caveats": "Some items are restricted (401). Many figures with stage curves are images.",
+      "priority": "P2",
+      "priority_reason": "Largest open corpus of Chilean blueberry extension documents.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "cl-inia-raihuen-macetas-2022",
+      "name": "INIA Boletín: Producción intensiva de berries en macetas en Maule: clima, adaptación y costo de establecimiento (INIA Raihuén, Sept 2022)",
+      "publisher": "INIA Raihuén",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Maule (Villa Alegre, 35°41'48\"S 71°40'59\"W)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice",
+        "cultivar_trial"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://biblioteca.inia.cl/server/api/core/bitstreams/5ee45ca7-0874-495c-a950-e138901b7568/content",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2020-21 establishment; phenology season 2021-22",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "14 cultivars in 35 L pots, macrotunnel vs open air",
+        "phenology stage codes A-Q (Schilder et al. 2004) recorded every 2 days",
+        "bud swell first week of August under macrotunnel",
+        "fruit set first week of October",
+        "ripe fruit from fourth week of November for 10 weeks",
+        "15-20 day advance under macrotunnel",
+        "frost frequency by Maule station"
+      ],
+      "app_uses": [
+        "calibrate a tunnel offset for SHB/NHB in Maule",
+        "one dated site-season for flowering and harvest start in Maule"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "100-page PDF downloaded and text read; quoted stage dates are in section 2.3.1; Figure 2.3 (stage timeline by treatment) is an image."
+      },
+      "quality_caveats": "One site and one season; cultivars grouped as early, late and Legacy control, so cultivar-level dates need the figure.",
+      "priority": "P2",
+      "priority_reason": "Rare dated stage record for Maule, with a tunnel versus open-air contrast.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-inia-manual-variedades",
+      "name": "INIA Manual de manejo agronómico del arándano, Capítulo 1: Variedades de arándanos",
+      "publisher": "INIA (Carillanca and Raihuén authors)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://biblioteca.inia.cl/server/api/core/bitstreams/f1e390b9-0991-4333-9d01-9d62fc12032a/content",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "undated chapter (manual series)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar",
+        "species group (NHB, SHB, rabbiteye)",
+        "relative bloom timing",
+        "bloom length",
+        "relative ripening",
+        "chill hours where given (e.g. rabbiteye flowering with 500-550 h)",
+        "firmness and postharvest notes"
+      ],
+      "app_uses": [
+        "seed cultivar classes for Chilean cultivars with relative bloom and ripening order"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "9-page chapter text read; cultivar paragraphs describe bloom timing relative to O'Neal and Misty and long or short bloom periods."
+      },
+      "quality_caveats": "Qualitative; chill numbers given only for some cultivars.",
+      "priority": "P2",
+      "priority_reason": "Open Chilean cultivar descriptions to start cultivar classes.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-maule-manual-2014",
+      "name": "Manual Técnico Productivo y Especificaciones Tecnológicas para el Arándano (Maule, 2012/13 observations)",
+      "publisher": "Hosted by Portalberries (original programme authors per document)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Maule (Putú, Sagrada Familia, Linares)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://portalberries.com/wp-content/uploads/2025/04/Manual-Especificaciones-Tecnica-Economica.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2012-13 season",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "O'Neal flowering mid-August (Putú, Sagrada Familia) and early September (Linares)",
+        "Brigitta flowering early October (Sagrada Familia, Linares) and late October (Putú)",
+        "frost damage threshold statements (-4.5 C late frost)"
+      ],
+      "app_uses": [
+        "dated bloom observations for cl-linares-maule (already summarised in GLOBAL_PHENOLOGY_REVIEW S33)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF returned HTTP 200 (2.9 MB); content matches the repository review entry S33."
+      },
+      "quality_caveats": "Already in the repository; one season.",
+      "priority": "P3",
+      "priority_reason": "Already used; listed for completeness.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "cl-udec-tesis-cianamida-nuble",
+      "name": "Fenología y producción de arándano alto tratado con cianamida hidrogenada y CPPU en la provincia de Ñuble (UdeC thesis, 2009-10 season)",
+      "publisher": "Universidad de Concepción, Facultad de Agronomía (Chillán)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Ñuble (Chillán campus)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.udec.cl/items/e8f2d993-bc3b-46a4-9cd6-168afbfc40e8",
+      "data_urls": [
+        "https://repositorio.udec.cl/bitstreams/15a3acda-ec3d-4421-9bba-2fca5544878c/download"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2009-10 season",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivars O'Neal and Duke",
+        "cyanamide dose and timing",
+        "phenology",
+        "fruit size",
+        "harvest distribution"
+      ],
+      "app_uses": [
+        "possible dated bloom and harvest for Duke and O'Neal at Chillán, and cyanamide effects"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Repository record opened (abstract seen). The PDF download is only 2 pages (abstract); full thesis text not available online."
+      },
+      "quality_caveats": "Full text not online; would need a library request.",
+      "priority": "P3",
+      "priority_reason": "Right place and cultivars, but only the abstract is open.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "cl-odepa-catastro-fruticola",
+      "name": "Catastro frutícola CIREN-ODEPA (open data, block level)",
+      "publisher": "ODEPA and CIREN",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Arica y Parinacota to Aysén; each region re-surveyed about every 3 years"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "land_use_or_orchard_census",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://datos.odepa.gob.cl/dataset/catastro-fruticola",
+      "data_urls": [
+        "https://datos.odepa.gob.cl/api/3/action/package_show?id=catastro-fruticola",
+        "https://datos.odepa.gob.cl/dataset/ea82304e-917f-4cdb-abf6-555782483dc1/resource/e5d0481f-bd99-4e38-b86e-e1030b40997a/download/catastro_fruticola_2024.csv",
+        "https://datos.odepa.gob.cl/dataset/ea82304e-917f-4cdb-abf6-555782483dc1/resource/1bbc9838-6032-4b89-96e5-8c2ed5d91e3f/download/catastro_fruticola_2025.csv",
+        "https://www.odepa.gob.cl/estadisticas-del-sector/catastros-fruticolas"
+      ],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "one CSV per year 1999-2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution (CKAN package licence)",
+      "license_url": "http://www.opendefinition.org/licenses/cc-by",
+      "extractable_fields": [
+        "Anio",
+        "ID region",
+        "Region",
+        "Provincia",
+        "Comuna",
+        "Numero explotacion",
+        "Numero bloque",
+        "Tipo productor",
+        "Especie (Arándano Americano)",
+        "Variedad",
+        "Anio plantacion",
+        "Metodo de riego",
+        "Numero de arboles",
+        "Superficie (ha)"
+      ],
+      "app_uses": [
+        "blueberry area by commune, cultivar and planting year for Maule, Ñuble, Biobío, Araucanía, Los Ríos, Los Lagos",
+        "cultivar mix per benchmark site (e.g. Coihueco: 621 blueberry blocks in the 2024 file)",
+        "share of sprinkler (micro aspersión) irrigation as a frost-protection proxy [inference]"
+      ],
+      "model_families": [
+        "location_mapping",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CKAN package_show: 27 CSV resources 1999-2025, licence CC BY. Datastore API sample: 2024 file has blueberry blocks in Coquimbo 133, Maule 3,775, Ñuble 1,939, Biobío 882, Araucanía 1,045, Los Ríos 722, Los Lagos 333 rows; 2022 file Maule 4,358, Ñuble 2,663. Coihueco 2024 rows show Duke blocks with planting years 2011-2021, furrow or micro-sprinkler irrigation, 0.25-0.67 ha. The 2025 CSV (4.5 MB) covers only Valparaíso and Metropolitana (64 blueberry blocks, 130.38 ha, all drip)."
+      },
+      "quality_caveats": "Each yearly file mixes regions surveyed in different years; check the Anio column. Variety names need cleaning. No tunnel or cover field.",
+      "priority": "P1",
+      "priority_reason": "Open, block-level blueberry area by commune, cultivar and planting year, which answers the orchard-census question directly.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "cl-ciren-catastro-mapserver",
+      "name": "IDE Minagri / CIREN Catastro Frutícola map service (fruit producer polygons)",
+      "publisher": "CIREN (IDE Minagri)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Arica y Parinacota to Aysén (layers dated CIREN 2016-2025)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://esri.ciren.cl/server/rest/services/IDEMINAGRI/CATASTRO_FRUTICOLA/MapServer",
+      "data_urls": [
+        "https://esri.ciren.cl/server/rest/services/IDEMINAGRI/CATASTRO_FRUTICOLA/MapServer/63"
+      ],
+      "format": [
+        "api-json",
+        "shapefile"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "latest regional survey per layer (Maule, Ñuble, Biobío, Araucanía, Los Ríos, Los Lagos: CIREN 2024)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found (copyrightText empty)",
+      "license_url": null,
+      "extractable_fields": [
+        "polygon geometry",
+        "desccomu (commune)",
+        "rolpredi (property roll)",
+        "especie_01/02/03 (top three species)",
+        "SUBDERE commune, province, region codes"
+      ],
+      "app_uses": [
+        "map where blueberry farms are inside each grid cell and pick representative points for frost checks (Ñuble 2024: 1,740 polygons list blueberry among the top three species; 572 in Coihueco list it first)"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "MapServer JSON lists 69 layers (agroindustry, cold stores, packing, fumigation points and 'PRODUCTORES FRUTÍCOLAS' polygons by region). Layer 63 (Ñuble, CIREN 2024) fields read and two records sampled; count queries returned 1,740 and 572."
+      },
+      "quality_caveats": "Property polygons, not block polygons; species only, no variety or area in this layer. Property roll numbers are personal-property identifiers, so publish only aggregates.",
+      "priority": "P1",
+      "priority_reason": "Gives the actual footprint of blueberry farms, which fixes site placement inside coarse grid cells.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-ine-censo-agropecuario-2021",
+      "name": "VIII Censo Nacional Agropecuario y Forestal 2021 (tabulados, census database, map viewer)",
+      "publisher": "Instituto Nacional de Estadísticas (INE)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ine.gob.cl/censoagropecuario",
+      "data_urls": [],
+      "format": [
+        "xlsx",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "agricultural year 2020/21 (previous census 2007)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commune",
+        "crop (arándano)",
+        "planted area",
+        "number of farms (per INE description: 21 tabulados at national, regional and communal level plus microdata with user manual and data dictionary)"
+      ],
+      "app_uses": [
+        "cross-check catastro blueberry area by commune for 2021"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "INE census landing page opened (navigation shell only in the text extract). The description of tabulados and microdata comes from the search snippet of the same page, not from a downloaded table."
+      },
+      "quality_caveats": "One snapshot (2020/21). Blueberry tables were not downloaded; a search snippet from an ODEPA regional summary gave a national blueberry figure that conflicts with the catastro, so use only figures read from INE tables.",
+      "priority": "P3",
+      "priority_reason": "Catastro is more detailed and more recent for blueberries.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cl-odepa-comercio-exterior",
+      "name": "ODEPA Comercio Exterior open data (monthly exports by product, region of origin and destination)",
+      "publisher": "ODEPA, with Servicio Nacional de Aduanas data",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "region of origin (e.g. Maule, BioBio, La Araucanía)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://datos.odepa.gob.cl/dataset/comercio-exterior",
+      "data_urls": [
+        "https://datos.odepa.gob.cl/api/3/action/datastore_search?resource_id=48bef1a4-f2ed-48cc-9876-15bfa8afc0bb&q=08104021&limit=3"
+      ],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1998-2026 (one resource per year)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution (CKAN package licence)",
+      "license_url": "http://www.opendefinition.org/licenses/cc-by",
+      "extractable_fields": [
+        "Anio",
+        "Mes",
+        "Codigo producto (08104021 fresh organic, 08104029 other fresh blueberries)",
+        "Producto",
+        "ID region",
+        "Region origen",
+        "Pais destino",
+        "Unidad",
+        "Volumen (kg net)",
+        "USD FOB"
+      ],
+      "app_uses": [
+        "monthly fresh blueberry export volume by region of origin per season to infer harvest start, peak and end by region and to detect early or late years (2022-23 cold spring, 2025-26 early season)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CKAN lists 58 resources (exports and imports 1998-2026, about 9-13 MB each). Datastore query on the 2022 resource returned 138 rows for code 08104021 with fields as listed, e.g. 2022 month 2 Maule to Germany 14,567 kg."
+      },
+      "quality_caveats": "Monthly, not weekly; region of origin is customs-declared and may reflect the packer, not the orchard [inference]. Fresh conventional blueberries are code 08104029 (Los demás arándanos azules o blueberry, frescos (desde 2012); 501 rows in 2022); frozen codes not checked.",
+      "priority": "P1",
+      "priority_reason": "Open, 28-year, region-of-origin series that gives harvest timing by region for every season in the app period.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-frutasdechile-crop-report",
+      "name": "Chilean Blueberry Committee Crop & Exports Report (weekly, powered by iQonsulting)",
+      "publisher": "Comité de Arándanos de Chile, Frutas de Chile (ex ASOEX), with iQonsulting",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "IV Coquimbo",
+        "V Valparaíso",
+        "RM",
+        "VI O'Higgins",
+        "VII Maule",
+        "XVI Ñuble",
+        "VIII Biobío",
+        "IX La Araucanía",
+        "XIV Los Ríos",
+        "X Los Lagos"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://comitedearandanos.cl/",
+      "data_urls": [
+        "https://frutasdechile.cl/wp-content/uploads/2026/05/260219-Blueberries-Crop-Report-w08.pdf",
+        "https://frutasdechile.cl/wp-content/uploads/2025/11/251121-Blueberries-Crop-Report-week-47.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "weekly during each export season (week 35 to week 15); PDFs found on the site for 2025-02 to 2026-05; publication since at least the 2018-19 season per a Frutas de Chile news title",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "season",
+        "ISO week",
+        "month",
+        "weekly tons by market (USA, Europe continental, UK, Asia, other)",
+        "weekly total vs previous season",
+        "accumulated tons",
+        "forecast curves (October, December)",
+        "organic tons and share",
+        "weekly share of shipments by region (chart labels, %)",
+        "season tons by variety and region (Legacy, Duke, Brightwell, Blue Ribbon, Suziblue, others)",
+        "renewal vs traditional variety share",
+        "frozen monthly departures"
+      ],
+      "app_uses": [
+        "infer harvest start and peak by region and season from weekly regional shares",
+        "cultivar adoption by region (2025-26: Legacy 13,377 t from Maule, Duke 5,445 t from Ñuble)",
+        "detect season shifts such as the 2022 week-44 lag and 2025-26 early season"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded week-08 2026 edition (1 page, 2025-26 season close): weekly export table weeks 35-7 by market with 2024-25 comparison; 'Weekly progress by region' chart with % labels (season shares Maule 37%, Ñuble 26%, Biobío 12%, Araucanía 8%, Los Ríos 8%); main varieties by region table in tons (total 92,000 t). WordPress media search listed five crop report PDFs since February 2025."
+      },
+      "quality_caveats": "Regional weekly shares are chart labels, so extraction needs layout-aware parsing; older seasons are not on the current site and may need the press releases or Wayback Machine. Covers committee members (about 62% of fresh exports per the committee page).",
+      "priority": "P1",
+      "priority_reason": "The only weekly blueberry series split by region and variety for Chile.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "cl-frutasdechile-news",
+      "name": "Frutas de Chile news archive (includes Blueberry Committee releases, DMC frost warnings, season estimates)",
+      "publisher": "Frutas de Chile (ex ASOEX)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive",
+        "industry_report",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://frutasdechile.cl/news/minimos-efectos-de-las-heladas-lluvia-y-granizo-de-noviembre-sobre-la-produccion-de-arandanos-de-chile/",
+      "data_urls": [
+        "https://frutasdechile.cl/wp-json/wp/v2/news?search=helada&per_page=20&_fields=date,link,title"
+      ],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "13,983 news items from 2015-12-03 to 2026-10",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "title",
+        "link",
+        "body text",
+        "committee export estimates",
+        "event descriptions with dates, regions, communes, damage %"
+      ],
+      "app_uses": [
+        "event records for frost, rain and hail with dates and communes (16 Nov 2022 release: frost on 1 Nov from Maule-Sur to Biobío, Coihueco, San Ignacio, El Carmen; 10-20% damage; about 900 t lost; rain 10-12 Nov average 5 mm; hail 0.1% of exports)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality",
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "WordPress REST endpoint wp/v2/news returned X-WP-Total 13,983, oldest item 2015-12-03; the 16 Nov 2022 committee release was read in full."
+      },
+      "quality_caveats": "Industry voice; dates in releases can be approximate (the release says 1 November while station data show the coldest night on 31 October).",
+      "priority": "P1",
+      "priority_reason": "Primary source for the committee's damage estimates and a searchable archive for event records.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "cl-portalfruticola-news",
+      "name": "Portal Frutícola news archive",
+      "publisher": "Portal Frutícola (Yentzen Group)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.portalfruticola.com/noticias/2022/11/09/chilecomo-se-han-afectado-los-arandanos-de-nuble-por-las-heladas/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2008-2026 per site footer",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "site states use implies acceptance of its 'aviso legal y política de privacidad' (licence text not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "region",
+        "event",
+        "affected stage",
+        "damage range",
+        "named exporters or growers"
+      ],
+      "app_uses": [
+        "event records: exporter states the frost hit on 31 October and 1 November 2022 depending on zone, mostly at fruit set, damage from none to above 80%"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article of 9 Nov 2022 read in full (El Torreón Export, San Carlos)."
+      },
+      "quality_caveats": "Trade press; quotes individual companies.",
+      "priority": "P2",
+      "priority_reason": "Fast, dated narrative of weather events, useful to locate events for station checks.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-blueberries-consulting-news",
+      "name": "Blueberries Consulting news (English and Spanish)",
+      "publisher": "Blueberries Consulting",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://blueberriesconsulting.com/en/chile-helada-provoca-perdidas-en-huertos-de-arandanos-en-nuble/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "not checked; sampled article 11 Nov 2022",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "region",
+        "communes or sectors",
+        "cultivars affected",
+        "loss % statements"
+      ],
+      "app_uses": [
+        "event record detail: frost recorded on 31 October 2022, damage east of Route 5 between Longaví and Cabrero, sectors Cato and Coihueco, cultivars Brightwell, Legacy and Duke, some orchards 100% loss"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "cultivar"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article page read; quotes Álvaro Gatica, vice president of the Ñuble farmers association."
+      },
+      "quality_caveats": "Secondary press; translations from Spanish media.",
+      "priority": "P3",
+      "priority_reason": "Adds cultivar and area detail to the 2022 event.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "cl-diario-oficial-emergencia-agricola",
+      "name": "Diario Oficial de la República de Chile: agricultural emergency resolutions (Ministerio de Agricultura)",
+      "publisher": "Diario Oficial / Ministerio del Interior; resolutions issued by Ministerio de Agricultura",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2022/11/04/43392/01/2210847.pdf",
+      "data_urls": [
+        "https://www.diariooficial.interior.gob.cl/edicionelectronica/index.php?date=04-11-2022&edition=43392"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "daily gazette; electronic editions searchable by date (depth not checked)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "resolution number and date",
+        "publication date and CVE",
+        "phenomenon (heladas, déficit hídrico, lluvias)",
+        "region and communes",
+        "validity end date",
+        "cited evidence (e.g. INIA damage annex, % loss)"
+      ],
+      "app_uses": [
+        "dated, commune-level declarations to validate frost and drought recurrence (Res. exenta 836 of 28 Oct 2022: frost emergency for Putaendo, INIA reports 100% loss in foothill sectors and 75% in central valley)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "water_drought",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded CVE 2210847 (2 pages) and read the full resolution text."
+      },
+      "quality_caveats": "Declarations follow political requests and cover all farming, not blueberries; no frost declaration for Ñuble in October-November 2022 was found.",
+      "priority": "P2",
+      "priority_reason": "Official dated commune lists for weather emergencies.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "cl-bcn-leychile",
+      "name": "Biblioteca del Congreso Nacional, LeyChile (norm records and XML service)",
+      "publisher": "Biblioteca del Congreso Nacional de Chile (BCN)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.bcn.cl/leychile/navegar?idNorma=1173739",
+      "data_urls": [
+        "https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1173739"
+      ],
+      "format": [
+        "html",
+        "xml"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "national legal norms; Minagri emergency resolutions found for 2022 and 2024",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "norm id",
+        "type and number (Resolución exenta)",
+        "issuing body",
+        "dates",
+        "Diario Oficial number",
+        "full text with communes"
+      ],
+      "app_uses": [
+        "machine-readable text of emergency resolutions for an event table"
+      ],
+      "model_families": [
+        "water_drought",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "The HTML page is a JavaScript app; the XML service returned the full text of Resolución 112 exenta (9 Mar 2022, drought emergency in Aysén communes, Diario Oficial 43204)."
+      },
+      "quality_caveats": "No ready list of all emergency resolutions; ids must be found by search.",
+      "priority": "P2",
+      "priority_reason": "Clean text for declarations once ids are known.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-minagri-emergencia-agricola",
+      "name": "Minagri page: Emergencia agrícola por déficit hídrico (current declarations)",
+      "publisher": "Ministerio de Agricultura de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://minagri.gob.cl/emergencia-agricola-por-deficit-hidrico/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "current declarations only (validity to 31 Mar 2026 on the page)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "region",
+        "communes",
+        "validity date",
+        "procedure description"
+      ],
+      "app_uses": [
+        "explains the declaration procedure (resolution names phenomenon and communes, requested by the regional presidential delegation)"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page lists Atacama, Coquimbo and Magallanes (all communes) with validity to 31 March 2026."
+      },
+      "quality_caveats": "No archive; drought only.",
+      "priority": "P3",
+      "priority_reason": "Procedure context only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "cl-agroseguros",
+      "name": "Agroseguros (state subsidy for agricultural insurance)",
+      "publisher": "Agroseguros, Ministerio de Agricultura / CORFO",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.agroseguros.gob.cl/",
+      "data_urls": [
+        "https://www.agroseguros.gob.cl/seguro-climatico-para-frutales/",
+        "https://www.agroseguros.gob.cl/documentos/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "n/a",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "insured perils for fruit (helada, granizo, lluvia, viento, nieve, per press)",
+        "crop study PDFs (no blueberry study listed)"
+      ],
+      "app_uses": [
+        "none until claims data are obtained on request"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home and documents pages opened; documents list feasibility and crop studies (frutilla, nogal, ciruelo, duraznero) and leaflets; no claims statistics by crop or commune found. Press (Portal Agro Chile, Sept 2025) quotes national totals only."
+      },
+      "quality_caveats": "No public claims dataset; would need a transparency request.",
+      "priority": "P3",
+      "priority_reason": "Claims data would be valuable but are not public.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "cl-usda-fas-gain-chile-blueberry",
+      "name": "USDA FAS GAIN Chile Blueberry Annual Voluntary CI2022-0030",
+      "publisher": "USDA Foreign Agricultural Service, Santiago",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary_Santiago_Chile_CI2022-0030.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2021/22 season",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain in the US)",
+      "license_url": null,
+      "extractable_fields": [
+        "area by region",
+        "production",
+        "exports by month",
+        "drought statement"
+      ],
+      "app_uses": [
+        "already cited in benchmark_sites.json"
+      ],
+      "model_families": [
+        "location_mapping",
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF downloaded (541 kB). The fas.usda.gov landing page returned Access Denied; no newer Chile blueberry GAIN report was found."
+      },
+      "quality_caveats": "Single older edition.",
+      "priority": "P3",
+      "priority_reason": "Already in the repository.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "cl-iqonsulting",
+      "name": "iQonsulting (data provider behind the committee estimates)",
+      "publisher": "iQonsulting",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.iqonsulting.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "weekly",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "(not seen) shipment databases"
+      ],
+      "app_uses": [
+        "none without a licence; public outputs arrive through the committee crop report"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Home page returned a 485-byte page with only the site name."
+      },
+      "quality_caveats": "Commercial; access model inferred from its role as consultant [inference].",
+      "priority": "P3",
+      "priority_reason": "Paid; use the public crop report instead.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-eeaoc-agromet-frost-api",
+      "name": "EEAOC Seccion Agrometeorologia station network (web app and JSON services, including frost summary datos-heladas.php)",
+      "publisher": "Estacion Experimental Agroindustrial Obispo Colombres (EEAOC), Tucuman",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "parts of Salta, Santiago del Estero, Catamarca"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agromet.eeaoc.gob.ar/",
+      "data_urls": [
+        "https://agromet.eeaoc.gob.ar/services/datos-heladas.php?desde=2024-07-10&hasta=2024-07-16",
+        "https://agromet.eeaoc.gob.ar/services/estaciones.php"
+      ],
+      "format": [
+        "api-json",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "at least 2024 to present tested (frost query for July 2024 returned 49 stations); network start date not documented",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station name",
+        "lat",
+        "lon",
+        "alt (m)",
+        "minAbs (absolute minimum C)",
+        "hsDebajo0 (hours below 0 C)",
+        "hsDebajo-2 (hours below -2 C)",
+        "hsDebajo-4 (hours below -4 C)",
+        "maxHsDebajo0 (longest single spell below 0 C, h)",
+        "diasHeladas (frost days)",
+        "FPH (first frost date)",
+        "FUH (last frost date)",
+        "habilitada (station active flag)",
+        "identificacion (station id)"
+      ],
+      "app_uses": [
+        "validate bud_flower_freeze and fruit_frost detection at Famailla, Lules, Monteros piedmont cells for 10-16 July 2024",
+        "estimate grid Tmin warm bias against station minima across an elevation gradient 300 to 2,437 m",
+        "Tafi del Valle (Las Nubes, Santa Cruz) frost climatology for the high-elevation benchmark site"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Front end is an Angular app; the bundle names the base https://agromet.eeaoc.gob.ar/services/ and endpoints datos-heladas, datos-diarios, datos-resumen, datos-24hs, datos-enfermedades, estaciones. One call to datos-heladas.php for 2024-07-10 to 2024-07-16 returned JSON with status success, total 49 stations and the fields listed. Example: Monte Grande 2 (Famailla, 397 m) minAbs -4.4 C, 41.9 h below 0 C; Las Nubes (Tafi del Valle, 1,910 m) -9.9 C, 111.2 h below 0 C. The app also has auth and solicitudes routes, so some products may need a login."
+      },
+      "quality_caveats": "Undocumented API; may change without notice. Some stations report 0 or null for the whole window (Lules 2, San Rafael), which may mean missing data rather than no frost. Shelter height and siting not documented in the response. Data request routes suggest bulk history may be on request.",
+      "priority": "P1",
+      "priority_reason": "Dense station network inside the Tucuman blueberry belt with ready-made frost duration and intensity per station, directly testing the missed-frost gap.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ar-inta-siga-stations",
+      "name": "INTA SIGA (Sistema de Informacion y Gestion Agrometeorologica) station catalogue and daily series",
+      "publisher": "Instituto Nacional de Tecnologia Agropecuaria (INTA)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "Entre Rios",
+        "Corrientes",
+        "Buenos Aires",
+        "national"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://siga.inta.gob.ar/",
+      "data_urls": [
+        "http://siga.inta.gob.ar/CdnaUV0iiERRpFQE.php?param_type=estacion&param_value=",
+        "http://siga.inta.gob.ar/document/series/A872871.xls",
+        "https://github.com/AgRoMeteorologiaINTA/siga"
+      ],
+      "format": [
+        "api-json",
+        "xlsx"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "conventional stations from 1956 to 1969 onward (Famailla EMC from 1968-09-01, Concordia EMC 1969 to 2014-02-02); automatic stations from 2006 (Famailla EMA from 2011-12-13)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station id (idInterno)",
+        "nombre",
+        "provincia",
+        "latitud",
+        "longitud",
+        "altura",
+        "tipo (EMC conventional or Nimbus THP automatic)",
+        "minimoDiario / maximoDiario (record span)",
+        "Fecha",
+        "Temperatura_Abrigo_150cm (mean)",
+        "Temperatura_Abrigo_150cm_Maxima",
+        "Temperatura_Abrigo_150cm_Minima",
+        "Temperatura_Intemperie_5cm_Minima",
+        "Precipitacion_Pluviometrica",
+        "Humedad_Media",
+        "Duracion_Follaje_Mojado",
+        "Velocidad_Viento_Maxima",
+        "Radiacion_Global",
+        "Horas_Frio",
+        "Unidades_Frio"
+      ],
+      "app_uses": [
+        "bias-correct grid Tmin at Famailla (EMA A872871, 380 m) and San Pedro Buenos Aires",
+        "check modelled chill hours against station Horas_Frio and Unidades_Frio",
+        "leaf wetness duration (Duracion_Follaje_Mojado) for disease index checks in Tucuman",
+        "long Famailla conventional record (1968 onward) for frost return periods"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "disease",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Station JSON (182 stations) returned by the endpoint named in siga.inta.gob.ar/js/urlserver.js and used by INTA's own R package. Downloaded one series file A872871.xls (1.6 MB, Famailla EEA automatic station): 4,148 daily rows from 2011-12-13 to 2026-10-10, 30 columns. July 2024 daily Tmin at 150 cm: 11 Jul -2.7, 12 Jul -2.3, 13 Jul -0.8, 14 Jul -2.7, 15 Jul -1.5, 16 Jul -1.6 C. No automatic INTA station named Concordia; Concordia EMC ends 2014-02-02."
+      },
+      "quality_caveats": "Daily only in the series files (the automatic stations log 10-minute data but hourly endpoints are not documented for public use). Gaps: 4,148 rows over 5,415 days at Famailla EMA. Endpoint path is obfuscated and may change. No automatic station in Concordia city in the catalogue.",
+      "priority": "P1",
+      "priority_reason": "Free daily station data with chill hours and leaf wetness at the Famailla benchmark site and long conventional records.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ar-abc-weekly-crop-reports",
+      "name": "Argentinean Blueberry Committee (ABC) Weekly Crop Reports (ETA arrivals)",
+      "publisher": "Argentinean Blueberry Committee (ABC)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.argblueberry.com/home/en/reportes/",
+      "data_urls": [
+        "https://www.argblueberry.com/home/en/download/5988/"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "public list on page 1 covers seasons 2021 to 2023/24 (weeks 31 to 52); 11 listing pages exist",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "© 2020 argblueberry.com | All rights reserved",
+      "license_url": null,
+      "extractable_fields": [
+        "season",
+        "ETA week (23-31 to 52) with month",
+        "destination (USA, UK, Europe Cont., Asia, Canada, Others)",
+        "mode (air, boat)",
+        "weekly arrivals tonnes",
+        "season total by destination",
+        "previous-season comparison table",
+        "accumulated arrivals chart"
+      ],
+      "app_uses": [
+        "infer national harvest start, peak and tail by ISO week per season and compare with modelled harvest windows for Famailla and Concordia",
+        "detect year-to-year shifts such as the 2024 frost year versus 2022/23"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Reports page lists Weekly Report Wk 31 to Wk 52 links (download-monitor IDs). Downloaded Wk 44 file (4-page PDF, 0.9 MB) titled WEEKLY ARGENTINEAN BLUEBERRY ARRIVALS - ETA - 2023 / 2024. Table rows by week with air, boat and total tonnes per destination; 2023/24 total to week 44 was 4,963 t, peak week 42 at 669 t; second table for 2022/23 (total 4,273 t). Text layer extracts cleanly with pdftotext -layout."
+      },
+      "quality_caveats": "Arrival weeks (ETA), not packing or harvest weeks; air freight shifts timing by days, boat by weeks. No province split. Covers committee members only (about 80% of exporters per IBO). Page also has a members-only area. All rights reserved: store derived weekly tables, not the PDFs.",
+      "priority": "P1",
+      "priority_reason": "Only weekly blueberry-specific timing series found for Argentina.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ar-inta-concordia-frost-july-2024",
+      "name": "INTA EEA Concordia: Heladas del mes de julio de 2024 en Concordia (report with blueberry section)",
+      "publisher": "INTA EEA Concordia, Centro Regional Entre Rios",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios (Concordia, Federacion)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage",
+        "extension_advisory",
+        "management_practice",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.argentina.gob.ar/noticias/concordia-efecto-de-las-heladas-en-producciones-agropecuarias",
+      "data_urls": [
+        "https://www.argentina.gob.ar/sites/default/files/2024/08/informe_heladas-julio2024_concordia.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "July 2024 event; climatology from the EEA Concordia observatory 1969-2023",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Creative Commons Atribucion 4.0 Internacional (argentina.gob.ar site footer)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "frost date",
+        "duration (h)",
+        "intensity (C, shelter 1.5 m)",
+        "mean first frost date (13 June)",
+        "mean last frost date (17 August)",
+        "July extreme minimum -4.8 C (2007)",
+        "blueberry damage narrative (water limits for sprinkler protection, early cultivars prioritised, edge rows damaged)"
+      ],
+      "app_uses": [
+        "event record: 9 and 12 July 2024 frosts at Concordia, -3.5 C, 11.5 h and 9 h",
+        "check whether the grid cell for Concordia shows sub-zero minima on those dates",
+        "management layer fact: blueberries in northeast Entre Rios are fully covered by sprinkler frost protection"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "News page dated 02 Aug 2024 links the 2.2 MB PDF. PDF table: 10-jul 5.4 h -0.5 C; 8-jul 4.5 h -1 C; 13-jul 7 h -1.5 C; 30-jun 7.5 h -1.8 C; 6-jul 9 h -1.7 C; 12-jul 9 h -3.5 C; 9-jul 11.5 h -3.5 C. Section 'Situacion en arandanos' says the crop has full sprinkler frost protection, water supply was the limit, and some lots had damaged fruit at row edges."
+      },
+      "quality_caveats": "Shelter temperatures; the report notes exposed tissue can be 1 to 3 C colder. Blueberry damage is qualitative, no area or tonnage.",
+      "priority": "P1",
+      "priority_reason": "Dated, quantified frost event with blueberry impact at the Concordia benchmark site.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "ar-magyp-emergencia-resoluciones",
+      "name": "MAGyP Riesgo y Emergencia Agropecuaria: resoluciones vigentes por provincia",
+      "publisher": "Secretaria de Agricultura, Ganaderia y Pesca (Argentina), Direccion de Emergencia y Desastre Agropecuario",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "all provinces"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.magyp.gob.ar/sitio/areas/d_eda/resoluciones/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2021 to present online; earlier resolutions by e-mail request (page note)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "province",
+        "resolution number",
+        "declared departments or districts",
+        "crop or activity",
+        "hazard (helada, granizo, sequia, exceso hidrico, viento)",
+        "start and end dates"
+      ],
+      "app_uses": [
+        "validate frost and hail risk families by department and season",
+        "flag years with declared blueberry or berry emergencies"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page shows 'Resoluciones vigentes', a province selector (Buenos Aires to Tucuman) and the note 'Las resoluciones anteriores al ano 2021, pueden ser solicitadas por e-mail a la Direccion'. Province sub-pages not opened. Menu also lists ORA and 'Eventos meteorologicos destacados'."
+      },
+      "quality_caveats": "Declarations name crops broadly (citrus, frutales) and rarely blueberries. Only 'vigentes' shown, so history must be rebuilt from the ARCA index or Boletin Oficial.",
+      "priority": "P2",
+      "priority_reason": "Official national declarations, but blueberry-specific entries are rare.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ar-arca-cuadro-emergencia-agropecuaria",
+      "name": "ARCA (ex AFIP) Biblioteca Electronica: Cuadro legislativo Emergencia Agropecuaria y Zona de Desastre",
+      "publisher": "Agencia de Recaudacion y Control Aduanero (ARCA)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "all provinces"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://biblioteca.afip.gob.ar/cuadroslegislativos/cuadroLegislativo.aspx?i=481",
+      "data_urls": [
+        "https://biblioteca.afip.gob.ar/dcp/RES_850000077_2019_03_01"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "index tables for 2020 to 2026; individual resolution pages older (2019 example opened)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "resolution number",
+        "issuing body",
+        "date",
+        "Boletin Oficial date",
+        "topic text (province, hazard, crops)",
+        "full text with periods and departments"
+      ],
+      "app_uses": [
+        "build a dated table of national emergency declarations per province and hazard",
+        "screen for blueberry mentions"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Index page has yearly tables (2020 to 2026) with columns RESOLUCION N, ORGANISMO, FECHA, B.O., TEMA. No 'arandano' string in the index topics; Tucuman appears only in 2023 entries (prorroga and Res 1027/2023 for soy, maize, citrus, palta). No national Tucuman declaration for July 2024 found in this index."
+      },
+      "quality_caveats": "Topic text is short; crops often only in the full text. Index is a tax-agency mirror, not the legal source (Boletin Oficial).",
+      "priority": "P2",
+      "priority_reason": "Easiest machine-readable index of national declarations.",
+      "est_effort_days": 0.8
+    },
+    {
+      "id": "ar-res-sga-77-2019-tucuman-blueberry",
+      "name": "Resolucion SGA 77/2019: emergency for blueberry farms in Tucuman (rain Oct to Nov 2018)",
+      "publisher": "Secretaria de Gobierno de Agroindustria (Argentina)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://biblioteca.afip.gob.ar/dcp/RES_850000077_2019_03_01",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "event late Oct to mid Nov 2018; declaration 1 Oct 2018 to 1 Oct 2019",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "province",
+        "crop (arandano)",
+        "hazard (intensas precipitaciones)",
+        "event window (last two weeks of Oct and first two of Nov 2018)",
+        "declaration start and end",
+        "provincial decree 297/19 of 11 Feb 2019"
+      ],
+      "app_uses": [
+        "validate harvest_heavy_rain for the Famailla benchmark: modelled harvest Oct to Dec and recurring heavy rain should show 2018 as an outlier"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Resolucion N 77/2019, issued 01/03/2019, B.O. 06/03/2019. Text: Decreto Provincial 297/19 declared emergency 'para la produccion de arandanos en todo el territorio provincial' for climatic events between the last two weeks of October and first two weeks of November 2018; national resolution covers 365 days from 1 Oct 2018 for blueberry farms affected by 'intensas precipitaciones'."
+      },
+      "quality_caveats": "Province-wide; no loss percentage or area in the text.",
+      "priority": "P1",
+      "priority_reason": "Rare official blueberry-specific weather-damage declaration, dated, at a benchmark province.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-entre-rios-decreto-3211-2026",
+      "name": "Entre Rios Decreto 3211/2026: emergency for Concordia and Federacion after 18 July 2026 windstorm (includes blueberries)",
+      "publisher": "Gobierno de Entre Rios (reported by ElEntreRios)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios (Concordia, south Federacion)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.elentrerios.com/actualidad/emergencia-agropecuaria-por-danos-de-hasta-el-100-que-dejo-el-temporal-de-julio-en-la-costa-del-uruguay.htm",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "event 18 Jul 2026; emergency 18 Jul 2026 to 17 Jul 2027 for blueberries and berries",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "decree number",
+        "hazard (viento, gusts up to 175 km/h recorded by INTA)",
+        "survey dates 20-22 July",
+        "surveyed area about 50,000 ha",
+        "crops covered (citricos, forestales, arandanos, berries, vides, viveros, horticolas)",
+        "damage classes (>50%, up to 100% in nurseries)",
+        "damage to anti-hail net structures",
+        "polygon-defined zone"
+      ],
+      "app_uses": [
+        "event record for a winter windstorm that damaged anti-hail structures in the Concordia blueberry area",
+        "context for the 2026 Concordia harvest delay"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article dated 1 Oct 2026: decree 3211 published in the provincial Boletin Oficial; covers 'producciones citricas, forestales, arandanos, berries, vides'; INTA recorded gusts up to 175 km/h north of Concordia; damage to espalderas and anti-hail net supports. Decree PDF linked on the page, not opened."
+      },
+      "quality_caveats": "Secondary press report; wind is not a modelled risk family. Provincial decree only (national homologation not seen).",
+      "priority": "P2",
+      "priority_reason": "Dated blueberry-relevant damage event in the benchmark area, but a hazard outside current model families.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-mecon-news-emergencia-entre-rios-2025",
+      "name": "Argentina.gob.ar news: national emergency for Entre Rios for frost and hail (Res. 1502/2025 and 1503/2025)",
+      "publisher": "Ministerio de Economia / Secretaria de Agricultura (Argentina)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios (Concordia, Federacion, Colon, Victoria)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.argentina.gob.ar/noticias/el-gobierno-nacional-declaro-la-emergencia-agropecuaria-para-entre-rios-por-heladas-y",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "frost from 4 Jul 2025, declared to 15 Jul 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Creative Commons Atribucion 4.0 Internacional (site footer)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "resolution numbers",
+        "provincial decree 2.296 of 1 Sep 2025",
+        "crop (citrus)",
+        "hazard (heladas)",
+        "departments (Federacion, Concordia)",
+        "period"
+      ],
+      "app_uses": [
+        "frost-year flag for Concordia 2025 (citrus damage as a proxy, no blueberry mention)"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "News dated 03 Oct 2025; CNEyDA meeting 15 Sep 2025; decree 2.296 declared frost emergency from 4 Jul 2025 to 15 Jul 2026 for citrus in Federacion and Concordia; links Resolucion 1502/2025 and 1503/2025."
+      },
+      "quality_caveats": "Citrus only; blueberries not named. Proxy evidence for a frost winter.",
+      "priority": "P3",
+      "priority_reason": "Frost-year proxy at Concordia without blueberry detail.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-tucuman-gov-frost-news-2024",
+      "name": "Comunicacion Tucuman (provincial government press): 'El gobierno evalua los danos que provocaron las heladas en diferentes cultivos' (17 Jul 2024)",
+      "publisher": "Secretaria de Comunicacion Publica, Gobierno de Tucuman",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.comunicaciontucuman.gob.ar/noticia/economia-produccion/228563/gobierno-evalua-danos-provocaron-heladas-diferentes-cultivos",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "July 2024",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "crops affected",
+        "blueberry statement (association: 'no sufrio dano significativo')",
+        "EEAOC statement (up to 10 frosts and over 40 h below zero in some areas)",
+        "localities (Famailla, Sauce Guacho, Capischango for avocado)"
+      ],
+      "app_uses": [
+        "claim record: July 2024 piedmont frost did not cause significant blueberry damage per the producer association, contrasting with small-fruit damage reports"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page dated 17 Jul 2024. Quotes: 'la Asociacion que nuclea a los productores de arandanos, dicha fruta no sufrio dano significativo'; EEAOC director: 'algunas regiones experimentando hasta 10 heladas y mas de 40 horas con temperaturas bajo cero'. La Gaceta (17 Julio 2024, nota 1043470) carries the same statements."
+      },
+      "quality_caveats": "Official statement, but early (during the event) and qualitative. Conflicts with argenpapa/INTA-type reports of small-fruit damage in the piedmont.",
+      "priority": "P2",
+      "priority_reason": "Official dated claim on blueberry frost impact at the Famailla benchmark.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-ipaat-eeaoc-frost-map-2024",
+      "name": "IPAAT note: 'Mapa de las heladas en Tucuman' (11 Jul 2024, EEAOC agrometeorology data)",
+      "publisher": "Instituto de Promocion del Azucar y Alcohol de Tucuman (IPAAT), source La Gaceta and EEAOC",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage",
+        "news_archive",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ipaat.gov.ar/nota/426/mapa-de-las-heladas-en-tucuman-las-bajas-temperaturas-se-extendieron-sobre-el-territorio",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1 to 11 July 2024",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "station minima (El Cajon -0.5 C, Santa Cruz -10.4 C)",
+        "frost severity classes by zone",
+        "frost dates in piedmont and plain (1, 6, 9, 11 July)"
+      ],
+      "app_uses": [
+        "cross-check the EEAOC API frost summary for the early-July spells"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Dated 11 Jul 2024. Text: temperatures from -0.5 C at El Cajon (Burruyacu) to -10.4 C at Santa Cruz substation (El Mollar); valleys moderate to very severe frosts nearly every day; piedmont to plain light to moderate frosts on 1, 6, 9 and 11 July; severity grew from west to east."
+      },
+      "quality_caveats": "Secondary repost of a La Gaceta article; no blueberry statement.",
+      "priority": "P3",
+      "priority_reason": "Useful corroboration; the EEAOC API is the primary source.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-federcitrus-abc-frost-estimate-2024",
+      "name": "Federcitrus news: 'Primera proyeccion de la temporada de arandanos argentinos' (12 Aug 2024, ABC secretary quote)",
+      "publisher": "Federcitrus (repost of Portalfruticola interview)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "Corrientes"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "industry_report",
+        "management_practice",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.federcitrus.org/primera-proyeccion-de-la-temporada-de-arandanos-argentinos/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2024 season",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "estimated loss of early fruit (5 to 10%)",
+        "regions (Tucuman, Corrientes)",
+        "share of production with frost protection (about 90%)",
+        "season volume forecast (14 to 15 thousand t, 60% export)"
+      ],
+      "app_uses": [
+        "event record: 2024 winter frosts cut early fruit 5-10% in Tucuman and Corrientes",
+        "management fact: about 90% of Argentine blueberry area has frost protection"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "management",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Dated 12 agosto 2024. Jorge Pazos (ABC secretary, CAPAB president) estimates 'una merma entre un 5-10% de la fruta primicia', production starting in August in Tucuman and Corrientes; 'el 90% de toda la produccion de arandanos en Argentina cuenta con sistema de anti heladas'."
+      },
+      "quality_caveats": "Early projection from an industry spokesperson, repost of a trade site.",
+      "priority": "P2",
+      "priority_reason": "Only quantified loss estimate found for the 2024 frost on blueberries.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-elonce-concordia-2026-season",
+      "name": "Elonce: 'La cosecha de arandanos arranco con demoras y estiman perdidas de hasta 35%' (Concordia, Sep 2026)",
+      "publisher": "Elonce (quoting APAMA president, from Diario Rio Uruguay)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios (Concordia)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.elonce.com/sociedad/la-cosecha-de-arandanos-arranco-con-demoras-y-estiman-perdidas-de-hasta-35.htm",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "winter to spring 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "loss estimate (30 to 35%, about one million kg)",
+        "cause (rain, cloud, low temperatures during bloom)",
+        "INTA count of about 37 cloudy days, 25 with rain or drizzle",
+        "storm 17-18 July damaged anti-hail nets",
+        "harvest delay"
+      ],
+      "app_uses": [
+        "validate pollination-gap and disease-weather risk families for Concordia in 2026",
+        "harvest_timing delay check"
+      ],
+      "model_families": [
+        "pollination",
+        "disease",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article quotes Juan Scordia (APAMA): 'creemos que se ha perdido un 30-35%'; 'El INTA nos marco aproximadamente 37 dias nublados, de los cuales 25 fueron con lluvias o lloviznas'; bees did not work and diseases advanced; storm on 17-18 July."
+      },
+      "quality_caveats": "Producer estimate in press; the INTA cloudy-day count is second-hand. APAMA's own domain (apama.com.ar) now hosts an unrelated casino page, so no primary association source.",
+      "priority": "P1",
+      "priority_reason": "Rare dated evidence linking a pollination and disease weather window to blueberry loss at a benchmark site.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-eeaoc-reporte-agroindustrial-blueberry",
+      "name": "EEAOC Reporte Agroindustrial (Economia y Estadisticas): blueberry and strawberry foreign trade, Argentina and Tucuman (e.g. RA 365, Apr 2026; RA 339, Nov 2025)",
+      "publisher": "EEAOC Seccion Economia y Estadisticas",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "production_statistics",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.eeaoc.gob.ar/categoria_publicacion/reporte-agroindustrial/",
+      "data_urls": [
+        "https://www.eeaoc.gob.ar/wp-content/uploads/2026/04/RA365.pdf",
+        "https://www.eeaoc.org.ar/wp-content/uploads/2025/11/RA-339.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "annual issues; RA 365 compares 2025 vs 2024",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "national fresh export t and USD FOB",
+        "national frozen export t",
+        "FOB price USD/t",
+        "destination shares",
+        "Tucuman fresh and frozen export t and USD",
+        "Tucuman share of national total"
+      ],
+      "app_uses": [
+        "annual year-to-year volume shifts for Tucuman (frozen share rises in damage years [inference])",
+        "context for 2024 frost and 2025 decline"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "RA365.pdf (0.3 MB) downloaded and read: Argentina fresh exports 4,195 t in 2025 (USD 18.5 million, 4,402 USD/t), 5,240 t in 2024; frozen 2,739 t in 2025; Tucuman 44% of fresh and 90% of frozen exports in 2025; source INDEC. RA-339 URL seen in search; not opened. The earlier 403 on RA25 did not recur on these files."
+      },
+      "quality_caveats": "Calendar-year INDEC data, not season; INDEC groups small-exporter destinations as 'Confidencial'. Provisional figures.",
+      "priority": "P2",
+      "priority_reason": "Only official Tucuman-level blueberry export series found.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ar-eeaoc-frost-report-2025",
+      "name": "EEAOC news 'Como impactaron las heladas en los cultivos' (2025 frost season report, La Gaceta 6 Jul 2025)",
+      "publisher": "EEAOC",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "west Santiago del Estero"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.eeaoc.org.ar/como-impactaron-las-heladas-en-los-cultivos/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1 May to early July 2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "frost severity classes (suave 0 to -2, moderada -2 to -4, severa -4 to -6, muy severa below -6 C)",
+        "first frost date 29 May 2025",
+        "zone minima (northern plain -1 to -4.3 C at Javicho)",
+        "hours below 0 C (over 25 h at Monte Redondo)"
+      ],
+      "app_uses": [
+        "adopt EEAOC frost severity classes for Tucuman station checks",
+        "season-level frost summary for 2025"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page dated 26/11/2025, reproduces La Gaceta 06 Julio 2025. States the four colour-coded severity classes and that frosts were light in the piedmont; first frost 29 May; northern plain minima -1 to -4.3 C."
+      },
+      "quality_caveats": "Sugarcane focus; no blueberry statement.",
+      "priority": "P3",
+      "priority_reason": "Gives the local frost severity scale; event detail is better from the API.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-inta-famailla-comercializacion-2019",
+      "name": "INTA EEA Famailla and UNT: 'Comercializacion y competitividad del arandano argentino' (2019)",
+      "publisher": "INTA EEA Famailla; Facultad de Ciencias Economicas, Universidad Nacional de Tucuman",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "Salta",
+        "Catamarca",
+        "Entre Rios",
+        "Corrientes",
+        "Buenos Aires"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census",
+        "production_statistics",
+        "cultivar_traits",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.inta.gob.ar/xmlui/bitstream/handle/20.500.12123/4671/INTA_CRTucuman-Santiago_EEAFamailla_RiosdeGonzalez_L_Comercializacion_y_competitividad_del_arandano_argentino.pdf?sequence=1&isAllowed=y",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2014 to 2017 data (APRATUC census 2017)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "NOA area by department 2017 (fields, ha)",
+        "regional area shares 2017 (NOA 48%, NEA 38%, Central 15%)",
+        "Tucuman export 2017 (6,300 t fresh, 2,500 t frozen)",
+        "variety harvest calendar by ISO week 32 to 50 (bars)",
+        "main NOA varieties and trend 2014-2017"
+      ],
+      "app_uses": [
+        "location mapping: Tucuman blueberry area concentrated in Monteros (579 ha), Chicligasta (225 ha), Famailla (117 ha), Juan B. Alberdi (93 ha), Lules (59 ha)",
+        "cultivar classes for NOA (Emerald 24% of area)"
+      ],
+      "model_families": [
+        "location_mapping",
+        "cultivar",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "3.6 MB PDF, year 2019. Cuadro 5 (APRATUC Censo 2017): Burruyacu 4 ha, Yerba Buena 5, Lules 59, Famailla 117, Monteros 579, Chicligasta 225, Simoca 4, Juan B. Alberdi 93, La Cocha 37, Metan (Salta) 180, Santa Rosa-Alijilan (Catamarca) 34; total 54 fields, 1,337 ha. Cuadro 3 variety calendar (Snowchaser, Sapphire, Springhigh, Emerald, Primadonna, Jewel, Star) by week is drawn as bars, not text."
+      },
+      "quality_caveats": "Student report coordinated by INTA; census figures from the producer association; 2017 snapshot. Calendar bars need manual reading.",
+      "priority": "P2",
+      "priority_reason": "Only department-level blueberry area found for Tucuman.",
+      "est_effort_days": 0.4
+    },
+    {
+      "id": "ar-magyp-arandanos-indicadores-2020",
+      "name": "MAGyP: 'Arandanos: Evolucion de los principales indicadores del sector productivo' (Oct 2020)",
+      "publisher": "Ministerio de Agricultura, Ganaderia y Pesca (Argentina)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman",
+        "Salta",
+        "Catamarca",
+        "Entre Rios",
+        "Corrientes",
+        "Buenos Aires"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census",
+        "cultivar_traits",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.argentina.gob.ar/sites/default/files/arandanos-oct-2020.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2019 censuses (APRATUC, APAMA, ABC)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Creative Commons Atribucion 4.0 Internacional (argentina.gob.ar site footer)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "area and producer counts by region (NOA 1,337 ha; NEA 1,025 ha incl. Entre Rios 825 ha; Buenos Aires 310 ha)",
+        "harvest calendar by region in ISO weeks (NOA 33-47, NEA 37-49, Centro 40-02)",
+        "variety harvest calendar (Cuadro 3)",
+        "frost exposure note for early-chill cultivars"
+      ],
+      "app_uses": [
+        "compare modelled harvest windows with regional week ranges",
+        "region-level area weights"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "location_mapping",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Re-verified (already known). 3.4 MB PDF. Text: NOA harvests weeks 33 to 47 (mid August to end November), NEA weeks 37 to 49, Centro weeks 40 to 02; NEA 49 producers, 1,025 ha (APAMA census 2019), Entre Rios 825 ha; Buenos Aires about 38 producers, 310 ha."
+      },
+      "quality_caveats": "One-off 2020 snapshot from association data.",
+      "priority": "P2",
+      "priority_reason": "Best regional harvest-week calendar for Argentina.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-inta-concordia-variedades-2020",
+      "name": "INTA EEA Concordia: Variedades de arandanos (Sep 2020, hosted by AIANER)",
+      "publisher": "INTA EEA Concordia",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.aianer.com.ar/web/download/202010inta_concordia_variedades_de_arandanos.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2020",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar",
+        "group (SHB, rabbiteye, NHB)",
+        "chill hours",
+        "bloom timing class",
+        "ripening timing class",
+        "evergreen management flag",
+        "main cultivars in Argentina (Emerald, Snowchaser)"
+      ],
+      "app_uses": [
+        "seed cultivar classes: Snowchaser 200 h evergreen, very early; Emerald 300 h early; Misty 250 h; O'Neal 400 h; Star 400 h late bloom early ripening; San Joaquin 400-500 h; Farthing and Abundance 300 h late",
+        "set chill thresholds per class for Concordia"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "0.6 MB PDF dated Septiembre 2020 on INTA Concordia letterhead. Lists per cultivar 'Requiere N horas de frio' plus bloom and ripening class, e.g. 'Snowchaser Requiere 200 horas de frio, de manejo siempre verde, Floracion y maduracion muy temprana'."
+      },
+      "quality_caveats": "Chill values are generic catalogue values, not measured locally. Hosted on an engineers' association site, not INTA's repository.",
+      "priority": "P2",
+      "priority_reason": "Compact cultivar trait table for the cultivars that dominate Argentina.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-inta-rivadeneira-cultivo-arandano",
+      "name": "Rivadeneira MF (INTA Concordia): 'Caracteristicas botanicas, variedades, poda y manejo del cultivo en arandano' (in Cultivo, poscosecha, procesado y comercio de berries, SPE3 2022)",
+      "publisher": "INTA (repositorio.inta.gob.ar)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Entre Rios"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits",
+        "management_practice",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.inta.gob.ar/handle/20.500.12123/12070",
+      "data_urls": [
+        "https://repositorio.inta.gob.ar/bitstream/handle/20.500.12123/12070/INTA_CREntreRios_EEAConcordia_Rivadeneira_MF_Arandanos_Caracter%C3%ADsticas_bot%C3%A1nicas_variedades.pdf?sequence=1&isAllowed=y"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2022",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar chill hours",
+        "bloom and ripening class",
+        "pruning practice",
+        "yemas per branch and fruits per bud for Emerald and Snowchaser"
+      ],
+      "app_uses": [
+        "cultivar classes and pruning practice for the management layer at Concordia"
+      ],
+      "model_families": [
+        "cultivar",
+        "management",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Re-verified (already known). Handle page HTTP 200 shows author Rivadeneira, Maria Fernanda; source SPE3 Valencia 2022 p. 203-221 and an abstract on pruning. PDF not re-read this session."
+      },
+      "quality_caveats": "Book chapter; overlaps the 2020 variety sheet.",
+      "priority": "P3",
+      "priority_reason": "Already known; adds pruning context.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-eeaoc-lobo-zavalia-tafi-2018",
+      "name": "Lobo Zavalia et al. 2018: 'Comportamiento productivo y fenologico de variedades de arandano con alto requerimiento de horas de frio en Tafi del Valle' (Rev. Ind. Agric. Tucuman 95(2))",
+      "publisher": "EEAOC (Revista Industrial y Agricola de Tucuman), via SciELO Argentina",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "Tucuman (Tafi del Valle)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "cultivar_trial",
+        "loss_or_damage",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.scielo.org.ar/scielo.php?script=sci_arttext&pid=S1851-30182018000200002",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2012 to 2016 seasons",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar (15 high-chill)",
+        "season",
+        "yield",
+        "phenology dates",
+        "quality",
+        "late frost 12 Sep 2014 -2.3 C"
+      ],
+      "app_uses": [
+        "calibrate bloom and harvest for the Tafi del Valle benchmark",
+        "validate bud_flower_freeze on 12 Sep 2014"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "bud_flower_freeze",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Re-verified (already known). SciELO page loads with title, authors (EEAOC Horticultura) and text: 2014 yields lower 'debido a que se produjo una helada tardia el 12 de septiembre, registrandose una temperatura minima absoluta de -2,3 C'; piedmont fruit referenced for September to November. Earlier EEAOC-hosted PDF copy (eeaoc.gob.ar/wp-content/uploads/2019/03/95-2-2-ok.pdf) now returns 404."
+      },
+      "quality_caveats": "Single site, high-chill cultivars that are not the commercial piedmont mix.",
+      "priority": "P2",
+      "priority_reason": "Already in the benchmark; still the only dated multi-season phenology for Tucuman.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "ar-smn-dpd-hourly-opendata",
+      "name": "SMN Argentina open data download (DPD): hourly surface observations datohorarioYYYYMMDD.txt",
+      "publisher": "Servicio Meteorologico Nacional (SMN), Argentina",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "national (includes CONCORDIA AERO, Tucuman stations)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://ssl.smn.gob.ar/dpd/descarga_opendata.php?file=observaciones/datohorario20261010.txt",
+      "data_urls": [
+        "https://ssl.smn.gob.ar/dpd/descarga_opendata.php?file=observaciones/datohorario20261010.txt"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "rolling recent days only (archive depth not documented; not tested beyond one recent date)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "FECHA",
+        "HORA",
+        "TEMP (C)",
+        "HUM (%)",
+        "PNM (hPa)",
+        "DD (wind dir)",
+        "FF (km/h)",
+        "NOMBRE (station)"
+      ],
+      "app_uses": [
+        "forward-collect hourly temperature and humidity at Concordia Aero and Tucuman Aero for bias correction and disease indices"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "disease",
+        "pollination"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "One call for 2026-10-10 returned a 188 KB fixed-width text with the header FECHA HORA TEMP HUM PNM DD FF NOMBRE and rows such as '10102026 6 13.8 97 1019.3 200 19 CONCORDIA AERO'. The documentation pages smn.gob.ar/descarga-de-datos and ssl.smn.gob.ar/dpd/pron5d-calendario.php returned a Cloudflare 403 challenge, so archive depth and terms were not seen."
+      },
+      "quality_caveats": "Archive window unknown, so historical backfill may need an SMN data request. Few stations near orchards (airports).",
+      "priority": "P2",
+      "priority_reason": "Free hourly humidity and temperature, but no verified history.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ar-senasa-certified-plant-exports",
+      "name": "SENASA - Exportacion de productos de origen vegetal certificados (datos.magyp.gob.ar)",
+      "publisher": "SENASA via Secretaria de Agricultura, Ganaderia y Pesca open data portal",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "province of certifying office"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://datos.magyp.gob.ar/dataset/senasa-exportacion-de-productos-de-origen-vegetal-certificados",
+      "data_urls": [
+        "https://datos.magyp.gob.ar/dataset/f4accb3a-3d8a-4135-ac1c-a59c440d1354/resource/a40bae1b-7621-463e-9f88-5566068ff9ac/download/expo-2020-vegetales-certificados-senasa.csv"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2020-01-01 to 2020-07-08 only",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "fecha",
+        "oficina_cf",
+        "provincia",
+        "provincia_id",
+        "pais_destino",
+        "continente",
+        "mercaderia_certificada (Arandano Fresco, Congelado, Deshidratado)",
+        "transporte",
+        "tn"
+      ],
+      "app_uses": [
+        "schema template only; the file misses the August to December fresh season"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page states 'Frecuencia Mensualmente' but last update 6 July 2020. Downloaded CSV (3.6 MB, 32,571 rows) spans 2020-01-01 to 2020-07-08; 38 blueberry rows (21 frozen, 9 fresh, 8 dried), provinces are those of the certifying office (Buenos Aires, CABA, Tucuman). datos.gob.ar mirror returned Cloudflare error 523."
+      },
+      "quality_caveats": "Stale and partial year; province is where certification happened, not where fruit grew. The SENASA Jan 2026 press note (4,200 t certified from Entre Rios in 2025/26) shows the data exist but are not published openly.",
+      "priority": "P3",
+      "priority_reason": "Daily certification data would be ideal, but only half of 2020 is public.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-magyp-anuario-exportaciones-frutas",
+      "name": "Frutas - Anuario de exportaciones (2013 to 2017) (datos.magyp.gob.ar)",
+      "publisher": "Secretaria de Agricultura, Ganaderia y Pesca (Argentina)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://datos.magyp.gob.ar/dataset/anuario-exportaciones-frutas",
+      "data_urls": [
+        "https://datos.magyp.gob.ar/dataset/d08e3793-27a8-4318-ad3c-926c3e4d0264/resource/d6a47033-1f54-43d8-a001-0e5ad43b2eef/download/exportaciones-de-frutas-desde-el-anio-2013-al-2017-en-toneladas.csv"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2013 to 2017",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "fruit (arandanos among ten fruits)",
+        "destination country",
+        "year",
+        "tonnes",
+        "USD"
+      ],
+      "app_uses": [
+        "annual national volume context 2013-2017"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page lists three CSV resources (tonnes, USD, combined) described as 'Exportaciones argentinas por pais de destino de: arandanos, ciruelas, ...'; licence CC BY 4.0; last updated 24 Oct 2019. CSVs not downloaded."
+      },
+      "quality_caveats": "Annual, national, ends 2017.",
+      "priority": "P3",
+      "priority_reason": "Annual only, superseded by INDEC.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ar-indec-comex-complejos",
+      "name": "INDEC COMEX database and 'Complejos exportadores' reports (complejo arandanos y frutos similares)",
+      "publisher": "Instituto Nacional de Estadistica y Censos (INDEC)",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "province of origin (OPEX reports)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://comex.indec.gob.ar/",
+      "data_urls": [
+        "https://www.indec.gob.ar/uploads/informesdeprensa/complejos_03_25442CB3F0B0.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "annual and semester reports (2021 onward seen); COMEX query tool monthly",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "complex export value USD",
+        "share of fresh Vaccinium (27.6% in 2024)",
+        "main destinations",
+        "NCM 0810.40 monthly values via COMEX query (not tested)"
+      ],
+      "app_uses": [
+        "monthly NCM 0810.40 exports as a cross-check of ABC weekly arrivals (if the COMEX tool exposes it)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "comex.indec.gob.ar returns a 6.6 KB JavaScript shell (query tool not exercised). Complejos 2024 PDF opened: 'El complejo arandanos y frutos similares exporto USD 69 millones ... 58,4% correspondio a cerezas ... 27,6%, a arandanos y otros frutos del genero Vaccinium frescos; y 13,0%, a frutillas congeladas'."
+      },
+      "quality_caveats": "Complex mixes cherries and strawberries; destinations with fewer than 3 traders are 'Confidencial'. Monthly NCM-level access unverified.",
+      "priority": "P3",
+      "priority_reason": "Aggregated with cherries; ABC and EEAOC give cleaner blueberry series.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ar-fas-gain-argentina-blueberries-2006",
+      "name": "USDA FAS GAIN Attache Report AR6041 'Argentina: Blueberries' (27 Nov 2006)",
+      "publisher": "USDA Foreign Agricultural Service",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.fas.usda.gov/data/gain/2006/11/argentina-blueberries",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2001 to 2006",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "US federal work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "production t",
+        "export t and USD",
+        "growth rates"
+      ],
+      "app_uses": [
+        "historical context only"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "fas.usda.gov returned HTTP 403 to curl. Search snippet: AR6041, 2005 output 3,000 t, exports 2,700 t. No newer Argentina blueberry GAIN report found."
+      },
+      "quality_caveats": "Twenty years old; no later Argentina-specific blueberry GAIN report found.",
+      "priority": "P3",
+      "priority_reason": "Historic only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "uy-inia-salto-grande-daily-climate",
+      "name": "INIA Uruguay: Precipitacion y temperaturas extremas - Estacion Salto Grande (Catalogo de Datos Abiertos)",
+      "publisher": "Instituto Nacional de Investigacion Agropecuaria (INIA Uruguay), Unidad GRAS",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [
+        "Salto"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://catalogodatos.gub.uy/dataset/inia-precipitacion-temps-extremas-sg",
+      "data_urls": [
+        "https://catalogodatos.gub.uy/dataset/412cb511-34ef-4ba8-8184-03a8529e9acd/resource/f8096b75-7821-4f36-9e26-252693afe6fe/download/ppt_tmax_tmin_sg_2024.csv",
+        "https://catalogodatos.gub.uy/api/3/action/package_show?id=inia-precipitacion-temps-extremas-sg"
+      ],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1970 to 2026 (one CSV per year)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Licencia de DAG de Uruguay",
+      "license_url": null,
+      "extractable_fields": [
+        "fecha",
+        "temperaturaMaxima",
+        "temperaturaMinima",
+        "pluviometro (mm)"
+      ],
+      "app_uses": [
+        "bias-correct grid Tmin for the Salto blueberry area and for Concordia across the river",
+        "frost validation: 9 Jul 2024 -4.4 C, 12 Jul 2024 -3.5 C",
+        "chill and frost climatology since 1970"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CKAN package_show lists a metadata JSON and 57 yearly CSVs (1970 to 2026), metadata_modified 2026-09-11, licence 'Licencia de DAG de Uruguay'. Downloaded ppt_tmax_tmin_sg_2024.csv (366 rows): header fecha,temperaturaMaxima,temperaturaMinima,pluviometro; 2024-07-08 Tmin -1.4, 07-09 -4.4, 07-10 -1.2, 07-12 -3.5, 07-13 -2.0 C. Station at -31.27, -57.89, 47 m, readings taken at 9 am (catalogue description)."
+      },
+      "quality_caveats": "Daily extremes read at 09:00, so the daily minimum is assigned to the reading day; no hourly data in this set.",
+      "priority": "P1",
+      "priority_reason": "Open 56-year daily station record 15 km from Concordia and in Uruguay's main blueberry department.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "uy-inia-gras-banco-datos",
+      "name": "INIA GRAS Banco de Datos Agroclimaticos (daily conventional and hourly automatic stations)",
+      "publisher": "INIA Uruguay, Unidad GRAS",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [
+        "Salto",
+        "Tacuarembo",
+        "Canelones (Las Brujas)",
+        "Colonia (La Estanzuela)",
+        "Treinta y Tres"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.inia.uy/gras/Clima/Banco-datos-agroclimatico",
+      "data_urls": [],
+      "format": [
+        "html",
+        "xlsx",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "not verified (page blocked)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly temperature and humidity at automatic stations (per search snippet and Revista INIA 68)"
+      ],
+      "app_uses": [
+        "hourly records at INIA Salto Grande for disease and frost-duration checks, if downloadable"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Page returned HTTP 403 to curl. Search snippets describe a historical database with daily (conventional) and hourly (automatic) data and Excel or CSV download. The open-data catalogue entry for Salto Grande (separate source) works."
+      },
+      "quality_caveats": "Hourly access unverified; may require browser.",
+      "priority": "P2",
+      "priority_reason": "Possible hourly data at Salto Grande, not yet confirmed.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "uy-inumet-hourly-temperature-opendata",
+      "name": "INUMET Observaciones meteorologicas - Temperatura del aire en el Uruguay (hourly, Catalogo de Datos Abiertos)",
+      "publisher": "Instituto Uruguayo de Meteorologia (INUMET)",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [
+        "Salto",
+        "Artigas",
+        "Colonia",
+        "Mercedes",
+        "Paso de los Toros",
+        "Rocha",
+        "Montevideo (Melilla)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://catalogodatos.gub.uy/dataset/inumet-observaciones-meteorologicas-temperatura-del-aire-en-el-uruguay",
+      "data_urls": [
+        "https://catalogodatos.gub.uy/dataset/accd0e24-76be-4101-904b-81bb7d41ee88/resource/f800fc53-556b-4d1c-8bd6-28b41f9cf146/download/inumet_temperatura_del_aire.csv",
+        "https://catalogodatos.gub.uy/dataset/accd0e24-76be-4101-904b-81bb7d41ee88/resource/2435e1f5-24c7-4991-8eb7-7708b556b32f/download/metadatos_inumet_temperatura_del_aire.json"
+      ],
+      "format": [
+        "csv",
+        "xlsx",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "from 2020-01-01 (first rows) to present; companion datasets for humidity, precipitation, wind, pressure, sunshine",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Licencia de DAG de Uruguay",
+      "license_url": null,
+      "extractable_fields": [
+        "fecha (UTC, hourly)",
+        "estacion_id (e.g. 'Salto G3')",
+        "temp_aire (C)",
+        "humedad relativa (companion set)",
+        "precipitacion puntual horaria (companion set)"
+      ],
+      "app_uses": [
+        "hourly Salto temperature and humidity for frost duration, anthracnose and Botrytis indices and bee-flight hours",
+        "grid bias check at Salto"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "disease",
+        "pollination",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CKAN search returned 7 INUMET datasets, all 'Licencia de DAG de Uruguay', modified 2026-10-11. Metadata JSON lists attributes fecha (UTC), estacion_id (Aeropuerto Melilla G3, Artigas G3, Colonia G3, Mercedes G3, Paso de los Toros G3, Rocha G3, Salto G3), temp_aire. Read the first 600 bytes of the 14 MB CSV: 'fecha;estacion_id;temp_aire', '2020-01-01 00:00;Rocha G3;21.6'. Full file not downloaded (over 10 MB)."
+      },
+      "quality_caveats": "Only 7 stations; record starts 2020 in the file head; semicolon separator with a blank second row.",
+      "priority": "P1",
+      "priority_reason": "Open hourly temperature and humidity at Salto under an explicit open licence.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "uy-mgap-opypa-anuario-fruticultura",
+      "name": "MGAP OPYPA Anuario 2024: 'Fruticultura: situacion y perspectivas de la citricultura y los frutales'",
+      "publisher": "Ministerio de Ganaderia, Agricultura y Pesca (MGAP), OPYPA",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "shipment_or_export_series",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://descargas.mgap.gub.uy/OPYPA/Anuarios/Anuarioopypa2024/CP/13/CP13web/CP13-Fruticulturaycitricultura.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2007 to 2024 (export chart); 2021 to 2024 (import table)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "blueberry fresh imports t (24, 75, 137, 205 for 2021 to 2024)",
+        "blueberry share of fresh fruit exports (under 2% in 2024)",
+        "export value chart by fruit 2007-2024 (source Descartes)",
+        "sector bank debt including blueberries"
+      ],
+      "app_uses": [
+        "context: Uruguay blueberry exports are now marginal, so export series cannot calibrate harvest timing"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "1 MB PDF read. Cuadro 1 'Importaciones de frutas frescas (toneladas)' row Arandanos 24, 75, 137, 205 (2021 to 2024, +50.5%). Text: 'las exportaciones de arandanos vienen perdiendo significativo espacio desde hace unos anos y representaron menos de 2%'. Export chart cites Descartes data."
+      },
+      "quality_caveats": "No area or regional data for blueberries; export series sourced from a commercial customs-data provider (Descartes).",
+      "priority": "P3",
+      "priority_reason": "Official narrative; little blueberry detail.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "uy-diea-encuesta-fruticola",
+      "name": "MGAP DIEA Encuesta Fruticola (INE ANDA catalogue entry)",
+      "publisher": "MGAP Direccion de Estadisticas Agropecuarias (DIEA)",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www4.ine.gub.uy/Anda5/index.php/catalog/485",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1994 onward (catalogue metadata 2013)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "area, plant inventory and production for six main deciduous fruit species"
+      ],
+      "app_uses": [
+        "none for blueberries unless a blueberry module exists [inference: the stated scope is six deciduous tree fruits]"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Catalogue page: OBJETIVO 'Estimar superficie cultivada, inventario de plantas y produccion para las seis principales especies de frutales de hoja caduca'; geographic disaggregation Nacional; periodicity annual."
+      },
+      "quality_caveats": "Blueberries not named in scope; recorded here to document the gap.",
+      "priority": "P3",
+      "priority_reason": "Documents that DIEA's fruit survey does not cover blueberries by department.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "uy-inia-ainfo-arandano",
+      "name": "INIA Uruguay ainfo repository: blueberry documents (Vilaro and Soria, 'Cultivo de arandano en Uruguay'; Jornada de divulgacion en el cultivo del arandano, about 2004)",
+      "publisher": "INIA Uruguay",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [
+        "Salto",
+        "Paysandu",
+        "Tacuarembo",
+        "Canelones"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits",
+        "management_practice",
+        "research_literature",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ainfo.inia.uy/digital/bitstream/item/12472/1/20-ARANDANO-VILARO.pdf",
+      "data_urls": [
+        "https://ainfo.inia.uy/digital/bitstream/item/376/1/111219210807180154.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2003 to 2006 (undated PDFs)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "area (about 500 ha, about 80 producers)",
+        "regional harvest windows (Litoral Norte Oct to Nov, South Nov to Dec)",
+        "dominant cultivar (O'Neal; also Georgia Gem, Misty)",
+        "frost protection as an installation cost",
+        "INIA trial sites (Tacuarembo, Salto Grande, Las Brujas)"
+      ],
+      "app_uses": [
+        "Uruguay regional harvest windows for a future Salto benchmark",
+        "cultivar class (O'Neal) for Uruguay"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "curl got HTTP 403; the read tool converted both PDFs. Vilaro and Soria: 'Uruguay cuenta con alrededor de 500 hectareas distribuidas en el Litoral Norte (cosecha octubre-noviembre) y en segundo lugar en la zona Sur (cosecha noviembre-diciembre)'; 'O'Neal ... predomina en Uruguay y Argentina'. Jornada PDF: INIA-FORBEL agreement, planting dates 24 Mar 2003, Oct 2003, from Jun 2004; trials on dormancy breaking and pruning intensity; 2003 area 22 ha."
+      },
+      "quality_caveats": "Old (mid 2000s), undated, pre-dating the area decline to about 270 ha.",
+      "priority": "P2",
+      "priority_reason": "Only Uruguayan source with regional harvest months.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "uy-presidencia-uruguayxxi-2012-exports",
+      "name": "Presidencia de Uruguay news: 'En 2012 se exportaron 104.000 toneladas de frutas' (Uruguay XXI report)",
+      "publisher": "Presidencia de la Republica (Uruguay), citing Uruguay XXI",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.gub.uy/presidencia/comunicacion/noticias/2012-se-exportaron-104000-toneladas-frutas-calidad-valor-us-83-millones",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2012",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "blueberry exports 2012 (2,146 t, USD 15.642 million)",
+        "export months (October to December)"
+      ],
+      "app_uses": [
+        "Uruguay export window October to December as a harvest-timing check"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page dated 28/02/2013: 'en 2012 se comercializo al exterior 2.146 toneladas de arandanos'; 'las exportaciones de Uruguay se concentran en los meses de octubre a diciembre'. The Uruguay XXI 2024 annual report mentions 081040 only in an EU tariff table (3.2% tariff), with no volumes."
+      },
+      "quality_caveats": "Single year at the sector peak.",
+      "priority": "P3",
+      "priority_reason": "Only dated export-month statement for Uruguay.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "uy-elobservador-upefruy-blueberry",
+      "name": "El Observador agro articles citing Upefruy (Union de Productores y Exportadores Frutihorticolas del Uruguay) on blueberry area and losses",
+      "publisher": "El Observador (Uruguay)",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "production_statistics",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.elobservador.com.uy/nota/cada-vez-hay-menos-arandanos-en-uruguay-202110255056",
+      "data_urls": [
+        "https://www.elobservador.com.uy/nota/productores-afirman-que-se-perdio-la-mitad-de-la-cosecha-de-arandanos-20161118500"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2012 to 2021",
+      "update_frequency": "irregular",
+      "access": "paid",
+      "license_or_terms": "subscriber content ('Esta nota es exclusiva para suscriptores')",
+      "license_url": null,
+      "extractable_fields": [
+        "national blueberry area (430 ha in 2012, 272 ha in 2020, per Upefruy)",
+        "2016 non-harvest loss (about 1.5 million kg) attributed to oversupply and low prices"
+      ],
+      "app_uses": [
+        "area trend for Uruguay",
+        "negative control: the 2016 loss is market-driven, not weather, and should not be used to validate weather risk"
+      ],
+      "model_families": [
+        "location_mapping",
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Both pages load the lead before a paywall. 25 Oct 2021: 'de 430 hectareas (ha) que habia en 2012, el ano pasado quedaban 272 ha, segun un informe de la ... (Upefruy)'. 18 Nov 2016: half the crop not harvested due to 'una superproduccion local y regional y la consecuente caida de precios'. No Upefruy website verified."
+      },
+      "quality_caveats": "Paywalled press; Upefruy report itself not found.",
+      "priority": "P3",
+      "priority_reason": "Only recent area figure for Uruguay, second-hand.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "uy-mgap-emergencia-granjera-salto-2026",
+      "name": "El Eco Digital: 'El MGAP declara la emergencia granjera en Salto tras el temporal' (21 Jul 2026)",
+      "publisher": "El Eco Digital (reporting MGAP Junta Nacional de la Granja decision)",
+      "countries": [
+        "UY"
+      ],
+      "subnational_scope": [
+        "Salto"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "news_archive"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://elecodigital.com.uy/politica/el-mgap-declara-la-emergencia-granjera-en-salto-tras-el-temporal/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "storm 18 Jul 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date of event (18 July 2026)",
+        "declaration date (21 July)",
+        "about 300 producers and about 300 ha of greenhouses",
+        "85% of registered growers in the department affected"
+      ],
+      "app_uses": [
+        "cross-border event record pairing with Entre Rios Decreto 3211/2026 (same storm)"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Published 21/07/2026: MGAP declared 'emergencia granjera' in Salto after the 18 July storm; about 300 producers and 300 ha of greenhouses. Blueberries not mentioned."
+      },
+      "quality_caveats": "Greenhouse horticulture focus; no blueberry detail; press source, MGAP resolution not located.",
+      "priority": "P3",
+      "priority_reason": "Shows MGAP declares farm emergencies quickly, but no blueberry content.",
+      "est_effort_days": 0.1
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "CAU-01",
+      "title": "Chile 2022 spring frost station table (Maule, Ñuble, Biobío)",
+      "source_ids": [
+        "cl-ran-agromet-hourly",
+        "cl-agrometr-r-package",
+        "cl-dmc-boletin-agroclimatico",
+        "cl-inia-agrometeorologia"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "station_id",
+        "operator",
+        "lat",
+        "lon",
+        "comuna",
+        "date_local",
+        "hour",
+        "tmin_hourly_c",
+        "tmean_c",
+        "rh_pct",
+        "hours_le_0c",
+        "hours_le_minus2c",
+        "daily_min_c",
+        "time_of_min",
+        "distance_to_benchmark_km",
+        "grid_cell_tmin_same_day_c",
+        "qc_flag"
+      ],
+      "cadence": "one-off backfill for 2022-10-20 to 2022-11-15, then the same window for every spring 2013-2025",
+      "review_needed": "Confirm the time zone of RAN timestamps, drop empty rows that read as 0.0 C and 0% RH, and check station siting before treating a minimum as an orchard minimum.",
+      "licensing_gate": "RAN terms not found; ask info@agromet.cl before republishing hourly values; show derived event summaries with attribution meanwhile.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Turns the unexplained IBO frost into a dated, measured event (31 Oct 2022, -1.2 to -2.2 C at four stations) and quantifies the grid miss."
+    },
+    {
+      "job_id": "CAU-02",
+      "title": "Chile station bias-correction set near benchmark sites",
+      "source_ids": [
+        "cl-ran-agromet-hourly",
+        "cl-dmc-servicios-climaticos",
+        "cl-cr2met",
+        "cl-ceazamet"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "station_id",
+        "lat",
+        "lon",
+        "elevation_m",
+        "timestamp",
+        "tmin_c",
+        "tmax_c",
+        "tmean_c",
+        "rh_pct",
+        "precip_mm",
+        "chill_hours_base7",
+        "gdd_base10",
+        "paired_merra2_cell",
+        "paired_power_cell"
+      ],
+      "cadence": "one-off backfill 2013-2025 for about 20 stations within 25 km of the Chilean benchmark sites, then annual",
+      "review_needed": "Station selection per site, gap screening, and a check that the request rate is acceptable to the network operator.",
+      "licensing_gate": "Internal model calibration only until RAN and DMC terms are confirmed; CR2MET is CC BY 4.0.",
+      "effort_days": 3.0,
+      "priority": "P1",
+      "app_value": "Fits the Tmin cold-tail correction that the app lacks for south-central Chile and tests chill counts."
+    },
+    {
+      "job_id": "CAU-03",
+      "title": "Chile blueberry block census table",
+      "source_ids": [
+        "cl-odepa-catastro-fruticola",
+        "cl-ine-censo-agropecuario-2021"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "survey_year",
+        "region",
+        "provincia",
+        "comuna",
+        "variety_raw",
+        "variety_clean",
+        "planting_year",
+        "irrigation_method",
+        "plants",
+        "area_ha",
+        "producer_type"
+      ],
+      "cadence": "one-off backfill of all yearly files (filter Especie = Arándano Americano), then annual when ODEPA adds a year",
+      "review_needed": "Variety name harmonisation (e.g. Suziblue vs Suzie Blue), de-duplicating regions repeated across yearly files, and dropping exploitation numbers before display.",
+      "licensing_gate": "CC BY: cite ODEPA-CIREN; publish only commune aggregates.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Blueberry area by commune and cultivar for every Chilean site, the base for cultivar classes and site weighting."
+    },
+    {
+      "job_id": "CAU-04",
+      "title": "Chile blueberry farm footprint layer",
+      "source_ids": [
+        "cl-ciren-catastro-mapserver"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "region_code",
+        "comuna",
+        "polygon_centroid_lat",
+        "polygon_centroid_lon",
+        "polygon_area_ha",
+        "blueberry_rank (1-3)",
+        "survey_layer_year"
+      ],
+      "cadence": "one-off pull of regional layers, then when CIREN updates a region",
+      "review_needed": "Confirm species spelling variants and that polygon areas are property areas, not blueberry area.",
+      "licensing_gate": "Terms not found; property roll numbers must not be shown; ask CIREN before public display of polygons; aggregate to grid cells.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Places Chilean sites where farms are, and gives the share of each 0.5 deg cell that is valley floor versus foothill."
+    },
+    {
+      "job_id": "CAU-05",
+      "title": "Chile monthly blueberry exports by region of origin",
+      "source_ids": [
+        "cl-odepa-comercio-exterior"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "year",
+        "month",
+        "season (Jul-Jun)",
+        "hs_code (08104021, 08104029)",
+        "region_origin",
+        "destination",
+        "volume_kg",
+        "fob_usd",
+        "cumulative_share_by_month"
+      ],
+      "cadence": "one-off backfill 2012-2026 (codes exist from 2012), then monthly",
+      "review_needed": "Confirm frozen codes and whether region of origin is the packing region.",
+      "licensing_gate": "CC BY: cite ODEPA and Aduanas.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Regional harvest start, peak and end by season to score modelled harvest windows and detect early or late years."
+    },
+    {
+      "job_id": "CAU-06",
+      "title": "Chilean Blueberry Committee weekly crop report table",
+      "source_ids": [
+        "cl-frutasdechile-crop-report",
+        "cl-frutasdechile-news"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "season",
+        "iso_week",
+        "month",
+        "market",
+        "tons_week",
+        "tons_accum",
+        "tons_week_prev_season",
+        "region_share_pct_week",
+        "variety",
+        "region",
+        "variety_region_tons",
+        "renewal_share_pct"
+      ],
+      "cadence": "collect available PDFs (2025-26 and earlier via press releases), then weekly during September to April",
+      "review_needed": "Chart-label extraction of weekly regional shares must be checked against the totals; older seasons may only exist in press text.",
+      "licensing_gate": "No stated terms; ask Frutas de Chile before redistributing tables; cite and summarise meanwhile.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Weekly harvest progress by region and variety, the finest harvest-timing signal for Chile."
+    },
+    {
+      "job_id": "CAU-07",
+      "title": "Chile weather event records (frost, rain, hail, heat)",
+      "source_ids": [
+        "cl-frutasdechile-news",
+        "cl-portalfruticola-news",
+        "cl-blueberries-consulting-news",
+        "cl-dmc-boletin-agroclimatico",
+        "cl-diario-oficial-emergencia-agricola"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind",
+        "topic",
+        "period (label, start, end, precision)",
+        "crop_context",
+        "evidence_type",
+        "geography_ids",
+        "citations (source_id, page or URL, quote)",
+        "hazard",
+        "event_date_reported",
+        "event_date_station",
+        "communes",
+        "stage_at_event",
+        "cultivars",
+        "damage_pct_range",
+        "export_loss_t"
+      ],
+      "cadence": "one-off backfill 2010-2026, then monthly",
+      "review_needed": "Reconcile reported dates with station data (2022: industry says 1 November, stations and DMC show 31 October) and keep both with citations.",
+      "licensing_gate": "Short quotes with links only; no full-text reproduction of press articles.",
+      "effort_days": 2.5,
+      "priority": "P1",
+      "app_value": "Validation targets for flowering_freeze, fruit_frost and harvest_heavy_rain at Chilean sites, linked to IBO event ids."
+    },
+    {
+      "job_id": "CAU-08",
+      "title": "INIA regional agroclimatic bulletins: stage and damage claims",
+      "source_ids": [
+        "cl-inia-boletin-riesgos-agroclimaticos",
+        "cl-inia-pulso-agroclimatico"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind",
+        "topic",
+        "period (label, start, end, precision)",
+        "crop_context",
+        "evidence_type",
+        "geography_ids",
+        "citations (source_id, page or URL, quote)",
+        "region",
+        "agroclimatic_zone",
+        "crop_group",
+        "stage_reported",
+        "bulletin_month",
+        "risk_statement",
+        "annex_damage_pct"
+      ],
+      "cadence": "one-off backfill Sept 2018 to present for Coquimbo to Los Lagos, then monthly",
+      "review_needed": "Most issues have no blueberry text; reviewers must keep only explicit blueberry or 'frutales menores' statements and flag reused text.",
+      "licensing_gate": "Government publication with no stated licence; cite INIA; quote briefly.",
+      "effort_days": 3.0,
+      "priority": "P2",
+      "app_value": "Month-level observed stage by zone (for example fruit set in Maule Depresión Intermedia by late October 2022) to check modelled bloom and fruit set."
+    },
+    {
+      "job_id": "CAU-09",
+      "title": "Chile agricultural emergency declarations table",
+      "source_ids": [
+        "cl-diario-oficial-emergencia-agricola",
+        "cl-bcn-leychile",
+        "cl-minagri-emergencia-agricola"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "resolution_no",
+        "resolution_date",
+        "publication_date",
+        "cve",
+        "hazard",
+        "region",
+        "communes",
+        "valid_until",
+        "evidence_cited",
+        "loss_pct_cited"
+      ],
+      "cadence": "one-off backfill 2010-2026, then monthly",
+      "review_needed": "Search strategy for resolution ids (Diario Oficial by date, LeyChile by text); classify hazard; note that declarations cover all agriculture.",
+      "licensing_gate": "Official gazette text; public legal documents.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Commune-level, dated frost and drought declarations to test risk recurrence at Chilean sites."
+    },
+    {
+      "job_id": "CAU-10",
+      "title": "Chile phenology and cultivar table",
+      "source_ids": [
+        "cl-inia-raihuen-macetas-2022",
+        "cl-maule-manual-2014",
+        "cl-inia-manual-variedades",
+        "cl-udec-tesis-cianamida-nuble",
+        "cl-frutasdechile-crop-report",
+        "cl-inia-biblioteca-digital"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "site",
+        "region",
+        "season",
+        "cultivar",
+        "system (open air, macrotunnel, pot)",
+        "stage",
+        "date_or_week",
+        "date_precision",
+        "chill_requirement_h",
+        "bloom_class",
+        "ripening_class",
+        "citation"
+      ],
+      "cadence": "one-off, then annual review",
+      "review_needed": "Read stage figures that are images; keep date precision (week, month) explicit.",
+      "licensing_gate": "Facts with citations only.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Fills the empty Chilean bloom months with dated, cited observations and seeds cultivar classes."
+    },
+    {
+      "job_id": "CAU-11",
+      "title": "Tucumán and Concordia July 2024 frost station table",
+      "source_ids": [
+        "ar-eeaoc-agromet-frost-api",
+        "ar-inta-siga-stations",
+        "ar-inta-concordia-frost-july-2024",
+        "uy-inia-salto-grande-daily-climate"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "station",
+        "lat",
+        "lon",
+        "elevation_m",
+        "season",
+        "abs_min_c",
+        "hours_below_0",
+        "hours_below_minus2",
+        "hours_below_minus4",
+        "frost_days",
+        "first_frost",
+        "last_frost"
+      ],
+      "cadence": "one call per May-October season 2010-2025, then annual",
+      "review_needed": "Check station elevation against the benchmark site (piedmont vs Tafí del Valle) and archive depth of the EEAOC service.",
+      "licensing_gate": "EEAOC and INTA terms to confirm; INIA Uruguay data are on the national open data catalogue.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Second missed-frost test (Famaillá -2.7 to -4.4 C, 10-16 July 2024) for the Argentine benchmark sites."
+    },
+    {
+      "job_id": "CAU-12",
+      "title": "Argentina and Uruguay station bias set",
+      "source_ids": [
+        "ar-inta-siga-stations",
+        "ar-smn-dpd-hourly-opendata",
+        "uy-inia-salto-grande-daily-climate",
+        "uy-inumet-hourly-temperature-opendata"
+      ],
+      "output": "station table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "date",
+        "station",
+        "tmin_c",
+        "tmax_c",
+        "precip_mm",
+        "rh_pct",
+        "leaf_wetness_h",
+        "chill_hours"
+      ],
+      "cadence": "one-off backfill 2010-2025, then annual",
+      "review_needed": "Gap screening; SMN archive depth unknown.",
+      "licensing_gate": "INUMET under the Uruguay open data licence; INTA SIGA terms to confirm.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Tmin and leaf-wetness checks for Famaillá, Concordia and Salto cells."
+    },
+    {
+      "job_id": "CAU-13",
+      "title": "Argentine Blueberry Committee weekly arrivals",
+      "source_ids": [
+        "ar-abc-weekly-crop-reports",
+        "ar-magyp-arandanos-indicadores-2020"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "season",
+        "iso_week",
+        "destination",
+        "mode (air, boat)",
+        "tons",
+        "tons_prev_season"
+      ],
+      "cadence": "one-off backfill of 2021-2024 reports, then weekly September-December",
+      "review_needed": "No province split; combine with MAGyP harvest-week ranges by region (NOA weeks 33-47, NEA 37-49).",
+      "licensing_gate": "ABC terms not found; ask before redistributing.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "National harvest-progress curve to test Argentine harvest timing year to year."
+    },
+    {
+      "job_id": "CAU-14",
+      "title": "Argentina and Uruguay weather event records",
+      "source_ids": [
+        "ar-res-sga-77-2019-tucuman-blueberry",
+        "ar-inta-concordia-frost-july-2024",
+        "ar-tucuman-gov-frost-news-2024",
+        "ar-federcitrus-abc-frost-estimate-2024",
+        "ar-elonce-concordia-2026-season",
+        "ar-entre-rios-decreto-3211-2026"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind",
+        "topic",
+        "period (label, start, end, precision)",
+        "crop_context",
+        "evidence_type",
+        "geography_ids",
+        "citations (source_id, page or URL, quote)",
+        "hazard",
+        "communes_or_departments",
+        "damage_pct",
+        "protection_in_use"
+      ],
+      "cadence": "one-off backfill, then quarterly",
+      "review_needed": "Separate official declarations from press estimates; keep the 2018 Tucumán rain emergency dates exact.",
+      "licensing_gate": "Official texts public; press quotes short with links.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Dated harvest-rain and frost events for Famaillá and Concordia."
+    },
+    {
+      "job_id": "CAU-15",
+      "title": "Argentina national emergency resolution index",
+      "source_ids": [
+        "ar-arca-cuadro-emergencia-agropecuaria",
+        "ar-magyp-emergencia-resoluciones"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "resolution",
+        "date",
+        "province",
+        "departments",
+        "hazard",
+        "crops",
+        "period_start",
+        "period_end"
+      ],
+      "cadence": "one-off 2010-2026, then quarterly",
+      "review_needed": "Keyword screen for arándano and berries; most declarations do not name crops.",
+      "licensing_gate": "Public legal texts.",
+      "effort_days": 1.0,
+      "priority": "P3",
+      "app_value": "Background frequency of declared frost and rain emergencies in blueberry provinces."
+    },
+    {
+      "job_id": "CAU-16",
+      "title": "Argentina and Uruguay cultivar and calendar table",
+      "source_ids": [
+        "ar-inta-concordia-variedades-2020",
+        "ar-magyp-arandanos-indicadores-2020",
+        "ar-inta-famailla-comercializacion-2019",
+        "uy-inia-ainfo-arandano",
+        "ar-eeaoc-lobo-zavalia-tafi-2018"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "cultivar",
+        "chill_requirement_h",
+        "bloom_class",
+        "ripening_class",
+        "harvest_weeks",
+        "region",
+        "area_by_department_ha",
+        "citation"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Check chill values per cultivar against the source table.",
+      "licensing_gate": "Facts with citations only.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Cultivar classes and harvest weeks for the Argentine and Uruguayan sites."
+    }
+  ]
+}

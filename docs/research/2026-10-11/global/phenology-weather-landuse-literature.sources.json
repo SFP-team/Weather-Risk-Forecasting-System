@@ -1,0 +1,4441 @@
+{
+  "slug": "phenology-weather-landuse-literature",
+  "generated_on": "2026-10-11",
+  "scope": "Global sources for Vaccinium phenology observations, cultivar traits, land use and protected cultivation, remote sensing, weather beyond report 07, and research literature access.",
+  "sources": [
+    {
+      "id": "usa-npn-natures-notebook",
+      "name": "USA-NPN National Phenology Database (Nature's Notebook) and data API",
+      "publisher": "USA National Phenology Network",
+      "countries": [
+        "US",
+        "CA"
+      ],
+      "subnational_scope": [
+        "MA",
+        "NY",
+        "BC",
+        "ME",
+        "VA",
+        "NH",
+        "NC",
+        "NJ",
+        "FL",
+        "GA"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.usanpn.org/data/observational",
+      "data_urls": [
+        "https://services.usanpn.org/npn_portal/observations/getSummarizedData.json",
+        "https://services.usanpn.org/npn_portal/species/getSpecies.json",
+        "https://github.com/usa-npn/rnpn"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2009-present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0 International (CC BY 4.0), per USA-NPN Data Use Policy",
+      "license_url": "https://www.usanpn.org/about/terms",
+      "extractable_fields": [
+        "site latitude, longitude, elevation",
+        "species (V. corymbosum, angustifolium, virgatum, darrowii)",
+        "individual plant id",
+        "phenophase (breaking leaf buds, flowers or flower buds, open flowers, full flowering 50%, fruits, ripe fruits)",
+        "first yes date and day of year",
+        "days since prior no (onset precision)",
+        "last yes date"
+      ],
+      "app_uses": [
+        "validate cool-climate budbreak and bloom onset near Cherryfield (ME) and in New England",
+        "check NHB bloom month at Hammonton (NJ) against model flowering start",
+        "build a lowbush (wild) phenology prior for Lac-Saint-Jean style pins"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "chill_dormancy",
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Observational data page opened. One API call to getSummarizedData.json for species_id 94, 1503, 1060 and 2289 (2009-01-01 to 2026-10-10) returned 7,885 individual-phenometric rows: highbush blueberry 4,898 rows (225 plants, 132 sites, 2009-2026), lowbush 2,716 (79 plants, 63 sites, 2015-2026), smallflower (V. virgatum) 36 (5 plants), Darrow's 235 (8 plants, all GA). Highbush open-flower onsets 421, ripe-fruit onsets 396. Fields seen: site_id, latitude, longitude, elevation_in_meters, state, species_id, individual_id, phenophase_id, phenophase_description, first_yes_year/month/day/doy, numdays_since_prior_no, last_yes_*, numdays_until_next_no. Within 100 km of the 17 US benchmark sites only Tallahassee (8 plants), Hammonton (6), Elizabethtown (2) and Burgaw (1) have records; none near Citra, Waldo, Alma, Homerville or Grand Junction. Near the Cherryfield pin: 19 plants, 17 open-flower onsets; near Lynden: 34 plants, 0 open-flower onsets."
+      },
+      "quality_caveats": "Mostly wild or garden plants, not commercial fields; cultivar and management rarely recorded. Onset precision depends on visit gaps (2,867 of 4,898 highbush rows had a prior 'no' within 7 days). Almost no Florida or Georgia coverage (2 highbush plants in FL). Open-flower status is not a cumulative bloom curve.",
+      "priority": "P1",
+      "priority_reason": "The only open, dated, stage-defined Vaccinium observation network with an API, already CC BY 4.0, and it covers the cool-climate pins the model cannot handle today.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "inaturalist-phenology-annotations",
+      "name": "iNaturalist observations with Flowers and Fruits annotations (API v1)",
+      "publisher": "iNaturalist (California Academy of Sciences and National Geographic Society)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://api.inaturalist.org/v1/docs/",
+      "data_urls": [
+        "https://api.inaturalist.org/v1/observations",
+        "https://api.inaturalist.org/v1/controlled_terms"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "observation dates span many years; annotation use is uneven over time [inference]",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Per-observation Creative Commons licence or all rights reserved (sample record: cc0); site Terms of Use page was bot-walled",
+      "license_url": null,
+      "extractable_fields": [
+        "observation date and time",
+        "latitude, longitude, positional accuracy",
+        "taxon",
+        "Flowers / Fruits or Seeds / Flower Buds / Breaking Leaf Buds annotation",
+        "captive (cultivated) flag",
+        "quality grade",
+        "licence code"
+      ],
+      "app_uses": [
+        "estimate first-flower and first-ripe-fruit day of year per year near Hammonton and the Cherryfield pin",
+        "independent check of NPN cool-climate bloom dates",
+        "flag cultivated plants with the captive filter"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API docs opened; website pages returned a Cloudflare 403. Counts via /v1/observations (all quality grades) using controlled term 12 'Flowers and Fruits' (13 Flowers, 14 Fruits or Seeds, 15 Flower Buds) and term 36 'Leaves' (37 Breaking Leaf Buds): V. corymbosum (taxon 52740) 25,852 observations, 1,063 Flowers, 1,261 Fruits, 293 Flower Buds, 52 Breaking Leaf Buds, 3,338 captive/cultivated; V. angustifolium (84542) 34,063 / 1,697 / 1,750 / 287 / 35, 474 captive; V. virgatum (52742) 873 / 31 / 34 / 8 / 2, 108 captive; V. darrowii (126142) 2,271 / 64 / 100 / 29 / 20. Only 2,619 corymbosum observations carry any term-12 annotation. Within 50 km (all four taxa): Hammonton 1,157 obs, 80 Flowers, 73 Fruits; Cherryfield pin 1,382 / 97 / 91; Citra 178 / 4 / 5; Grand Junction 185 / 1 / 10; Lynden pin 172 / 3 / 8; Alma 3; Chillan, Moguer, Lublin, Coffs Harbour 0 or 1. Sample record fields: observed_on, time_observed_at, location, positional_accuracy, quality_grade, captive, license_code, annotations (attribute and value ids with vote_score)."
+      },
+      "quality_caveats": "Opportunistic sampling: one photo shows presence of a stage, not onset. Annotation is optional and user-supplied. Wild V. corymbosum complex is not commercial cultivars. Request rate should stay near 1 call per second.",
+      "priority": "P2",
+      "priority_reason": "Large, dated, geolocated flowering and fruiting evidence for wild and some cultivated Vaccinium in the US Northeast and Canada, but annotation coverage is about 10% and almost nothing exists near Southern Hemisphere production.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "gbif-occurrence-api",
+      "name": "GBIF occurrence search API (Vaccinium taxa)",
+      "publisher": "Global Biodiversity Information Facility",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://techdocs.gbif.org/en/openapi/v1/occurrence",
+      "data_urls": [
+        "https://api.gbif.org/v1/occurrence/search",
+        "https://api.gbif.org/v1/species/match"
+      ],
+      "format": [
+        "api-json",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "herbarium specimens from the 1800s to present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Per-dataset licence (CC0, CC BY 4.0 or CC BY-NC 4.0); iNaturalist Research-grade dataset is CC BY-NC 4.0",
+      "license_url": "http://creativecommons.org/licenses/by-nc/4.0/legalcode",
+      "extractable_fields": [
+        "eventDate",
+        "decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters",
+        "basisOfRecord",
+        "reproductiveCondition (mostly empty)",
+        "datasetKey and licence",
+        "occurrenceID link"
+      ],
+      "app_uses": [
+        "herbarium flowering-date climatology for native V. corymbosum and V. darrowii in the Southeast as a weak prior",
+        "naturalised V. corymbosum presence in the Netherlands as a location check"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API used with limit=0 count queries; gbif.org web pages returned Cloudflare 403. Backbone matches: V. corymbosum key 2882849 (V. ashei is treated as a synonym of it), V. angustifolium 2882868, V. darrowii 2882908; 'Vaccinium virgatum' did not match a species in the backbone (fell back to genus). Counts: V. corymbosum 37,723 (24,725 preserved specimens, 10,569 human observations; US 30,694, NL 2,592, CA 1,327); V. angustifolium 22,030 (US 11,855, CA 9,535); V. darrowii 2,386; genus Vaccinium 2,713,837. iNaturalist research-grade dataset holds 6,450 V. corymbosum records in GBIF; its dataset licence is CC BY-NC 4.0. A sample iNaturalist record had reproductiveCondition and lifeStage empty."
+      },
+      "quality_caveats": "Taxonomy: rabbiteye (V. virgatum/ashei) cannot be separated from V. corymbosum in the GBIF backbone. Some records geocoded to odd countries (262 corymbosum records in 'AF'). Specimen dates show flowering presence, not onset.",
+      "priority": "P3",
+      "priority_reason": "Good for presence and herbarium flowering dates but phenology fields are mostly empty, so iNaturalist and NPN are better primary sources.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pep725-pan-european-phenology",
+      "name": "PEP725 Pan European Phenology database",
+      "publisher": "GeoSphere Austria / EUMETNET",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://pep725.eu/",
+      "data_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13001019/"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en",
+        "de"
+      ],
+      "temporal_coverage": "1868-present (varies by country)",
+      "update_frequency": "annual",
+      "access": "open-with-free-registration",
+      "license_or_terms": "PEP725 Data Use Policy (registration; no redistribution according to the pep725 R package vignette)",
+      "license_url": null,
+      "extractable_fields": [
+        "station, species, BBCH phase, year, day of year"
+      ],
+      "app_uses": [
+        "compare European spring forcing anomalies with NHB bloom lateness in Europe (two weeks late)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened. Data download pages need a login. The 2026 New Phytologist paper (open, CC BY 4.0) states more than 13 million records for about 265 species and 46 phenophases, free CSV download after registration. The CRAN pep725 package vignette states the database has usage restrictions that prevent redistribution. Presence of Vaccinium (probably V. myrtillus) seen only in a search-result snippet."
+      },
+      "quality_caveats": "Vaccinium coverage not verified. Cannot redistribute raw records.",
+      "priority": "P3",
+      "priority_reason": "Wild bilberry only (if any); useful as a European spring-timing covariate, not a crop calibration set.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "dwd-phenology-open-data",
+      "name": "DWD phenological observations, Germany (open data)",
+      "publisher": "Deutscher Wetterdienst",
+      "countries": [
+        "DE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/phenology/",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "de",
+        "en"
+      ],
+      "temporal_coverage": "1925-2024 (files such as PH_Jahresmelder_Obst_Apfel_1925_2024_hist.txt)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found (a Terms_of_use.pdf exists in the CDC root; not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "station id",
+        "species",
+        "phase id",
+        "year",
+        "date"
+      ],
+      "app_uses": [
+        "check year-to-year spring timing anomalies at Vechta against model bloom shifts"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Directory listing opened. Annual-reporter fruit files cover apple, pear, plum, red currant (Rote Johannisbeere), sour and sweet cherry and gooseberry (Stachelbeere); the wild-plant list has 34 species. No Vaccinium file exists."
+      },
+      "quality_caveats": "Not Vaccinium. Proxy relationship to blueberry bloom unproven.",
+      "priority": "P3",
+      "priority_reason": "No blueberry, but red currant and gooseberry bloom series near Vechta could serve as a local spring-timing proxy.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "jma-phenological-observations",
+      "name": "JMA phenological observations (seibutsu kisetsu kansoku)",
+      "publisher": "Japan Meteorological Agency",
+      "countries": [
+        "JP"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.data.jma.go.jp/sakura/data/index.html",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "ja"
+      ],
+      "temporal_coverage": "long-term (start year not read)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "species",
+        "event date"
+      ],
+      "app_uses": [
+        "none for calibration; documents that Japan has no national blueberry phenology series"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened in Japanese. It describes flowering of plum (ume) and cherry (sakura) and leaf colouring of maple and ginkgo at standard trees at JMA offices. No blueberry."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "No blueberry in the national network; only relevant as a negative finding.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "china-cpon-woody-phenology",
+      "name": "Chinese Phenological Observation Network (CPON) and the ESSD 24-species grid dataset",
+      "publisher": "Chinese Academy of Sciences; Zhu and Dai (ESSD 2024)",
+      "countries": [
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://essd.copernicus.org/articles/16/277/2024/",
+      "data_urls": [
+        "https://doi.org/10.57760/sciencedb.07995"
+      ],
+      "format": [
+        "csv",
+        "zip"
+      ],
+      "language": [
+        "en",
+        "zh"
+      ],
+      "temporal_coverage": "1951-2020",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Article CC BY 4.0; dataset terms not found",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "species",
+        "first leaf date",
+        "first flower date",
+        "leaf colouring date",
+        "site",
+        "year"
+      ],
+      "app_uses": [
+        "sanity check of modelled spring timing at Qingdao and Dandong"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ESSD article opened (CC BY 4.0). It uses 24,552 observations of 24 woody plants at 122 CPON sites, 1951-2020, with data at doi 10.57760/sciencedb.07995. The CPON homepage http://www.cpon.ac.cn/ timed out."
+      },
+      "quality_caveats": "Species set does not include blueberry. CPON portal unreachable.",
+      "priority": "P3",
+      "priority_reason": "No Vaccinium in the described species set; useful only as a generic forcing check for Shandong and Liaoning.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "umaine-signs-of-the-seasons-lowbush",
+      "name": "Signs of the Seasons: lowbush blueberry indicator species",
+      "publisher": "University of Maine Cooperative Extension and Maine Sea Grant",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "ME",
+        "NH",
+        "VT",
+        "MA"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umaine.edu/signs-of-the-seasons/indicator-species/lowbush-blueberry-fact-sheet/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "program years not stated",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "phenophase definitions for lowbush blueberry"
+      ],
+      "app_uses": [
+        "interpret Maine NPN records near the Cherryfield pin"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Fact sheet opened. Lowbush blueberry is an indicator species and the page cites the USA-NPN Vaccinium angustifolium protocol, so observations are expected to flow into the NPN database [inference]."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Explains part of the Maine NPN record density; no separate dataset.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "grin-global-npgs-vaccinium",
+      "name": "GRIN-Global, US National Plant Germplasm System (Vaccinium accessions and descriptors)",
+      "publisher": "USDA Agricultural Research Service",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://npgsweb.ars-grin.gov/gringlobal/search",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal site; public domain status not confirmed)",
+      "license_url": null,
+      "extractable_fields": [
+        "accession id",
+        "taxon",
+        "cultivar name",
+        "origin",
+        "descriptor observations (names not verified)"
+      ],
+      "app_uses": [
+        "fill chill class and season for older cultivars in the cultivar table"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "npgsweb.ars-grin.gov and www.ars-grin.gov both returned HTTP 502 on 2026-10-11 (tried twice and in a browser). Descriptor names for Vaccinium could not be read."
+      },
+      "quality_caveats": "Site down during check; descriptor coverage for bloom date or chill is unverified.",
+      "priority": "P2",
+      "priority_reason": "Public accession-level phenotype records (if bloom and ripening descriptors exist for Vaccinium) would seed the cultivar table for old cultivars.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ncgr-corvallis-repository",
+      "name": "USDA-ARS National Clonal Germplasm Repository, Corvallis (berry collections)",
+      "publisher": "USDA Agricultural Research Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "OR"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ars.usda.gov/pacific-west-area/corvallis-or/national-clonal-germplasm-repository/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "collection inventory (via GRIN)"
+      ],
+      "app_uses": [
+        "contact point for Vaccinium bloom and ripening evaluation records"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Repository home page opened; it links 'Corvallis Berry, Hops, Mint Collections' and 'Search GRIN and Request Germplasm'. The collection sub-page URL tried returned 404."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Pointer to the curators who hold Vaccinium evaluation data; data itself goes through GRIN.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "upov-tg137-blueberry-test-guidelines",
+      "name": "UPOV Test Guidelines TG/137/5 Rev. Blueberry",
+      "publisher": "International Union for the Protection of New Varieties of Plants",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.upov.int/documents/d/upov/tg-documents-en-tg137.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "temporal_coverage": "2019 edition, revised 2022",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "characteristic number",
+        "state of expression (1-9 note)",
+        "example varieties",
+        "chill group H/L"
+      ],
+      "app_uses": [
+        "define relative bloom and ripening classes in the cultivar table",
+        "map PBR descriptions to a common scale"
+      ],
+      "model_families": [
+        "cultivar",
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF opened (TG/137/5 Rev., 2019-06-14 + 2022-10-25). Covers V. corymbosum, angustifolium, virgatum, darrowii and hybrids. Characteristics 34 to 37 are 'Time of beginning of flowering' and 'Time of beginning of fruit ripening' on one-year-old and current-season shoots, scored 1 to 9 with example varieties (for example flowering: Patriot 1, Weymouth 3, Berkeley 5, Darrow 7, Jersey 9; ripening: Bluetta 1, Blueray 3, Heerma 5, Darrow 7, Elizabeth 9). Example varieties are tagged (H) high chill >750 h or (L) low chill <600 h, with chill hours defined as hours below 7 C."
+      },
+      "quality_caveats": "Notes are relative to example varieties grown at a test site, not dates.",
+      "priority": "P1",
+      "priority_reason": "Provides the standard coded scales that PBR and CPVO descriptions use, so it fixes the cultivar-table schema for timing traits.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "upov-pluto",
+      "name": "UPOV PLUTO plant variety database",
+      "publisher": "UPOV",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "cultivar_traits",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.upov.int/en/find-and-explore/databases/pluto-search",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "varies by member",
+      "update_frequency": "irregular",
+      "access": "open-with-free-registration",
+      "license_or_terms": "PLUTO Terms of use (no download on Standard Service; reproduction beyond authorised use needs UPOV written permission)",
+      "license_url": "https://www.upov.int/en/file-and-manage/pluto-contribute/terms-of-use",
+      "extractable_fields": [
+        "denomination",
+        "breeder reference",
+        "applicant/holder",
+        "country",
+        "protection type (PBR, plant patent, national list)",
+        "application and grant dates"
+      ],
+      "app_uses": [
+        "list cultivars protected per country to seed regional cultivar lists"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Information page and terms of use opened. Standard Service: free search for registered users (WIPO account), single page of results, print up to 100 records, no download. Premium Service with download costs CHF 750 per year."
+      },
+      "quality_caveats": "No bulk download for free users; a protected variety is not proof of planted area.",
+      "priority": "P2",
+      "priority_reason": "Best global list of protected blueberry denominations, breeders and protection dates by country, useful for cultivar adoption signals.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cpvo-variety-finder",
+      "name": "CPVO Variety Finder and CPVO technical protocols",
+      "publisher": "Community Plant Variety Office (EU)",
+      "countries": [
+        "EU",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "cultivar_traits",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://vf.plantvarieties.eu/",
+      "data_urls": [
+        "https://cpvo.europa.eu/en/applications-and-examinations/technical-examinations/technical-protocols/cpvo-technical-protocols"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "denomination",
+        "species",
+        "applicant",
+        "status",
+        "dates"
+      ],
+      "app_uses": [
+        "European cultivar list for Huelva, Portugal and Poland pins"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Variety Finder returned a JavaScript application shell. The technical protocols page opened but its text did not show a Vaccinium protocol (listing is dynamic)."
+      },
+      "quality_caveats": "JavaScript-only search; no verified export.",
+      "priority": "P3",
+      "priority_reason": "EU protection records add European cultivar names; trait detail mostly sits in the UPOV guideline.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "uspto-plant-patents-blueberry",
+      "name": "US plant patents for blueberry (Google Patents full text and USPTO image PDFs)",
+      "publisher": "United States Patent and Trademark Office; Google Patents",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://patents.google.com/patent/USPP24876P3/en",
+      "data_urls": [
+        "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/PP24876",
+        "https://ppubs.uspto.gov/pubwebapp/"
+      ],
+      "format": [
+        "html",
+        "image-pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "plant patents from 1930s; blueberry patents mostly 1990s-present [inference]",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "US patent texts are government publications; Google Patents terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "denomination and patent number",
+        "species and ancestry",
+        "chill requirement (hours, threshold)",
+        "test and selection locations",
+        "relative maturity versus named reference cultivars (days)",
+        "bloom period statements",
+        "photo dates and stage",
+        "grant date"
+      ],
+      "app_uses": [
+        "assign chill class and relative ripening offsets to proprietary cultivars planted in Peru, Mexico, Morocco and Huelva",
+        "derive cultivar-class GDD targets relative to Star, Emerald and other reference cultivars"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy",
+        "harvest_timing",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Sample USPP24876 ('BB07-210FL-18') read on Google Patents: 'Winter chilling requirements ... approximately 200-300 hours (<7 C)', maturity 'earlier by 5-7 days' than Star and 'earlier by 10 days' than Emerald, 'mean date of first harvest is 10 days later' than parent Springhigh, selected near Interlachen, Fla., photographs dated April-May 2012 at 50% ripe fruit. The USPTO image PDF (6 pages) has no text layer. Google Patents query pages and xhr count endpoint failed, so no total count."
+      },
+      "quality_caveats": "Breeder claims, not independent trials; locations and years often vague; chill thresholds vary between patents.",
+      "priority": "P1",
+      "priority_reason": "Patent texts give chill requirement, test location and dated bloom or ripening comparisons for most modern proprietary cultivars, which no other public source gives.",
+      "est_effort_days": 3.0
+    },
+    {
+      "id": "patentsview-uspto-odp",
+      "name": "PatentsView (now on USPTO Open Data Portal)",
+      "publisher": "USPTO",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://data.uspto.gov/support/transition-guide/patentsview",
+      "data_urls": [],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "patent number",
+        "title",
+        "grant date",
+        "assignee",
+        "CPC class"
+      ],
+      "app_uses": [
+        "enumerate blueberry plant patents for the patent extraction job"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "patentsview.org redirected to a JavaScript-only transition guide on data.uspto.gov; search.patentsview.org did not resolve (DNS)."
+      },
+      "quality_caveats": "Service migration; API key requirements unverified.",
+      "priority": "P3",
+      "priority_reason": "Could list plant patents in bulk by CPC A01H6 or title, but access path is in transition.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "hortscience-register-fruit-nut-cultivars",
+      "name": "Register of New Fruit and Nut Cultivars (Brooks and Olmo), HortScience, blueberry section",
+      "publisher": "American Society for Horticultural Science",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://doi.org/10.21273/hortsci19596-26",
+      "data_urls": [
+        "https://doi.org/10.21273/hortsci18040-24",
+        "https://jujube.nmsu.edu/documents/2024-fruit-cultivar-registration-52-hortsci-article-p1220.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "List 43 (2006) to List 53 (2026); older lists exist",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "CC BY-NC 4.0 (Lists 52 and 53 per Crossref metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "extractable_fields": [
+        "cultivar and trade name",
+        "species type (SHB, NHB, rabbiteye, half-high)",
+        "chill requirement or class",
+        "ripening season class",
+        "evergreen habit",
+        "origin, breeder, selection place and year",
+        "patent or PBR number and date"
+      ],
+      "app_uses": [
+        "seed the cultivar trait table with chill class and season class for releases since 2006",
+        "tag cultivars selected in Peru, Australia or Mexico as tropical or evergreen types"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Crossref lists List 52 (doi 10.21273/hortsci18040-24, Aug 2024) and List 53 (doi 10.21273/hortsci19596-26, Aug 2026), both CC BY-NC 4.0. The ASHS article pages were JavaScript-walled. A public copy of List 52 (NMSU) opened: the blueberry section by M.K. Ehlenfeldt and G.M. Sideli gives per cultivar the trade name, type (for example 'no-chill, early ripening southern highbush selected in Peru'), origin and breeder, cross and selection year and place, USPP or PBR numbers with dates, fruit size, Brix, storage days, evergreen leaf retention and chilling requirement (for example '150-300 h')."
+      },
+      "quality_caveats": "Self-reported by breeders; chill numbers use mixed definitions; ripening classes are relative.",
+      "priority": "P1",
+      "priority_reason": "One consistent, citable list of almost every public and private blueberry release with chill and season class, published every two years.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "cfia-plant-breeders-rights",
+      "name": "Canada Plant Breeders' Rights Office: variety descriptions and Plant Varieties Journal",
+      "publisher": "Canadian Food Inspection Agency",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "cultivar_traits",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://inspection.canada.ca/en/plant-health/plant-varieties/plant-breeders-rights",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "denomination",
+        "applicant",
+        "comparison varieties",
+        "time of flowering and ripening notes (UPOV scale) [inference]"
+      ],
+      "app_uses": [
+        "add Canadian NHB and half-high cultivars to the cultivar table"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PBR Office page opened; it links the Plant varieties journal and applications and grants. Blueberry description pages were not opened."
+      },
+      "quality_caveats": "Blueberry records not yet sampled.",
+      "priority": "P2",
+      "priority_reason": "Canadian PBR descriptions compare candidate and reference varieties trait by trait under the UPOV scheme [inference from UPOV membership], relevant to lowbush and NHB cool-climate cultivars.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ip-australia-pbr",
+      "name": "IP Australia Plant Breeder's Rights database",
+      "publisher": "IP Australia",
+      "countries": [
+        "AU"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "cultivar_traits",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ipaustralia.gov.au/plant-breeders-rights",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "denomination",
+        "applicant",
+        "PBR number and date",
+        "description with comparators [inference]"
+      ],
+      "app_uses": [
+        "link List 52 PBR numbers (for example PBR 6717, 6886) to descriptions"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Information page opened. The search database host pbr.ipaustralia.gov.au did not resolve; the IVDS portal (pericles.ipaustralia.gov.au/pbr_ivds/) was seen only in search results."
+      },
+      "quality_caveats": "Database host unreachable during check.",
+      "priority": "P2",
+      "priority_reason": "Australian PBR records cover the evergreen low-chill cultivars (Costa, Mountain Blue) used in Coffs Harbour, Morocco and Peru.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "usda-nass-cropland-data-layer",
+      "name": "USDA NASS Cropland Data Layer, class 242 Blueberries (CroplandCROS)",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php",
+      "data_urls": [
+        "https://croplandcros.scinet.usda.gov/",
+        "https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_CDL24_FGDC-STD-001-1998.htm"
+      ],
+      "format": [
+        "zip",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "annual layers; national coverage from 2008 [inference]",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Public domain, 'free to redistribute' (CDL metadata)",
+      "license_url": null,
+      "extractable_fields": [
+        "pixel class 242 Blueberries by year",
+        "state accuracy statistics"
+      ],
+      "app_uses": [
+        "location_mapping: blueberry presence within each 0.5 deg cell",
+        "select pixels for HLS phenology pilot in Hammonton and Michigan"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CDL page and CroplandCROS opened. 2024 national metadata accuracy table row: 'Blueberries 242: correct pixels 368, producer's accuracy 45.4%, omission 54.6%, kappa 0.454, user's accuracy 39.1%, commission 60.9%, conditional kappa 0.391' versus overall accuracy 77.5%. Metadata states the CDL 'is considered public domain and free to redistribute'."
+      },
+      "quality_caveats": "Blueberry class accuracy is low (producer 45%, user 39% in 2024); use multi-year persistence and aggregate to cells, not field truth.",
+      "priority": "P1",
+      "priority_reason": "Free 30 m annual map with a blueberry class lets the app check whether a US pin is near mapped blueberry and builds a location mask for NPN and remote sensing jobs.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "eurocrops-hcat",
+      "name": "EuroCrops harmonised parcel crop labels (HCAT3)",
+      "publisher": "EuroCrops project (TU Munich and partners); JRC catalogue",
+      "countries": [
+        "BE",
+        "DK",
+        "EE",
+        "ES",
+        "FI",
+        "IE",
+        "LV",
+        "NL",
+        "PT",
+        "SI",
+        "SK",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://github.com/maja601/EuroCrops",
+      "data_urls": [
+        "https://raw.githubusercontent.com/maja601/EuroCrops/main/hcat_core/HCAT3.csv",
+        "https://data.jrc.ec.europa.eu/dataset/b9fb9e67-78a9-4327-9d59-39a928d812d3"
+      ],
+      "format": [
+        "csv",
+        "shapefile"
+      ],
+      "language": [
+        "en",
+        "es",
+        "pt",
+        "nl",
+        "fi",
+        "da"
+      ],
+      "temporal_coverage": "single years 2018-2023 depending on country",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "CC BY-SA 4.0 (repository); national source licences vary",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "extractable_fields": [
+        "parcel polygon",
+        "national crop code and name",
+        "HCAT3 code",
+        "year"
+      ],
+      "app_uses": [
+        "map blueberry parcels in Huelva, Odemira and Sever do Vouga",
+        "measure blueberry area per POWER cell"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Repository opened (licence CC BY-SA 4.0). HCAT3 has class 'blueberry' code 3303020400. Country mapping files that map a national code to it: Flanders 2021 (9722 'Blauwe bessen'), Denmark 2019 (519 'Blåbær'), Estonia 2021 ('mustikas'), Spain 2023 (216 'ARÁNDANO'), Finland 2020 (5313 'Pensasmustikka'), Ireland 2023, Latvia 2021 (924), Netherlands 2020 (1869 'Bessen, blauwe'), Portugal 2021 (202 'MIRTILO'), Slovenia 2021 (652), Slovakia 2021. No blueberry mapping found for Germany, Poland or Austria files. JRC catalogue page needed a login."
+      },
+      "quality_caveats": "One year per country; Spain 2023 coverage by region not checked; declarations, not surveys; protected cultivation not flagged.",
+      "priority": "P1",
+      "priority_reason": "Parcel-level blueberry polygons for Spain and Portugal (Huelva and Odemira regions) and the Netherlands give real field locations for remote sensing and pin checks.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "nl-brp-gewaspercelen",
+      "name": "Basisregistratie Gewaspercelen (BRP), Netherlands crop parcels",
+      "publisher": "Rijksdienst voor Ondernemend Nederland via PDOK",
+      "countries": [
+        "NL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.pdok.nl/introductie/-/article/basisregistratie-gewaspercelen-brp-",
+      "data_urls": [],
+      "format": [
+        "shapefile",
+        "api-json"
+      ],
+      "language": [
+        "nl"
+      ],
+      "temporal_coverage": "annual layers (years not checked)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "parcel polygon",
+        "crop code",
+        "year"
+      ],
+      "app_uses": [
+        "test parcel-based blueberry masks"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDOK page opened. Annual parcel layer with the declared crop, served by WMS, WFS, OGC API Features and Atom download. EuroCrops maps code 1869 'Bessen, blauwe' to blueberry."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Annual repeats for a small producer; good test bed for parcel workflows.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "junta-andalucia-plastico-huelva",
+      "name": "Cartografía de cultivos bajo plástico en la provincia de Huelva (annual reports)",
+      "publisher": "Junta de Andalucía, Consejería de Agricultura",
+      "countries": [
+        "ES"
+      ],
+      "subnational_scope": [
+        "Huelva"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing",
+        "management_practice"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.juntadeandalucia.es/sites/default/files/2021-11/Informe_plastico_huelva_v210305_1.pdf",
+      "data_urls": [
+        "https://www.juntadeandalucia.es/export/drupaljda/producto_estadistica/19/06/Informe_plastico_huelva_v190306.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2004-2021 campaigns seen (later years not checked)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "campaign year",
+        "municipality",
+        "area under plastic (ha)",
+        "method and image dates"
+      ],
+      "app_uses": [
+        "set protection=tunnel share for Moguer and other Huelva pins",
+        "explain why Huelva evergreen calendars differ from open-field model output"
+      ],
+      "model_families": [
+        "management",
+        "location_mapping"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Campaign 2021 report (14 pages) opened. Uses Sentinel-2 scenes of 11 January and 15 February 2021 and SigPac 2021 parcels. Mapped area under plastic 17,164 ha, of which 15,276 ha estimated as plastic surface; +112% (8,079 ha) since 2004; table by municipality, with Moguer and Almonte about 42% of the total. The 2019 report URL dropped the connection."
+      },
+      "quality_caveats": "All crops under plastic (strawberry dominates); no crop split; maps not seen as downloadable layers.",
+      "priority": "P1",
+      "priority_reason": "Only official, repeated, municipality-level map of tunnel and greenhouse cover in the main European blueberry area.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "global-pcg-10",
+      "name": "Global-PCG-10: 10 m global map of plastic-covered greenhouses (2020)",
+      "publisher": "Niu et al., Earth System Science Data 17:5065 (2025)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 10 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://essd.copernicus.org/articles/17/5065/2025/",
+      "data_urls": [
+        "https://zenodo.org/records/19487196"
+      ],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2020",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Article CC BY 4.0; data licence not verified",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "greenhouse/tunnel presence per 10 m pixel"
+      ],
+      "app_uses": [
+        "flag pins where macrotunnels likely change the calendar (management layer)"
+      ],
+      "model_families": [
+        "management",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ESSD article opened (CC BY 4.0). States overall accuracy 98.04% ± 0.12% and global plastic-covered greenhouse area 14,259.85 km2 in 2020, 69.24% in Asia. A Zenodo record that redistributes it returned 403."
+      },
+      "quality_caveats": "Single year; does not separate crops; may miss low macrotunnels or shade nets [inference].",
+      "priority": "P2",
+      "priority_reason": "Free global protected-cultivation layer to estimate tunnel share near Peru, Morocco, Mexico, China and Huelva pins.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "tong-2024-global-greenhouse",
+      "name": "Global area boom for greenhouse cultivation revealed by satellite mapping (Tong et al. 2024)",
+      "publisher": "Nature Food 5:513-523",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 3 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing",
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.nature.com/articles/s43016-024-00985-0",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2019",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "greenhouse area per 1 km grid cell"
+      ],
+      "app_uses": [
+        "cross-check tunnel share estimates"
+      ],
+      "model_families": [
+        "management",
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article opened. Maps 1.3 million ha of greenhouse infrastructure in 2019 in 119 countries using PlanetScope (3 m) and Sentinel-2; country shares include Spain 5.6%, Mexico 3.3%, Morocco 2.3%."
+      },
+      "quality_caveats": "PlanetScope-based layers may carry commercial imagery limits [inference].",
+      "priority": "P3",
+      "priority_reason": "Second, independent greenhouse map for cross-checking Global-PCG-10.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "odepa-catastro-fruticola",
+      "name": "Catastros frutícolas (Chile orchard census)",
+      "publisher": "ODEPA and CIREN, Ministerio de Agricultura de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Maule",
+        "Ñuble",
+        "Biobío",
+        "La Araucanía",
+        "Los Lagos"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.odepa.gob.cl/estadisticas-del-sector/catastros-fruticolas",
+      "data_urls": [],
+      "format": [
+        "xlsx",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "regional rounds since 1999 [inference]",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "region, commune",
+        "species",
+        "planted area (ha)",
+        "plantation year (if present)",
+        "variety (if present)"
+      ],
+      "app_uses": [
+        "weight Chilean pins by real planted area"
+      ],
+      "model_families": [
+        "location_mapping",
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page opened; regional census files were not opened in this scope (pointer only, see the Chile regional report)."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Commune-level planted area by species and age for Maule, Ñuble and Biobío; variety detail may exist [inference].",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "usda-nass-quickstats-census",
+      "name": "USDA NASS Quick Stats (Census of Agriculture blueberry acres by county)",
+      "publisher": "USDA NASS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://quickstats.nass.usda.gov/",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Census years 2002-2022",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "county",
+        "tame and wild blueberry acres",
+        "farms"
+      ],
+      "app_uses": [
+        "weight CDL blueberry pixels by Census acres"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Quick Stats query tool opened. Pointer only; the benchmark file already cites 2022 Census county acres (for example Miami-Dade 25 farms, 44 tame acres)."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Already used by the benchmark; listed for completeness of the land-use layer.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "copernicus-data-space-sentinel2",
+      "name": "Copernicus Data Space Ecosystem (Sentinel-2 L2A)",
+      "publisher": "European Commission / ESA",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 10 m",
+      "categories": [
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://dataspace.copernicus.eu/",
+      "data_urls": [],
+      "format": [
+        "zip",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2015-present",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "surface reflectance bands",
+        "scene classification"
+      ],
+      "app_uses": [
+        "detect pruning and canopy regrowth dates on mapped Peru and Huelva parcels [inference]"
+      ],
+      "model_families": [
+        "management",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Portal opened."
+      },
+      "quality_caveats": "Cloud cover; shrub canopies under tunnels or nets are hard to observe.",
+      "priority": "P2",
+      "priority_reason": "Source imagery for parcel-level greenup and harvest-pruning signals in Huelva and Peru.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "nasa-hls-v2",
+      "name": "Harmonized Landsat Sentinel-2 (HLSL30 and HLSS30 v2.0)",
+      "publisher": "NASA LP DAAC",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-hlss30-2.0",
+      "data_urls": [
+        "https://www.earthdata.nasa.gov/data/catalog/lpcloud-hlsl30-2.0"
+      ],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2015-11-28 to present",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (NASA Earthdata login required)",
+      "license_url": null,
+      "extractable_fields": [
+        "surface reflectance",
+        "Fmask quality"
+      ],
+      "app_uses": [
+        "pilot: compare HLS greenup on blueberry parcels with NPN and model budbreak in NJ and MI"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Catalog pages opened for HLSS30 and HLSL30 v2.0: 30 m, global land, 2015-11-28 to present, combined revisit about every 1.6 days, COG format."
+      },
+      "quality_caveats": "Bloom (white flowers) is a weak spectral signal at 30 m [inference]; mixed pixels in small fields.",
+      "priority": "P2",
+      "priority_reason": "Dense 30 m time series to build a blueberry-field greenup or canopy-change signal over CDL and EuroCrops parcels.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "modis-mcd12q2",
+      "name": "MODIS Land Cover Dynamics (MCD12Q2 v061)",
+      "publisher": "NASA LP DAAC",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 500 m",
+      "categories": [
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mcd12q2-061",
+      "data_urls": [
+        "https://lpdaac.usgs.gov/products/vnp22q2v002/"
+      ],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2001-present",
+      "update_frequency": "annual",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "greenup onset date",
+        "maturity date",
+        "senescence date"
+      ],
+      "app_uses": [
+        "year-to-year regional spring anomaly as a covariate for bloom timing"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Catalog page opened: 500 m, yearly, 2001-present; layers for onset of greenness, greenup midpoint, maturity, peak, senescence, dormancy, EVI2 amplitude. VIIRS VNP22Q2 page also opened (V001)."
+      },
+      "quality_caveats": "Pixels mix forest and crops; not crop phenology.",
+      "priority": "P3",
+      "priority_reason": "Too coarse for blueberry fields, but gives a regional spring-onset anomaly per year.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "musli-mslsp30na",
+      "name": "MuSLI Multi-Source Land Surface Phenology, North America 30 m (MSLSP30NA v011)",
+      "publisher": "NASA LP DAAC",
+      "countries": [
+        "US",
+        "CA",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mslsp30na-011",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2016-2019",
+      "update_frequency": "discontinued",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "onset of greenness date",
+        "greenup midpoint",
+        "maturity",
+        "senescence",
+        "dormancy",
+        "EVI2 amplitude"
+      ],
+      "app_uses": [
+        "compare 30 m greenup on CDL blueberry pixels with model budbreak at Hammonton, Grand Junction, Alma"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Catalog page opened: 30 m, North America, 2016-01-01 to 2019-12-31, yearly; layers for greenup, maturity, senescence, dormancy dates and EVI2 amplitude."
+      },
+      "quality_caveats": "Four years only; greenup of a field is leaf-out, not floral budbreak.",
+      "priority": "P2",
+      "priority_reason": "Ready-made 30 m phenology dates that can be sampled on CDL blueberry pixels without processing imagery.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ishs-wild-blueberry-uav-phenology",
+      "name": "Phenological assessment of the wild blueberry field using an unmanned aerial vehicle (Acta Horticulturae 1357)",
+      "publisher": "ISHS, XII International Vaccinium Symposium",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "remote_sensing",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ishs.org/ishs-article/1357_6/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "single study",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "stage",
+        "vegetation index",
+        "R2"
+      ],
+      "app_uses": [
+        "method reference for any future drone-based stage labelling"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Abstract opened. UAV multispectral survey of a wild blueberry field; vegetation indices at bud break had R2 0.13 to 0.71; stages F4/F5 and F6/F7 discussed."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Shows stage detection works by drone, not satellite; method reference only.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "mdpi-wild-blueberry-multispectral-2025",
+      "name": "Monitoring and Prediction of Wild Blueberry Phenology Using a Multispectral Sensor (Remote Sensing 17:334, 2025)",
+      "publisher": "MDPI Remote Sensing",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "remote_sensing",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://doi.org/10.3390/rs17020334",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "single study",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (MDPI journals are usually CC BY [inference])",
+      "license_url": null,
+      "extractable_fields": [
+        "stage",
+        "vegetation indices",
+        "LAI"
+      ],
+      "app_uses": [
+        "method reference"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "MDPI page returned 403. Search result abstract: LAI, floral and vegetative bud stages estimated at F4/F5 and F6/F7 with R2/CCC 0.90/0.84 using UAV indices."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "UAV method for lowbush stages, not a dataset.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "mdpi-peru-nuevo-chao-sentinel2",
+      "name": "Analysis of Water Stress Using Sentinel-2 NDWI Images for Optimization of Progressive Harvest Dates in Blueberry, Nuevo Chao, La Libertad",
+      "publisher": "MDPI Engineering Proceedings 83:27 (2025)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "remote_sensing",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.mdpi.com/2673-4591/83/1/27",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "single study",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "stage classes",
+        "NDWI",
+        "dates"
+      ],
+      "app_uses": [
+        "lead for coastal Peru stage detection (41-51 day vs four-month gap)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "MDPI page returned 403. Search abstract: Sentinel-2 NDWI time series over blueberry in Nuevo Chao, neural network with 93% accuracy for growth stages."
+      },
+      "quality_caveats": "Conference paper; methods and labels unverified.",
+      "priority": "P3",
+      "priority_reason": "Only satellite study found that targets Peruvian blueberry stages; short conference paper.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "era5-land-timeseries-cds",
+      "name": "ERA5-Land hourly time-series (ARCO point extraction)",
+      "publisher": "Copernicus Climate Change Service (ECMWF)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land-timeseries",
+      "data_urls": [],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1950-present",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "ERA5-Land licence on CDS (CC BY 4.0 per report 07)",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly 2 m temperature",
+        "hourly 2 m dewpoint",
+        "10 m wind",
+        "precipitation (variable list not fully read)"
+      ],
+      "app_uses": [
+        "compare hourly Tmin and frost hours with MERRA-2 at the 53 benchmark cells",
+        "check the Chile November 2022 and Waikato October 2022 freezes at 9 km"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "heat",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Dataset page opened: a subset of ERA5-Land in Analysis-Ready Cloud-Optimised format 'specifically designed for retrieving long time-series for individual points', nearest grid point chosen automatically, 0.1 x 0.1 deg, 1950 to present, variables include 2 m temperature and 2 m dewpoint and 10 m wind. New relative to 07, which only described full-grid CDS retrievals and Open-Meteo."
+      },
+      "quality_caveats": "Needs a free ECMWF account and licence acceptance. Coastal and mountain cells still biased.",
+      "priority": "P1",
+      "priority_reason": "Gives hourly 0.1 deg temperature and dewpoint per pin from the official source in one fast request, the cheapest path to a second hourly opinion for frost and chill.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "noaa-ghcnh",
+      "name": "Global Historical Climatology Network hourly (GHCNh)",
+      "publisher": "NOAA NCEI",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly",
+      "data_urls": [
+        "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/doc/ghcnh-station-list.csv"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "varies by station; some from the 1900s",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (NOAA data; US federal)",
+      "license_url": null,
+      "extractable_fields": [
+        "station id, name, lat, lon, elevation",
+        "hourly temperature",
+        "dewpoint",
+        "relative humidity",
+        "wind",
+        "precipitation",
+        "quality flags"
+      ],
+      "app_uses": [
+        "measure grid Tmin bias and missed frost nights near each benchmark site",
+        "confirm IBO freeze events (Chile Nov 2022, Waikato Oct 2022) at the nearest station"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "heat",
+        "disease",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Product page opened; GHCNh 'replaces the Integrated Surface Dataset (ISD)'; by-year and by-station files in PSV or parquet. Station list CSV (38,870 stations with coordinates) downloaded once: 39 of 53 benchmark sites have a GHCNh station within 25 km and 50 within 50 km. Examples: Linares 0.7 km, Chillán 0.8 km, Hamilton AWS 8.5 km from Ohaupo, Burnie (Round Hill) 12.4 km from Penguin, Huelva 6.9 km from Moguer, Alma Bacon Co AP 4.2 km. Exceptions: Chao 62 km, Ica 65 km, Tafí del Valle 51 km."
+      },
+      "quality_caveats": "Station period of record and completeness not checked; airports are often warmer or windier than orchards.",
+      "priority": "P1",
+      "priority_reason": "Free hourly station temperature and dewpoint near most benchmark sites, in one global format, for bias and frost-miss checks.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "metoffice-hadisd",
+      "name": "HadISD quality-controlled sub-daily station dataset",
+      "publisher": "Met Office Hadley Centre",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.metoffice.gov.uk/hadobs/hadisd/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "version v3.4.3.2025f (data through 2025); start year not read on the page",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Non-Commercial Government Licence",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly or 3-hourly temperature",
+        "dewpoint",
+        "QC flags"
+      ],
+      "app_uses": [
+        "frost and heat hit-miss checks with flagged outliers removed"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened. Quality controlled temperature, dewpoint, sea-level pressure, wind and cloud from ISD stations that report at least every 6 hours; QC tests designed to remove bad data while keeping extremes; netCDF per station; v3.4.3.2025f free under the Non-Commercial Government Licence."
+      },
+      "quality_caveats": "Non-commercial licence; not homogenised; subset of ISD stations.",
+      "priority": "P2",
+      "priority_reason": "Extreme-preserving QC makes it a safer frost truth than raw ISD where both exist.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "noaa-isd-gsod",
+      "name": "Integrated Surface Database (ISD) and Global Summary of the Day (GSOD)",
+      "publisher": "NOAA NCEI",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+      "data_urls": [
+        "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "GSOD from 1929 for some stations",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (NOAA data; US federal)",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmax, Tmin, mean dewpoint",
+        "hourly observations (ISD)"
+      ],
+      "app_uses": [
+        "fallback station truth"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ISD page and GSOD metadata page opened. ISD is being replaced by GHCNh. GSOD gives daily mean, max and min temperature, dewpoint and other elements computed from hourly data, with AWS and Google Cloud copies."
+      },
+      "quality_caveats": "GSOD days are GMT-based, which shifts local frost nights.",
+      "priority": "P3",
+      "priority_reason": "Legacy path; use only where GHCNh lacks a station.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "meteostat",
+      "name": "Meteostat station data (bulk CSV, Python library and JSON API)",
+      "publisher": "Meteostat",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://dev.meteostat.net/",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "varies by station",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://meteostat.net/en/legal",
+      "extractable_fields": [
+        "hourly temperature",
+        "dewpoint",
+        "RH",
+        "precipitation",
+        "station metadata"
+      ],
+      "app_uses": [
+        "fast prototype of station bias table before GHCNh ingestion"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Developer page opened: Python library, bulk CSV datasets and JSON API. Legal page states data are under CC BY 4.0."
+      },
+      "quality_caveats": "Aggregator of DWD, NOAA and others; may include model-filled values unless filtered [inference].",
+      "priority": "P2",
+      "priority_reason": "Easy hourly and daily access with gap handling; convenient for a quick multi-site bias pass.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ogimet-synop-archive",
+      "name": "OGIMET SYNOP and daily summary archive",
+      "publisher": "OGIMET (Guillermo Ballester Valor)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ogimet.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "SYNOP July 2004-present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "SYNOP Tmin/Tmax groups",
+        "present weather",
+        "precipitation"
+      ],
+      "app_uses": [
+        "confirm night minima for IBO freeze dates"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened (Spanish). States SYNOP reports archived from July 2004 and GSOD daily summaries from 1929 for a reduced station set."
+      },
+      "quality_caveats": "Personal service; scraping terms unknown.",
+      "priority": "P3",
+      "priority_reason": "Useful for SYNOP min temperatures and present-weather codes on specific frost nights where national archives are closed.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "iem-asos-archive",
+      "name": "Iowa Environmental Mesonet ASOS/AWOS/METAR download",
+      "publisher": "Iowa State University",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://mesonet.agron.iastate.edu/request/download.phtml",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "multi-decade archive, year selectable on the page (station dependent)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "valid time (UTC)",
+        "tmpf",
+        "dwpf",
+        "relh",
+        "sknt",
+        "p01i"
+      ],
+      "app_uses": [
+        "frost-night checks near US benchmark sites"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Download page opened: routine and special METARs, one-minute and 5-minute ASOS options, variables such as temperature, dewpoint, wind, one-hour precipitation; years back to the 1940s in the selector."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Hourly US airport observations near Florida, Georgia, Carolina and Michigan sites, easy CSV export.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "gloh2o-mswx",
+      "name": "MSWX: Multi-Source Weather (3-hourly 0.1 deg, bias corrected)",
+      "publisher": "GloH2O (Beck et al.)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gloh2o.org/mswx/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1979-present plus forecast ensembles",
+      "update_frequency": "daily",
+      "access": "on-request",
+      "license_or_terms": "CC BY-NC 4.0",
+      "license_url": null,
+      "extractable_fields": [
+        "3-hourly air temperature",
+        "daily Tmin/Tmax",
+        "humidity",
+        "wind",
+        "radiation"
+      ],
+      "app_uses": [
+        "second temperature product for chill and frost at benchmark cells"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: '3-hourly 0.1 deg, bias-corrected meteorological product with global coverage from 1979'; released under CC BY-NC 4.0; access by request form (academic email) with a Google Drive link."
+      },
+      "quality_caveats": "Non-commercial; request form; sub-daily is 3-hourly, not hourly.",
+      "priority": "P2",
+      "priority_reason": "Bias-corrected global temperature at 0.1 deg could reduce the +1 C Tmin bias without station fitting.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "gloh2o-mswep",
+      "name": "MSWEP: Multi-Source Weighted-Ensemble Precipitation (V3)",
+      "publisher": "GloH2O",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gloh2o.org/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1979-present",
+      "update_frequency": "daily",
+      "access": "on-request",
+      "license_or_terms": "non-commercial use by request (exact licence name not shown on page)",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly precipitation"
+      ],
+      "app_uses": [
+        "heavy-rain day counts at harvest; wet hours for anthracnose and Botrytis"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: hourly 0.1 deg precipitation 1979 to present with a 2-hour delay (V3, arXiv 2602.01436); non-commercial access by request form."
+      },
+      "quality_caveats": "Non-commercial; registration by form.",
+      "priority": "P2",
+      "priority_reason": "Gauge-corrected hourly rain helps harvest-rain and disease wetness timing better than POWER.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ecad-e-obs",
+      "name": "E-OBS daily gridded observations for Europe",
+      "publisher": "ECA&D / Copernicus Climate Change Service (KNMI)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php",
+      "data_urls": [
+        "https://www.ecad.eu/download/ensembles/download.php"
+      ],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1950-2025",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "ECA&D/E-OBS data policy: non-commercial research and education only",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmin",
+        "Tmax",
+        "Tmean",
+        "precipitation",
+        "RH"
+      ],
+      "app_uses": [
+        "compare POWER Tmin and forcing at Lublin, Vechta, Naantali, Huelva, Odemira"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "budbreak_bloom_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Access page opened: version 33.0e (May 2026) covers 1950-01-01 to 2025-12-31; elements include Tmin, Tmax, mean temperature, precipitation, RH, wind, radiation. Terms: 'strictly for use in non-commercial research and education'."
+      },
+      "quality_caveats": "Daily only; sparse stations in parts of Spain and Portugal; non-commercial.",
+      "priority": "P2",
+      "priority_reason": "Station-based European grid to test the two-week late NHB bloom in Europe and Finland and Poland frost.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "c3s-cerra",
+      "name": "CERRA sub-daily regional reanalysis for Europe",
+      "publisher": "Copernicus Climate Change Service",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid (resolution not read on the page)",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-cerra-single-levels",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1984-present",
+      "update_frequency": "irregular",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (CDS licence)",
+      "license_url": null,
+      "extractable_fields": [
+        "2 m temperature",
+        "RH",
+        "wind",
+        "precipitation"
+      ],
+      "app_uses": [
+        "third opinion on European frost hours"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Dataset page opened: European regional reanalysis on single levels from 1984 to present, analysis and forecast fields including temperature and wind."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Higher-resolution European reanalysis for coastal and mountain cells (Huelva coast, Sever do Vouga).",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cr2met",
+      "name": "CR2MET gridded precipitation and temperature for continental Chile",
+      "publisher": "Centro de Ciencia del Clima y la Resiliencia (CR)2",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.05 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.cr2.cl/datos-productos-grillados/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1960-2021",
+      "update_frequency": "irregular",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (cite Boisier 2023, Zenodo)",
+      "license_url": null,
+      "extractable_fields": [
+        "daily precipitation",
+        "daily Tmin",
+        "daily Tmax"
+      ],
+      "app_uses": [
+        "Tmin bias correction for Maule, Ñuble, Biobío and Los Lagos cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened (Spanish). CR2MET v2.5 covers 1960-2021, statistical models calibrated with quality-controlled observations; netCDF; cite Boisier (2023) Zenodo; a form asks for name and email before access."
+      },
+      "quality_caveats": "Ends 2021 in the version seen, so 2022 freeze needs stations.",
+      "priority": "P2",
+      "priority_reason": "Station-calibrated Chilean grid to test the Linares-Chillán November 2022 freeze miss and Andes-coast gradients.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cr2-explorador-climatico",
+      "name": "Explorador Climático (station data viewer and export)",
+      "publisher": "(CR)2, Universidad de Chile, with Meteodata",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://explorador.cr2.cl/",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "varies by station",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "daily Tmin, Tmax, precipitation"
+      ],
+      "app_uses": [
+        "confirm frost nights near Linares and Chillán"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened (Spanish). Map-based station explorer with time-series export; credits DMC, DGA and other networks."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Quick access to Chilean station minima for the November 2022 freeze nights.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "dmc-chile-climatologia",
+      "name": "Dirección Meteorológica de Chile, Servicios Climáticos",
+      "publisher": "Dirección Meteorológica de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://climatologia.meteochile.gob.cl/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "varies; annual bulletins",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly temperature by station",
+        "dated extreme events (frost, heat, rain) with places"
+      ],
+      "app_uses": [
+        "event records for Chile frosts and heat; station truth near Chilean pins"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Portal opened (Spanish). Lists hourly and daily station data, annual climate reports and an annual 'Recopilación de eventos extremos del año' bulletin, plus monthly agroclimatic bulletins."
+      },
+      "quality_caveats": "",
+      "priority": "P1",
+      "priority_reason": "Official hourly stations and an annual extreme-events bulletin are both directly usable for Chile freeze validation and the RAG library.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "br-dwgd-xavier",
+      "name": "Brazilian Daily Weather Gridded Data (BR-DWGD)",
+      "publisher": "Xavier et al., UFES",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.1 deg",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://sites.google.com/site/alexandrecandidoxavierufes/brazilian-daily-weather-gridded-data",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "pt",
+        "en"
+      ],
+      "temporal_coverage": "1961-2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmax",
+        "Tmin",
+        "precipitation",
+        "RH",
+        "Rs",
+        "u2",
+        "ETo"
+      ],
+      "app_uses": [
+        "compare chill and frost counts against MERRA-2 at the four Brazil sites"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: daily, 0.1 x 0.1 deg, Brazil only, 1961-01-01 to 2025-12-31; variables include Tmax, Tmin, precipitation, solar radiation, RH, wind at 2 m and ETo."
+      },
+      "quality_caveats": "Interpolation smooths highland frost pockets [inference].",
+      "priority": "P2",
+      "priority_reason": "Station-interpolated Brazilian Tmin at 0.1 deg to check Pelotas, Vacaria, Lages frost and chill.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "silo-australia",
+      "name": "SILO climate data (Australia)",
+      "publisher": "Queensland Government (Long Paddock)",
+      "countries": [
+        "AU"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 0.05 deg",
+      "categories": [
+        "gridded_weather",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.longpaddock.qld.gov.au/silo/",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "long daily record (start year not read on the page)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "daily Tmax, Tmin, rain, radiation",
+        "station or grid point series"
+      ],
+      "app_uses": [
+        "chill-hours check at Penguin (model gives 58 h)"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: 'SILO climate data are freely available under the Creative Commons Attribution 4.0 International (CC BY 4.0) licence'; interpolated grids and infilled station series."
+      },
+      "quality_caveats": "Infilled values must be flagged out for validation.",
+      "priority": "P2",
+      "priority_reason": "Daily station and grid series for Coffs Harbour and Tasmania (Penguin) to test the sea-dominated cell problem.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "noaa-hrrr-aws",
+      "name": "NOAA High-Resolution Rapid Refresh (HRRR) archive on AWS",
+      "publisher": "NOAA / Registry of Open Data on AWS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 3 km",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://registry.opendata.aws/noaa-hrrr-pds/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "archive start not read on the page",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "NOAA open data (NODD): open to the public",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly 2 m temperature",
+        "dewpoint",
+        "wind"
+      ],
+      "app_uses": [
+        "case studies of March 2022 Southeast freeze at 3 km"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Registry page opened: 3 km, hourly-updated model with radar assimilation; licence statement 'NOAA data disseminated through NODD are open to the public and can be used as desired'."
+      },
+      "quality_caveats": "Model analysis, not observation; GRIB2 volume.",
+      "priority": "P3",
+      "priority_reason": "3 km hourly US analysis for freeze nights in Florida and Georgia, but the archive is large and short.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "fmi-open-data",
+      "name": "Finnish Meteorological Institute open data",
+      "publisher": "Finnish Meteorological Institute",
+      "countries": [
+        "FI"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://en.ilmatieteenlaitos.fi/open-data",
+      "data_urls": [
+        "https://opendata.fmi.fi/"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "fi",
+        "en"
+      ],
+      "temporal_coverage": "varies",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "CC BY 4.0",
+      "license_url": "https://en.ilmatieteenlaitos.fi/open-data-licence",
+      "extractable_fields": [
+        "hourly temperature",
+        "dewpoint",
+        "precipitation"
+      ],
+      "app_uses": [
+        "chill and frost truth for the Naantali pin"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Open data page opened; licence page states CC BY 4.0; data via open data interface and AWS S3."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Hourly stations near Naantali for the cool-climate pin that produces no calendar today.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "eccc-historical-climate",
+      "name": "Environment and Climate Change Canada historical climate data",
+      "publisher": "Environment and Climate Change Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://climate.weather.gc.ca/",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "from the 1800s for some stations",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "ECCC Licence Agreement for Use of Environment and Climate Change Canada Data",
+      "license_url": "https://climate.weather.gc.ca/prods_servs/attachment1_e.html",
+      "extractable_fields": [
+        "hourly temperature",
+        "dewpoint",
+        "RH",
+        "station metadata"
+      ],
+      "app_uses": [
+        "cool-climate chill and frost truth for Quebec and BC pins"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: hourly, daily and monthly station data search; licence agreement page opened (limited-use licence with acknowledgement obligation)."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Hourly stations for Lac-Saint-Jean and the BC side of the Lynden pin.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "niwa-clidb-datahub",
+      "name": "NIWA CliDB on DataHub (formerly CliFlo)",
+      "publisher": "Earth Sciences New Zealand (NIWA)",
+      "countries": [
+        "NZ"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://data.niwa.co.nz/pages/clidb-on-datahub",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "varies",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "NIWA data licences (free for non-commercial use)",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly and daily temperature",
+        "grass minimum (if available) [inference]"
+      ],
+      "app_uses": [
+        "event check for Waikato October 2022 freeze"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened: CliFlo replaced by CliDB on DataHub; users must create a new account; no fees for non-commercial use, fees for commercial use; download limits for some data."
+      },
+      "quality_caveats": "Only archived data about one month old; account required.",
+      "priority": "P2",
+      "priority_reason": "Station minima near Ohaupo to check the Waikato October 2022 freeze missing from grid cells.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "wsu-agweathernet",
+      "name": "WSU AgWeatherNet",
+      "publisher": "Washington State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "WA"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://weather.wsu.edu/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "15-minute or hourly air temperature, RH, wind [inference]"
+      ],
+      "app_uses": [
+        "frost and chill truth for Yakima and Lynden"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Site returned a JavaScript application with almost no text."
+      },
+      "quality_caveats": "Access terms and history depth not verified.",
+      "priority": "P2",
+      "priority_reason": "Agricultural stations in Yakima and Whatcom counties for the Cascade and Lynden cool-climate pins [inference about station locations].",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "aemet-opendata",
+      "name": "AEMET OpenData API",
+      "publisher": "Agencia Estatal de Meteorología",
+      "countries": [
+        "ES"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://opendata.aemet.es/",
+      "data_urls": [],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "daily and hourly station observations"
+      ],
+      "app_uses": [
+        "Huelva Tmin and heat checks"
+      ],
+      "model_families": [
+        "heat",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Portal returned a JavaScript page. API key by email registration is expected [inference]."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Spanish stations near Moguer; GHCNh already lists a Huelva station 6.9 km away.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "prism-climate",
+      "name": "PRISM daily and monthly grids (CONUS)",
+      "publisher": "PRISM Group, Oregon State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 800 m",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://prism.oregonstate.edu/",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1981-present daily",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "PRISM Terms of Use (not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmin",
+        "Tmax",
+        "precipitation",
+        "dewpoint"
+      ],
+      "app_uses": [
+        "US Tmin bias reference at 800 m"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened: daily grids 1981-present, monthly and annual 1895-present; 'Both 4km and 800m spatial resolutions available' and 'We offer these datasets to the public free of charge'. Report 07 listed 800 m as paid, so this is a change to recheck before use."
+      },
+      "quality_caveats": "Daily only; US only.",
+      "priority": "P2",
+      "priority_reason": "800 m daily Tmin over Florida, Georgia and Carolina pins may resolve the cold-pocket frost misses (already in 07; new: 800 m now stated as free).",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "daymet",
+      "name": "Daymet daily surface weather (North America)",
+      "publisher": "ORNL DAAC",
+      "countries": [
+        "US",
+        "CA",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 1 km",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://daymet.ornl.gov/",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not read on the page",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmin",
+        "Tmax",
+        "precipitation",
+        "vapour pressure"
+      ],
+      "app_uses": [
+        "second US daily Tmin check"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened. Already in report 07 (1 km daily, North America)."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Already documented; 1 km Tmin for US and Canadian pins.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "gridmet",
+      "name": "gridMET daily meteorological data (CONUS)",
+      "publisher": "Climatology Lab (University of California, Merced)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid 4 km",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.climatologylab.org/gridmet.html",
+      "data_urls": [],
+      "format": [
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not read on the page",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "daily Tmin",
+        "Tmax",
+        "RHmin",
+        "RHmax",
+        "precipitation"
+      ],
+      "app_uses": [
+        "RH reference for disease indices in the Southeast"
+      ],
+      "model_families": [
+        "disease",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened. Already in report 07 (4 km daily CONUS)."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Already documented; includes RH min and max useful for disease checks.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "openalex",
+      "name": "OpenAlex works API and snapshot",
+      "publisher": "OurResearch",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://openalex.org/",
+      "data_urls": [
+        "https://api.openalex.org/works",
+        "https://help.openalex.org/access/pricing/"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en",
+        "es",
+        "pt",
+        "zh"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "CC0 (data); API usage metered per key",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract (inverted index)",
+        "DOI",
+        "year",
+        "type",
+        "OA status and URL",
+        "concepts/topics",
+        "authorships and institutions"
+      ],
+      "app_uses": [
+        "candidate list for the literature mining job"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API queried without a key (5 small calls). Counts: filter title_and_abstract.search 'blueberry phenology' 140 (77 open access); '(blueberry OR Vaccinium) AND (bloom OR flowering) AND (date OR phenology)' 153; search 'arandano fenologia' 11; type:dissertation with blueberry OR arandano OR mirtilo 985. Top-cited hits for 'blueberry phenology' were about Drosophila suzukii and bee ecology, so precision is low. Pricing page opened: free account gives an API key with USD 1 of usage per day; data licence CC0 (license.md seen in search)."
+      },
+      "quality_caveats": "Keyless use has a small daily allowance (USD 0.10 per day according to secondary sources); matching is loose for Spanish and Chinese terms; top hits for 'blueberry phenology' were off-topic.",
+      "priority": "P1",
+      "priority_reason": "Best open index for candidate discovery with abstracts, OA links and dissertation type filter.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "crossref-rest-api",
+      "name": "Crossref REST API",
+      "publisher": "Crossref",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/",
+      "data_urls": [
+        "https://api.crossref.org/works"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (metadata generally open)",
+      "license_url": null,
+      "extractable_fields": [
+        "DOI",
+        "title",
+        "container",
+        "issued date",
+        "licence URL",
+        "full-text links"
+      ],
+      "app_uses": [
+        "DOI resolution, licence gate and dedup"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Docs opened. query.bibliographic 'blueberry phenology' returned 23,949 relevance-ranked items (not a boolean count). Used to find cultivar register DOIs and licences (List 52 and 53 CC BY-NC 4.0)."
+      },
+      "quality_caveats": "Counts are relevance hits, not matches.",
+      "priority": "P2",
+      "priority_reason": "DOI metadata, licence URLs and full-text links for deduplication and rights checks.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "semantic-scholar-api",
+      "name": "Semantic Scholar Academic Graph API",
+      "publisher": "Allen Institute for AI",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.semanticscholar.org/product/api",
+      "data_urls": [
+        "https://api.semanticscholar.org/graph/v1/paper/search/bulk"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Semantic Scholar API License Agreement (not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "paperId",
+        "title",
+        "abstract",
+        "year",
+        "venue",
+        "openAccessPdf",
+        "externalIds"
+      ],
+      "app_uses": [
+        "candidate discovery and OA PDF links"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Product page opened (API key on request). Bulk search 'blueberry + (phenology | bloom | flowering)' returned total 730; relevance search 'blueberry phenology' reported 69,429."
+      },
+      "quality_caveats": "Rate limits without key.",
+      "priority": "P2",
+      "priority_reason": "Boolean bulk search and open-access PDF links complement OpenAlex.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "core-api",
+      "name": "CORE API v3 (aggregated open access full text)",
+      "publisher": "CORE, The Open University",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://core.ac.uk/services/api",
+      "data_urls": [
+        "https://api.core.ac.uk/v3/search/works"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "CORE Terms & Conditions (not read); full texts keep their own licences",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "fullText",
+        "downloadUrl",
+        "repository",
+        "year",
+        "language"
+      ],
+      "app_uses": [
+        "full-text retrieval for extraction"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API page opened: free without registration subject to rate limits (one batch or five single requests per 10 seconds); registration gives faster rates. Query title:\"blueberry\" AND (phenology OR flowering OR bloom) returned 93; loose 'blueberry phenology' 68,378."
+      },
+      "quality_caveats": "",
+      "priority": "P1",
+      "priority_reason": "Gives full text of repository theses and papers (including Latin American repositories) for stage-date extraction.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "unpaywall-api",
+      "name": "Unpaywall API",
+      "publisher": "OurResearch",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://unpaywall.org/products/api",
+      "data_urls": [
+        "https://api.unpaywall.org/v2/"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all DOIs",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (email parameter required)",
+      "license_url": null,
+      "extractable_fields": [
+        "is_oa",
+        "best_oa_location url",
+        "licence",
+        "version"
+      ],
+      "app_uses": [
+        "decide which papers can be stored and quoted"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Product page opened; one call for doi 10.1371/journal.pone.0206361 returned is_oa true and licence cc-by."
+      },
+      "quality_caveats": "",
+      "priority": "P1",
+      "priority_reason": "Licence and legal OA location per DOI is the licensing gate for the RAG corpus.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ncbi-pmc-eutils",
+      "name": "PubMed Central and PubMed via NCBI E-utilities",
+      "publisher": "US National Library of Medicine",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/tools/developers/",
+      "data_urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Per-article licences; PMC OA subset terms",
+      "license_url": null,
+      "extractable_fields": [
+        "PMCID",
+        "full text XML (OA subset)",
+        "licence"
+      ],
+      "app_uses": [
+        "full-text XML for OA papers such as Frontiers and PLOS"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Developer page opened: only Cloud Service, OAI-PMH, E-utilities and BioC API may be used for automated retrieval; licence terms vary per article. esearch counts: PMC 'blueberry AND (phenology OR flowering date)' 4,161 (all-fields, loose); PubMed 'blueberry AND phenology' 35."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Mostly biomedical; few agronomic phenology papers.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "europe-pmc-api",
+      "name": "Europe PMC REST API",
+      "publisher": "EMBL-EBI",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://europepmc.org/developers",
+      "data_urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "source",
+        "fullTextUrlList",
+        "licence"
+      ],
+      "app_uses": [
+        "candidate discovery"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Website returned a bot wall (403); the REST endpoint answered: '(blueberry OR Vaccinium corymbosum) AND (phenology OR bloom OR flowering)' hitCount 1,747."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Adds AGRICOLA-indexed agricultural records to PMC content.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "fao-agris",
+      "name": "AGRIS",
+      "publisher": "FAO",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agris.fao.org/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es",
+        "pt",
+        "fr",
+        "zh"
+      ],
+      "temporal_coverage": "not read (search blocked)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "AGROVOC subjects",
+        "source institution",
+        "link"
+      ],
+      "app_uses": [
+        "manual discovery of Latin American and African reports"
+      ],
+      "model_families": [
+        "management",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened; search pages returned a Cloudflare challenge in both a script and a headless browser, so no count. The phenology review already used an AGRIS record for Steyn et al."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Indexes national agricultural grey literature (INIA, Embrapa, INTA) that other indexes miss.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "scielo-search",
+      "name": "SciELO search",
+      "publisher": "SciELO",
+      "countries": [
+        "BR",
+        "CL",
+        "CO",
+        "AR",
+        "PE",
+        "MX",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://search.scielo.org/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es",
+        "pt",
+        "en"
+      ],
+      "temporal_coverage": "all years indexed",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Most journals CC BY or CC BY-NC (per article)",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "journal",
+        "year",
+        "PDF link",
+        "licence"
+      ],
+      "app_uses": [
+        "Latin American stage-date papers for Pelotas, Vacaria, Tucumán, Guasca, Chile"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Script access returned 403; a headless browser loaded results. Counts: '(mirtilo OR arándano OR blueberry) AND (fenologia OR fenología OR phenology)' 3; with (floração OR floración OR flowering OR colheita OR cosecha OR harvest) 37 (Revista Brasileira de Fruticultura 6, Chilean JAR 4); 'mirtilo OR arándano OR blueberry OR Vaccinium corymbosum' 108 (Chile 42, Colombia 17, Brazil 15, Mexico 12, Peru 9)."
+      },
+      "quality_caveats": "Bot wall for scripts; the 108 total looks low for all blueberry papers, so index coverage may be partial [inference].",
+      "priority": "P1",
+      "priority_reason": "Main open-access source of Brazilian, Chilean, Colombian and Argentine field trials with dated stages.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "redalyc",
+      "name": "Redalyc",
+      "publisher": "Universidad Autónoma del Estado de México",
+      "countries": [
+        "MX",
+        "CO",
+        "CR",
+        "BR",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.redalyc.org/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es",
+        "pt"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Per article (diamond open access)",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "PDF"
+      ],
+      "app_uses": [
+        "discovery for Mexico (Jalisco, Michoacán)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Search loaded in a browser: 'arándano fenología' gave 4,393 results (OR-style matching; Agrociencias 1,790), so precision is low."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Overlaps SciELO; useful for Mexican and Costa Rican journals.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "jstage-webapi",
+      "name": "J-STAGE WebAPI",
+      "publisher": "Japan Science and Technology Agency",
+      "countries": [
+        "JP"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.jstage.jst.go.jp/static/pages/JstageServices/TAB3/-char/en",
+      "data_urls": [
+        "https://api.jstage.jst.go.jp/searchapi/do"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "ja",
+        "en"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "J-STAGE terms and per-article licences",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "authors",
+        "journal",
+        "year",
+        "DOI",
+        "link"
+      ],
+      "app_uses": [
+        "Japanese cultivar phenology tables"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "WebAPI page opened. Search API service=3 returned 168 articles for 'ブルーベリー 開花' (blueberry flowering) and 94 for 'blueberry flowering'."
+      },
+      "quality_caveats": "XML (Atom) output; full texts in Japanese.",
+      "priority": "P2",
+      "priority_reason": "Japanese horticulture journals report flowering and harvest dates by cultivar for NHB and rabbiteye in Japan.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "base-bielefeld",
+      "name": "BASE (Bielefeld Academic Search Engine)",
+      "publisher": "Bielefeld University Library",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.base-search.net/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "*"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found (API needs IP registration [inference])",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "repository",
+        "year",
+        "link"
+      ],
+      "app_uses": [
+        "thesis discovery"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Script access hit an Anubis bot check; a headless browser loaded results: 'blueberry phenology' 326; '(blueberry OR arándano OR mirtilo) AND (phenology OR fenología OR fenologia)' 367 (first hit a Brazilian mirtilo dormancy study)."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Harvests repositories worldwide, including theses not in OpenAlex.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "embrapa-alice",
+      "name": "Alice: Acesso Livre à Informação Científica da Embrapa",
+      "publisher": "Embrapa",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.alice.cnptia.embrapa.br/",
+      "data_urls": [
+        "https://www.alice.cnptia.embrapa.br/oai/request?verb=Identify"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "2011-present repository (older works deposited)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Dublin Core metadata",
+        "PDF links"
+      ],
+      "app_uses": [
+        "harvest mirtilo records by OAI-PMH set or keyword filter"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened; OAI-PMH Identify endpoint answered. simple-search returned 403 for scripts and a browser."
+      },
+      "quality_caveats": "",
+      "priority": "P1",
+      "priority_reason": "Embrapa Clima Temperado and other units publish dated mirtilo phenology for Pelotas and southern Brazil.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "embrapa-infoteca",
+      "name": "Infoteca-e (Embrapa technical publications)",
+      "publisher": "Embrapa",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.infoteca.cnptia.embrapa.br/",
+      "data_urls": [
+        "https://www.infoteca.cnptia.embrapa.br/oai/request?verb=Identify"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "2011-present",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Dublin Core metadata",
+        "PDF"
+      ],
+      "app_uses": [
+        "management claims for Brazil"
+      ],
+      "model_families": [
+        "management",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage and OAI-PMH Identify opened; search 403. Already holds the Sistema de Produção do Mirtilo cited in report 04."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Extension-level calendars and management facts in Portuguese.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "inia-chile-biblioteca",
+      "name": "Biblioteca Digital INIA (Chile)",
+      "publisher": "Instituto de Investigaciones Agropecuarias",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://biblioteca.inia.cl/",
+      "data_urls": [
+        "https://biblioteca.inia.cl/server/api/discover/search/objects"
+      ],
+      "format": [
+        "api-json",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "decades of INIA series",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found ('Condiciones de Uso' page linked)",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "date",
+        "region (Región facet)",
+        "type",
+        "PDF"
+      ],
+      "app_uses": [
+        "Chile phenology, frost and pruning claims"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "DSpace 7 REST search used: 'arándano' 621 items, 'arándano fenología' 64, 'arándano floración' 180, 'arándano heladas' 130."
+      },
+      "quality_caveats": "Earlier benchmark work saw 403 on PDFs.",
+      "priority": "P1",
+      "priority_reason": "Largest open Chilean blueberry corpus including frost and flowering bulletins; benchmark noted INIA PDFs returned 403 before, so test downloads.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "alicia-concytec",
+      "name": "ALICIA (Peru national open-access repository)",
+      "publisher": "CONCYTEC",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://alicia.concytec.gob.pe/vufind/",
+      "data_urls": [
+        "https://alicia.concytec.gob.pe/vufind/api/v1/search"
+      ],
+      "format": [
+        "html",
+        "api-json",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "per thesis (often CC BY-NC-ND) [inference]",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "university",
+        "year",
+        "type (tesis)",
+        "PDF link"
+      ],
+      "app_uses": [
+        "coastal Peru pruning-to-harvest durations"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "VuFind search pages opened: 'arándano' 870 records, 'arándano floración' 3, 'arándano cosecha' 53, 'arándano poda' 6, 'arándano fenología' 1; API 'blueberry' 234 (API calls failed intermittently)."
+      },
+      "quality_caveats": "",
+      "priority": "P1",
+      "priority_reason": "Peruvian theses are the main open source for pruning dates and flowering-to-harvest durations on the coast.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "renati-sunedu",
+      "name": "RENATI (Peru national thesis register)",
+      "publisher": "SUNEDU",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://renati.sunedu.gob.pe/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "thesis metadata"
+      ],
+      "app_uses": [
+        "cross-check ALICIA thesis coverage"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage loaded in a browser after a bot check (shows 420,614 private and 165,115 public university items); search URLs returned 404 'Whitelabel Error Page'."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Overlaps ALICIA; manual use only.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "cnki-overseas",
+      "name": "CNKI (China National Knowledge Infrastructure) Overseas",
+      "publisher": "Tongfang Knowledge Network",
+      "countries": [
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://oversea.cnki.net/index/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "zh"
+      ],
+      "temporal_coverage": "all years",
+      "update_frequency": "daily",
+      "access": "paid",
+      "license_or_terms": "Subscription",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "journal",
+        "year"
+      ],
+      "app_uses": [
+        "manual discovery of Chinese stage dates (Mengzi evergreen pruning)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "kns.cnki.net search failed with a certificate error; the Overseas portal opened (institutional login). No count obtained. OpenAlex search '蓝莓 物候期' returned 140 works (loose)."
+      },
+      "quality_caveats": "Paid; needs UF library access; do not scrape.",
+      "priority": "P2",
+      "priority_reason": "Chinese blueberry phenology for Yunnan, Shandong and Liaoning is mostly in Chinese journals here.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "la-referencia",
+      "name": "LA Referencia (Latin American repository network)",
+      "publisher": "LA Referencia",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.lareferencia.info/vufind/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "pt"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "thesis and article metadata"
+      ],
+      "app_uses": [
+        "regional aggregator once working"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Search page opened but returned 0 results for every query, including 'arándano' and 'mirtilo'; index may be down."
+      },
+      "quality_caveats": "",
+      "priority": "P3",
+      "priority_reason": "Would aggregate ALICIA, Brazilian and Chilean repositories if working.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ishs-acta-horticulturae",
+      "name": "Acta Horticulturae (ISHS), International Vaccinium Symposium proceedings",
+      "publisher": "International Society for Horticultural Science",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.actahort.org/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1960s-present",
+      "update_frequency": "irregular",
+      "access": "paid",
+      "license_or_terms": "Copyright ISHS (abstracts free)",
+      "license_url": null,
+      "extractable_fields": [
+        "title",
+        "abstract",
+        "volume",
+        "DOI"
+      ],
+      "app_uses": [
+        "discovery and abstract-level claims"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "actahort.org showed a bot check; ishs.org article pages open (for example Acta Hortic. 1357 abstract above)."
+      },
+      "quality_caveats": "",
+      "priority": "P2",
+      "priority_reason": "Most blueberry phenology conference papers sit here; abstracts free, full text paid.",
+      "est_effort_days": 0.5
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "GL-01",
+      "title": "Citizen phenology observations near pins (USA-NPN and iNaturalist)",
+      "source_ids": [
+        "usa-npn-natures-notebook",
+        "inaturalist-phenology-annotations",
+        "umaine-signs-of-the-seasons-lowbush",
+        "gbif-occurrence-api"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "obs_source",
+        "obs_id",
+        "site_id or observation_id",
+        "lat",
+        "lon",
+        "elevation_m",
+        "taxon (V. corymbosum, angustifolium, virgatum, darrowii)",
+        "cultivated_flag (iNat captive; NPN site attributes)",
+        "stage (NPN phenophase or iNat annotation value)",
+        "stage_definition_ref",
+        "event_date",
+        "day_of_year",
+        "onset_precision_days (NPN numdays_since_prior_no)",
+        "year",
+        "licence",
+        "nearest_benchmark_site_id",
+        "distance_km"
+      ],
+      "cadence": "one-off backfill 2009-2026, then annual in October",
+      "review_needed": "Check that sites are not ornamental plants far from production; reject onsets with prior-no gap above 14 days; confirm iNat annotation agrees with photo for a 10% sample",
+      "licensing_gate": "NPN CC BY 4.0 citation text; iNaturalist per-record licence, drop all-rights-reserved and keep CC BY-NC only for non-commercial display",
+      "effort_days": 2.5,
+      "priority": "P1",
+      "app_value": "First open, dated bloom and ripe-fruit onsets for cool-climate pins (Cherryfield, New England, Hammonton) to calibrate lowbush and NHB settings"
+    },
+    {
+      "job_id": "GL-02",
+      "title": "Cultivar trait table from registers, patents and test guidelines",
+      "source_ids": [
+        "hortscience-register-fruit-nut-cultivars",
+        "uspto-plant-patents-blueberry",
+        "upov-tg137-blueberry-test-guidelines",
+        "upov-pluto",
+        "cfia-plant-breeders-rights",
+        "ip-australia-pbr",
+        "grin-global-npgs-vaccinium",
+        "patentsview-uspto-odp"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "cultivar_id",
+        "denomination",
+        "trade_names",
+        "species_type",
+        "ploidy",
+        "breeder_program",
+        "selection_location",
+        "release_year",
+        "protection_ids (USPP, PBR, CPVO)",
+        "chill_req_hours_low",
+        "chill_req_hours_high",
+        "chill_definition (threshold, method)",
+        "chill_class (very low, low, medium, high)",
+        "evergreen_capable",
+        "bloom_class_upov_34",
+        "ripening_class_upov_36",
+        "relative_ripening_days_vs_reference",
+        "reference_cultivar",
+        "fruit_development_days",
+        "test_locations",
+        "source_citation",
+        "evidence_type"
+      ],
+      "cadence": "one-off backfill (Register Lists 43 to 53, patents since 1990), then on each new Register list",
+      "review_needed": "Human checks every chill number against the quoted sentence; harmonise threshold (7.2 C versus 7 C) and units; keep breeder claims flagged as such",
+      "licensing_gate": "Register Lists 52 and 53 are CC BY-NC 4.0; patents are public documents; PLUTO data may not be reproduced beyond authorised use, so store only facts with citation",
+      "effort_days": 6.0,
+      "priority": "P1",
+      "app_value": "Enables cultivar classes (very low chill evergreen, low chill SHB, NHB, rabbiteye, lowbush) instead of one Waldo SHB parameter set"
+    },
+    {
+      "job_id": "GL-03",
+      "title": "Literature mining of dated stage observations",
+      "source_ids": [
+        "openalex",
+        "crossref-rest-api",
+        "semantic-scholar-api",
+        "core-api",
+        "unpaywall-api",
+        "scielo-search",
+        "jstage-webapi",
+        "inia-chile-biblioteca",
+        "alicia-concytec",
+        "embrapa-alice",
+        "europe-pmc-api",
+        "base-bielefeld",
+        "fao-agris",
+        "cnki-overseas",
+        "ishs-acta-horticulturae"
+      ],
+      "output": "event records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind=observation",
+        "topic=phenology",
+        "period (start, end, precision)",
+        "geography (country, region, site text, lat/lon, elevation)",
+        "crop_context (species type, cultivar, plant age, system, protection, cyanamide, pruning date)",
+        "stage_name_as_written",
+        "stage_code_mapped (BBCH or project stage)",
+        "stage_threshold (first, 10%, 50%, end)",
+        "observation_date or day of year",
+        "season_label",
+        "evidence_type=peer_reviewed_trial or thesis",
+        "citations (DOI, page, table or figure id)"
+      ],
+      "cadence": "one-off backfill, then quarterly delta by publication date",
+      "review_needed": "Two-person check of each extracted date against the table or figure; resolve season year labels; mark figure-read values as approximate",
+      "licensing_gate": "Store full text only when Unpaywall or the publisher licence allows; otherwise keep metadata, page locator and a short excerpt",
+      "effort_days": 8.0,
+      "priority": "P1",
+      "app_value": "Hundreds of site-cultivar-year stage dates for calibration and held-out validation across Peru, Chile, Brazil, Argentina, Japan and China"
+    },
+    {
+      "job_id": "GL-04",
+      "title": "Hourly station truth table near benchmark sites",
+      "source_ids": [
+        "noaa-ghcnh",
+        "metoffice-hadisd",
+        "iem-asos-archive",
+        "meteostat",
+        "fmi-open-data",
+        "eccc-historical-climate",
+        "niwa-clidb-datahub",
+        "cr2-explorador-climatico",
+        "dmc-chile-climatologia",
+        "ogimet-synop-archive",
+        "noaa-isd-gsod",
+        "wsu-agweathernet"
+      ],
+      "output": "station table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "station_id",
+        "network",
+        "lat",
+        "lon",
+        "elevation_m",
+        "distance_to_site_km",
+        "elevation_difference_m",
+        "timestamp_utc",
+        "local_night_date",
+        "temperature_c",
+        "dewpoint_c",
+        "rh_pct",
+        "precip_mm",
+        "qc_flag",
+        "completeness_pct_by_month"
+      ],
+      "cadence": "one-off backfill 2010-2025, then annual",
+      "review_needed": "Check station siting (airport versus orchard valley), elevation offsets and timezone handling; exclude months below 90% completeness",
+      "licensing_gate": "HadISD non-commercial licence; ECCC licence acknowledgement; NIWA non-commercial; Meteostat and FMI CC BY 4.0",
+      "effort_days": 4.0,
+      "priority": "P1",
+      "app_value": "Measures the warm Tmin bias and missed frosts at 39 sites with a station within 25 km, and tests IBO freeze events in Chile (Nov 2022) and Waikato (Oct 2022)"
+    },
+    {
+      "job_id": "GL-05",
+      "title": "Second-opinion gridded weather at benchmark cells",
+      "source_ids": [
+        "era5-land-timeseries-cds",
+        "gloh2o-mswx",
+        "gloh2o-mswep",
+        "ecad-e-obs",
+        "cr2met",
+        "br-dwgd-xavier",
+        "silo-australia",
+        "prism-climate",
+        "c3s-cerra"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "product",
+        "site_id",
+        "grid_lat",
+        "grid_lon",
+        "grid_elevation_m",
+        "date or hour",
+        "tmin_c",
+        "tmax_c",
+        "t2m_c",
+        "dewpoint_c",
+        "precip_mm",
+        "chill_hours_lt_7_2",
+        "frost_hours_le_0"
+      ],
+      "cadence": "one-off backfill 2010-2025, then annual",
+      "review_needed": "Compare each product with GL-04 station truth before adopting; record licence per product",
+      "licensing_gate": "MSWX, MSWEP and E-OBS are non-commercial; ERA5-Land needs CDS licence acceptance by an owner",
+      "effort_days": 4.0,
+      "priority": "P2",
+      "app_value": "Shows whether a bias-corrected or finer product fixes chill and frost errors at Penguin, Tafí del Valle, Chile and southern Brazil"
+    },
+    {
+      "job_id": "GL-06",
+      "title": "Blueberry location mask from CDL and EU parcel data",
+      "source_ids": [
+        "usda-nass-cropland-data-layer",
+        "eurocrops-hcat",
+        "nl-brp-gewaspercelen",
+        "usda-nass-quickstats-census",
+        "odepa-catastro-fruticola"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "grid_cell_id (POWER 0.5 x 0.625)",
+        "year",
+        "blueberry_area_ha",
+        "n_parcels or pixels",
+        "source",
+        "class accuracy note"
+      ],
+      "cadence": "one-off, then annual (CDL)",
+      "review_needed": "Check CDL class 242 against Census acres per county; check EuroCrops Spain 2023 coverage per region",
+      "licensing_gate": "CDL public domain; EuroCrops CC BY-SA 4.0 (share-alike applies to derived layers)",
+      "effort_days": 3.0,
+      "priority": "P2",
+      "app_value": "Tells a user whether the pin is near real blueberry production and focuses validation on producing cells"
+    },
+    {
+      "job_id": "GL-07",
+      "title": "Protected cultivation share near pins",
+      "source_ids": [
+        "global-pcg-10",
+        "junta-andalucia-plastico-huelva",
+        "tong-2024-global-greenhouse"
+      ],
+      "output": "claim records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=practice",
+        "topic=protection",
+        "geography (municipality or 10 km buffer)",
+        "period (campaign year)",
+        "quantity (ha under plastic, share of cropland)",
+        "crop_context=all crops under plastic",
+        "evidence_type=remote_sensing_map or official_cartography",
+        "citations"
+      ],
+      "cadence": "one-off, then annual for Huelva",
+      "review_needed": "Do not attribute plastic area to blueberry without a crop source; state 'all crops'",
+      "licensing_gate": "ESSD article CC BY 4.0; data licence of Global-PCG-10 must be read on its repository; Junta report terms not found",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Flags pins where tunnels or greenhouses make the open-field calendar unreliable (Huelva, Agadir, Peru, Yunnan)"
+    },
+    {
+      "job_id": "GL-08",
+      "title": "Satellite phenology pilot on mapped blueberry fields",
+      "source_ids": [
+        "musli-mslsp30na",
+        "nasa-hls-v2",
+        "usda-nass-cropland-data-layer",
+        "eurocrops-hcat",
+        "modis-mcd12q2",
+        "copernicus-data-space-sentinel2"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "field or pixel id",
+        "year",
+        "greenup_onset_doy",
+        "maturity_doy",
+        "senescence_doy",
+        "evi2_amplitude",
+        "source product",
+        "matched NPN or literature bloom date"
+      ],
+      "cadence": "one-off pilot (2016-2019 MSLSP; HLS 2020-2025)",
+      "review_needed": "Check whether field greenup leads or lags observed bloom; reject if mixed pixels dominate",
+      "licensing_gate": "NASA Earthdata terms; no redistribution issue for derived dates [inference]",
+      "effort_days": 4.0,
+      "priority": "P3",
+      "app_value": "Tests whether a satellite budbreak proxy can extend observed stages to fields without ground data"
+    },
+    {
+      "job_id": "GL-09",
+      "title": "National weather-extremes and agroclimatic bulletins",
+      "source_ids": [
+        "dmc-chile-climatologia",
+        "inia-chile-biblioteca",
+        "embrapa-infoteca",
+        "alicia-concytec"
+      ],
+      "output": "event records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period (date, precision)",
+        "geography (region, commune, station)",
+        "hazard (frost, heat, rain)",
+        "measured value and unit (for example Tmin -3.2 C)",
+        "crop_context (if blueberry named)",
+        "evidence_type=met_service_bulletin or extension_bulletin",
+        "citations (page)"
+      ],
+      "cadence": "one-off backfill 2015-2025, then annual",
+      "review_needed": "Separate weather facts from crop-damage claims; link to IBO event ids when the same event",
+      "licensing_gate": "Confirm reuse terms of DMC and INIA publications before public display",
+      "effort_days": 3.0,
+      "priority": "P2",
+      "app_value": "Dated, measured frost and heat events to validate bud_flower_freeze and heat recurrence in Chile and Brazil"
+    }
+  ]
+}

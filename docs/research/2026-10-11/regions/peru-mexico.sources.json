@@ -1,0 +1,3974 @@
+{
+  "slug": "peru-mexico",
+  "generated_on": "2026-10-11",
+  "scope": "Peru and Mexico blueberry production regions (coastal Peru; Jalisco, Michoacán, Sinaloa, Guanajuato, Baja California), with brief notes on Guatemala",
+  "sources": [
+    {
+      "id": "pe-unalm-repositorio-api",
+      "name": "Repositorio Institucional UNALM (DSpace 7 REST API), blueberry theses",
+      "publisher": "Universidad Nacional Agraria La Molina",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad",
+        "Lambayeque",
+        "Piura",
+        "Ica",
+        "Lima",
+        "Ancash"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "phenology_observation",
+        "management_practice",
+        "cultivar_trial"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.lamolina.edu.pe/",
+      "data_urls": [
+        "https://repositorio.lamolina.edu.pe/server/api/discover/search/objects?query=ar%C3%A1ndano%20poda&size=40"
+      ],
+      "format": [
+        "api-json",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2017-2026 (121 hits for 'arándano poda')",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "title",
+        "date issued",
+        "abstract",
+        "handle",
+        "rights",
+        "bitstream PDF links",
+        "in PDFs: farm district, cultivar, pruning week/date, bloom week, harvest start week, weekly harvest share, Davis station weekly Tmax/Tmin"
+      ],
+      "app_uses": [
+        "calibrate pruning-to-bloom and bloom-to-harvest intervals for coastal Peru",
+        "build a cultivar-by-site phenology table",
+        "feed the regional evidence library with citable farm-level management facts"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management",
+        "cultivar",
+        "harvest_rain_quality",
+        "disease"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Search API returned 121 items for 'arándano poda' with uuid, title and date. Item and bundle endpoints returned abstracts, CC BY-NC-ND 4.0 rights and PDF links; 8 PDFs downloaded and read (see the pe-thesis-* entries)."
+      },
+      "quality_caveats": "Theses are single-farm, often single-season professional reports (trabajo de suficiencia profesional). Company names appear; dates are sometimes given as weeks without year. Quality of methods varies.",
+      "priority": "P1",
+      "priority_reason": "Only open source of dated pruning, bloom and harvest weeks for Virú, Olmos, Jayanca, Chepén and Villacurí.",
+      "est_effort_days": 3.0
+    },
+    {
+      "id": "pe-thesis-mayta-2024-viru",
+      "name": "Comportamiento fenológico, características organolépticas y productividad del arándano en La Libertad (Mayta Aparicio, 2024)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad (Virú province, 300 m)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "cultivar_trial",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/6685",
+      "data_urls": [
+        "https://repositorio.lamolina.edu.pe/server/api/core/bitstreams/ad60b06a-9852-45db-8db7-d667196ceec9/content"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2021-2022 campaigns",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "cultivar (Biloxi and 8 coded Florida selections C-01..C-08)",
+        "planting date (14-15 May 2021)",
+        "pruning week (first week Dec 2021)",
+        "vegetative growth weeks",
+        "floral induction week and weekly Tmin",
+        "bloom start and end week",
+        "bloom flushes",
+        "harvest start week",
+        "weekly harvest % curve",
+        "kg/plant, kg/ha"
+      ],
+      "app_uses": [
+        "test flowering start to harvest start interval (about 9 weeks for C-01 and C-03)",
+        "test pruning-to-induction timing against weekly Tmin",
+        "define early, season and late cultivar classes for Peru"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read. Table 7 gives per cultivar: vegetative weeks, induction Tmin and month, bloom type and months (Biloxi: 19 weeks, 14.9 C, May, bloom weeks 20-34). C-01 bloom from week 30, harvest from last week of September. C-03 bloom from week 12, harvest from week 21. Davis station weekly Tmax/Tmin and RH plotted for 2021-2022."
+      },
+      "quality_caveats": "Young plants (planted May 2021). One farm. Selections are coded, not named. Harvest weeks are read from text and figures.",
+      "priority": "P1",
+      "priority_reason": "The only open multi-cultivar weekly phenology record with pruning date and station temperatures on the north coast.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "pe-thesis-orga-2021-villacuri",
+      "name": "Manejo agronómico del cultivo de arándano en contenedores en Villacurí, Ica (Orga Porras, 2021)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Ica (Salas district, Pampa de Villacurí)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/4981",
+      "data_urls": [
+        "https://repositorio.lamolina.edu.pe/items/53ec5317-d97a-4944-94de-0f9b3a5ab9a7"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2018-2020 campaigns",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "pruning start and end date by year",
+        "first-fruit (desbreve) start and end date",
+        "peak harvest week",
+        "weeks harvested",
+        "t per 60 ha",
+        "stage months for irrigation (bloom May-June, harvest Jul-Nov)",
+        "adverse weather notes (RH up to 84.8% in Jun-Jul, Paracas winds)"
+      ],
+      "app_uses": [
+        "calibrate pruning-to-first-harvest for Ica (171-175 days)",
+        "validate Ica harvest window and peak week shift between 2019 and 2020",
+        "add Botrytis-favourable RH months for Ica"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management",
+        "disease",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read. Table 4: pruning 19 Jan-21 Feb 2019 and 7-22 Jan 2020; desbreve 9 Jul-13 Aug 2019 and 30 Jun-13 Jul 2020; peak week 45 (2019) and 37 (2020); 23 and 20 harvest weeks. Bloom months May-June from the irrigation-by-stage table."
+      },
+      "quality_caveats": "Single 60 ha Biloxi farm (Agrovictoria SAC). Bloom start date is given only as months.",
+      "priority": "P1",
+      "priority_reason": "First dated pruning and first-harvest pairs for Ica, which the benchmark lacked.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-thesis-castro-2025-olmos",
+      "name": "Manejo de la cosecha en cultivo de arándano para exportación en la irrigación del Proyecto Olmos (Castro Castro, 2025)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Olmos, El Algarrobal)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/7224",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2024-2025 campaign",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "pruning week by field",
+        "harvest start week by field",
+        "harvest weeks by field",
+        "cultivar (Rocío dominant)",
+        "harvest-season limits (dew Oct-Nov, rain Jan-Feb, Tmax 30-31 C)"
+      ],
+      "app_uses": [
+        "calibrate pruning-to-harvest-start for Olmos (22-23 weeks, one field 30)",
+        "fill Olmos bloom/pruning gap in the benchmark",
+        "validate harvest_rain_quality months for Olmos"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management",
+        "harvest_rain_quality",
+        "heat"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read. Table 6: pruning week to harvest start week: 8 to 30, 15 to 38, 6 to 29, 9 to 39, 10 to 33, 7 to 29. Text: pruning mid to late January, 24-26 weeks to harvest; 2024 harvest late July to early March."
+      },
+      "quality_caveats": "One company farm; staggered pruning; year of Table 6 inferred as 2024-25 from text.",
+      "priority": "P1",
+      "priority_reason": "Gives the Olmos pruning dates the benchmark registry recorded as missing.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-thesis-cordova-2026-olmos",
+      "name": "Manejo y evaluación comparativa de dos sistemas de poda en arándano cv. Sekoya Pop en Olmos (Córdova Sandoval, 2026)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Olmos)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "management_practice",
+        "cultivar_trial"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/7508",
+      "data_urls": [
+        "https://repositorio.lamolina.edu.pe/server/api/core/bitstreams/669af4b6-abab-4a45-b939-34a52533b7cf/content"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2024-2025 campaign",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "pruning dates by method (1-5 Apr and 8-11 Apr 2024)",
+        "weeks pruning to harvest start (20 mechanised, 17 manual)",
+        "weekly t/ha curve",
+        "peak weeks (40-44, 41-46)",
+        "end of harvest week 12",
+        "pruning order by cultivar (Sekoya Beauty Dec-Jan, Sekoya Pop Mar-Apr, Bianca Blue Apr-May)"
+      ],
+      "app_uses": [
+        "calibrate late-pruning cycles in Olmos",
+        "show cultivar-specific pruning calendars for the management layer"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read. Cronograma: mechanised pruning 1-5 April, manual 8-11 April; harvest starts after 20 and 17 weeks; peaks weeks 40-44 and 41-46; harvest ends week 12."
+      },
+      "quality_caveats": "One company (Agrovisión). Sekoya Pop only for curves.",
+      "priority": "P1",
+      "priority_reason": "Dated April pruning cycle with weekly yield curves for a new key cultivar.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-thesis-yovera-2023-jayanca",
+      "name": "Manejo productivo del arándano 'Ventura' bajo las condiciones de Jayanca, Lambayeque (Yovera Yllatopa, 2023)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Jayanca)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/6046",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2021-2023",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "pruning month (late January)",
+        "harvest start (Ventura late July; early cultivars early July)",
+        "late cultivars bloom late April, first harvest mid-September"
+      ],
+      "app_uses": [
+        "evidence for a roughly 4.5-month bloom-to-first-harvest interval in late cultivars"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "budbreak_bloom_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read; section 3.2.10 gives the Ventura and late-cultivar dates quoted."
+      },
+      "quality_caveats": "Narrative statements, no table. Company: Complejo Agroindustrial Beta.",
+      "priority": "P2",
+      "priority_reason": "Adds cultivar contrast on the same farm.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-thesis-rodriguez-2023-uns-jayanca",
+      "name": "Manejo agronómico del cultivo de arándano var. Ventura, en Jayanca - Lambayeque (Rodríguez Reyes, 2023)",
+      "publisher": "Universidad Nacional del Santa",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Jayanca, 61 m)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.uns.edu.pe/handle/20.500.14278/4306",
+      "data_urls": [
+        "https://repositorio.uns.edu.pe/bitstream/handle/20.500.14278/4306/52777.pdf?sequence=1&isAllowed=y"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2022 campaign",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "reproductive stage durations (bud swell 30-35 d, opening 10-14 d, petal fall to set 15-20 d, green fruit 40-45 d)",
+        "beehive entry dates (13 May 2022 at 10% bloom, 1 Jun, 24 Jun 2022 at full bloom)",
+        "harvest July-December with peak September-October"
+      ],
+      "app_uses": [
+        "date 10% bloom and full bloom for Ventura in 2022",
+        "set pollination-window checks against honey bee flight hours"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "pollination"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read (94 pages). Figure 37 beehive schedule: week 20 13.05.2022, week 23 01.06.2022, week 25 24.06.2022 for a 57.25 ha Beta farm. Stage durations list on p. 22."
+      },
+      "quality_caveats": "Professional report; stage durations are generic, not measured.",
+      "priority": "P2",
+      "priority_reason": "Gives dated 10% and full bloom for Ventura on the north coast.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-thesis-lira-2023-chepen",
+      "name": "El cultivo de arándanos en macetas bajo las condiciones de Chepén, La Libertad e Irrigación Santa Rosa, Lima (Lira Chirif, 2023)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad (Chepén)",
+        "Lima (Irrigación Santa Rosa)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/5694",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2020-2023",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "days after pruning (DDP) per stage: pre-bloom 77, bloom-fruit formation 85, harvest 203",
+        "stage months: pruning-prebloom Dec-Mar, bloom Mar-Jun, harvest Jun-Dec"
+      ],
+      "app_uses": [
+        "test a pruning-anchored stage model: bloom about 80 DDP, harvest about 200 DDP"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read; Table 3 gives the DDP values and month ranges for both sites."
+      },
+      "quality_caveats": "Cultivar not stated in the table; same values for both sites, so likely a company protocol rather than measurement [inference].",
+      "priority": "P2",
+      "priority_reason": "Only source that states stage timing in days after pruning.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-thesis-maticorena-2017-chao",
+      "name": "Cinco tipos de poda en arándano cv. Biloxi y su influencia en determinados parámetros productivos (Maticorena Quispe, 2017)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad (Chao, Chavimochic)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_trial",
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/3062",
+      "data_urls": [
+        "https://repositorio.lamolina.edu.pe/server/api/core/bitstreams/7b1c8d24-41e2-403c-9db9-3d3a489a552d/content"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2015-2016 season",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "13 dated harvest passes (1 Aug 2015 to 12 Jan 2016)",
+        "pruning timing (late Feb to early March)",
+        "industry cycle: budbreak 1 month after pruning, bloom 3 months after budbreak, set and veraison 2 months later, pruning-to-harvest 6 months"
+      ],
+      "app_uses": [
+        "refine the existing pe-chao-chavimochic benchmark (thesis behind the 2024 article)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read. Harvest dates listed in section 3.7; Peru cycle description on p. 20 and pruning criteria on p. 33."
+      },
+      "quality_caveats": "Already used through the 2024 journal article; cycle description is generic.",
+      "priority": "P3",
+      "priority_reason": "Mostly duplicates an existing benchmark source; adds exact harvest pass dates.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-thesis-ica-unalm-2024-2025",
+      "name": "UNALM Ica management monographs: Serna Cisneros 2025 (Mágica, San Juan Bautista) and Sánchez Boada 2024 (Biloxi in containers)",
+      "publisher": "UNALM",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Ica"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://hdl.handle.net/20.500.12996/7049",
+      "data_urls": [
+        "https://hdl.handle.net/20.500.12996/6408"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2022-2025",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (stated in item metadata)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "days pruning to budbreak (12-14 d, Mágica)",
+        "vegetative growth months (Feb-Apr)",
+        "floral induction months (Apr-May)",
+        "first bloom May (all varieties), second bloom September (Mágica)",
+        "harvest July-December"
+      ],
+      "app_uses": [
+        "fill Ica bloom months (May) recorded as missing in the benchmark"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Both PDFs read; Serna 2025 pp. 22-23 phenology list; Sánchez 2024 gives harvest July-December and a stage table (Floración-Cuajado May-July)."
+      },
+      "quality_caveats": "Narrative, month-level.",
+      "priority": "P2",
+      "priority_reason": "Answers the Ica bloom-month gap.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-alicia-concytec",
+      "name": "ALICIA (Acceso Libre a Información Científica para la Innovación)",
+      "publisher": "CONCYTEC",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://alicia.concytec.gob.pe/vufind/",
+      "data_urls": [
+        "https://alicia.concytec.gob.pe/vufind/Search/Results?lookfor=arandano+poda&type=AllFields&limit=50"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "national thesis and article metadata, mostly 2000s-present",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "record id",
+        "title",
+        "author",
+        "year",
+        "institution prefix (UNJF, UNIT, UPAO, UPRG, RUNM...)",
+        "handle URL"
+      ],
+      "app_uses": [
+        "discover theses outside UNALM (UNT, UPAO, UNPRG, UNJFSC, UNASAM)"
+      ],
+      "model_families": [
+        "management",
+        "budbreak_bloom_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Searches worked; accent handling is inconsistent ('arándano floración cosecha' gave 1 hit, 'arandano poda' gave 6). Records link to handles, e.g. UNJF 20.500.14067/6396 and UNT 20.500.14414/22595 (Spodoptera under Cyclone Yaku in Virú)."
+      },
+      "quality_caveats": "Aggregator; harvest lag; search is keyword-only.",
+      "priority": "P2",
+      "priority_reason": "Single entry point to all Peruvian repositories.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-renati-unt-repos",
+      "name": "RENATI (SUNEDU) and Universidad Nacional de Trujillo repository",
+      "publisher": "SUNEDU; UNT",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://renati.sunedu.gob.pe/",
+      "data_urls": [
+        "https://hdl.handle.net/20.500.14414/22595"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "thesis metadata and PDFs"
+      ],
+      "app_uses": [
+        "find La Libertad theses with dated stages (UNT is the main Chavimochic university)"
+      ],
+      "model_families": [
+        "management",
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Both returned bot challenges ('Making sure you're not a bot!' at RENATI; /challenge redirect at repositorio.unitru.edu.pe). Content not seen."
+      },
+      "quality_caveats": "Bot walls block scripted access; browser review needed.",
+      "priority": "P3",
+      "priority_reason": "Potentially rich but blocked for automated access today.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-thesis-unjfsc-sayan",
+      "name": "Efecto de poda y madurez del brote en la producción de cargadores laterales de arándano var. Ventura (Jara Giraldo and Castillo Mendoza, 2022)",
+      "publisher": "Universidad Nacional José Faustino Sánchez Carrión",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lima (Irrigación Sayán)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_trial",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.unjfsc.edu.pe/handle/20.500.14067/6396",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "single trial (about 2021)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC-ND 4.0 (DC.rights)",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "extractable_fields": [
+        "pruning height",
+        "shoot length",
+        "days to budbreak",
+        "flower clusters"
+      ],
+      "app_uses": [
+        "calibrate pruning-to-budbreak days on the central coast"
+      ],
+      "model_families": [
+        "management",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page metadata read: Fundo Crizol, Irrigación Sayán; variables include 'días a brotamiento'. PDF not downloaded."
+      },
+      "quality_caveats": "Small factorial trial; dates not checked.",
+      "priority": "P3",
+      "priority_reason": "Possible pruning-to-budbreak data for the central coast.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-remexca-piura-pruning-2026",
+      "name": "Manejo de poda en arándano y su efecto sobre Lasiodiplodia spp. (León-Alcántara et al., 2026)",
+      "publisher": "INIFAP, Revista Mexicana de Ciencias Agrícolas",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Piura"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "pest_disease_advisory",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://cienciasagricolas.inifap.gob.mx/index.php/agricolas/article/view/3880",
+      "data_urls": [
+        "https://cienciasagricolas.inifap.gob.mx/index.php/agricolas/article/download/3880/8177"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "2022 trial",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "extractable_fields": [
+        "pruning treatment",
+        "shoot growth",
+        "Lasiodiplodia incidence"
+      ],
+      "app_uses": [
+        "context for pruning timing and dieback risk in hot months"
+      ],
+      "model_families": [
+        "management",
+        "disease"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page with abstract, DOI and licence read."
+      },
+      "quality_caveats": "Disease focus; no phenology dates in abstract.",
+      "priority": "P3",
+      "priority_reason": "Background for the management layer only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "pe-senamhi-agromet-arandano",
+      "name": "Pronóstico Agrometeorológico: Cultivo de Arándano (dekadal bulletin)",
+      "publisher": "SENAMHI, Subdirección de Agrometeorología",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Cayaltí)",
+        "La Libertad (Chao, San José)",
+        "north and central coast"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.senamhi.gob.pe/main.php?dp=la-libertad&p=boletines",
+      "data_urls": [
+        "https://www.senamhi.gob.pe/load/file/02981SENA-70.pdf",
+        "https://www.senamhi.gob.pe/load/file/02981SENA-51.pdf",
+        "https://www.senamhi.gob.pe/load/file/02981SENA-13.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2024 (Vol I) to October 2026 (Vol V, Edición XXVII); files 02981SENA-1 to -70",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin period (dekad dates)",
+        "observed stage per monitored site (brotación, floración, cuajado, fructificación, maduración) and observation date",
+        "north/central coast dekadal Tmax, Tmin, rainfall",
+        "heat aviso numbers and dates",
+        "advice text"
+      ],
+      "app_uses": [
+        "validate modelled stage by dekad at Chao and Cayaltí",
+        "date El Niño 2026 heat effects on bloom of chill-sensitive cultivars",
+        "feed RAG with official dated stage statements"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "heat",
+        "management"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Sampled 02981SENA-70 (3 pages): period 3-12 Oct 2026; stage map observed to 30 Sep 2026: most lots at Cayaltí, Chao and San José in fructificación and maduración; tolerant (no-chill) varieties fine, chill-needing varieties delayed by El Niño Costero; north coast Tmax 31.8 C, Tmin 22.9 C, 9.6 mm; Aviso N°400 heat on 6 and 9 Oct. Helper also read Vol III Ed VIII (24 Mar-2 Apr 2026: brotación) and Vol I Ed IX (Nov 2024)."
+      },
+      "quality_caveats": "Stage is the predominant phase across 'parcelas con monitoreo remoto' (likely satellite or camera); method not documented in the bulletin. Sites are only three.",
+      "priority": "P1",
+      "priority_reason": "Only official, recurring, dated blueberry stage observation in Peru.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "pe-senamhi-historical-download",
+      "name": "SENAMHI descarga de datos hidrometeorológicos (historical station data)",
+      "publisher": "SENAMHI",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque",
+        "La Libertad",
+        "Ica",
+        "Lima",
+        "Piura",
+        "Ancash"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.senamhi.gob.pe/?p=descarga-datos-hidrometeorologicos",
+      "data_urls": [
+        "https://www.senamhi.gob.pe/mapas/descarga-datos/map_hist_data.php"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "daily; decades deep (Jayanca 1964-2014 seen)",
+      "update_frequency": "irregular",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station code",
+        "department/province/district",
+        "lat/lon",
+        "daily precipitation",
+        "daily Tmax",
+        "daily Tmin"
+      ],
+      "app_uses": [
+        "bias-correct POWER/MERRA-2 Tmin near Jayanca, Talla, Bernales (Ica), Fonagro (Chincha)"
+      ],
+      "model_families": [
+        "heat",
+        "fruit_frost",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Map JS lists 293 stations; popup for Jayanca 000333 plotted daily PP/Tmax/Tmin 1964-2014. Download tab requires a free account (not created)."
+      },
+      "quality_caveats": "No station within 40 km of Virú/Chao found; registration needed; mostly conventional daily stations.",
+      "priority": "P2",
+      "priority_reason": "Long daily records near Lambayeque and Ica production.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "pe-senamhi-station-map",
+      "name": "SENAMHI mapa de estaciones (real-time automatic network)",
+      "publisher": "SENAMHI",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque (Motupe/Tongorrape)",
+        "Ica (Beta Santiago)",
+        "Chincha",
+        "Casma",
+        "Huaral",
+        "Piura"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.senamhi.gob.pe/mapas/mapa-estaciones-2/",
+      "data_urls": [
+        "https://www.senamhi.gob.pe/mapas/mapa-estaciones-2/map_red_graf.php?cod=47201542&estado=AUTOMATICA&tipo_esta=M&cate=EMA&cod_old="
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "Tongorrape EMA month menu 2021-11 to 2026-10",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station name",
+        "category (EMA, EAMA, CO)",
+        "lat/lon",
+        "code",
+        "status",
+        "monthly tables (behind captcha)"
+      ],
+      "app_uses": [
+        "locate automatic stations for hourly T/RH near Olmos, Ica and Chincha"
+      ],
+      "model_families": [
+        "heat",
+        "disease",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Page JSON lists 973 stations (EMA 170). Data tables sit behind a Cloudflare Turnstile captcha, so hourly content is unconfirmed."
+      },
+      "quality_caveats": "Captcha; no bulk API; hourly assumed [inference].",
+      "priority": "P2",
+      "priority_reason": "Candidate hourly stations near production; access must be requested.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-senamhi-hourly-open-data",
+      "name": "Variables meteorológicas de estaciones automáticas de intercambio internacional (hourly)",
+      "publisher": "SENAMHI via Plataforma Nacional de Datos Abiertos",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.datosabiertos.gob.pe/dataset/variables-meteorologicas-de-las-estaciones-autom%C3%A1ticas-de-intercambio-internacional-servicio",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2015-01-01 to 2024-06-30, hourly",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "Open Data Commons Attribution License (dataset metadata)",
+      "license_url": "https://opendatacommons.org/licenses/by/",
+      "extractable_fields": [
+        "ESTACION",
+        "FECHA",
+        "HORA",
+        "LONGITUD",
+        "LATITUD",
+        "ALTITUD",
+        "TEMP",
+        "HR",
+        "PP",
+        "RED",
+        "DEPARTAMENTO",
+        "PROVINCIA",
+        "DISTRITO",
+        "UBIGEO"
+      ],
+      "app_uses": [
+        "hourly T/RH method test; only if a coastal station is included"
+      ],
+      "model_families": [
+        "disease",
+        "heat"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read header and sampled byte ranges of the 50 MB CSV; stations seen (Candarave, Carania, Imata, Matucana, San José de Uzuna) are highland."
+      },
+      "quality_caveats": "No coastal blueberry-area station found in samples; file larger than the sampling limit.",
+      "priority": "P3",
+      "priority_reason": "Open hourly format, but likely no coastal stations.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-igp-icen",
+      "name": "Índice Costero El Niño (ICEN), official monthly series",
+      "publisher": "IGP for ENFEN",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Niño 1+2 region (north coast)"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "gridded_weather",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://met.igp.gob.pe/datos/ICEN.txt",
+      "data_urls": [
+        "http://met.igp.gob.pe/datos/ICEN.txt"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1950-01 to 2026-07",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "month",
+        "ICEN value (C)"
+      ],
+      "app_uses": [
+        "flag Niño costero years (2017, 2023, 2026) for coastal Peru risk stratification",
+        "explain year-to-year bloom and harvest shifts"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_rain_quality",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Plain text 'yy mm ICEN'. Values: 2017-03 1.31; 2023-07 2.92; 2026-07 3.38."
+      },
+      "quality_caveats": "Ocean index, not on-farm temperature.",
+      "priority": "P1",
+      "priority_reason": "Cheap covariate that matches the main Peruvian weather shock.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-enfen-comunicados",
+      "name": "ENFEN Comunicados Oficiales and Informes Técnicos",
+      "publisher": "Comisión Multisectorial ENFEN (IMARPE; archive at DHN)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Peruvian coast"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://enfen.imarpe.gob.pe/",
+      "data_urls": [
+        "https://www.dhn.mil.pe/portal/comunicados-oficiales-enfen",
+        "https://enfen.imarpe.gob.pe/download/comunicado-oficial-enfen-n-16-2026/"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2015-2026 (358 communiqués at DHN)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "communiqué number and date",
+        "alert status",
+        "expected magnitude and months",
+        "coastal air temperature outlook",
+        "north-coast rain outlook"
+      ],
+      "app_uses": [
+        "event records for El Niño costero alerts with dates",
+        "context for 2023 and 2026 bloom disruption"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Comunicado N° 16-2026 (14 Sep 2026): 'Alerta de El Niño Costero', extraordinary magnitude most likely Sep 2026-Jan 2027, record coastal air temperatures expected."
+      },
+      "quality_caveats": "Forecast and status statements, not observations.",
+      "priority": "P2",
+      "priority_reason": "Official dated ENSO narrative for the evidence library.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-indeci-coen-informes",
+      "name": "INDECI COEN Informes de Emergencia and Reportes Complementarios",
+      "publisher": "INDECI",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad",
+        "Lambayeque",
+        "Piura",
+        "Ica",
+        "Lima",
+        "Ancash"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://portal.indeci.gob.pe/emergencias/",
+      "data_urls": [
+        "https://portal.indeci.gob.pe/wp-content/uploads/2023/04/INFORME-DE-EMERGENCIA-N%C2%BA-1438-29ABR2023-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-LA-LIBERTAD-45-DEE.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "continuous; 2023 PDFs seen; reports to 11 Oct 2026",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report number and date",
+        "event type",
+        "SINPAD codes",
+        "district",
+        "event date and time",
+        "cultivo afectado (ha)",
+        "cultivo perdido (ha)",
+        "irrigation canal damage (m)"
+      ],
+      "app_uses": [
+        "validate harvest_heavy_rain in Virú, Chao and Chepén in March-April 2023",
+        "build district-dated rain event records"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Informe N° 1438 (29 Apr 2023), La Libertad rains: department 1,259.94 ha affected and 1,052.1 ha lost; district rows (e.g. Pacanga 60/88 ha) and SINPAD codes for Virú and Chao."
+      },
+      "quality_caveats": "Crop hectares are not split by crop.",
+      "priority": "P2",
+      "priority_reason": "Official district-level, dated rain damage.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "pe-indeci-opendata-emergencias",
+      "name": "Emergencias históricas registradas por el INDECI (open data) and Compendio Estadístico 2023",
+      "publisher": "INDECI",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.datosabiertos.gob.pe/dataset/emergencias-hist%C3%B3ricas-registradas-por-el-indeci",
+      "data_urls": [
+        "https://sinia.minam.gob.pe/sites/default/files/archivos/public/docs/4965310-compendio-final-af-2023-indeci.pdf"
+      ],
+      "format": [
+        "xls",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2003-2018 yearly files listed; compendium 2003-2022 totals",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "License field blank",
+      "license_url": null,
+      "extractable_fields": [
+        "emergency records by district (if files load)",
+        "department totals: emergencies, ha affected, ha lost 2003-2022"
+      ],
+      "app_uses": [
+        "baseline crop-loss frequency per department"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Dataset page lists files, but the 2017 sample returned HTTP 404. Compendium PDF opened: La Libertad 31,976 ha affected and 15,334 lost (2003-2022)."
+      },
+      "quality_caveats": "Files broken; aggregates only.",
+      "priority": "P3",
+      "priority_reason": "Baseline only until the files load.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-cenepred-sigrid",
+      "name": "SIGRID escenarios de riesgo",
+      "publisher": "CENEPRED",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://sigrid.cenepred.gob.pe/sigridv3/escenarios",
+      "data_urls": [],
+      "format": [
+        "xlsx",
+        "shapefile"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "per SENAMHI aviso",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "scenario per aviso",
+        "exposed districts table",
+        "shapefile"
+      ],
+      "app_uses": [
+        "context only; scenarios are forecasts, not observed damage"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "heat"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page and JS download patterns seen (storage/escenario_aviso/{id}_tabla.xlsx)."
+      },
+      "quality_caveats": "Risk scenarios, not events.",
+      "priority": "P3",
+      "priority_reason": "Low value for validation.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "pe-midagri-sac",
+      "name": "MIDAGRI-17 Seguro Agrícola Catastrófico (SAC), campañas 2009-2010 a 2025-2026",
+      "publisher": "MIDAGRI via datosabiertos.gob.pe",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.datosabiertos.gob.pe/dataset/midagri-17-seguro-agr%C3%ADcola-catastr%C3%B3fico-sac-campa%C3%B1as-2009-2010-2025-2026-ministerio-de",
+      "data_urls": [
+        "https://www.datosabiertos.gob.pe/sites/default/files/Consolidado_todas_%20las_campa%C3%B1as_agricolas_sac_0.csv"
+      ],
+      "format": [
+        "csv",
+        "xlsx"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2009-10 to 2025-26 campaigns",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "License field blank",
+      "license_url": null,
+      "extractable_fields": [
+        "campania_agricola",
+        "departamento",
+        "cultivos_asegurados",
+        "monto_indemnizado",
+        "hectareas_indemnizadas",
+        "indice_siniestralidad",
+        "disparador",
+        "beneficiarios"
+      ],
+      "app_uses": [
+        "department-year loss signal for campaigns that list arándano (e.g. Piura and Ica 2022-23)"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "247-row CSV; 13 rows list arándano among insured crops; e.g. Piura 2022-2023 S/ 638,859.82 and 798.57 ha indemnified."
+      },
+      "quality_caveats": "Indemnities are not split by crop or date; SAC targets small farmers, not export estates.",
+      "priority": "P2",
+      "priority_reason": "Only public insurance series in Peru; weak crop signal.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-midagri-agro-en-cifras",
+      "name": "Boletín Estadístico Mensual 'El Agro en Cifras' (PDF and Excel tables)",
+      "publisher": "MIDAGRI / SIEA",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "all departments"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.gob.pe/institucion/midagri/informes-publicaciones/7910469-boletin-estadistico-mensual-el-agro-en-cifras-2026",
+      "data_urls": [
+        "https://cdn.www.gob.pe/uploads/document/file/10357048/7910469-cuadros-en-excel-del-boletin-el-agro-en-cifras-mayo-2026.zip?v=1790633292"
+      ],
+      "format": [
+        "xlsx",
+        "pdf",
+        "zip"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "monthly bulletins; 2023-2026 pages seen",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "national blueberry production by month (t)",
+        "production by department, year-to-date (t)",
+        "exports 0810400000 net weight and FOB year-to-date"
+      ],
+      "app_uses": [
+        "infer national harvest curve per year (2025 peak October 97,649 t)",
+        "derive monthly department series by differencing year-to-date tables [inference]",
+        "detect year-to-year harvest shifts (2023 El Niño, 2024 delayed pruning)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read May 2026 zip: sheet c-19 Arándano 2025 monthly t (Jan 23,358; Mar 3,386; Jul 14,869; Aug 45,260; Sep 81,647; Oct 97,649; Nov 71,948; Dec 45,910; total 403,783); sheet c-18 Jan-May by department (La Libertad 30,146 t in 2026)."
+      },
+      "quality_caveats": "Two-month lag; revisions; department monthly needs differencing.",
+      "priority": "P1",
+      "priority_reason": "Official monthly harvest curve, the best proxy for harvest timing shifts.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "pe-bcrp-sintesis-regional",
+      "name": "BCRP Síntesis de Actividad Económica (regional monthly reports)",
+      "publisher": "Banco Central de Reserva del Perú (sucursales Trujillo, Piura, Huancayo)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad",
+        "Lambayeque",
+        "Ancash",
+        "Piura",
+        "Ica"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.bcrp.gob.pe/estadisticas/informacion-regional.html",
+      "data_urls": [
+        "https://www.bcrp.gob.pe/docs/Sucursales/Trujillo/2026/sintesis-la-libertad-01-2026.pdf",
+        "https://www.bcrp.gob.pe/docs/Sucursales/Piura/2026/sintesis-lambayeque-06-2026.pdf",
+        "https://www.bcrp.gob.pe/docs/Sucursales/Trujillo/2026/sintesis-ancash-06-2026.pdf",
+        "https://www.bcrp.gob.pe/docs/Sucursales/Huancayo/2026/sintesis-ica-06-2026.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "monthly PDFs, at least 2024-2026; annex is a rolling 13 months",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "department",
+        "month",
+        "arándano production (TM)",
+        "narrative on yields and weather"
+      ],
+      "app_uses": [
+        "monthly harvest curve by department (La Libertad, Lambayeque, Áncash)",
+        "compare Lambayeque (peak Sep-Oct) with La Libertad timing"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read La Libertad Jan 2026 annex: Arándano 2025 TM Jan 14,000; Apr 500; Aug 24,007; Sep 42,020; Oct 41,559; Nov 32,479; Dec 24,019. Lambayeque Jun 2025-Jun 2026 monthly and Áncash series also read."
+      },
+      "quality_caveats": "Incapsula blocks curl; browser needed. Piura and Ica only in summary tables.",
+      "priority": "P1",
+      "priority_reason": "Only monthly department-level production series found for Peru.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "pe-midagri-nota-tecnica-19-2024",
+      "name": "Nota Técnica de Coyuntura N.° 19-2024: El arándano es una de las principales exportaciones peruanas",
+      "publisher": "MIDAGRI",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad",
+        "Lambayeque",
+        "Ica",
+        "Ancash"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://cdn.www.gob.pe/uploads/document/file/7013345/5063792-nota-tecnica-n-019-el-arandano-es-una-de-las-principales-exportaciones-peruanas.pdf?v=1727704705",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2016 to Jan-Jul 2024",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "2023 production 229 thousand t (-22.5%)",
+        "Jan-Jul 2024 change by department",
+        "seasonality: starts August, peaks October, declines January-June"
+      ],
+      "app_uses": [
+        "event record for the 2023 El Niño production loss"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read the statements quoted in fields."
+      },
+      "quality_caveats": "One-off note.",
+      "priority": "P2",
+      "priority_reason": "Official loss magnitude for 2023.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-sunat-aduanet",
+      "name": "SUNAT Aduanet: exports by tariff subheading 0810.40.00.00 and country",
+      "publisher": "SUNAT",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "http://www.aduanet.gob.pe/cl-ad-itestadispartida/resumenPPaisS01Alias",
+      "data_urls": [
+        "http://www.aduanet.gob.pe/aduanas/informae/aepartmen.htm"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "1993-present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "destination country",
+        "FOB USD",
+        "net kg",
+        "gross kg"
+      ],
+      "app_uses": [
+        "cross-check export volumes (after the discrepancy is explained)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Form returned 2025 total 78.7 million USD and 12.18 million kg, far below MIDAGRI and Agrodata totals; cause not determined."
+      },
+      "quality_caveats": "Totals inconsistent with other official series; session cookie needed; annual only in this view.",
+      "priority": "P3",
+      "priority_reason": "Unreliable until the discrepancy is explained.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-agrodata-monthly",
+      "name": "Agrodataperu monthly blueberry export posts",
+      "publisher": "Agrodataperu (private)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://agrodataperu.com/category/exportaciones/arandanos-2",
+      "data_urls": [
+        "https://agrodataperu.com/2026/09/arandanos-peru-exportacion-2026-agosto.html"
+      ],
+      "format": [
+        "html",
+        "image-pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "at least 2023 to Aug 2026",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "'Copyright © 2009-2017 Agrodataperu. Todos los derechos reservados'",
+      "license_url": null,
+      "extractable_fields": [
+        "month",
+        "FOB USD",
+        "kg",
+        "average price"
+      ],
+      "app_uses": [
+        "monthly export curve 2023-2026 to compare with production months"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Tables are JPG images: 2025 total 2,184,689,070 USD and 387,814,895 kg; Oct 2025 94,897,155 kg."
+      },
+      "quality_caveats": "Images need OCR; all rights reserved; secondary compilation of customs data.",
+      "priority": "P3",
+      "priority_reason": "Useful check, but restrictive terms.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-proarandanos",
+      "name": "Proarándanos (Asociación de Productores y Exportadores de Arándanos del Perú)",
+      "publisher": "Proarándanos",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://proarandanos.org/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "weekly campaign reports and projections (seen only via press)",
+      "update_frequency": "weekly",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "campaign week",
+        "export t by market",
+        "projection by week",
+        "peak week",
+        "area by department and variety (via interviews)"
+      ],
+      "app_uses": [
+        "weekly export curve to date harvest peaks (e.g. 2024/25 projected peak week 43 at 17,278 t)"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "proarandanos.org returned HTTP 521 on every path; Wayback was offline. Figures reached via Agraria.pe (24 Sep 2024 projection), IBO (11 Sep 2026: projection cut to 382,000 t, peak week 42 about 16,500 t) and Revista Lombriz (2 Oct 2026: 366 thousand t, El Niño cited)."
+      },
+      "quality_caveats": "Primary documents not openly found; only press relays.",
+      "priority": "P2",
+      "priority_reason": "Key weekly timing data, but access is the blocker; ask Proarándanos.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-senasa-press",
+      "name": "SENASA Perú press notes on blueberry certification and campaigns",
+      "publisher": "SENASA Perú",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "Lambayeque",
+        "Ica",
+        "La Libertad"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.senasa.gob.pe/senasacontigo/lambayeque-exportacion-de-arandanos-alcanza-las-35-mil-toneladas-durante-campana-2021/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2018-present",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "campaign months by region",
+        "certified sites and hectares",
+        "cultivar lists"
+      ],
+      "app_uses": [
+        "regional harvest windows (Lambayeque Jun-Jan; Ica May-Dec)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Lambayeque 2021 note opened (title matched). Already used by the benchmark."
+      },
+      "quality_caveats": "No statistics table; press only.",
+      "priority": "P3",
+      "priority_reason": "Already used; keep as citations.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-usda-gain-peru",
+      "name": "USDA FAS GAIN Blueberry Annual, Peru (PE2025-0010, PE2024-0002, PE2023-0002)",
+      "publisher": "USDA Foreign Agricultural Service, Post Lima",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad",
+        "Lambayeque",
+        "Ancash",
+        "Piura",
+        "Ica"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual_Lima_Peru_PE2025-0010.pdf",
+      "data_urls": [
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual_Lima_Peru_PE2024-0002",
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary_Lima_Peru_PE2023-0002.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2023-2025 reports; PSD 2022/23-2026/27",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal work (public domain in the US); report disclaimer: not official USDA policy",
+      "license_url": null,
+      "extractable_fields": [
+        "PSD table (area harvested, production, exports by MY)",
+        "variety shares (Ventura 26%, Biloxi 16%, Sekoya Pop 14%, Rocío 7%)",
+        "north-coast share 80%",
+        "yields in ground vs pots",
+        "weather narrative"
+      ],
+      "app_uses": [
+        "claim records for cultivar mix and production losses (2023/24 262,000 t)"
+      ],
+      "model_families": [
+        "cultivar",
+        "heat",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PE2025-0010 (9 pages) read: area 17,500/18,500/20,500 ha; production 310,000/262,000/340,000 t for MY 2022/23-2024/25; forecast 355,000 t; yields 15-20 t/ha soil and 20-35 t/ha pots."
+      },
+      "quality_caveats": "Annual; national; FAS estimates from contacts.",
+      "priority": "P1",
+      "priority_reason": "Public-domain, citation-ready national context.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-agraria-news",
+      "name": "Agraria.pe news archive, tag 'arandanos'",
+      "publisher": "Agraria.pe (Agencia Agraria de Noticias)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://agraria.pe/index.php/tag/arandanos",
+      "data_urls": [
+        "https://agraria.pe/noticias/ventura-supero-a-biloxi-como-la-principal-variedad-de-aranda-26228",
+        "https://agraria.pe/noticias/peru-cuenta-con-23-344-hectareas-certificadas-de-arandanos-p-41924"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "April 2016 to October 2026 (about 89 tag pages of about 11 items)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "article date",
+        "headline",
+        "source quoted (Proarándanos, SENASA, MIDAGRI, firms)",
+        "area by department and variety",
+        "campaign projections and peak weeks",
+        "weather impacts"
+      ],
+      "app_uses": [
+        "dated claim and event records for Peru (El Niño 2023, delayed pruning 2024, 2026 El Niño)",
+        "cultivar adoption series 2016-2026"
+      ],
+      "model_families": [
+        "cultivar",
+        "market_timing",
+        "heat",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Tag pages paginate (?page=2 to ?page=89 works; ?page=94 errors); page 89 shows April 2016. Opened articles: Proarándanos 2021 area by department and variety (Biloxi 60% in 2016; Ventura 32%, Biloxi 30% in 2021); 2025-26 area 26,786 ha by department and variety mix (Ventura 21%, Sekoya Pop 17%, Biloxi 11%)."
+      },
+      "quality_caveats": "Secondary relay of association figures; advertising-heavy pages; rights not stated.",
+      "priority": "P1",
+      "priority_reason": "Largest dated narrative corpus on Peruvian blueberries.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "pe-redagricola",
+      "name": "Redagrícola (Perú edition), blueberry section",
+      "publisher": "Redagrícola",
+      "countries": [
+        "PE",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://redagricola.com/cultivos/frutales/arandano/",
+      "data_urls": [
+        "https://redagricola.com/la-poda-marcara-el-ritmo-productivo-del-arandano-en-ica/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "multi-year (exact depth not measured)",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "article date",
+        "expert quoted",
+        "management practice (pruning windows, disease, irrigation)",
+        "site and month statements"
+      ],
+      "app_uses": [
+        "management-layer claims, e.g. Ica pruning windows narrowed by Jan-Mar heat (17 Jun 2026)"
+      ],
+      "model_families": [
+        "management",
+        "disease",
+        "heat"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article of 17 Jun 2026 (W. Apaza, UNALM) read: Jan-Mar high temperature and VPD in Ica; late pruning near the heat raises wood-fungus risk; Oidium favoured by dry conditions."
+      },
+      "quality_caveats": "Some content behind 'Plus' subscription; expert opinion.",
+      "priority": "P2",
+      "priority_reason": "Good technical narrative for the management layer.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "pe-arandanosperu-news",
+      "name": "Arándanos Perú news site",
+      "publisher": "Arándanos Perú (WordPress blog)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://arandanosperu.pe/",
+      "data_urls": [
+        "https://arandanosperu.pe/2017/11/27/la-poda-del-arandano-marca-el-inicio-del-calendario-productivo/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2017-2026",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "article date",
+        "industry statements on pruning months and harvest season"
+      ],
+      "app_uses": [
+        "claims on pruning month (Feb-Mar) and harvest priorities (Sep-Jan)"
+      ],
+      "model_families": [
+        "management",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2017 article: pruning in February and March so that production comes from September-October; harvest lasts 6 months; pruning in January when prices fall (Germina S.A. speaker)."
+      },
+      "quality_caveats": "Small blog; secondary.",
+      "priority": "P3",
+      "priority_reason": "Supplementary citations.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-fluctuante",
+      "name": "Fluctuante agro-export analysis and statistics app",
+      "publisher": "Fluctuante",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://fluctuante.com/agroexportaciones/2025/04/09/exportacion-de-arandanos-avance-de-la-campana-2024-25/",
+      "data_urls": [
+        "https://app.fluctuante.com/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "articles 2024-2026; app unknown",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "campaign week ranges",
+        "volume and value by market",
+        "exporter rankings"
+      ],
+      "app_uses": [
+        "season-level export totals by campaign week window"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article (9 Apr 2025): weeks 18 to 08 of 2024/25, 317 thousand t, 2,119 million USD; notes delayed pruning spread shipments. Statistics app needs login."
+      },
+      "quality_caveats": "App behind login; commercial.",
+      "priority": "P3",
+      "priority_reason": "Secondary.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pe-ibo-news-peru",
+      "name": "IBO website news posts on Peru (El Niño 2023, Proarándanos projections 2024-2026)",
+      "publisher": "International Blueberry Organization",
+      "countries": [
+        "PE",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/2023/10/06/unraveling-the-el-nino-impact-peruvian-blueberry-production-challenges-and-future-prospects/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/2026/09/11/proarandanos-proyecta-una-reduccion-en-el-volumen-de-exportacion/",
+        "https://www.internationalblueberry.org/2024/05/20/volumen-de-produccion-de-berries-de-mexico-caeria-20-este-ano-debido-al-clima/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "2023-2026 posts seen",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "event description",
+        "temperature anomaly statements",
+        "projection by week"
+      ],
+      "app_uses": [
+        "event records: 2023 heat about 5 C above average with volume about 50% lower; 2026 projection cut for weather"
+      ],
+      "model_families": [
+        "heat",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read the three posts; values quoted in field notes."
+      },
+      "quality_caveats": "Mostly relays of press; separate from the IBO annual reports already ingested.",
+      "priority": "P2",
+      "priority_reason": "Dated event statements between IBO report editions.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-press-damage-2023-2026",
+      "name": "Peruvian press items on Cyclone Yaku (Mar 2023), El Niño heat (2023) and El Niño 2026",
+      "publisher": "Gestión; FreshFruit.pe; Fruitnet; Revista Lombriz",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "La Libertad (Chao, Virú, Moche)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://gestion.pe/economia/empresas/ciclon-yaku-la-libertad-trujillo-peru-chavimochic-agroexportadoras-agroexportadoras-de-la-libertad-sin-agua-por-rotura-de-canal-madre-de-chavimochic-noticia/",
+      "data_urls": [
+        "https://gestion.pe/peru/el-nino-tres-cultivos-agroindustriales-son-afectados-por-altas-temperaturas-en-la-libertad-adas-cultivos-agroindustriales-noticia/",
+        "https://freshfruit.pe/2023/03/19/yaku-expuso-la-fragilidad-de-la-agroexportacion-peruana/",
+        "https://www.fruitnet.com/eurofruit/el-nino-threatens-blueberry-production-in-la-libertad/272258.article",
+        "https://revistalombriz.com.pe/exportaciones-arandanos-toneladas-el-nino/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "2023-2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "event date",
+        "place",
+        "area affected",
+        "crop named",
+        "percentage loss"
+      ],
+      "app_uses": [
+        "event records: Chavimochic canal break from 10 Mar 2023 (26,000 ha agro-export without water); La Libertad blueberry output -50% (ADAS, 13 Oct 2023); La Libertad 120,000 t in 2023 vs 181,000 t in 2024"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought",
+        "heat"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "All five pages opened by the helper; figures quoted are from the pages."
+      },
+      "quality_caveats": "Press estimates; inconsistent magnitudes between outlets.",
+      "priority": "P2",
+      "priority_reason": "Only dated blueberry-named damage evidence for 2023.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-siap-cierre-agricola",
+      "name": "SIAP/DGSIAP Estadística de Producción Agrícola, cierre anual, open data (municipal CSV)",
+      "publisher": "Secretaría de Agricultura y Desarrollo Rural, DGSIAP",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco",
+        "Sinaloa",
+        "Michoacán",
+        "Guanajuato",
+        "Baja California",
+        "Puebla",
+        "Nayarit",
+        "Colima"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://nube.agricultura.gob.mx/datosAbiertos/Agricola.php",
+      "data_urls": [
+        "https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2025",
+        "https://nube.agricultura.gob.mx/cierre_agricola/"
+      ],
+      "format": [
+        "csv",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "municipal 2003-2025; national 1980-2002",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Anio",
+        "Nomestado",
+        "Nomddr",
+        "Nomcader",
+        "Nommunicipio",
+        "Nomcicloproductivo",
+        "Nommodalidad",
+        "Nomcultivo (Arándano)",
+        "Sembrada (ha)",
+        "Cosechada (ha)",
+        "Siniestrada (ha)",
+        "Volumenproduccion (t)",
+        "Rendimiento (t/ha)",
+        "Preciomediorural",
+        "Valorproduccion"
+      ],
+      "app_uses": [
+        "map blueberry municipalities for location_mapping and site choice",
+        "annual production and yield series 2003-2025 by municipality",
+        "use Siniestrada (damaged ha) as a loss signal"
+      ],
+      "model_families": [
+        "location_mapping",
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded the 2025 municipal CSV (5.8 MB). 74 Arándano rows, all 'Perennes'. State totals 2025: Jalisco 2,076 ha harvested and 32,371 t; Sinaloa 2,018 ha and 24,478 t; Michoacán 579 ha and 10,925 t; Guanajuato 566 ha; Baja California 338 ha. Top municipalities: El Fuerte 1,080 ha and 13,138 t; Zapotlán el Grande 670 ha; Tala 380 ha; Ensenada (DDR San Quintín) 305 ha. Siniestrada only 2 ha (Aldama, Chihuahua). Metadata: 'Actualizado 12 agosto 2026, Cobertura 2003-2025'. 2023 and 2024 files are listed."
+      },
+      "quality_caveats": "Annual only; perennial cycle hides harvest months; SIAP state totals differ from FAS 2026 table (FAS gives Jalisco 44,000 t and Sinaloa 9,200 t for 2025).",
+      "priority": "P1",
+      "priority_reason": "Settles the brief question: SIAP blueberry data continue after 2022, with municipality detail to 2025.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-siap-avance-mensual",
+      "name": "SIAP Avance de siembras y cosechas (monthly) and Estacionalidad",
+      "publisher": "DGSIAP",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://nube.agricultura.gob.mx/avance_agricola/",
+      "data_urls": [
+        "https://www.gob.mx/agricultura/dgsiap/acciones-y-programas/produccion-agricola-404122"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "monthly; 64 tracked crops",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "month",
+        "harvested area",
+        "production",
+        "siniestrada"
+      ],
+      "app_uses": [
+        "monthly harvest progress, if arándano is among the 64 tracked crops"
+      ],
+      "model_families": [
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Programme page opened (64 crops monthly, historic module 'en mantenimiento'). The avance page is an xajax form; crop list not visible without running it, so blueberry inclusion is unconfirmed. Helper saw timeouts."
+      },
+      "quality_caveats": "Unknown whether arándano is tracked monthly.",
+      "priority": "P3",
+      "priority_reason": "Would give monthly timing if blueberry is included; check in a browser.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-smn-daily-stations",
+      "name": "SMN Información Estadística Climatológica (daily station files)",
+      "publisher": "CONAGUA, Servicio Meteorológico Nacional",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco",
+        "Michoacán",
+        "Sinaloa",
+        "Guanajuato",
+        "Baja California"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://smn.conagua.gob.mx/es/climatologia/informacion-climatologica/informacion-estadistica-climatologica",
+      "data_urls": [
+        "https://smn.conagua.gob.mx/tools/GUI/estaciones-climatologicas/data/estaciones_climatologicas.geojson",
+        "https://smn.conagua.gob.mx/tools/RESOURCES/Normales_Climatologicas/Diarios/jal/dia14030.txt"
+      ],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "up to 1897-present by station (Ciudad Guzmán 14030: 1897 to 2026-09-28)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station clave, name, municipio, lat, lon, altitude, status, start and latest date",
+        "FECHA",
+        "PRECIP",
+        "EVAP",
+        "TMAX",
+        "TMIN"
+      ],
+      "app_uses": [
+        "bias-correct grid Tmin at Zapotlán, Tala, Ahome, El Fuerte, Guasave, Abasolo and San Quintín",
+        "validate frost nights against CENAPRED and CNSF frost years"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "heat",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper read the station GeoJSON (5,526 features) and the 14030 daily file. Operating stations exist in the target municipios except Los Reyes and Zapotiltic (suspended)."
+      },
+      "quality_caveats": "Daily only; observation day ends 08:00; gaps and suspended stations.",
+      "priority": "P1",
+      "priority_reason": "Free long daily Tmin/Tmax at the Mexican benchmark sites.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "mx-smn-emas",
+      "name": "SMN Estaciones Meteorológicas Automáticas (EMAS) and SIVEA viewer",
+      "publisher": "CONAGUA SMN",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Sinaloa (El Fuerte)",
+        "Baja California (San Quintín)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://smn.conagua.gob.mx/es/observando-el-tiempo/estaciones-meteorologicas-automaticas-ema-s",
+      "data_urls": [
+        "https://smn.conagua.gob.mx/tools/DATA/Observando%20el%20Tiempo/EMAS/EMAS.xlsx",
+        "https://smn.conagua.gob.mx/tools/GUI/sivea_v3/sivea.php"
+      ],
+      "format": [
+        "xlsx",
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "real time; viewer keeps last 3 days",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "'La presente información es publicada tal cual es' (page text)",
+      "license_url": null,
+      "extractable_fields": [
+        "station list (state, name, lat, lon, altitude)",
+        "10-30 minute T, RH, wind, rain, radiation (viewer only)"
+      ],
+      "app_uses": [
+        "identify hourly stations at El Fuerte and San Quintín for a data request"
+      ],
+      "model_families": [
+        "disease",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "EMAS.xlsx read (24 KB); no historical download."
+      },
+      "quality_caveats": "No archive; history needs a request to SMN [inference].",
+      "priority": "P3",
+      "priority_reason": "Only the station list is usable today.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-inifap-lnmysr",
+      "name": "INIFAP Red Nacional de Estaciones Agrometeorológicas Automatizadas (LNMySR)",
+      "publisher": "INIFAP",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco",
+        "Michoacán",
+        "Sinaloa",
+        "Baja California"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://clima.inifap.gob.mx/lnmysr/",
+      "data_urls": [
+        "https://clima.inifap.gob.mx/lnmysr/Estaciones/Mapa",
+        "https://clima.inifap.gob.mx/lnmysr/Estaciones/Datos.aspx?numero=860141"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "from about 2005; 15-minute records",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "'Algunos Derechos Reservados' (no licence named)",
+      "license_url": null,
+      "extractable_fields": [
+        "station number, name, municipio, lat, lon, altitude, start",
+        "15-minute T, RH, rain, wind, radiation",
+        "daily Tmax, Tmin, RH mean"
+      ],
+      "app_uses": [
+        "hourly T/RH for anthracnose and Botrytis indices at El Fuerte (station live)"
+      ],
+      "model_families": [
+        "disease",
+        "fruit_frost",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Station pages free; C.E. Valle del Fuerte 860141 live (8 Oct 2026, 35.5 C, RH 68%). Most stations in Zapotlán, Zapotiltic, Tala and Los Reyes stopped reporting 2008-2020. Bulk history needs login or request."
+      },
+      "quality_caveats": "Stale coverage in Jalisco and Michoacán; registration.",
+      "priority": "P2",
+      "priority_reason": "Hourly humidity where it exists (Sinaloa).",
+      "est_effort_days": 0.75
+    },
+    {
+      "id": "mx-simarbc",
+      "name": "SIMARBC agroclimatic network, Baja California",
+      "publisher": "Secretaría de Agricultura y Desarrollo Rural del Estado de Baja California",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Baja California (Valle de San Quintín, Colonet)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.simarbc.gob.mx/estaciones",
+      "data_urls": [
+        "https://www.simarbc.gob.mx/variables"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2005-present by station",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly air temperature",
+        "relative humidity",
+        "dew point",
+        "rain",
+        "ETo",
+        "wind",
+        "solar radiation"
+      ],
+      "app_uses": [
+        "hourly T/RH near San Quintín for the missing Baja California site"
+      ],
+      "model_families": [
+        "disease",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Station list and variable list read (San Isidro inactive from 2005; Colonet active from 2011). Hourly query redirects to login."
+      },
+      "quality_caveats": "Registration; few stations.",
+      "priority": "P2",
+      "priority_reason": "Only hourly humidity source near San Quintín found.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-fps-secas-sinaloa",
+      "name": "Sistema Estatal de Clima Automatizado de Sinaloa (project document)",
+      "publisher": "Fundación Produce Sinaloa with CIAD",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Sinaloa (El Carrizo to Angostura)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.fps.org.mx/portal/index.php/component/phocadownload/category/12-clima?download=182%3Asistema-de-estaciones-agroclimatologicas-de-sinaloa",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "from 2006",
+      "update_frequency": "irregular",
+      "access": "on-request",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "15-minute T, RH, radiation, rain, leaf wetness, wind (per document)"
+      ],
+      "app_uses": [
+        "leaf wetness for disease validation in northern Sinaloa, if data can be obtained"
+      ],
+      "model_families": [
+        "disease"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Project PDF read by helper; live portal not found."
+      },
+      "quality_caveats": "Status of network unknown.",
+      "priority": "P3",
+      "priority_reason": "Leaf wetness is rare; follow up only if needed.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-cenapred-declaratorias",
+      "name": "Sistema de Consulta de Declaratorias 2000-2023 (CSV)",
+      "publisher": "CENAPRED, Atlas Nacional de Riesgos",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "all states"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://www.atlasnacionalderiesgos.gob.mx/apps/Declaratorias/",
+      "data_urls": [
+        "http://www.atlasnacionalderiesgos.gob.mx/apps/Declaratorias/declaratoria_fns.php?consulta=csvDeclaratorias"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2000-2024 publication years (agricultural contingency rows end 2019)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Estado",
+        "Municipio",
+        "Clave Municipio",
+        "Tipo Declaratoria",
+        "Tipo Fenómeno (Heladas, Granizadas, Sequía, Temperatura Extrema)",
+        "Fecha Publicación",
+        "Fecha Inicio",
+        "Fecha Fin"
+      ],
+      "app_uses": [
+        "validate flowering_freeze and fruit_frost recurrence at Tangancícuaro (3-6 Mar 2013), Abasolo (2-5 Mar 2013), Ahome/El Fuerte/Guasave (3-4 Feb 2011, 14-16 Jan 2013)",
+        "date the Sinaloa heat emergency 5-18 May 2022"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Helper downloaded the 5.4 MB CSV: 34,453 rows; hits quoted in app_uses."
+      },
+      "quality_caveats": "Few rows after 2019; municipio-wide, not crop-specific.",
+      "priority": "P1",
+      "priority_reason": "Dated municipal frost and heat events at blueberry municipios.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-sspc-gestion-riesgos",
+      "name": "Gestión de Riesgos: declaratorias de desastre (2019-2025) y emergencia (2018-2025)",
+      "publisher": "SSPC, Coordinación Nacional de Protección Civil, via datos.gob.mx",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://datos.gob.mx/dataset/gestion_riesgos",
+      "data_urls": [
+        "https://datos.gob.mx/api/3/action/datastore_search?resource_id=8112b2a4-ce1b-4ef0-baca-af5230b51557"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2018-2025",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0 (dataset metadata)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "year",
+        "event text with date",
+        "municipios",
+        "DOF publication link"
+      ],
+      "app_uses": [
+        "extend CENAPRED events past 2019 (e.g. 'Onda de calor ocurrida el 05 de mayo de 2022', El Fuerte)"
+      ],
+      "model_families": [
+        "heat",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Datastore API returned records; direct CSV 403."
+      },
+      "quality_caveats": "Infrastructure focus; agriculture not covered.",
+      "priority": "P3",
+      "priority_reason": "Small extension to CENAPRED.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-dof-declaratorias",
+      "name": "Diario Oficial de la Federación: agricultural disaster declarations",
+      "publisher": "DOF, Secretaría de Gobernación",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Michoacán"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://dof.gob.mx/nota_detalle.php?codigo=5295219&fecha=09/04/2013",
+      "data_urls": [
+        "https://dof.gob.mx/busqueda_avanzada.php"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "agricultural declarations mainly 2003-2019",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "event dates",
+        "municipios",
+        "sector (agropecuario)",
+        "request folio"
+      ],
+      "app_uses": [
+        "citation text for frost events, e.g. Michoacán 3-6 March 2013 (43 municipios incl. Tangancícuaro)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Declaratoria text read by helper."
+      },
+      "quality_caveats": "Search form not exercised.",
+      "priority": "P3",
+      "priority_reason": "Citation backing for CENAPRED rows.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-smn-monitor-sequia",
+      "name": "Monitor de Sequía en México, municipal file",
+      "publisher": "CONAGUA SMN",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "all municipios"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://smn.conagua.gob.mx/es/climatologia/monitor-de-sequia/monitor-de-sequia-en-mexico",
+      "data_urls": [
+        "https://smn.conagua.gob.mx/tools/RESOURCES/Monitor%20de%20Sequia%20en%20Mexico/MunicipiosSequia.xlsx"
+      ],
+      "format": [
+        "xlsx"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2003-01 to 2026-09",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "CVE_ENT",
+        "CVE_MUN",
+        "NOMBRE_MUN",
+        "date columns with D0-D4 codes"
+      ],
+      "app_uses": [
+        "drought covariate for Sinaloa 2024-25 and Jalisco water stress"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "xlsx (2.1 MB) read by helper: 2,478 rows, 436 date columns."
+      },
+      "quality_caveats": "Category method changed in 2016.",
+      "priority": "P2",
+      "priority_reason": "Direct municipal drought series.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-smn-reporte-clima",
+      "name": "Reporte del Clima en México (monthly and annual)",
+      "publisher": "CONAGUA SMN",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://smn.conagua.gob.mx/es/climatologia/diagnostico-climatico/reporte-del-clima-en-mexico",
+      "data_urls": [
+        "https://smn.conagua.gob.mx/tools/DATA/Climatolog%C3%ADa/Diagn%C3%B3stico%20Atmosf%C3%A9rico/Reporte%20del%20Clima%20en%20M%C3%A9xico/RC-Mayo24.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2011-2026",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "heat-wave dates",
+        "records",
+        "drought changes by state",
+        "hail events with place and date"
+      ],
+      "app_uses": [
+        "event records for the 2024 heat waves (3-13 May and from 20 May 2024)"
+      ],
+      "model_families": [
+        "heat",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "May 2024 report read by helper (17 MB file)."
+      },
+      "quality_caveats": "National narrative; large files.",
+      "priority": "P2",
+      "priority_reason": "Dated official heat narrative.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-cnsf-agri-insurance",
+      "name": "Información estadística agrícola y animales del sector asegurador (claims)",
+      "publisher": "Comisión Nacional de Seguros y Fianzas, via datos.gob.mx",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco",
+        "Michoacán",
+        "Sinaloa",
+        "Puebla"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://datos.gob.mx/dataset/informacion_estadistica_agricola_animales_sector_asegurador",
+      "data_urls": [
+        "https://datos.gob.mx/api/3/action/datastore_search?resource_id=fb566fc4-fb65-4a1e-8ce4-c1287b87f07d&filters=%7B%22cultivo%22%3A%22Arandano%22%7D"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2015-2024 (blueberry rows from 2018)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0 (dataset metadata)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "anio",
+        "cultivo",
+        "ciclo_cultivo",
+        "entidad",
+        "causa_siniestro",
+        "numero_siniestros",
+        "superficie_siniestrada",
+        "monto_pagado"
+      ],
+      "app_uses": [
+        "validate frost years: 2024 Jalisco frost 16 ha, Michoacán frost 14 ha; 2021 Jalisco hail 15 ha; 2023 Sinaloa hurricane/wind 98 ha"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "53 Arándano rows read via API by helper; examples in app_uses."
+      },
+      "quality_caveats": "State and year only; small insured share; negative amounts are reserve adjustments.",
+      "priority": "P1",
+      "priority_reason": "The only crop-specific blueberry loss series found in either country.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-agroasemex-insurance",
+      "name": "AGROASEMEX reinsurance exposure (2020-H1 2026) and subsidised insured area by municipio (2016-2020)",
+      "publisher": "AGROASEMEX, via datos.gob.mx",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Michoacán",
+        "Jalisco",
+        "Guanajuato"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.datos.gob.mx/dataset/reaseguros_agroasemex",
+      "data_urls": [
+        "https://www.datos.gob.mx/dataset/subsidio_seguro_agropecuario"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2016-2026",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0 (dataset metadata)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "extractable_fields": [
+        "year",
+        "quarter",
+        "state",
+        "crop",
+        "insured units",
+        "sum insured",
+        "municipio (subsidy file)"
+      ],
+      "app_uses": [
+        "exposure denominator for CNSF claims"
+      ],
+      "model_families": [
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "25 arándano reinsurance rows and 7 subsidy rows seen by helper."
+      },
+      "quality_caveats": "Exposure only; no claims.",
+      "priority": "P3",
+      "priority_reason": "Context for claims.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-usda-gain-mexico",
+      "name": "USDA FAS GAIN Mexico: Blueberry Annual (MX2024-0003, MX2025-0004) and Berry Annual (MX2026-0015)",
+      "publisher": "USDA Foreign Agricultural Service, Post Guadalajara",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco",
+        "Michoacán",
+        "Sinaloa",
+        "Baja California"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Berry+Annual+Voluntary_Guadalajara_Mexico_MX2026-0015.pdf",
+      "data_urls": [
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary+_Guadalajara_Mexico_MX2025-0004",
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary+_Guadalajara_Mexico_MX2024-0003.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "reports 2024-2026; data 2022-2026",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal work (public domain in the US); report disclaimer: not official USDA policy",
+      "license_url": null,
+      "extractable_fields": [
+        "planted and harvested ha and t by year",
+        "state production and share",
+        "harvest window statements (historically Oct start, late Apr-early May peak; now Feb-May)",
+        "variety shift (Biloxi out; Sekoya, Pop, AzraBlue, Madeira)",
+        "substrate density (>8,000 vs 3,500 plants/ha)",
+        "drought narrative 2024-early 2025"
+      ],
+      "app_uses": [
+        "claim records for the Mexican harvest-window shift and tunnel/substrate practice"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management",
+        "cultivar",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "MX2026-0015 read (Table 7: 2025* 6,008/5,964 ha and 73,500 t; Table 8: Jalisco 44,000 t, Michoacán 16,506 t, Sinaloa 9,200 t in 2025). MX2025-0004 and MX2024-0003 read by helper or earlier."
+      },
+      "quality_caveats": "State figures conflict with the SIAP 2025 CSV; FAS estimates.",
+      "priority": "P1",
+      "priority_reason": "Public-domain narrative on Mexico's managed harvest window.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-thesis-chapingo-gomez-2010",
+      "name": "La poda en la producción del arándano en Michoacán (Gómez Martínez, MSc thesis, 2010)",
+      "publisher": "Universidad Autónoma Chapingo",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Michoacán (Los Reyes)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_trial",
+        "management_practice",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://repositorio.chapingo.edu.mx/items/f27c0711-e0d4-4a93-aaac-d1e7022307d6",
+      "data_urls": [
+        "https://repositorio.chapingo.edu.mx/bitstreams/3e8f2553-2d5b-476d-a9fc-a4b3ee4d7ddf/download"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2009-2010",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "pruning dates (23 May, 7 Jun, 20 Jun, 4 Jul, 18 Jul)",
+        "pruning intensity",
+        "flower-to-fruit days (97 in unpruned plants)",
+        "yield response"
+      ],
+      "app_uses": [
+        "calibrate Michoacán bloom-to-harvest (97 days) and summer pruning window"
+      ],
+      "model_families": [
+        "management",
+        "harvest_timing",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Abstract read by helper; PDF (1.67 MB) not downloaded."
+      },
+      "quality_caveats": "Old trial (Biloxi); one farm.",
+      "priority": "P2",
+      "priority_reason": "Only primary pruning-date trial found for Los Reyes.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-remexca-gutierrez-los-reyes",
+      "name": "Artrópodos asociados al arándano y su vínculo con el aborto de yemas (Gutiérrez-Macías et al., REMEXCA 16(4) e3703)",
+      "publisher": "INIFAP, Revista Mexicana de Ciencias Agrícolas",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Michoacán (Los Reyes, 1,290 m)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://cienciasagricolas.inifap.gob.mx/index.php/agricolas/es/article/download/3703/7541/40044?inline=1",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "Oct 2021-Feb 2022",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC 4.0 (journal policy)",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "extractable_fields": [
+        "sampling dates every 15 days",
+        "pruning at end of season",
+        "flowering inside Oct-Feb"
+      ],
+      "app_uses": [
+        "supports Michoacán bloom in Oct-Feb after late-season pruning"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Read by helper."
+      },
+      "quality_caveats": "Pest study; phenology indirect.",
+      "priority": "P3",
+      "priority_reason": "Weak but dated support for the Los Reyes calendar.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mx-thesis-udg-fiedler-2015",
+      "name": "Caracterización fisico-química y sistema de producción del arándano en Jalisco (Fiedler Montero, 2015)",
+      "publisher": "Universidad de Guadalajara, CUCBA",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Jalisco (Zapotlán el Grande, Zapotiltic, Tuxpan, Sayula, Jocotepec)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "management_practice",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://riudg.udg.mx/bitstream/20.500.12104/84743/1/LCUCBA10090.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "about 2014",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "harvest months (October to April)",
+        "production municipalities",
+        "flower to ripe fruit 90-120 days"
+      ],
+      "app_uses": [
+        "pre-2024 Jalisco calendar baseline"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Read by helper."
+      },
+      "quality_caveats": "Generic statements; old system.",
+      "priority": "P3",
+      "priority_reason": "Baseline before the February-May shift.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mx-thesis-uas-penuelas-2022",
+      "name": "Arándano cv. Biloxi bajo mallas fotoselectivas en el norte de Sinaloa (Peñuelas Montoya, MSc thesis, 2022)",
+      "publisher": "Universidad Autónoma de Sinaloa, Facultad de Agricultura del Valle del Fuerte",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Sinaloa (km 194 Culiacán-Los Mochis, 25.785 N 108.879 W)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_trial",
+        "phenology_observation",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://cca.uas.edu.mx/images/posgrado/Tesis/COHORTE%202019-2021/TESIS%20MCA_PE%C3%91UELAS%20MONTOYA.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "Oct 2019-Jun 2020",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "planting date (29 Oct 2019, 40 L pots)",
+        "harvest dates (weekly 19 May to 9 Jun 2020)",
+        "pruning date (11 Jun 2020)",
+        "hourly field temperature readings Apr-Jun 2020",
+        "shade net colour"
+      ],
+      "app_uses": [
+        "only dated Sinaloa harvest record found; test late-spring heat exposure under nets"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "heat",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read (server certificate invalid; fetched with certificate check off). Dates as listed in fields."
+      },
+      "quality_caveats": "First-year plants, small trial; not commercial timing.",
+      "priority": "P2",
+      "priority_reason": "Fills part of the Sinaloa phenology gap.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-blueberriesconsulting-sinaloa",
+      "name": "Blueberries Consulting articles on Sinaloa (2024 contraction; 2026 warm-winter flowering problems)",
+      "publisher": "Blueberries Consulting",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Sinaloa"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://blueberriesconsulting.com/arandano-en-sinaloa-de-la-expansion-acelerada-a-una-nueva-oportunidad/",
+      "data_urls": [
+        "https://blueberriesconsulting.com/cae-drasticamente-la-superficie-de-siembra-y-la-produccion-de-arandanos-en-sinaloa/",
+        "https://www.debate.com.mx/agro/Crece-mas-de-300-por-ciento-superficie-de-arandano-en-Sinaloa-20210414-0214.html"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2014-2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "area by Junta Local (SIVASA/CESAVESIN)",
+        "warm-winter flowering delay (Atlas, 2022 and 2023)",
+        "yield t/ha",
+        "closures"
+      ],
+      "app_uses": [
+        "event and claim records for Sinaloa warm-winter bloom failure and area loss (about 3,600 ha peak to about 670 ha in 2026)"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "heat",
+        "budbreak_bloom_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Read by helper; figures quoted in fields."
+      },
+      "quality_caveats": "Vendor-authored (Fall Creek) for the 2026 piece; area figures vary by source.",
+      "priority": "P2",
+      "priority_reason": "Explains the Sinaloa model gap (heat and missing chill).",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-press-weather-events",
+      "name": "Mexican press items on berry weather events (frost Jan 2024 Sinaloa; 2023 heat and late rain; Aneberries 2024 losses; San Quintín SADER statements)",
+      "publisher": "Excélsior; FreshPlaza; Agraria.pe; Península BC",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Sinaloa",
+        "Guanajuato",
+        "Baja California"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.excelsior.com.mx/nacional/heladas-danan-mas-de-mil-ha-de-cultivos-en-sinaloa/1629573",
+      "data_urls": [
+        "https://www.freshplaza.com/north-america/article/9594533/mexican-blueberries-hope-to-return-back-to-normal-volumes-in-2024/",
+        "https://agraria.pe/noticias/mal-clima-pegara-a-produccion-y-envios-de-berries-de-mexico--38278",
+        "https://peninsulabc.com.mx/2023/09/cosecha-de-berries-presenta-avance-del-68-80-la-mayoria-en-san-quintin/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "2023-2025",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "event date",
+        "place",
+        "crop",
+        "area damaged",
+        "minimum temperature"
+      ],
+      "app_uses": [
+        "frost validation: Valle del Carrizo 9 Jan 2024, about 1 C, 1,023 ha of other crops",
+        "2023 heat and late Oct-Nov rain delaying berries (Guanajuato grower)",
+        "San Quintín blueberry area 317 ha (2023) and harvest not started by end Aug 2023"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "All pages opened by helper."
+      },
+      "quality_caveats": "Not blueberry-specific except FreshPlaza and Península BC.",
+      "priority": "P3",
+      "priority_reason": "Thin, but dated.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "mx-fira-panorama-berries-2016",
+      "name": "Panorama Agroalimentario: Berries 2016",
+      "publisher": "FIRA (Banco de México)",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Michoacán",
+        "Jalisco",
+        "Baja California",
+        "Puebla",
+        "México"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.gob.mx/cms/uploads/attachment/file/200633/Panorama_Agroalimentario_Berries_2016.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "data 2003-2015",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "berry area 2003-2014",
+        "producer prices",
+        "export growth"
+      ],
+      "app_uses": [
+        "historical context only"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read (42 pages): berry states and 2014 blueberry rural price 51,966.6 pesos/t."
+      },
+      "quality_caveats": "Old; berries aggregated.",
+      "priority": "P3",
+      "priority_reason": "No newer FIRA berry panorama found.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mx-sagarpa-planeacion-frutas-bosque",
+      "name": "Planeación Agrícola Nacional 2017-2030: Frutas del bosque",
+      "publisher": "SAGARPA (now SADER)",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.gob.mx/cms/uploads/attachment/file/257076/Potencial-Frutas_del_Bosque.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2003-2016 data",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "export seasonality by month (SIAVI 2017)",
+        "strategic regions"
+      ],
+      "app_uses": [
+        "context only"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Read by helper."
+      },
+      "quality_caveats": "Old.",
+      "priority": "P3",
+      "priority_reason": "Context.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mx-aneberries",
+      "name": "Aneberries (Asociación Nacional de Exportadores de Berries)",
+      "publisher": "Aneberries",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://aneberries.mx/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "n/a",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "member-only statistics"
+      ],
+      "app_uses": [
+        "ask for weekly export curves by state"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage opened (claims +54k ha, +652k t exported, 40 member firms). Statistics are member-only (helper)."
+      },
+      "quality_caveats": "Closed data.",
+      "priority": "P3",
+      "priority_reason": "Only through a data request.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mx-remexca-nayarit-chill",
+      "name": "Acumulación de horas frío para la producción de arándano en Nayarit (Álvarez-Bravo et al., 2019)",
+      "publisher": "INIFAP, Revista Mexicana de Ciencias Agrícolas",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [
+        "Nayarit"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "research_literature",
+        "weather_stations",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S2007-09342019001000175",
+      "data_urls": [
+        "http://www.scielo.org.mx/pdf/remexca/v10nspe23/2007-0934-remexca-10-spe23-175.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "38 stations, 15-minute data from 2007 (8 years)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC 4.0 (journal policy)",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "extractable_fields": [
+        "station name, lat, lon, altitude (38 stations)",
+        "annual chill hours (<=12 C) classes by municipio"
+      ],
+      "app_uses": [
+        "check chill accounting in a subtropical state; station coordinates for Nayarit"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article read: 38 Adcon stations with 15-minute data, Table 1 lists coordinates; chill threshold 12 C."
+      },
+      "quality_caveats": "Uses a 12 C chill threshold unlike the app's 7.2 C.",
+      "priority": "P3",
+      "priority_reason": "Method reference for Nayarit growth area.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "gt-maga-ficha-arandano",
+      "name": "Ficha técnica agroclimática: Arándano",
+      "publisher": "MAGA Guatemala, DIGEGR",
+      "countries": [
+        "GT"
+      ],
+      "subnational_scope": [
+        "Guatemala highlands"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "land_use_or_orchard_census",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://guatemalanosedetiene.gt/wp-content/uploads/2024/06/FICHA-TECNICA-AGROCLIMATICA-ARANDANO.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2024",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "altitude range (1,370-2,750 m; Biloxi suitability 1,000-2,400 m)",
+        "rainfall 1,000-3,000 mm",
+        "suitable area for Biloxi 135,722 ha",
+        "fruit development 90-120 days"
+      ],
+      "app_uses": [
+        "sanity check for high-elevation tropical suitability"
+      ],
+      "model_families": [
+        "location_mapping",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "5-page PDF read."
+      },
+      "quality_caveats": "Suitability, not production.",
+      "priority": "P3",
+      "priority_reason": "Only official Central American blueberry document found.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "gt-maga-perfil-bayas",
+      "name": "Perfil comercial: Bayas (fresa, frambuesa, mora, arándano)",
+      "publisher": "MAGA Guatemala",
+      "countries": [
+        "GT"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://precios.maga.gob.gt/archivos/perfiles/Perfil%20Bayas.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "exports 2008-2022",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "annual blueberry export t and USD 2008-2022",
+        "destinations (2022: 112.24 t, 95.18% to Honduras)"
+      ],
+      "app_uses": [
+        "confirms production is small; no phenology"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF read; table of contents lists blueberry export figures 2008-2022."
+      },
+      "quality_caveats": "Small volumes; export data from BANGUAT.",
+      "priority": "P3",
+      "priority_reason": "Context for Central America only.",
+      "est_effort_days": 0.1
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "PEMX-01",
+      "title": "Coastal Peru thesis phenology table",
+      "source_ids": [
+        "pe-unalm-repositorio-api",
+        "pe-thesis-mayta-2024-viru",
+        "pe-thesis-orga-2021-villacuri",
+        "pe-thesis-castro-2025-olmos",
+        "pe-thesis-cordova-2026-olmos",
+        "pe-thesis-yovera-2023-jayanca",
+        "pe-thesis-rodriguez-2023-uns-jayanca",
+        "pe-thesis-lira-2023-chepen",
+        "pe-thesis-maticorena-2017-chao",
+        "pe-thesis-ica-unalm-2024-2025",
+        "pe-alicia-concytec"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "table schema: site_id, department, district, lat_lon_source, elevation_m, cultivar, plant_age_years, container_or_soil, season, pruning_start_date_or_week, pruning_end, budbreak_week, bloom_start_week, bloom_10pct_date, full_bloom_date, bloom_end_week, harvest_start_date_or_week, harvest_peak_week, harvest_end_week, days_pruning_to_harvest_start, days_bloom_start_to_harvest_start, source_id, page, quote",
+        "plus IBO-style claim records: kind=practice, topic=phenology, period, crop_context (cultivar, pots or soil), evidence_type=thesis_farm_record, geography (PE-LAL, PE-LAM, PE-ICA), citations (handle, pdf page)"
+      ],
+      "cadence": "one-off backfill, then annual sweep of the UNALM API and ALICIA",
+      "review_needed": "Check week-to-date conversion and year; separate young-plant from mature-plant records; confirm whether a 'harvest start' is first pick or commercial start; keep company names out of public text if not needed.",
+      "licensing_gate": "CC BY-NC-ND 4.0: quoting short facts with attribution is fine; do not republish PDFs or derived tables commercially; confirm non-commercial use of the app.",
+      "effort_days": 4.0,
+      "priority": "P1",
+      "app_value": "First open, dated pruning-bloom-harvest intervals for Virú, Chao, Olmos, Jayanca, Chepén and Villacurí; direct calibration of the coastal Peru flowering-to-harvest gap."
+    },
+    {
+      "job_id": "PEMX-02",
+      "title": "SENAMHI blueberry agromet bulletin stage series",
+      "source_ids": [
+        "pe-senamhi-agromet-arandano"
+      ],
+      "output": "event records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind=observation, topic=phenology, period (dekad start, end, stage observation date), crop_context (tolerant vs chill-requiring varieties as stated), evidence_type=official_agromet_bulletin, geography (Cayaltí PE-LAM; Chao and San José PE-LAL), citations (file id 02981SENA-NN, page)",
+        "table schema: bulletin_id, volume, edition, period_start, period_end, observed_on, site, stage_label_es, stage_label_app, north_coast_tmax, north_coast_tmin, rain_mm, aviso_numbers"
+      ],
+      "cadence": "one-off backfill of files 1-70, then every dekad",
+      "review_needed": "Map Spanish stage labels to app stages; note that stage is the predominant phase across remote-monitored plots; check that missing files are not skipped.",
+      "licensing_gate": "No licence stated; ask SENAMHI before public display of extracted tables; short quoted statements with citation are low risk.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Official dated stage observations through the 2026 El Niño; validates modelled stage by dekad at Chao and Cayaltí."
+    },
+    {
+      "job_id": "PEMX-03",
+      "title": "Peru monthly blueberry production by department",
+      "source_ids": [
+        "pe-bcrp-sintesis-regional",
+        "pe-midagri-agro-en-cifras",
+        "pe-midagri-nota-tecnica-19-2024"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "table schema: department, year, month, production_t, source_id, report_issue, revision_flag",
+        "derived: monthly share of annual production, month of peak, centroid month per campaign"
+      ],
+      "cadence": "one-off backfill (BCRP 2024-2026 issues, MIDAGRI 2023-2026), then monthly",
+      "review_needed": "Reconcile BCRP and MIDAGRI values; handle rolling 13-month annexes and revisions; difference MIDAGRI year-to-date department tables carefully.",
+      "licensing_gate": "Government statistics; no licence stated; cite publisher.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Observed harvest-month curves per department and year to test the model's harvest window and year-to-year shifts (2023 El Niño, 2024 delayed pruning, 2026 El Niño)."
+    },
+    {
+      "job_id": "PEMX-04",
+      "title": "Peru ENSO and coastal anomaly covariates",
+      "source_ids": [
+        "pe-igp-icen",
+        "pe-enfen-comunicados"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table schema: year, month, icen_c, enfen_status, communique_id, communique_date",
+        "event records: kind=event, topic=weather, period, geography=PE coast, evidence_type=official_forecast_or_status, citations"
+      ],
+      "cadence": "one-off backfill 1950-2026 (ICEN) and 2015-2026 (communiqués), then monthly",
+      "review_needed": "Confirm ICEN version changes; only status and date fields from communiqués.",
+      "licensing_gate": "None for ICEN numbers; cite ENFEN.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Stratifies coastal Peru years by Niño state; explains bloom disruption in 2023 and 2026."
+    },
+    {
+      "job_id": "PEMX-05",
+      "title": "Peru weather damage event records 2023-2026",
+      "source_ids": [
+        "pe-indeci-coen-informes",
+        "pe-press-damage-2023-2026",
+        "pe-ibo-news-peru",
+        "pe-midagri-nota-tecnica-19-2024",
+        "pe-proarandanos",
+        "pe-midagri-sac"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=event, topic=weather, title, summary, geography (district or department), period (start, end, precision), crop_context (blueberry named or not), evidence_type (official_emergency_report, industry_estimate, press), event_id linking sources, citations, limitations"
+      ],
+      "cadence": "one-off backfill, then monthly during El Niño alerts",
+      "review_needed": "Separate blueberry-specific statements from all-crop totals; keep magnitudes as quoted with their source; link Yaku (Mar 2023), El Niño heat (Jun-Dec 2023) and El Niño 2026 events across sources.",
+      "licensing_gate": "Press quotes: short excerpts with links only; INDECI and MIDAGRI public documents.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Validation targets for harvest heavy rain (Mar-Apr 2023) and heat-driven bloom failure (2023, 2026) in north-coast cells."
+    },
+    {
+      "job_id": "PEMX-06",
+      "title": "Mexico SIAP blueberry municipal panel 2003-2025",
+      "source_ids": [
+        "mx-siap-cierre-agricola"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table schema: year, state, ddr, cader, municipio, inegi_code, cycle, water_regime, planted_ha, harvested_ha, damaged_ha (Siniestrada), production_t, yield_t_ha, rural_price, value",
+        "derived: municipality polygons for location_mapping"
+      ],
+      "cadence": "one-off backfill (one CSV per year), then annual (August release)",
+      "review_needed": "Filter Nomcultivo 'Arándano' and variety rows; check state totals against FAS; note that the perennial cycle hides months.",
+      "licensing_gate": "No licence text found on the page; Mexican government open data; cite DGSIAP.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Where Mexican blueberries are grown each year, with yields and damaged area; fixes the 'SIAP stopped after 2022' gap."
+    },
+    {
+      "job_id": "PEMX-07",
+      "title": "Mexico frost, hail and heat events at blueberry municipios",
+      "source_ids": [
+        "mx-cnsf-agri-insurance",
+        "mx-cenapred-declaratorias",
+        "mx-sspc-gestion-riesgos",
+        "mx-dof-declaratorias",
+        "mx-smn-reporte-clima",
+        "mx-press-weather-events"
+      ],
+      "output": "event records",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "kind=event, topic=weather, period (Fecha Inicio, Fecha Fin), geography (municipio code), crop_context (blueberry for CNSF rows; all crops for declaratorias), evidence_type (insurance_claim_aggregate, disaster_declaration), citations (dataset resource id, DOF URL)",
+        "table schema for CNSF: year, state, cycle, cause, claims, ha, paid_mxn"
+      ],
+      "cadence": "one-off backfill, then annual",
+      "review_needed": "Join declaratorias to blueberry municipios from PEMX-06; CNSF rows are state-year only; do not imply blueberry damage from all-crop declarations.",
+      "licensing_gate": "CNSF and SSPC data are CC BY 4.0; CENAPRED and DOF terms not found, cite source.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Validates bud/flower freeze and fruit frost recurrence in Michoacán, Jalisco and Sinaloa, and dates the 2022 Sinaloa heat emergency."
+    },
+    {
+      "job_id": "PEMX-08",
+      "title": "Mexico SMN daily station table for blueberry sites",
+      "source_ids": [
+        "mx-smn-daily-stations",
+        "mx-smn-monitor-sequia",
+        "mx-inifap-lnmysr"
+      ],
+      "output": "station table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table schema: station_clave, name, municipio, lat, lon, altitude_m, status, date, tmax_c, tmin_c, precip_mm, evap_mm",
+        "drought table: municipio, date, D-category",
+        "INIFAP hourly only where downloadable"
+      ],
+      "cadence": "one-off backfill per station (about 15 stations), then monthly",
+      "review_needed": "Quality-control outliers and 08:00 observation day; check suspended stations; compare with MERRA-2/POWER cells.",
+      "licensing_gate": "SMN terms not read; cite CONAGUA SMN; INIFAP needs registration before bulk use.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Measures the warm Tmin bias and frost misses at Zapotlán, Tala, Tangancícuaro, El Fuerte, Ahome, Abasolo and San Quintín."
+    },
+    {
+      "job_id": "PEMX-09",
+      "title": "Peru and Mexico narrative corpus for the regional evidence library",
+      "source_ids": [
+        "pe-usda-gain-peru",
+        "mx-usda-gain-mexico",
+        "pe-agraria-news",
+        "pe-redagricola",
+        "mx-blueberriesconsulting-sinaloa",
+        "pe-arandanosperu-news",
+        "pe-senasa-press"
+      ],
+      "output": "claim records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "kind (practice, constraint, event), topic (harvest, management, weather, cultivar, resources), period, crop_context, evidence_type (government_report, industry_press), geography (PE, PE-LAL, PE-LAM, PE-ICA, MX, MX-JAL, MX-MIC, MX-SIN, MX-BCN), citations (URL, date, paragraph)"
+      ],
+      "cadence": "one-off backfill (Agraria tag pages 1-89, GAIN 2023-2026), then weekly",
+      "review_needed": "Offline LLM proposes claims; human checks every claim against the page; drop advertising and unsourced numbers; keep Proarándanos figures labelled as association estimates.",
+      "licensing_gate": "GAIN is US public domain; Agraria, Redagrícola and Blueberries Consulting show no licence: store citations and short quotes only, no full-text republication.",
+      "effort_days": 3.0,
+      "priority": "P2",
+      "app_value": "Citation-first narrative for Peru and Mexico between IBO editions (pruning shifts, El Niño, Mexico window shift, Sinaloa contraction)."
+    },
+    {
+      "job_id": "PEMX-10",
+      "title": "Mexico phenology and pruning calendar records",
+      "source_ids": [
+        "mx-thesis-chapingo-gomez-2010",
+        "mx-remexca-gutierrez-los-reyes",
+        "mx-thesis-udg-fiedler-2015",
+        "mx-thesis-uas-penuelas-2022",
+        "mx-usda-gain-mexico"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "table schema: site, municipio, cultivar, season, pruning_dates, bloom_months, flower_to_fruit_days, harvest_start, harvest_end, peak, protection (tunnel, net, open), source_id, page"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Separate pre-2024 (October start) from post-2024 (February start) regimes; flag first-year plants (UAS 2020).",
+      "licensing_gate": "Theses: cite; no republication.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Bloom and pruning months for Michoacán and Sinaloa where the benchmark has none or one practitioner source."
+    },
+    {
+      "job_id": "PEMX-11",
+      "title": "Peru area and cultivar mix by department",
+      "source_ids": [
+        "pe-agraria-news",
+        "pe-usda-gain-peru",
+        "pe-proarandanos"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "table schema: season, department, area_ha, certified_ha, cultivar, cultivar_share_pct, source_id, source_type"
+      ],
+      "cadence": "one-off backfill 2016-2026, then annual",
+      "review_needed": "Reconcile planted vs certified vs harvested area; cite the original body (SENASA, Proarándanos) through the relay.",
+      "licensing_gate": "Short facts with attribution.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Weights for cultivar classes per department (Biloxi 60% in 2016 to 11% in 2025-26; Ventura and Sekoya Pop rising)."
+    },
+    {
+      "job_id": "PEMX-12",
+      "title": "Hourly station access requests (Peru and Mexico)",
+      "source_ids": [
+        "pe-senamhi-historical-download",
+        "pe-senamhi-station-map",
+        "mx-simarbc",
+        "mx-smn-emas",
+        "mx-fps-secas-sinaloa"
+      ],
+      "output": "station table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "table schema: station_id, network, lat, lon, altitude_m, start, end, variables (T, RH, leaf wetness), access_route"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Decide which stations matter (Tongorrape near Olmos, Beta Santiago near Ica, Fonagro in Chincha, Valle del Fuerte, Colonet); a person must register or send requests, which this research did not do.",
+      "licensing_gate": "Registration terms of SENAMHI, INIFAP and SIMARBC must be read before any download or display.",
+      "effort_days": 1.0,
+      "priority": "P3",
+      "app_value": "Hourly T/RH for disease indices and frost detection near production, where the grid is weakest."
+    }
+  ]
+}

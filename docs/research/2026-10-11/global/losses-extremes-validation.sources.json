@@ -1,0 +1,2852 @@
+{
+  "slug": "losses-extremes-validation",
+  "generated_on": "2026-10-11",
+  "scope": "Loss, damage, extreme-event, declaration and insurance sources across all regions, plus a validation design for the eight model risk families",
+  "sources": [
+    {
+      "id": "us-rma-cause-of-loss-month",
+      "name": "Cause of Loss, Summary of Business with Month of Loss (colsom files)",
+      "publisher": "USDA Risk Management Agency (RMA)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "all insured states; blueberries in 2022: CA, FL, GA, MI, NC, NJ, OR, WA"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "insurance"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.rma.usda.gov/tools-reports/summary-of-business/cause-loss",
+      "data_urls": [
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/colsom_2022.zip",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/COL_Summary_of_Business_with_Month_All_Years.pdf"
+      ],
+      "format": [
+        "zip",
+        "csv",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1989-2026 commodity years (one zip per year)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity year",
+        "state FIPS",
+        "county FIPS and name",
+        "commodity code (0012 = Blueberries)",
+        "insurance plan (APH, SCO-YP, HIP-WI)",
+        "coverage category",
+        "stage code (H harvested, UH unharvested, FL final loss payment)",
+        "cause of loss code and description",
+        "month of loss",
+        "year of loss",
+        "policies earning premium",
+        "policies indemnified",
+        "net planted quantity (acres)",
+        "liability USD",
+        "total premium USD",
+        "net determined quantity (acres lost)",
+        "indemnity USD",
+        "loss ratio"
+      ],
+      "app_uses": [
+        "validate flowering_freeze and bud_freeze recurrence in Georgia, Florida, North Carolina, New Jersey and Michigan counties against cause 42 Freeze and 41 Frost indemnity months",
+        "test chill_shortfall with cause 45 Insufficient Chilling Hours",
+        "test fruit-stage heat with cause 12 Heat and harvest rain with cause 31 Excess Moisture and 44 Cold Wet Weather",
+        "test disease_weather against cause 81 Plant Disease"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "disease",
+        "chill_dormancy",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded colsom_2022.zip (5.5 MB, last modified 5 Oct 2026) to /tmp only. 30 pipe-delimited columns. 217 rows with commodity code 0012 Blueberries across 8 states. Freeze (code 42) carried USD 49.1 million of USD 77.7 million blueberry indemnity; GA March 2022 freeze alone USD 30.5 million; Bacon County GA March freeze USD 11.84 million. Record layout PDF read in full."
+      },
+      "quality_caveats": "Insured units only, so participation varies by state (2022 insured APH acres were about 17,750 in GA but about 5,200 in WA). Month of loss is the adjuster's month, not a day. Cause is the dominant peril only (a windborne freeze in NC can be coded 61 Wind). Area plans (SCO-YP, cause 55) carry year-of-loss values one to three years after the crop year and are not weather events. Files are revised for years after release. A December freeze is filed under the next commodity year.",
+      "priority": "P1",
+      "priority_reason": "The only open, county-by-month, cause-coded blueberry loss series anywhere, with 37 years of depth.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "us-rma-sob-state-county-crop",
+      "name": "Summary of Business, State/County/Crop with Coverage Level and Type/Practice/Unit Structure files (sobcov, sobtpu)",
+      "publisher": "USDA Risk Management Agency (RMA)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "all insured states"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance",
+        "land_use_or_orchard_census",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.rma.usda.gov/tools-reports/summary-of-business/state-county-crop-summary-business",
+      "data_urls": [
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/state_county_crop/sobtpu_2022.zip",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/state_county_crop/SOBTPU_External_All_Years.pdf",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/state_county_crop/SOB_State_County_Crop_with_Coverage_Level_1989_Forward.pdf"
+      ],
+      "format": [
+        "zip",
+        "csv",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "sobcov 1989-2027; sobtpu 1999-2027; older 1948-1988 file",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity year",
+        "state",
+        "county",
+        "commodity code",
+        "plan",
+        "coverage level",
+        "type code and name (001 Rabbiteye, 002 Highbush, 006 Early To Late Highbush (Group B), 007 Very Late Highbush & Rabbiteye (Group A))",
+        "practice code and name (032 Irr. With Frost Protection, 042 Irr. Without Frost Protection, 003 Non-Irrigated, container and organic practices)",
+        "unit structure",
+        "insured acres",
+        "liability USD",
+        "total premium USD",
+        "subsidy USD",
+        "indemnity USD",
+        "loss ratio"
+      ],
+      "app_uses": [
+        "denominator for loss cost (indemnity divided by liability) by county and year",
+        "stratify freeze validation by rabbiteye versus highbush and by frost-protected versus unprotected practice",
+        "track insured blueberry footprint by county for location_mapping"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "management",
+        "cultivar",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded sobtpu_2022.zip (7.7 MB) to /tmp only; file SOBSCCTPU22.TXT. 795 blueberry rows. GA APH 2022: Highbush with frost protection 6,545 acres, Highbush without 3,155, Rabbiteye with 854, Rabbiteye without 6,983. Indemnity totals by state match the cause-of-loss file exactly."
+      },
+      "quality_caveats": "Insured acres, not total acres. Type classes are insurance groupings, not cultivars. Frost-protection practice is self-declared. Endorsement rows (SCO-YP, HIP-WI) overlap APH acres and must be excluded when summing acres.",
+      "priority": "P1",
+      "priority_reason": "Supplies the exposure denominators and frost-protection and species strata that make RMA losses usable for validation.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "us-rma-m13-cause-codes",
+      "name": "FCIC Appendix III / M13 Handbook Exhibit 21: Cause of loss codes by crop (RY 2010)",
+      "publisher": "USDA RMA / Federal Crop Insurance Corporation",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "insurance",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://pubfs-rma.fpac.usda.gov/pub/Publications/M13_Handbook/2010/approved/REC21EXH.PDF",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "reinsurance year 2010 edition (earlier editions 1998-2008 on the same server)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "crop name and code (BLUEBERRIES 0012)",
+        "allowed causes for blueberries: adverse weather group, fire 91, earthquake 97, volcanic eruption 98, insufficient chilling hours 45, failure of irrigation supply 13, failure of irrigation equipment 14, wildlife 93, insects 71, plant disease 81",
+        "full code list: drought 11, heat 12, hail 21, excess moisture 31, frost 41, freeze 42, cold winter 43, cold wet weather 44, ICH 45, flood 51, wind 61, hot wind 62, cyclone 63, tornado 64, hurricane 92"
+      ],
+      "app_uses": [
+        "map RMA cause codes to model risk families before any scoring",
+        "confirm that chill shortfall is an insurable, codable blueberry peril (code 45)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "disease",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded the 290 KB PDF to /tmp and read it with pdftotext. 'BLUEBERRIES (0012) *** ADVERSE WEATHER ... INSUFF. CHILLING HOURS (45) ... PLANT DISEASE (81)' and the full numeric cause list are present."
+      },
+      "quality_caveats": "2010 edition; newer handbooks may add codes (the 2022 file shows code 55 for area plans and XX for all other causes).",
+      "priority": "P1",
+      "priority_reason": "Needed to build the cause-to-family crosswalk; tiny effort.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "us-rma-stage-codes",
+      "name": "RMA Stage Code Listing 1989 forward",
+      "publisher": "USDA Risk Management Agency (RMA)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/Stage_Code_Listing.pdf",
+      "data_urls": [
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/Stage_Code_Listing.xlsx"
+      ],
+      "format": [
+        "pdf",
+        "xlsx"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1989-2026 (last updated 24 Feb 2026)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "stage code",
+        "description",
+        "years in use"
+      ],
+      "app_uses": [
+        "decode H, UH and FL stage codes seen in blueberry rows; they are claim stages, not crop phenology stages"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF opened; codes H Harvested, UH Unharvested, FL Final Loss Payment, P Uninsured Loss listed."
+      },
+      "quality_caveats": "Stage codes describe the claim and harvest status, not bloom or fruit stage. Do not use them as phenology.",
+      "priority": "P2",
+      "priority_reason": "Prevents a likely misreading of the stage field.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "us-agrisk-viewer",
+      "name": "AgRisk Viewer",
+      "publisher": "USDA-ARS Jornada / New Mexico State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "insurance"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://agrisk.jornada.nmsu.edu/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "follows RMA cause-of-loss years",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity",
+        "cause of loss",
+        "county",
+        "reporting metric",
+        "time period"
+      ],
+      "app_uses": [
+        "quick visual check of blueberry freeze indemnity hot spots before building the ingest"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page text: explore, visualize and download subsets of public RMA crop insurance data by commodity, cause, metric and period. Map is JavaScript; download not tested."
+      },
+      "quality_caveats": "Derived from RMA; use RMA files as the primary source.",
+      "priority": "P3",
+      "priority_reason": "Convenient viewer; adds no new data.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "us-noaa-storm-events",
+      "name": "NOAA NCEI Storm Events Database (bulk CSV)",
+      "publisher": "NOAA National Centers for Environmental Information",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ncei.noaa.gov/access/storm-events-database/",
+      "data_urls": [
+        "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+        "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv-Format.pdf"
+      ],
+      "format": [
+        "csv",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1950-present (all event types from 1996)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "BEGIN_DATE_TIME and CZ_TIMEZONE",
+        "EVENT_TYPE (Frost/Freeze, Hail, Heavy Rain, Excessive Heat, Drought)",
+        "CZ_TYPE (C county or Z forecast zone)",
+        "CZ_FIPS and CZ_NAME",
+        "STATE",
+        "DAMAGE_CROPS",
+        "MAGNITUDE (hail size)",
+        "BEGIN_LAT/LON (point events)",
+        "EVENT_NARRATIVE",
+        "EPISODE_NARRATIVE"
+      ],
+      "app_uses": [
+        "dated hail reports for fruit-stage hail exposure in blueberry counties",
+        "local-time frost/freeze episodes as a second, independent date source"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded StormEvents_details 2022 (11.8 MB gz) to /tmp. 69,887 rows, 51 columns. 423 Frost/Freeze rows, all zone-based (CZ_TYPE Z). Zero Frost/Freeze or cold rows for Georgia or North Carolina in March 2022, the month RMA paid USD 35.5 million in blueberry freeze claims there. No Frost/Freeze row had a nonzero DAMAGE_CROPS value."
+      },
+      "quality_caveats": "Frost/Freeze entries depend on local NWS office practice and mostly appear as zone records; recall for the 2022 Southeast blueberry freeze was zero. DAMAGE_CROPS is sparse and estimated. Hail is better covered.",
+      "priority": "P2",
+      "priority_reason": "Useful for hail and as a dated context layer, but it missed the largest blueberry freeze of 2022.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "us-spc-severe-reports",
+      "name": "SPC Severe Weather Database files (hail, wind, tornado)",
+      "publisher": "NOAA Storm Prediction Center",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.spc.noaa.gov/wcm/",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "tornado 1950-2025; hail and wind 1955-2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "date and time",
+        "latitude and longitude",
+        "hail size",
+        "state",
+        "county FIPS"
+      ],
+      "app_uses": [
+        "point hail reports to test fruit-stage hail exposure near blueberry counties, which the model does not yet compute"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page states csv files from the SPC severe weather database back to 1950 and hail and wind reports 1955-2025."
+      },
+      "quality_caveats": "Report density follows population and spotters. No crop damage field.",
+      "priority": "P3",
+      "priority_reason": "Only useful once a hail family exists.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "us-fsa-secretarial-designations",
+      "name": "USDA FSA Disaster Designation Information (Secretarial and Presidential designation files)",
+      "publisher": "USDA Farm Service Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.fsa.usda.gov/resources/disaster-assistance-program/disaster-designation-information",
+      "data_urls": [
+        "https://www.fsa.usda.gov/sites/default/files/documents/METADATA_CY2022_SEC_YTD.xlsx"
+      ],
+      "format": [
+        "xlsx",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "county lists 2012-2026; metadata xlsx 2014-2026",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "county FIPS",
+        "county",
+        "state",
+        "designation code (1 or 2)",
+        "designation number",
+        "peril flags (Frost, FREEZE; Insufficient Chill Hours; Heat; Excessive rain; Hail; Drought; Cold, wet weather; Disease; Insects)",
+        "approval date",
+        "begin date",
+        "end date",
+        "description of disaster",
+        "calendar disaster year"
+      ],
+      "app_uses": [
+        "day-precision freeze dates by county to align RMA month-of-loss with modelled stage windows",
+        "independent check of chill_shortfall via the Insufficient Chill Hours flag"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Downloaded METADATA_CY2022_SEC_YTD.xlsx (633 KB) to /tmp. 4,954 rows, 34 columns. Bacon County GA (13005) has freeze designations S5261 (29 to 30 Jan 2022), S5262 (13 to 14 Mar), S5263 (13 Mar) and S5265 (12 Mar), all approved 15 Aug 2022. Zero 2022 rows had the Insufficient Chill Hours flag. Page link labelled 2021 points to the CY2020 file."
+      },
+      "quality_caveats": "Designations reflect requests and production-loss thresholds for all crops, not blueberries alone. Code 2 appears to mark contiguous counties [inference]. Dates are Excel serial numbers. Approval lags the event by months.",
+      "priority": "P1",
+      "priority_reason": "Adds day-level event dates to RMA's month-level losses, open and county-coded.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "us-nass-noncitrus-fruits",
+      "name": "NASS Noncitrus Fruits and Nuts annual summary (blueberry tables)",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "CA",
+        "FL",
+        "GA",
+        "MI",
+        "NJ",
+        "NC",
+        "OR",
+        "WA",
+        "ME (wild)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://esmis.nal.usda.gov/publication/noncitrus-fruits-and-nuts",
+      "data_urls": [
+        "https://esmis.nal.usda.gov/sites/default/release-files/795891/ncit0526.txt"
+      ],
+      "format": [
+        "pdf",
+        "txt",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "each release covers 3 years; ESMIS archive holds older releases",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "state",
+        "year",
+        "area harvested (acres)",
+        "yield per acre (lb)",
+        "total production",
+        "utilized production",
+        "price per pound",
+        "value of utilized production",
+        "fresh and processed utilization",
+        "wild blueberry (Maine) rows"
+      ],
+      "app_uses": [
+        "state yield anomaly as a coarse loss signal for freeze winters (for example Florida yield 4,610 lb/acre in 2024 versus 3,650 in 2025)",
+        "denominator for RMA participation share"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "heat",
+        "harvest_rain_quality",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Read ncit0526.txt (May 2026 release). Cultivated blueberry table 2023 to 2025: GA 21,400 / 23,000 / 23,200 acres, yield 4,750 / 6,010 / 5,100 lb/acre; US 102,400 / 104,800 / 104,700 acres."
+      },
+      "quality_caveats": "State totals mix species, protected and unprotected fields. Yield moves with prices, abandonment and new plantings, not weather alone.",
+      "priority": "P2",
+      "priority_reason": "Cheap state-level yield series for a second validation signal.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "us-nass-quickstats-api",
+      "name": "NASS Quick Stats database and API",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://quickstats.nass.usda.gov/",
+      "data_urls": [
+        "https://quickstats.nass.usda.gov/api"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "varies by series",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "Quick Stats API Terms of Service (page section, text not read)",
+      "license_url": "https://quickstats.nass.usda.gov/api",
+      "extractable_fields": [
+        "commodity BLUEBERRIES",
+        "state",
+        "year",
+        "statistic category",
+        "value"
+      ],
+      "app_uses": [
+        "automated pull of the same state yield series back in time"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API page states a free key is required and the maximum is 50,000 records per call. No key requested."
+      },
+      "quality_caveats": "Requires a free API key (registration). Same caveats as the annual summary.",
+      "priority": "P3",
+      "priority_reason": "Automation convenience over the annual text files.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "us-sheldus",
+      "name": "SHELDUS: Spatial Hazard Events and Losses Database for the United States",
+      "publisher": "Arizona State University, Center for Emergency Management and Homeland Security",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://cemhs.asu.edu/sheldus",
+      "data_urls": [],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1960-2024 (Version 24.0, released 16 Feb 2026); insured crop losses from 1989",
+      "update_frequency": "annual",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "county",
+        "date",
+        "hazard type",
+        "property loss",
+        "crop loss",
+        "insured crop losses (indemnity)"
+      ],
+      "app_uses": [
+        "none needed: its insured crop losses repackage RMA data"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Landing page opened; data sit behind a Register/Log in link. Not registered."
+      },
+      "quality_caveats": "Registration required; access terms were not read. Crop losses derive from Storm Events and RMA.",
+      "priority": "P3",
+      "priority_reason": "Duplicates open primary sources.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "us-fsa-elap",
+      "name": "Emergency Assistance for Livestock, Honeybees, and Farm-Raised Fish (ELAP)",
+      "publisher": "USDA Farm Service Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.fsa.usda.gov/resources/disaster-recovery/emergency-assistance-livestock-honeybees-farm-raised-fish",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "program page",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (US federal government work)",
+      "license_url": null,
+      "extractable_fields": [
+        "program rules for honeybee colony losses"
+      ],
+      "app_uses": [
+        "context only for the pollination family; no public county-level honeybee loss table was found"
+      ],
+      "model_families": [
+        "pollination"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Program page opened."
+      },
+      "quality_caveats": "Program page, not a dataset. Colony losses are not pollination failure.",
+      "priority": "P3",
+      "priority_reason": "Documents the absence of pollination loss data.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "emdat",
+      "name": "EM-DAT, The International Disaster Database (public table)",
+      "publisher": "CRED, UCLouvain",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.emdat.be/",
+      "data_urls": [
+        "https://public.emdat.be/",
+        "https://doc.emdat.be/docs/data-structure-and-content/emdat-public-table/"
+      ],
+      "format": [
+        "xlsx"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1900-present (pre-2000 flagged Historic, lower quality)",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "EM-DAT General Terms and Conditions (no commercial use without a separate Database License Agreement)",
+      "license_url": "https://doc.emdat.be/docs/legal/terms-of-use/",
+      "extractable_fields": [
+        "DisNo.",
+        "disaster type and subtype (Cold wave, Severe winter conditions, Heat wave, Hail, Storm, Flood, Drought)",
+        "ISO",
+        "Location text",
+        "GADM Admin Units (gid_1, gid_2)",
+        "start year, month, day",
+        "end year, month, day",
+        "Declaration",
+        "Total Damage ('000 US$)",
+        "Insured Damage ('000 US$)",
+        "Magnitude"
+      ],
+      "app_uses": [
+        "context list of national cold waves, heat waves and floods in blueberry countries",
+        "cross-reference IBO weather events to an external event identifier"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Public table documentation read: columns, GADM admin units, and classification (Hail subtype, Cold wave, Heat wave, Severe winter conditions). Entry criteria: 10 deaths, 100 affected, or a call for assistance or emergency declaration. Data download not attempted (needs registration)."
+      },
+      "quality_caveats": "Entry criteria are human-impact thresholds, so crop-only frosts and hail almost never qualify. Empty impact cells mean unknown, not zero. Damage is national, not crop-specific.",
+      "priority": "P3",
+      "priority_reason": "Global but blind to most crop-only frost and hail events.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "desinventar",
+      "name": "DesInventar Sendai / DesConsultar on-line national disaster loss databases",
+      "publisher": "UNDRR and national agencies",
+      "countries": [
+        "CL",
+        "AR",
+        "PE",
+        "CO",
+        "EC",
+        "MX",
+        "UY",
+        "BO",
+        "GT",
+        "MA",
+        "KE",
+        "IN",
+        "ES",
+        "ZM",
+        "MW",
+        "TZ",
+        "UG"
+      ],
+      "subnational_scope": [
+        "municipality or comuna level, varies by country"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.desinventar.net/DesInventar/",
+      "data_urls": [
+        "https://www.desinventar.net/DesInventar/profiletab.jsp?countrycode=chl&continue=y"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "es",
+        "pt",
+        "fr"
+      ],
+      "temporal_coverage": "by country: Chile 1970-2014, Argentina 1970-2015, Peru 1970-2013, Mexico 1970-2013, Uruguay 1959-2014, Colombia 1914-2018, Ecuador 1970-2023, Morocco 1960-2014, Kenya 1997-2026, India 1970-2014, Spain to 2010",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "software under an 'Apache-2-like' licence; data terms not found",
+      "license_url": "https://www.desinventar.net/DesInventar/download.jsp",
+      "extractable_fields": [
+        "event type (FROST, HAILSTORM, HEATWAVE, DROUGHT, RAIN, FLOOD)",
+        "date",
+        "admin level 1 and 2 (province, comuna or municipality)",
+        "Damages in crops Ha.",
+        "Losses $USD",
+        "Losses $Local",
+        "Lost Cattle",
+        "source"
+      ],
+      "app_uses": [
+        "dated frost and hailstorm records by comuna in Chile, Argentina and Peru to test flowering_freeze and fruit_frost recurrence before 2015",
+        "base rate of reported frost events per comuna-decade"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Main menu lists 87 country databases with periods. Chile profile shows event types including FROST (168 records) and HAILSTORM (14) and an effects column 'Damages in crops Ha.'. Peru and Argentina profiles also list FROST, HAILSTORM and HEATWAVE."
+      },
+      "quality_caveats": "Most Latin American series stop between 2013 and 2015, before the blueberry boom years. Records come from newspapers and civil protection; crop type is usually not recorded. No South Africa, Brazil or China database in the list.",
+      "priority": "P2",
+      "priority_reason": "Only multi-country municipal frost and hail archive, but it ends before most blueberry plantings matured.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "gdacs",
+      "name": "GDACS Global Disaster Alert and Coordination System",
+      "publisher": "European Commission JRC and UN OCHA",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gdacs.org/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "alerts, recent years",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "event type (earthquake, tropical cyclone, flood, volcano, drought, wildfire)",
+        "alert level",
+        "dates",
+        "country"
+      ],
+      "app_uses": [
+        "tropical cyclone and flood context for Peru, Mexico, Australia (Alfred 2025) and the US Southeast"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage lists current alerts (floods, cyclones, droughts). No frost, hail or heat event type seen."
+      },
+      "quality_caveats": "No frost, hail or heat events. Alert-oriented, not loss-oriented.",
+      "priority": "P3",
+      "priority_reason": "Only covers cyclones and floods.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "copernicus-ems-mapping",
+      "name": "Copernicus Emergency Management Service On Demand Mapping activations",
+      "publisher": "European Commission, Copernicus EMS",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "remote_sensing",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://mapping.emergency.copernicus.eu/activations/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "shapefile"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2012-present",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Copernicus EMS Terms and Conditions (page link seen, text not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "activation code (EMSR)",
+        "event type",
+        "date",
+        "area of interest polygons",
+        "flood or fire extent"
+      ],
+      "app_uses": [
+        "flood extent for harvest-rain events such as Huelva 2025 or Western Cape 2023 if an activation exists"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Activations page opened but the list is rendered by JavaScript; no activation was inspected."
+      },
+      "quality_caveats": "Floods and fires only; activation on request. No frost.",
+      "priority": "P3",
+      "priority_reason": "Rarely overlaps blueberry farms.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "reliefweb",
+      "name": "ReliefWeb disasters, reports and API",
+      "publisher": "UN OCHA",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://reliefweb.int/",
+      "data_urls": [
+        "https://apidoc.reliefweb.int/",
+        "https://reliefweb.int/disaster/fl-2023-000200-zaf"
+      ],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "en",
+        "es",
+        "fr"
+      ],
+      "temporal_coverage": "1996-present",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "ReliefWeb Terms and Conditions; third-party report rights stay with the source",
+      "license_url": "https://reliefweb.int/terms-conditions",
+      "extractable_fields": [
+        "disaster name and GLIDE number",
+        "country",
+        "dates",
+        "report text"
+      ],
+      "app_uses": [
+        "narrative context for floods and cyclones near production areas (for example South Africa floods September 2023)"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API documentation states every call needs an appname and, from 1 November 2025, a pre-approved appname. Disaster page for South Africa floods September 2023 opened."
+      },
+      "quality_caveats": "Humanitarian focus; crop-specific frost reports are rare. API now needs an approved appname.",
+      "priority": "P3",
+      "priority_reason": "Context only.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "jrc-mars-bulletin",
+      "name": "JRC MARS Bulletin, Crop monitoring in Europe (monthly) and Agri4Cast bulletin archive",
+      "publisher": "European Commission Joint Research Centre",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [
+        "EU member states and neighbours"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://joint-research-centre.ec.europa.eu/monitoring-agricultural-resources-mars/jrc-mars-bulletin_en",
+      "data_urls": [
+        "https://agri4cast.jrc.ec.europa.eu/BulletinsArchive"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "bulletins since 2007",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin month",
+        "country or region",
+        "weather event text (cold spell, frost, heat, rain)",
+        "event dates as written",
+        "maps of temperature anomalies"
+      ],
+      "app_uses": [
+        "dated regional frost and heat narratives for Poland, Germany, Spain, Portugal and Romania to test bud_freeze and fruit_frost timing in northern highbush areas"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page opened: published monthly, archive since 2007 via Agri4Cast. Recent titles include 'Heatwaves impact summer and winter crops' (27 July 2026). Archive page is JavaScript; JRC publications repository returned 'Request Rejected' to the fetcher. Search snippet for May 2024 says 'A late-April cold spell impacted fruits and vineyards' (seen only in search)."
+      },
+      "quality_caveats": "Arable-crop focus; fruit mentioned only for big events. Regional, not farm, detail.",
+      "priority": "P2",
+      "priority_reason": "Best open, monthly, citation-ready European weather-impact narrative.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "edo-gdo-edid",
+      "name": "European and Global Drought Observatories (EDO, GDO) and European Drought Impact Database (EDID)",
+      "publisher": "Copernicus Emergency Management Service / JRC",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "grid (size not checked)",
+      "categories": [
+        "gridded_weather",
+        "loss_or_damage",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://drought.emergency.copernicus.eu/",
+      "data_urls": [
+        "https://drought.emergency.copernicus.eu/tumbo/edo/download/",
+        "https://drought.emergency.copernicus.eu/tumbo/edid"
+      ],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "indicator archives vary; EDID coverage not read",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Copernicus Service Information under Regulation (EU) 2021/696: 'free, full and open access'",
+      "license_url": "https://drought.emergency.copernicus.eu/terms&conditions",
+      "extractable_fields": [
+        "Combined Drought Indicator class",
+        "soil moisture anomaly",
+        "EDID impact records (sector, region, date)"
+      ],
+      "app_uses": [
+        "drought context for Huelva, Morocco and Agadir water-restriction years; not part of current risk families"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Portal, download page and EDID page opened; terms page quotes free, full and open access under Regulation (EU) 2021/696. EDID records not inspected (JavaScript)."
+      },
+      "quality_caveats": "Drought is outside the current eight risk families.",
+      "priority": "P3",
+      "priority_reason": "Supports a future water family only.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "eswd",
+      "name": "European Severe Weather Database (ESWD)",
+      "publisher": "European Severe Storms Laboratory (ESSL)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [
+        "Europe"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.essl.org/cms/european-severe-weather-database/",
+      "data_urls": [
+        "https://eswd.eu/"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "terms not read; 'many tens of thousands of reports'",
+      "update_frequency": "daily",
+      "access": "on-request",
+      "license_or_terms": "ESWD User's Agreement; 'commercial use is not allowed'",
+      "license_url": "https://www.essl.org/cms/european-severe-weather-database/",
+      "extractable_fields": [
+        "event type (large hail, heavy rain, severe wind, tornado) [inference]",
+        "date and time",
+        "coordinates",
+        "hail diameter",
+        "quality level"
+      ],
+      "app_uses": [
+        "point hail events near Polish, German and Spanish blueberry areas for a future hail family"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "ESSL page opened: bulk data need a signed User's Agreement and application form; commercial use not allowed. eswd.eu map is JavaScript."
+      },
+      "quality_caveats": "Volunteer reports, uneven by country. Frost is not a reported phenomenon [inference].",
+      "priority": "P3",
+      "priority_reason": "Hail only and gated by an agreement.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "br-s2id",
+      "name": "S2iD Sistema Integrado de Informações sobre Desastres",
+      "publisher": "Ministério da Integração e do Desenvolvimento Regional (MIDR), Brazil",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://s2id.mdr.gov.br/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "municipality (IBGE code)",
+        "COBRADE disaster code (geada, granizo)",
+        "date",
+        "recognition decree",
+        "agricultural losses"
+      ],
+      "app_uses": [
+        "dated municipal frost (geada) and hail (granizo) emergency recognitions in Rio Grande do Sul, Santa Catarina, Paraná and Minas Gerais"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Two attempts with 25 s and 60 s timeouts returned no response."
+      },
+      "quality_caveats": "Unreachable during this check; use the Atlas Digital downloads instead.",
+      "priority": "P2",
+      "priority_reason": "Primary source for Brazilian municipal frost decrees, but not reachable today.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "br-atlas-digital-desastres",
+      "name": "Atlas Digital de Desastres no Brasil",
+      "publisher": "MIDR / Sedec, Brazil",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://atlasdigital.mdr.gov.br/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "municipality",
+        "disaster type",
+        "date",
+        "losses by category"
+      ],
+      "app_uses": [
+        "municipal frost and hail event list for Santa Catarina and Rio Grande do Sul blueberry municipalities (Papanduva area, Vacaria, Pelotas)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage: official Sedec/MIDR data at municipal level, searchable by state, disaster type and impact category; has Mapa interativo, Dashboard and Downloads sections. Downloads not opened."
+      },
+      "quality_caveats": "Records are human-impact disasters; crop-only frosts may be missing. Crop not recorded.",
+      "priority": "P2",
+      "priority_reason": "Open municipal event list for the only Brazilian regions with guidance in the app.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "br-sisser-psr",
+      "name": "SISSER: Sistema de Subvenção Econômica ao Prêmio do Seguro Rural (PSR policy and claim microdata)",
+      "publisher": "Ministério da Agricultura e Pecuária (MAPA), Brazil",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://dados.agricultura.gov.br/dataset/sisser3",
+      "data_urls": [
+        "https://dados.agricultura.gov.br/dataset/baefdc68-9bad-4204-83e8-f2888b79ab48/resource/2c5c55d0-1473-4749-b08f-cfaf887a9fa3/download/dicionariodedados-sisser.pdf",
+        "https://dados.agricultura.gov.br/dataset/baefdc68-9bad-4204-83e8-f2888b79ab48/resource/ac7e4351-974f-4958-9294-627c5cbf289a/download/dados_abertos_psr_2025csv.csv"
+      ],
+      "format": [
+        "csv",
+        "xlsx",
+        "pdf"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "2006-2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution (CKAN licence_title)",
+      "license_url": null,
+      "extractable_fields": [
+        "NM_CULTURA_GLOBAL (crop)",
+        "NM_MUNICIPIO_PROPRIEDADE",
+        "SG_UF_PROPRIEDADE",
+        "CD_GEOCMU",
+        "NR_DECIMAL_LATITUDE",
+        "NR_DECIMAL_LONGITUDE",
+        "DT_INICIO_VIGENCIA",
+        "DT_FIM_VIGENCIA",
+        "NR_AREA_TOTAL",
+        "NR_PRODUTIVIDADE_SEGURADA",
+        "VL_LIMITE_GARANTIA",
+        "VALOR_INDENIZAÇÃO",
+        "EVENTO_PREPONDERANTE (cause)"
+      ],
+      "app_uses": [
+        "farm-coordinate claims for frost (geada) and hail (granizo) in temperate fruit (apple, grape, peach, and mirtilo if present) to test freeze detection in southern Brazil grid cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CKAN metadata read: licence Creative Commons Attribution, resources 2006-2015, 2016-2024 and 2025. Data dictionary PDF read (columns listed). Partial 13.9 MB sample of the 2025 CSV (to /tmp): 46,137 rows, 38 columns including decimal latitude and longitude; top crops Milho 2a safra, Trigo, Uva, Cafe, Maca; EVENTO_PREPONDERANTE was '-' in all sampled 2025 rows; no 'mirtilo' row in the sample."
+      },
+      "quality_caveats": "Contains insured names and CPF/CNPJ numbers: drop before storage. Blueberry may be absent or very rare. Claims for the latest year are not yet settled. Only subsidised policies.",
+      "priority": "P2",
+      "priority_reason": "Rare farm-coordinate claims with cause, but blueberry presence is unconfirmed.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "br-proagro-bcb",
+      "name": "PROAGRO loss reporting (Boletim Derop do Crédito Rural e do Proagro; SICOR)",
+      "publisher": "Banco Central do Brasil",
+      "countries": [
+        "BR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.bcb.gov.br/estabilidadefinanceira/proagro",
+      "data_urls": [
+        "https://www.bcb.gov.br/content/publicacoes/boletimderop/Boletim%20Derop%20Dezembro-2022.pdf",
+        "https://dadosabertos.bcb.gov.br/dataset/matrizdadoscreditorural"
+      ],
+      "format": [
+        "pdf",
+        "api-json"
+      ],
+      "language": [
+        "pt"
+      ],
+      "temporal_coverage": "bulletins from at least 2020; MDCR 2013-present [inference]",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "MDCR: Open Data Commons Open Database License (ODbL)",
+      "license_url": "https://dadosabertos.bcb.gov.br/dataset/matrizdadoscreditorural",
+      "extractable_fields": [
+        "share of loss communications by event (search snippet: geada 4.4%, granizo 4.1%)",
+        "state",
+        "crop"
+      ],
+      "app_uses": [
+        "national context on frost and hail share of PROAGRO claims; not crop-specific enough for blueberry"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Boletim Derop December 2022 PDF fetched (800 KB) but not read; the 4.4% and 4.1% figures were seen only in a search snippet. BCB Proagro page is JavaScript. MDCR CKAN metadata read: 21 resources, all contract aggregates, none on losses."
+      },
+      "quality_caveats": "Loss microdata are not in the open MDCR; bulletins are national aggregates.",
+      "priority": "P3",
+      "priority_reason": "No blueberry or municipal loss detail in open form.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "cl-minagri-emergencia-agricola",
+      "name": "Chile agricultural emergency resolutions (Resoluciones exentas de emergencia agrícola, Ley Chile)",
+      "publisher": "Ministerio de Agricultura de Chile, published by Biblioteca del Congreso Nacional",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "comunas and regiones named in each resolution"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.bcn.cl/leychile/navegar?idNorma=1171039",
+      "data_urls": [
+        "https://minagri.gob.cl/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "resolutions searchable over many years; one 2022 example read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "resolution number and date",
+        "peril (heladas, déficit hídrico, nevadas)",
+        "regiones and comunas",
+        "start date of emergency"
+      ],
+      "app_uses": [
+        "dated comuna-level frost emergencies in Maule, Ñuble and Biobío to test bud_freeze and fruit_frost in the Linares to Chillán belt"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "water_drought"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Ley Chile page for Resolución 595 exenta (7 Jan 2022) opened: defines agricultural emergency for drought in listed regions from 1 Jan 2022. A July 2022 frost and snow emergency for ten regions (Atacama to Los Ríos) is reported by emol.com (opened)."
+      },
+      "quality_caveats": "Emergencies are declared for all agriculture and often for drought; frost declarations are winter events, not always the spring blueberry frosts.",
+      "priority": "P2",
+      "priority_reason": "Official dated comuna lists for the main Chilean blueberry belt.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "cl-odepa-heladas-2013",
+      "name": "Efecto heladas de septiembre en frutales y hortalizas entre la Región de Coquimbo y la del Maule (2013)",
+      "publisher": "ODEPA, Ministerio de Agricultura de Chile (with CIREN data)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Atacama",
+        "Coquimbo",
+        "Valparaíso",
+        "Metropolitana",
+        "O'Higgins",
+        "Maule"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.odepa.gob.cl/wp-content/uploads/2013/12/estudioDanioHeladas.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "September 2013 frost event",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "species",
+        "estimated damage share (Arándano 10%)",
+        "damage tonnes and USD thousands by region (Arándano Maule 3,716 t, total 4,761 t, USD 11.9 million)"
+      ],
+      "app_uses": [
+        "one well-documented blueberry frost case with regional tonnage to test bud_freeze in Maule and O'Higgins cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "41-page PDF read with pdftotext. Cuadro 6 gives Arándano 10% damage; Cuadro 7 gives blueberry damage by region in tonnes and US$ thousands."
+      },
+      "quality_caveats": "Ministry estimate made soon after the event; one season only.",
+      "priority": "P2",
+      "priority_reason": "Rare quantified blueberry frost case with regional detail.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "cl-news-nuble-frost-2022",
+      "name": "PortalFruticola: Chile, how blueberries in Ñuble were affected by frosts (9 Nov 2022)",
+      "publisher": "PortalFruticola.com",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "Ñuble"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.portalfruticola.com/noticias/2022/11/09/chilecomo-se-han-afectado-los-arandanos-de-nuble-por-las-heladas/",
+      "data_urls": [
+        "https://mundoagro.io/cl/minimos-efectos-de-las-heladas-lluvia-y-granizo-de-noviembre-sobre-arandanos-chilenos/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "31 Oct to 1 Nov 2022 event",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "frost dates (31 October and 1 November 2022)",
+        "stage affected (mostly orchards at fruit set)",
+        "damage range (none to over 80% by orchard)",
+        "comunas named"
+      ],
+      "app_uses": [
+        "correct the date window for the IBO Chile November 2022 case: the frost began on 31 October, outside the window already checked, and hit fruit set, so it tests fruit_frost not flowering_freeze"
+      ],
+      "model_families": [
+        "fruit_frost",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article text: frost on 31 October and 1 November depending on zone, mostly orchards in fruit set, from no damage to over 80%. Mundoagro article (opened) is a second account; its 1 November, Coihueco and 900 t details were seen in search snippets only."
+      },
+      "quality_caveats": "Trade press quoting advisers; not measured losses.",
+      "priority": "P2",
+      "priority_reason": "Directly explains one of the known model discrepancies.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "cl-agroseguros",
+      "name": "Agroseguros (state-subsidised agricultural insurance) statistics portal",
+      "publisher": "Agroseguros, Ministerio de Agricultura de Chile",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [
+        "regiones",
+        "comunas"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.agroseguros.gob.cl/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "policies contracted by year, month, region, comuna and line",
+        "subsidy amounts"
+      ],
+      "app_uses": [
+        "insurance participation context for Chilean fruit; claims by peril were not found"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage describes a statistics portal on contracting and subsidy by year, month, region and comuna. Portal itself not opened; no claims data seen."
+      },
+      "quality_caveats": "Contracting, not losses.",
+      "priority": "P3",
+      "priority_reason": "No claim data found.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ar-emergencia-agropecuaria",
+      "name": "Emergencia y Desastre Agropecuario: resoluciones por provincia (Ley 26.509)",
+      "publisher": "Secretaría de Agricultura, Ganadería y Pesca, Argentina",
+      "countries": [
+        "AR"
+      ],
+      "subnational_scope": [
+        "provincias; departamentos named in resolutions"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.argentina.gob.ar/agricultura/emergencia-agropecuaria",
+      "data_urls": [
+        "https://www.magyp.gob.ar/sitio/areas/d_eda/resoluciones/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "resolutions online from 2021; older by email request",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "province",
+        "resolution number and date",
+        "departments",
+        "peril (helada, granizo, sequía, inundación)",
+        "emergency period"
+      ],
+      "app_uses": [
+        "dated frost and hail emergencies in Tucumán, Entre Ríos and Buenos Aires blueberry departments"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "water_drought"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Resolutions page lists provinces from Buenos Aires to Tucumán and states that resolutions before 2021 can be requested by email."
+      },
+      "quality_caveats": "All agriculture; blueberry not named. Declarations follow provincial requests.",
+      "priority": "P3",
+      "priority_reason": "Coarse and short archive online.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mx-declaratorias-sspc",
+      "name": "Gestión de Riesgos: Declaratorias de Emergencia y de Desastre",
+      "publisher": "Secretaría de Seguridad y Protección Ciudadana (SSPC), Mexico, on datos.gob.mx",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.datos.gob.mx/dataset/gestion_riesgos",
+      "data_urls": [
+        "https://historico.datos.gob.mx/busca/organization/1031d7bb-8147-4cd6-944e-6e721ec01fd4"
+      ],
+      "format": [
+        "csv"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "emergencias 2018-2025, desastres 2019-2025; historical CENAPRED file 2000-2016 by municipality",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution 4.0",
+      "license_url": "https://www.datos.gob.mx/dataset/gestion_riesgos",
+      "extractable_fields": [
+        "state",
+        "municipality",
+        "declaration type",
+        "phenomenon",
+        "dates"
+      ],
+      "app_uses": [
+        "dated frost (helada) and storm declarations for Jalisco and Michoacán highland municipalities"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Dataset page lists CSVs 'Declaratorias de Desastre (2019 a 2025)' and 'Declaratorias de Emergencia (2018 a 2025)' under CC BY 4.0. The 2000-2016 CENAPRED file on historico.datos.gob.mx returned Access Denied (403)."
+      },
+      "quality_caveats": "Civil-protection declarations; the agricultural 'contingencia climatológica' series from SADER is only in the older file.",
+      "priority": "P3",
+      "priority_reason": "Blueberry areas are mostly protected or tunnel-grown, so declarations add little.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "pe-sac-midagri",
+      "name": "Seguro Agrícola Catastrófico (SAC) campaign page and open dataset MIDAGRI-17 (campañas 2009-2010 a 2025-2026)",
+      "publisher": "Ministerio de Desarrollo Agrario y Riego (MIDAGRI), Peru",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [
+        "departamentos"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gob.pe/institucion/midagri/campa%C3%B1as/19256-seguro-agricola-catastrofico-sac",
+      "data_urls": [
+        "https://www.datosabiertos.gob.pe/search/type/dataset?query=SAC"
+      ],
+      "format": [
+        "csv",
+        "xlsx",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2009-10 to 2025-26 campaigns",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "campaign",
+        "department",
+        "insurer",
+        "claims (siniestralidad)",
+        "indemnities",
+        "premium"
+      ],
+      "app_uses": [
+        "El Niño 2023 heat and rain context for coastal Peru; small-farm crops, not export blueberries"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Campaign page lists covered perils (lluvia excesiva, sequía, granizo, helada, inundación, plagas) and S/1000 per hectare payout. datosabiertos.gob.pe search shows dataset 'MIDAGRI-17: Seguro Agrícola Catastrófico (SAC), campañas 2009-2010 a 2025-2026' in csv, xlsx and pdf; files not opened."
+      },
+      "quality_caveats": "Covers poor smallholders, not the export blueberry sector on the coast.",
+      "priority": "P3",
+      "priority_reason": "Wrong farm population for blueberries.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "pe-indeci-sinpad",
+      "name": "INDECI and SINPAD emergency registry",
+      "publisher": "Instituto Nacional de Defensa Civil (INDECI), Peru",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gob.pe/indeci",
+      "data_urls": [
+        "https://sinpad.indeci.gob.pe/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "district",
+        "emergency type",
+        "date",
+        "affected crops (ha)"
+      ],
+      "app_uses": [
+        "district-level heavy-rain and huaico emergencies in La Libertad, Lambayeque and Piura during El Niño years"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "INDECI page opened. sinpad.indeci.gob.pe returned HTTP 404 with a 'Portal Sinpad' page; registry not reached."
+      },
+      "quality_caveats": "Registry not reached; structure unverified.",
+      "priority": "P3",
+      "priority_reason": "Unreachable and not crop-specific.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "es-agroseguro",
+      "name": "Agroseguro: Línea 328 Fresón y otros frutos rojos; informes de siniestralidad",
+      "publisher": "Agroseguro (Agrupación Española de Entidades Aseguradoras de los Seguros Agrarios Combinados)",
+      "countries": [
+        "ES"
+      ],
+      "subnational_scope": [
+        "Huelva",
+        "Andalucía"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://agroseguro.es/",
+      "data_urls": [
+        "https://agroseguro.es/seguros/seguros-agricolas/328-freson-y-otros-frutos-rojos/",
+        "https://agroseguro.es/sala-de-prensa/informe-de-siniestralidad/eventos-mas-significativos-por-cultivos/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "annual claims reports (2023 report seen in search)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "line 328 insured perils (pedrisco, helada, lluvia, viento)",
+        "claims by event and crop group",
+        "affected hectares",
+        "indemnities EUR"
+      ],
+      "app_uses": [
+        "tunnel damage from wind and rain in Huelva (2025, 2026) to test harvest_rain_quality where tunnels are not modelled"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "bud_flower_freeze",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "All agroseguro.es URLs returned HTTP 403 to the fetcher. Line 328 conditions and the 2023 siniestralidad report were seen only in search results."
+      },
+      "quality_caveats": "Bot-blocked; blueberries are pooled with strawberry and other berries.",
+      "priority": "P2",
+      "priority_reason": "Main insurer for Huelva berries, but blocked and aggregated.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "es-enesa",
+      "name": "ENESA Entidad Estatal de Seguros Agrarios",
+      "publisher": "Ministerio de Agricultura, Pesca y Alimentación, Spain",
+      "countries": [
+        "ES"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "insurance",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.mapa.gob.es/es/enesa/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "annual insurance plans",
+        "subsidy rules",
+        "line statistics"
+      ],
+      "app_uses": [
+        "policy context for Spanish berry insurance"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ENESA homepage opened."
+      },
+      "quality_caveats": "Policy body; claims data sit with Agroseguro.",
+      "priority": "P3",
+      "priority_reason": "Context only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "pl-arimr-frost-aid-2024",
+      "name": "ARiMR support for fruit growers hit by spring frost or hail (2024 programme)",
+      "publisher": "Agencja Restrukturyzacji i Modernizacji Rolnictwa (ARiMR), Poland",
+      "countries": [
+        "PL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "disaster_declaration",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gov.pl/web/arimr/wsparcie-dla-poszkodowanych-przez-przymrozki-lub-grad-rolnikow-ktorzy-uprawiaja-owoce--trwa-nabor",
+      "data_urls": [
+        "https://www.gov.pl/web/arimr/wsparcie-dla-uprawiajacych-owoce-rolnikow-ktorzy-poniesli-straty-spowodowane-przez-przymrozki-lub-grad"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "pl"
+      ],
+      "temporal_coverage": "2024 programme",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "eligible crops (borówki listed)",
+        "frost window (15 to 30 April 2024)",
+        "hail window (1 to 31 May 2024)",
+        "loss bands (40%, 55%, 70%)",
+        "application deadline"
+      ],
+      "app_uses": [
+        "official frost dates for Poland 2024 to test bud_freeze and flowering_freeze against the IBO report, which places the damaging frost in May"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ARiMR page dated 4 Oct 2024: support covers 'przymrozków wiosennych, które miały miejsce od 15 do 30 kwietnia 2024 r.' and hail from 1 to 31 May 2024; borówki are listed. Loss bands and per-hectare rates were seen only in search snippets."
+      },
+      "quality_caveats": "Official windows define eligibility, not the exact frost night. No public payment table by gmina was found.",
+      "priority": "P1",
+      "priority_reason": "Official dated frost window that conflicts with an IBO record and is cheap to use.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "pl-iung-drought-monitoring",
+      "name": "SMSR System Monitoringu Suszy Rolniczej (agricultural drought monitoring)",
+      "publisher": "IUNG-PIB Puławy, Poland",
+      "countries": [
+        "PL"
+      ],
+      "subnational_scope": [
+        "gminy"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "gridded_weather"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://susza.iung.pulawy.pl/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "pl"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "gmina",
+        "crop group",
+        "climatic water balance",
+        "drought flag by period"
+      ],
+      "app_uses": [
+        "drought flags by gmina for berry crops; supports a future water family"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage of SMSR opened."
+      },
+      "quality_caveats": "Drought only; frost is handled through wojewoda commissions.",
+      "priority": "P3",
+      "priority_reason": "Outside current risk families.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ca-agroclimate-impact-reporter",
+      "name": "Agroclimate Impact Reporter (AIR)",
+      "publisher": "Agriculture and Agri-Food Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agriculture.canada.ca/en/agricultural-production/weather/agroclimate-impact-reporter",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "volunteer-reported impacts by location and month",
+        "impact maps on the Drought Watch website"
+      ],
+      "app_uses": [
+        "frost and excess-moisture impact reports near Fraser Valley and Lac-Saint-Jean in season"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page describes an online survey of weather and climate impacts on farms, results published as maps on Drought Watch."
+      },
+      "quality_caveats": "Volunteer survey; map products, not tables. Crop rarely specified.",
+      "priority": "P3",
+      "priority_reason": "Low resolution for blueberries.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "ca-bc-production-insurance-berries",
+      "name": "BC Berry Production Insurance (blueberry yield loss and plant loss)",
+      "publisher": "Province of British Columbia, Ministry of Agriculture and Food",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "BC"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/programs/agriculture-insurance-and-income-protection-programs/redirect-production-insurance/berries",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current programme",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "insured perils (hail, spring frost, drought, excessive moisture, wind, extreme heat, freeze, snow)",
+        "plant loss perils",
+        "deadlines"
+      ],
+      "app_uses": [
+        "peril list for Fraser Valley validation; claim statistics were not found"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page lists yield-loss perils for all berries and blueberry plant-loss perils; deadline 31 October for blueberry crops."
+      },
+      "quality_caveats": "No public claim data found.",
+      "priority": "P3",
+      "priority_reason": "Programme description only.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "ca-fadq-assurance-recolte",
+      "name": "Assurance récolte: description and avis de dommages et indemnités statistics",
+      "publisher": "La Financière agricole du Québec (FADQ)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "QC administrative regions"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.fadq.qc.ca/assurance-recolte/description",
+      "data_urls": [
+        "https://www.fadq.qc.ca/statistiques/assurance-recolte/assurance-recolte-avis-de-dommages-et-indemnites"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "in-season bilans 2025-2026 seen",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "insured product (Bleuets nains semi-cultivés listed)",
+        "number of damage notices",
+        "main causes (gel, grêle, excès de pluie, sécheresse)",
+        "indemnities to date CAD",
+        "main regions indemnified"
+      ],
+      "app_uses": [
+        "frost and drought damage notices for lowbush blueberry in Saguenay-Lac-Saint-Jean, a cool-climate gap site"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Description page lists 'Bleuets nains semi-cultivés' as insurable and gel and grêle among risks. Statistics page shows bilans from 5 Aug 2025 to 29 Sep 2026 with notices, causes, indemnities and regions per product; no blueberry row appeared in any bilan on the page today."
+      },
+      "quality_caveats": "Bilans list only products with notices that year; history depth not checked.",
+      "priority": "P2",
+      "priority_reason": "Only open, cause-coded lowbush insurance signal found.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ca-canadian-disaster-database",
+      "name": "Canadian Disaster Database (CDD)",
+      "publisher": "Public Safety Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.publicsafety.gc.ca/cnt/rsrcs/cndn-dsstr-dtbs/index-en.aspx",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Open Government Portal download (licence not read)",
+      "license_url": null,
+      "extractable_fields": [
+        "event type",
+        "dates",
+        "location",
+        "estimated cost"
+      ],
+      "app_uses": [
+        "context for major floods and storms in BC and Quebec"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page states the CDD can be downloaded through Open Government as a spreadsheet with geospatial information."
+      },
+      "quality_caveats": "Major disasters only.",
+      "priority": "P3",
+      "priority_reason": "Coarse.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "za-ndmc-classifications",
+      "name": "NDMC national disaster classifications (example: Western Cape September 2023 floods)",
+      "publisher": "National Disaster Management Centre / South African Government",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape",
+        "Eastern Cape"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.gov.za/speeches/national-disaster-classification-7-nov-2023-0000",
+      "data_urls": [
+        "https://www.ndmc.gov.za/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "event-by-event",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "classification date",
+        "provinces",
+        "hazard",
+        "gazette reference"
+      ],
+      "app_uses": [
+        "dated flood events for Western Cape blueberry farms (IBO reports floods in 2023 and 2024)"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "gov.za statement dated 7 Nov 2023: NDMC circular declared the September floods a National Disaster for Western Cape and Eastern Cape. NDMC homepage opened but showed no classification list."
+      },
+      "quality_caveats": "No structured list found; gazette notices must be gathered one by one.",
+      "priority": "P3",
+      "priority_reason": "Few events, manual only.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "za-wc-agriculture-damage",
+      "name": "Western Cape Department of Agriculture damage assessments",
+      "publisher": "Western Cape Government",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [
+        "Western Cape"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.westerncape.gov.za/agriculture/article/damage-western-cape-agriculture-infrastructure-estimated-r1053-billion",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2023",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "assessment dates",
+        "districts",
+        "damage categories",
+        "Rand estimates"
+      ],
+      "app_uses": [
+        "district-level flood damage context for Western Cape blueberry farms"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article opened: agriculture infrastructure damage estimated at R1.053 billion."
+      },
+      "quality_caveats": "Infrastructure damage, not crop yield.",
+      "priority": "P3",
+      "priority_reason": "Context.",
+      "est_effort_days": 0.2
+    },
+    {
+      "id": "au-disasterassist",
+      "name": "DisasterAssist: Australian disasters list (AGRN)",
+      "publisher": "National Emergency Management Agency, Australian Government",
+      "countries": [
+        "AU"
+      ],
+      "subnational_scope": [
+        "state, then local government areas"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.disasterassist.gov.au/find-a-disaster/australian-disasters",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "AGRN",
+        "disaster name",
+        "state",
+        "start and end date",
+        "disaster type",
+        "activated local government areas"
+      ],
+      "app_uses": [
+        "dated flood and cyclone activations for Coffs Harbour and northern NSW (2022 floods, Cyclone Alfred March 2025)"
+      ],
+      "model_families": [
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Page opened with filters for date, state, disaster type, name and AGRN; the result list is loaded by JavaScript and was not read."
+      },
+      "quality_caveats": "Activation reflects funding arrangements, not crop loss.",
+      "priority": "P3",
+      "priority_reason": "Useful for two IBO Australian cases only.",
+      "est_effort_days": 0.3
+    },
+    {
+      "id": "nz-mpi-adverse-events",
+      "name": "MPI adverse events: how events are classified",
+      "publisher": "Ministry for Primary Industries, New Zealand",
+      "countries": [
+        "NZ"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.mpi.govt.nz/funding-rural-support/adverse-events/how-we-classify-adverse-events",
+      "data_urls": [
+        "https://www.mpi.govt.nz/funding-rural-support/adverse-events/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "classification (localised, medium-scale, large-scale)",
+        "event type",
+        "regions",
+        "date"
+      ],
+      "app_uses": [
+        "classified events such as Cyclone Gabrielle February 2023 in Hawke's Bay"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Both MPI pages return an 849-byte JavaScript shell to the fetcher. The three-tier classification text was seen only in search results."
+      },
+      "quality_caveats": "Frosts are rarely classified; unreached content.",
+      "priority": "P3",
+      "priority_reason": "Unreached and coarse.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "nz-niwa-weather-hazards",
+      "name": "NIWA weather hazards pages (former Historic Weather Events catalogue address)",
+      "publisher": "NIWA / Earth Sciences New Zealand",
+      "countries": [
+        "NZ"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://niwa.co.nz/hazards/weather-hazards",
+      "data_urls": [
+        "https://hwe.niwa.co.nz/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not read",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hazard descriptions"
+      ],
+      "app_uses": [
+        "none confirmed; the event catalogue address now redirects"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "hwe.niwa.co.nz redirected to the general weather hazards page; no dated event catalogue reached."
+      },
+      "quality_caveats": "Catalogue may be retired or moved.",
+      "priority": "P3",
+      "priority_reason": "Not usable as found.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "cn-cma-climate-bulletin",
+      "name": "中国气候公报 (China Climate Bulletin) and other CMA weather reports",
+      "publisher": "China Meteorological Administration (中国气象局)",
+      "countries": [
+        "CN"
+      ],
+      "subnational_scope": [
+        "provinces"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.cma.gov.cn/zfxxgk/gknr/qxbg/",
+      "data_urls": [
+        "https://cmdp.ncc-cma.net/"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "zh"
+      ],
+      "temporal_coverage": "annual bulletins listed for 2024 (published 11 Feb 2025) and 2025 (published 12 Feb 2026)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "major weather and climate events by month and province (cold waves, late frost, heat, heavy rain)",
+        "economic loss summaries"
+      ],
+      "app_uses": [
+        "dated provincial heat and heavy-rain events for Yunnan, Liaoning and Shandong to check IBO China records"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_rain_quality",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "CMA reports page lists '2025年中国气候公报' (2026-02-12) and '2024年中国气候公报' (2025-02-11). National Climate Center site opened but text encoding was garbled in the fetch."
+      },
+      "quality_caveats": "National narrative; crop detail is general. Chinese only.",
+      "priority": "P3",
+      "priority_reason": "Narrative context for a few IBO China claims.",
+      "est_effort_days": 0.5
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "GLOBAL-01",
+      "title": "RMA blueberry cause-of-loss backfill, 1989-2026",
+      "source_ids": [
+        "us-rma-cause-of-loss-month",
+        "us-rma-m13-cause-codes",
+        "us-rma-stage-codes"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table rma_col_blueberry: commodity_year, state_fips, county_fips, county_name, plan_code, coverage_category, stage_code, cause_code, cause_desc, month_of_loss, year_of_loss, policies_indemnified, net_planted_acres, liability_usd, total_premium_usd, net_determined_acres, indemnity_usd, source_file, file_last_modified",
+        "derived: winter_season (December losses assigned to the following season), risk_family via cause crosswalk (41,42 -> freeze families; 43 -> winter cold; 45 -> chill_shortfall; 12,62 -> heat; 31,44 -> harvest_rain_quality; 81 -> disease; 21 -> hail; 55 and XX -> excluded)"
+      ],
+      "cadence": "one-off backfill of 38 zip files, then annual refresh each spring because past years are revised",
+      "review_needed": "Check that commodity code 0012 is stable across all years; confirm cause crosswalk with a blueberry extension specialist; spot-check five county-years against AgRisk Viewer.",
+      "licensing_gate": "US federal data; cite RMA and the file date. No licence barrier found.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "County-by-month loss labels for five risk families in the eight insured states."
+    },
+    {
+      "job_id": "GLOBAL-02",
+      "title": "RMA insured exposure by county, type and frost-protection practice",
+      "source_ids": [
+        "us-rma-sob-state-county-crop"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table rma_sob_blueberry: commodity_year, state_fips, county_fips, plan_code, type_code, type_name, practice_code, practice_name, unit_structure, insured_acres, liability_usd, total_premium_usd, indemnity_usd",
+        "derived: frost_protected_share, rabbiteye_share, loss_cost = indemnity / liability (APH only)"
+      ],
+      "cadence": "one-off backfill 1999-2026, then annual",
+      "review_needed": "Confirm that summing APH rows only avoids double counting with SCO-YP and HIP-WI endorsements.",
+      "licensing_gate": "US federal data; none.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Denominators and strata (rabbiteye versus highbush, frost-protected versus not) for every RMA validation metric."
+    },
+    {
+      "job_id": "GLOBAL-03",
+      "title": "FSA Secretarial designations with peril flags and day dates",
+      "source_ids": [
+        "us-fsa-secretarial-designations"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period.start=Begin Date (Excel serial to ISO)",
+        "period.end=End Date",
+        "period.precision=day",
+        "geography=county FIPS",
+        "evidence_type=official_declaration",
+        "crop_context='all crops in county; not blueberry-specific'",
+        "citations=designation number + file name + approval date",
+        "peril flags -> model family"
+      ],
+      "cadence": "one-off backfill 2014-2026, then monthly",
+      "review_needed": "Confirm meaning of designation code 1 versus 2; deduplicate overlapping designations for one freeze night.",
+      "licensing_gate": "US federal data; none.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Day-level freeze, heat and chill-shortfall dates to sharpen RMA month-level matching."
+    },
+    {
+      "job_id": "GLOBAL-04",
+      "title": "Storm Events and SPC hail subset for blueberry counties",
+      "source_ids": [
+        "us-noaa-storm-events",
+        "us-spc-severe-reports"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period.start=BEGIN_DATE_TIME with CZ_TIMEZONE",
+        "geography=county FIPS or forecast zone mapped to counties",
+        "event_type",
+        "magnitude",
+        "damage_crops",
+        "narrative excerpt (max 300 characters) with citation to EVENT_ID"
+      ],
+      "cadence": "one-off backfill 1996-2026, then monthly",
+      "review_needed": "Map forecast zones to counties; note that frost recall is poor and must not be used as a negative label.",
+      "licensing_gate": "US federal data; none.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Dated hail and severe-weather context; second date source for freezes where present."
+    },
+    {
+      "job_id": "GLOBAL-05",
+      "title": "NASS state blueberry yield series",
+      "source_ids": [
+        "us-nass-noncitrus-fruits",
+        "us-nass-quickstats-api"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "table nass_blueberry_state: state, year, species (cultivated or wild), area_harvested_acres, yield_lb_per_acre, production_1000_lb, utilized_1000_lb, price_usd_per_lb, value_1000_usd, release"
+      ],
+      "cadence": "one-off backfill from ESMIS text files, then annual (May release)",
+      "review_needed": "Check revisions between releases; keep the latest value with release date.",
+      "licensing_gate": "US federal data; none.",
+      "effort_days": 0.5,
+      "priority": "P2",
+      "app_value": "Independent yield-anomaly signal for freeze and heat winters at state level."
+    },
+    {
+      "job_id": "GLOBAL-06",
+      "title": "DesInventar frost, hail and heat-wave records for Latin America and Morocco",
+      "source_ids": [
+        "desinventar"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "event type",
+        "date",
+        "geography=admin1 and admin2 names to GADM ids",
+        "Damages in crops Ha.",
+        "Losses $USD",
+        "source text",
+        "citations=DesInventar serial and country database"
+      ],
+      "cadence": "one-off backfill (series end 2013-2023)",
+      "review_needed": "Match comuna and municipality names to GADM; mark records outside blueberry municipalities; check DesInventar data terms.",
+      "licensing_gate": "Data terms not found; confirm reuse terms with UNDRR before public display.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Frost and hail base rates by comuna for Chile, Argentina, Peru, Uruguay, Mexico and Morocco."
+    },
+    {
+      "job_id": "GLOBAL-07",
+      "title": "Southern-hemisphere and Mexico official frost and hail declarations",
+      "source_ids": [
+        "cl-minagri-emergencia-agricola",
+        "ar-emergencia-agropecuaria",
+        "mx-declaratorias-sspc",
+        "br-atlas-digital-desastres",
+        "br-s2id"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period (declaration start and end, precision as written)",
+        "geography=comunas, departamentos, municipios",
+        "evidence_type=official_declaration",
+        "crop_context='all agriculture'",
+        "citations=resolution number, date, URL"
+      ],
+      "cadence": "one-off backfill 2015-2026, then quarterly",
+      "review_needed": "Keep only frost, hail, heat and excess-rain declarations; separate winter frosts from spring frosts; never treat a declaration as a blueberry loss.",
+      "licensing_gate": "Official government publications; confirm national reuse terms (Mexico file is CC BY 4.0).",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Dated, place-coded events for regions where no insurance data exist."
+    },
+    {
+      "job_id": "GLOBAL-08",
+      "title": "Brazil PSR claims: frost and hail in temperate fruit",
+      "source_ids": [
+        "br-sisser-psr"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "crop (NM_CULTURA_GLOBAL)",
+        "CD_GEOCMU",
+        "latitude and longitude rounded to 0.1 degree",
+        "DT_INICIO_VIGENCIA",
+        "DT_FIM_VIGENCIA",
+        "VALOR_INDENIZAÇÃO",
+        "EVENTO_PREPONDERANTE",
+        "drop NM_SEGURADO, NR_DOCUMENTO_SEGURADO, NR_PROPOSTA, NR_APOLICE"
+      ],
+      "cadence": "one-off backfill 2006-2024, then annual",
+      "review_needed": "Confirm whether mirtilo appears at all; if not, decide whether apple, grape and peach frost claims are acceptable proxies for frost detection only.",
+      "licensing_gate": "CC BY; personal data must be removed before storage.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Farm-coordinate frost claims to test grid freeze detection in Santa Catarina and Rio Grande do Sul."
+    },
+    {
+      "job_id": "GLOBAL-09",
+      "title": "European frost and heat narratives: MARS bulletins and Poland frost aid",
+      "source_ids": [
+        "jrc-mars-bulletin",
+        "pl-arimr-frost-aid-2024",
+        "eswd",
+        "es-agroseguro"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period (dates as written, precision)",
+        "geography=country and region",
+        "crop_context (fruit, berries, or general)",
+        "evidence_type=official_bulletin or official_programme",
+        "citations=bulletin issue and page"
+      ],
+      "cadence": "one-off backfill 2015-2026 bulletins, then monthly",
+      "review_needed": "Extract only sentences about frost, heat, hail or rain affecting fruit; reviewer confirms dates and regions.",
+      "licensing_gate": "Confirm JRC reuse terms; ESWD needs a signed agreement and forbids commercial use; Agroseguro pages are bot-blocked.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Dated European events for northern highbush areas, where the model blooms about two weeks late."
+    },
+    {
+      "job_id": "GLOBAL-10",
+      "title": "Quantified blueberry frost cases (Chile 2013, Chile 2022, Quebec lowbush)",
+      "source_ids": [
+        "cl-odepa-heladas-2013",
+        "cl-news-nuble-frost-2022",
+        "ca-fadq-assurance-recolte"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "period.start and end",
+        "period.precision",
+        "geography (region, comuna)",
+        "crop_context (stage: fruit set, bloom)",
+        "quantity (tonnes, percent, CAD) with original unit",
+        "evidence_type=government_estimate or trade_press",
+        "citations with page"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Check stage wording (fruit set versus bloom) and keep estimates as reported.",
+      "licensing_gate": "Short quotations with citation only; no reproduction of articles.",
+      "effort_days": 0.8,
+      "priority": "P2",
+      "app_value": "Three non-US cases with dates and size to test fruit_frost and bud_freeze outside the US."
+    }
+  ]
+}

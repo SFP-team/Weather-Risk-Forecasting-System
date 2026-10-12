@@ -1,0 +1,4180 @@
+{
+  "slug": "us-north-west-canada",
+  "generated_on": "2026-10-11",
+  "scope": "US north and west blueberry states (NJ, MI, ME, OR, WA, CA and others) and Canada (BC, QC, NS, NB, PE, ON): phenology, loss, statistics, stations, cool-climate parameters",
+  "sources": [
+    {
+      "id": "rutgers-blueberry-bulletin",
+      "name": "The Blueberry Bulletin (weekly update to growers)",
+      "publisher": "Rutgers Cooperative Extension of Atlantic County (NJAES)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "New Jersey (Atlantic and Burlington counties)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "phenology_observation",
+        "pest_disease_advisory",
+        "extension_advisory",
+        "loss_or_damage",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.rutgers.edu/blueberry-bulletin",
+      "data_urls": [
+        "https://extension.rutgers.edu/sites/default/files/2026-05/bb-v42n11.pdf",
+        "https://extension.rutgers.edu/sites/default/files/2026-04/bb-v42n07.pdf",
+        "https://extension.rutgers.edu/sites/default/files/2026-09/bb-v42n26.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2026 season online (Vol. 42, 26 issues, 17 Mar to 8 Sep 2026); older issues by request to the NJAES web team",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Please cite this source if reprinting information that originates here",
+      "license_url": null,
+      "extractable_fields": [
+        "issue date",
+        "volume and issue number",
+        "bloom progress percent by cultivar (Duke, Bluecrop) for Hammonton area",
+        "scouting date",
+        "fields scouted (count, county)",
+        "pest trap counts by date and county",
+        "disease observations (Botrytis, Alternaria, anthracnose) by week",
+        "weather notes (90 F days)",
+        "reprinted freeze emergency notice with dates and loss estimates"
+      ],
+      "app_uses": [
+        "validate NJ bloom start and duration for us-nj-hammonton against stage_thermal_v3",
+        "date the 19-22 April 2026 NJ freeze for flowering_freeze checks",
+        "time disease_weather risk windows against observed Botrytis and anthracnose notes"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze",
+        "disease",
+        "pollination",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened landing page with 26 dated 2026 PDFs. Sampled 26 May 2026 issue: scouting of 165 fields in Burlington and Atlantic counties, dated trap tables, Botrytis and Alternaria notes, reprint of 20 May 2026 Governor's State of Emergency for freeze of 19-22 April 2026. 28 April 2026 issue gives Duke bloom 65-80% and Bluecrop 60-75% progressed in Hammonton."
+      },
+      "quality_caveats": "Only the current season is online; back issues need an email request. Bloom progress is an agent's estimate, not a sampled protocol. Freeze loss figures are statewide for all crops.",
+      "priority": "P1",
+      "priority_reason": "Only weekly dated crop-stage source for the NJ benchmark site, with a dated 2026 freeze.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "umaine-wild-blueberry-phenology-tracker",
+      "name": "Real-Time Wild Blueberry Phenology (weekly records 2020-2026)",
+      "publisher": "University of Maine Cooperative Extension, Wild Blueberry Team",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine (Knox, Waldo, Hancock, Washington counties)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umaine.edu/blueberries/real-time-wild-blueberry-phenology/",
+      "data_urls": [
+        "https://extension.umaine.edu/blueberries/real-time-wild-blueberry-phenology/2024-record/",
+        "https://extension.umaine.edu/blueberries/real-time-wild-blueberry-phenology/2025-record/",
+        "https://extension.umaine.edu/blueberries/real-time-wild-blueberry-phenology/2020-record/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2020-2026 seasons (one page per year)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "visit date",
+        "site name (Warren, Hope, Orland, Sedgwick, Searsport, Aurora, Jonesboro, Northfield, Whiting)",
+        "percent buds at T0 to T5 stages",
+        "percent stems with at least one open flower",
+        "percent closed flowers, open flowers, petal fall",
+        "percent green fruit, color change, blue fruit, over-ripe",
+        "field notes (prune emergence, tip dieback)"
+      ],
+      "app_uses": [
+        "calibrate lowbush budbreak, bloom and ripening GDD at Cherryfield-area cells",
+        "test whether scan windows at Cherryfield ME match observed bloom (late May) and blue fruit (July)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened tracker and full 2024 record: 15 weekly tables, 9 named sites, e.g. 21-23 May 2024 open flowers 51-71%; 8 July 2024 blue fruit 12-41%. Links to 2020-2026 records and Maine Mesonet."
+      },
+      "quality_caveats": "Site coordinates only on an embedded Google map; stage percentages from field counts but sampling method not stated on page; crop fields only (sprout fields separate).",
+      "priority": "P1",
+      "priority_reason": "Dated, site-level lowbush stage percentages for seven seasons, directly usable for the Cherryfield gap.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "msu-fruit-updates-mirror",
+      "name": "MSU Extension regional fruit updates (Southwest and West Central Michigan) via MSU dotCMS host",
+      "publisher": "Michigan State University Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan (Berrien, Van Buren, Allegan, Ottawa counties)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory",
+        "pest_disease_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://msu-prod.dotcms.cloud/news/southwest-michigan-fruit-update-april-22-2025",
+      "data_urls": [
+        "https://msu-prod.dotcms.cloud/news/using-degree-days-to-predict-pest-and-crop-development-in-blueberries"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "weekly in season; 2024-2026 updates linked from sampled page",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "article date",
+        "region",
+        "blueberry stage text (bud break, tight cluster, bloom, blue fruit, harvest progress)",
+        "county named",
+        "weather summary (highs, lows, rain)",
+        "freeze damage notes"
+      ],
+      "app_uses": [
+        "validate Michigan bloom month (model June vs published May) at us-mi-grand-junction",
+        "date frost events during bloom"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "canr.msu.edu returns an Incapsula bot wall, but the same pages load on msu-prod.dotcms.cloud. Sampled 22 April 2025 update: blueberries at bud break through southern Allegan County, early varieties at tight cluster; lows to 23 F."
+      },
+      "quality_caveats": "Mirror host is not a documented public endpoint and may close. Stage text is qualitative. Blueberry paragraph is short within a multi-crop update.",
+      "priority": "P1",
+      "priority_reason": "Unblocks the MSU sources that the benchmark registry could not reach.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "mapaq-rap-bleuet-nain",
+      "name": "Réseau d'avertissements phytosanitaires (RAP), Bleuet nain: avertissements et bilans",
+      "publisher": "MAPAQ (Québec) with Club Conseil Bleuet, published on Agri-Réseau",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec: Saguenay-Lac-Saint-Jean (Lac-Saint-Jean-Est, Maria-Chapdelaine, Domaine-du-Roy, Fjord-du-Saguenay), Côte-Nord"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "phenology_observation",
+        "pest_disease_advisory",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.agrireseau.net/rap/documents/116447/bleuet-nain-avertissement-no-1-13-mai-2025",
+      "data_urls": [
+        "https://www.agrireseau.net/rap/documents/114621/bleuet-nain-bulletin-d_information-no-1-bilan-de-la-saison-2024",
+        "https://www.agrireseau.net/references/21/BN/2019/Phenologie_BN_2019.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "warnings found from 2020 to 2026 (e.g. No 7 of 30 June 2020, No 5 of 9 June 2026); end-of-season bilan for 2024",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "La reproduction de ce document ou de l'une de ses parties est autorisée à condition d'en mentionner la source. Toute utilisation à des fins commerciales ou publicitaires est cependant strictement interdite.",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin date and number",
+        "MRC sector",
+        "leaf bud stage (V0, V1)",
+        "fruit bud BBCH stage (51-53 etc.)",
+        "vegetation status",
+        "last 10 cm snow date used for model",
+        "frost, Botrytis and Monilinia notes"
+      ],
+      "app_uses": [
+        "calibrate lowbush budbreak and bloom at Lac-Saint-Jean cells",
+        "check the CIPRA lowbush model against weekly observed stages"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "disease",
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened warning No 1 of 13 May 2025: table of stages by MRC sector (e.g. Lac-Saint-Jean-Est V1, BBCH51-53, dormancy), link to Agrométéo lowbush phenology model started at date of last 10 cm snow (about 15 April 2025). Stage definitions PDF opened."
+      },
+      "quality_caveats": "Stages are sector summaries from advisors, not sampled percentages. Non-commercial reuse clause needs a check before public display.",
+      "priority": "P1",
+      "priority_reason": "Weekly dated lowbush BBCH stages by sector for the Lac-Saint-Jean pin.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "mapaq-rap-bleuet-corymbe",
+      "name": "RAP Bleuet en corymbe: avertissements hebdomadaires",
+      "publisher": "MAPAQ (Québec), published on Agri-Réseau",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec: Montérégie, Laurentides, Lanaudière, Estrie, Centre-du-Québec, Mauricie, Chaudière-Appalaches, Capitale-Nationale, Bas-Saint-Laurent"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "phenology_observation",
+        "pest_disease_advisory",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.agrireseau.net/rap/documents/117946/bleuet-en-corymbe-avertissement-no-12-2-juillet-2025",
+      "data_urls": [
+        "https://www.agrireseau.net/rap/documents/113200/bleuet-en-corymbe-avertissement-no-8-30-mai-2024"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "at least 2024-2025 weekly warnings seen (Nos 2-13 in 2024; No 12 in 2025)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "La reproduction de ce document ou de l'une de ses parties est autorisée à condition d'en mentionner la source. Toute utilisation à des fins commerciales ou publicitaires est cependant strictement interdite.",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin date",
+        "region",
+        "Patriot fruit-bud stage and leaf-bud stage",
+        "dated photos with cultivar (Duke, Patriot) and region",
+        "season lag versus prior year in DJ5 (degree-days base 5 C)",
+        "rain, hail, frost damage notes"
+      ],
+      "app_uses": [
+        "calibrate northern highbush (Patriot, Duke) stages in Québec",
+        "check model lag year to year using reported DJ5 lag"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "disease",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened warning No 12 of 2 July 2025: stage table for Patriot by six region groups (e.g. Montérégie véraison to first ripe fruit); season about 6 days behind 2024 by DJ5; Duke first blue fruit in Montérégie 2 July 2025."
+      },
+      "quality_caveats": "Regional stage summaries; minor production area; reuse clause as above.",
+      "priority": "P2",
+      "priority_reason": "Dated NHB stages in a cold-winter region with an explicit degree-day lag statement.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "onfruit-berry-bulletin",
+      "name": "ONfruit Berry Bulletin",
+      "publisher": "Ontario Ministry of Agriculture, Food and Agribusiness (OMAFA) berry specialists, ONfruit blog",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Ontario (southern Ontario)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://onfruit.ca/2025/05/14/may-14-berry-bulletin/",
+      "data_urls": [
+        "https://onfruit.ca/2026/05/01/berry-bulletin-2026-may-1/",
+        "https://onfruit.ca/2026/08/27/august-27-berry-bulletin-2/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2025-2026 bulletins seen",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "blueberry stage text (beginning to bloom, harvest finishing, Elliott)",
+        "frost forecast values",
+        "disease model notes"
+      ],
+      "app_uses": [
+        "sanity check Ontario bloom (mid May) and harvest end (late August) in scan windows"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened 14 May 2025 bulletin: 'Blueberries are beginning to bloom in southern Ontario'. Search snippets show 2026 bulletins on frost to -4 C and harvest finishing with Elliott on 27 August 2026."
+      },
+      "quality_caveats": "Province-wide statements; blueberry is a minor crop in Ontario.",
+      "priority": "P3",
+      "priority_reason": "Low production share but a cheap dated stage signal.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ns-wild-blueberry-blog-gdd",
+      "name": "Nova Scotia Lowbush Blueberry Blog: Growing Degree Days page and station GDD updates",
+      "publisher": "Perennia and Wild Blueberry Producers Association of Nova Scotia (WBPANS)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia (Cumberland, Colchester, Pictou)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "phenology_observation",
+        "weather_stations",
+        "extension_advisory",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.novascotiawildblueberryblog.com/p/phenology-tracker.html",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "station GDD updates 1 April to 31 October each season; crop-stage GDD study 2022-2024",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station name",
+        "cumulative GDD (base 0 C from 1 April)",
+        "GDD thresholds for sprout emergence (start 213 GDD)",
+        "early bloom 10-25% at 353-379 GDD",
+        "harvest reference 1700 GDD (about 90% ripe)",
+        "fruit bud F2 and bloom stage GDD tables (images)"
+      ],
+      "app_uses": [
+        "set lowbush bloom and harvest GDD targets with base 0 C",
+        "compare grid GDD with field-station GDD in NS"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "pollination"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page updated 24 March 2025: 2022-2024 Perennia and WBPANS study across Cumberland, Colchester and Pictou; text gives 213 GDD emergence start, 353-379 GDD for 10-25% bloom, 1700 GDD harvest reference. Tables 2-4 are images."
+      },
+      "quality_caveats": "Key tables are images; methods summary only; not peer reviewed.",
+      "priority": "P1",
+      "priority_reason": "Most recent field-calibrated lowbush crop-year GDD thresholds in Atlantic Canada.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "fadq-etat-des-cultures",
+      "name": "L'état des cultures de la FADQ (crop condition bulletins)",
+      "publisher": "La Financière agricole du Québec (FADQ)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec, all administrative regions incl. Saguenay-Lac-Saint-Jean"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "insurance",
+        "industry_report",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.fadq.qc.ca/salle-de-presse/bulletins-dinformation/etat-des-cultures/etat-des-cultures-2023/letat-des-cultures-de-la-fadq-bilan-au-4-juillet-2023-rapport-numero-5",
+      "data_urls": [
+        "https://www.fadq.qc.ca/salle-de-presse/communiques/details/bilan-de-mi-saison-2026-en-assurance-recolte"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "at least 2021-2026 (about every two weeks, May to December)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin date",
+        "region",
+        "dated weather events (e.g. late frosts 17-18 May 2023; frost late May and early June 2023 in Saguenay-Lac-Saint-Jean)",
+        "bleuetière damage notices (hail, frost, winter kill)",
+        "winter survival of bleuetiers",
+        "degree-day and rainfall maps"
+      ],
+      "app_uses": [
+        "build dated frost and hail event records for Lac-Saint-Jean lowbush",
+        "validate flowering_freeze recurrence in Québec cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened 4 July 2023 report: late frosts 17-18 May severe for small fruits; frost episodes in Saguenay-Lac-Saint-Jean late May and early June; damage notices opened for bleuetières after late June hail. 2026 mid-season bilan notes winter survival of bleuetiers and some winter-kill and hail in bleuetières."
+      },
+      "quality_caveats": "Narrative and region level; bleuet is often grouped with 'petits fruits'. Insured clients only.",
+      "priority": "P1",
+      "priority_reason": "Official, dated, region-level weather damage narrative covering the Lac-Saint-Jean lowbush zone.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "fadq-avis-dommages-indemnites",
+      "name": "Assurance récolte: avis de dommages et indemnités (cumulative tables)",
+      "publisher": "La Financière agricole du Québec (FADQ)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.fadq.qc.ca/statistiques/assurance-recolte/assurance-recolte-avis-de-dommages-et-indemnites",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "2025 to present on page; earlier years in archives (not opened)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report date",
+        "protection (Petits fruits)",
+        "number of damage notices",
+        "main causes (gel hivernal, gel tardif ou hâtif)",
+        "indemnities paid to date (CAD)",
+        "main regions indemnified",
+        "5-year and 10-year averages"
+      ],
+      "app_uses": [
+        "year-level check of freeze-driven small-fruit losses in Saguenay-Lac-Saint-Jean"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened table dated 29 September 2026: Petits fruits 88 notices, causes 'Gel hivernal' and 'Gel (gel tardif ou gel hâtif)', CAD 915,492 paid, main regions Saguenay-Lac-Saint-Jean and Montérégie."
+      },
+      "quality_caveats": "Blueberries not separated from other small fruits; cumulative snapshots; fewer than five clients suppressed.",
+      "priority": "P2",
+      "priority_reason": "Only public Canadian insurance table with cause and region, but crop is aggregated.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cipra-guide-cultures-2022",
+      "name": "CIPRA Guide des cultures (phénologie du bleuetier en corymbe et du bleuetier nain)",
+      "publisher": "Agriculture and Agri-Food Canada (CIPRA), hosted by Agrométéo Québec",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature",
+        "cultivar_traits",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://agrometeo.solutions-mesonet.org/help/guide_cultures_2022_fr.pdf",
+      "data_urls": [
+        "https://agrometeo.solutions-mesonet.org/indices/modelMeteogram/petits_fruits/63"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "lowbush model built from RAP warnings 2005-2016; highbush Patriot model from AAFC photos 2014-2016",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "model base temperature",
+        "optimum temperature",
+        "calculation method (simple sine)",
+        "start date (1 March or last day with 10 cm snow)",
+        "degree-days per BBCH stage for lowbush (51 to 87)",
+        "degree-days per BBCH stage for highbush Patriot (51 to 87)"
+      ],
+      "app_uses": [
+        "seed cool-climate lowbush and NHB stage thresholds (base 0 C) for Lac-Saint-Jean and Québec cells",
+        "test snow-cover start date versus fixed 1 March start"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened PDF. Lowbush model 1: base 0 C, optimum 28 C, simple sine, from 1 March: BBCH51 221, 53 296, 55 329, 59 410, 65 554, 67 603, 71 777, 75 982, 81 1138, 87 1516 DD. Model 2 from last 10 cm snow: 187, 247, 285, 358, 498, 548, 720, 926, 1083, 1443. Highbush Patriot: base 0 C, optimum 30 C, from 1 March: 51 173, 54 267, 59 462, 65 576, 71 765, 75 929, 81 1275, 87 1598."
+      },
+      "quality_caveats": "Validation statistics not given in the guide. Lowbush model fitted to advisory stage reports, not sampled percentages. Patriot only for highbush.",
+      "priority": "P1",
+      "priority_reason": "Ready-made, documented stage thresholds for lowbush and NHB in a cold climate.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "white-2012-lowbush-gdd",
+      "name": "White, Boyd and Van Acker 2012. Growing degree-day models for predicting lowbush blueberry ramet emergence, tip dieback, and flowering in Nova Scotia (HortScience 47:1014)",
+      "publisher": "American Society for Horticultural Science",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia (northern and central)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://doi.org/10.21273/HORTSCI.47.8.1014",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "field seasons reported in the paper (dates 6 May to 5 July)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "GDD base 0 C",
+        "emergence 222-265 GDD (6-14 May)",
+        "90% emergence 619-917 GDD",
+        "tip dieback start 598-792 GDD",
+        "first flowering ramets 376-409 GDD (19-30 May)",
+        "model predictions 243, 692, 389 GDD",
+        "peak open flowers 552-565 GDD"
+      ],
+      "app_uses": [
+        "lowbush bloom threshold prior for NS, NB, PEI cells"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened CrossRef abstract with the numbers listed. Already cited as S20 in GLOBAL_PHENOLOGY_REVIEW; Perennia factsheet reproduces the White model table from 1 April."
+      },
+      "quality_caveats": "Two-year cycle (sprout vs crop) must be kept; start date 1 April per Perennia factsheet.",
+      "priority": "P2",
+      "priority_reason": "Peer-reviewed base for Atlantic lowbush thresholds.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "perennia-gdd-factsheet-2022",
+      "name": "Understanding Growing Degree Days in Wild Blueberry Production (fact sheet)",
+      "publisher": "Perennia Food and Agriculture",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "extension_advisory",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.perennia.ca/wp-content/uploads/2022/05/Understanding-Growing-Degree-Days-in-Wild-Blueberry-Production.pdf",
+      "data_urls": [
+        "https://climatesmart.perennia.ca/wp-content/uploads/sites/24/2026/07/Wild-Blueberries-Growing-Degree-Days-GDD.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "May 2022 fact sheet; 2026 climate-smart sheet",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "©Perennia 2022",
+      "license_url": null,
+      "extractable_fields": [
+        "start date 1 April",
+        "base 0 C averaging method",
+        "crop-year open flowers start 390, 10% 412, 25% 440, 50% 480, 90% 600 DD",
+        "sprout emergence start 270 to 90% 750 GDD",
+        "tip dieback 690 to 1475 GDD"
+      ],
+      "app_uses": [
+        "lowbush bloom progression curve (start to 90%) for pollination gap and flowering_freeze windows"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "pollination"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened PDF; Table 1 'Wild Lowbush Blueberry Growing Degree Days Model (White 2012)' with the values listed."
+      },
+      "quality_caveats": "Numbers differ slightly from White 2012 abstract (389 vs 390 start) and from the 2025 blog (213 GDD emergence); keep version labels.",
+      "priority": "P1",
+      "priority_reason": "Gives a full bloom progression curve, not just onset.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "drummond-2019-wild-blueberry-bloom",
+      "name": "Drummond 2019. Reproductive Biology of Wild Blueberry (Vaccinium angustifolium Aiton). Agriculture 9(4):69",
+      "publisher": "MDPI (author: University of Maine)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ideas.repec.org/a/gam/jagris/v9y2019i4p69-d218599.html",
+      "data_urls": [
+        "https://www.mdpi.com/2077-0472/9/4/69"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "model validated on Maine fields 2015-2017 (per MDPI search snippet)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bloom start 100 degree-days base 4.4 C after 1 April",
+        "bloom end 500 degree-days",
+        "bloom length 3-4 weeks",
+        "stigma receptivity 8-10 days"
+      ],
+      "app_uses": [
+        "Maine lowbush bloom window for flowering_freeze and pollination at Cherryfield"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "pollination"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened IDEAS/RePEc abstract with the 100 and 500 degree-day values; MDPI page returned HTTP 403."
+      },
+      "quality_caveats": "Different base (4.4 C) and start date from Nova Scotia models; not interchangeable.",
+      "priority": "P1",
+      "priority_reason": "Only Maine-calibrated lowbush bloom model found.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "msu-gdd-jersey-phenology",
+      "name": "Using degree days to predict pest and crop development in blueberries (Isaacs, Albert, Mason 2019)",
+      "publisher": "Michigan State University Extension and MSU Enviroweather",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan (Van Buren, Ottawa counties)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://msu-prod.dotcms.cloud/news/using-degree-days-to-predict-pest-and-crop-development-in-blueberries",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "four years of monitoring before 2019",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Jersey bud break 17-18 April, 108 GDD base 50 F (224 base 42 F)",
+        "bloom 14-15 May, 310 GDD base 50 F",
+        "petal fall 27-28 May, 407 GDD",
+        "first harvest 15 July, 1313 GDD base 50 F",
+        "pest flight GDD"
+      ],
+      "app_uses": [
+        "calibrate NHB bloom and first harvest in southwest Michigan (model bloom one month late at Grand Junction)"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened on MSU dotCMS host (canr.msu.edu bot-walled). Table of average dates and GDD for Jersey by county."
+      },
+      "quality_caveats": "Authors say these are guidelines, not validated models; GDD start date not stated; base 10 C (50 F) differs from app base 7 C. Jersey acreage is declining.",
+      "priority": "P1",
+      "priority_reason": "Gives dated NHB bloom and harvest with GDD at the benchmark county.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "kirk-isaacs-2012",
+      "name": "Kirk and Isaacs 2012. Predicting Flower Phenology and Viability of Highbush Blueberry (HortScience 47:1291)",
+      "publisher": "American Society for Horticultural Science",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://doi.org/10.21273/HORTSCI.47.9.1291",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "field bloom 2009-2010 (per repo review)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "lower development threshold 7-8 C for five cultivars",
+        "greenhouse bloom about 100 GDD later than field",
+        "flower viability declines after 4 days"
+      ],
+      "app_uses": [
+        "support base 7 C for NHB bloom"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "pollination"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened CrossRef abstract. Repo review (S10) records cultivar bases 7.14-7.96 C and pooled field peak bloom 291 GDD."
+      },
+      "quality_caveats": "Already in GLOBAL_PHENOLOGY_REVIEW; two field seasons only.",
+      "priority": "P3",
+      "priority_reason": "Already held by the project; listed for completeness.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "wsu-rogers-2026-duke-bloom",
+      "name": "Rogers et al. 2026. Predicting Bloom Progression in Northern Highbush Blueberry With a Weather-driven Phenology Model (HortTechnology 36(4))",
+      "publisher": "Washington State University / ASHS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Washington (Whatcom, Skagit counties)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://wpcdn.web.wsu.edu/wp-labs/uploads/sites/2701/2026/06/horttech-article-p562.pdf",
+      "data_urls": [
+        "https://decisionaid.systems/"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Duke bloom 2022-2025",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "CC BY-NC 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "extractable_fields": [
+        "GDD base 7 C, no upper threshold, single sine, from 1 January, hourly AgWeatherNet data",
+        "10% bloom 19 April to 3 May",
+        "peak bloom 9-21 May",
+        "remaining 10% bloom 19-30 May",
+        "MAE 2.4, 3.4, 3.7 days"
+      ],
+      "app_uses": [
+        "validate Lynden WA scan windows and NHB bloom start",
+        "benchmark error target for cool-climate bloom model"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "pollination"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened full PDF. Uses same base (7 C) as stage_thermal_v3. Stage GDD values are shown only in Figure 1, not in text."
+      },
+      "quality_caveats": "One cultivar (Duke); sites thin after 2022 (12, 4, 3, 1 fields). Figure values need digitising or author request.",
+      "priority": "P1",
+      "priority_reason": "Same base temperature as the app; directly testable at Lynden.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "kogan-2023-nhb-cold-hardiness",
+      "name": "Kogan, DeVetter and Hoheisel 2023. Modeling Northern Highbush Blueberry Cold Hardiness for the Pacific Northwest (HortScience 58:1314)",
+      "publisher": "American Society for Horticultural Science",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Washington (western and eastern)"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://doi.org/10.21273/HORTSCI17320-23",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "multiple seasons of freeze-chamber tests (years not in abstract)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar-specific lethal temperature model inputs: freezer temperature, recent air temperature, GDD from acclimation to deacclimation",
+        "four cultivars"
+      ],
+      "app_uses": [
+        "replace a single bud-freeze threshold with a hardiness curve for NHB in WA and BC"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened CrossRef abstract; journals.ashs.org returned HTTP 502. Cultivar names and coefficients not seen."
+      },
+      "quality_caveats": "Coefficients need the full text; model built for WA conditions.",
+      "priority": "P2",
+      "priority_reason": "Only regional NHB hardiness model found.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "msu-critical-spring-temperatures",
+      "name": "Critical Spring Temperatures (blueberry bud stages)",
+      "publisher": "Michigan State University Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "extension_advisory",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://msu-prod.dotcms.cloud/blueberries/weather/critical-spring-temperatures",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "undated web page",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bud swell tolerates 10-15 F (-12 to -9 C)",
+        "tight cluster 20-23 F (-7 to -5 C)",
+        "early pink bud 23-25 F (-5 to -4 C)",
+        "late pink bud 24-27 F (-4.4 to -2.8 C)",
+        "full bloom 28 F (-2.2 C)",
+        "petal fall 32 F (0 C)"
+      ],
+      "app_uses": [
+        "stage-specific thresholds for bud_flower_freeze and fruit_frost in NHB cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened on MSU dotCMS host; seven-stage table with the values listed."
+      },
+      "quality_caveats": "No kill percentage or duration stated; source experiments not cited on page.",
+      "priority": "P1",
+      "priority_reason": "Simple stage thresholds for the freeze families in NHB.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "umaine-fs216-lowbush-lst",
+      "name": "Fact Sheet 216: Flower Primordia Development Stage (lowest safe temperatures)",
+      "publisher": "University of Maine Cooperative Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "extension_advisory",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umaine.edu/blueberries/resources/irrigation/flower-primordia-development-stage/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "revised May 2015",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "© 1999, 2002, 2015 University of Maine",
+      "license_url": null,
+      "extractable_fields": [
+        "tight bud -4 F",
+        "minor scale separation +7 F",
+        "inflorescence tip visible +10 F",
+        "flowers visible but closed +19 F",
+        "flowers distended +23 F",
+        "fully open +28 F",
+        "freezer cooling rate 7.2 F per hour",
+        "start sprinklers 2 F above LST (4 F with breeze)",
+        "evening dewpoint frost guide"
+      ],
+      "app_uses": [
+        "lowbush stage freeze thresholds for Maine and Atlantic Canada"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page with all thresholds and method."
+      },
+      "quality_caveats": "Lowest safe temperature (no injury), not a 50% kill value; lab freezer test.",
+      "priority": "P1",
+      "priority_reason": "Lowbush-specific stage thresholds with method.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "hicklenton-2002-lowbush-frost",
+      "name": "Hicklenton et al. 2002. Freeze damage and frost tolerance thresholds for flowers of the lowbush blueberry (Acta Hortic. 574:193)",
+      "publisher": "ISHS",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ishs.org/ishs-article/574_29/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "controlled experiment (published 2002)",
+      "update_frequency": "discontinued",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "4 h at -3.5 C: 80% open and 60% closed flowers moderately or severely damaged",
+        "75% of closed flowers at -3.5 C for 4 h failed to open",
+        "virtually no fruit set below -3.5 C"
+      ],
+      "app_uses": [
+        "add duration to lowbush flowering_freeze threshold"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened ISHS abstract page; full text paywalled."
+      },
+      "quality_caveats": "Potted seedlings, not field clones.",
+      "priority": "P2",
+      "priority_reason": "Duration-dependent damage values for lowbush flowers.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "osu-how-blueberry-plants-develop",
+      "name": "How blueberry plants develop and grow (Strik)",
+      "publisher": "Oregon State University Extension Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Oregon"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "extension_advisory",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.oregonstate.edu/catalog/how-blueberry-plants-develop-grow",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "published 2015, reviewed 2024",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "NHB chilling requirement 800-1500 h (32-45 F)",
+        "SHB 200-600 h; rabbiteye 300-600 h",
+        "open flowers damaged at about 28 F",
+        "dormant NHB hardy to at least -13 F",
+        "fruit set 93% (8-year Willamette study)",
+        "flowers per bud by cultivar"
+      ],
+      "app_uses": [
+        "chill requirement prior range for NHB class"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze",
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page with the values listed."
+      },
+      "quality_caveats": "Range with no cultivar detail or chill model; extension summary.",
+      "priority": "P2",
+      "priority_reason": "Clear published chill range for the NHB class.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "oliveira-2017-chilling-highbush",
+      "name": "Oliveira et al. 2017. Chilling effect on three highbush blueberry cultivars (Acta Hortic. 1180:511)",
+      "publisher": "ISHS",
+      "countries": [
+        "PT"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "research_literature",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ishs.org/ishs-article/1180_72/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "one trial",
+      "update_frequency": "discontinued",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "chill treatments 955-1520 h plus 501 h control",
+        "Duke yield peaked at 1200 chilling hours",
+        "Elizabeth needs at least 1000 h",
+        "Legacy best at 501 h"
+      ],
+      "app_uses": [
+        "only controlled-chill evidence found for Duke chill requirement"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened ISHS abstract page."
+      },
+      "quality_caveats": "Outside this region (Portugal); potted plants; yield response, not budbreak.",
+      "priority": "P3",
+      "priority_reason": "Cultivar chill evidence for Duke, the main early NHB in WA, BC and MI.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "msu-e3490-varieties",
+      "name": "E3490 Blueberry Varieties for Michigan (March 2024)",
+      "publisher": "Michigan State University Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan (Southwest, West Central, East, Northwest regions)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "cultivar_traits",
+        "extension_advisory",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://msu-prod.dotcms.cloud/blueberries/uploads/files/E3490_Blueberry_Varieties_MI_AA.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "climate table 2013-2023; grower survey 2023",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "© 2024 Michigan State University",
+      "license_url": null,
+      "extractable_fields": [
+        "region GDD base 50 F 1 April-1 October (e.g. Benton Harbor 3341.8 F; Hart 2731.9 F)",
+        "lowest temperature by region",
+        "harvest season window for 33 cultivars",
+        "percent of growers producing each cultivar (Bluecrop 95.5%, Elliott 72.7%, Duke 68.2%)",
+        "cold hardiness rating 1-5"
+      ],
+      "app_uses": [
+        "build Michigan NHB cultivar classes (early, mid, late) and adoption shares",
+        "explain one-week harvest delay West Central vs Southwest"
+      ],
+      "model_families": [
+        "cultivar",
+        "harvest_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened via MSU dotCMS host; Tables 1-4 extracted as text."
+      },
+      "quality_caveats": "Grower survey sample size not shown; adoption is percent of respondents, not acres.",
+      "priority": "P1",
+      "priority_reason": "Cultivar class and adoption table for the Michigan benchmark.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "umn-blueberry-varieties-halfhigh",
+      "name": "Growing blueberries in the home garden (half-high varieties for Minnesota)",
+      "publisher": "University of Minnesota Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Minnesota"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umn.edu/fruit/growing-blueberries-home-garden",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "undated page",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "half-high cultivars and release year (Northblue 1983, Northcountry 1986, Chippewa 1996, Polaris 1996)",
+        "hardiness zone 4 to 3 rating",
+        "ripening class (early, mid, late)",
+        "yield per bush"
+      ],
+      "app_uses": [
+        "define a half-high cultivar class by ripening order and hardiness"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page; variety table seen. No chilling requirement or GDD values on the page."
+      },
+      "quality_caveats": "Home-garden guidance; no chill data.",
+      "priority": "P3",
+      "priority_reason": "Best public half-high cultivar list found, but no phenology parameters.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "usda-rma-cause-of-loss",
+      "name": "USDA RMA Summary of Business with Month of Loss (Cause of Loss files)",
+      "publisher": "USDA Risk Management Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "MI",
+        "NJ",
+        "ME",
+        "OR",
+        "WA",
+        "CA",
+        "NY",
+        "IN"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.rma.usda.gov/tools-reports/summary-of-business/cause-loss",
+      "data_urls": [
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/COL_Summary_of_Business_with_Month_All_Years.pdf",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/colsom_2025.zip",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/Stage_Code_Listing.xlsx"
+      ],
+      "format": [
+        "zip",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1989-2026 (one ZIP per year)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain); terms not stated on page",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity year",
+        "state and county FIPS",
+        "commodity code and name",
+        "insurance plan",
+        "stage code",
+        "cause of loss code and description",
+        "month of loss",
+        "year of loss",
+        "policies indemnified",
+        "net determined quantity",
+        "liability",
+        "indemnity amount (USD)",
+        "loss ratio"
+      ],
+      "app_uses": [
+        "compare county freeze and frost indemnity months (Van Buren MI, Atlantic NJ, Whatcom WA, Washington ME) with modelled flowering-freeze winters",
+        "heat and excess-rain cause months vs fruit-stage heat and harvest_heavy_rain flags"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page with ZIP links 1989-2026 and the record layout PDF (30 pipe-delimited fields incl. Month of Loss, Cause of Loss Description, Indemnity Amount). ZIPs not downloaded."
+      },
+      "quality_caveats": "Insured acreage only; month of loss is reported, not the weather date; blueberry commodity code must be read from the file, not assumed; wild blueberry coverage in Maine not verified.",
+      "priority": "P1",
+      "priority_reason": "Only county-level, cause-coded, monthly loss series across all US states in scope.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "usda-fsa-disaster-designations",
+      "name": "Secretarial disaster designations (state and county records)",
+      "publisher": "USDA Farm Service Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "all states"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.fsa.usda.gov/resources/disaster-assistance-program/disaster-designation-information",
+      "data_urls": [
+        "https://www.fsa.usda.gov/sites/default/files/documents/METADATA_CY2022_SEC_YTD.xlsx"
+      ],
+      "format": [
+        "xlsx",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2012-2026",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain); terms not stated on page",
+      "license_url": null,
+      "extractable_fields": [
+        "crop year",
+        "state",
+        "county",
+        "designation code (primary or contiguous)",
+        "disaster description (frost, freeze, drought, excessive rain)",
+        "incident dates (expected; verify in file)"
+      ],
+      "app_uses": [
+        "cross-check freeze years such as NJ April 2026 at county level"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page with yearly Excel links 2012-2026 and PDF maps. Workbook columns not inspected."
+      },
+      "quality_caveats": "Not crop-specific; designation lags events by weeks to months.",
+      "priority": "P2",
+      "priority_reason": "Official dated county freeze declarations to pair with RMA.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "noaa-storm-events",
+      "name": "NOAA Storm Events Database",
+      "publisher": "NOAA National Centers for Environmental Information",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "all states"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ncei.noaa.gov/access/storm-events-database/",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not verified (page JavaScript only)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain); terms not stated on page",
+      "license_url": null,
+      "extractable_fields": [
+        "event type (Frost/Freeze, Hail, Heavy Rain, Excessive Heat)",
+        "begin and end date-time",
+        "county or forecast zone",
+        "crop damage USD",
+        "narrative"
+      ],
+      "app_uses": [
+        "dated frost/freeze and hail events by zone for flowering_freeze validation"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Page title only rendered (JavaScript app). Field names listed are from general knowledge of the database and must be confirmed."
+      },
+      "quality_caveats": "Crop damage values sparse; zone-based for frost events.",
+      "priority": "P2",
+      "priority_reason": "Dated event records to pair with RMA months.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "umaine-frost-blog",
+      "name": "Maine Wild Blueberries blog: frost category posts",
+      "publisher": "University of Maine Cooperative Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine (Aurora, Hope, Blueberry Barrens, Midcoast, Downeast)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage",
+        "extension_advisory",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umaine.edu/blueberries/category/frost/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2021-2026 posts in frost category",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "night of event",
+        "station or area",
+        "minimum temperature",
+        "hours below 28 F or 32 F",
+        "crop stage at risk (open flowers, pinheads)"
+      ],
+      "app_uses": [
+        "dated lowbush frost events for Cherryfield-area flowering_freeze validation",
+        "test grid Tmin bias against field station minima"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened category page: posts for 24-25 May 2022, 17-18 May 2023, 22-23 May 2023, 29-30 May 2023, 6-10 May 2024, 22 and 23 May 2026 (Aurora below 28 F 2:00-5:30, low 24 F), 31 May 2026 (Hope near 30 F, barrens about 28 F)."
+      },
+      "quality_caveats": "Station minima, not damage assessments; posts are short.",
+      "priority": "P1",
+      "priority_reason": "Dated, quantified frost nights in Maine lowbush fields.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cbc-ns-frost-2018",
+      "name": "CBC News: June frost wipes out 70% of Nova Scotia's wild blueberry crop (9 July 2018)",
+      "publisher": "CBC News",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia (Colchester, Cumberland)",
+        "Prince Edward Island",
+        "New Brunswick"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.cbc.ca/news/canada/nova-scotia/june-frost-wipes-out-nova-scotia-s-wild-blueberry-crop-1.4739817",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2018 event",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "event: two hard frosts in June 2018",
+        "estimated loss up to 70% (WBPANS)",
+        "counties hit (Colchester, Cumberland), parts of PEI and NB",
+        "sprout damage affecting 2019 crop"
+      ],
+      "app_uses": [
+        "validation event for lowbush flowering_freeze in Atlantic Canada"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened article. Search results add CTV/Canadian Grocer note of -2 C in the Annapolis Valley on 3 June 2018 (not opened)."
+      },
+      "quality_caveats": "News estimate from an association; exact frost dates not in this article.",
+      "priority": "P2",
+      "priority_reason": "Largest documented lowbush frost loss in the region.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "bc-heat-dome-2021-country-life",
+      "name": "Country Life in BC: 'Significant losses' to fruit (2021 heat dome)",
+      "publisher": "Country Life in BC",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia (Fraser Valley)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage",
+        "insurance"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.countrylifeinbc.com/significant-losses-to-fruit/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "June-July 2021",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "50 notices of loss from Lower Mainland berry growers by 29 June 2021",
+        "grower quote: raspberries worst, blueberries second"
+      ],
+      "app_uses": [
+        "fruit-stage heat validation event for Fraser Valley cells (27-28 June 2021; 111 F at Clearbrook per NCCC-212 BC report)"
+      ],
+      "model_families": [
+        "heat"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only; a secondary case study PDF (interconnectedrisks) in results gives blueberry damage 10-30%. BC NCCC-212 2021 report (opened) confirms 111 F at Clearbrook on 27-28 June 2021."
+      },
+      "quality_caveats": "Anecdotal; percent damage from secondary source.",
+      "priority": "P3",
+      "priority_reason": "Complements IBO's PNW 2021-22 compound event with BC detail.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "aafc-agroclimate-impact-reporter",
+      "name": "Agroclimate Impact Reporter (AIR)",
+      "publisher": "Agriculture and Agri-Food Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "all provinces"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agriculture.canada.ca/en/agricultural-production/weather/agroclimate-impact-reporter",
+      "data_urls": [
+        "https://agriculture.canada.ca/DW-GS/mapselector-selecteurdecartes.jspx?lang=eng&jsEnabled=true"
+      ],
+      "format": [
+        "html",
+        "image-pdf"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "Western Canada maps from 2012; Eastern Canada from 2020",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "AAFC disclaimer: no warranty, no liability",
+      "license_url": null,
+      "extractable_fields": [
+        "monthly impact maps (soil moisture, crop staging, quality)"
+      ],
+      "app_uses": [
+        "context only for drought months in the Maritimes"
+      ],
+      "model_families": [
+        "water_drought"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page: monthly volunteer survey April-October, results as maps; no blueberry-specific fields or point data."
+      },
+      "quality_caveats": "Volunteer reports; map images; not crop specific.",
+      "priority": "P3",
+      "priority_reason": "Answers the brief, but low value for blueberry validation.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "nb-agricultural-insurance-annual-report",
+      "name": "New Brunswick Agricultural Insurance Commission annual reports",
+      "publisher": "Government of New Brunswick",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "New Brunswick"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www2.gnb.ca/content/dam/gnb/Gateways/ABCs/Annual-reports2/2024-2025/AAF-NBAIC-2024-2025-annual-report-E.pdf",
+      "data_urls": [
+        "https://www2.gnb.ca/content/dam/gnb/Gateways/ABCs/Annual-reports2/AAF-NBAIC-2022-2023-annual-report-E.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2022-2023 and 2024-2025 reports seen in search",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "contracts sold",
+        "hectares insured",
+        "indemnities total (e.g. 2,171,850 CAD in 2022-23 per snippet)",
+        "narrative on season weather"
+      ],
+      "app_uses": [
+        "year-level loss context for NB lowbush"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only; snippets say wild blueberries are insured and indemnities are not broken down by peril."
+      },
+      "quality_caveats": "Totals not split by crop or cause.",
+      "priority": "P3",
+      "priority_reason": "Answers the brief on NB insurance; low granularity.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "pei-aic-agriinsurance",
+      "name": "PEI Agricultural Insurance Corporation: AgriInsurance (wild and highbush blueberries)",
+      "publisher": "Government of Prince Edward Island",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Prince Edward Island"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.princeedwardisland.ca/en/information/pei-agricultural-insurance-corporation/agriinsurance",
+      "data_urls": [
+        "https://www.princeedwardisland.ca/sites/default/files/publications/perennial_insuranceagreement.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2026 agreement",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "insured perils",
+        "Stage II indemnity rates for wild blueberries by maturity and vine cover (2026 change)"
+      ],
+      "app_uses": [
+        "document insurance stage definitions for lowbush"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only. No public claims statistics found."
+      },
+      "quality_caveats": "Program rules, not loss data.",
+      "priority": "P3",
+      "priority_reason": "Confirms no public PEI claims series.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "nccc212-state-reports",
+      "name": "NCCC-212 Small Fruit and Viticulture state reports",
+      "publisher": "NCCC-212 multistate committee, hosted by NC State Small Fruits",
+      "countries": [
+        "US",
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia",
+        "Michigan",
+        "New Jersey",
+        "Oregon",
+        "Washington",
+        "Ontario",
+        "Maine"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "research_literature",
+        "industry_report",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://smallfruits.cals.ncsu.edu/nccc-212-2021/",
+      "data_urls": [
+        "https://smallfruits.cals.ncsu.edu/wp-content/uploads/2021/11/NCCC-212-State-Report-Format_2021_FINAL_BRITISH_COLUMBIA.pdf",
+        "https://smallfruits.cals.ncsu.edu/nccc-212-2020/"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2020 and 2021 meeting pages seen",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "project summaries",
+        "season notes (BC 2021: heat dome, 111 F at Clearbrook 27-28 June 2021; blueberries less affected than raspberries)"
+      ],
+      "app_uses": [
+        "research pointers; occasional season narrative"
+      ],
+      "model_families": [
+        "heat",
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened 2021 index (state report PDFs incl. BC, MSU, Rutgers, OSU, WSU, Ontario) and BC report. MSU 2021 report covers genomics only, no season data."
+      },
+      "quality_caveats": "Mostly research progress text; season data rare.",
+      "priority": "P3",
+      "priority_reason": "Low yield of dated facts.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "statcan-32100364",
+      "name": "Statistics Canada Table 32-10-0364-01 Area, production and farm gate value of marketed fruits",
+      "publisher": "Statistics Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "NL",
+        "PE",
+        "NS",
+        "NB",
+        "QC",
+        "ON",
+        "MB",
+        "SK",
+        "AB",
+        "BC"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210036401",
+      "data_urls": [
+        "https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata",
+        "https://open.canada.ca/data/en/dataset/19c0022e-1a80-4d48-a20c-182674a0daaa"
+      ],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "1926-2025 (cube dates)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Statistics Canada Open Licence",
+      "license_url": "https://www.statcan.gc.ca/en/reference/licence",
+      "extractable_fields": [
+        "year",
+        "province",
+        "commodity (Fresh blueberries; highbush; lowbush)",
+        "marketed production",
+        "total production",
+        "cultivated area",
+        "bearing area",
+        "farm gate value",
+        "average price per pound"
+      ],
+      "app_uses": [
+        "year-to-year production anomalies by province to flag freeze and drought years (e.g. NB -38% in 2025)"
+      ],
+      "model_families": [
+        "market_timing",
+        "bud_flower_freeze",
+        "water_drought",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Table page opened; WDS getCubeMetadata call returned 13 geographies, 8 estimates, commodities incl. highbush and lowbush, cube 1926-01-01 to 2025-01-01."
+      },
+      "quality_caveats": "Annual only; highbush and lowbush split not available for all years; suppressed cells for small provinces.",
+      "priority": "P1",
+      "priority_reason": "Official provincial series split by blueberry type.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "statcan-32100315-census-fruits",
+      "name": "Statistics Canada Table 32-10-0315-01 Fruits, Census of Agriculture, 2021",
+      "publisher": "Statistics Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "provinces, census agricultural regions, census divisions, census consolidated subdivisions"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3210031501",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "api-json"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2021 census",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Statistics Canada Open Licence",
+      "license_url": "https://www.statcan.gc.ca/en/reference/licence",
+      "extractable_fields": [
+        "geography (2113 units down to census consolidated subdivision)",
+        "Blueberries total, highbush, lowbush",
+        "number of farms reporting",
+        "acres",
+        "hectares"
+      ],
+      "app_uses": [
+        "map where lowbush and highbush are grown to weight regional evidence and pick validation cells"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "WDS metadata call returned 2113 geographies and fruit members 'Blueberries, total', 'Blueberries, highbush', 'Blueberries, lowbush'."
+      },
+      "quality_caveats": "Single census year; 2021 was the first split of high and low bush; suppression in small units.",
+      "priority": "P1",
+      "priority_reason": "Sub-provincial blueberry area by type for Canada.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "statcan-blueberries-2025-article",
+      "name": "StatCan Plus: Despite a challenging 2025 growing season, blueberries remain Canada's top-selling fruit (2 July 2026)",
+      "publisher": "Statistics Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "BC",
+        "QC",
+        "NS",
+        "NB",
+        "PE"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.statcan.gc.ca/o1/en/plus/9224-despite-challenging-2025-growing-season-blueberries-remain-canadas-top-selling-fruit",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2025 season",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Statistics Canada Open Licence",
+      "license_url": null,
+      "extractable_fields": [
+        "national 2025 production 156,922 t",
+        "BC 73,545 t (47%), down 10% partly from lack of rain",
+        "QC 42,951 t (+4.1%)",
+        "NS 15,604 t (-16.9%), NB 15,014 t (-38%), PEI 8,690 t (-10.8%) after prolonged summer drought",
+        "lowbush 51% of volume, highbush 61% of sales"
+      ],
+      "app_uses": [
+        "claim records for 2025 Maritime drought and BC dry season"
+      ],
+      "model_families": [
+        "water_drought",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened article; figures as listed."
+      },
+      "quality_caveats": "Cause attribution is narrative.",
+      "priority": "P2",
+      "priority_reason": "Official dated cause narrative for 2025.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "aafc-fruit-statistical-overview-2024",
+      "name": "Statistical overview of the Canadian fruit industry, 2024",
+      "publisher": "Agriculture and Agri-Food Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "BC",
+        "QC",
+        "ON",
+        "NS",
+        "NB",
+        "PE"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "industry_report",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://agriculture.canada.ca/en/sector/horticulture/reports/statistical-overview-canadian-fruit-industry-2024",
+      "data_urls": [
+        "https://agriculture.canada.ca/sites/default/files/documents/2025-07/fruit-report-2024-eng.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2020-2024 tables; earlier editions (e.g. 2020) exist",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "highbush and lowbush area, production, value 2020-2024",
+        "lowbush share by province 2024 (QC 46.8%, NB 25.6%, NS 17.4%, PEI 10%)",
+        "BC 94% of highbush 2024",
+        "weather narrative: BC cool wet April-June 2024 staggered bloom; Maritimes 2023 extreme cold and excess rain hit 2024 lowbush; NS polar vortex February 2023"
+      ],
+      "app_uses": [
+        "claim records for 2023-2024 weather impacts; cultivated area denominators"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened HTML; grep found blueberry tables (e.g. lowbush 94,111 t and highbush 71,497 t in 2024) and the weather narrative lines listed."
+      },
+      "quality_caveats": "AAFC compiles from StatCan and industry; narrative is summary level.",
+      "priority": "P1",
+      "priority_reason": "Official annual narrative linking weather to blueberry volumes by province.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "aafc-crop-profile-highbush-2023",
+      "name": "Crop profile for highbush blueberry in Canada, 2023",
+      "publisher": "Agriculture and Agri-Food Canada, Pest Management Centre",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "management_practice",
+        "pest_disease_advisory",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://agriculture.canada.ca/en/science/agriculture-and-agri-food-research-centres/pest-management-centre/pesticide-risk-reduction-pest-management-centre/crop-profiles/crop-profile-highbush-blueberry-canada",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2021-2023 production years",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "monthly production calendar (late March to late April leaf and flower bud break; July to September harvest)",
+        "area and production by province 2023",
+        "abiotic factors (frost and bacterial blight; winter cold)",
+        "IPM practice adoption incl. degree-day monitoring"
+      ],
+      "app_uses": [
+        "BC stage calendar prior; management layer facts"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "management",
+        "disease"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page; calendar headings and abiotic text seen."
+      },
+      "quality_caveats": "Calendar is generic for BC.",
+      "priority": "P2",
+      "priority_reason": "Official BC stage calendar and management facts.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "aafc-crop-profile-lowbush-2023",
+      "name": "Profil de culture du bleuet nain au Canada, 2023",
+      "publisher": "Agriculture et Agroalimentaire Canada, Centre de lutte antiparasitaire",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "QC",
+        "NB",
+        "NS",
+        "PE"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "management_practice",
+        "pest_disease_advisory",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://agriculture.canada.ca/fr/science/centres-recherche-lagriculture-lagroalimentaire/centre-lutte-antiparasitaire/reduction-risques-lies-aux-pesticides-au-centre-lutte-antiparasitaire/profils-culture/profil-culture-du-bleuet-nain-au-canada-2023",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "fr",
+        "en"
+      ],
+      "temporal_coverage": "2023 edition",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "monthly calendar for crop year (AR) and sprout year (ACV)",
+        "production by province 2023",
+        "abiotic limits: frost during bloom (June), winter desiccation",
+        "research needs incl. GDD modelling"
+      ],
+      "app_uses": [
+        "two-year lowbush cycle facts and June bloom-frost risk statement"
+      ],
+      "model_families": [
+        "management",
+        "bud_flower_freeze",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened French page; Table 3 calendar and 'Températures extrêmes' text seen."
+      },
+      "quality_caveats": "National summary.",
+      "priority": "P2",
+      "priority_reason": "Official lowbush management calendar.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "usda-nass-quickstats",
+      "name": "USDA NASS Quick Stats (survey and Census of Agriculture)",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "MI",
+        "NJ",
+        "ME",
+        "OR",
+        "WA",
+        "CA",
+        "and other states"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://quickstats.nass.usda.gov/api",
+      "data_urls": [
+        "https://www.nass.usda.gov/datasets/"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "survey years and census years (blueberry state series at least 2014-2024 seen; Maine county wild acres 1997-2022 via UMaine)",
+      "update_frequency": "annual",
+      "access": "open-with-free-registration",
+      "license_or_terms": "US federal government work (public domain); API key requires email registration and acceptance of terms",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity (BLUEBERRIES, TAME; BLUEBERRIES, WILD)",
+        "state, county (census)",
+        "year",
+        "acres bearing and harvested",
+        "utilized production lb",
+        "yield",
+        "price fresh and processed",
+        "value"
+      ],
+      "app_uses": [
+        "state production anomalies to flag freeze years; county acreage to locate production"
+      ],
+      "model_families": [
+        "location_mapping",
+        "market_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened API documentation page: key by email, 50,000 record limit, bulk files at nass.usda.gov/datasets. No API call made (key needed). Commodity labels listed are expected and must be confirmed."
+      },
+      "quality_caveats": "NASS publishes cultivated blueberries for eight states only; county data only in census years; disclosure suppression.",
+      "priority": "P1",
+      "priority_reason": "Official US state and county series.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "usda-nass-nj-blueberry-statistics",
+      "name": "NASS New Jersey Blueberry Statistics (annual)",
+      "publisher": "USDA NASS New Jersey Field Office",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "New Jersey",
+        "plus state comparison table"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://data.nass.usda.gov/Statistics_by_State/New_Jersey/Publications/Blueberry_Statistics/NJ-2023-Blueberry.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1929-2023 NJ series",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "NJ harvested acres, yield, utilized production, price, value 1929-2023",
+        "2023 state table: CA, FL, GA, MI, NJ, NC, OR, WA harvested acres, yield, production, fresh and processed price"
+      ],
+      "app_uses": [
+        "95-year NJ yield series to flag freeze and drought years against modelled risk"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened PDF: NJ 2023 10,800 harvested acres, 4,660 lb/acre, 50.2 M lb; tables 1929-2023."
+      },
+      "quality_caveats": "Units change over time (flats to lb); state level only.",
+      "priority": "P2",
+      "priority_reason": "Long yield series at the benchmark state.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "umaine-production-statistics",
+      "name": "Maine Wild Blueberry Production Statistics",
+      "publisher": "University of Maine Cooperative Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine counties"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.umaine.edu/blueberries/resources/production-statistics/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1924-2025 (graph); table 2012-2024; county bearing acres every 5 years 1997-2022",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "harvested acres",
+        "production (million lb)",
+        "lb per acre",
+        "fresh and processed share and price",
+        "county fruit-bearing acres"
+      ],
+      "app_uses": [
+        "yield anomalies (e.g. 2020 at 2,290 lb/acre) as validation targets for frost and drought years"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought",
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened page updated February 2026: 2012-2024 table, county table (Washington County 13,668 acres in 2012)."
+      },
+      "quality_caveats": "Derived from NASS; long series is a graph image.",
+      "priority": "P2",
+      "priority_reason": "Ready lowbush yield series for Maine.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "usda-nass-cdl-blueberries",
+      "name": "USDA NASS Cropland Data Layer, class 242 Blueberries",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "all states"
+      ],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_wa23.htm",
+      "data_urls": [],
+      "format": [
+        "shapefile",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2008-present (state metadata pages from 2007-2008 seen)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "pixel class 242 Blueberries",
+        "state accuracy table: producer's and user's accuracy per class"
+      ],
+      "app_uses": [
+        "mask blueberry cells for pins and validation; detect expansion (e.g. eastern WA)"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened 2023 Washington metadata: Blueberries class 242, 1,391 validation pixels, producer's accuracy 79.0%, user's accuracy 82.7%."
+      },
+      "quality_caveats": "Accuracy varies by state; perennial small fields may be missed; Maine wild barrens may be mapped as other classes (not checked).",
+      "priority": "P1",
+      "priority_reason": "Field-scale blueberry location layer for US states in scope.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "aafc-annual-crop-inventory",
+      "name": "AAFC Annual Space-Based Crop Inventory (ACI), class 182 Blueberry",
+      "publisher": "Agriculture and Agri-Food Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "all provinces"
+      ],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://agriculture.canada.ca/atlas/data_donnees/annualCropInventory/supportdocument_documentdesupport/en/ISO%2019131_AAFC_Annual_Crop_Inventory_Data_Product_Specifications.pdf",
+      "data_urls": [
+        "https://open.canada.ca/data/en/dataset/ba2645d5-4458-414d-b196-6303ac06c1c9"
+      ],
+      "format": [
+        "pdf",
+        "zip"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "2009-2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Open Government Licence - Canada",
+      "license_url": "https://open.canada.ca/en/open-government-licence-canada",
+      "extractable_fields": [
+        "class 182 Blueberry (sub-class of Berries 181)",
+        "provincial overall accuracy by year (e.g. BC 86.42% Fraser Valley only)",
+        "GeoTIFF per province"
+      ],
+      "app_uses": [
+        "mask Canadian blueberry cells (BC Fraser Valley, Lac-Saint-Jean, Maritimes barrens)"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened specification PDF: legend row 'Blueberry 182', Open Government Licence constraint, accuracy by province and year. Per-class blueberry accuracy not seen."
+      },
+      "quality_caveats": "Per-class accuracy for blueberry not in the spec; Berries class used when sub-class unclear.",
+      "priority": "P1",
+      "priority_reason": "Open 30 m blueberry map for all of Canada.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "usda-ams-shipping-point-trends",
+      "name": "USDA AMS National Shipping Point Trends (FVWTRDS) and Benton Harbor shipping point prices",
+      "publisher": "USDA Agricultural Marketing Service, Specialty Crops Market News",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan",
+        "South New Jersey",
+        "other origins"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ams.usda.gov/mnreports/fvwtrds.pdf",
+      "data_urls": [
+        "https://www.ams.usda.gov/mnreports/br_fv110.pdf",
+        "https://mymarketnews.ams.usda.gov/viewReport/1662"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current weekly report (archive depth not checked)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "origin (Michigan, South New Jersey)",
+        "crop year",
+        "weekly shipments (three-week series)",
+        "FIRST REPORT and LAST REPORT flags",
+        "FOB price ranges"
+      ],
+      "app_uses": [
+        "first and last shipment week per state as harvest start and end proxy"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened 6 October 2026 FVWTRDS PDF: blueberries section with 'MICHIGAN 2026 CROP Shipments' line and import origins. BR_FV110 seen only in search."
+      },
+      "quality_caveats": "Global AMS import series are covered by another agent; domestic shipments are units, not tonnes; archive access via MyMarketNews not tested.",
+      "priority": "P2",
+      "priority_reason": "Fills the benchmark gap 'AMS shipping-point reports were not used'.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "wsu-state-of-wa-blueberry-industry-2019",
+      "name": "The State of the Washington Blueberry Industry (Schreiber, WBC, December 2019)",
+      "publisher": "Washington Blueberry Commission, hosted by WSU",
+      "countries": [
+        "US",
+        "CA"
+      ],
+      "subnational_scope": [
+        "Washington counties (Whatcom, Skagit, Lewis, Snohomish, eastern WA)",
+        "British Columbia"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://s3.wp.wsu.edu/uploads/sites/2093/2019/12/2019StateofBlueberryLynden.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2006-2019 WA production by assessments",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "WA production by year 2006-2019 (assessed pounds)",
+        "acres by county (Whatcom 7,800 planted, Skagit 3,100, eastern WA 6,500)",
+        "fresh vs processed share",
+        "BC fresh and processed 2014-2019"
+      ],
+      "app_uses": [
+        "county weighting for Lynden and Prosser cells"
+      ],
+      "model_families": [
+        "location_mapping",
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened slides with tables listed."
+      },
+      "quality_caveats": "Projections mixed with actuals; slide format.",
+      "priority": "P3",
+      "priority_reason": "Only county split found for WA.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "california-blueberry-commission-annual-reports",
+      "name": "California Blueberry Commission annual reports",
+      "publisher": "California Blueberry Commission",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "California"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "shipment_or_export_series",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.calblueberry.org/annual-reports.html",
+      "data_urls": [
+        "https://www.calblueberry.org/uploads/1/2/5/0/125053236/cal_blueberry_report_2024_proof_77622.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2013-2014 to 2023-2024",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "research project summaries",
+        "domestic and export statistics for the past two years (per page description)"
+      ],
+      "app_uses": [
+        "California season narrative and shipment statistics; complements IBO 2022 freeze record"
+      ],
+      "model_families": [
+        "market_timing",
+        "bud_flower_freeze",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened index with 11 annual report PDFs; PDFs not opened."
+      },
+      "quality_caveats": "Content of statistics tables unverified.",
+      "priority": "P2",
+      "priority_reason": "Eleven years of industry reports for low-chill California.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "msu-enviroweather",
+      "name": "MSU Enviroweather",
+      "publisher": "Michigan State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Michigan"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://enviroweather.msu.edu/",
+      "data_urls": [
+        "https://enviroweather.msu.edu/weathermodels/growingdegreedays"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2013-2023 regional averages cited by MSU E3490; full archive depth not verified",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station (e.g. Benton Harbor SWMREC, Fennville, Hart, Lawton)",
+        "temperature, dewpoint",
+        "GDD at five bases",
+        "blueberry pest models"
+      ],
+      "app_uses": [
+        "bias-correct Tmin and GDD at Grand Junction and South Haven cells"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "budbreak_bloom_timing",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage loads as a JavaScript app (title only); site menu shows Login and Register. Bulk download terms not seen."
+      },
+      "quality_caveats": "Programmatic access unclear; check terms before bulk use.",
+      "priority": "P1",
+      "priority_reason": "Station network inside the Michigan blueberry belt.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "wsu-agweathernet",
+      "name": "WSU AgWeatherNet",
+      "publisher": "Washington State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Washington"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://weather.wsu.edu/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "15-minute data; archive depth not verified",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (search snippet: data free of charge; full data set for registered users; API needs permission)",
+      "license_url": null,
+      "extractable_fields": [
+        "15-minute air temperature, humidity, dewpoint, wind, rain",
+        "station location"
+      ],
+      "app_uses": [
+        "drive the WSU Duke bloom model; bias-correct Lynden, Skagit and Prosser cells"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Site is JavaScript-only. Terms seen only in search snippets (free of charge; registered users get full data; API via AWNPy requires permission)."
+      },
+      "quality_caveats": "API permission needed; more than 300 stations per Rogers et al. 2026.",
+      "priority": "P1",
+      "priority_reason": "Station source used by the published WA bloom model.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "usbr-agrimet",
+      "name": "AgriMet (Columbia-Pacific Northwest Region)",
+      "publisher": "US Bureau of Reclamation",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Oregon",
+        "Washington",
+        "Idaho",
+        "Montana"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.usbr.gov/pn/agrimet/",
+      "data_urls": [
+        "https://www.usbr.gov/pn/agrimet/location.csv",
+        "https://www.usbr.gov/pn/agrimet/agrimetmap/usbr_map.json"
+      ],
+      "format": [
+        "csv",
+        "api-json",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "archive depth not verified",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "station list with coordinates (CSV, JSON)",
+        "hourly and daily parameters with codes and data flags",
+        "GDD algorithm notes"
+      ],
+      "app_uses": [
+        "Oregon and Washington station checks (Corvallis, Willamette Valley, Prosser)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "heat",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage: links to station CSV/JSON, hourly parameter codes and historical data pages."
+      },
+      "quality_caveats": "Irrigation-focused sites; check siting.",
+      "priority": "P2",
+      "priority_reason": "Open federal hourly network for Oregon.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "cimis",
+      "name": "California Irrigation Management Information System (CIMIS)",
+      "publisher": "California Department of Water Resources",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "California"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://cimis.water.ca.gov/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "archive depth not verified",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "hourly and daily air temperature, humidity, ET, station metadata"
+      ],
+      "app_uses": [
+        "chill and freeze checks for San Joaquin Valley blueberry cells (Madera 2022 freeze in IBO)"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage returned meta description only. API key registration not verified on this visit."
+      },
+      "quality_caveats": "Agronomic stations on reference grass.",
+      "priority": "P2",
+      "priority_reason": "Hourly network for low-chill California.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nj-weather-network",
+      "name": "NJ Weather Network and NJ State Climate Office",
+      "publisher": "Rutgers University, Office of the New Jersey State Climatologist",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "New Jersey"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "industry_report"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.njweather.org/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "real-time 70-station NJ Mesonet; climate products back to 1895",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station observations",
+        "monthly climate recaps (narrative, dated events)",
+        "county climate tables (NClimDiv)"
+      ],
+      "app_uses": [
+        "Tmin bias at Hammonton cells; monthly recaps as dated weather narrative (e.g. April 2026 freeze)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage: 70-station NJ Mesonet, monthly recaps (September 2026, August 2026), data back to 1895 for climate products."
+      },
+      "quality_caveats": "Download terms and API not checked.",
+      "priority": "P1",
+      "priority_reason": "Dense network around the NJ benchmark site.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "maine-mesonet",
+      "name": "Maine Mesonet (Maine Climate Office)",
+      "publisher": "University of Maine, Maine Climate Office",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://mco.umaine.edu/mesonet/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "new network (2026 news); depth not verified",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "5-minute, hourly, daily meteograms",
+        "air temperature, RH, dewpoint, soil temperature and moisture"
+      ],
+      "app_uses": [
+        "frost detection near Cherryfield; GDD for the UMaine tracker"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened station page template (values load by script); frequency options 5 minute, hourly, daily."
+      },
+      "quality_caveats": "Short record.",
+      "priority": "P2",
+      "priority_reason": "Linked from the UMaine phenology tracker.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "newa-cornell",
+      "name": "NEWA Network for Environment and Weather Applications",
+      "publisher": "Cornell University with Northeast Regional Climate Center",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Northeast states incl. New Jersey"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://newa.cornell.edu/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not verified",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station hourly weather",
+        "degree-day calculator",
+        "weather data query"
+      ],
+      "app_uses": [
+        "extra stations in NJ and the Northeast"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage with station selector and Weather Data Query tool; no blueberry-specific models listed on the home page."
+      },
+      "quality_caveats": "Mixed station owners.",
+      "priority": "P3",
+      "priority_reason": "Secondary to NJ Weather Network.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "eccc-climate-hourly-api",
+      "name": "ECCC historical climate data, MSC GeoMet OGC API (climate-hourly, climate-daily)",
+      "publisher": "Environment and Climate Change Canada",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "BC",
+        "QC",
+        "NS",
+        "NB",
+        "PE",
+        "ON"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://api.weather.gc.ca/",
+      "data_urls": [
+        "https://api.weather.gc.ca/collections/climate-hourly/items?f=json&limit=1&CLIMATE_IDENTIFIER=1100030"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "fr"
+      ],
+      "temporal_coverage": "station dependent; Abbotsford A hourly from at least 1990",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Environment and Climate Change Canada Data Servers End-use Licence",
+      "license_url": "https://eccc-msc.github.io/open-data/licence/readme_en/",
+      "extractable_fields": [
+        "STATION_NAME",
+        "CLIMATE_IDENTIFIER",
+        "LOCAL_DATE",
+        "UTC_DATE",
+        "TEMP",
+        "DEW_POINT_TEMP",
+        "RELATIVE_HUMIDITY",
+        "PRECIP_AMOUNT",
+        "quality flags"
+      ],
+      "app_uses": [
+        "hourly Tmin bias correction for Fraser Valley, Lac-Saint-Jean and Maritime cells; frost night detection"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "disease",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "One API call for Abbotsford A (1100030): numberMatched 520,631 hourly records; first record 1990-01-28 22:00 with TEMP 5.4, DEW_POINT_TEMP 4, RELATIVE_HUMIDITY 91 and flag fields."
+      },
+      "quality_caveats": "Airport siting; frost hollows not represented.",
+      "priority": "P1",
+      "priority_reason": "Open hourly API with long records across all Canadian regions in scope.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "agrometeo-quebec",
+      "name": "Agrométéo Québec",
+      "publisher": "Solutions Mesonet (with AAFC, Government of Québec, Hydro-Québec, Rio Tinto)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec incl. Lac-Saint-Jean, Saguenay"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://agrometeo.solutions-mesonet.org/",
+      "data_urls": [
+        "https://agrometeo.solutions-mesonet.org/indices/sommaireCulture/1",
+        "https://agrometeo.solutions-mesonet.org/indices/modelMeteogram/petits_fruits/63"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "fr",
+        "en"
+      ],
+      "temporal_coverage": "not verified",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Conditions d'utilisation: personal and non-commercial use only; redistribution off-site requires prior written authorization from Solutions Mesonet",
+      "license_url": "https://agrometeo.solutions-mesonet.org/site/terms_and_conditions",
+      "extractable_fields": [
+        "station observations",
+        "degree-day summaries by blueberry region",
+        "lowbush phenology meteogram (simple sine, snow-cover start)"
+      ],
+      "app_uses": [
+        "validate CIPRA lowbush model runs at Lac-Saint-Jean stations"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage (latest obs 11 Oct 2026), terms page dated August 2017, and the 'Phénologie du bleuetier nain' model page."
+      },
+      "quality_caveats": "Terms block redistribution; use as reference or ask permission.",
+      "priority": "P2",
+      "priority_reason": "Hosts the Québec blueberry models; terms restrictive.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "perennia-farm-data-tools",
+      "name": "Perennia Farm Data Tools (GDD calculator and NS on-farm stations)",
+      "publisher": "Perennia",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Nova Scotia"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.farmdatatools.perennia.ca/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Weather Station Assistance Program from 2021-2022",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station selection",
+        "date range",
+        "accumulated GDD"
+      ],
+      "app_uses": [
+        "field-station GDD in NS blueberry fields to compare with grid"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "JavaScript app; only title rendered."
+      },
+      "quality_caveats": "Access method unknown.",
+      "priority": "P3",
+      "priority_reason": "Useful but access unverified.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "farmwest-bc",
+      "name": "Farmwest climate and GDD tools",
+      "publisher": "Farmwest (BC)",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia (Lower Mainland)"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://farmwest.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "since 2001 (per secondary source)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station GDD",
+        "T-sum calculator"
+      ],
+      "app_uses": [
+        "extra Fraser Valley stations"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only."
+      },
+      "quality_caveats": "Aggregates other networks.",
+      "priority": "P3",
+      "priority_reason": "Unverified secondary network.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "wsu-decision-aid-system",
+      "name": "WSU Decision Aid System (DAS)",
+      "publisher": "Washington State University",
+      "countries": [
+        "US",
+        "CA"
+      ],
+      "subnational_scope": [
+        "Washington",
+        "British Columbia"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "extension_advisory",
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://decisionaid.systems/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "model outputs incl. blueberry bloom progression forecast (per Rogers et al. 2026)"
+      ],
+      "app_uses": [
+        "compare app bloom windows with DAS bloom forecasts in WA"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage (registration offered); blueberry model not visible on public page."
+      },
+      "quality_caveats": "Registration; tree-fruit focus on public page.",
+      "priority": "P3",
+      "priority_reason": "Operational home of the WA bloom model.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "bc-blueberry-council",
+      "name": "BC Blueberry Council",
+      "publisher": "British Columbia Blueberry Council",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.bcblueberry.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current blog posts (2026)",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "blog posts (pruning and bloom cycle, wildfire resources)"
+      ],
+      "app_uses": [
+        "context only; crop data appear to sit in the member portal"
+      ],
+      "model_families": [
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage: 600+ growers; 'Industry Insights' and grower portal behind member login; no public crop reports seen."
+      },
+      "quality_caveats": "Member portal; IBO already carries BCBC member summaries.",
+      "priority": "P3",
+      "priority_reason": "No public dated data found.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "producteurs-bleuets-sauvages-quebec",
+      "name": "Producteurs de bleuets sauvages du Québec (Bulletin Le Bleuet, communiqués)",
+      "publisher": "Producteurs de bleuets sauvages du Québec",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "Québec (Saguenay-Lac-Saint-Jean, Côte-Nord)"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://bleuetsduquebec.ca/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "fr"
+      ],
+      "temporal_coverage": "Bulletin Le Bleuet up to No 092 (10 Oct 2025); press releases 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "season launch date (29 July 2026)",
+        "bulletin issues",
+        "CECPA technico-economic portrait 2023"
+      ],
+      "app_uses": [
+        "harvest start dates for Lac-Saint-Jean lowbush from season launch releases"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened homepage: about 300 producers, near 100 million lb a year; links to Bulletin Le Bleuet No 092 and 2026 season launch release."
+      },
+      "quality_caveats": "Promotional; bulletin content not opened.",
+      "priority": "P2",
+      "priority_reason": "Primary industry voice for the Lac-Saint-Jean pin.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "bc-ministry-berries",
+      "name": "BC Ministry of Agriculture and Food: Berries (production guides, production insurance)",
+      "publisher": "Province of British Columbia",
+      "countries": [
+        "CA"
+      ],
+      "subnational_scope": [
+        "British Columbia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "insurance",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/animals-and-crops/crop-production/berries",
+      "data_urls": [
+        "https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/programs/agriculture-insurance-and-income-protection-programs/redirect-production-insurance/berries"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "page updated 26 June 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "berry production guide links",
+        "production insurance perils (hail, spring frost, excessive rain, flooding, drought)"
+      ],
+      "app_uses": [
+        "BC cultivar guide (already S19 in repo); insurance peril list"
+      ],
+      "model_families": [
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened berries page; links to production guides and berry production insurance (insurance page itself seen in search only). No public claims statistics found."
+      },
+      "quality_caveats": "No loss data published.",
+      "priority": "P3",
+      "priority_reason": "Confirms absence of public BC insurance loss data.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "oregon-washington-commissions",
+      "name": "Oregon Blueberry Commission and Washington Blueberry Commission websites",
+      "publisher": "Oregon Blueberry Commission; Washington Blueberry Commission",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Oregon",
+        "Washington"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.oregonblueberry.com/",
+      "data_urls": [
+        "https://wablueberries.com/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "consumer and U-pick content; WA research proposals PDFs"
+      ],
+      "app_uses": [
+        "none found for phenology or loss"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened both homepages: consumer content; Oregon 'Assessment Reports' page showed no data. WA research proposal PDFs exist (search)."
+      },
+      "quality_caveats": "No crop timing or loss data found.",
+      "priority": "P3",
+      "priority_reason": "Checked lead with low value.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "freshplaza-maine-frost-2026",
+      "name": "FreshPlaza: Frost and temperature swings threaten Maine wild blueberry crop (2026)",
+      "publisher": "FreshPlaza",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine (Washington and Hancock county barrens)"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.freshplaza.com/north-america/article/9849174/frost-and-temperature-swings-threaten-maine-wild-blueberry-crop/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "late May 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "Aurora station swing from 90 F to 21 F in late May 2026",
+        "inland barrens worse than coast"
+      ],
+      "app_uses": [
+        "pair with UMaine frost posts of 22-23 May 2026"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "heat"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only (summary cites UMaine specialist Lily Calderwood)."
+      },
+      "quality_caveats": "Trade press; check against UMaine posts.",
+      "priority": "P3",
+      "priority_reason": "Secondary confirmation of a 2026 frost.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "usda-ers-fruit-tree-nuts-outlook",
+      "name": "USDA ERS Fruit and Tree Nuts Outlook (e.g. FTS-384, March 2026)",
+      "publisher": "USDA Economic Research Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine",
+        "cultivated-blueberry states"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ers.usda.gov/sites/default/files/_laserfiche/outlooks/113982/FTS-384.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "periodic outlooks",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "season narrative (Maine 2025: rainy spring disrupted pollination; heat and severe drought from late July)",
+        "NABC crop estimates"
+      ],
+      "app_uses": [
+        "claim records for Maine 2025 season"
+      ],
+      "model_families": [
+        "pollination",
+        "water_drought",
+        "heat"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only; snippet text quoted in field list."
+      },
+      "quality_caveats": "Secondary summary of industry estimates.",
+      "priority": "P3",
+      "priority_reason": "Federal narrative for lowbush seasons.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "nass-new-england-wild-blueberry-releases",
+      "name": "NASS New England wild blueberry production releases",
+      "publisher": "USDA NASS New England Field Office",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Maine"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.nass.usda.gov/Statistics_by_State/New_England_includes/Publications/ME-Wild-Blueberry-Release.pdf",
+      "data_urls": [
+        "https://www.nass.usda.gov/nh/jan08blu.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "releases seen for 2006, 2007 and a recent release",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal government work (public domain)",
+      "license_url": null,
+      "extractable_fields": [
+        "Maine wild blueberry production and value by year",
+        "narrative on season"
+      ],
+      "app_uses": [
+        "season narrative and yield anomaly for Maine"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "water_drought"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "search-only",
+        "checked_on": "2026-10-11",
+        "note": "Seen in search results only."
+      },
+      "quality_caveats": "Overlaps Quick Stats.",
+      "priority": "P3",
+      "priority_reason": "Narrative supplement to Quick Stats.",
+      "est_effort_days": 0.25
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "NWC-01",
+      "title": "Rutgers Blueberry Bulletin weekly stage and event extraction",
+      "source_ids": [
+        "rutgers-blueberry-bulletin",
+        "nj-weather-network"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind=observation|event",
+        "topic=phenology|weather|disease",
+        "period.start/end from issue date and stated dates",
+        "crop_context=cultivar (Duke, Bluecrop, Draper) and percent bloom progressed",
+        "evidence_type=extension_observation",
+        "geography=US-NJ, Atlantic and Burlington counties",
+        "citations=issue date, volume, issue number, page"
+      ],
+      "cadence": "one-off backfill of 2026 (26 issues), request older issues by email, then weekly March to September",
+      "review_needed": "Separate agent estimates from scouting tables; confirm freeze dates (19-22 April 2026) and that statewide loss figures are all crops.",
+      "licensing_gate": "Bulletin asks for citation when reprinting; confirm reuse of quoted text with NJAES before public display.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Dated NHB bloom progress and a dated statewide freeze for the Hammonton benchmark."
+    },
+    {
+      "job_id": "NWC-02",
+      "title": "UMaine wild blueberry phenology tracker to stage table",
+      "source_ids": [
+        "umaine-wild-blueberry-phenology-tracker",
+        "maine-mesonet",
+        "umaine-frost-blog"
+      ],
+      "output": "time series table",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "site",
+        "visit_date",
+        "stage_code (T0-T5, closed flower, open flower, petal fall, green, color change, blue, over-ripe)",
+        "percent",
+        "season",
+        "notes",
+        "nearest_station_id"
+      ],
+      "cadence": "one-off backfill 2020-2026, then weekly April to August",
+      "review_needed": "Geocode the nine sites from the embedded map at town level only; check stage label changes between years.",
+      "licensing_gate": "No licence stated; ask UMaine Extension before redistributing tables.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Seven seasons of dated lowbush stages to calibrate the Cherryfield scan window."
+    },
+    {
+      "job_id": "NWC-03",
+      "title": "Québec RAP blueberry stage tables (bleuet nain and corymbe)",
+      "source_ids": [
+        "mapaq-rap-bleuet-nain",
+        "mapaq-rap-bleuet-corymbe",
+        "agrometeo-quebec"
+      ],
+      "output": "time series table",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "bulletin_date",
+        "bulletin_no",
+        "network (nain|corymbe)",
+        "sector or region",
+        "cultivar (corymbe only)",
+        "leaf_bud_stage",
+        "fruit_bud_BBCH",
+        "vegetation_status",
+        "DJ lag statement",
+        "snow_10cm_date"
+      ],
+      "cadence": "one-off backfill 2020-2026, then weekly May to September",
+      "review_needed": "Map French stage terms to BBCH; sector names to MRC polygons; flag ND cells.",
+      "licensing_gate": "RAP clause allows reproduction with source and forbids commercial use; confirm the app counts as non-commercial.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Weekly lowbush stages for the Lac-Saint-Jean pin and NHB stages for Québec."
+    },
+    {
+      "job_id": "NWC-04",
+      "title": "MSU fruit updates via dotCMS host",
+      "source_ids": [
+        "msu-fruit-updates-mirror",
+        "msu-gdd-jersey-phenology",
+        "msu-enviroweather"
+      ],
+      "output": "claim records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "kind=observation|event",
+        "topic=phenology|weather",
+        "period from article date",
+        "geography=US-MI county named",
+        "crop_context=cultivar if named",
+        "citations=URL on canr.msu.edu plus mirror URL, date"
+      ],
+      "cadence": "one-off backfill of 2018-2026 updates, then weekly April to September",
+      "review_needed": "Keep only blueberry paragraphs; record canonical canr.msu.edu URL; confirm mirror content matches.",
+      "licensing_gate": "MSU copyright; quote short passages only; cite canonical URL.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Fixes the Michigan bloom-month evidence gap and the model's one-month-late bloom at Grand Junction."
+    },
+    {
+      "job_id": "NWC-05",
+      "title": "Cool-climate phenology parameter table",
+      "source_ids": [
+        "cipra-guide-cultures-2022",
+        "white-2012-lowbush-gdd",
+        "perennia-gdd-factsheet-2022",
+        "ns-wild-blueberry-blog-gdd",
+        "drummond-2019-wild-blueberry-bloom",
+        "msu-gdd-jersey-phenology",
+        "wsu-rogers-2026-duke-bloom",
+        "kirk-isaacs-2012",
+        "osu-how-blueberry-plants-develop",
+        "oliveira-2017-chilling-highbush"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "species_class (NHB|lowbush|half-high)",
+        "cultivar",
+        "stage (BBCH or source label)",
+        "threshold_value",
+        "unit (GDD C, GDD F, chill hours)",
+        "base_temp_C",
+        "upper_or_optimum_C",
+        "method (average|simple sine)",
+        "start_date_rule",
+        "region",
+        "years_of_data",
+        "validation_metric",
+        "source_id",
+        "page_or_table"
+      ],
+      "cadence": "one-off, then annual review",
+      "review_needed": "Convert F to C only with explicit formula; never mix bases; keep start-date rule; flag guideline vs validated.",
+      "licensing_gate": "Numbers are facts; cite sources; WSU paper is CC BY-NC.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Approved cool-climate settings for NHB and lowbush stage timing."
+    },
+    {
+      "job_id": "NWC-06",
+      "title": "Stage freeze threshold table",
+      "source_ids": [
+        "msu-critical-spring-temperatures",
+        "umaine-fs216-lowbush-lst",
+        "hicklenton-2002-lowbush-frost",
+        "osu-how-blueberry-plants-develop",
+        "kogan-2023-nhb-cold-hardiness"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "species_class",
+        "stage",
+        "threshold_C",
+        "threshold_type (tolerable range|lowest safe|damage at duration)",
+        "duration_h",
+        "damage_percent",
+        "method (field|freezer)",
+        "source_id"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Keep threshold types separate; do not average LST with damage values.",
+      "licensing_gate": "None beyond citation.",
+      "effort_days": 0.5,
+      "priority": "P1",
+      "app_value": "Stage-specific thresholds for bud_flower_freeze and fruit_frost in cool climates."
+    },
+    {
+      "job_id": "NWC-07",
+      "title": "RMA cause of loss for blueberry counties in scope",
+      "source_ids": [
+        "usda-rma-cause-of-loss",
+        "usda-fsa-disaster-designations",
+        "noaa-storm-events"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "commodity_year",
+        "state_fips",
+        "county_fips",
+        "county_name",
+        "commodity_code",
+        "cause_of_loss_code",
+        "cause_of_loss_description",
+        "month_of_loss",
+        "year_of_loss",
+        "policies_indemnified",
+        "net_determined_quantity",
+        "indemnity_usd",
+        "loss_ratio"
+      ],
+      "cadence": "one-off backfill 1989-2025, then annual",
+      "review_needed": "Identify blueberry commodity code in the files; confirm whether Maine wild blueberries appear; group causes into app risk families.",
+      "licensing_gate": "Public domain; aggregate to county-year to avoid small-cell disclosure issues.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "County-month loss signals to validate freeze, heat and harvest-rain recurrence in MI, NJ, ME, OR, WA, CA."
+    },
+    {
+      "job_id": "NWC-08",
+      "title": "FADQ crop condition and damage notices",
+      "source_ids": [
+        "fadq-etat-des-cultures",
+        "fadq-avis-dommages-indemnites",
+        "statcan-blueberries-2025-article",
+        "aafc-fruit-statistical-overview-2024"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "kind=event",
+        "topic=weather",
+        "title",
+        "period (dated frost, hail, drought)",
+        "geography=CA-QC region",
+        "crop_context=bleuetières or petits fruits",
+        "evidence_type=insurer_bulletin",
+        "citations=report number and date"
+      ],
+      "cadence": "one-off backfill 2021-2026, then biweekly May to December",
+      "review_needed": "Keep only statements naming bleuets or bleuetières; mark aggregated small-fruit numbers as such.",
+      "licensing_gate": "Terms not found; ask FADQ before public display of quoted text.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Dated freeze and hail events for the Lac-Saint-Jean lowbush cells."
+    },
+    {
+      "job_id": "NWC-09",
+      "title": "Production time series US and Canada",
+      "source_ids": [
+        "statcan-32100364",
+        "usda-nass-quickstats",
+        "usda-nass-nj-blueberry-statistics",
+        "umaine-production-statistics"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "country",
+        "state_or_province",
+        "year",
+        "blueberry_type (highbush|lowbush|tame|wild)",
+        "bearing_area",
+        "harvested_area",
+        "production",
+        "yield",
+        "price_fresh",
+        "price_processed",
+        "value",
+        "source_id"
+      ],
+      "cadence": "one-off backfill, then annual",
+      "review_needed": "Unit harmonisation (lb, flats, tonnes, acres, hectares); mark suppressed cells.",
+      "licensing_gate": "StatCan Open Licence and US public domain; attribution only.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Year anomalies to test whether modelled risk years match low-yield years."
+    },
+    {
+      "job_id": "NWC-10",
+      "title": "Cool-climate station table",
+      "source_ids": [
+        "eccc-climate-hourly-api",
+        "nj-weather-network",
+        "msu-enviroweather",
+        "wsu-agweathernet",
+        "usbr-agrimet",
+        "maine-mesonet",
+        "cimis",
+        "agrometeo-quebec"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "network",
+        "station_id",
+        "name",
+        "lat",
+        "lon",
+        "elevation",
+        "start_date",
+        "hourly_available",
+        "variables",
+        "access_terms",
+        "nearest_benchmark_or_pin"
+      ],
+      "cadence": "one-off, then annual refresh",
+      "review_needed": "Confirm access terms per network; pick stations within 25 km of pins (Lynden, Cherryfield, Lac-Saint-Jean, Grand Junction, Hammonton, Yakima).",
+      "licensing_gate": "ECCC licence allows reuse with attribution; Agrométéo forbids redistribution; AgWeatherNet API needs permission.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Bias correction and frost detection at the cool-climate pins."
+    },
+    {
+      "job_id": "NWC-11",
+      "title": "Blueberry location masks (CDL and ACI)",
+      "source_ids": [
+        "usda-nass-cdl-blueberries",
+        "aafc-annual-crop-inventory",
+        "statcan-32100315-census-fruits"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "year",
+        "grid_cell_id",
+        "blueberry_pixel_count",
+        "class_code (242|182)",
+        "state_or_province",
+        "class_accuracy"
+      ],
+      "cadence": "one-off for latest 3 years, then annual",
+      "review_needed": "Check lowbush barrens classification in Maine and Québec; use census area as a cross-check.",
+      "licensing_gate": "Public domain (CDL) and Open Government Licence - Canada (ACI).",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Pick validation cells that actually contain blueberries; weight regional evidence."
+    },
+    {
+      "job_id": "NWC-12",
+      "title": "Regional narrative RAG corpus (cool climates)",
+      "source_ids": [
+        "aafc-fruit-statistical-overview-2024",
+        "statcan-blueberries-2025-article",
+        "aafc-crop-profile-highbush-2023",
+        "aafc-crop-profile-lowbush-2023",
+        "california-blueberry-commission-annual-reports",
+        "cbc-ns-frost-2018",
+        "bc-heat-dome-2021-country-life",
+        "nccc212-state-reports",
+        "producteurs-bleuets-sauvages-quebec",
+        "usda-ers-fruit-tree-nuts-outlook",
+        "onfruit-berry-bulletin"
+      ],
+      "output": "claim records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind",
+        "topic",
+        "title",
+        "summary",
+        "period",
+        "crop_context",
+        "evidence_type",
+        "geography_ids",
+        "citations (page, locator)",
+        "limitations"
+      ],
+      "cadence": "one-off, then annual",
+      "review_needed": "Human check of each claim against the page; mark news as news; avoid repeating IBO records (US-CA 2022 freeze, US-PNW 2021-22, CA-BC harvest).",
+      "licensing_gate": "Quote briefly; news and commission PDFs are copyrighted.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Citation-first evidence for BC, Québec, Maritimes, Maine and California beyond IBO."
+    },
+    {
+      "job_id": "NWC-13",
+      "title": "AMS weekly shipping point series for Michigan and New Jersey",
+      "source_ids": [
+        "usda-ams-shipping-point-trends"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "report_date",
+        "origin",
+        "crop_year",
+        "shipments_week_t-2",
+        "shipments_week_t-1",
+        "shipments_week_t",
+        "first_report_flag",
+        "last_report_flag",
+        "price_range"
+      ],
+      "cadence": "one-off backfill via MyMarketNews archive, then weekly",
+      "review_needed": "Confirm archive depth and that blueberry lines exist each week; coordinate with the agent covering AMS import series.",
+      "licensing_gate": "Public domain.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Harvest start and end week per state to check harvest_timing."
+    }
+  ]
+}

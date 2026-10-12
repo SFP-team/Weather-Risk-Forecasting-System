@@ -1,5 +1,19 @@
 # Project progress log
 
+## 2026-10-11: Review of Astra's work and source expansion for every region
+
+- **Astra's work reviewed.** "Astra" is the model `openai-codex/gpt-6-astra`. It worked here from 15 September to 5 October 2026: 14 commits, plus the cycle ruler and the Regional evidence tab, which other models committed. Three review agents covered science, IBO evidence and code.
+  - Science: careful and mostly correct; 17 of 20 checked sources fully support its claims. The risk gate saturates, chill shortfall is hidden at nine sites, and the planting window lacks Paul's sign-off.
+  - IBO evidence: 47 of 53 registry records supported, 5 partly, 1 page mismatch. The Chile and Waikato frost checks used the wrong window and cell.
+  - Engineering: 1 high, 6 medium and 13 low findings; no result-changing bug.
+- **Sources researched.** Fourteen agents covered ten regions, three global themes and an ingestion design: 824 unique sources in 69 countries (686 opened) and 174 extraction jobs. Package and roadmap: `docs/research/2026-10-11/`.
+- **Coordinator checks.**
+  - The server suite passed 141 tests, and the deployed code matches the repository.
+  - Re-checked the Chile and Waikato grid minima on the server: the stations were 6 to 8 °C colder than the cells.
+  - Verified the RMA 2022 blueberry losses (217 rows, USD 77.65 million, freeze USD 49.08 million) and corrected the Bacon County figure.
+  - Confirmed NOAA GSOD stopped in August 2025, and confirmed the HS1525, DMC, NIWA, SENAMHI, ODEPA licence and FreshPlaza robots claims.
+- **Fixes.** Corrected five user-guide statements and added a correction note to the IBO review. Removed the agent-installed `.venv` packages and agent temporary files. No model, API or UI behaviour changed.
+
 ## 2026-10-05: Complete user guide and current-state explanation
 
 - Added `APP_USER_GUIDE.md` in simplified technical English, with a formal ASD-STE100 compliance disclaimer. Covers completed improvements, current project stage, all six tabs, calendar requirements, risk interpretation, missing values, service errors, the reported screenshot, and approved future work.

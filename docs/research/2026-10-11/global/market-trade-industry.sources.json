@@ -1,0 +1,4062 @@
+{
+  "slug": "market-trade-industry",
+  "generated_on": "2026-10-11",
+  "scope": "Global production, trade, market and industry-intelligence sources for blueberries: FAOSTAT, customs systems and tariff lines, USDA FAS and AMS, IBO, commercial intelligence, trade press, company disclosures and breeder catalogues.",
+  "sources": [
+    {
+      "id": "faostat-qcl-blueberries",
+      "name": "FAOSTAT Production: Crops and livestock products (QCL), item 552 Blueberries",
+      "publisher": "Food and Agriculture Organization of the United Nations (FAO)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.fao.org/faostat/en/#data/QCL",
+      "data_urls": [
+        "https://bulks-faostat.fao.org/production/datasets_E.json",
+        "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip",
+        "https://data.un.org/Data.aspx?d=FAO&f=itemCode%3A552&q=blueberry"
+      ],
+      "format": [
+        "csv",
+        "zip",
+        "api-json"
+      ],
+      "language": [
+        "en",
+        "es",
+        "fr",
+        "zh",
+        "ru",
+        "ar"
+      ],
+      "temporal_coverage": "span not measured (bulk zip exceeds the sample limit); blueberry rows vary by country",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution-4.0 International licence (CC BY 4.0), complemented by FAO statistical database terms of use",
+      "license_url": "https://www.fao.org/contact-us/terms/db-terms-of-use/en/",
+      "extractable_fields": [
+        "area code",
+        "area",
+        "item code 552",
+        "item Blueberries",
+        "element (area harvested ha, production t, yield)",
+        "year",
+        "flag (official, estimated, imputed)"
+      ],
+      "app_uses": [
+        "country denominators for location_mapping (which countries grow blueberries at all)",
+        "year-to-year national production anomalies to cross-check reported weather losses (for example Chile 2022/23, Peru 2023/24)"
+      ],
+      "model_families": [
+        "location_mapping",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Bulk dataset index JSON opened: QCL zip 33,127 KB, 4,209,110 rows, updated 2025-12-31. FAO DB terms page states CC BY 4.0. Web UI is JavaScript only. faostatservices.fao.org/api/v1 returned 401 'Missing Authorization Header' (needs a free account and JWT). UNdata copy shows item 'Blueberries' (itemCode 552) for 61 country or area filters."
+      },
+      "quality_caveats": "Many producers report no blueberry row or FAO imputes values; national totals only; China and some new producers are inconsistent with industry figures. Bulk zip exceeds the 10 MB sample limit, so per-country depth was not measured.",
+      "priority": "P2",
+      "priority_reason": "Open, global, licensed for reuse, but annual and national only, so it supports mapping and denominators, not timing.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "faostat-tm-trade-matrix",
+      "name": "FAOSTAT Trade: Detailed trade matrix (TM)",
+      "publisher": "FAO",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.fao.org/faostat/en/#data/TM",
+      "data_urls": [
+        "https://bulks-faostat.fao.org/production/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip"
+      ],
+      "format": [
+        "csv",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "annual; full span not measured (bulk file 410,792 KB not downloaded)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution-4.0 International licence (CC BY 4.0), complemented by FAO statistical database terms of use",
+      "license_url": "https://www.fao.org/contact-us/terms/db-terms-of-use/en/",
+      "extractable_fields": [
+        "reporter",
+        "partner",
+        "item",
+        "element (import/export quantity and value)",
+        "year"
+      ],
+      "app_uses": [
+        "annual origin-destination flows as a cross-check of Comtrade"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Bulk index entry opened: TM zip 410,792 KB, 52,410,630 rows, updated 2025-12-23. Whether a separate 'Blueberries' trade item exists in TM was not confirmed (FAO trade items are built from HS lines, and HS 0810.40 mixes Vaccinium species)."
+      },
+      "quality_caveats": "Annual only; cannot show harvest timing. Built from the same customs data as Comtrade.",
+      "priority": "P3",
+      "priority_reason": "Annual and duplicative of Comtrade for this use.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "eurostat-apro-cpsh1-blueberries",
+      "name": "Eurostat crop production in EU standard humidity (apro_cpsh1), crop F3300 Blueberries",
+      "publisher": "Eurostat (European Commission)",
+      "countries": [
+        "AT",
+        "BE",
+        "BG",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "EE",
+        "ES",
+        "FI",
+        "FR",
+        "GR",
+        "HR",
+        "HU",
+        "IE",
+        "IT",
+        "LT",
+        "LU",
+        "LV",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SE",
+        "SI",
+        "SK"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ec.europa.eu/eurostat/web/agriculture/database",
+      "data_urls": [
+        "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&crops=F3300&geo=PL&geo=ES&geo=PT&geo=DE&sinceTimePeriod=2019"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "fr",
+        "de"
+      ],
+      "temporal_coverage": "sample returned 2019-2025; earlier years not tested",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Eurostat copyright notice: reuse of statistical data authorised provided the source is acknowledged",
+      "license_url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+      "extractable_fields": [
+        "geo",
+        "crops=F3300 Blueberries",
+        "strucpro (AR_THS_HA area, HPRD_HUMD_EU_THS_T harvested production, YLD_HUMD_EU_T_HA yield)",
+        "year"
+      ],
+      "app_uses": [
+        "EU area and production by member state for location_mapping in Poland, Spain, Portugal, Germany",
+        "detect production drops in years with reported freezes (Poland, Germany)"
+      ],
+      "model_families": [
+        "location_mapping",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API call returned F3300 'Blueberries' with area and harvested production: PL area 12.6 kha 2025; ES 5.14 kha 2025 and 70.69 kt; DE 3.45 kha 2025 and 17.27 kt; dataset updated 2026-09-28."
+      },
+      "quality_caveats": "National totals only; some member states missing or confidential; production in thousand tonnes rounded.",
+      "priority": "P2",
+      "priority_reason": "Open API with real blueberry rows for the main European producers; good denominators for event validation.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "usda-ers-fruit-tree-nuts-yearbook",
+      "name": "USDA ERS Fruit and Tree Nuts Yearbook Tables (Berries file, Table D-2 Blueberries)",
+      "publisher": "USDA Economic Research Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "AL",
+        "AR",
+        "CA",
+        "FL",
+        "GA",
+        "IN",
+        "ME",
+        "MI",
+        "MS",
+        "NC",
+        "NJ",
+        "NY",
+        "OR",
+        "WA",
+        "other states"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ers.usda.gov/data-products/fruit-and-tree-nuts-data/fruit-and-tree-nuts-yearbook-tables",
+      "data_urls": [
+        "https://www.ers.usda.gov/media/6499/berries-commercial-production-acreage-yield-and-grower-price.xlsx?v=64966",
+        "https://www.ers.usda.gov/media/6500/berries-commercial-production-acreage-yield-and-grower-price.csv?v=99813"
+      ],
+      "format": [
+        "xlsx",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1980-2024 (Table D-2)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105); no separate licence stated on page",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "state",
+        "area harvested (acres)",
+        "yield (lb/acre)",
+        "utilized production all, fresh, processed (1,000 lb)",
+        "grower price fresh and processed (cents/lb)"
+      ],
+      "app_uses": [
+        "state-year production anomalies to validate freeze years in Georgia, North Carolina, Florida, Michigan",
+        "fresh share by state as a proxy for harvest-season market exposure"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page opened; Berries workbook (650 KB) opened. Sheet D-2 'Blueberries: Area harvested, yield, production, and season-average grower price, by State, various years to date' runs 1980-2024 with per-state columns as listed."
+      },
+      "quality_caveats": "State coverage varies by year (NASS program changes); annual only; repeats NASS figures.",
+      "priority": "P2",
+      "priority_reason": "Clean, long state series that pairs with IBO freeze events in the US Southeast.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "un-comtrade-hs081040",
+      "name": "UN Comtrade (Comtrade+), HS 081040 monthly and annual trade by reporter and partner",
+      "publisher": "United Nations Statistics Division (UNSD)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://comtradeplus.un.org/",
+      "data_urls": [
+        "https://comtradeapi.un.org/public/v1/preview/C/M/HS?reporterCode=604&period=202501&cmdCode=081040&flowCode=X",
+        "https://uncomtrade.org/docs/subscriptions/",
+        "https://uncomtrade.org/docs/re-dissemination-of-data/"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly series varies by reporter (Peru January 2025 returned); annual HS series from 1988 onward for many reporters (not measured here)",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "UN Comtrade 'Policy on Comtrade Data Use' and 'Re-dissemination of data' rules (free basic subscription; re-dissemination of substantially unchanged data may need a licence)",
+      "license_url": "https://uncomtrade.org/docs/policy-on-comtrade-data-use/",
+      "extractable_fields": [
+        "refYear",
+        "refMonth",
+        "reporterCode",
+        "partnerCode",
+        "flowCode",
+        "cmdCode 081040",
+        "motCode (mode of transport)",
+        "netWgt (kg)",
+        "primaryValue (USD)",
+        "cifvalue",
+        "fobvalue",
+        "isQtyEstimated",
+        "isReported"
+      ],
+      "app_uses": [
+        "monthly export curves for Peru, Chile, Mexico, South Africa, Morocco, Argentina, Colombia, Zimbabwe, which ship almost no other Vaccinium fruit",
+        "year-to-year season start and peak shifts by origin"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Keyless public preview API returned 26 rows for Peru exports Jan 2025, cmdCode 081040: World 23,584,992 kg; partner 842 (USA) 13,945,701 kg; 528 (NL) 5,887,033 kg; 826 (UK) 1,569,888 kg. Docs page states free registration gives 100K records per call and up to 500 API calls/day."
+      },
+      "quality_caveats": "HS6 mixes blueberries, cranberries and bilberries; monthly reporting depends on each country; partner attribution and re-exports (Netherlands hub) distort destination curves; revisions.",
+      "priority": "P1",
+      "priority_reason": "One free API gives monthly origin curves for every exporting country, the backbone of the shipment-curve method.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "world-bank-wits-081040",
+      "name": "World Bank WITS trade statistics, product 081040",
+      "publisher": "World Bank",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://wits.worldbank.org/trade/comtrade/en/country/ALL/year/2023/tradeflow/Exports/partner/WLD/product/081040",
+      "data_urls": [
+        "https://wits.worldbank.org/"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "annual (2023 page opened)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found (terms-of-use URL tried returned page not found)",
+      "license_url": null,
+      "extractable_fields": [
+        "reporter",
+        "year",
+        "partner",
+        "export value (USD 1,000)",
+        "quantity (kg)"
+      ],
+      "app_uses": [
+        "quick annual ranking of exporters for scoping"
+      ],
+      "model_families": [
+        "market_timing",
+        "location_mapping"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2023 page lists top exporters of 'Cranberries, milberries...etc, fresh': Peru $1,668,615.46K and 206,579,000 kg; Netherlands $539,720.84K; Spain $509,093.88K; Chile $397,469.51K and 82,490,700 kg."
+      },
+      "quality_caveats": "Annual mirror of Comtrade; no monthly timing.",
+      "priority": "P3",
+      "priority_reason": "Convenient view only; Comtrade API is the primary path.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "cepii-baci",
+      "name": "CEPII BACI harmonised bilateral trade database (HS6)",
+      "publisher": "CEPII",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "HS92 1995-2024; HS17 2017-2024; HS22 2022-2024 (202601 version)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Licence: Etalab 2.0",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "exporter",
+        "importer",
+        "hs6 081040",
+        "value (USD 1,000)",
+        "quantity (t)"
+      ],
+      "app_uses": [
+        "reconciled annual flows where reporters disagree"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page states 'Licence: Etalab 2.0', last update January 30, 2026, version 202601 with HS vintages listed."
+      },
+      "quality_caveats": "Annual only; reconciled values differ from national data.",
+      "priority": "P3",
+      "priority_reason": "Open licence but annual, so it cannot time harvests.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "oec-world-081040",
+      "name": "Observatory of Economic Complexity (OEC) product profile HS 081040",
+      "publisher": "OEC / Datawheel",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://oec.world/en/profile/hs/cranberries-blueberries-and-other-fruits-of-the-genus-vaccinium",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "exporter",
+        "importer",
+        "year",
+        "value"
+      ],
+      "app_uses": [
+        "none beyond scoping"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Page returned only a JavaScript shell titled 'The Observatory of Economic Complexity'."
+      },
+      "quality_caveats": "Derived from BACI/Comtrade; monthly views are a paid feature [inference, not verified].",
+      "priority": "P3",
+      "priority_reason": "Secondary and JavaScript only.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "itc-trade-map",
+      "name": "ITC Trade Map (national tariff line and monthly trade data)",
+      "publisher": "International Trade Centre (ITC)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.trademap.org/",
+      "data_urls": [
+        "https://www.trademap.org/stFAQ.aspx"
+      ],
+      "format": [
+        "html",
+        "xlsx"
+      ],
+      "language": [
+        "en",
+        "es",
+        "fr"
+      ],
+      "temporal_coverage": "monthly for 'more than 100 countries' and national 8 and 10 digit lines for 'over 150 countries' annually (per search snippets of ITC user guide)",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (site is JavaScript only); fee page reported free access for developing-country and EU users and US$900/year otherwise (search-only)",
+      "license_url": null,
+      "extractable_fields": [
+        "reporter",
+        "partner",
+        "national tariff line",
+        "month",
+        "quantity",
+        "value"
+      ],
+      "app_uses": [
+        "one place to read national lines such as Chile 0810.4021/4029 by month without visiting each customs site"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "trademap.org returned only 'Trade Map beta is loading.' Access rules come from search snippets of ITC pages (mas-admintools options and fees page returned 404 when fetched)."
+      },
+      "quality_caveats": "Account required for downloads; redistribution terms unknown; national lines change over time.",
+      "priority": "P3",
+      "priority_reason": "Useful for manual checks, but terms are unclear and registration is needed.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "eurostat-comext-ds045409",
+      "name": "Eurostat Comext DS-045409 'EU trade since 1988 by HS2-4-6 and CN8', CN 0810 40 50 and related lines",
+      "publisher": "Eurostat (European Commission)",
+      "countries": [
+        "*",
+        "AT",
+        "BE",
+        "DE",
+        "ES",
+        "FR",
+        "IT",
+        "NL",
+        "PL",
+        "PT"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ec.europa.eu/eurostat/web/international-trade-in-goods/database",
+      "data_urls": [
+        "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=en&freq=M&reporter=NL&partner=PE&product=08104050&flow=1&indicators=QUANTITY_IN_100KG&time=2025-01&time=2025-02&time=2025-03",
+        "https://ec.europa.eu/eurostat/comext/newxtweb/"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en",
+        "fr",
+        "de"
+      ],
+      "temporal_coverage": "monthly; CN 08104050 rows returned for 2000-01 onward (dataset label says since 1988)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Eurostat copyright notice: reuse of statistical data authorised provided the source is acknowledged",
+      "license_url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+      "extractable_fields": [
+        "freq M",
+        "reporter (EU member state)",
+        "partner (origin country)",
+        "product CN8 08104050 / 08104030 / 08104010 / 08104090 / 08119050 / 08119070",
+        "flow (1 import, 2 export)",
+        "QUANTITY_IN_100KG",
+        "VALUE_IN_EUROS",
+        "time (YYYY-MM)"
+      ],
+      "app_uses": [
+        "monthly EU arrival curves from Peru, Chile, Morocco, South Africa, Argentina, Zimbabwe, Namibia, Colombia",
+        "intra-EU dispatch curves from Spain, Portugal, Poland, Netherlands for European harvest timing"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Keyless JSON API worked. NL imports from PE, CN 08104050 (label 'Fresh fruit of species Vaccinium macrocarpum and Vaccinium corymbosum'): 65,702.83, 50,982.25 and 13,275.24 (100 kg) for Jan to Mar 2025; NL from CL rows exist for 2000-01, 2005-01, 2010-01. A 2019-2025 monthly NL-from-PE pull was used for the worked example in the report."
+      },
+      "quality_caveats": "CN 08104050 mixes highbush blueberry with American cranberry; lowbush and other Vaccinium fall in 08104090; frozen highbush has no own line (falls in 08119095). Netherlands and Belgium act as hubs, so origin curves should use EU-extra imports. Confidential cells and revisions.",
+      "priority": "P1",
+      "priority_reason": "Open monthly origin-by-destination data from 2000 with a near-blueberry CN line; free API and permissive reuse.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "us-census-intltrade-api",
+      "name": "US Census Bureau International Trade API (imports by HS10, country and district, monthly)",
+      "publisher": "US Census Bureau",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [
+        "US customs districts"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.census.gov/data/developers/data-sets/international-trade.html",
+      "data_urls": [
+        "https://api.census.gov/data/timeseries/intltrade/imports/hs/variables.json",
+        "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=0810400029&time=2025-03"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly, 2010-present (per Census API page title)",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105); Census API Terms of Service apply",
+      "license_url": "https://www.census.gov/data/developers/about/terms-of-service.html",
+      "extractable_fields": [
+        "I_COMMODITY (HS10, e.g. 0810400024 wild, 0810400026 cultivated organic, 0810400029 cultivated other, 0811902030/40 frozen cultivated)",
+        "CTY_CODE",
+        "DISTRICT",
+        "DIST_NAME",
+        "time (YYYY-MM)",
+        "GEN_VAL_MO",
+        "GEN_QY1_MO (kg)",
+        "AIR_VAL_MO",
+        "VES_VAL_MO",
+        "CNT_VAL_MO"
+      ],
+      "app_uses": [
+        "monthly US import curves of cultivated blueberries by origin (Peru, Chile, Mexico, Canada, Argentina) and by entry district",
+        "separate wild (lowbush) from cultivated imports from Canada for Quebec and Maritimes timing"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "variables.json opened (70 variables; labels for I_COMMODITY, CTY_CODE, DISTRICT, GEN_VAL_MO, GEN_QY1_MO confirmed). A data call without a key returned a 'Missing Key' HTML page, so a free API key is needed."
+      },
+      "quality_caveats": "HTS statistical suffixes change over time, so long series need a concordance; import month reflects entry, not harvest; district reflects port, not origin region.",
+      "priority": "P1",
+      "priority_reason": "Only official monthly series that separates cultivated blueberries from cranberries at origin-country level.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "usa-trade-online",
+      "name": "USA Trade Online",
+      "publisher": "US Census Bureau",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [
+        "US ports and districts"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://usatrade.census.gov/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not determined (login)",
+      "update_frequency": "monthly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "HS10",
+        "country",
+        "port",
+        "month",
+        "quantity",
+        "value"
+      ],
+      "app_uses": [
+        "port-level monthly imports where the API is inconvenient"
+      ],
+      "model_families": [
+        "harvest_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Redirected to usatradeonline.census.gov which shows only a title page; data behind login."
+      },
+      "quality_caveats": "Same base data as the Census API.",
+      "priority": "P3",
+      "priority_reason": "Duplicates the API behind a login.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "usda-fas-gats",
+      "name": "USDA FAS Global Agricultural Trade System (GATS)",
+      "publisher": "USDA Foreign Agricultural Service",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://apps.fas.usda.gov/gats/default.aspx",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "HS10 or product group",
+        "partner",
+        "month",
+        "quantity",
+        "value"
+      ],
+      "app_uses": [
+        "user-friendly HS10 queries with concordance across HTS revisions"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "URL redirected to a browser-detection page (detectscreen.aspx) with no content for a non-browser client."
+      },
+      "quality_caveats": "Re-publishes Census data.",
+      "priority": "P3",
+      "priority_reason": "Convenience layer over Census data; not tested.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "uk-hmrc-ots-api",
+      "name": "HMRC uktradeinfo Overseas Trade Statistics API (OTS), commodity 08104050",
+      "publisher": "HM Revenue and Customs (UK)",
+      "countries": [
+        "GB",
+        "*"
+      ],
+      "subnational_scope": [
+        "UK ports"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.uktradeinfo.com/",
+      "data_urls": [
+        "https://api.uktradeinfo.com/OTS?$filter=CommodityId%20eq%2008104050%20and%20MonthId%20eq%20202501%20and%20FlowTypeId%20eq%201&$top=10",
+        "https://www.uktradeinfo.com/api-documentation/"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly (January 2025 sample returned); start year not tested",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "Open Government Licence v3.0",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "extractable_fields": [
+        "MonthId",
+        "FlowTypeId",
+        "CommodityId 8104050",
+        "CountryId",
+        "PortId",
+        "Value (GBP)",
+        "NetMass (kg)",
+        "SuppressionIndex"
+      ],
+      "app_uses": [
+        "monthly UK arrival curves from Peru, Chile, Morocco, South Africa as a second destination check"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Keyless OData call returned January 2025 import rows for CommodityId 8104050 with CountryId, PortId, Value and NetMass. Site footer: 'All content is available under the Open Government Licence v3.0'. UK Trade Tariff API shows 0810405000 'Fruit of the species vaccinium macrocarpon and vaccinium corymbosum'."
+      },
+      "quality_caveats": "Same species mixing as EU CN 08104050; country codes need the HMRC lookup table.",
+      "priority": "P2",
+      "priority_reason": "Open licence and port detail, but it repeats the origin signal already in Comext.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "china-customs-statistics",
+      "name": "China Customs online statistics query platform (海关统计数据在线查询平台)",
+      "publisher": "General Administration of Customs of China (GACC)",
+      "countries": [
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "http://stats.customs.gov.cn/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "zh"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "monthly",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity code 08104000",
+        "partner",
+        "month",
+        "quantity",
+        "value"
+      ],
+      "app_uses": [
+        "China import curves from Peru and Chile (destination check only)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Returned HTTP 412 with a JavaScript anti-bot challenge."
+      },
+      "quality_caveats": "Since 2022 the national 10-digit code is 0810400000 for all Vaccinium (secondary sources); blueberry identity only in the 13-digit CIQ declaration suffix, which is not a published statistics dimension [inference].",
+      "priority": "P3",
+      "priority_reason": "Bot wall and no blueberry-specific statistical line.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "usitc-hts-0810-40",
+      "name": "US Harmonized Tariff Schedule REST service, headings 0810.40, 0811.90.20, 0813.40.20",
+      "publisher": "US International Trade Commission",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://hts.usitc.gov/",
+      "data_urls": [
+        "https://hts.usitc.gov/reststop/search?keyword=0810.40",
+        "https://hts.usitc.gov/reststop/exportList?from=0810.40&to=0811.90.30&format=JSON&styles=false"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current schedule (2026)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "htsno",
+        "indent",
+        "description",
+        "statistical suffix",
+        "unit"
+      ],
+      "app_uses": [
+        "code list for the Census pull: 0810.40.00.24 wild, .26 cultivated organic, .29 cultivated other, .30 cranberries, .40 other; frozen 0811.90.20.25/.27 wild, .30/.40 cultivated; dried 0813.40.20.10 wild, .20 cultivated"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "exportList JSON shows 0810.40.00 'Cranberries, blueberries and other fruits of the genus Vaccinium' > 'Blueberries:' > .24 'Wild' and 'Cultivated (including highbush):' .26 'Certified organic', .29 'Other'; .30 'Cranberries'; .40 'Other'."
+      },
+      "quality_caveats": "Current schedule only; earlier suffixes need Census concordance files.",
+      "priority": "P1",
+      "priority_reason": "Defines the only clean blueberry split in a major importer's statistics.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "chile-arancel-aduanero",
+      "name": "Arancel Aduanero Nacional de la República de Chile (Diario Oficial núm. 43.124, CVE 2033045)",
+      "publisher": "Gobierno de Chile (SUBREI / Servicio Nacional de Aduanas)",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.subrei.gob.cl/estudios-y-documentos/documentos/detalle-otras-fichas-y-reportes/arancel-aduanero-nacional-de-la-rep%C3%BAblica-de-chile",
+      "data_urls": [
+        "https://www.subrei.gob.cl/docs/default-source/default-document-library/arancel_aduanero_nacional_de_la_republica_de_chile.pdf?sfvrsn=4d26012f_0"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "current HS edition text (401-page PDF)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (official gazette text)",
+      "license_url": null,
+      "extractable_fields": [
+        "código arancelario",
+        "glosa",
+        "unidad",
+        "derecho ad valorem"
+      ],
+      "app_uses": [
+        "code list for Chilean export series: 0810.4021 organic and 0810.4029 other 'Arándanos azules o blueberry'; 0810.4011/4019 'Arándanos rojos'; 0810.4031/4039 'Cranberries (Vaccinium macrocarpum)'; frozen 0811.9011/9019 'Arándanos'"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF (10.5 MB, 401 pages) page 51 lists the 0810.40 lines quoted in app_uses."
+      },
+      "quality_caveats": "Chile's 'arándanos rojos' and 'cranberries' are separate lines; frozen line is not species-specific.",
+      "priority": "P1",
+      "priority_reason": "Confirms Chile exports can be read as blueberry-only at national line level.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "peru-arancel-2022",
+      "name": "Arancel de Aduanas 2022 (Perú), subpartida 0810.40.00.00",
+      "publisher": "Ministerio de Economía y Finanzas / SUNAT",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.sunat.gob.pe/legislacion/procedim/normasadua/gja-04/ctrlCambios/anexos/Arancel_2022.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "2022 tariff (in force from 2022)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (official gazette text)",
+      "license_url": null,
+      "extractable_fields": [
+        "subpartida nacional",
+        "descripción",
+        "tasa"
+      ],
+      "app_uses": [
+        "confirms Peru has one 10-digit line 0810.40.00.00 'Arándanos rojos, mirtilos y demás frutos del género Vaccinium'; frozen blueberries fall in 0811.90.99.00 'Los demás'"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "PDF (320 pages) shows 0810.40.00.00 at 6% and 0811.90 subheadings without a blueberry line."
+      },
+      "quality_caveats": "No species split, but Peru grows no commercial cranberry, so fresh exports are effectively blueberries [inference].",
+      "priority": "P1",
+      "priority_reason": "Needed to justify reading HS 081040 as blueberries for Peru.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "mexico-ligie-nico-2022",
+      "name": "Acuerdo de NICO (Números de Identificación Comercial), DOF 22 agosto 2022, fracción 0810.40.01",
+      "publisher": "Secretaría de Economía (México)",
+      "countries": [
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/ref/ligie_2022/LIGIE_2022_acuerdo02_22ago22.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "NICO table from 2022",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (official gazette text)",
+      "license_url": null,
+      "extractable_fields": [
+        "fracción",
+        "NICO",
+        "descripción"
+      ],
+      "app_uses": [
+        "code list: 0810.40.01 NICO 01 'Arándanos azules (Vaccinium corymbosum) orgánicos', 91 'Los demás arándanos azules (Vaccinium corymbosum)', 92 'Los demás orgánicos', 99 'Los demás'; frozen 0811.90.99 NICO 01 'Arándanos azules'"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "555-page PDF lists the lines quoted in app_uses."
+      },
+      "quality_caveats": "Whether Mexican trade statistics are published at NICO level was not checked; later NICO amendments not checked.",
+      "priority": "P1",
+      "priority_reason": "Shows Mexico can separate blueberries if NICO-level data are obtained.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "china-hs-code-secondary",
+      "name": "China HS code look-up pages for 0810400000 (secondary)",
+      "publisher": "i5a6.com and hsbianma.com (private code look-up sites)",
+      "countries": [
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.i5a6.com/hscode/detail/0810400000",
+      "data_urls": [
+        "https://www.i5a6.com/hstree/0810",
+        "https://www.hsbianma.com/Code/0810400090.html"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "zh"
+      ],
+      "temporal_coverage": "current and expired codes",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (hsbianma footer: 版权归 HS编码网)",
+      "license_url": null,
+      "extractable_fields": [
+        "商品编码",
+        "商品名称",
+        "CIQ code",
+        "status (已作废 expired)"
+      ],
+      "app_uses": [
+        "evidence that China uses one 10-digit code 0810400000 since 2022, with blueberries only at CIQ level 0810400000.103 鲜蓝莓; earlier 0810400010 鲜蔓越橘 and 0810400090 越橘 (marked expired, updated 2022/1/3)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "i5a6 tree lists 08104000.00 鲜蔓越橘、越橘及其他越橘属植物果实 and expired 08104000.10 and .90; detail page lists CIQ suffixes .101 to .104 incl. .103 鲜蓝莓. Official GACC and MOF pages were not reachable (412 and 502)."
+      },
+      "quality_caveats": "Secondary, unofficial; confirm against the official tariff book before citing.",
+      "priority": "P2",
+      "priority_reason": "Only reachable evidence for China's lines; official source blocked.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "usda-fas-gain-blueberry",
+      "name": "USDA FAS GAIN attaché reports on blueberries and berries",
+      "publisher": "USDA Foreign Agricultural Service",
+      "countries": [
+        "PE",
+        "MX",
+        "CL",
+        "CN",
+        "CA",
+        "ZA",
+        "ES",
+        "AR",
+        "MA",
+        "PL",
+        "DE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics",
+        "management_practice",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.fas.usda.gov/data/search?keyword=blueberry",
+      "data_urls": [
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual_Lima_Peru_PE2025-0010.pdf",
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Berry+Annual+Voluntary_Guadalajara_Mexico_MX2026-0015.pdf",
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary_Santiago_Chile_CI2022-0030.pdf",
+        "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary+2023_Beijing+ATO_China+-+People%27s+Republic+of_CH2023-0046.pdf",
+        "https://www.fas.usda.gov/data/gain/2026/08/south-africa-south-african-blueberry-market-analysis",
+        "https://www.fas.usda.gov/data/gain/2023/07/spain-spanish-berry-outlook",
+        "https://www.fas.usda.gov/data/gain/2023/02/canada-blueberry-annual-voluntary",
+        "https://www.fas.usda.gov/data/gain/2018/11/chile-export-fruit-crops-put-risk-due-unexpected-hail-storms",
+        "https://www.fas.usda.gov/data/gain/2014/03/chile-chilean-fruit-exports-hit-port-strike-and-frost-2014"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "blueberry-titled reports 2005-2026 (Argentina 2005 and 2006 to South Africa August 2026)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105); reports marked 'Voluntary - Public Distribution'",
+      "license_url": null,
+      "extractable_fields": [
+        "report number",
+        "date",
+        "post",
+        "production/supply/distribution table (MT) by marketing year",
+        "planted area by region",
+        "main producing states/provinces",
+        "harvest season months",
+        "weather events and impacts",
+        "varieties",
+        "export volumes by destination"
+      ],
+      "app_uses": [
+        "dated regional event records (El Niño 2023 Peru, Chile hail 2018, Chile frost 2014)",
+        "season month statements per country for prior harvest windows",
+        "pruning and variety-shift statements for the management layer (Peru, Mexico)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "heat",
+        "management",
+        "cultivar",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "FAS keyword search (browser) returned 74 results; blueberry and berry series listed in the report. Sampled PDFs: PE2025-0010 (9 pages; 'Table 1. Production, Supply, and Distribution; Fresh Blueberries (MT) HS: 081040', market year begins May); MX2026-0015 (13 pages; 'Table 8: Top Blueberry Producing States in Mexico, 2025'; producers 'deliberately shift their harvest season'); CI2022-0030 ('bulk of blueberry production in Chile starts in November and lasts until March'); CH2023-0046 (blueberries in 26 of 34 provinces; Guizhou, Liaoning, Shandong, Sichuan, Yunnan primary). fas.usda.gov rejects plain HTTP clients (403); newgainapi PDFs open directly."
+      },
+      "quality_caveats": "Attaché estimates from interviews and trade data; series is irregular (Chile last blueberry annual 2022; Canada 2017 and 2023); not every country every year.",
+      "priority": "P1",
+      "priority_reason": "Public-domain, citation-ready country narratives with season months and dated weather impacts; ideal for the reviewed evidence library.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "ams-wa-fv408-weekly-blueberry-shipments",
+      "name": "AMS Fruit and Vegetable Weekly U.S. Commodity Shipment Reports - Blueberries (WA_FV408, MMN slug 3251, discontinued)",
+      "publisher": "USDA Agricultural Marketing Service, Specialty Crops Market News",
+      "countries": [
+        "US",
+        "CA",
+        "MX",
+        "PE",
+        "CL",
+        "AR",
+        "CO",
+        "EC",
+        "GT",
+        "CR",
+        "MA",
+        "NL",
+        "IT",
+        "BE",
+        "LT",
+        "TR"
+      ],
+      "subnational_scope": [
+        "CALIFORNIA-CENTRAL",
+        "CALIFORNIA-SOUTH",
+        "FLORIDA",
+        "GEORGIA",
+        "MICHIGAN",
+        "NEW JERSEY",
+        "NORTH CAROLINA",
+        "OREGON",
+        "WASHINGTON"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3251",
+      "data_urls": [
+        "https://esmis.nal.usda.gov/publication/weekly-shipments-movement-blueberry",
+        "https://www.ams.usda.gov/mnreports/wa_fv408.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "MMN archive November 2017 to week ending 26 April 2025; ESMIS archive November 2018 to April 2025",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity class (domestic, domestic organic, import, import organic, frozen, dried, greenhouse, 'adapted environment')",
+        "variety where reported (e.g. Berkeley, Blue Ray, Bluecap)",
+        "transport mode (truck, boat, air)",
+        "origin state or country",
+        "weekly shipments in 10,000 lb units for current week, prior week and same week last year",
+        "season-to-date totals this and last season",
+        "last-season total"
+      ],
+      "app_uses": [
+        "weekly harvest-progress curves (10/50/90 percent dates) for Florida, Georgia, North Carolina, New Jersey, Michigan, Oregon, Washington, California and Canada",
+        "weekly import curves for Peru, Chile, Mexico, Argentina, Colombia, Morocco"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "MMN page (browser): status 'discontinued', latest release 04/20/2025-04/26/2025, archive years 2017-2025. ESMIS release list November 2018 to April 2025. Sample release (28 April 2025, 6 pages) table 'BLUEBERRIES SHIPMENTS BY ORIGINS (Amounts are shown in 10,000 lb units)' with 18 commodity classes and 27 origin rows listed in the report. Header states regular release paused from 1 May 2025; datasets continue on MMN and API."
+      },
+      "quality_caveats": "Shipments measure packing-house or port movement, not picking; import rows use customs entry dates; varieties are only partially reported; shipper coverage changes over years.",
+      "priority": "P1",
+      "priority_reason": "Only free weekly, blueberry-specific, origin-level series covering both US states and import origins, already proposed in earlier validation research.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ams-daily-movement-fvddaily",
+      "name": "AMS Daily Movement Report - All Fruits and Vegetables (FVDDAILY_MOV, MMN slug 3264)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [
+        "shipping districts such as SAN JOAQUIN VALLEY CALIFORNIA, OXNARD DISTRICT CALIFORNIA, FLORIDA, GEORGIA, MICHIGAN, NEW JERSEY, NORTH CAROLINA, OREGON, WASHINGTON",
+        "US ports of entry"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ams.usda.gov/mnreports/fvddaily_move.pdf",
+      "data_urls": [
+        "https://mymarketnews.ams.usda.gov/viewReport/3264",
+        "https://www.ams.usda.gov/market-news/fruit-and-vegetable-movement-reports"
+      ],
+      "format": [
+        "pdf",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current issue opened (9 October 2026); MMN history depth not measured",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity",
+        "origin and district",
+        "transport mode and import/export flag",
+        "daily shipments in 40,000 lb units for the last 7 days",
+        "season to date this season",
+        "to-date and final last season"
+      ],
+      "app_uses": [
+        "daily start-of-season detection by district after WA_FV408 was paused",
+        "district-level timing (San Joaquin vs Oxnard)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "680-page PDF dated 9 October 2026 opened; blueberry block lists districts with daily columns Oct 02 to Oct 08 and season totals (e.g. GEORGIA 843 this season, 841 last season to date, 993 final). Header: import movement source is CBP ACE Entry Summary Date data and filers have up to ten business days to file."
+      },
+      "quality_caveats": "PDF is about 10.8 MB per day; use the MMN API instead of PDFs; 40,000 lb units are coarse for small origins.",
+      "priority": "P1",
+      "priority_reason": "Current successor view of blueberry movement with district detail.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ams-national-shipping-point-trends",
+      "name": "AMS National Shipping Point Trends (FVWTRDS, MMN slug 1662)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US",
+        "CA",
+        "MX",
+        "PE"
+      ],
+      "subnational_scope": [
+        "OREGON AND WASHINGTON",
+        "BRITISH COLUMBIA CANADA CROSSINGS THROUGH NORTHWEST WASHINGTON",
+        "other shipping districts"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/1662",
+      "data_urls": [
+        "https://esmis.nal.usda.gov/publication/fresh-fruit-and-vegetable-national-shipping-point-trends",
+        "https://esmis.nal.usda.gov/sites/default/release-files/9019s246n/4m90gv24g/zp38zc66z/FVWTRDS.PDF",
+        "https://www.ams.usda.gov/mnreports/fvwtrds.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "MMN archive 2017-present (latest 6 October 2026); ESMIS copies December 2018 to September 2025",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "district",
+        "crop year",
+        "shipments for three consecutive weeks in 100,000 lb units",
+        "expected movement",
+        "supply, trading and price direction",
+        "FOB price ranges by pack",
+        "quality notes",
+        "'LAST REPORT' flags marking season end"
+      ],
+      "app_uses": [
+        "season end dates from 'LAST REPORT' flags",
+        "weekly narrative mentions of weather or quality problems by district"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "harvest_rain_quality",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "6 August 2025 issue (18 pages): 'OREGON AND WASHINGTON 2025 CROP Shipments 118*-66*-59' with units 'thousand hundredweight (cwt) or 100,000-pound units'; BC crossings 23-52-49. MMN slug 1662 status current, archive years 2017-2026."
+      },
+      "quality_caveats": "Only major districts; narrative text needs parsing; units differ from WA_FV408.",
+      "priority": "P2",
+      "priority_reason": "Adds season-end flags and weekly narrative, complementing movement data.",
+      "est_effort_days": 0.75
+    },
+    {
+      "id": "ams-national-fob-review",
+      "name": "AMS National FOB Review (FVDFOB, MMN slug 3130)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US",
+        "MX",
+        "PE",
+        "GT",
+        "CL"
+      ],
+      "subnational_scope": [
+        "shipping points and ports of entry"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "market_prices",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3130",
+      "data_urls": [
+        "https://www.ams.usda.gov/mnreports/fvdfob.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "MMN archive 2017-present",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "origin or port",
+        "pack",
+        "price range and mostly price",
+        "demand and market tone",
+        "quality"
+      ],
+      "app_uses": [
+        "first and last price quotation dates per origin as a second season-start and season-end signal"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Current fvdfob.pdf (21 pages) contains a BLUEBERRIES block, for example GUATEMALA IMPORTS - PORTS OF ENTRY SOUTH FLORIDA, flats 12 1-pint cups with lids large 36.00-46.00. MMN page shows current status and archive from 2017."
+      },
+      "quality_caveats": "Prices respond to market supply from all origins, not only local harvest.",
+      "priority": "P3",
+      "priority_reason": "Secondary timing signal; prices mix many origins.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ams-terminal-market-reports",
+      "name": "AMS terminal market fruit price reports (for example New York NX_FV010)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US",
+        "PE",
+        "MX",
+        "CL",
+        "CA"
+      ],
+      "subnational_scope": [
+        "New York, Boston, Chicago, Los Angeles and other terminal markets"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.ams.usda.gov/mnreports/nx_fv010.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf",
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current issues opened; history in MMN",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "market",
+        "commodity",
+        "origin",
+        "pack",
+        "size",
+        "price range",
+        "market tone"
+      ],
+      "app_uses": [
+        "origin presence by date at wholesale level; weak harvest proxy"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "NX_FV010 PDF (6 pages) has '---BLUEBERRIES: MARKET ABOUT STEADY. flats 12 1-pint cups with lids PERU large 42.00-46.00 mostly 44.00'."
+      },
+      "quality_caveats": "Shows what is on sale, including stored fruit; not a harvest measure.",
+      "priority": "P3",
+      "priority_reason": "Price context only.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "ams-usmca-seasonal-perishables",
+      "name": "AMS U.S. Mexico Canada Agreement Seasonal Perishable Products Weekly Update (MMN slug 3466)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US",
+        "MX",
+        "CA",
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "market_prices",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://mymarketnews.ams.usda.gov/viewReport/3466",
+      "data_urls": [
+        "https://mymarketnews.ams.usda.gov/filerepo/sites/default/files/3466/2025-11-05/1283680/ams_3466_00257.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current status, latest 7 October 2026; start not determined",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105)",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity",
+        "origin and port group",
+        "movement expectation",
+        "price ranges"
+      ],
+      "app_uses": [
+        "weekly narrative on Mexico crossings and Peru boat imports"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "MMN page opened in browser: slug 3466, status current, latest release 10/07/2026. Content of the November 2025 PDF seen only in search snippets."
+      },
+      "quality_caveats": "Narrative; overlaps movement data.",
+      "priority": "P3",
+      "priority_reason": "Narrative overlap with movement series.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "ams-mymarketnews-api",
+      "name": "MyMarketNews (MARS) API",
+      "publisher": "USDA AMS",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://mymarketnews.ams.usda.gov/mymarketnews-api",
+      "data_urls": [
+        "https://marsapi.ams.usda.gov/services/help/more",
+        "https://mymarketnews.ams.usda.gov/general-resources/Specialty-Crops",
+        "https://mymarketnews.ams.usda.gov/filerepo/reports"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "AMS states 'All historical data for all shipping point markets is available' on MMN (Specialty Crops page); depth per report not measured",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "US federal government work (no copyright under 17 U.S.C. 105); API key from free account",
+      "license_url": null,
+      "extractable_fields": [
+        "report slug",
+        "report date",
+        "commodity",
+        "origin",
+        "district",
+        "transport mode",
+        "volume units",
+        "price fields"
+      ],
+      "app_uses": [
+        "programmatic pull of WA_FV170 (all imports, 10,000 lb units) and FV175 successor data, and the paused WA_FV408 datasets"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "marsapi data endpoint returned 403 'Access is denied' without a key; public help endpoints opened (list of published and corrected reports). MMN Specialty Crops page (browser) says access to the API is free with an account, all imports are now on WA_FV170, and Specialty Crops data moved to MMN on 16 December 2024. The mymarketnews-api page timed out for a plain client."
+      },
+      "quality_caveats": "Report structures changed in December 2024; older Market News Portal (marketnews.usda.gov) no longer resolves.",
+      "priority": "P1",
+      "priority_reason": "Required to continue blueberry movement series after April 2025.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ibo-global-report-gated-editions",
+      "name": "IBO Global State of the Blueberry Industry Report, 2021 and 2024 editions (form-gated)",
+      "publisher": "International Blueberry Organization (IBO)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "production_statistics",
+        "loss_or_damage",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/2024-report/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/2021-report/",
+        "https://www.internationalblueberry.org/report-2026/"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2021 and 2024 editions; repository already holds 2010, 2022, 2023, 2025, 2026",
+      "update_frequency": "annual",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found on the form pages; 2023, 2025 and 2026 reports carry a 'Reuse with attribution' clause (per repository review), not yet confirmed for 2021 and 2024",
+      "license_url": null,
+      "extractable_fields": [
+        "country and region narratives",
+        "planted area and production by region",
+        "season calendars",
+        "weather events"
+      ],
+      "app_uses": [
+        "fill 2021 and 2024 gaps in event records (for example 2023 El Niño impacts reported in 2024)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "heat",
+        "management",
+        "cultivar"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Both pages show 'Complete this form to access the content' with name, company, email and country fields. Form not submitted, per project rules."
+      },
+      "quality_caveats": "Registration needed; rights for these editions unconfirmed.",
+      "priority": "P2",
+      "priority_reason": "Closes two edition gaps in an existing corpus, but needs a human to register and confirm rights.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ibo-summit-2025-presentations",
+      "name": "IBO Summit 2025 (South Africa) presentations",
+      "publisher": "International Blueberry Organization (IBO) and individual presenters",
+      "countries": [
+        "*",
+        "ZA",
+        "IN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/ibo-summit-sa-presentations/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/10/10.15-Colin-Fain-IBO-Global-Production-Report.pdf",
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/10/12.20-Herman-van-Dyk-Insights-into-the-South-African-Blueberry-Industry.pdf",
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/10/14.35-Prof-Guy-Midgley-Climate-Crisis-Challenge-or-Opportunity-Keynote-2.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2025 event",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found; copyright presumably with each presenter [inference]",
+      "license_url": null,
+      "extractable_fields": [
+        "presenter",
+        "slide title",
+        "production survey results",
+        "season export volumes (e.g. South Africa 22,600 t in 2024/25, 60/40 sea/air)",
+        "factors affecting production"
+      ],
+      "app_uses": [
+        "2024 season factor survey and regional statements as claim records"
+      ],
+      "model_families": [
+        "market_timing",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page lists 15 PDF downloads. Colin Fain 'IBO Global Production Report' (46 pages) and Herman van Dyk South Africa deck (12 pages) opened and text-extractable."
+      },
+      "quality_caveats": "Slides without narrative; rights per presenter; some decks are image-only (Stephen Taylor PDF 1 page, 77 KB).",
+      "priority": "P2",
+      "priority_reason": "Open, recent, global; rights need checking before display.",
+      "est_effort_days": 0.75
+    },
+    {
+      "id": "ibo-morocco-berry-conference-2025",
+      "name": "IBO Morocco Berry Conference 2025 presentations",
+      "publisher": "International Blueberry Organization (IBO) and presenters",
+      "countries": [
+        "MA",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "management_practice",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/morocco-berry-conference-2025-presentations/",
+      "data_urls": [
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/12/Session-1-2-Amine-Bennani-agadir-nov25.pdf",
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/12/Session-3-1-Lisa-DeVetter.pdf"
+      ],
+      "format": [
+        "pdf",
+        "image-pdf"
+      ],
+      "language": [
+        "fr",
+        "en"
+      ],
+      "temporal_coverage": "November 2025 event",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "presenter",
+        "Moroccan red-fruit export data",
+        "production practice statements"
+      ],
+      "app_uses": [
+        "Morocco evergreen and tunnel management facts for the management layer"
+      ],
+      "model_families": [
+        "management",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page lists 11 PDFs; Amine Bennani deck (3.6 MB) downloaded but pdfinfo reported no page count and no text was extracted (likely image-based or malformed)."
+      },
+      "quality_caveats": "Mixed languages; some decks may need OCR.",
+      "priority": "P3",
+      "priority_reason": "Small, Morocco-specific; rights unclear.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ibo-news-archive",
+      "name": "IBO website news archive",
+      "publisher": "International Blueberry Organization (IBO)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/sitemap_index.xml",
+      "data_urls": [
+        "https://www.internationalblueberry.org/post-sitemap.xml",
+        "https://www.internationalblueberry.org/post-sitemap2.xml",
+        "https://www.internationalblueberry.org/post-sitemap3.xml"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "2012-2026 (about 2,500 posts; few from 2014 to 2018 in sitemaps 2 and 3, sitemap 1 covers 2012 to January 2019)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found; footer 'Copyright © 2025 IBO'; many posts reproduce third-party trade press",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "title",
+        "country",
+        "original source credited"
+      ],
+      "app_uses": [
+        "dated pointers to season starts and weather events (for example 'Early season Yunnan blueberries hit market', 2 December 2025, already in benchmark)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "heat",
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "robots.txt allows all; post sitemaps hold 1,000 + 1,000 + 497 URLs from 2012-10-08 to 2026-10-09; English and Spanish posts."
+      },
+      "quality_caveats": "Mostly reposts; rights rest with original publishers; cite the original.",
+      "priority": "P2",
+      "priority_reason": "Easy, robots-permitted index of blueberry-only news since 2012.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ibo-online-reports-members",
+      "name": "IBO Online Reports (member dashboards)",
+      "publisher": "International Blueberry Organization (IBO)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "production_statistics",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.internationalblueberry.org/online-reports/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Online Report 2023 and 2024 listed",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "members only",
+      "license_url": null,
+      "extractable_fields": [
+        "not visible"
+      ],
+      "app_uses": [
+        "none without membership"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page states online reports are 'exclusively available to IBO members'."
+      },
+      "quality_caveats": "Not accessible.",
+      "priority": "P3",
+      "priority_reason": "Member-only.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "agronometrics-platform",
+      "name": "Agronometrics (USDA market data explorer and Global Trade Data)",
+      "publisher": "Miro Analytics Inc. (Agronometrics)",
+      "countries": [
+        "*",
+        "US",
+        "PE",
+        "CL",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.agronometrics.com/",
+      "data_urls": [
+        "https://www.agronometrics.com/global-trade-data/",
+        "https://www.agronometrics.com/tos/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "weekly",
+      "access": "paid",
+      "license_or_terms": "Agronometrics General Terms and Conditions of Use: no resale or redistribution without prior written consent; citation 'Material prepared by or available at Agronometrics.com' when authorised",
+      "license_url": "https://www.agronometrics.com/tos/",
+      "extractable_fields": [
+        "not tested (account needed)"
+      ],
+      "app_uses": [
+        "none directly; its free charts point to the USDA and customs sources listed here"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage offers a 14-day free trial of USDA market data and a Global Trade Data product for blueberries and grapes; TOS text quoted."
+      },
+      "quality_caveats": "Paid, redistribution prohibited.",
+      "priority": "P3",
+      "priority_reason": "Paid and not redistributable; its free articles are listed separately.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "agronometrics-stories",
+      "name": "Agronometrics Stories (incl. 'Agronometrics in Charts')",
+      "publisher": "Agronometrics",
+      "countries": [
+        "*",
+        "PE",
+        "CL",
+        "US",
+        "MX",
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://stories.agronometrics.com/category/blueberries/",
+      "data_urls": [
+        "https://stories.agronometrics.com/when-the-model-breaks-improving-our-real-time-view-of-perus-blueberry-exports/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "ongoing; depth not measured",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "Agronometrics General Terms and Conditions of Use (no redistribution without consent); footer '© 2023 Agronometrics. All rights reserved.'",
+      "license_url": "https://www.agronometrics.com/tos/",
+      "extractable_fields": [
+        "date",
+        "origin",
+        "season commentary",
+        "chart captions"
+      ],
+      "app_uses": [
+        "method notes on customs-data lags, e.g. Peru SUNAT revisions"
+      ],
+      "model_families": [
+        "market_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "9 October 2026 article opened: Peru Green Channel declarations take about four weeks to stabilise; first-week Green Channel volume typically about 37% below the final figure; total declarations move 2-3%; 3-6% of declared volume is not cleared for export; season described as heavily affected by El Niño."
+      },
+      "quality_caveats": "Commercial commentary; charts are images.",
+      "priority": "P2",
+      "priority_reason": "Gives quantified lag and revision facts needed for the shipment-curve method.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "rabobank-world-fruit-map-2025",
+      "name": "RaboResearch World Fruit Map 2025 (summary page and download)",
+      "publisher": "Rabobank (RaboResearch)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.rabobank.com/knowledge/q011486210-world-fruit-map-a-changing-basket-of-fruits-and-trade-flows",
+      "data_urls": [
+        "https://www.freshfruitportal.com/news/2022/11/15/blueberry-availability-expanding-globally-rabobank/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "15 July 2025 edition; 2018 edition referenced",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found; poster versions 'exclusively available to Rabobank clients'",
+      "license_url": null,
+      "extractable_fields": [
+        "summary text",
+        "trade-flow map"
+      ],
+      "app_uses": [
+        "context on global blueberry trade growth; no timing data"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Plain HTTP fetch returned 403; the browser rendered the page with authors, date 15 July 2025 and a 'Download the full report' link. Blueberry-specific Rabobank reports seen only via trade-press summaries (FreshFruitPortal 15 November 2022 article opened)."
+      },
+      "quality_caveats": "Commercial research; full berry reports are client-only.",
+      "priority": "P3",
+      "priority_reason": "Context only, no extractable timing or loss data.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "frutas-de-chile-comite-arandanos",
+      "name": "Frutas de Chile, Comité de Arándanos (committee page, variety fact sheets, seminar decks)",
+      "publisher": "Frutas de Chile (formerly ASOEX), Chilean Blueberry Committee",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "cultivar_traits",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://frutasdechile.cl/committee/arandanos/",
+      "data_urls": [
+        "https://frutasdechile.cl/wp-content/uploads/2025/07/02_Ficha_KEECRISP_v07jul25_b.pdf",
+        "https://frutasdechile.cl/wp-content/uploads/2025/07/06_Ficha_MEADOWLARK_v07jul25_b.pdf",
+        "https://frutasdechile.cl/wp-content/uploads/2025/02/Ficha_Recambio_Varietal_2019.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "fact sheets dated July 2025; other material from 2019",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "variety name",
+        "fact-sheet content (not parsed)",
+        "seminar presenter and title"
+      ],
+      "app_uses": [
+        "pointer for the Chile region team: variety sheets for Keecrisp, Meadowlark, Blue Ribbon, Optimus, Loreto Blue, Peachy Blue"
+      ],
+      "model_families": [
+        "cultivar",
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "comitedearandanos.cl redirects to frutasdechile.cl/committee/arandanos/; page links variety fact-sheet PDFs (names listed) and SharePoint seminar decks. Weekly export reports were not found on the public page."
+      },
+      "quality_caveats": "National source; region team owns detailed review.",
+      "priority": "P3",
+      "priority_reason": "Pointer only; Chile team should assess.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "berriesza-export-reports",
+      "name": "BerriesZA Export Reports (with AgriHub)",
+      "publisher": "BerriesZA (South Africa)",
+      "countries": [
+        "ZA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.berriesza.co.za/market-access/export-reports/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not visible",
+      "update_frequency": "weekly",
+      "access": "restricted",
+      "license_or_terms": "members only ('Get access to this content Login | Register Apply to become a Member')",
+      "license_url": null,
+      "extractable_fields": [
+        "shipment volumes",
+        "destination markets",
+        "logistics"
+      ],
+      "app_uses": [
+        "South Africa weekly curves if access is granted"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page describes regular reporting on shipment volumes and destinations, behind member login."
+      },
+      "quality_caveats": "Member-only.",
+      "priority": "P3",
+      "priority_reason": "Gated; EU Comext gives monthly ZA arrivals openly.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "iqonsulting",
+      "name": "iQonsulting (Chilean fruit market intelligence)",
+      "publisher": "iQonsulting",
+      "countries": [
+        "CL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "shipment_or_export_series",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.iqonsulting.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "weekly",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not visible"
+      ],
+      "app_uses": [
+        "none without access"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Homepage returned only the site title (JavaScript or frame-based)."
+      },
+      "quality_caveats": "Commercial; content not visible.",
+      "priority": "P3",
+      "priority_reason": "Not accessible.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "veritrade",
+      "name": "Veritrade (shipment-level customs data platform)",
+      "publisher": "Veritrade Corp",
+      "countries": [
+        "PE",
+        "CL",
+        "MX",
+        "CO",
+        "AR",
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "farm",
+      "categories": [
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.veritradecorp.com/en/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "daily",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not tested"
+      ],
+      "app_uses": [
+        "none (paid)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage describes world trade databases on imports and exports; subscription product."
+      },
+      "quality_caveats": "Paid.",
+      "priority": "P3",
+      "priority_reason": "Paid service, out of scope.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "tridge",
+      "name": "Tridge (market intelligence and sourcing platform)",
+      "publisher": "Tridge",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "market_prices",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.tridge.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "not determined",
+      "update_frequency": "irregular",
+      "access": "paid",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "not tested"
+      ],
+      "app_uses": [
+        "none (paid)"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage reached ('Intelligence That Moves Markets'); sales-led product."
+      },
+      "quality_caveats": "Paid.",
+      "priority": "P3",
+      "priority_reason": "Paid service.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "freshfruitportal",
+      "name": "FreshFruitPortal.com",
+      "publisher": "Yentzen Group (Chile)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.freshfruitportal.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Sitemaps list about 3,100 posts back to 2021; individual older articles exist (2021-12-01 article returned 200) but others return HTTP 410 Gone (2012-10-26 and 2022-01-26 articles tested)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (only privacy and cookie policies linked)",
+      "license_url": null,
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, robots.txt, sitemap index and sample articles opened; pruned archive confirmed by HTTP 410 responses. robots.txt: allows articles; disallows /feed/, /author/, /hemeroteca/ and query URLs incl. /*?s= (site search)"
+      },
+      "quality_caveats": "Archive is being pruned; English edition of Portal Frutícola; reposts Agronometrics charts.",
+      "priority": "P2",
+      "priority_reason": "Most-cited English blueberry trade outlet in the benchmark, but no stated reuse rights and a pruned archive.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "portalfruticola",
+      "name": "PortalFruticola.com",
+      "publisher": "Yentzen Group (Chile)",
+      "countries": [
+        "*",
+        "CL",
+        "PE",
+        "MX",
+        "AR"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.portalfruticola.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "30 post sitemaps (about 29,500 URLs) back to at least 2010 (2010-07-20 article opened); some old articles return 410 (2013-09-05 tested)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Aviso Legal: users must not 'reproducir, copiar, distribuir, poner a disposición o de cualquier otra forma comunicar públicamente' contents without authorisation",
+      "license_url": "https://www.portalfruticola.com/aviso-legal/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, aviso legal, robots.txt, sitemaps and a 2010 article opened. robots.txt: same rules as FreshFruitPortal; site search (/*?s=) disallowed"
+      },
+      "quality_caveats": "Spanish; partial pruning; strong Latin American coverage of frosts and season starts.",
+      "priority": "P2",
+      "priority_reason": "Deepest Spanish-language blueberry news archive found; reproduction prohibited.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "freshplaza",
+      "name": "FreshPlaza (.com, .es, .de and other editions)",
+      "publisher": "Agrio Media (FreshPlaza)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.freshplaza.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es",
+        "de",
+        "nl",
+        "fr",
+        "it",
+        "zh"
+      ],
+      "temporal_coverage": "news sitemaps by year 2012-2026",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "robots.txt states signals are an express reservation of rights under Article 4 of EU Directive 2019/790; site terms page is 'Terms of Delivery' (advertisers): 'The content of the Website may not be copied, reproduced and/or made public'",
+      "license_url": "https://www.freshplaza.com/north-america/content/terms-of-delivery/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "robots.txt, homepage, terms of delivery and sample blueberry articles (benchmark links) opened. robots.txt: Content-Signal: search=yes, ai-train=no, ai-input=no (explicitly includes retrieval augmented generation); ClaudeBot, GPTBot, CCBot, Google-Extended and others fully disallowed"
+      },
+      "quality_caveats": "Many short grower-sourced articles; rights reservation forbids AI input.",
+      "priority": "P2",
+      "priority_reason": "High event density, but the publisher forbids AI input, so only manual reading and linking are allowed.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "hortidaily",
+      "name": "Hortidaily (.com, .es)",
+      "publisher": "Agrio Media",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.hortidaily.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "news sitemaps for 2009 and 2012-2026",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "same publisher terms as FreshPlaza (Terms of Delivery); rights reserved under EU Directive 2019/790 Art. 4 via robots.txt",
+      "license_url": "https://www.hortidaily.com/content/terms-of-delivery/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "robots.txt, homepage and a benchmark article (Moroccan season, two speeds) opened. robots.txt: same Content-Signal block as FreshPlaza (ai-train=no, ai-input=no) and the same bot disallow list"
+      },
+      "quality_caveats": "Greenhouse and tunnel focus; useful for protected-cropping practice.",
+      "priority": "P3",
+      "priority_reason": "Same AI-input prohibition; fewer blueberry items than FreshPlaza.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "blueberries-consulting",
+      "name": "Blueberries Consulting",
+      "publisher": "Blueberries Consulting (Chile)",
+      "countries": [
+        "*",
+        "CL",
+        "PE",
+        "MX"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://blueberriesconsulting.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "post sitemaps back to 2015 by lastmod; articles describing 2013 and 2014 events opened (published 2015-02-27); hosts PDF studies on cdn.blueberriesconsulting.com from 2016",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Aviso legal y términos de uso: reproduction, distribution or modification 'total o parcial' prohibited without authorisation; commercial use prohibited",
+      "license_url": "https://blueberriesconsulting.com/aviso-legal-y-terminos-de-uso/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, legal notice, robots.txt, sitemap and a 2015 article opened. robots.txt: Yoast default, all paths allowed"
+      },
+      "quality_caveats": "Blueberry-only outlet; also hosts third-party theses and technical PDFs whose rights differ.",
+      "priority": "P2",
+      "priority_reason": "Blueberry-specific Spanish archive with technical PDFs, already cited in the benchmark.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "produce-report",
+      "name": "Produce Report",
+      "publisher": "Produce Report (China)",
+      "countries": [
+        "CN",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.producereport.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "zh"
+      ],
+      "temporal_coverage": "blueberry listing paginated to about 26 pages; dates seen back several years (depth not measured)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found; footer '@Copyright 2015 Produce Report. All rights reserved.'",
+      "license_url": null,
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, robots.txt, blueberry listing and a Chancay shipping article opened. robots.txt: Crawl-delay: 10; /search/ disallowed"
+      },
+      "quality_caveats": "China import and domestic-season angle (Yunnan, Qingdao); English.",
+      "priority": "P3",
+      "priority_reason": "Main English window on Chinese blueberry seasons, but small and rights reserved.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "fruitnet",
+      "name": "Fruitnet (Eurofruit, Asiafruit, Fresh Produce Journal, Produce Plus)",
+      "publisher": "Market Intelligence Ltd (Fruitnet)",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.fruitnet.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "de",
+        "zh"
+      ],
+      "temporal_coverage": "Google sitemap index by year 1999-2026",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Terms and conditions 6.3: users may not 'adapt, modify, copy, reproduce, distribute, republish ... create derivative works from, download' information except as permitted; personal or internal use only",
+      "license_url": "https://www.fruitnet.com/terms-and-conditions",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "robots.txt, terms, disclaimer and a 2025 South Africa blueberry article (full text visible) opened. robots.txt: /searchresults, /api/* and RSS disallowed; articles allowed"
+      },
+      "quality_caveats": "Long archive; some content may be subscriber-only [inference].",
+      "priority": "P2",
+      "priority_reason": "Longest archive found (from 1999), but strict no-reproduction terms.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "the-packer",
+      "name": "The Packer",
+      "publisher": "Farm Journal, Inc.",
+      "countries": [
+        "US",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.thepacker.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "monthly sitemaps from 2016-05 to 2026-10",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "footer: '© 1995 - 2026 Farm Journal, Inc. All Rights Reserved. This material may not be published, broadcast, rewritten, or redistributed.' Terms of Service page body not served to a plain client",
+      "license_url": "https://www.farmjournal.com/terms-of-service/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, robots.txt and sitemap index opened; Farm Journal ToS page opened but its text did not render. robots.txt: /search?q=* disallowed; lyticsbot crawl-delay 10"
+      },
+      "quality_caveats": "US market focus (import seasons, Florida and Georgia).",
+      "priority": "P3",
+      "priority_reason": "US commercial news; reproduction forbidden.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "eastfruit",
+      "name": "EastFruit",
+      "publisher": "EastFruit (international fruit and vegetable analytics platform)",
+      "countries": [
+        "UA",
+        "UZ",
+        "GE",
+        "AM",
+        "KZ",
+        "PL",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://east-fruit.com/en/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "ru",
+        "uk",
+        "en",
+        "uz"
+      ],
+      "temporal_coverage": "post sitemaps with entries from 2020 (oldest lastmod 2020-08-20); 42 sitemaps",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found; footer 'Copyright © 2020-2021 EastFruit. All rights reserved.'",
+      "license_url": null,
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage (Russian), English homepage, robots.txt and sitemaps opened. robots.txt: search, pagination and query URLs disallowed; articles allowed"
+      },
+      "quality_caveats": "Covers Ukraine, Central Asia and Caucasus blueberry growth; mixed languages.",
+      "priority": "P3",
+      "priority_reason": "Only source on Eastern Europe and Central Asia blueberries, but low event density.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "agraria-pe",
+      "name": "Agraria.pe (Agencia Agraria de Noticias)",
+      "publisher": "Agencia Agraria de Noticias (Peru)",
+      "countries": [
+        "PE"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://agraria.pe/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "sequential article IDs up to about 43,000; blueberry articles back to at least 2019 opened (ID 21705); earliest date not measured",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found ('Términos y Condiciones' footer link points to '#'); footer '© 2026 Agencia Agraria de Noticias. Todos los derechos reservados.'",
+      "license_url": null,
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, robots.txt and a blueberry article opened. robots.txt: all paths allowed"
+      },
+      "quality_caveats": "Peru-only; strong on Olmos, La Libertad and Ica season and El Niño impacts.",
+      "priority": "P2",
+      "priority_reason": "Key Peru event source already used in the benchmark; no reuse grant.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "redagricola",
+      "name": "Redagrícola",
+      "publisher": "Redagrícola (Chile, Peru, Mexico, Colombia, Spain editions)",
+      "countries": [
+        "CL",
+        "PE",
+        "MX",
+        "CO",
+        "ES"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://redagricola.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "es"
+      ],
+      "temporal_coverage": "post sitemaps back to 2015 (oldest lastmod 2015-01-29); 31 sitemaps",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found (only privacy notices linked)",
+      "license_url": null,
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country",
+        "crop",
+        "practice described (pruning, covers, frost control, varieties)",
+        "expert quoted"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Homepage, robots.txt and sitemaps opened. robots.txt: Yoast default plus WooCommerce paths; articles allowed"
+      },
+      "quality_caveats": "Technical agronomy articles (pruning, protection, varieties) rather than news; good for management facts.",
+      "priority": "P2",
+      "priority_reason": "Best open technical-practice archive in Spanish; terms unknown.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "fruit-growers-news",
+      "name": "Fruit Growers News",
+      "publisher": "Great American Media Services",
+      "countries": [
+        "US",
+        "CA",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "industry_report"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://fruitgrowersnews.com/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "depth not measured (sitemap returned 403 to a plain client)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Great American Media Services terms: users shall not 'use, copy, reproduce, link to, modify, translate, publish ... distribute' content without express prior written consent",
+      "license_url": "https://greatamericanmediaservices.com/policies/terms/",
+      "extractable_fields": [
+        "publication date",
+        "title",
+        "country and region",
+        "event type (freeze, frost, hail, heat, rain, El Niño)",
+        "season start or peak statements",
+        "quoted source"
+      ],
+      "app_uses": [
+        "dated event and season-timing leads for manual review; cite and link, do not store full text"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "robots.txt opened; terms page redirects to the publisher policy, which was opened; homepage opened. robots.txt: Crawl-delay: 10; Yoast default allows articles"
+      },
+      "quality_caveats": "US grower-facing news, including Michigan and Pacific Northwest frost items.",
+      "priority": "P3",
+      "priority_reason": "Useful US leads; restrictive terms.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "hortifrut-investor-reports",
+      "name": "Hortifrut S.A. integrated annual reports (memorias) and reasoned analyses",
+      "publisher": "Hortifrut S.A. (CMF registry no. 1.096)",
+      "countries": [
+        "CL",
+        "PE",
+        "MX",
+        "CN",
+        "US",
+        "ES",
+        "MA",
+        "EC",
+        "CO"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "loss_or_damage",
+        "production_statistics",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://investor.hortifrut.com/memorias-corporativas/",
+      "data_urls": [
+        "https://investor.hortifrut.com/en/annual-reports/",
+        "https://investor.hortifrut.com/wp-content/uploads/2024/04/07.-Analisis-Razonado-HF-Mar24_English.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "es",
+        "en"
+      ],
+      "temporal_coverage": "memorias 2008-2025 linked (21 PDFs)",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "country of operation",
+        "planted hectares",
+        "export volumes",
+        "weather impact statements by country and season",
+        "variety programme notes"
+      ],
+      "app_uses": [
+        "event records such as 'lower volumes produced ... from Peru and Chile during 2023 because of the climatic effects of the El Niño Phenomenon'"
+      ],
+      "model_families": [
+        "heat",
+        "harvest_timing",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Memorias page opened with 21 PDF links spanning 2008-2026 file dates. March 2024 English reasoned analysis PDF opened; it attributes lower 2023 industry volumes from Peru and Chile to 'the climatic effects of the El Niño Phenomenon'. PSP Investments' 2024 control acquisition seen in search snippets only."
+      },
+      "quality_caveats": "Corporate framing; company-level not farm-level; listing status after the 2024 tender offer not verified.",
+      "priority": "P2",
+      "priority_reason": "Largest blueberry company with multi-country annual narratives of weather impacts back to 2008.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "mission-produce-10k",
+      "name": "Mission Produce, Inc. Form 10-K (Blueberries segment)",
+      "publisher": "Mission Produce, Inc. (Nasdaq: AVO) via SEC EDGAR",
+      "countries": [
+        "PE",
+        "US"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.sec.gov/Archives/edgar/data/1802974/000180297425000048/avo-20251031.htm",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "fiscal 2025 10-K opened; segment reported since fiscal 2023 [inference]",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "SEC filings are public records; no licence stated",
+      "license_url": null,
+      "extractable_fields": [
+        "fiscal year",
+        "segment net sales",
+        "volume change",
+        "price change",
+        "stated causes (weather, supply)",
+        "harvest season months"
+      ],
+      "app_uses": [
+        "confirms Peru harvest season 'typically runs from July through January' and ties prior-year price spike to weather-constrained Peru supply"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "heat",
+        "market_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "EDGAR 10-K for period ending 2025-10-31 opened (needs a declared User-Agent). Text includes 'Peruvian blueberry harvest season, which typically runs from July through January' and price 'favorably impacted by industry supply constraints during the Peru harvest season'."
+      },
+      "quality_caveats": "One company; fiscal year (Nov-Oct) differs from seasons.",
+      "priority": "P3",
+      "priority_reason": "Corroborating, citation-ready statements; small volume of facts.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "camposol-investor-relations",
+      "name": "Camposol Holding PLC investor relations and sustainability reports",
+      "publisher": "Camposol (bond issuer)",
+      "countries": [
+        "PE",
+        "CO",
+        "UY"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "management_practice",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://investors.camposol.com/news-events/news-releases",
+      "data_urls": [
+        "https://www.camposol.com/documents-sustainability-report/",
+        "https://www.camposol.com/wp-content/uploads/2025/09/RSCAMP2024ING-1.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "quarterly releases at least 2023-2025 (search snippets)",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "quarter",
+        "blueberry volume and sales",
+        "pruning strategy statements",
+        "variety (Biloxi, 'La Chola') statements",
+        "El Niño impact statements",
+        "season weeks (e.g. week 18 of 2023 to week 14 of 2024)"
+      ],
+      "app_uses": [
+        "Peru pruning-timing and variety statements for the management layer"
+      ],
+      "model_families": [
+        "management",
+        "cultivar",
+        "heat",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "investors.camposol.com returned 403 or timed out; camposol.com sustainability documents page opened. Quarterly content seen through search snippets and trade-press reprints."
+      },
+      "quality_caveats": "IR site blocks automated clients; corporate framing.",
+      "priority": "P2",
+      "priority_reason": "Largest Peruvian blueberry exporter, with explicit pruning-timing strategy statements relevant to the coastal Peru gap.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "costa-group-asx-reports",
+      "name": "Costa Group Holdings annual reports and ASX announcements (to 2023), sustainability report 2023",
+      "publisher": "Costa Group Holdings (ASX-listed until 2024)",
+      "countries": [
+        "AU",
+        "MA",
+        "CN"
+      ],
+      "subnational_scope": [
+        "Corindi NSW",
+        "Tasmania",
+        "Kenitra and Larache",
+        "Yunnan"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "industry_report",
+        "loss_or_damage",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://announcements.asx.com.au/asxpdf/20230421/pdf/45nw32qdp9mjc2.pdf",
+      "data_urls": [
+        "https://costagroup.com.au/wp-content/uploads/2025/01/J231050-Costa-Group-SR-2023-FA_online.pdf",
+        "https://costagroup.com.au/2026/05/29/blugenix-powers-the-future-of-blueberries/"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "annual reports to calendar 2022/2023; delisted after the 2024 takeover (Paine Schwartz announcement, search-only)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "year",
+        "farm region",
+        "weather impacts (e.g. 'delayed crop timing, due to weather' in Morocco 2022, per trade-press summary)",
+        "planted hectares",
+        "variety launches"
+      ],
+      "app_uses": [
+        "Morocco and Yunnan evergreen-system event records; Tasmania and Corindi context"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "management",
+        "cultivar"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2022 annual report PDF on announcements.asx.com.au opened (PDF bytes received); 2023 sustainability report PDF opened; BluGenix page opened ('low latitude no chill to mid-chill regions'). investors.costagroup.com.au failed with an expired TLS certificate."
+      },
+      "quality_caveats": "No new public filings after delisting; company-level statements.",
+      "priority": "P3",
+      "priority_reason": "Historic only, but covers three evergreen regions in the gap list.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "fall-creek-variety-catalogue",
+      "name": "Fall Creek Nursery commercial blueberry variety pages",
+      "publisher": "Fall Creek Farm & Nursery",
+      "countries": [
+        "*",
+        "US",
+        "MX",
+        "PE",
+        "CL",
+        "ZA",
+        "CN",
+        "ES",
+        "MA"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties",
+      "data_urls": [
+        "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/biloxi"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es",
+        "zh"
+      ],
+      "temporal_coverage": "current catalogue (38 variety pages)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (footer '© 2026 Fall Creek®', privacy link only)",
+      "license_url": null,
+      "extractable_fields": [
+        "variety",
+        "public or licensed",
+        "chilling level class (Zero, Zero to Low, Low, Low to Mid, Mid, Mid to High, High)",
+        "ripening season class (Very Early to Very Late)",
+        "berry size",
+        "bush habit",
+        "free-text adaptation notes"
+      ],
+      "app_uses": [
+        "chill-class priors for cultivar classes (e.g. Biloxi 'Zero Chill', 'disappointing in areas with chilling above 150 hours', 'grown fully evergreen')"
+      ],
+      "model_families": [
+        "cultivar",
+        "chill_dormancy",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Catalogue page with chill and ripening filters and 38 variety links; Biloxi page opened with the fields listed."
+      },
+      "quality_caveats": "Categorical classes without hour thresholds; marketing source.",
+      "priority": "P2",
+      "priority_reason": "Largest licensor; consistent chill and ripening classes for many globally planted cultivars.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "planasa-blueberry-varieties",
+      "name": "Planasa blueberry variety pages and data sheets",
+      "publisher": "Planasa",
+      "countries": [
+        "ES",
+        "PT",
+        "MA",
+        "MX",
+        "PE",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://planasa.com/product/blueberry/",
+      "data_urls": [
+        "https://planasa.com/variety/blueberry-blue-maldiva/",
+        "https://planasa.com/wp-content/uploads/data-sheet/bl-1542_en.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "de"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (legal notice linked, not opened); data sheets state results are 'NOT CONTRACTUAL'",
+      "license_url": null,
+      "extractable_fields": [
+        "variety and code (e.g. Blue Maldiva Plablue 1542)",
+        "average production g/plant",
+        "fruit weight g",
+        "Brix",
+        "production calendar by month for 'Mediterranean countries'",
+        "test site (Cartaya, Spain)"
+      ],
+      "app_uses": [
+        "harvest-month calendars for Huelva-type evergreen production"
+      ],
+      "model_families": [
+        "cultivar",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Product page lists six Blue M* varieties; Blue Maldiva page (4,200 g/plant, 6 g/fruit, 16 Brix, Cartaya trial) and its 4-page data sheet with a monthly production calendar opened."
+      },
+      "quality_caveats": "Calendar is a graphic; single trial site; no chill hours.",
+      "priority": "P2",
+      "priority_reason": "Gives month-level harvest calendars for Mediterranean evergreen systems.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "mountain-blue-genetics",
+      "name": "Mountain Blue Orchards genetics page",
+      "publisher": "Mountain Blue (Australia)",
+      "countries": [
+        "AU"
+      ],
+      "subnational_scope": [
+        "NSW"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.mountainblue.com.au/mountain-blue-genetics",
+      "data_urls": [
+        "https://www.mountainblue.com.au/eureka-blueberries"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "programme description only"
+      ],
+      "app_uses": [
+        "none beyond naming the Eureka programme"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Genetics page opened; navigation and brand text only, no trait table."
+      },
+      "quality_caveats": "No trait data online.",
+      "priority": "P3",
+      "priority_reason": "No extractable traits.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "ozblu-varieties",
+      "name": "OZblu / OZ Varieties pages",
+      "publisher": "OZblu (United Exports group)",
+      "countries": [
+        "ZA",
+        "ZM",
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.ozblu.com/oz-varieties/",
+      "data_urls": [
+        "https://www.ozblu.com/our-blueberries/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "licensing structure text only"
+      ],
+      "app_uses": [
+        "none beyond confirming the licensing model"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "OZ Varieties page states it 'facilitates the licensed production of proprietary OZblu blueberry varieties'; no chill or season data."
+      },
+      "quality_caveats": "No trait data online.",
+      "priority": "P3",
+      "priority_reason": "No extractable traits.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "hortifrut-genetic-development",
+      "name": "Hortifrut genetic development page",
+      "publisher": "Hortifrut S.A.",
+      "countries": [
+        "*"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "berries aggregated",
+      "url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "es"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "programme description"
+      ],
+      "app_uses": [
+        "none directly"
+      ],
+      "model_families": [
+        "cultivar"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page describes hand pollination and annual evaluation at test centres; no variety trait table."
+      },
+      "quality_caveats": "No trait data online.",
+      "priority": "P3",
+      "priority_reason": "No extractable traits.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "producereport-chancay-transit",
+      "name": "Produce Report: 'Chancay Port Sends First Batch of Peruvian Blueberries to Shanghai'",
+      "publisher": "Produce Report",
+      "countries": [
+        "PE",
+        "CN"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "news_archive"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.producereport.com/article/chancay-port-sends-first-batch-peruvian-blueberries-shanghai",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "single article",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found; footer '@Copyright 2015 Produce Report. All rights reserved.'",
+      "license_url": null,
+      "extractable_fields": [
+        "transit time statement"
+      ],
+      "app_uses": [
+        "lag prior for Peru to China arrivals"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Article states ships from South America to China 'typically take more than 45 days' and Chancay direct routes reduce transit 'by at least 10 days'; first shipment included Camposol and Qali blueberries."
+      },
+      "quality_caveats": "Trade-press statement, not a schedule.",
+      "priority": "P3",
+      "priority_reason": "One lag figure for one route.",
+      "est_effort_days": 0.0
+    },
+    {
+      "id": "freighthero-callao-rotterdam",
+      "name": "The Freight Hero: sea container transport to Callao (transit time Callao to Rotterdam)",
+      "publisher": "The Freight Hero (freight forwarder, Netherlands)",
+      "countries": [
+        "PE",
+        "NL"
+      ],
+      "subnational_scope": [],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.thefreighthero.nl/en/havens/callao",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en",
+        "nl"
+      ],
+      "temporal_coverage": "current",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "port-to-port transit days"
+      ],
+      "app_uses": [
+        "lag prior for Peru to EU arrivals"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Page states 'The transit time of a container vessel from Callao (Peru) to Rotterdam ... is 24 days'."
+      },
+      "quality_caveats": "Commercial forwarder, generic container service, not reefer-specific.",
+      "priority": "P3",
+      "priority_reason": "Rough lag prior only.",
+      "est_effort_days": 0.0
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "GLOBAL-01",
+      "title": "Tariff-line concordance table",
+      "source_ids": [
+        "usitc-hts-0810-40",
+        "chile-arancel-aduanero",
+        "peru-arancel-2022",
+        "mexico-ligie-nico-2022",
+        "china-hs-code-secondary",
+        "eurostat-comext-ds045409",
+        "uk-hmrc-ots-api"
+      ],
+      "output": "time series table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "country",
+        "flow (import/export)",
+        "code",
+        "code_level (HS6, CN8, HTS10, national 8 or 10 digit, NICO)",
+        "description_verbatim",
+        "species_scope (blueberry_only | blueberry_plus_cranberry | all_vaccinium)",
+        "organic_flag",
+        "fresh/frozen/dried",
+        "valid_from",
+        "valid_to",
+        "source_url",
+        "checked_on"
+      ],
+      "cadence": "one-off, then review each January when tariff books change",
+      "review_needed": "Confirm validity dates of each line and older statistical suffixes (US HTS before the current .24/.26/.29 split; China before 2022).",
+      "licensing_gate": "None; official tariff texts and US federal works.",
+      "effort_days": 0.5,
+      "priority": "P1",
+      "app_value": "Prevents cranberry contamination of blueberry curves and documents which origins can be read as blueberry-only."
+    },
+    {
+      "job_id": "GLOBAL-02",
+      "title": "AMS weekly blueberry movement backfill and continuation",
+      "source_ids": [
+        "ams-wa-fv408-weekly-blueberry-shipments",
+        "ams-daily-movement-fvddaily",
+        "ams-mymarketnews-api",
+        "ams-national-shipping-point-trends"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "week_start",
+        "week_end",
+        "commodity_class (domestic, domestic organic, import, import organic, frozen, greenhouse)",
+        "variety (nullable)",
+        "transport_mode",
+        "origin (state or country)",
+        "district (nullable)",
+        "volume_10000lb",
+        "season_label",
+        "source_report (WA_FV408 | FV170 | FVDDAILY_MOV | FVWTRDS)",
+        "release_date",
+        "revised_flag",
+        "source_url"
+      ],
+      "cadence": "one-off backfill November 2017 to April 2025 from PDFs, then weekly via MMN API",
+      "review_needed": "Check PDF parsing on 20 random weeks; reconcile WA_FV408 10,000 lb units with FVDDAILY 40,000 lb units and FVWTRDS 100,000 lb units; map origin labels to geography ids.",
+      "licensing_gate": "None for display (US federal work); attribute 'USDA AMS Specialty Crops Market News'.",
+      "effort_days": 3.0,
+      "priority": "P1",
+      "app_value": "Weekly harvest-progress curves for 8 US states (California in two regions) and 6+ import origins, the most direct open proxy for harvest start, peak and end."
+    },
+    {
+      "job_id": "GLOBAL-03",
+      "title": "Monthly origin curves from EU, US and UK customs",
+      "source_ids": [
+        "eurostat-comext-ds045409",
+        "us-census-intltrade-api",
+        "uk-hmrc-ots-api",
+        "un-comtrade-hs081040"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "month",
+        "reporter",
+        "partner_origin",
+        "code",
+        "species_scope (from GLOBAL-01)",
+        "flow",
+        "quantity_kg",
+        "value_local",
+        "value_usd (nullable)",
+        "mode (air/sea where available)",
+        "district_or_port (nullable)",
+        "source",
+        "retrieved_on",
+        "revision_vintage"
+      ],
+      "cadence": "one-off backfill (Comext 2000 onward, Census 2010 onward, Comtrade as available), then monthly",
+      "review_needed": "Choose EU-extra imports to avoid intra-EU re-exports; flag months with confidential cells; keep cranberry-mixed series for US and Canada origins out of harvest metrics.",
+      "licensing_gate": "Comtrade re-dissemination rules if raw tables are shown; Eurostat and OGL require source acknowledgement.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Monthly season curves for every exporting origin back to 2000, including Morocco, South Africa, Zimbabwe and Colombia that have no weekly US data."
+    },
+    {
+      "job_id": "GLOBAL-04",
+      "title": "Season metrics and anomaly table from shipment curves",
+      "source_ids": [
+        "ams-wa-fv408-weekly-blueberry-shipments",
+        "ams-mymarketnews-api",
+        "eurostat-comext-ds045409",
+        "us-census-intltrade-api",
+        "un-comtrade-hs081040",
+        "agronometrics-stories",
+        "producereport-chancay-transit",
+        "freighthero-callao-rotterdam"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "origin",
+        "series_id",
+        "season_label",
+        "season_window_definition",
+        "total_volume",
+        "date_q10",
+        "date_q50",
+        "date_q90",
+        "peak_week_or_month",
+        "onset_date (first week above 5 percent of season peak)",
+        "end_date",
+        "lag_applied_days",
+        "lag_basis",
+        "anomaly_q10_days (vs median of other seasons)",
+        "anomaly_q50_days",
+        "volume_anomaly_pct",
+        "data_quality_flags",
+        "model_cell_id",
+        "model_harvest_start",
+        "model_harvest_end"
+      ],
+      "cadence": "annual after each season closes",
+      "review_needed": "Human sign-off on season windows per origin, on lag priors, and on years with known management shifts (Peru pruning) before comparing with the model.",
+      "licensing_gate": "Derived statistics from open data; cite underlying sources.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Year-by-year harvest timing anomalies per origin to test whether stage_thermal_v3 harvest windows move in the same direction."
+    },
+    {
+      "job_id": "GLOBAL-05",
+      "title": "FAS GAIN blueberry report claims and events",
+      "source_ids": [
+        "usda-fas-gain-blueberry"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "kind (event | practice | constraint)",
+        "topic (weather | harvest | management | resources)",
+        "period (start, end, precision)",
+        "crop_context (species, system, cultivar if named)",
+        "evidence_type = government_attache_report",
+        "geography (country, state or region ids)",
+        "citations (report number, page, table)",
+        "summary",
+        "limitations"
+      ],
+      "cadence": "one-off backfill of about 25 blueberry- or berry-related reports 2005-2026, then on each new release",
+      "review_needed": "Verify every number against the PDF page; separate forecasts from observations; deduplicate with IBO events.",
+      "licensing_gate": "None (US federal work); credit 'USDA FAS GAIN'.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Public-domain regional evidence for Peru, Mexico, Chile, China, South Africa, Spain and Canada that can be shown in the Regional evidence tab."
+    },
+    {
+      "job_id": "GLOBAL-06",
+      "title": "Company disclosure weather events",
+      "source_ids": [
+        "hortifrut-investor-reports",
+        "mission-produce-10k",
+        "camposol-investor-relations",
+        "costa-group-asx-reports"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=event",
+        "topic",
+        "period",
+        "geography",
+        "crop_context",
+        "evidence_type=company_disclosure",
+        "citations (document, page)",
+        "effect_direction (volume, timing, price)",
+        "limitations"
+      ],
+      "cadence": "one-off backfill, then annual",
+      "review_needed": "Separate company performance from industry statements; check fiscal-year versus season dates.",
+      "licensing_gate": "Short quotations with citation only; confirm no reuse restriction in each document.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Independent corroboration of IBO and GAIN events (El Niño 2023 in Peru and Chile; Morocco 2022 delay)."
+    },
+    {
+      "job_id": "GLOBAL-07",
+      "title": "IBO presentations and gated editions",
+      "source_ids": [
+        "ibo-global-report-gated-editions",
+        "ibo-summit-2025-presentations",
+        "ibo-morocco-berry-conference-2025"
+      ],
+      "output": "claim records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind",
+        "topic",
+        "period",
+        "crop_context",
+        "evidence_type=industry_presentation",
+        "geography",
+        "citations (deck, slide)",
+        "presenter"
+      ],
+      "cadence": "one-off, then after each IBO event",
+      "review_needed": "Obtain 2021 and 2024 reports through the form (human action); OCR image decks; check slide claims against report text.",
+      "licensing_gate": "Confirm reuse rights per edition and per presenter before public display.",
+      "effort_days": 1.5,
+      "priority": "P2",
+      "app_value": "Fills 2021 and 2024 edition gaps and adds 2025 survey evidence."
+    },
+    {
+      "job_id": "GLOBAL-08",
+      "title": "Trade-press link index for human curation",
+      "source_ids": [
+        "portalfruticola",
+        "freshfruitportal",
+        "blueberries-consulting",
+        "agraria-pe",
+        "redagricola",
+        "produce-report",
+        "eastfruit",
+        "fruit-growers-news",
+        "the-packer",
+        "fruitnet",
+        "ibo-news-archive",
+        "freshplaza",
+        "hortidaily"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "url",
+        "publisher",
+        "publication_date",
+        "title",
+        "language",
+        "country_guess",
+        "hazard_keywords (helada, granizo, lluvia, ola de calor, El Niño, frost, hail, freeze)",
+        "season_keywords (inicio de temporada, peak, cosecha)",
+        "http_status at capture",
+        "human_decision (accept | reject)"
+      ],
+      "cadence": "one-off backfill from sitemaps, then weekly",
+      "review_needed": "A person reads each candidate and writes the event record in their own words with a link; no article text stored. Respect crawl-delay and robots rules; skip FreshPlaza and Hortidaily for any automated or AI-assisted processing.",
+      "licensing_gate": "No reproduction or AI input of article text: Content-Signal ai-input=no (FreshPlaza, Hortidaily); explicit no-reproduction clauses (Fruitnet, Portal Frutícola, Blueberries Consulting, Farm Journal, GAMS). Store only metadata and links.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Thousands of dated leads on frosts, hail, heat and season starts in regions with no official data."
+    },
+    {
+      "job_id": "GLOBAL-09",
+      "title": "Cultivar catalogue table",
+      "source_ids": [
+        "fall-creek-variety-catalogue",
+        "planasa-blueberry-varieties",
+        "frutas-de-chile-comite-arandanos",
+        "costa-group-asx-reports"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "cultivar",
+        "licensor",
+        "species/type",
+        "chill_class (verbatim)",
+        "chill_hours (if stated)",
+        "ripening_class (verbatim)",
+        "harvest_months_by_region (if stated)",
+        "evergreen suitability statement",
+        "test site",
+        "source_url",
+        "checked_on"
+      ],
+      "cadence": "one-off, then annual",
+      "review_needed": "Keep licensor classes verbatim; do not convert classes to hours; flag conflicts with UF and FFSP data already in docs/research/2026-09-21/05_genotype_layer.md.",
+      "licensing_gate": "Facts only with citation; no images or text copying.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Chill and ripening priors for low-chill and evergreen cultivars widely planted in Peru, Mexico, Morocco and Spain."
+    },
+    {
+      "job_id": "GLOBAL-10",
+      "title": "Annual production and area denominators",
+      "source_ids": [
+        "faostat-qcl-blueberries",
+        "eurostat-apro-cpsh1-blueberries",
+        "usda-ers-fruit-tree-nuts-yearbook"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "geography_id",
+        "year",
+        "area_ha",
+        "production_t",
+        "yield_t_ha",
+        "source",
+        "flag"
+      ],
+      "cadence": "annual",
+      "review_needed": "Compare FAO with Eurostat and NASS; mark imputed values.",
+      "licensing_gate": "CC BY 4.0 (FAO) attribution; Eurostat acknowledgement; US federal work.",
+      "effort_days": 0.75,
+      "priority": "P3",
+      "app_value": "Production-weighted context for events and for choosing which cells to validate."
+    }
+  ]
+}

@@ -1,0 +1,3563 @@
+{
+  "slug": "us-southeast",
+  "generated_on": "2026-10-11",
+  "scope": "US Southeast blueberry production (FL, GA, SC, NC, MS, AL): federal county-level loss and disaster data, state stations, harvest-timing series, cultivar phenology and extension corpora.",
+  "sources": [
+    {
+      "id": "rma-cause-of-loss-month",
+      "name": "Cause of Loss Historical Data Files: Summary of Business with Month of Loss",
+      "publisher": "USDA Risk Management Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/",
+      "data_urls": [
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/colsom_2022.zip",
+        "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/COL_Summary_of_Business_with_Month_All_Years.pdf"
+      ],
+      "format": [
+        "zip",
+        "csv",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1989-2026 (one pipe-delimited zip per commodity year; 2026 file present)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity year",
+        "state code and abbreviation",
+        "county code and name",
+        "commodity code and name (Blueberries = 0012)",
+        "insurance plan",
+        "stage code",
+        "cause of loss code and description (Freeze, Frost, Hail, Hurricane/Tropical Depression, Heat, Cold Wet Weather, Excess Moisture/Precipitation/Rain, Wind/Excess Wind)",
+        "month of loss",
+        "year of loss",
+        "policies earning premium",
+        "policies indemnified",
+        "net planted quantity",
+        "net endorsed acres",
+        "liability",
+        "total premium",
+        "determined quantity",
+        "indemnity amount USD",
+        "loss ratio"
+      ],
+      "app_uses": [
+        "validate flowering_freeze and bud_freeze recurrence by county and month in Georgia, Florida and North Carolina",
+        "compare March freeze indemnity years in Bacon, Appling and Clinch counties with modelled flowering-freeze winters at Alma and Homerville",
+        "validate harvest_heavy_rain and heat with May-June indemnity by cause"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "heat",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Directory listing shows colsom_1989.zip to colsom_2026.zip plus a two-page record layout PDF (as of 5/28/2026). Downloaded colsom_2022.zip (5.8 MB) in memory: 217 blueberry rows nationally; in scope only FL, GA and NC appear. Georgia Freeze in March 2022 = USD 30.51 million indemnity; County totals for all 2022 causes: Bacon USD 14.63 million, Appling 5.49 million, Coffee 5.47 million; March freeze only: Bacon 11.84, Appling 3.82, Coffee 4.56 (coordinator check on the server, 2026-10-11). NC Freeze March USD 5.03 million; FL Freeze January USD 1.53 million."
+      },
+      "quality_caveats": "Only insured acreage. Indemnity reflects coverage level and price, not physical loss. Month is month of loss as adjusted, not the freeze night. Counties with few policies may be noisy. Files are revised as claims close. SC, MS, AL blueberry rows absent in the 2022 sample.",
+      "priority": "P1",
+      "priority_reason": "Only county-by-month, cause-coded, dated loss series for blueberries in the region, back to 1989.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "rma-summary-of-business",
+      "name": "Summary of Business (state/county/crop)",
+      "publisher": "USDA Risk Management Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.rma.usda.gov/tools-reports/summary-of-business",
+      "data_urls": [],
+      "format": [
+        "html",
+        "zip"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1989-present (per RMA page; exact blueberry start year not checked)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity year",
+        "state",
+        "county",
+        "commodity",
+        "insurance plan",
+        "coverage level",
+        "policies sold",
+        "net reported acres",
+        "liability",
+        "premium",
+        "indemnity",
+        "loss ratio"
+      ],
+      "app_uses": [
+        "map where blueberry crop insurance is written (proxy for commercial production counties)",
+        "normalise cause-of-loss indemnity by insured acres to get a loss rate per county-year"
+      ],
+      "model_families": [
+        "location_mapping",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page https://www.rma.usda.gov/SummaryOfBusiness redirects here and lists Summary of Business reports. I did not open a state/county/crop data file."
+      },
+      "quality_caveats": "Insured acres only. Does not separate SHB and rabbiteye.",
+      "priority": "P2",
+      "priority_reason": "Denominator for cause-of-loss rates.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "rma-managers-bulletins-freeze",
+      "name": "RMA Manager's Bulletins: claims advisories for freeze events",
+      "publisher": "USDA Risk Management Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "insurance",
+        "loss_or_damage",
+        "regulation_policy"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.rma.usda.gov/policy-procedure/bulletins-memos/managers-bulletin/mgr-26-001-claims-advisory-2026-freeze-damage",
+      "data_urls": [
+        "https://www.rma.usda.gov/policy-procedure/bulletins-memos/managers-bulletin/2017/mgr-17-004-claims-advisory-2017-freeze"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Irregular advisories; 2017 and 2026 blueberry freeze advisories checked",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "bulletin number",
+        "issue date",
+        "states",
+        "crops",
+        "freeze dates",
+        "reported damage share",
+        "claims instructions"
+      ],
+      "app_uses": [
+        "anchor dated freeze events: 15-16 March 2017 (GA, SC) and 31 January to early February 2026 (FL, GA)",
+        "event records for the regional evidence layer"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "MGR-26-001 dated 17 Feb 2026: freeze started 31 January and lasted through early February, 'catastrophic damage to blueberries in Florida and Georgia'. MGR-17-004 dated 24 Mar 2017: freeze 15-16 March 2017, reports of 80 percent blueberry damage in southern Georgia."
+      },
+      "quality_caveats": "Damage shares are quoted reports, not measured. Few bulletins per decade.",
+      "priority": "P2",
+      "priority_reason": "Official, dated event anchors with blueberry named.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "agrisk-viewer",
+      "name": "AgRisk Viewer",
+      "publisher": "USDA Southwest Climate Hub / NMSU Jornada",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "insurance",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://agrisk.jornada.nmsu.edu/",
+      "data_urls": [],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Mirrors RMA cause-of-loss files (years not checked)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "state",
+        "county",
+        "commodity",
+        "cause of loss",
+        "year",
+        "indemnity"
+      ],
+      "app_uses": [
+        "quick visual check of RMA blueberry losses before building our own table"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Landing page states data come from RMA cause-of-loss historical files and summary of business reports."
+      },
+      "quality_caveats": "Secondary copy; use RMA files for ingest.",
+      "priority": "P3",
+      "priority_reason": "Convenience viewer only.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "noaa-storm-events",
+      "name": "Storm Events Database (bulk CSV)",
+      "publisher": "NOAA National Centers for Environmental Information",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.ncei.noaa.gov/access/storm-events-database/",
+      "data_urls": [
+        "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+        "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv-Format.pdf"
+      ],
+      "format": [
+        "csv",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1950-2026 (details files d1950 to d2026)",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "episode id",
+        "event id",
+        "state",
+        "county/zone (CZ_NAME, CZ_FIPS)",
+        "event type (Frost/Freeze, Extreme Cold/Wind Chill, Hail, Hurricane, Heavy Rain, Flood)",
+        "begin and end date-time",
+        "damage_crops",
+        "damage_property",
+        "magnitude",
+        "begin/end lat-lon",
+        "episode narrative",
+        "event narrative",
+        "source"
+      ],
+      "app_uses": [
+        "validate fruit_frost and flowering_freeze event dates by NWS zone",
+        "find hail and tropical events in blueberry counties",
+        "search narratives for 'blueberr' to create event records"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "harvest_rain_quality",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Sampled d2017 (9.3 MB) and d2026 (7.5 MB) files in memory. 2017: Georgia Frost/Freeze 16-MAR-17 03:00 in many zones, each with DAMAGE_CROPS 7.85M; episode narrative says 'as much as 80 percent of the blueberry crop was lost' and estimates about USD 204 million. 37 rows in the six states mention blueberries. 2026: freeze and cold rows in all six states in January-February but no non-zero crop damage and no blueberry mention."
+      },
+      "quality_caveats": "Crop damage is often blank or a state total split evenly across zones. Zones are forecast zones, not farms. Reporting varies by NWS office.",
+      "priority": "P1",
+      "priority_reason": "Free, bulk, dated, county/zone event list with narratives back to 1950.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "fsa-secretarial-designations",
+      "name": "Secretarial Disaster Designations (state and county records)",
+      "publisher": "USDA Farm Service Agency",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.fsa.usda.gov/resources/disaster-assistance-program/disaster-designation-information",
+      "data_urls": [
+        "https://www.fsa.usda.gov/sites/default/files/documents/METADATA_CY2022_SEC_YTD.xlsx",
+        "https://www.fsa.usda.gov/sites/default/files/2026-10/METADATA_CY2026_SEC_YTD_20261005.xlsx"
+      ],
+      "format": [
+        "xlsx",
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2012-2026 (Excel per crop year); maps 2012-2026",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "FIPS",
+        "county",
+        "state",
+        "designation code (1 primary, 2 contiguous)",
+        "designation number",
+        "hazard flags (Frost/FREEZE, Hail, Excessive rain, Hurricanes, Heat, Drought, Insufficient Chill Hours, Cool/Cold below-normal temperatures)",
+        "approval date",
+        "begin date",
+        "end date",
+        "description of disaster",
+        "calendar disaster year"
+      ],
+      "app_uses": [
+        "date-stamp freeze windows by county (e.g. 11-14 March 2022 in GA, SC, NC)",
+        "cross-check RMA loss months and modelled freeze nights",
+        "flag 'Insufficient Chill Hours' designations for chill_shortfall validation"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "harvest_rain_quality",
+        "water_drought"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Opened CY2022 xlsx: 4,954 rows, 34 columns including 'Frost, FREEZE' and 'Insufficient Chill Hours'. In-scope freeze rows include GA S5262 (13-14 Mar 2022), S5265 (12 Mar 2022, 39 GA counties), S5224 (12-14 Mar 2022, NC and SC 'Freezing Temperatures and High Winds'), FL S5143 (23-31 Jan 2022). The 2026 link resolves to METADATA_CY2026_SEC_YTD_20261005.xlsx."
+      },
+      "quality_caveats": "Designations are not crop-specific; a county can be designated for losses in any crop. Dates are the hazard window as requested, not crop stage.",
+      "priority": "P1",
+      "priority_reason": "Dated county freeze windows for every year since 2012, free Excel.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "fsa-disasters-archive",
+      "name": "fsa-disasters: archive of Secretarial and Presidential designations",
+      "publisher": "Sustainable FSA project (GitHub)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://github.com/sustainable-fsa/fsa-disasters",
+      "data_urls": [],
+      "format": [
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2012-present (Secretarial); 2017-present (Presidential)",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "county",
+        "designation",
+        "hazard",
+        "dates"
+      ],
+      "app_uses": [
+        "backup tidy copy of FSA files"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Repository page describes weekly acquisition from the USDA designation portal. Licence file not checked."
+      },
+      "quality_caveats": "Third-party copy; use FSA originals.",
+      "priority": "P3",
+      "priority_reason": "Convenience mirror only.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "fdacs-2026-freeze-assessment",
+      "name": "FDACS damage assessment for Winter Storms Ezra and Gianna (as reported)",
+      "publisher": "Florida Department of Agriculture and Consumer Services (reported by WGCU and FreshPlaza)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "loss_or_damage",
+        "disaster_declaration"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.wgcu.org/agriculture/2026-03-04/usda-issues-disaster-declaration-for-florida-in-wake-of-crop-damage-by-2026-freeze",
+      "data_urls": [
+        "https://www.freshplaza.com/north-america/article/9815619/updated-report-details-winter-storm-damage-to-florida-produce/",
+        "https://www.fdacs.gov/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Event: 30 Dec 2025 to 4 Feb 2026",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "storm windows",
+        "counties with freezing hours",
+        "crop",
+        "acres affected",
+        "production loss percent",
+        "loss value USD"
+      ],
+      "app_uses": [
+        "event record: Florida blueberry 2026 freeze with 6,400 acres and 90 percent production loss",
+        "validate flowering_freeze for central and north-central Florida pins"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "WGCU (4 Mar 2026) lists Ezra (30 Dec 2025 to 1 Jan 2026) and Gianna (26 Jan to 4 Feb 2026), 66 of 67 counties freezing, blueberries USD 78,512,400. FreshPlaza quotes FDACS: blueberry losses across 6,400 acres estimated at 90 percent. The primary FDACS PDF was not found; fdacs.gov homepage opened."
+      },
+      "quality_caveats": "Preliminary estimate; secondary reporting; primary document not located.",
+      "priority": "P2",
+      "priority_reason": "Official state loss figure for the early-2026 event IBO 2026 reports.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "nass-quickstats",
+      "name": "Quick Stats database and API",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://quickstats.nass.usda.gov/api",
+      "data_urls": [
+        "https://quickstats.nass.usda.gov/api/api_GET/"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Survey and census series; blueberry progress rows for Georgia from 2011 (see nass-ga-crop-progress)",
+      "update_frequency": "weekly",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "commodity_desc",
+        "statisticcat_desc (AREA BEARING, PRODUCTION, PRICE RECEIVED, PROGRESS)",
+        "unit_desc (PCT HARVESTED, LB, ACRES)",
+        "state_alpha",
+        "county_name",
+        "year",
+        "reference_period_desc (week ending)",
+        "Value",
+        "CV"
+      ],
+      "app_uses": [
+        "pull Georgia blueberry percent harvested by week for every year since 2011",
+        "pull Census county blueberry acres for location masks",
+        "pull state utilized production and price for FL, GA, NC"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "location_mapping",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "API help page opened: api_GET with key, JSON/CSV/XML output, get_counts endpoint. A free API key is required; no key was requested."
+      },
+      "quality_caveats": "State-level progress only. After May 2025 NASS stopped state PDF reports; whether Georgia blueberry progress continues in Quick Stats is unconfirmed [inference: check with a keyed call].",
+      "priority": "P1",
+      "priority_reason": "Machine route to NASS blueberry acreage, production and Georgia harvest progress.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "nass-census-county-berries",
+      "name": "2022 Census of Agriculture, county data, Table 33 Berries",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "land_use_or_orchard_census",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Georgia/st13_2_033_033.pdf",
+      "data_urls": [
+        "https://data.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/Florida/st12_2_033_033.pdf",
+        "https://www.nass.usda.gov/Publications/AgCensus/2022/Full_Report/Volume_1,_Chapter_2_County_Level/South_Carolina/st45_2_033_033.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2017 and 2022 census years in the table (census every 5 years)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "county",
+        "Blueberries, tame: farms and acres (total, bearing, nonbearing) 2022 and 2017",
+        "Blueberries, all",
+        "(D) suppression flags"
+      ],
+      "app_uses": [
+        "county masks for where blueberries are grown",
+        "weight regional summaries by bearing acres"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Georgia Table 33 (9 pages) has 'BLUEBERRIES, TAME' and 'BLUEBERRIES, ALL' blocks by county with farms and acres, bearing and nonbearing, 2022 and 2017."
+      },
+      "quality_caveats": "Many small counties are suppressed (D). Five-year interval. Same data are in Quick Stats.",
+      "priority": "P1",
+      "priority_reason": "Authoritative county acreage for all six states.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nass-ga-crop-progress",
+      "name": "Georgia Crop Progress and Condition (weekly), incl. Southern Region report",
+      "publisher": "USDA NASS Georgia / Southern Regional Field Office",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "phenology_observation",
+        "production_statistics"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Statistics_by_State/Georgia/Publications/Crop_Progress_and_Condition/",
+      "data_urls": [
+        "https://www.nass.usda.gov/Statistics_by_State/Georgia/Publications/Crop_Progress_and_Condition/2011/current_ga25.pdf",
+        "https://www.nass.usda.gov/Statistics_by_State/Georgia/Publications/Crop_Progress_and_Condition/2021/GA-CropProgress-05-24-21.pdf",
+        "https://www.nass.usda.gov/Statistics_by_State/Georgia/Publications/Crop_Progress_and_Condition/2025/SOR-CropProgress-5-19-25.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2011 to 27 May 2025 as weekly PDFs; later only via Quick Stats if collected",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "week ending date",
+        "Blueberries - Harvested percent: this week, previous week, previous year, 5-year average",
+        "blueberry condition (very poor to excellent)",
+        "county narrative comments"
+      ],
+      "app_uses": [
+        "derive Georgia 10/50/90 percent harvest dates per year and compare with modelled harvest start and peak at Alma and Homerville",
+        "test year-to-year harvest shifts against chill and GDD anomalies"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2011 report current_ga25: 'Blueberries - Harvested 83 73 N/A N/A' (this week, last week, 2010, 5-yr avg), so the row appears to start in 2011 [inference]. 2021 and 2024 reports carry the same row. 2025 Southern Region report (19 May 2025) lists 'Georgia Blueberries - Harvested' and a blueberry condition row. Listing page now holds only 2025 files up to 27 May 2025."
+      },
+      "quality_caveats": "Statewide aggregate across SHB and rabbiteye. Reporter-based estimates. State PDFs ended May 2025 (Red River Farm Network, 26 May 2025).",
+      "priority": "P1",
+      "priority_reason": "Only weekly, multi-year, official harvest-progress series for a Southeast state.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "nass-fl-crop-progress",
+      "name": "Florida Crop Progress and Condition (weekly narrative)",
+      "publisher": "USDA NASS Florida",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Statistics_by_State/Florida/Publications/Crop_Progress_&_Condition/index.php",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Archive to 2025 (state PDFs ended 2025)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "week ending",
+        "county narrative mentions of blueberry bloom, freeze protection, harvest"
+      ],
+      "app_uses": [
+        "manual extraction of dated narrative notes for Florida"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Listing page opened with 2025 monthly and weekly PDFs. Earlier research (04_validation_data_and_protocol.md) found no Florida blueberry percent row."
+      },
+      "quality_caveats": "Narrative only, inconsistent mentions.",
+      "priority": "P3",
+      "priority_reason": "Low yield of blueberry facts.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nass-noncitrus-summary",
+      "name": "Noncitrus Fruits and Nuts Annual Summary (blueberry tables) and Southern Region release",
+      "publisher": "USDA NASS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "production_statistics",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Publications/Todays_Reports/reports/ncit0525.pdf",
+      "data_urls": [
+        "https://www.nass.usda.gov/Statistics_by_State/Regional_Office/Southern/includes/Publications/Crop_Releases/Fruit_Production/NoncitrusFruitNut2024.pdf"
+      ],
+      "format": [
+        "pdf",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Annual; 2024 Summary covers 2022-2024; Southern Region release May 2024",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "state",
+        "area harvested",
+        "yield",
+        "utilized production",
+        "price",
+        "value",
+        "fresh vs processed utilization",
+        "harvested not sold production"
+      ],
+      "app_uses": [
+        "year-to-year state production anomalies for FL, GA, NC to test freeze and hurricane years",
+        "harvested-not-sold as a market or quality loss signal"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ncit0525.pdf (84 pages) table of contents lists 'Blueberry, Cultivated Area Harvested, Yield, Production, Price, and Value' and 'Harvested Not Sold Production' by state 2022-2024. Southern Region 2024 release: Georgia utilized production 99.1 million lb in 2023, up 43 percent; Florida down 34 percent to 21.4 million lb."
+      },
+      "quality_caveats": "Published states only (FL, GA, NC in scope); SC, MS, AL not published. Revised annually.",
+      "priority": "P2",
+      "priority_reason": "Annual state production anomalies; needed to size freeze years.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nass-cdl-blueberries",
+      "name": "Cropland Data Layer (class 242 Blueberries) and state accuracy reports",
+      "publisher": "USDA NASS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "grid 30 m",
+      "categories": [
+        "land_use_or_orchard_census",
+        "remote_sensing"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_ga23.htm",
+      "data_urls": [
+        "https://developers.google.com/earth-engine/datasets/catalog/USDA_NASS_CDL"
+      ],
+      "format": [
+        "shapefile",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1997-2025 nationally (Earth Engine catalog); state accuracy pages per year",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "public domain with no copyright restrictions (stated in the Earth Engine catalog entry)",
+      "license_url": "https://developers.google.com/earth-engine/datasets/catalog/USDA_NASS_CDL",
+      "extractable_fields": [
+        "class code 242 Blueberries",
+        "pixel location",
+        "year",
+        "producer's and user's accuracy by class and state"
+      ],
+      "app_uses": [
+        "build blueberry field masks to place station and grid comparisons over real fields",
+        "check where Florida evergreen acreage sits relative to benchmark pins"
+      ],
+      "model_families": [
+        "location_mapping"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2023 Georgia accuracy table: Blueberries 242, 2,238 validation pixels, producer's accuracy 70.2 percent, user's accuracy 76.1 percent. Earth Engine catalog lists value 242 'Blueberries' and states the CDL is public domain."
+      },
+      "quality_caveats": "About 30 percent omission in Georgia 2023; small fields and young plantings missed; accuracy for FL, NC not yet read.",
+      "priority": "P2",
+      "priority_reason": "Field-level location mask at no cost.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ams-weekly-shipments-blueberry",
+      "name": "Weekly Shipments (Movement) - Blueberry, WA_FV408",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://esmis.nal.usda.gov/publication/weekly-shipments-movement-blueberry",
+      "data_urls": [
+        "https://esmis.nal.usda.gov/sites/default/release-files/s1784k78s/5x21vd79b/1c18ff73f/WA_FV408.TXT",
+        "https://www.ams.usda.gov/mnreports/wa_fv408.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "ESMIS archive November 2018 to April 2025; older weekly movement reports at Cornell (not checked)",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report date",
+        "week window",
+        "commodity",
+        "mode (truck)",
+        "origin (FLORIDA, GEORGIA, NORTH CAROLINA, others)",
+        "weekly shipments in 10,000 lb units",
+        "season-to-date totals this and last season"
+      ],
+      "app_uses": [
+        "build weekly FL, GA and NC shipment curves and derive 10/50/90 percent harvest-progress weeks per year",
+        "compare with modelled harvest windows at Plant City, Alma and Elizabethtown"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "ESMIS page: weekly; releases filterable back to November 2018. Sample WA_FV408.TXT (19 Oct 2021): 'SHIPMENTS BY ORIGINS (AMOUNTS ARE SHOWN IN UNITS OF 10,000 LBS)', season totals FLORIDA 1954, GEORGIA 4167, NORTH CAROLINA 1669. AMS notice (28 Apr 2025): regular release paused from 1 May 2025; data sets continue in MyMarketNews and its API."
+      },
+      "quality_caveats": "Shipments are reported movement, not harvest; include packing and storage lag. Truck mode only for domestic origins. Release paused after April 2025.",
+      "priority": "P1",
+      "priority_reason": "Weekly origin-level timing series for FL, GA and NC over seven seasons.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ams-shipping-point-fob",
+      "name": "Shipping point FOB price reports with Central and North Florida and South Georgia blueberry sections (WA_FV101 recap; Benton Harbor BR_FV110)",
+      "publisher": "USDA AMS Specialty Crops Market News",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "market_prices",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.ams.usda.gov/mnreports/wa_fv101.txt",
+      "data_urls": [
+        "https://mymarketnews.ams.usda.gov/viewReport/2386"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Daily in season; archive depth not checked",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report date",
+        "origin district (CENTRAL & NORTH FLORIDA, SOUTH GEORGIA)",
+        "supply and demand wording",
+        "market tone",
+        "pack (flats 12 1-pt cups with lids)",
+        "size",
+        "price range and mostly price USD"
+      ],
+      "app_uses": [
+        "first and last report dates of the season per origin as harvest start and end proxies",
+        "price collapse timing (HS742 says Florida prices fall from May)"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "wa_fv101.txt (8 May 2024) has CENTRAL & NORTH FLORIDA and SOUTH GEORGIA blueberry sections: 'SUPPLY HEAVY. DEMAND FAIRLY LIGHT', flats 12 1-pt cups lge 9.00-17.00 mostly 12.00-14.00. The MyMarketNews page for BR_FV110 timed out from this machine (search snippet: report covers Florida, Georgia, Peruvian and Chilean blueberries, issued daily)."
+      },
+      "quality_caveats": "Price quotes depend on reporter contact; gaps when volume is light; legacy text file shows only the latest issue.",
+      "priority": "P2",
+      "priority_reason": "Daily start and end of quotes by origin.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "ams-mymarketnews-api",
+      "name": "MyMarketNews portal and MARS API",
+      "publisher": "USDA AMS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "shipment_or_export_series",
+        "market_prices"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://mymarketnews.ams.usda.gov/mymarketnews-api",
+      "data_urls": [
+        "https://marsapi.ams.usda.gov/services/v1.2/reports"
+      ],
+      "format": [
+        "api-json"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Report data sets including blueberry movement after the April 2025 pause (per AMS notice)",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report slug",
+        "report date",
+        "origin",
+        "commodity",
+        "volume",
+        "price"
+      ],
+      "app_uses": [
+        "continue the WA_FV408 series after April 2025"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Portal pages timed out or reset over HTTP/2 and HTTP/1.1 from this machine. The MARS API endpoint returned HTTP 403 without a key. Existence and continuity rely on the AMS WA_FV408 notice."
+      },
+      "quality_caveats": "Needs a free API key; site unreachable during this check.",
+      "priority": "P2",
+      "priority_reason": "Only route to post-2025 movement data.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-farm-gate-value",
+      "name": "Georgia Farm Gate Value Report (annual, county tables)",
+      "publisher": "University of Georgia Center for Agribusiness and Economic Development",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "production_statistics",
+        "land_use_or_orchard_census"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://caed.uga.edu/",
+      "data_urls": [
+        "https://caed.uga.edu/content/dam/caes-subsite/caed/publications/annual-reports-farm-gate-value-reports/2022%20Farm%20Gate%20Value%20Report.pdf",
+        "https://caed.uga.edu/content/dam/caes-subsite/caed/publications/annual-reports-farm-gate-value-reports/2017-farm-gate-value-report.pdf"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Annual reports; blueberry value series from at least 2012 (B1413 figure); 2017 and 2022 report URLs found",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "Use Policy: 'Permission is granted to the public to use this material in part or in full for educational purposes provided full credit is given'",
+      "license_url": null,
+      "extractable_fields": [
+        "county",
+        "blueberry acres",
+        "farm gate value USD",
+        "county rank",
+        "state total by year"
+      ],
+      "app_uses": [
+        "annual county acreage for Georgia (fills Census gaps between 2017 and 2022)",
+        "weight Georgia freeze losses by county acreage",
+        "value drops in freeze years (2017, 2018, 2022) as loss signal"
+      ],
+      "model_families": [
+        "location_mapping",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2022 report (January 2024, AR-24-01, 181 pages): p.52 'Blueberries Farm Gate Value 2022' table with Rank, County, Acres, Farm gate Value, e.g. Bacon 7,620 acres USD 127,819,500; Appling 4,400 acres USD 69,820,000; Ware 2,125; Clinch 1,690. The 2023 report URL from search returned 404."
+      },
+      "quality_caveats": "Estimates by county extension agents, not a survey; methods change; 2023+ URLs moved.",
+      "priority": "P1",
+      "priority_reason": "Only annual county-level blueberry acreage series in the region.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-blueberry-blog",
+      "name": "UGA Blueberry Blog",
+      "publisher": "University of Georgia CAES (Blueberry team)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "pest_disease_advisory",
+        "management_practice",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://site.caes.uga.edu/blueberry/",
+      "data_urls": [
+        "https://site.caes.uga.edu/blueberry/2026/04/recovering-after-hurricane-helene-strategies-for-blueberry-growers/",
+        "https://site.caes.uga.edu/blueberry/2014/05/rabbiteye-ripening-time/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2014-2026 posts seen",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "author",
+        "topic",
+        "event described (freeze, hurricane, disease)",
+        "cultivar",
+        "stage and date notes",
+        "management advice"
+      ],
+      "app_uses": [
+        "claim and event records for Georgia (Helene 27 Sept 2024 wind damage, freezes)",
+        "dated ripening notes for rabbiteye"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "disease",
+        "management",
+        "harvest_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Front page lists posts to August 2026. Helene post (28 Apr 2026): Helene crossed South Georgia on 27 September 2024 with gusts near 88 mph, bushes uprooted or leaning."
+      },
+      "quality_caveats": "Irregular posting; mixed audience; some posts are event notices.",
+      "priority": "P2",
+      "priority_reason": "Primary Georgia specialist narrative.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-climate-ag-southeast-blog",
+      "name": "Climate and Agriculture in the Southeast (blog)",
+      "publisher": "UGA Cooperative Extension (State Climatologist office)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia",
+        "Florida",
+        "Alabama",
+        "South Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://site.extension.uga.edu/climate/",
+      "data_urls": [
+        "https://site.extension.uga.edu/climate/archive/post/georgia-blueberry-crop-struggling-following-march-freeze-event/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2014-2026 (archive lists 2014 to 2026 post counts)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "event",
+        "crop",
+        "linked source",
+        "chill hour summaries"
+      ],
+      "app_uses": [
+        "dated event notes (13 March 2022 freeze aftermath, 2018 frost, 2026 Florida freeze)",
+        "link weather events to crop reports"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "chill_dormancy",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Archive page shows posts by year 2014 (457) to 2026 (310). Post of 27 May 2022 says the 13 March freeze impact on Georgia blueberries 'might be worse than expected', citing Specialty Crop Industry."
+      },
+      "quality_caveats": "Many posts summarise third-party news; cite the underlying source.",
+      "priority": "P2",
+      "priority_reason": "Daily regional weather-to-crop commentary with long archive.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-caes-field-report",
+      "name": "CAES Field Report (UGA news and extension publications)",
+      "publisher": "University of Georgia College of Agricultural and Environmental Sciences",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "news_archive",
+        "management_practice",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://fieldreport.caes.uga.edu/news/spring-freeze-dooms-georgia-blueberries-for-second-consecutive-year/",
+      "data_urls": [
+        "https://fieldreport.caes.uga.edu/publications/C1311/blueberry-production-in-south-georgia-variety-preference-and-major-constraints/",
+        "https://fieldreport.caes.uga.edu/publications/B1413/southern-highbush-blueberry-marketing-and-economics/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "News from about 2011; publications revised to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found (site footer links UGA Copyright and Trademarks)",
+      "license_url": null,
+      "extractable_fields": [
+        "publication number",
+        "date",
+        "county or region",
+        "loss percent",
+        "variety share of acreage",
+        "freeze dates and temperatures"
+      ],
+      "app_uses": [
+        "event records (2017 and 2018 freezes)",
+        "cultivar adoption shares for Georgia cultivar classes (C1311)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "cultivar",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2018 news: early spring freeze cost Georgia growers 'as much as 60 percent' of the crop, loss also in 2017. C1311 (7 Mar 2025): 26 growers, 3,238 acres in eight counties; 'Farthing' 28 percent, 'Brightwell' 22 percent; SHB 61 percent, rabbiteye 39 percent of reported acres."
+      },
+      "quality_caveats": "Survey covers 3,238 acres only. News loss shares are agent estimates.",
+      "priority": "P2",
+      "priority_reason": "Georgia event and cultivar-adoption facts.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-county-extension-blogs",
+      "name": "UGA county extension blogs (e.g. Appling County Crop E News)",
+      "publisher": "UGA Cooperative Extension county offices",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "extension_advisory",
+        "phenology_observation",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://site.extension.uga.edu/applingcrop/2026/05/2026-blueberry-harvest-update/",
+      "data_urls": [
+        "https://site.extension.uga.edu/applingcrop/2015/02/freeze-protecting-blueberries-what-went-wrong/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2015-2026 posts seen",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "county",
+        "stage (harvest in full swing)",
+        "weather note (drought, rain forecast)",
+        "fruit quality note"
+      ],
+      "app_uses": [
+        "dated county-level harvest-stage observations for Appling and nearby counties"
+      ],
+      "model_families": [
+        "harvest_timing",
+        "harvest_rain_quality",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Appling post of 1 May 2026: 'Blueberry harvesting is in full swing', SHB production good, berries smaller due to drought, rain forecast a challenge."
+      },
+      "quality_caveats": "Ad hoc; depends on agent; no structured stage definitions.",
+      "priority": "P2",
+      "priority_reason": "Rare county-level dated stage notes.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uga-aemn",
+      "name": "Georgia Automated Environmental Monitoring Network (georgiaweather.net)",
+      "publisher": "University of Georgia",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://www.georgiaweather.net/",
+      "data_urls": [
+        "http://georgiaweather.net/mindex.php?site=ALMA",
+        "http://www.georgiaweather.net/?content=ch"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Long-running network (a Georgia Farm Bureau headline seen in search says it marked 30 years in about 2021; not opened); 15-minute summaries; web history per station",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "15-minute and hourly air temperature",
+        "humidity and dewpoint",
+        "rain",
+        "soil temperature",
+        "chill hours under 45 F and 32-45 F",
+        "first and last frost",
+        "blueberry and mummy berry pages"
+      ],
+      "app_uses": [
+        "Tmin bias and frost hit/miss at Alma (ALMA) and other south Georgia stations",
+        "chill-hour check for Alma and Homerville benchmark pins"
+      ],
+      "model_families": [
+        "chill_dormancy",
+        "bud_flower_freeze",
+        "fruit_frost",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home and ALMA station pages opened: Past Data menu (31-Day Summary, Historical, Climate, Seasonal Summary, First Frost, Last Frost); Crop Weather menu includes Blueberry, Chilling Hours, Mummy Berry, Freeze Forecast. Chill table 'Last modified: 10/11/2026'. weather.uga.edu timed out. Bulk history by email (aemn@uga.edu) per search result, not tested."
+      },
+      "quality_caveats": "Multi-year hourly bulk needs an email request; web history is per station and period.",
+      "priority": "P1",
+      "priority_reason": "Hourly station truth near the Georgia benchmark sites.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "georgia-cultivar-release-system",
+      "name": "Georgia's Integrated Cultivar Release System: blueberry cultivar pages",
+      "publisher": "University of Georgia",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "http://georgiacultivars.com/cultivars/alapaha",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "UGA releases",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar",
+        "species",
+        "chill estimate",
+        "relative bloom and ripening timing",
+        "recommended companion"
+      ],
+      "app_uses": [
+        "cultivar class priors (e.g. 'Alapaha' blooms 7 to 10 days after 'Climax', 450 to 500 h)"
+      ],
+      "model_families": [
+        "cultivar",
+        "budbreak_bloom_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Alapaha page: late flowering 7 to 10 days after 'Climax', early ripening; chill text shows '...0 to 500 hours'."
+      },
+      "quality_caveats": "Promotional summaries; relative timing only.",
+      "priority": "P3",
+      "priority_reason": "Short trait summaries; patents give the numbers.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "ga-dept-ag-market-bulletin",
+      "name": "Georgia Department of Agriculture Market Bulletin (archive)",
+      "publisher": "Georgia Department of Agriculture",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "http://www.forms.agr.georgia.gov/MBADS/pdf/2018/052318-Market-Bulletin.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2018 issue opened; archive depth not checked",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "'© COPYRIGHT 2018' printed on issue; reuse terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "issue date",
+        "story",
+        "grower quotes on losses"
+      ],
+      "app_uses": [
+        "event narrative for 2017-2018 back-to-back losses"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "23 May 2018 issue (12 pages): story 'A desperate situation for blueberry producers in Georgia', back-to-back weather losses."
+      },
+      "quality_caveats": "Mostly classifieds; few crop stories.",
+      "priority": "P3",
+      "priority_reason": "Occasional statements only.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "fawn",
+      "name": "Florida Automated Weather Network (FAWN) QA/QC yearly archive and report generator",
+      "publisher": "UF/IFAS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://fawn.ifas.ufl.edu/",
+      "data_urls": [
+        "https://fawn.ifas.ufl.edu/data/fawn_data_qaqc_pub/",
+        "https://fawn.ifas.ufl.edu/data/fawn_data_qaqc_pub/metadata.txt",
+        "https://fawn.ifas.ufl.edu/data/reports/"
+      ],
+      "format": [
+        "zip",
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "1998-2025 yearly QA/QC zips; current data via report generator",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station ID (53 IDs incl. Arcadia 490, Sebring 470, Homestead 440, Citra 250, Alachua 260, Live Oak 170, Monticello 160, Dover 360, Balm 350, Okahumpka 303)",
+        "UTC time, 15-minute rows",
+        "temp_air_60cm_C",
+        "temp_air_2m_C",
+        "temp_air_10m_C",
+        "rh_2m_pct",
+        "leaf_wetness_60cm_ohms",
+        "rain_2m_inches",
+        "wind_speed_10m_mph",
+        "wind_speed_max_10m_mph",
+        "solar radiation",
+        "quality flag per variable (0 passed to 7 step check)"
+      ],
+      "app_uses": [
+        "Tmin bias and missed-frost rate for every Florida benchmark pin, incl. canopy-height (60 cm) temperature",
+        "leaf-wetness driven validation of anthracnose and Botrytis indices",
+        "2026 freeze reconstruction"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "disease",
+        "heat"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Directory lists 1998.csv.zip (5.7 MB) to 2025.csv.zip (76 MB) and metadata.txt. Metadata defines columns and QA flags. Report generator lists 49 station names and offers 15-minute, hourly, daily and monthly outputs."
+      },
+      "quality_caveats": "Large yearly files (60-84 MB) need a planned pull; stations move and some are discontinued (e.g. StrawB1, Tavares).",
+      "priority": "P1",
+      "priority_reason": "Hourly, QA-flagged canopy and 2 m temperature with leaf wetness at most Florida benchmark sites since 1998.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "agroclimate-bas",
+      "name": "AgroClimate Blueberry Advisory System and chill tools",
+      "publisher": "UF/IFAS and Southeast Climate Consortium (AgroClimate)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "pest_disease_advisory",
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "http://www.agroclimate.org/BAS",
+      "data_urls": [
+        "https://ask.ifas.ufl.edu/publication/PP366",
+        "https://www.climatehubs.usda.gov/hubs/southeast/tools/agroclimate-blueberry-advisory-system",
+        "https://agroclimate.org/tools/chill-hours-calculator/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Live tool; history not exposed",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "Copyright 1998-2026 Southeast Climate Consortium | AgroClimate; reuse terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "anthracnose fruit rot risk class (low under 15 percent, moderate 15-50, high over 50)",
+        "Botrytis favourability",
+        "leaf wetness and temperature inputs"
+      ],
+      "app_uses": [
+        "benchmark our hourly anthracnose and Botrytis indices against the UF/UGA operational model at FAWN and AEMN stations"
+      ],
+      "model_families": [
+        "disease"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "BAS URL redirects to cloud.agroclimate.org/tools/bas/ (JavaScript app). PP366 describes the AFR model and FAWN inputs. AgroClimate menu lists Blueberry Advisory System, Chill Hours Calculator, Freeze Probabilities."
+      },
+      "quality_caveats": "No archive download; model outputs only for listed stations.",
+      "priority": "P2",
+      "priority_reason": "Operational regional disease model to compare with ours.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uf-edis",
+      "name": "UF/IFAS EDIS / Ask IFAS extension publications (blueberry)",
+      "publisher": "University of Florida IFAS",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "management_practice",
+        "cultivar_traits",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ask.ifas.ufl.edu/publication/HS1362",
+      "data_urls": [
+        "https://ask.ifas.ufl.edu/publication/AC031",
+        "https://ask.ifas.ufl.edu/publication/HS216",
+        "https://ask.ifas.ufl.edu/publication/HS1245",
+        "https://ask.ifas.ufl.edu/publication/PP366",
+        "https://journals.flvc.org/edis"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Current and archived publications (e.g. HS967 from 2004; HS216 revised Sept 2026)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "Creative Commons Attribution-NonCommercial-NoDerivatives International 4.0 (images excluded)",
+      "license_url": "https://ask.ifas.ufl.edu/copyright",
+      "extractable_fields": [
+        "publication id",
+        "revision date",
+        "region (central, north-central, south-central)",
+        "system (evergreen, deciduous)",
+        "cultivar bloom and ripening notes",
+        "freeze thresholds",
+        "management calendar items"
+      ],
+      "app_uses": [
+        "claim records for Florida systems, regions and management (HS742 region shares: central 50 percent, north-central 25, south-central 25)",
+        "cultivar trait table entries (HS1245)"
+      ],
+      "model_families": [
+        "management",
+        "cultivar",
+        "bud_flower_freeze",
+        "disease",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Copyright page states CC BY-NC-ND 4.0. HS742/AC031: about 5,700 planted acres (NASS 2022); 21.5 million lb in 2022, 15.7 million lb in 2023 after Hurricane Ian; south-central region requires the evergreen system."
+      },
+      "quality_caveats": "Many are revisions; keep edition dates. NoDerivatives limits paraphrased display; quote with attribution.",
+      "priority": "P1",
+      "priority_reason": "Primary, licensed Florida extension corpus.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "fshs-proceedings",
+      "name": "Proceedings of the Florida State Horticultural Society",
+      "publisher": "Florida State Horticultural Society (hosted by FLVC)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "research_literature",
+        "cultivar_trial",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://journals.flvc.org/fshs",
+      "data_urls": [
+        "https://journals.flvc.org/fshs/issue/archive",
+        "https://journals.flvc.org/fshs/search/search?query=blueberry",
+        "https://journals.flvc.org/fshs/article/download/87338/84119/0"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Vol 1 (1888) to Vol 136 (2023) online",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "paper",
+        "year",
+        "site",
+        "cultivar",
+        "bloom period",
+        "yield",
+        "survival",
+        "freeze notes"
+      ],
+      "app_uses": [
+        "older Florida cultivar trial phenology (e.g. Quincy trial: 'O'Neal' blooms mid-February to early March)",
+        "freeze-protection history"
+      ],
+      "model_families": [
+        "cultivar",
+        "budbreak_bloom_timing",
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Archive pages list Vol 1 (1888) to Vol 136 (2023). Search 'blueberry' returns papers such as Lyrene 1990 'The Florida Climate as it Relates to Blueberry Production' and Lyrene and Williamson 2000 'Freeze protecting Florida blueberries'. Andersen et al. 2008 (121:33-35) North Florida highbush trial opened."
+      },
+      "quality_caveats": "Mixed peer review; many papers are short; scanned older volumes.",
+      "priority": "P2",
+      "priority_reason": "Long Florida archive of trial notes not in EDIS.",
+      "est_effort_days": 2.0
+    },
+    {
+      "id": "uf-2026-freeze-report",
+      "name": "Severe Freeze Event Inflicts Extensive Damage on Florida Blueberry Production (UF/IFAS, 9 Feb 2026)",
+      "publisher": "UF/IFAS (Guan, Phillips, Williamson), hosted by Florida Blueberry Growers Association",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "loss_or_damage",
+        "weather_stations",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://fbga.memberclicks.net/assets/docs/Freeze%20event%20and%20Florida%20Blueberries%20-%20Feb%209%202026.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Event 31 Jan to 3 Feb 2026",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "region",
+        "county",
+        "FAWN station",
+        "minimum 60 cm air temperature F",
+        "minimum dew point F",
+        "minimum wet bulb F",
+        "maximum wind speed and gust mph",
+        "hours below 32 F",
+        "longest continuous freeze hours",
+        "stage at freeze (flowering and early fruit set)",
+        "bloom kill share on sample farm"
+      ],
+      "app_uses": [
+        "ground truth for the 2026 flowering_freeze event at Plant City, Groveland, Citra and Waldo pins",
+        "test grid Tmin and wind against FAWN canopy minima (16.4 F Alachua, 16.65 F Tiger Creek)",
+        "management layer: overhead irrigation failure under wind"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "management"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Six-page PDF. Table 1 lists region, county, station, min 60 cm air temp, min dew point, min wet bulb, max wind and gust, e.g. Hernando Brooksville South 20.06 F; Lake Okahumpka 21.05 F, gust 41.5 mph. Central region (Polk, Lake, Orange, Pasco, Hernando, Hillsborough) about 50 percent of production; Alachua 16.43 F and 41.5 hours below 32 F. About 90 percent of blooms killed on one central farm."
+      },
+      "quality_caveats": "One event; farm loss figures anecdotal.",
+      "priority": "P1",
+      "priority_reason": "Best-documented freeze event in the region: stage, hourly station extremes and damage together.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "fbga",
+      "name": "Florida Blueberry Growers Association: newsletters, blog, press",
+      "publisher": "Florida Blueberry Growers Association",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "management_practice",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.floridablueberrygrowers.org/",
+      "data_urls": [
+        "https://fbga.memberclicks.net/assets/docs/April%202026%20Newsletter.pdf",
+        "https://www.floridablueberrygrowers.org/press",
+        "https://fbga.memberclicks.net/assets/docs/Updated%20Disease%20Threats%20Post%20Freeze%20Damange%20020926.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Blog posts and newsletters seen from 2019 to 2026",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "'© Copyright 2019 Florida Blueberry Growers Association'; reuse terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post or newsletter date",
+        "monthly management items",
+        "freeze and disease advisories",
+        "breeding program updates (cultivar notes for central and south-central Florida)"
+      ],
+      "app_uses": [
+        "claim records for Florida management by month",
+        "event records for 2026 freeze and post-freeze disease"
+      ],
+      "model_families": [
+        "management",
+        "disease",
+        "bud_flower_freeze",
+        "cultivar"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home page links 'Monthly Management Items', '2026 Winter Event Articles', MGR-26-001, UF freeze report and post-freeze disease notes. Blog post 'UF Blueberry Breeding Program Update' describes 'Albus' for the central Florida evergreen system."
+      },
+      "quality_caveats": "Member login for some content; mixes UF extension text and association notes.",
+      "priority": "P2",
+      "priority_reason": "Grower-facing Florida corpus with event-specific documents.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "uf-blueberry-extension-blog",
+      "name": "Doug's Blog (UF/IFAS blueberry extension coordinator), Blueberry Breeding and Genomics site",
+      "publisher": "UF/IFAS Blueberry Breeding and Genomics",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "pest_disease_advisory",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.blueberrybreeding.com/blog",
+      "data_urls": [],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Monthly posts seen to July 2026",
+      "update_frequency": "monthly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "post date",
+        "author",
+        "topic",
+        "seasonal timing statements (e.g. southern red mite peak late September to February; leaf rust in evergreen system)"
+      ],
+      "app_uses": [
+        "dated management and disease-timing claims for Florida, including evergreen-system practices"
+      ],
+      "model_families": [
+        "management",
+        "disease"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Blog lists posts: 'Summer Fungal Leaf Diseases' (1 Jul 2026), 'Managing Flower Thrips in SHB in Florida' (1 Feb 2026), 'Managing Leaf Rust in the Evergreen Production System' (1 Jan 2026)."
+      },
+      "quality_caveats": "Advisory text, not observations.",
+      "priority": "P2",
+      "priority_reason": "Monthly UF practice notes incl. evergreen management.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nc-econet",
+      "name": "NC ECONet stations via Cardinal and CLOUDS API",
+      "publisher": "State Climate Office of North Carolina, NC State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina",
+        "South Carolina"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://econet.climate.ncsu.edu/",
+      "data_urls": [
+        "https://products.climate.ncsu.edu/cardinal/request/",
+        "https://api.climate.ncsu.edu/networks.php",
+        "https://products.climate.ncsu.edu/cardinal/data-usage/"
+      ],
+      "format": [
+        "api-json",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Hourly since 1996 (generally); 1-minute since mid-2000s",
+      "update_frequency": "daily",
+      "access": "open-with-free-registration",
+      "license_or_terms": "terms not found (free tiers: 300,000 data points per month public, 750,000 .gov/.edu)",
+      "license_url": "https://products.climate.ncsu.edu/cardinal/data-usage/",
+      "extractable_fields": [
+        "station",
+        "hourly air temperature",
+        "humidity",
+        "dewpoint",
+        "wind",
+        "precipitation",
+        "solar radiation",
+        "soil temperature and moisture"
+      ],
+      "app_uses": [
+        "Tmin bias and radiation-freeze detection near Elizabethtown and Burgaw (Cline notes fields 10-12 F colder than airports)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "About ECONet: 46 towers across 37 NC counties and one SC county. CLOUDS API: 49 ECONET stations (46 active); hourly since 1996, one-minute since mid-2000s. Cardinal request builder requires a free login. NCDA research stations report through ECONet towers."
+      },
+      "quality_caveats": "Free account and monthly data-point quota; tower siting is open terrain, not frost pockets.",
+      "priority": "P1",
+      "priority_reason": "Hourly QC'd stations for the North Carolina benchmark sites.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "ncsco-chill-models",
+      "name": "Chill Models for North Carolina (blueberry Mainland model)",
+      "publisher": "State Climate Office of North Carolina",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "extension_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://products.climate.ncsu.edu/ag/chill-models/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Current season",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "model (Blueberries Mainland Model)",
+        "accumulated chill by date"
+      ],
+      "app_uses": [
+        "compare our chill counts with the Mainland blueberry model used in NC"
+      ],
+      "model_families": [
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Tool lists 'Blueberries (Mainland Model)', accumulation ends 28 February."
+      },
+      "quality_caveats": "Current season only.",
+      "priority": "P3",
+      "priority_reason": "Model definition reference.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "ncsu-blueberry-portal",
+      "name": "NC State Extension blueberry portal and publications",
+      "publisher": "NC State Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "production_statistics",
+        "management_practice",
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://blueberries.ces.ncsu.edu/",
+      "data_urls": [
+        "https://blueberries.ces.ncsu.edu/blueberries-nc-blueberry-statistics/",
+        "https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures",
+        "https://blueberries.ces.ncsu.edu/blueberries-weather-and-climate/"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Publications from 1998, revised to 2024; statistics page updated Feb 2025",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "state statistics (value, pounds, acres harvested, top county acres)",
+        "critical freeze temperatures by bud stage",
+        "freeze protection practice",
+        "cultivar notes"
+      ],
+      "app_uses": [
+        "claim records: Bladen 5,736 acres; 9,300 acres harvested 2023; critical temperatures 24 F tight bud to 28 F open bloom"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "management",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Statistics page (updated 11 Feb 2025): USD 104.6 million, 54 million lb, 9,300 acres harvested (2023 USDA), Bladen 5,736 acres. Freeze publication dated 30 Nov 1998, reviewed 26 Jul 2024."
+      },
+      "quality_caveats": "No reuse licence shown on publication pages.",
+      "priority": "P2",
+      "priority_reason": "Core NC extension text and stats.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "nc-blueberry-journal",
+      "name": "The NC Blueberry Journal (Bill Cline blog)",
+      "publisher": "NC State University (Bill Cline)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_traits"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "http://ncblueberryjournal.blogspot.com/2011/08/blueberry-cultivar-legacy.html",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2011 posts",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar",
+        "bloom date in southeastern NC",
+        "first harvest date",
+        "chill estimate"
+      ],
+      "app_uses": [
+        "cultivar table: 'Legacy' bloom about 1 April, first harvest 30 May to 3 June in southeastern NC, 700-800 h"
+      ],
+      "model_families": [
+        "cultivar",
+        "budbreak_bloom_timing",
+        "harvest_timing"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "'Legacy' post: bloom 1 April in southeastern NC (about 1 week before 'Croatan'); first harvest around 30 May to 3 June; chill estimate 700 to 800 hours below 45 F."
+      },
+      "quality_caveats": "Typical dates, not dated observations; 2011.",
+      "priority": "P3",
+      "priority_reason": "Only explicit NC SHB bloom dates found.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "ncsu-cals-news",
+      "name": "NC State CALS and Extension news (blueberry season stories)",
+      "publisher": "NC State University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina"
+      ],
+      "spatial_resolution": "municipality/county",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://cals.ncsu.edu/news/berrying-on/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2020 story checked",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "county",
+        "event (freeze, rain)",
+        "stage",
+        "loss estimate"
+      ],
+      "app_uses": [
+        "event record: NC early bloom January-February 2020, windborne freeze 21-22 Feb 2020, then 8-12 inches rain in late May 2020 (Pender)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_rain_quality"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "'Berrying On' (30 June 2020): blueberries bloomed in January and early February after warm weather; a February freeze slashed yields; late May 8 to 12 inches of rain; Pender County 1,700 acres."
+      },
+      "quality_caveats": "Feature stories; loss numbers are interview estimates.",
+      "priority": "P3",
+      "priority_reason": "Adds NC 2020 event the IBO library lacks.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "nc-blueberry-council",
+      "name": "North Carolina Blueberry Council",
+      "publisher": "North Carolina Blueberry Council, Inc.",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://ncblueberrycouncil.org/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Unknown",
+      "update_frequency": "irregular",
+      "access": "restricted",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "member resources"
+      ],
+      "app_uses": [
+        "possible grower statements on losses"
+      ],
+      "model_families": [
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home page title 'Member Online Resources'; little public content seen."
+      },
+      "quality_caveats": "Mostly member-only.",
+      "priority": "P3",
+      "priority_reason": "Little public data.",
+      "est_effort_days": 0.1
+    },
+    {
+      "id": "clemson-sc-field-report",
+      "name": "South Carolina Fruit and Vegetable Field Report (weekly)",
+      "publisher": "Clemson Cooperative Extension (HGIC)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "South Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "phenology_observation",
+        "extension_advisory",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://hgic.clemson.edu/south-carolina-fruit-and-vegetable-field-report-february-23-2026/",
+      "data_urls": [
+        "https://hgic.clemson.edu/south-carolina-field-update-march-23-2026-cold-damage-being-assessed-as-strawberry-harvest-begins/",
+        "https://hgic.clemson.edu/sc-fruit-and-vegetable-field-report-may-27-2025/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Weekly in season; 2025-2026 reports opened, a 2022 report seen in search",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "'Copyright © 2026 Clemson University'; reuse terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report date",
+        "region (Coastal, Midlands, Pee Dee)",
+        "agent",
+        "blueberry stage (bud swell, bud break, early bloom, full bloom, harvest)",
+        "freeze protection running",
+        "cold damage percent"
+      ],
+      "app_uses": [
+        "dated SC blueberry stage observations to replace inferred bloom months at Loris",
+        "freeze damage notes for flowering_freeze"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "bud_flower_freeze",
+        "harvest_timing",
+        "disease"
+      ],
+      "extraction_mode": "manual_curation",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "23 Feb 2026 (Midlands): 'Blueberry buds are swelling and breaking quickly, with some early cultivars beginning to flower.' 23 Mar 2026: 'Peaches, pears, and blueberries are now in full bloom.' Search snippets also report 10-15 percent fruit and flower damage in late March 2026."
+      },
+      "quality_caveats": "Agent notes, not systematic; region rather than farm; cultivar seldom named.",
+      "priority": "P1",
+      "priority_reason": "Only dated, recurring SC blueberry stage observations.",
+      "est_effort_days": 1.5
+    },
+    {
+      "id": "clemson-weather-network",
+      "name": "Clemson Extension Weather Network (Tempest stations)",
+      "publisher": "Clemson Cooperative Extension",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "South Carolina"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://blogs.clemson.edu/sccrops/clemson-weather-station-network/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Since about 2020",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "temperature",
+        "rainfall",
+        "lightning"
+      ],
+      "app_uses": [
+        "possible Loris-area station checks"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Blog: network conceived 2020; 51 stations installed, 42 close to production; powered by WeatherFlow. No archive download seen."
+      },
+      "quality_caveats": "Consumer-grade sensors; historical access unclear.",
+      "priority": "P3",
+      "priority_reason": "Short record; access unclear.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "sc-state-climatology-office",
+      "name": "South Carolina State Climatology Office",
+      "publisher": "SC Department of Natural Resources",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "South Carolina"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.dnr.sc.gov/climate/sco/",
+      "data_urls": [],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Office since 1986",
+      "update_frequency": "weekly",
+      "access": "on-request",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "weekly and annual weather reports",
+        "data requests"
+      ],
+      "app_uses": [
+        "SC climate context; no hourly network found"
+      ],
+      "model_families": [
+        "chill_dormancy"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home page: 'Weekly & Annual Weather Report', 'Request Data'. No public hourly mesonet found for SC."
+      },
+      "quality_caveats": "Request-based.",
+      "priority": "P3",
+      "priority_reason": "No hourly SC network found.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "msu-delta-weather",
+      "name": "Delta Agricultural Weather Center station network (incl. Poplarville)",
+      "publisher": "Mississippi State University (DREC)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Mississippi"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://deltaweather.extension.msstate.edu/",
+      "data_urls": [
+        "https://deltaweather.extension.msstate.edu/weather-station-result/"
+      ],
+      "format": [
+        "html",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Stoneville record since 1915; network stations vary",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station (list includes Poplarville)",
+        "frequency daily or hourly",
+        "temperature",
+        "relative humidity",
+        "rain",
+        "wind",
+        "solar radiation",
+        "soil temperature"
+      ],
+      "app_uses": [
+        "Tmin bias and freeze detection at the Poplarville benchmark pin"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost",
+        "chill_dormancy",
+        "disease"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Home: 41 fixed stations, 15-minute real-time data, hourly and daily parameters. Customizable Data Report form lists 'Poplarville' and Frequency 'Daily Hourly', time period 'All' or custom."
+      },
+      "quality_caveats": "Poplarville station start year not checked.",
+      "priority": "P1",
+      "priority_reason": "Only hourly station found at the Mississippi benchmark site.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "msu-extension-blueberry",
+      "name": "MSU Extension blueberry publications and crop news",
+      "publisher": "Mississippi State University Extension Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Mississippi"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "news_archive",
+        "loss_or_damage",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://extension.msstate.edu/publications/establishment-and-maintenance-blueberries",
+      "data_urls": [
+        "https://extension.msstate.edu/news/crop-report/2026/states-blueberry-crop-hurt-march-freeze",
+        "https://extension.msstate.edu/news/feature-story/2023/late-freeze-causes-severe-damage-ms-blueberries",
+        "https://extension.msstate.edu/news/feature-story/2026/watermelons-blueberries-devastated-summer-rain",
+        "https://extension.msstate.edu/sites/default/files/publications/P1758_web.pdf"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "News 1996-2026; P1758 2024 edition",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "'This publication may be copied and distributed without alteration for nonprofit educational purposes provided that credit is given to the Mississippi State University Extension Service' (P1758)",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "event",
+        "county",
+        "species affected (SHB vs rabbiteye)",
+        "loss estimate",
+        "rain totals"
+      ],
+      "app_uses": [
+        "event records: March 2023 late freeze (at least 50 percent of commercial crop, Stafne); mid-March 2026 freeze (up to 20 percent SHB loss at a Perry County farm, rabbiteye fine); mid-May to mid-June 2026 rain of at least 30 inches at the South Mississippi station"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "2023 story (27 Mar 2023): Stafne estimates at least 50 percent of commercial crop lost. 2026 crop report: mid-March freeze, Perry County 160 acres lost up to 20 percent of SHB fruit, 'All the rabbiteyes were fine'. 2026 rain story: two cold events January-February, late March freeze, then excessive rain."
+      },
+      "quality_caveats": "Interview estimates; small state industry.",
+      "priority": "P2",
+      "priority_reason": "Only dated Mississippi loss narratives.",
+      "est_effort_days": 0.75
+    },
+    {
+      "id": "usda-ars-poplarville-phenotypes",
+      "name": "Data from: Phenological variation associates with the stability of fruit quality traits in cultivated tetraploid blueberry",
+      "publisher": "USDA-ARS Thad Cochran Southern Horticultural Laboratory (Babiker et al.), Ag Data Commons",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Mississippi"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "phenology_observation",
+        "cultivar_trial",
+        "cultivar_traits",
+        "research_literature"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://agdatacommons.nal.usda.gov/articles/dataset/Data_from_Phenological_variation_associates_with_the_stability_of_fruit_quality_traits_in_cultivated_tetraploid_blueberry/28339583",
+      "data_urls": [
+        "https://api.figshare.com/v2/articles/28339583",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12239625/"
+      ],
+      "format": [
+        "xlsx",
+        "api-json",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Fruit traits 2020-2023; flowering and ripening 2021-2022",
+      "update_frequency": "discontinued",
+      "access": "open",
+      "license_or_terms": "U.S. Public Domain (Ag Data Commons record licence)",
+      "license_url": "https://www.usa.gov/publicdomain/label/1.0/",
+      "extractable_fields": [
+        "genotype (187 SHB)",
+        "50 percent flowering as days from 1 January",
+        "50 percent ripening as days from 1 January",
+        "fruit development period",
+        "berry weight, size, firmness, sugars, acids"
+      ],
+      "app_uses": [
+        "calibrate flowering and fruit-development GDD for SHB at Poplarville with two seasons and many cultivars",
+        "spread of FDP across genotypes for cultivar classes"
+      ],
+      "model_families": [
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "cultivar"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "Figshare API (one call) returned the record: licence 'U.S. Public Domain', one file 'Phenotypic data -Agdata.xlsx' (88,318 bytes). The file download and the landing page returned HTTP 202 with empty body (bot wall). PMC article opened: 4 plants per genotype, 50 percent flowering and ripening as days from 1 January, 2021-2022."
+      },
+      "quality_caveats": "Only two phenology seasons; genotype means; site at 30.84 N, 89.53 W only.",
+      "priority": "P1",
+      "priority_reason": "Public-domain, cultivar-level dated bloom and ripening for SHB in the region.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "south-alabama-mesonet",
+      "name": "University of South Alabama Mesonet (CHILI)",
+      "publisher": "University of South Alabama",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Alabama",
+        "Mississippi",
+        "Florida"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "http://chiliweb.southalabama.edu/",
+      "data_urls": [
+        "http://chiliweb.southalabama.edu/archived_data.php",
+        "http://chiliweb.southalabama.edu/mesonet_info.php"
+      ],
+      "format": [
+        "csv",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Founded 2004; 1-minute data",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "station",
+        "1-minute air temperature",
+        "humidity",
+        "rain",
+        "wind",
+        "soil temperature"
+      ],
+      "app_uses": [
+        "station truth for south Alabama blueberry areas and coastal Mississippi"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Info page: 26 research-grade stations in the north-central Gulf Coast, founded 2004, one-minute measurements. Archived data form offers CSV with selectable variables."
+      },
+      "quality_caveats": "Few stations in blueberry counties; no benchmark site in Alabama yet.",
+      "priority": "P3",
+      "priority_reason": "Useful only if an Alabama pin is added.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "aces-blueberry",
+      "name": "Alabama Cooperative Extension System blueberry publications and Auburn news",
+      "publisher": "Alabama Cooperative Extension System; Auburn University",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Alabama"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "management_practice"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://www.aces.edu/blog/topics/crop-production/pruning-blueberries/",
+      "data_urls": [
+        "https://wire.auburn.edu/content/agriculture/2024/07/20240725-JaySpiers-blueberries.php"
+      ],
+      "format": [
+        "html",
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Current pages; news 2024",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "'Copyright © 2026 by the Alabama Cooperative Extension System All Rights Reserved'",
+      "license_url": null,
+      "extractable_fields": [
+        "practice",
+        "species recommendation",
+        "acreage statement"
+      ],
+      "app_uses": [
+        "claim records: Alabama about 834 acres (2017) to about 1,000 acres (2022) per Census, rabbiteye recommended for frost resilience"
+      ],
+      "model_families": [
+        "management",
+        "location_mapping"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Auburn wire (25 Jul 2024): Alabama blueberry from about 834 acres in 2017 to about 1,000 acres in 2022; higher concentration in south Alabama."
+      },
+      "quality_caveats": "All rights reserved; small corpus.",
+      "priority": "P3",
+      "priority_reason": "Small industry; limited value.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "nabc-crop-call",
+      "name": "NABC Crop Call Reports (executive summaries)",
+      "publisher": "North American Blueberry Council",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "North Carolina"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "industry_report",
+        "loss_or_damage",
+        "shipment_or_export_series"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://nabc.blueberry.org/wp-content/uploads/sites/6/2026/02/Crop-Call-Report-February-19-2026-1.pdf",
+      "data_urls": [
+        "https://nabc.blueberry.org/wp-content/uploads/sites/6/2026/02/Crop-Call-Report-February-12-2026.pdf",
+        "https://nabc.blueberry.org/all-resources/data-and-reports/crop-estimates/"
+      ],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "2026 reports checked; earlier series may be member-only",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "report date",
+        "region reporter",
+        "freeze temperatures",
+        "crop loss estimate",
+        "state forecast lb (fresh, processed)",
+        "GDD comparison with prior year",
+        "shipment timing shift"
+      ],
+      "app_uses": [
+        "event records with dated loss estimates for FL and GA (2026)",
+        "harvest timing shifts (Georgia GDD 20 percent behind 2025, shipments about 2 weeks later)"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "harvest_timing",
+        "market_timing"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "12 Feb 2026: Georgia 30%+ crop loss; Florida 13-16 million lb damage; high-wind limits of freeze protection 29 Jan to 3 Feb. 19 Feb 2026: Florida 19-24 F with heavy ice; Georgia forecast 123 million lb (83 fresh, 40 processed), GDD 20 percent behind 2025, shipments delayed about 2 weeks."
+      },
+      "quality_caveats": "Industry estimates that change week to week; archive completeness unknown.",
+      "priority": "P1",
+      "priority_reason": "Weekly dated industry estimates during events; fills the post-2025 AMS gap.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "us-plant-patents-blueberry",
+      "name": "US plant patents for Southeast blueberry cultivars (Google Patents full text)",
+      "publisher": "USPTO (via Google Patents)",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia",
+        "North Carolina",
+        "Florida",
+        "Mississippi"
+      ],
+      "spatial_resolution": "farm",
+      "categories": [
+        "cultivar_traits",
+        "cultivar_trial",
+        "phenology_observation"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://patents.google.com/patent/USPP27026P3/en",
+      "data_urls": [
+        "https://patents.google.com/patent/USPP16266P3/en",
+        "https://patents.google.com/patent/US20170188494P1"
+      ],
+      "format": [
+        "html",
+        "image-pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Patents from the 1990s to 2020s (e.g. Alapaha PP16266; TH-906 PP27026; Heintooga 2017)",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar",
+        "trial site",
+        "years",
+        "date of 50 percent flowering",
+        "date of 50 percent ripening",
+        "fruit development period days",
+        "chill requirement estimate",
+        "comparison cultivars"
+      ],
+      "app_uses": [
+        "cultivar table with multi-year mean bloom and ripening dates at Alapaha, Griffin, Castle Hayne, Poplarville",
+        "calibrate flowering-to-ripening intervals by cultivar class"
+      ],
+      "model_families": [
+        "cultivar",
+        "budbreak_bloom_timing",
+        "harvest_timing",
+        "chill_dormancy"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "TH-906 Table 1: 5-year averages 2009-2013 at Alapaha, GA: 50 percent flowering 'Star' March 3, 'Camellia' March 11, 'TH-906' March 8; 50 percent ripening May 8, May 15, May 12; FDP about 65-66 days. Alapaha patent: chill estimate 450-550 h below 7 C; tested at Alapaha, Clarksville AR and Poplarville. Heintooga: Castle Hayne 2009-2013 data. USPTO image PDFs have no text layer."
+      },
+      "quality_caveats": "Means, not year-by-year; patent-holder trials; some patents lack date tables.",
+      "priority": "P1",
+      "priority_reason": "Largest open source of site-specific cultivar bloom and ripening dates in the region.",
+      "est_effort_days": 3.0
+    },
+    {
+      "id": "srsfc-smallfruits",
+      "name": "Southern Region Small Fruit Consortium (smallfruits.org): IPM guide, cultivar reports, Small Fruit News",
+      "publisher": "Southern Region Small Fruit Consortium",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "extension_advisory",
+        "cultivar_traits",
+        "pest_disease_advisory"
+      ],
+      "blueberry_specificity": "blueberry-specific",
+      "url": "https://smallfruits.org/",
+      "data_urls": [
+        "https://smallfruits.org/files/2019/06/alap10rep.pdf",
+        "https://smallfruits.org/files/2019/06/NewUGABlueberryVarieties2012.pdf"
+      ],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Unknown",
+      "update_frequency": "irregular",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "cultivar report",
+        "site",
+        "50 percent ripe dates",
+        "spray guide timing"
+      ],
+      "app_uses": [
+        "UGA cultivar development reports with dated ripening (e.g. 'Star' 50 percent ripe by May 15 at Alapaha in 2010, per search snippet)"
+      ],
+      "model_families": [
+        "cultivar",
+        "harvest_timing",
+        "disease"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened-limited",
+        "checked_on": "2026-10-11",
+        "note": "All smallfruits.org URLs returned HTTP 403 'Just a moment... Checking your browser' (bot wall). Content known only from search snippets."
+      },
+      "quality_caveats": "Bot wall; needs manual browser download.",
+      "priority": "P2",
+      "priority_reason": "Holds UGA trial reports and the regional IPM guide.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "specialty-crop-grower",
+      "name": "Specialty Crop Grower / Specialty Crop Industry (Clint Thompson) news archive",
+      "publisher": "Specialty Crop Grower",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Georgia",
+        "Florida"
+      ],
+      "spatial_resolution": "province/state",
+      "categories": [
+        "news_archive",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://specialtycropgrower.com/lesson-learned-generational-weather-event-challenged-freeze-protection-measures-in-blueberries/",
+      "data_urls": [
+        "https://specialtycropgrower.com/freeze-effect-georgia-southern-highbush-blueberries-impacted/"
+      ],
+      "format": [
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "About 2021-2026 stories seen",
+      "update_frequency": "weekly",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "date",
+        "state",
+        "event",
+        "grower and specialist quotes",
+        "loss estimates"
+      ],
+      "app_uses": [
+        "event corroboration for 2022 and 2026 freezes"
+      ],
+      "model_families": [
+        "bud_flower_freeze"
+      ],
+      "extraction_mode": "rag_corpus",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Two article pages opened (title and navigation text only extracted)."
+      },
+      "quality_caveats": "Trade press; quotes not data.",
+      "priority": "P3",
+      "priority_reason": "Corroboration only.",
+      "est_effort_days": 0.5
+    },
+    {
+      "id": "iem-nws-warnings-asos",
+      "name": "Iowa Environmental Mesonet: NWS watch/warning archive and ASOS hourly downloads",
+      "publisher": "Iowa State University Iowa Environmental Mesonet",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "station",
+      "categories": [
+        "weather_stations",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://mesonet.agron.iastate.edu/request/gis/watchwarn.phtml",
+      "data_urls": [
+        "https://mesonet.agron.iastate.edu/request/download.phtml"
+      ],
+      "format": [
+        "shapefile",
+        "csv"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "NWS VTEC products and ASOS records (years not checked)",
+      "update_frequency": "daily",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "warning type (Freeze Warning, Frost Advisory, Hard Freeze)",
+        "issue and expire time",
+        "county or zone polygon",
+        "ASOS hourly temperature, dew point, RH, wind"
+      ],
+      "app_uses": [
+        "count freeze warnings per county per season as an independent freeze-night list",
+        "airport hourly Tmin for SC and AL where no mesonet exists"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "fruit_frost"
+      ],
+      "extraction_mode": "structured_ingest",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Watch/warning download page and ASOS download page opened; ASOS form lists air temperature, dew point, relative humidity and wind variables."
+      },
+      "quality_caveats": "Warnings are forecasts, not observations; airports differ from fields.",
+      "priority": "P2",
+      "priority_reason": "Fills SC and AL hourly gaps and gives dated freeze nights.",
+      "est_effort_days": 1.0
+    },
+    {
+      "id": "nhc-data-archive",
+      "name": "NHC Tropical Cyclone Reports and HURDAT archive",
+      "publisher": "NOAA National Hurricane Center",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia",
+        "South Carolina",
+        "North Carolina",
+        "Mississippi",
+        "Alabama"
+      ],
+      "spatial_resolution": "n/a",
+      "categories": [
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "general (weather, disasters)",
+      "url": "https://www.nhc.noaa.gov/data/",
+      "data_urls": [],
+      "format": [
+        "pdf",
+        "html"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Reports by season to 2025",
+      "update_frequency": "annual",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "storm",
+        "landfall date",
+        "track",
+        "intensity",
+        "damage summary"
+      ],
+      "app_uses": [
+        "date hurricane events affecting blueberry areas (Ian 2022, Helene 2024)"
+      ],
+      "model_families": [
+        "harvest_rain_quality",
+        "management"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "Data archive page lists Tropical Cyclone Reports by year to 2025 and HURDAT."
+      },
+      "quality_caveats": "No crop-specific damage.",
+      "priority": "P3",
+      "priority_reason": "Event dating only.",
+      "est_effort_days": 0.25
+    },
+    {
+      "id": "ers-fruit-tree-nuts-outlook",
+      "name": "Fruit and Tree Nuts Outlook (FTS-384, March 2026)",
+      "publisher": "USDA Economic Research Service",
+      "countries": [
+        "US"
+      ],
+      "subnational_scope": [
+        "Florida",
+        "Georgia"
+      ],
+      "spatial_resolution": "national",
+      "categories": [
+        "industry_report",
+        "loss_or_damage"
+      ],
+      "blueberry_specificity": "blueberry rows inside a broader dataset",
+      "url": "https://ers.usda.gov/sites/default/files/_laserfiche/outlooks/113982/FTS-384.pdf",
+      "data_urls": [],
+      "format": [
+        "pdf"
+      ],
+      "language": [
+        "en"
+      ],
+      "temporal_coverage": "Quarterly outlooks",
+      "update_frequency": "seasonal",
+      "access": "open",
+      "license_or_terms": "terms not found",
+      "license_url": null,
+      "extractable_fields": [
+        "outlook date",
+        "freeze narrative",
+        "state production notes"
+      ],
+      "app_uses": [
+        "corroborate 2026 Florida freeze timing relative to flowering"
+      ],
+      "model_families": [
+        "bud_flower_freeze",
+        "market_timing"
+      ],
+      "extraction_mode": "reference_only",
+      "verification": {
+        "status": "opened",
+        "checked_on": "2026-10-11",
+        "note": "FTS-384 (31 pages): cites a February 2026 FDACS report of widespread blueberry losses; cold overlapped early-season flowering and early fruit set; NASS publishes cultivated blueberry production for eight States."
+      },
+      "quality_caveats": "National summary.",
+      "priority": "P3",
+      "priority_reason": "Corroboration.",
+      "est_effort_days": 0.25
+    }
+  ],
+  "rag_jobs": [
+    {
+      "job_id": "USSE-01",
+      "title": "Blueberry insurance loss by county, month and cause",
+      "source_ids": [
+        "rma-cause-of-loss-month",
+        "rma-summary-of-business"
+      ],
+      "output": "time series table",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "table: year, state_fips, county_fips, county_name, commodity_code (0012), cause_code, cause_desc, month_of_loss, year_of_loss, policies_indemnified, net_endorsed_acres, liability_usd, indemnity_usd, loss_ratio",
+        "derived: indemnity_per_insured_acre, cause_family (freeze|frost|hail|excess_rain|heat|wind|hurricane|other)"
+      ],
+      "cadence": "one-off backfill 1989-2026, then annual (re-pull last 3 years for revisions)",
+      "review_needed": "Check cause-code mapping to model risk families; confirm month of loss vs event date with FSA and Storm Events dates; flag counties with fewer than 3 policies.",
+      "licensing_gate": "US federal data; no licence statement found. Confirm display of county-level indemnity totals is acceptable (no farm-level data involved).",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "First quantitative validation of flowering_freeze and harvest_heavy_rain recurrence by county and month."
+    },
+    {
+      "job_id": "USSE-02",
+      "title": "County hazard windows from FSA Secretarial designations",
+      "source_ids": [
+        "fsa-secretarial-designations"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "kind=event, topic=weather",
+        "period.start=Begin Date, period.end=End Date, precision=day",
+        "geography=county FIPS (designation code 1 or 2)",
+        "hazard flags -> risk family (Frost/FREEZE, Insufficient Chill Hours, Excessive rain, Hurricanes, Heat, Hail)",
+        "evidence_type=official_designation",
+        "citations: designation number, file URL, approval date"
+      ],
+      "cadence": "one-off backfill 2012-2026, then weekly during winter-spring",
+      "review_needed": "Designations are not crop-specific: a human must link a designation to blueberry only when another source names blueberries.",
+      "licensing_gate": "US federal; terms not found. Display as 'county disaster designation', never as blueberry loss.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Dated freeze windows per county to score modelled freeze nights."
+    },
+    {
+      "job_id": "USSE-03",
+      "title": "Storm Events freeze, hail and tropical events in blueberry counties",
+      "source_ids": [
+        "noaa-storm-events",
+        "iem-nws-warnings-asos"
+      ],
+      "output": "event records",
+      "extraction_method": "CSV parse",
+      "fields_mapped": [
+        "kind=event, topic=weather",
+        "period from BEGIN_DATE_TIME/END_DATE_TIME (precision=hour)",
+        "geography=CZ_FIPS/CZ_NAME and state",
+        "event_type -> risk family",
+        "damage_crops_usd (parsed K/M)",
+        "crop_context from narrative regex 'blueberr'",
+        "citations: EVENT_ID, EPISODE_ID, file creation date"
+      ],
+      "cadence": "one-off backfill 1996-2026 for six states, then monthly",
+      "review_needed": "Read every narrative that mentions blueberries; mark evenly split crop-damage values as allocations, not county losses.",
+      "licensing_gate": "NOAA data; terms not found on the page. Confirm NCEI attribution wording before public display.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Hour-level event dates and narratives to validate fruit_frost and flowering_freeze."
+    },
+    {
+      "job_id": "USSE-04",
+      "title": "Georgia weekly blueberry harvest progress",
+      "source_ids": [
+        "nass-ga-crop-progress",
+        "nass-quickstats"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "table: year, week_ending_date, pct_harvested_this_week, pct_prev_week, pct_prev_year, pct_5yr_avg, condition_vp..ex",
+        "derived per year: date of 10, 50, 90 percent harvested (linear interpolation)"
+      ],
+      "cadence": "one-off backfill 2011-2025 (PDF parse if Quick Stats lacks rows), then weekly in May-July if NASS still collects",
+      "review_needed": "Check that early-season weeks are not missing (first report often already above 10 percent); record when the series starts each year.",
+      "licensing_gate": "US federal; terms not found. Quick Stats key is personal; do not commit it.",
+      "effort_days": 1.5,
+      "priority": "P1",
+      "app_value": "Annual Georgia harvest-timing truth for Alma/Homerville and interannual shift tests."
+    },
+    {
+      "job_id": "USSE-05",
+      "title": "Weekly blueberry shipments by origin (FL, GA, NC)",
+      "source_ids": [
+        "ams-weekly-shipments-blueberry",
+        "ams-mymarketnews-api",
+        "ams-shipping-point-fob"
+      ],
+      "output": "time series table",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "table: report_date, week_start, week_end, origin_state, mode, shipments_10k_lb, season_to_date_10k_lb",
+        "derived per season and origin: first shipment week, 10/50/90 percent cumulative weeks, last week",
+        "from FOB reports: first and last quote dates per origin"
+      ],
+      "cadence": "one-off backfill Nov 2018 to Apr 2025 (ESMIS TXT), then weekly via MyMarketNews API after a free key",
+      "review_needed": "Reconcile overlapping weekly revisions; check zero vs missing weeks; note the May 2025 pause.",
+      "licensing_gate": "US federal; terms not found. MyMarketNews API terms must be read when the key is requested.",
+      "effort_days": 2.0,
+      "priority": "P1",
+      "app_value": "Year-by-year harvest-progress curves for three states to test harvest_timing."
+    },
+    {
+      "job_id": "USSE-06",
+      "title": "Cultivar bloom and ripening table from patents and release documents",
+      "source_ids": [
+        "us-plant-patents-blueberry",
+        "georgia-cultivar-release-system",
+        "uf-edis",
+        "nc-blueberry-journal",
+        "srsfc-smallfruits",
+        "fshs-proceedings"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "cultivar, species (SHB, RE, NHB), breeder, release year",
+        "site, lat/lon, years of observation, n years",
+        "date_50pct_flowering, date_50pct_ripening, fdp_days",
+        "chill_estimate_hours and model",
+        "comparison cultivars and their dates",
+        "citations: patent number or publication id, table number"
+      ],
+      "cadence": "one-off backfill (about 40 Southeast cultivars), then on each new release",
+      "review_needed": "Transcribe tables by hand from patent full text; verify stage definitions (50 percent flowering vs first bloom); record site and years exactly.",
+      "licensing_gate": "Patent text is a public record but no licence was found; facts (dates) are extractable; do not copy figures. EDIS is CC BY-NC-ND: quote, do not alter.",
+      "effort_days": 3.0,
+      "priority": "P1",
+      "app_value": "Cultivar classes and site-specific bloom and fruit-development priors for calibration."
+    },
+    {
+      "job_id": "USSE-07",
+      "title": "Poplarville SHB genotype phenology ingest",
+      "source_ids": [
+        "usda-ars-poplarville-phenotypes"
+      ],
+      "output": "cultivar table",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "genotype, year (2021, 2022), flowering_50pct_doy, ripening_50pct_doy, fdp_days, site 30.8402 N 89.5342 W",
+        "link to cultivar names where public"
+      ],
+      "cadence": "one-off",
+      "review_needed": "Download the xlsx manually in a browser (scripted download hit a bot wall); confirm units and year columns; keep private breeding selections out if any are unnamed.",
+      "licensing_gate": "U.S. Public Domain per the record; cite DOI 10.15482/USDA.ADC/28339583.",
+      "effort_days": 1.0,
+      "priority": "P1",
+      "app_value": "Two-season, 187-genotype bloom and ripening spread to set cultivar-class GDD ranges."
+    },
+    {
+      "job_id": "USSE-08",
+      "title": "Station table for benchmark pins (FL, GA, NC, MS)",
+      "source_ids": [
+        "fawn",
+        "uga-aemn",
+        "nc-econet",
+        "msu-delta-weather",
+        "iem-nws-warnings-asos",
+        "south-alabama-mesonet"
+      ],
+      "output": "station table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "station_id, network, name, lat, lon, elevation, start_date, end_date, nearest_benchmark_site, distance_km",
+        "hourly series: utc, t60cm_c (FAWN), t2m_c, rh_pct, dewpoint_c, leaf_wetness, wind_ms, rain_mm, qc_flag"
+      ],
+      "cadence": "one-off backfill 2010-2025 for about 15 stations (Arcadia, Sebring, Homestead, Dover, Balm, Okahumpka, Citra, Alachua, Live Oak, Monticello, ALMA, a Clinch-area AEMN station, Bladen and Pender ECONet, Poplarville), then annual",
+      "review_needed": "Check UTC vs local time, sensor height (60 cm vs 2 m), QC flags, station moves; pick the representative station per pin by hand.",
+      "licensing_gate": "FAWN and AEMN: terms not found; ECONet requires citation text from Cardinal FAQ. Show station names and attribution in the UI.",
+      "effort_days": 3.0,
+      "priority": "P1",
+      "app_value": "Bias correction, frost hit/miss, leaf-wetness disease validation."
+    },
+    {
+      "job_id": "USSE-09",
+      "title": "Freeze event dossiers: 2017, 2018, 2020, 2022, 2023, 2026",
+      "source_ids": [
+        "rma-managers-bulletins-freeze",
+        "uf-2026-freeze-report",
+        "nabc-crop-call",
+        "uga-climate-ag-southeast-blog",
+        "uga-caes-field-report",
+        "msu-extension-blueberry",
+        "clemson-sc-field-report",
+        "ncsu-cals-news",
+        "fdacs-2026-freeze-assessment",
+        "fsa-secretarial-designations",
+        "rma-cause-of-loss-month"
+      ],
+      "output": "event records",
+      "extraction_method": "manual review",
+      "fields_mapped": [
+        "kind=event, topic=weather, title, summary",
+        "period (start, end, precision=day or hour)",
+        "geography_ids (US-FL, US-GA, US-NC, US-SC, US-MS plus county list)",
+        "crop_context (stage at event, species, cultivars named)",
+        "evidence_type (official_bulletin | extension_report | industry_estimate | news)",
+        "measurements (min temperature, hours below 32 F, wind, loss percent, loss USD)",
+        "citations with quote and page"
+      ],
+      "cadence": "one-off, then after each event",
+      "review_needed": "Reconcile conflicting loss figures (e.g. Georgia 2026: NABC 30%+ on 12 Feb, 'less severe' on 19 Feb); keep each claim with its date; link to the existing IBO records us-se-freeze-2022-03 and us-fl-2026-frost rather than duplicating.",
+      "licensing_gate": "News and NABC PDFs: terms not found; store short quotes plus links only. UF report hosted by FBGA: confirm permission before reproducing Table 1.",
+      "effort_days": 3.0,
+      "priority": "P1",
+      "app_value": "Dated, multi-source freeze events to test flowering_freeze and fruit_frost hits."
+    },
+    {
+      "job_id": "USSE-10",
+      "title": "Extension advisory corpus (management, thresholds, systems)",
+      "source_ids": [
+        "uf-edis",
+        "fbga",
+        "uf-blueberry-extension-blog",
+        "uga-blueberry-blog",
+        "uga-caes-field-report",
+        "ncsu-blueberry-portal",
+        "msu-extension-blueberry",
+        "aces-blueberry",
+        "fshs-proceedings"
+      ],
+      "output": "claim records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "kind=practice|constraint|threshold, topic (management, freeze, disease, harvest)",
+        "period=reported_practice with publication or revision date",
+        "crop_context (SHB evergreen, SHB deciduous, rabbiteye)",
+        "geography (state or Florida region)",
+        "evidence_type=extension_guidance",
+        "citations (publication id, revision date, section)"
+      ],
+      "cadence": "one-off, then quarterly revision check",
+      "review_needed": "LLM proposes claims offline; a human checks each quote, region and system label before publication.",
+      "licensing_gate": "EDIS CC BY-NC-ND 4.0 (attribution, no derivatives); MSU allows unaltered nonprofit copying with credit; UGA, NCSU, Clemson, ACES: terms not found or all rights reserved, so display short quotes with links only.",
+      "effort_days": 4.0,
+      "priority": "P2",
+      "app_value": "Management layer facts (evergreen practice, freeze protection, cyanamide) with citations."
+    },
+    {
+      "job_id": "USSE-11",
+      "title": "Dated crop-stage notes from weekly field reports and blogs",
+      "source_ids": [
+        "clemson-sc-field-report",
+        "uga-county-extension-blogs",
+        "uga-blueberry-blog",
+        "fbga",
+        "nass-fl-crop-progress"
+      ],
+      "output": "event records",
+      "extraction_method": "HTML scrape",
+      "fields_mapped": [
+        "observation_date, region or county, species, cultivar (if named), stage (bud swell, budbreak, first bloom, full bloom, harvest start, harvest in full swing, harvest end), percent if given, source sentence"
+      ],
+      "cadence": "one-off backfill 2021-2026, then weekly February-July",
+      "review_needed": "Normalise stage words to a fixed vocabulary; reject statements that are forecasts; record region granularity honestly.",
+      "licensing_gate": "Clemson and UGA: no reuse licence found; store facts and short quotes with links.",
+      "effort_days": 3.0,
+      "priority": "P2",
+      "app_value": "Observed bloom and harvest dates for SC and Georgia where none exist today."
+    },
+    {
+      "job_id": "USSE-12",
+      "title": "Blueberry location and acreage layer",
+      "source_ids": [
+        "nass-census-county-berries",
+        "uga-farm-gate-value",
+        "nass-cdl-blueberries",
+        "ncsu-blueberry-portal",
+        "nass-quickstats"
+      ],
+      "output": "time series table",
+      "extraction_method": "API pull",
+      "fields_mapped": [
+        "county_fips, year, source, tame_acres, bearing_acres, farms, farm_gate_value_usd, cdl_blueberry_pixels, cdl_accuracy_pct"
+      ],
+      "cadence": "one-off backfill (Census 2017, 2022; Farm Gate 2012-2023; CDL 2008-2025), then annual",
+      "review_needed": "Compare Census, Farm Gate and CDL; note suppressed (D) counties; avoid CDL in counties with under 100 acres.",
+      "licensing_gate": "Census and CDL: CDL is public domain (stated); Farm Gate allows educational use with full credit.",
+      "effort_days": 2.0,
+      "priority": "P2",
+      "app_value": "Weights regional summaries and places pins on real fields."
+    },
+    {
+      "job_id": "USSE-13",
+      "title": "NABC crop call series",
+      "source_ids": [
+        "nabc-crop-call"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "report_date, state, reporter, forecast_total_lb, forecast_fresh_lb, forecast_processed_lb, loss_estimate_text, gdd_vs_prior_year, shipment_shift_weeks, freeze_temperature_range"
+      ],
+      "cadence": "one-off backfill of all public 2026 reports, then weekly in season",
+      "review_needed": "Confirm which reports are public; record every estimate with its report date.",
+      "licensing_gate": "NABC: terms not found; confirm reuse with NABC before display beyond short quotes.",
+      "effort_days": 1.0,
+      "priority": "P2",
+      "app_value": "Season-specific timing shifts and loss estimates while AMS movement data are paused."
+    },
+    {
+      "job_id": "USSE-14",
+      "title": "Florida State Horticultural Society blueberry papers",
+      "source_ids": [
+        "fshs-proceedings"
+      ],
+      "output": "claim records",
+      "extraction_method": "layout-aware PDF tables",
+      "fields_mapped": [
+        "paper, year, site, cultivar, bloom period, harvest period, freeze notes, citations with page"
+      ],
+      "cadence": "one-off",
+      "review_needed": "OCR quality on older volumes; keep only explicit site-year observations.",
+      "licensing_gate": "Terms not found on the FSHS site; confirm with the Society before showing excerpts.",
+      "effort_days": 2.0,
+      "priority": "P3",
+      "app_value": "Historic Florida trial phenology for old cultivars and evergreen trials."
+    }
+  ]
+}
