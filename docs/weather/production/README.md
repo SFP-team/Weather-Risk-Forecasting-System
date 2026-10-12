@@ -1,6 +1,6 @@
 # Open-field production packet
 
-Updated 2026-09-28. `production_open_field.html` and `.json` hold the Waldo, Citra and Papanduva calculations and provenance. `thermal_reference.json` holds the Waldo derivation of the stage thermal constants. The literature benchmark is in `../benchmark/`. The dashboard in `dist/` has 71 presets: 18 pilot and panel sites plus 53 benchmark sites. Code lives in `pipelines/weather/production.py`, `benchmark.py`, `planting.py` and `location_api.py`.
+Updated 2026-10-12. `production_open_field.html` and `.json` hold the Waldo, Citra and Papanduva calculations and provenance. `thermal_reference.json` holds the Waldo derivation of the stage thermal constants. The literature benchmark is in `../benchmark/`. The dashboard in `dist/` has 71 presets: 18 pilot and panel sites plus 53 benchmark sites. Code lives in `pipelines/weather/production.py`, `benchmark.py`, `planting.py` and `location_api.py`.
 
 For breeders and other non-programmers, `model_formulas_for_breeder_review.html` explains every formula and setting in plain language. It works through one Waldo winter (2016–17) day by day and has comment boxes, a notes download and a print layout for sending suggestions back. Its day-by-day values and lookup tables were recomputed with the production code and reproduce the model's dates exactly. Regenerate it if a formula or constant changes.
 
@@ -34,6 +34,8 @@ Three constants are the Waldo medians of the degree-days that the old fixed offs
 
 The 100-hour requirement also changes which sites get a winter calendar. Of the 18 pilot and panel sites, 8 keep it: Waldo, Citra, Clear Springs, the Georgia sites and Papanduva. The other 10, all in central and south Florida, use the managed-cycle scan as their primary window. Astin East, Okeechobee and Arcadia are evergreen-majority; the other seven reach 100 chill hours in only 4 to 10 of 15 winters.
 
+Median dates count day offsets from the season start. Under `stage_thermal_v3` (profile flag `leap_day_offsets: corrected`), 29 February is left out of each offset before the median is taken, so winters that cross a leap day no longer push median dates one day late. The legacy profiles keep raw day counts. On the 71 presets this moved 27 median dates at 17 sites one day earlier.
+
 These constants describe a UF-type low-chill southern highbush. Rabbiteye and many northern-highbush cultivars need longer from flowering to harvest, and the benchmark shows it.
 
 ## Where the chill clock applies
@@ -48,13 +50,32 @@ The result carries `chill_clock.applicable` and its reasons. Tropical, evergreen
 
 ## Managed-cycle scan
 
-Where the chill clock does not apply, the scan gives the production window. Elsewhere it runs as a comparison labelled "if managed as an evergreen cycle". Each of 24 start dates, the 1st and 15th of every month, is treated as a managed budbreak and followed through the same thermal clock in every year.
+Where the chill clock does not apply, the scan gives the production window. Elsewhere it runs as a comparison labelled "if managed as an evergreen cycle". Each of 24 start dates, the 1st and 15th of every month, is treated as a managed budbreak and followed through the same thermal clock in every year (scan method `managed-cycle-scan-v4`).
 
-- A cycle whose flowering lasts over 66 days, or whose first harvest comes over 150 days after flowering starts, has stalled in cold weather. Stalled cycles count as failed cycles for bud-stage freeze, flowering freeze and fruit frost.
-- A start needs at least 12 complete cycles. If bud-stage freeze, flowering freeze or fruit frost hits at least half of its cycles, it is recurring crop loss and not favourable.
-- The remaining starts are compared on seven measures: the bud-freeze, flowering-freeze and fruit-frost shares of cycles, and the share of stage days with fruit heat, harvest heavy rain, moderate-or-higher infection risk or no honey bee flight. Favourable starts are the Pareto front, meaning no other start is at least as good on every measure and better on one. Starts within one affected cycle or one affected day per cycle of a front start on every measure are added as near ties.
+Every start and year has exactly one outcome, counted per start in `outcomes`:
+
+| Outcome | Meaning |
+|---|---|
+| `complete` | All four stage dates are reached within the stage horizon, flowering lasts at most 66 days, and the first harvest comes at most 150 days after flowering starts. |
+| `stalled_slow` | The stage dates exist, but flowering lasts over 66 days or the first harvest comes over 150 days after flowering starts. 66 days is the longest published flowering season (Asturias); 150 days is beyond the longest published flowering-to-harvest intervals. |
+| `stalled_horizon` | A stage requirement is not reached within the 300-day stage horizon. |
+| `weather_incomplete` | The archive has a gap or ends before the cycle does. These cycles are left out of every count. |
+
+- `cycles` is the number of complete cycles. `stalled_cycles` is `stalled_slow` plus `stalled_horizon`.
+- Bud-stage freeze, flowering freeze and fruit frost count threshold crossings in complete cycles only. A stall is never counted as a freeze.
+- Cycle failure (`cycle_failure`) is a separate family: stalled cycles divided by complete plus stalled cycles.
+- A start needs at least 12 cycles with evidence for every family, which in practice means 12 complete cycles. If bud-stage freeze, flowering freeze, fruit frost or cycle failure recurs in at least half of its cycles, the start is not favourable. A start whose cycles mostly stall has too few complete cycles to judge freezes, but enough cycles to judge cycle failure, so it shows as recurring cycle failure.
+- The remaining starts are compared on eight measures: the bud-freeze, flowering-freeze, fruit-frost and cycle-failure shares of cycles, and the share of stage days with fruit heat, harvest heavy rain, moderate-or-higher infection risk or no honey bee flight. Favourable starts are the Pareto front, meaning no other start is at least as good on every measure and better on one. Starts within one affected cycle (freezes and cycle failure) or one affected day per cycle (the other measures) of a front start on every measure are added as near ties.
 - The favourable flowering and harvest months are the union over favourable starts. `unconstrained` means weather does not separate the start dates, so timing is a market or management choice.
-- If no start qualifies, there is no production window. Live checks on 2026-10-05 found this where the warm season is too short for the stage constants. In a Cascade Range cell near Yakima, WA and at Naantali, Finland, a stage missed its heat requirement within the 300-day stage horizon in 14 of 15 winters, and no start completed 12 cycles. Nearby valley pins (Yakima city, Prosser) keep a chill-triggered calendar. Cool sites in between fall back to scan windows: Lynden, WA (11/15 calendars), Cherryfield, ME (6/15) and Lac-Saint-Jean, QC (3/15). Scan cycles that never reach a stage within the horizon are dropped as incomplete; unlike slow cycles, they are not counted as stalled.
+- If no start qualifies, there is no production window. Live checks on 2026-10-05 found this where the warm season is too short for the stage constants. In a Cascade Range cell near Yakima, WA and at Naantali, Finland, a stage missed its heat requirement within the 300-day stage horizon in 14 of 15 winters, and no start completed 12 cycles. Nearby valley pins (Yakima city, Prosser) keep a chill-triggered calendar. Cool sites in between fall back to scan windows: Lynden, WA (11/15 calendars), Cherryfield, ME (6/15) and Lac-Saint-Jean, QC (3/15). Cycles that miss a stage within the horizon used to be dropped as incomplete; they are now `stalled_horizon` and count as cycle failure.
+
+Until 2026-10-12, stalled cycles were added to the three freeze families, and cycles that missed the horizon were dropped. Paul approved the correction. Its effect on the 71 presets (stage_thermal_v3, deployed code against the new code):
+
+- Of 25,560 start-years, 23,287 are complete, 1,354 stalled slow, 372 stalled at the horizon and 547 weather incomplete.
+- The 30 sites where the scan is the primary window keep their favourable starts and months.
+- Favourable starts change at three comparison sites. Grand Junction, MI goes from one start (1 July) to eight (15 March to 1 July), because spring cycles that stalled had counted as freezes. Odemira adds 15 November and Pelotas adds 15 May.
+- Harvest months change at six comparison sites: Grand Junction from the new starts, and Waldo, Homerville (two presets each) and Poplarville by one boundary month from the leap-day correction.
+- 121 starts at 30 sites no longer show a recurring freeze, because the stalled cycles that had counted as freezes now count only as cycle failure. 116 starts at 24 sites now show recurring cycle failure. No start gains a recurring freeze.
 
 The scan assumes management can start a cycle on any date. Flower-bud induction and market timing are not modelled.
 
@@ -135,11 +156,11 @@ Sources and limits:
 
 | Registered region | Displayed window | Basis and precision |
 |---|---|---|
-| Florida | Mid-December to mid-February | [UF/IFAS CIR1192](https://ask.ifas.ufl.edu/publication/MG359), bare-root or container plants. "Mid" is approximate. Home-garden guidance, not an evergreen commercial model. |
+| Florida | Mid-December to mid-February | [UF/IFAS CIR1192](https://ask.ifas.ufl.edu/publication/MG359) (now MG359), bare-root or container plants. "Mid" is approximate. This is home-garden guidance, not a commercial or evergreen model. Commercial guidance differs: [UF/IFAS HS1525](https://journals.flvc.org/edis/article/view/140453) (July 2026) advises planting in the early-spring and fall root-growth periods, and reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting. The app no longer tells Florida growers to remove first-season flowers. |
 | Georgia | Winter, approximately December–February | [UGA Circular 946](https://fieldreport.caes.uga.edu/publications/C946/home-garden-blueberries/) says winter transplanting without dates. The months are a display convention. |
 | Santa Catarina | Winter while dormant, approximately June–August | [Embrapa-authored guidance in Revista Cultivar](https://revistacultivar.com.br/artigos/grande-potencial) gives no dates. June–August is a display convention. |
 
-Coordinates outside a registered region get an explicit unavailable result. Assumptions are healthy nursery stock, a prepared well-drained acidic root zone, irrigation, and local confirmation of soil workability and freeze protection. No pot or tunnel adjustment is made.
+Coordinates outside a registered region get an explicit unavailable result. Assumptions are healthy nursery stock, a prepared well-drained acidic root zone, irrigation, and local confirmation of soil workability and freeze protection. No pot or tunnel adjustment is made. No sign-off from Paul is recorded for replacing his offset rule; the choice between his offsets, these home-garden windows and commercial windows is still open.
 
 ## Reproduction and verification
 
@@ -154,6 +175,10 @@ On the server, from `/media/fpt/fpt2/Weather_Claude/code`:
 
 Split the snapshots locally with `python3 scripts/split_snapshots.py <file>`. No weather acquisition runs.
 
+The location API caches successful (200) analyses: an in-memory LRU of 64 results and JSON files in `cache/location_api/`, pruned to the 2,000 most recently used. The key covers the API method, the primary profile, a hash of the code files that shape a result and the coordinates. It does not cover the weather archives or the site registries, so delete `cache/location_api/*.json` after any archive or `config/` update. `--snapshots` never uses the cache. `/api/health` reports `busy_since`, `busy_seconds` and cache counters, and every request adds one line without coordinates to `logs/location_api_access.jsonl` (rotated at 10 MiB, five older files kept). The API answers 403 unless the Host header is `127.0.0.1:8787` or `localhost:8787`, and refuses cross-site requests by `Origin` or `Sec-Fetch-Site`.
+
 2026-09-28 verification: the server suite passed 127 tests. With `stage_risks_v2` as primary, the API reproduced all 18 committed v2 snapshots exactly. Browser checks covered Arcadia, Chao and a live Clinton, NC coordinate, all five views at 390 px without page overflow, and the benchmark page.
 
 2026-09-30 verification after the bud-freeze and bee-flight additions: 130 server tests passed, and v2 again reproduced all 18 committed v2 snapshots exactly. The benchmark's chill-clock scores are unchanged; managed-cycle recall of published harvest months rose from 0.79 to 0.81 and precision from 0.70 to 0.72. Burgaw's overview, bud-development lane and scan table were checked in the browser with no page errors and no overflow at 390 px.
+
+2026-10-12 verification after the scan accounting change, the leap-day correction, the API hardening and the planting text update: 160 server tests passed in a staging copy. With `stage_risks_v2` as primary, all 18 committed v2 snapshots matched apart from two fields outside the profile output: the land-mask version label, which the deployed code already reports differently, and the Florida planting text. Every committed sensitivity entry, including the reused primary, matched exactly.

@@ -1,0 +1,11125 @@
+{
+ "description": "Managed-cycle scan before (deployed code/) and after (BackendCore staging) the four-outcome accounting and the v3 leap-day correction, stage_thermal_v3 primary, all --snapshots sites. Outcome totals sum every (start, year) cycle over the 24 starts and 15 years per site.",
+ "before_code": "scan_before.json",
+ "after_code": "scan_after.json",
+ "summary": {
+  "favourable_starts_changed": 3,
+  "favourable_flowering_months_changed": 2,
+  "favourable_harvest_months_changed": 6,
+  "recurring_crop_loss_families_changed": 24,
+  "sites": 71,
+  "with_scan": 71,
+  "scan_primary": 30,
+  "calendar_dates_changed": 17,
+  "cycle_failure_recurs_somewhere": 24,
+  "no_favourable_start_before": 0,
+  "no_favourable_start_after": 0,
+  "any_scan_field_changed": 30,
+  "outcome_totals": {
+   "complete": 23287,
+   "stalled_horizon": 372,
+   "stalled_slow": 1354,
+   "weather_incomplete": 547
+  }
+ },
+ "sites": {
+  "Agadir / Souss-Massa (Ait Melloul - Chtouka Ait Baha)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "03-04",
+     "chill": "02-09",
+     "flowering_end": "04-10",
+     "flowering_start": "03-13",
+     "harvest_end": "06-12",
+     "harvest_start": "05-08"
+    },
+    "after": {
+     "budbreak": "03-03",
+     "chill": "02-09",
+     "flowering_end": "04-09",
+     "flowering_start": "03-12",
+     "harvest_end": "06-11",
+     "harvest_start": "05-08"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Alma, Bacon County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-13",
+     "chill": "12-03",
+     "flowering_end": "03-19",
+     "flowering_start": "02-03",
+     "harvest_end": "05-30",
+     "harvest_start": "04-21"
+    },
+    "after": {
+     "budbreak": "01-13",
+     "chill": "12-03",
+     "flowering_end": "03-19",
+     "flowering_start": "02-03",
+     "harvest_end": "05-29",
+     "harvest_start": "04-21"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 21,
+    "after": 21
+   },
+   "totals": {
+    "before": {
+     "cycles": 336,
+     "stalled_cycles": 17
+    },
+    "after": {
+     "cycles": 336,
+     "outcomes": {
+      "complete": 336,
+      "stalled_horizon": 0,
+      "stalled_slow": 17,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 17
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Arcadia": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-18",
+     "chill": "12-31",
+     "flowering_end": "02-21",
+     "flowering_start": "01-28",
+     "harvest_end": "04-28",
+     "harvest_start": "03-22"
+    },
+    "after": {
+     "budbreak": "01-18",
+     "chill": "12-31",
+     "flowering_end": "02-21",
+     "flowering_start": "01-28",
+     "harvest_end": "04-28",
+     "harvest_start": "03-22"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Arcadia, DeSoto County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-18",
+     "chill": "12-31",
+     "flowering_end": "02-21",
+     "flowering_start": "01-28",
+     "harvest_end": "04-28",
+     "harvest_start": "03-22"
+    },
+    "after": {
+     "budbreak": "01-18",
+     "chill": "12-31",
+     "flowering_end": "02-21",
+     "flowering_start": "01-28",
+     "harvest_end": "04-28",
+     "harvest_start": "03-22"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Astin East": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-02",
+     "chill": "01-13",
+     "flowering_end": "03-09",
+     "flowering_start": "02-11",
+     "harvest_end": "05-08",
+     "harvest_start": "04-04"
+    },
+    "after": {
+     "budbreak": "02-02",
+     "chill": "01-13",
+     "flowering_end": "03-09",
+     "flowering_start": "02-11",
+     "harvest_end": "05-08",
+     "harvest_start": "04-04"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "09-15",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "09-15",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Barben": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Burgaw, Pender County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-04",
+     "chill": "11-21",
+     "flowering_end": "04-07",
+     "flowering_start": "02-11",
+     "harvest_end": "06-12",
+     "harvest_start": "05-06"
+    },
+    "after": {
+     "budbreak": "01-04",
+     "chill": "11-21",
+     "flowering_end": "04-07",
+     "flowering_start": "02-11",
+     "harvest_end": "06-11",
+     "harvest_start": "05-05"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     8,
+     9
+    ],
+    "after": [
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "09-15": [
+      "fruit_frost"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "09-15": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ],
+     "12-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 293,
+     "stalled_cycles": 59
+    },
+    "after": {
+     "cycles": 293,
+     "outcomes": {
+      "complete": 293,
+      "stalled_horizon": 0,
+      "stalled_slow": 59,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 59
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Chao / Vir\u00fa (Chavimochic irrigation)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Chill\u00e1n / San Carlos / Coihueco (\u00d1uble)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-15",
+     "chill": "05-22",
+     "flowering_end": "11-02",
+     "flowering_start": "09-12",
+     "harvest_end": "01-19",
+     "harvest_start": "12-07"
+    },
+    "after": {
+     "budbreak": "08-15",
+     "chill": "05-22",
+     "flowering_end": "11-02",
+     "flowering_start": "09-12",
+     "harvest_end": "01-19",
+     "harvest_start": "12-07"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "04-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "04-01": [
+      "cycle_failure"
+     ],
+     "04-15": [
+      "cycle_failure"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 15,
+    "after": 15
+   },
+   "totals": {
+    "before": {
+     "cycles": 246,
+     "stalled_cycles": 101
+    },
+    "after": {
+     "cycles": 246,
+     "outcomes": {
+      "complete": 246,
+      "stalled_horizon": 0,
+      "stalled_slow": 101,
+      "weather_incomplete": 13
+     },
+     "stalled_cycles": 101
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Citra": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-25",
+     "chill": "12-30",
+     "flowering_end": "03-09",
+     "flowering_start": "02-04",
+     "harvest_end": "05-13",
+     "harvest_start": "04-07"
+    },
+    "after": {
+     "budbreak": "01-25",
+     "chill": "12-30",
+     "flowering_end": "03-09",
+     "flowering_start": "02-04",
+     "harvest_end": "05-13",
+     "harvest_start": "04-06"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Citra, Marion County (UF PSREU)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-25",
+     "chill": "12-30",
+     "flowering_end": "03-09",
+     "flowering_start": "02-04",
+     "harvest_end": "05-13",
+     "harvest_start": "04-07"
+    },
+    "after": {
+     "budbreak": "01-25",
+     "chill": "12-30",
+     "flowering_end": "03-09",
+     "flowering_start": "02-04",
+     "harvest_end": "05-13",
+     "harvest_start": "04-06"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Clear Springs": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-03",
+     "chill": "01-14",
+     "flowering_end": "03-05",
+     "flowering_start": "02-13",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-03",
+     "chill": "01-14",
+     "flowering_end": "03-05",
+     "flowering_start": "02-13",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "fruit_frost"
+    ],
+    "after": [
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "12-01": [
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "12-01": [
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Coffs Harbour - Woolgoolga - Corindi (NSW mid-north coast)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15"
+    ],
+    "after": [
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     4,
+     5,
+     6,
+     7
+    ],
+    "after": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Concordia": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-19",
+     "chill": "06-14",
+     "flowering_end": "09-17",
+     "flowering_start": "08-04",
+     "harvest_end": "11-30",
+     "harvest_start": "10-20"
+    },
+    "after": {
+     "budbreak": "07-19",
+     "chill": "06-14",
+     "flowering_end": "09-17",
+     "flowering_start": "08-04",
+     "harvest_end": "11-30",
+     "harvest_start": "10-20"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ],
+    "after": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     5,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "fruit_frost"
+    ],
+    "after": [
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "fruit_frost"
+     ],
+     "05-15": [
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "fruit_frost"
+     ],
+     "05-15": [
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 23,
+    "after": 23
+   },
+   "totals": {
+    "before": {
+     "cycles": 345,
+     "stalled_cycles": 10
+    },
+    "after": {
+     "cycles": 345,
+     "outcomes": {
+      "complete": 345,
+      "stalled_horizon": 0,
+      "stalled_slow": 10,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 10
+    }
+   },
+   "changed": []
+  },
+  "Dandong (Liaodong peninsula)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "05-11",
+     "chill": "11-09",
+     "flowering_end": "06-15",
+     "flowering_start": "05-22",
+     "harvest_end": "08-11",
+     "harvest_start": "07-09"
+    },
+    "after": {
+     "budbreak": "05-11",
+     "chill": "11-09",
+     "flowering_end": "06-15",
+     "flowering_start": "05-21",
+     "harvest_end": "08-11",
+     "harvest_start": "07-08"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "07-15"
+    ],
+    "after": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "07-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "after": [
+     5,
+     6,
+     7,
+     8
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "03-01": [
+      "bud_freeze"
+     ],
+     "09-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "03-01": [
+      "bud_freeze"
+     ],
+     "08-15": [
+      "cycle_failure"
+     ],
+     "09-01": [
+      "cycle_failure"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 292,
+     "stalled_cycles": 36
+    },
+    "after": {
+     "cycles": 292,
+     "outcomes": {
+      "complete": 292,
+      "stalled_horizon": 22,
+      "stalled_slow": 36,
+      "weather_incomplete": 10
+     },
+     "stalled_cycles": 58
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Dole": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-30",
+     "chill": "01-14",
+     "flowering_end": "03-06",
+     "flowering_start": "02-07",
+     "harvest_end": "05-04",
+     "harvest_start": "03-31"
+    },
+    "after": {
+     "budbreak": "01-30",
+     "chill": "01-14",
+     "flowering_end": "03-06",
+     "flowering_start": "02-07",
+     "harvest_end": "05-04",
+     "harvest_start": "03-31"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "El Fuerte / Valle del Fuerte (Ahome, Guasave)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "03-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "03-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat"
+    ],
+    "after": [
+     "fruit_severe_heat"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Elizabethtown, Bladen County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-06",
+     "chill": "11-21",
+     "flowering_end": "04-10",
+     "flowering_start": "02-15",
+     "harvest_end": "06-13",
+     "harvest_start": "05-06"
+    },
+    "after": {
+     "budbreak": "01-06",
+     "chill": "11-21",
+     "flowering_end": "04-09",
+     "flowering_start": "02-15",
+     "harvest_end": "06-12",
+     "harvest_start": "05-06"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     8,
+     9
+    ],
+    "after": [
+     3,
+     4,
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "09-15": [
+      "fruit_frost"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "09-15": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ],
+     "12-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 292,
+     "stalled_cycles": 60
+    },
+    "after": {
+     "cycles": 292,
+     "outcomes": {
+      "complete": 292,
+      "stalled_horizon": 0,
+      "stalled_slow": 60,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 60
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Famaill\u00e1 / Lules / Monteros (Tucum\u00e1n piedmont)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-14",
+     "chill": "05-29",
+     "flowering_end": "09-20",
+     "flowering_start": "08-03",
+     "harvest_end": "12-11",
+     "harvest_start": "10-26"
+    },
+    "after": {
+     "budbreak": "07-14",
+     "chill": "05-29",
+     "flowering_end": "09-20",
+     "flowering_start": "08-03",
+     "harvest_end": "12-11",
+     "harvest_start": "10-26"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 20,
+    "after": 20
+   },
+   "totals": {
+    "before": {
+     "cycles": 316,
+     "stalled_cycles": 37
+    },
+    "after": {
+     "cycles": 316,
+     "outcomes": {
+      "complete": 316,
+      "stalled_horizon": 0,
+      "stalled_slow": 37,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 37
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Folkston": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-12",
+     "chill": "12-15",
+     "flowering_end": "03-09",
+     "flowering_start": "01-30",
+     "harvest_end": "05-18",
+     "harvest_start": "04-09"
+    },
+    "after": {
+     "budbreak": "01-12",
+     "chill": "12-15",
+     "flowering_end": "03-09",
+     "flowering_start": "01-30",
+     "harvest_end": "05-18",
+     "harvest_start": "04-09"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 348,
+     "stalled_cycles": 5
+    },
+    "after": {
+     "cycles": 348,
+     "outcomes": {
+      "complete": 348,
+      "stalled_horizon": 0,
+      "stalled_slow": 5,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 5
+    }
+   },
+   "changed": []
+  },
+  "George (southern Cape coast)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 353,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 353,
+     "outcomes": {
+      "complete": 353,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Georgia": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-13",
+     "chill": "12-03",
+     "flowering_end": "03-19",
+     "flowering_start": "02-03",
+     "harvest_end": "05-30",
+     "harvest_start": "04-21"
+    },
+    "after": {
+     "budbreak": "01-13",
+     "chill": "12-03",
+     "flowering_end": "03-19",
+     "flowering_start": "02-03",
+     "harvest_end": "05-29",
+     "harvest_start": "04-21"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 21,
+    "after": 21
+   },
+   "totals": {
+    "before": {
+     "cycles": 336,
+     "stalled_cycles": 17
+    },
+    "after": {
+     "cycles": 336,
+     "outcomes": {
+      "complete": 336,
+      "stalled_horizon": 0,
+      "stalled_slow": 17,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 17
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Grand Junction / South Haven, Van Buren County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "05-21",
+     "chill": "11-11",
+     "flowering_end": "06-26",
+     "flowering_start": "06-01",
+     "harvest_end": "08-29",
+     "harvest_start": "07-21"
+    },
+    "after": {
+     "budbreak": "05-21",
+     "chill": "11-11",
+     "flowering_end": "06-26",
+     "flowering_start": "06-01",
+     "harvest_end": "08-28",
+     "harvest_start": "07-21"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "07-01"
+    ],
+    "after": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     7
+    ],
+    "after": [
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     8,
+     9,
+     10
+    ],
+    "after": [
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "03-01": [
+      "bud_freeze"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "03-01": [
+      "bud_freeze"
+     ],
+     "08-01": [
+      "cycle_failure"
+     ],
+     "08-15": [
+      "cycle_failure"
+     ],
+     "09-01": [
+      "cycle_failure"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 16,
+    "after": 16
+   },
+   "totals": {
+    "before": {
+     "cycles": 263,
+     "stalled_cycles": 36
+    },
+    "after": {
+     "cycles": 263,
+     "outcomes": {
+      "complete": 263,
+      "stalled_horizon": 51,
+      "stalled_slow": 36,
+      "weather_incomplete": 10
+     },
+     "stalled_cycles": 87
+    }
+   },
+   "changed": [
+    "favourable_starts",
+    "favourable_flowering_months",
+    "favourable_harvest_months",
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Groveland / Clermont, Lake County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-07",
+     "chill": "01-16",
+     "flowering_end": "03-13",
+     "flowering_start": "02-17",
+     "harvest_end": "05-12",
+     "harvest_start": "04-06"
+    },
+    "after": {
+     "budbreak": "02-07",
+     "chill": "01-16",
+     "flowering_end": "03-13",
+     "flowering_start": "02-17",
+     "harvest_end": "05-12",
+     "harvest_start": "04-06"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "fruit_frost"
+    ],
+    "after": [
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Guasca (Sabana de Bogot\u00e1 highlands)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     8,
+     9,
+     10
+    ],
+    "after": [
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 347,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 347,
+     "outcomes": {
+      "complete": 347,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 13
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Hammonton, Atlantic County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "04-14",
+     "chill": "11-12",
+     "flowering_end": "05-29",
+     "flowering_start": "04-30",
+     "harvest_end": "07-28",
+     "harvest_start": "06-23"
+    },
+    "after": {
+     "budbreak": "04-14",
+     "chill": "11-12",
+     "flowering_end": "05-29",
+     "flowering_start": "04-30",
+     "harvest_end": "07-27",
+     "harvest_start": "06-23"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "07-15",
+     "08-15"
+    ],
+    "after": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "07-15",
+     "08-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     4,
+     5,
+     7,
+     8,
+     9
+    ],
+    "after": [
+     4,
+     5,
+     7,
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "09-01": [
+      "fruit_frost"
+     ],
+     "09-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 290,
+     "stalled_cycles": 60
+    },
+    "after": {
+     "cycles": 290,
+     "outcomes": {
+      "complete": 290,
+      "stalled_horizon": 0,
+      "stalled_slow": 60,
+      "weather_incomplete": 10
+     },
+     "stalled_cycles": 60
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Homerville": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-13",
+     "chill": "12-08",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-23",
+     "harvest_start": "04-13"
+    },
+    "after": {
+     "budbreak": "01-13",
+     "chill": "12-08",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-23",
+     "harvest_start": "04-13"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 345,
+     "stalled_cycles": 8
+    },
+    "after": {
+     "cycles": 345,
+     "outcomes": {
+      "complete": 345,
+      "stalled_horizon": 0,
+      "stalled_slow": 8,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 8
+    }
+   },
+   "changed": [
+    "favourable_harvest_months"
+   ]
+  },
+  "Homerville, Clinch County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-13",
+     "chill": "12-08",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-23",
+     "harvest_start": "04-13"
+    },
+    "after": {
+     "budbreak": "01-13",
+     "chill": "12-08",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-23",
+     "harvest_start": "04-13"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 345,
+     "stalled_cycles": 8
+    },
+    "after": {
+     "cycles": 345,
+     "outcomes": {
+      "complete": 345,
+      "stalled_horizon": 0,
+      "stalled_slow": 8,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 8
+    }
+   },
+   "changed": [
+    "favourable_harvest_months"
+   ]
+  },
+  "Homestead (Redland), Miami-Dade County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Ica / Villacur\u00ed / Pisco": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 353,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 353,
+     "outcomes": {
+      "complete": 353,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Lages / Planalto Serrano (incl. Palmeira)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-06",
+     "chill": "06-04",
+     "flowering_end": "09-11",
+     "flowering_start": "07-31",
+     "harvest_end": "12-16",
+     "harvest_start": "10-22"
+    },
+    "after": {
+     "budbreak": "07-06",
+     "chill": "06-04",
+     "flowering_end": "09-11",
+     "flowering_start": "07-31",
+     "harvest_end": "12-16",
+     "harvest_start": "10-22"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-01",
+     "07-15",
+     "08-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-01",
+     "07-15",
+     "08-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     7,
+     8,
+     9
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     7,
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "fruit_frost"
+     ],
+     "05-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 23,
+    "after": 23
+   },
+   "totals": {
+    "before": {
+     "cycles": 342,
+     "stalled_cycles": 10
+    },
+    "after": {
+     "cycles": 342,
+     "outcomes": {
+      "complete": 342,
+      "stalled_horizon": 0,
+      "stalled_slow": 10,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 10
+    }
+   },
+   "changed": []
+  },
+  "Lake Placid": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Larache / Loukkos perimeter (incl. Moulay Bousselham, Gharb)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 353,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 353,
+     "outcomes": {
+      "complete": 353,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Linares / Parral (Maule)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-07",
+     "chill": "05-25",
+     "flowering_end": "10-30",
+     "flowering_start": "09-08",
+     "harvest_end": "01-13",
+     "harvest_start": "12-01"
+    },
+    "after": {
+     "budbreak": "08-07",
+     "chill": "05-25",
+     "flowering_end": "10-30",
+     "flowering_start": "09-08",
+     "harvest_end": "01-13",
+     "harvest_start": "12-01"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "04-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "04-01": [
+      "cycle_failure"
+     ],
+     "04-15": [
+      "cycle_failure"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 16,
+    "after": 16
+   },
+   "totals": {
+    "before": {
+     "cycles": 252,
+     "stalled_cycles": 97
+    },
+    "after": {
+     "cycles": 252,
+     "outcomes": {
+      "complete": 252,
+      "stalled_horizon": 0,
+      "stalled_slow": 97,
+      "weather_incomplete": 11
+     },
+     "stalled_cycles": 97
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Live Oak, Suwannee County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-12",
+     "chill": "12-08",
+     "flowering_end": "03-10",
+     "flowering_start": "01-31",
+     "harvest_end": "05-20",
+     "harvest_start": "04-11"
+    },
+    "after": {
+     "budbreak": "01-12",
+     "chill": "12-08",
+     "flowering_end": "03-10",
+     "flowering_start": "01-31",
+     "harvest_end": "05-20",
+     "harvest_start": "04-11"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 347,
+     "stalled_cycles": 6
+    },
+    "after": {
+     "cycles": 347,
+     "outcomes": {
+      "complete": 347,
+      "stalled_horizon": 0,
+      "stalled_slow": 6,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 6
+    }
+   },
+   "changed": []
+  },
+  "Loris, Horry County (SC coastal plain)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-06",
+     "chill": "12-02",
+     "flowering_end": "04-04",
+     "flowering_start": "02-19",
+     "harvest_end": "06-09",
+     "harvest_start": "05-04"
+    },
+    "after": {
+     "budbreak": "01-06",
+     "chill": "12-02",
+     "flowering_end": "04-03",
+     "flowering_start": "02-19",
+     "harvest_end": "06-09",
+     "harvest_start": "05-03"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "08-15",
+     "09-01",
+     "09-15"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "08-15",
+     "09-01",
+     "09-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ],
+     "12-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 19,
+    "after": 19
+   },
+   "totals": {
+    "before": {
+     "cycles": 311,
+     "stalled_cycles": 41
+    },
+    "after": {
+     "cycles": 311,
+     "outcomes": {
+      "complete": 311,
+      "stalled_horizon": 0,
+      "stalled_slow": 41,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 41
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Los Reyes de Salgado": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Los \u00c1ngeles (Biob\u00edo)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-02",
+     "chill": "05-09",
+     "flowering_end": "11-10",
+     "flowering_start": "09-12",
+     "harvest_end": "01-29",
+     "harvest_start": "12-17"
+    },
+    "after": {
+     "budbreak": "08-02",
+     "chill": "05-09",
+     "flowering_end": "11-10",
+     "flowering_start": "09-12",
+     "harvest_end": "01-29",
+     "harvest_start": "12-17"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "02-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01"
+    ],
+    "after": [
+     "02-01",
+     "02-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "03-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "03-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "04-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "04-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "03-01": [
+      "cycle_failure"
+     ],
+     "03-15": [
+      "cycle_failure"
+     ],
+     "04-01": [
+      "cycle_failure"
+     ],
+     "04-15": [
+      "cycle_failure"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 14,
+    "after": 14
+   },
+   "totals": {
+    "before": {
+     "cycles": 238,
+     "stalled_cycles": 105
+    },
+    "after": {
+     "cycles": 238,
+     "outcomes": {
+      "complete": 238,
+      "stalled_horizon": 0,
+      "stalled_slow": 105,
+      "weather_incomplete": 17
+     },
+     "stalled_cycles": 105
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Lublin region (Lubelskie, incl. Krasnik / Opole Lubelskie plantations)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "05-12",
+     "chill": "11-08",
+     "flowering_end": "06-21",
+     "flowering_start": "05-25",
+     "harvest_end": "09-03",
+     "harvest_start": "07-20"
+    },
+    "after": {
+     "budbreak": "05-12",
+     "chill": "11-08",
+     "flowering_end": "06-20",
+     "flowering_start": "05-24",
+     "harvest_end": "09-02",
+     "harvest_start": "07-20"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ],
+    "after": [
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     5,
+     6,
+     7
+    ],
+    "after": [
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     7,
+     8,
+     9
+    ],
+    "after": [
+     7,
+     8,
+     9
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "10-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "02-15": [
+      "bud_freeze"
+     ],
+     "07-01": [
+      "cycle_failure"
+     ],
+     "07-15": [
+      "cycle_failure"
+     ],
+     "08-01": [
+      "cycle_failure"
+     ],
+     "08-15": [
+      "cycle_failure"
+     ],
+     "09-01": [
+      "cycle_failure"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "bud_freeze"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 16,
+    "after": 16
+   },
+   "totals": {
+    "before": {
+     "cycles": 255,
+     "stalled_cycles": 12
+    },
+    "after": {
+     "cycles": 255,
+     "outcomes": {
+      "complete": 255,
+      "stalled_horizon": 81,
+      "stalled_slow": 12,
+      "weather_incomplete": 12
+     },
+     "stalled_cycles": 93
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Marondera / Harare hinterland (Mashonaland East)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-03",
+     "chill": "07-14",
+     "flowering_end": "09-10",
+     "flowering_start": "08-13",
+     "harvest_end": "11-11",
+     "harvest_start": "10-06"
+    },
+    "after": {
+     "budbreak": "08-03",
+     "chill": "07-14",
+     "flowering_end": "09-10",
+     "flowering_start": "08-13",
+     "harvest_end": "11-11",
+     "harvest_start": "10-06"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01"
+    ],
+    "after": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Mengzi (Honghe prefecture, southeast Yunnan plateau)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-05",
+     "chill": "12-19",
+     "flowering_end": "03-23",
+     "flowering_start": "02-18",
+     "harvest_end": "06-01",
+     "harvest_start": "04-22"
+    },
+    "after": {
+     "budbreak": "02-05",
+     "chill": "12-19",
+     "flowering_end": "03-23",
+     "flowering_start": "02-18",
+     "harvest_end": "06-01",
+     "harvest_start": "04-22"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "09-15",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "09-15",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 21,
+    "after": 21
+   },
+   "totals": {
+    "before": {
+     "cycles": 331,
+     "stalled_cycles": 20
+    },
+    "after": {
+     "cycles": 331,
+     "outcomes": {
+      "complete": 331,
+      "stalled_horizon": 0,
+      "stalled_slow": 20,
+      "weather_incomplete": 9
+     },
+     "stalled_cycles": 20
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Moguer / Huelva coastal strip (Moguer-Lepe-Almonte)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-29",
+     "chill": "12-12",
+     "flowering_end": "04-12",
+     "flowering_start": "03-02",
+     "harvest_end": "06-22",
+     "harvest_start": "05-15"
+    },
+    "after": {
+     "budbreak": "01-29",
+     "chill": "12-12",
+     "flowering_end": "04-12",
+     "flowering_start": "03-02",
+     "harvest_end": "06-22",
+     "harvest_start": "05-15"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-15",
+     "05-01",
+     "05-15",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-15",
+     "05-01",
+     "05-15",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 19,
+    "after": 19
+   },
+   "totals": {
+    "before": {
+     "cycles": 310,
+     "stalled_cycles": 42
+    },
+    "after": {
+     "cycles": 310,
+     "outcomes": {
+      "complete": 310,
+      "stalled_horizon": 0,
+      "stalled_slow": 42,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 42
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Odemira / Sao Teotonio (Alentejo coast, Mira irrigation perimeter)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-18",
+     "chill": "01-16",
+     "flowering_end": "04-17",
+     "flowering_start": "03-08",
+     "harvest_end": "07-04",
+     "harvest_start": "05-20"
+    },
+    "after": {
+     "budbreak": "02-18",
+     "chill": "01-16",
+     "flowering_end": "04-17",
+     "flowering_start": "03-08",
+     "harvest_end": "07-04",
+     "harvest_start": "05-19"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 342,
+     "stalled_cycles": 10
+    },
+    "after": {
+     "cycles": 342,
+     "outcomes": {
+      "complete": 342,
+      "stalled_horizon": 0,
+      "stalled_slow": 10,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 10
+    }
+   },
+   "changed": [
+    "favourable_starts"
+   ]
+  },
+  "Ohaupo (Waikato, incl. Ngatea on the Hauraki Plains)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-19",
+     "chill": "07-02",
+     "flowering_end": "10-27",
+     "flowering_start": "09-06",
+     "harvest_end": "01-30",
+     "harvest_start": "12-07"
+    },
+    "after": {
+     "budbreak": "08-19",
+     "chill": "07-02",
+     "flowering_end": "10-27",
+     "flowering_start": "09-06",
+     "harvest_end": "01-30",
+     "harvest_start": "12-07"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     5,
+     8,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     5,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "07-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ],
+     "07-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 280,
+     "stalled_cycles": 67
+    },
+    "after": {
+     "cycles": 280,
+     "outcomes": {
+      "complete": 280,
+      "stalled_horizon": 0,
+      "stalled_slow": 67,
+      "weather_incomplete": 13
+     },
+     "stalled_cycles": 67
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Okeechobee": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-12",
+     "chill": "12-29",
+     "flowering_end": "02-16",
+     "flowering_start": "01-21",
+     "harvest_end": "04-17",
+     "harvest_start": "03-13"
+    },
+    "after": {
+     "budbreak": "01-12",
+     "chill": "12-29",
+     "flowering_end": "02-16",
+     "flowering_start": "01-21",
+     "harvest_end": "04-17",
+     "harvest_start": "03-13"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     3,
+     4,
+     5
+    ],
+    "after": [
+     3,
+     4,
+     5
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Olmos (Proyecto Olmos irrigation)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     9,
+     10,
+     11
+    ],
+    "after": [
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Osorno / Purranque (Los Lagos)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "09-07",
+     "chill": "04-26",
+     "flowering_end": "12-17",
+     "flowering_start": "10-25",
+     "harvest_end": "04-04",
+     "harvest_start": "01-24"
+    },
+    "after": {
+     "budbreak": "09-07",
+     "chill": "04-26",
+     "flowering_end": "12-17",
+     "flowering_start": "10-25",
+     "harvest_end": "04-03",
+     "harvest_start": "01-24"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ],
+    "after": [
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "cycle_failure"
+     ],
+     "01-15": [
+      "cycle_failure"
+     ],
+     "02-01": [
+      "cycle_failure"
+     ],
+     "02-15": [
+      "cycle_failure"
+     ],
+     "03-01": [
+      "cycle_failure"
+     ],
+     "03-15": [
+      "cycle_failure"
+     ],
+     "04-01": [
+      "cycle_failure"
+     ],
+     "04-15": [
+      "cycle_failure"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ],
+     "12-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 9,
+    "after": 9
+   },
+   "totals": {
+    "before": {
+     "cycles": 151,
+     "stalled_cycles": 61
+    },
+    "after": {
+     "cycles": 151,
+     "outcomes": {
+      "complete": 151,
+      "stalled_horizon": 128,
+      "stalled_slow": 61,
+      "weather_incomplete": 20
+     },
+     "stalled_cycles": 189
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Ovalle / Punitaqui (Limar\u00ed valley)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-28",
+     "chill": "08-05",
+     "flowering_end": "10-18",
+     "flowering_start": "09-09",
+     "harvest_end": "01-03",
+     "harvest_start": "11-17"
+    },
+    "after": {
+     "budbreak": "08-28",
+     "chill": "08-05",
+     "flowering_end": "10-18",
+     "flowering_start": "09-09",
+     "harvest_end": "01-03",
+     "harvest_start": "11-17"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 352,
+     "stalled_cycles": 1
+    },
+    "after": {
+     "cycles": 352,
+     "outcomes": {
+      "complete": 352,
+      "stalled_horizon": 0,
+      "stalled_slow": 1,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 1
+    }
+   },
+   "changed": []
+  },
+  "PF Berry": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-08",
+     "chill": "01-26",
+     "flowering_end": "03-06",
+     "flowering_start": "02-15",
+     "harvest_end": "05-05",
+     "harvest_start": "03-31"
+    },
+    "after": {
+     "budbreak": "02-08",
+     "chill": "01-26",
+     "flowering_end": "03-06",
+     "flowering_start": "02-15",
+     "harvest_end": "05-05",
+     "harvest_start": "03-31"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 355,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 355,
+     "outcomes": {
+      "complete": 355,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 5
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Papanduva": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-02",
+     "chill": "07-12",
+     "flowering_end": "09-17",
+     "flowering_start": "08-15",
+     "harvest_end": "12-06",
+     "harvest_start": "10-19"
+    },
+    "after": {
+     "budbreak": "08-02",
+     "chill": "07-12",
+     "flowering_end": "09-17",
+     "flowering_start": "08-15",
+     "harvest_end": "12-06",
+     "harvest_start": "10-19"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "06-01",
+     "06-15"
+    ],
+    "after": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "06-01",
+     "06-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Pelotas (Esta\u00e7\u00e3o Experimental Cascata, Embrapa Clima Temperado)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-24",
+     "chill": "06-19",
+     "flowering_end": "09-23",
+     "flowering_start": "08-15",
+     "harvest_end": "12-15",
+     "harvest_start": "10-29"
+    },
+    "after": {
+     "budbreak": "07-24",
+     "chill": "06-19",
+     "flowering_end": "09-23",
+     "flowering_start": "08-15",
+     "harvest_end": "12-15",
+     "harvest_start": "10-29"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "03-01",
+     "03-15",
+     "04-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "11-15"
+    ],
+    "after": [
+     "02-01",
+     "03-01",
+     "03-15",
+     "04-01",
+     "05-15",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "fruit_frost"
+    ],
+    "after": [
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "05-01": [
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "05-01": [
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 345,
+     "stalled_cycles": 8
+    },
+    "after": {
+     "cycles": 345,
+     "outcomes": {
+      "complete": 345,
+      "stalled_horizon": 0,
+      "stalled_slow": 8,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 8
+    }
+   },
+   "changed": [
+    "favourable_starts",
+    "favourable_flowering_months"
+   ]
+  },
+  "Penguin - Sulphur Creek (north-west Tasmania coast)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "09-22",
+     "chill": "08-04",
+     "flowering_end": "11-20",
+     "flowering_start": "10-09",
+     "harvest_end": "02-21",
+     "harvest_start": "12-30"
+    },
+    "after": {
+     "budbreak": "09-22",
+     "chill": "08-04",
+     "flowering_end": "11-20",
+     "flowering_start": "10-09",
+     "harvest_end": "02-21",
+     "harvest_start": "12-30"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain",
+     "pollination_weather"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain",
+     "pollination_weather"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "07-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "07-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ],
+     "07-01": [
+      "cycle_failure"
+     ],
+     "07-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 18,
+    "after": 18
+   },
+   "totals": {
+    "before": {
+     "cycles": 275,
+     "stalled_cycles": 69
+    },
+    "after": {
+     "cycles": 275,
+     "outcomes": {
+      "complete": 275,
+      "stalled_horizon": 0,
+      "stalled_slow": 69,
+      "weather_incomplete": 16
+     },
+     "stalled_cycles": 69
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Piracicaba (Ch\u00e1cara Catavento, ESALQ trial)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15"
+    ],
+    "after": [
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     4,
+     5,
+     6,
+     7
+    ],
+    "after": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     6,
+     7,
+     8,
+     9
+    ],
+    "after": [
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 356,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 356,
+     "outcomes": {
+      "complete": 356,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 4
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Plant City, Hillsborough County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-03",
+     "chill": "01-14",
+     "flowering_end": "03-05",
+     "flowering_start": "02-13",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-03",
+     "chill": "01-14",
+     "flowering_end": "03-05",
+     "flowering_start": "02-13",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "fruit_frost"
+    ],
+    "after": [
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "12-01": [
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "12-01": [
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Poplarville, Pearl River County (USDA-ARS Thad Cochran Southern Horticultural Lab)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-01",
+     "chill": "11-27",
+     "flowering_end": "03-13",
+     "flowering_start": "01-21",
+     "harvest_end": "05-27",
+     "harvest_start": "04-16"
+    },
+    "after": {
+     "budbreak": "01-01",
+     "chill": "11-27",
+     "flowering_end": "03-13",
+     "flowering_start": "01-21",
+     "harvest_end": "05-27",
+     "harvest_start": "04-16"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "08-15",
+     "09-01",
+     "09-15"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "08-15",
+     "09-01",
+     "09-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     5,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "01-15": [
+      "flowering_freeze"
+     ],
+     "02-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 20,
+    "after": 20
+   },
+   "totals": {
+    "before": {
+     "cycles": 330,
+     "stalled_cycles": 23
+    },
+    "after": {
+     "cycles": 330,
+     "outcomes": {
+      "complete": 330,
+      "stalled_horizon": 0,
+      "stalled_slow": 23,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 23
+    }
+   },
+   "changed": [
+    "favourable_harvest_months",
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Qingdao West Coast New Area (Huangdao) and Rizhao (Shandong peninsula)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "04-21",
+     "chill": "11-22",
+     "flowering_end": "05-28",
+     "flowering_start": "05-02",
+     "harvest_end": "07-24",
+     "harvest_start": "06-20"
+    },
+    "after": {
+     "budbreak": "04-21",
+     "chill": "11-22",
+     "flowering_end": "05-27",
+     "flowering_start": "05-02",
+     "harvest_end": "07-24",
+     "harvest_start": "06-20"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     8,
+     9
+    ],
+    "after": [
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "09-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 20,
+    "after": 20
+   },
+   "totals": {
+    "before": {
+     "cycles": 300,
+     "stalled_cycles": 51
+    },
+    "after": {
+     "cycles": 300,
+     "outcomes": {
+      "complete": 300,
+      "stalled_horizon": 0,
+      "stalled_slow": 51,
+      "weather_incomplete": 9
+     },
+     "stalled_cycles": 51
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "River Valley": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-07",
+     "chill": "01-24",
+     "flowering_end": "03-09",
+     "flowering_start": "02-15",
+     "harvest_end": "05-06",
+     "harvest_start": "04-03"
+    },
+    "after": {
+     "budbreak": "02-07",
+     "chill": "01-24",
+     "flowering_end": "03-09",
+     "flowering_start": "02-15",
+     "harvest_end": "05-06",
+     "harvest_start": "04-03"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Sebring": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Sebring / Avon Park, Highlands County": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    },
+    "after": {
+     "budbreak": "02-12",
+     "chill": "01-29",
+     "flowering_end": "03-11",
+     "flowering_start": "02-18",
+     "harvest_end": "05-06",
+     "harvest_start": "04-02"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-15",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Sever do Vouga (Beira Litoral / Vouga valley)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-25",
+     "chill": "11-28",
+     "flowering_end": "05-11",
+     "flowering_start": "03-24",
+     "harvest_end": "07-21",
+     "harvest_start": "06-12"
+    },
+    "after": {
+     "budbreak": "02-25",
+     "chill": "11-28",
+     "flowering_end": "05-11",
+     "flowering_start": "03-23",
+     "harvest_end": "07-21",
+     "harvest_start": "06-12"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01",
+     "06-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "09-15": [
+      "fruit_frost"
+     ],
+     "10-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "cycle_failure"
+     ],
+     "11-15": [
+      "cycle_failure"
+     ],
+     "12-01": [
+      "cycle_failure"
+     ],
+     "12-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 15,
+    "after": 15
+   },
+   "totals": {
+    "before": {
+     "cycles": 259,
+     "stalled_cycles": 92
+    },
+    "after": {
+     "cycles": 259,
+     "outcomes": {
+      "complete": 259,
+      "stalled_horizon": 0,
+      "stalled_slow": 92,
+      "weather_incomplete": 9
+     },
+     "stalled_cycles": 92
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Taf\u00ed del Valle (EEAOC substation)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-14",
+     "chill": "05-29",
+     "flowering_end": "09-20",
+     "flowering_start": "08-03",
+     "harvest_end": "12-11",
+     "harvest_start": "10-26"
+    },
+    "after": {
+     "budbreak": "07-14",
+     "chill": "05-29",
+     "flowering_end": "09-20",
+     "flowering_start": "08-03",
+     "harvest_end": "12-11",
+     "harvest_start": "10-26"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "06-15",
+     "07-01",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "03-15": [
+      "fruit_frost"
+     ],
+     "04-01": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 20,
+    "after": 20
+   },
+   "totals": {
+    "before": {
+     "cycles": 316,
+     "stalled_cycles": 37
+    },
+    "after": {
+     "cycles": 316,
+     "outcomes": {
+      "complete": 316,
+      "stalled_horizon": 0,
+      "stalled_slow": 37,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 37
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Tallahassee / Monticello, Leon-Jefferson counties": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-04",
+     "chill": "12-04",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-21",
+     "harvest_start": "04-14"
+    },
+    "after": {
+     "budbreak": "01-04",
+     "chill": "12-04",
+     "flowering_end": "03-14",
+     "flowering_start": "02-02",
+     "harvest_end": "05-21",
+     "harvest_start": "04-14"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "flowering_freeze"
+     ],
+     "10-01": [
+      "fruit_frost"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 344,
+     "stalled_cycles": 9
+    },
+    "after": {
+     "cycles": 344,
+     "outcomes": {
+      "complete": 344,
+      "stalled_horizon": 0,
+      "stalled_slow": 9,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 9
+    }
+   },
+   "changed": []
+  },
+  "Tzaneen / Letaba area (Limpopo escarpment, summer rainfall)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-09",
+     "chill": "07-18",
+     "flowering_end": "09-16",
+     "flowering_start": "08-19",
+     "harvest_end": "11-21",
+     "harvest_start": "10-12"
+    },
+    "after": {
+     "budbreak": "08-09",
+     "chill": "07-18",
+     "flowering_end": "09-16",
+     "flowering_start": "08-19",
+     "harvest_end": "11-21",
+     "harvest_start": "10-12"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ],
+    "after": [
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "after": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Vacaria (Campos de Cima da Serra)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "07-07",
+     "chill": "06-01",
+     "flowering_end": "09-13",
+     "flowering_start": "08-02",
+     "harvest_end": "12-17",
+     "harvest_start": "10-22"
+    },
+    "after": {
+     "budbreak": "07-07",
+     "chill": "06-01",
+     "flowering_end": "09-13",
+     "flowering_start": "08-02",
+     "harvest_end": "12-17",
+     "harvest_start": "10-22"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "05-01": [
+      "fruit_frost"
+     ],
+     "05-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "flowering_freeze"
+     ],
+     "07-01": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "04-01": [
+      "fruit_frost"
+     ],
+     "04-15": [
+      "fruit_frost"
+     ],
+     "06-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "flowering_freeze"
+     ],
+     "07-01": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 336,
+     "stalled_cycles": 15
+    },
+    "after": {
+     "cycles": 336,
+     "outcomes": {
+      "complete": 336,
+      "stalled_horizon": 0,
+      "stalled_slow": 15,
+      "weather_incomplete": 9
+     },
+     "stalled_cycles": 15
+    }
+   },
+   "changed": []
+  },
+  "Valdosta": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-19",
+     "chill": "12-08",
+     "flowering_end": "03-17",
+     "flowering_start": "02-05",
+     "harvest_end": "05-26",
+     "harvest_start": "04-16"
+    },
+    "after": {
+     "budbreak": "01-19",
+     "chill": "12-08",
+     "flowering_end": "03-17",
+     "flowering_start": "02-05",
+     "harvest_end": "05-26",
+     "harvest_start": "04-16"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze",
+      "flowering_freeze"
+     ],
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "12-15": [
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 22,
+    "after": 22
+   },
+   "totals": {
+    "before": {
+     "cycles": 340,
+     "stalled_cycles": 13
+    },
+    "after": {
+     "cycles": 340,
+     "outcomes": {
+      "complete": 340,
+      "stalled_horizon": 0,
+      "stalled_slow": 13,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 13
+    }
+   },
+   "changed": []
+  },
+  "Vechta - Langforden (Oldenburger Munsterland; LWK berry trial station)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "05-10",
+     "chill": "11-11",
+     "flowering_end": "06-22",
+     "flowering_start": "05-24",
+     "harvest_end": "09-16",
+     "harvest_start": "07-23"
+    },
+    "after": {
+     "budbreak": "05-10",
+     "chill": "11-11",
+     "flowering_end": "06-22",
+     "flowering_start": "05-23",
+     "harvest_end": "09-15",
+     "harvest_start": "07-23"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ],
+    "after": [
+     "02-15",
+     "03-01",
+     "03-15",
+     "04-01",
+     "04-15",
+     "05-01",
+     "05-15",
+     "06-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     4,
+     5,
+     6,
+     7
+    ],
+    "after": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     7,
+     8,
+     9,
+     10
+    ],
+    "after": [
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "bud_freeze",
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "10-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    },
+    "after": {
+     "01-01": [
+      "bud_freeze"
+     ],
+     "01-15": [
+      "bud_freeze"
+     ],
+     "02-01": [
+      "bud_freeze"
+     ],
+     "07-01": [
+      "cycle_failure"
+     ],
+     "07-15": [
+      "cycle_failure"
+     ],
+     "08-01": [
+      "cycle_failure"
+     ],
+     "08-15": [
+      "cycle_failure"
+     ],
+     "09-01": [
+      "cycle_failure"
+     ],
+     "09-15": [
+      "cycle_failure"
+     ],
+     "10-01": [
+      "cycle_failure"
+     ],
+     "10-15": [
+      "cycle_failure"
+     ],
+     "11-01": [
+      "bud_freeze"
+     ],
+     "11-15": [
+      "bud_freeze"
+     ],
+     "12-01": [
+      "bud_freeze"
+     ],
+     "12-15": [
+      "bud_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 15,
+    "after": 15
+   },
+   "totals": {
+    "before": {
+     "cycles": 235,
+     "stalled_cycles": 22
+    },
+    "after": {
+     "cycles": 235,
+     "outcomes": {
+      "complete": 235,
+      "stalled_horizon": 90,
+      "stalled_slow": 22,
+      "weather_incomplete": 13
+     },
+     "stalled_cycles": 112
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Waldo": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-24",
+     "chill": "12-27",
+     "flowering_end": "03-09",
+     "flowering_start": "02-07",
+     "harvest_end": "05-12",
+     "harvest_start": "04-04"
+    },
+    "after": {
+     "budbreak": "01-24",
+     "chill": "12-27",
+     "flowering_end": "03-09",
+     "flowering_start": "02-07",
+     "harvest_end": "05-12",
+     "harvest_start": "04-04"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "04-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "04-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 353,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 353,
+     "outcomes": {
+      "complete": 353,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": [
+    "favourable_harvest_months"
+   ]
+  },
+  "Waldo, Alachua County (supervisor's base site)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "01-24",
+     "chill": "12-27",
+     "flowering_end": "03-09",
+     "flowering_start": "02-07",
+     "harvest_end": "05-12",
+     "harvest_start": "04-04"
+    },
+    "after": {
+     "budbreak": "01-24",
+     "chill": "12-27",
+     "flowering_end": "03-09",
+     "flowering_start": "02-07",
+     "harvest_end": "05-12",
+     "harvest_start": "04-04"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "04-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "03-01",
+     "04-01",
+     "09-01",
+     "09-15",
+     "10-01"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     9,
+     10
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "flowering_freeze",
+     "fruit_frost"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    },
+    "after": {
+     "10-15": [
+      "fruit_frost"
+     ],
+     "11-01": [
+      "fruit_frost"
+     ],
+     "11-15": [
+      "fruit_frost"
+     ],
+     "12-01": [
+      "flowering_freeze"
+     ],
+     "12-15": [
+      "flowering_freeze"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 353,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 353,
+     "outcomes": {
+      "complete": 353,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 7
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": [
+    "favourable_harvest_months"
+   ]
+  },
+  "Wauchula": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "02-07",
+     "chill": "01-24",
+     "flowering_end": "03-09",
+     "flowering_start": "02-15",
+     "harvest_end": "05-06",
+     "harvest_start": "04-03"
+    },
+    "after": {
+     "budbreak": "02-07",
+     "chill": "01-24",
+     "flowering_end": "03-09",
+     "flowering_start": "02-15",
+     "harvest_end": "05-06",
+     "harvest_start": "04-03"
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "02-15",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "disease_weather",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  },
+  "Wolseley / Hex River valley (Breede valley interior)": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": "08-11",
+     "chill": "06-04",
+     "flowering_end": "10-29",
+     "flowering_start": "09-13",
+     "harvest_end": "01-18",
+     "harvest_start": "12-05"
+    },
+    "after": {
+     "budbreak": "08-11",
+     "chill": "06-04",
+     "flowering_end": "10-29",
+     "flowering_start": "09-13",
+     "harvest_end": "01-18",
+     "harvest_start": "12-05"
+    }
+   },
+   "scan_role": "comparison",
+   "favourable_starts": {
+    "before": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ],
+    "after": [
+     "02-01",
+     "02-15",
+     "03-01",
+     "03-15",
+     "07-15",
+     "08-01",
+     "08-15",
+     "09-01",
+     "09-15",
+     "10-01",
+     "10-15",
+     "11-01",
+     "11-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     2,
+     3,
+     4,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [
+     "bud_freeze",
+     "flowering_freeze",
+     "fruit_frost"
+    ],
+    "after": [
+     "cycle_failure"
+    ]
+   },
+   "recurring_at_favourable_starts": {
+    "before": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ],
+    "after": [
+     "fruit_severe_heat",
+     "harvest_heavy_rain"
+    ]
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {
+     "04-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "04-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "05-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-01": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ],
+     "06-15": [
+      "bud_freeze",
+      "flowering_freeze",
+      "fruit_frost"
+     ]
+    },
+    "after": {
+     "04-01": [
+      "cycle_failure"
+     ],
+     "04-15": [
+      "cycle_failure"
+     ],
+     "05-01": [
+      "cycle_failure"
+     ],
+     "05-15": [
+      "cycle_failure"
+     ],
+     "06-01": [
+      "cycle_failure"
+     ],
+     "06-15": [
+      "cycle_failure"
+     ]
+    }
+   },
+   "rankable_starts": {
+    "before": 17,
+    "after": 17
+   },
+   "totals": {
+    "before": {
+     "cycles": 263,
+     "stalled_cycles": 89
+    },
+    "after": {
+     "cycles": 263,
+     "outcomes": {
+      "complete": 263,
+      "stalled_horizon": 0,
+      "stalled_slow": 89,
+      "weather_incomplete": 8
+     },
+     "stalled_cycles": 89
+    }
+   },
+   "changed": [
+    "recurring_crop_loss_families"
+   ]
+  },
+  "Zapotl\u00e1n el Grande (Ciudad Guzm\u00e1n) / Zapotiltic / Tuxpan": {
+   "status": "available",
+   "calendar_median_dates": {
+    "before": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    },
+    "after": {
+     "budbreak": null,
+     "chill": null,
+     "flowering_end": null,
+     "flowering_start": null,
+     "harvest_end": null,
+     "harvest_start": null
+    }
+   },
+   "scan_role": "primary",
+   "favourable_starts": {
+    "before": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "10-15",
+     "12-01",
+     "12-15"
+    ],
+    "after": [
+     "01-01",
+     "01-15",
+     "02-01",
+     "10-15",
+     "12-01",
+     "12-15"
+    ]
+   },
+   "favourable_flowering_months": {
+    "before": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   },
+   "favourable_harvest_months": {
+    "before": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "after": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ]
+   },
+   "recurring_crop_loss_families": {
+    "before": [],
+    "after": []
+   },
+   "recurring_at_favourable_starts": {
+    "before": [],
+    "after": []
+   },
+   "recurring_crop_loss_by_start": {
+    "before": {},
+    "after": {}
+   },
+   "rankable_starts": {
+    "before": 24,
+    "after": 24
+   },
+   "totals": {
+    "before": {
+     "cycles": 354,
+     "stalled_cycles": 0
+    },
+    "after": {
+     "cycles": 354,
+     "outcomes": {
+      "complete": 354,
+      "stalled_horizon": 0,
+      "stalled_slow": 0,
+      "weather_incomplete": 6
+     },
+     "stalled_cycles": 0
+    }
+   },
+   "changed": []
+  }
+ }
+}

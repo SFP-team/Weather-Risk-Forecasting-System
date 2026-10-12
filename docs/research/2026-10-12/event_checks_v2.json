@@ -1,0 +1,7183 @@
+{
+ "schema": "event-checks-v2",
+ "investigation_date": "2026-10-12",
+ "supersedes": "docs/research/2026-10-05/ibo_event_checks.json (Chile and Waikato cases)",
+ "protocol": "docs/research/2026-10-11/review/astra_ibo_evidence_review.md section 5.5",
+ "repository_commit": "6dc2757c3e313774d1ee16cdc3a4b705f42c0d5a",
+ "server_code_sha256": {
+  "production.py": "504c6bb07ee39b82fe20a65fda64900aa3eff88878c69ecb1f433337dd61f9c2",
+  "location_api.py": "9ca4febc57d8dfc77838c1c11fd91705f6c4229c0af01f3d88a507f616bdc88c"
+ },
+ "generated_utc": "2026-10-12T07:31:21+00:00",
+ "model_profile": "stage_thermal_v3",
+ "method": [
+  "Daily Tmin: postprocess.extract at each cell centre of the 3 by 3 neighbourhood around every pin cell (met_daily, power-native-daily-utc-v1, UTC days). Read-only.",
+  "Hourly grid: hourly_archive.hourly_from_cache at the same cell centres (MERRA-2 hourly T2M from the cached archive, POWER Version 10.0.0). Local-night minimum and hours at or below 0, -1 and -2.2 C.",
+  "Cell elevation: one NASA POWER daily point request per cell (geometry elevation); the archive does not store elevation or land fraction. Land flag: cell centre inside the Natural Earth land mask.",
+  "Stations: NOAA GHCNh 2022 hourly files (QC codes other than blank, 0, 1, 4, 5, 9 dropped). Chilean station series were retrieved but are withheld from this file (see withheld_station_data in the Chile case).",
+  "Normal bias: station minus own-cell local-night minimum for every night of the event month in 2022, all nights and calm nights (median wind at or below 2 m/s). The protocol asks for 2010-2025; only 2022 was downloaded here.",
+  "Stage: production.analyse with the primary profile at each pin, through location_api.hourly_for and postprocess.extract (padding), the same inputs analyze() uses."
+ ],
+ "limits": [
+  "Three events. Outcomes are categories, not an accuracy rate.",
+  "Station-minus-grid distributions use one month of 2022, not 2010-2025, so the normal-bias band is rough.",
+  "No cloud data were used; mechanism labels rest on wind and humidity.",
+  "MERRA-2 cell land fraction was not retrieved."
+ ],
+ "staging": "Server work in tmp/EventChecksRegistry/ (script event_checks_v2.py, raw output event_checks_v2_raw.json). No archive, code, config or data folder was modified.",
+ "cases": [
+  {
+   "case_id": "cl-2022-10-31-frost",
+   "protocol_version": "astra-ibo-evidence-review-5.5",
+   "registry_event_id": "cl-2022-11-frost-hail",
+   "registration": {
+    "registered_before_v2_computation": true,
+    "hazard": "radiative spring frost",
+    "reported_stage": "fruit set (huertos en fruto cuajado)",
+    "crop_and_system": "commercial blueberries, open field; species mix not stated in the IBO text",
+    "date_precision_in_ibo": "month (November 2022)",
+    "corroborated_date_and_place": "night of 30 to 31 October 2022, and 1 November in some zones; Coihueco most affected, then San Ignacio and El Carmen, Maule-Sur toward the cordillera",
+    "expected": {
+     "station_hazard": "yes, at least one station near Coihueco or Longavi at or below 0 C on the night ending 31 October",
+     "grid_hazard_pin_cells": "no; pin cells stay above 0 C (warm-biased 55 km cells, radiative frost)",
+     "grid_hazard_neighbourhood": "only in the Andean cells, which are not orchard land",
+     "timing_offset_days": "0 or 1",
+     "stage_agreement": "yes for the Nuble pins (fruit); Maule pins may still be in late flowering"
+    },
+    "honesty_note": "The station minima for Coihueco and Linares 2 and the daily grid values were already published in the 2026-10-11 regional report and review. These expectations are therefore not blind. They were written before the v2 neighbourhood, local-night and station-minus-grid computations were run."
+   },
+   "claims": [
+    {
+     "source": "IBO Global State of the Blueberry Industry Report 2023",
+     "locator": "PDF pp.33-34 (Chile)",
+     "statement": "frost between Linares and Chillan in November 2022",
+     "family": "industry report"
+    },
+    {
+     "source": "Portal Fruticola, 9 Nov 2022",
+     "url": "https://www.portalfruticola.com/noticias/2022/11/09/chilecomo-se-han-afectado-los-arandanos-de-nuble-por-las-heladas/",
+     "statement": "frost on 31 October and 1 November 2022 in Nuble, mostly at fruit set",
+     "family": "trade news"
+    },
+    {
+     "source": "Frutas de Chile (ASOEX blueberry committee), 16 Nov 2022",
+     "url": "https://frutasdechile.cl/news/minimos-efectos-de-las-heladas-lluvia-y-granizo-de-noviembre-sobre-la-produccion-de-arandanos-de-chile/",
+     "statement": "frost on 1 November from Maule-Sur to Biobio, mainly Coihueco, less in San Ignacio and El Carmen; damage 10 to 20%, about 900 t",
+     "family": "association release"
+    },
+    {
+     "source": "El Tipografo relaying ASOEX and iQonsulting",
+     "url": "https://eltipografo.cl/2022/11/arandanos-lluvia-y-granizo-de-noviembre-tuvo-minimo-efecto-sobre-la-produccion",
+     "statement": "frost centred on Coihueco; hail 10 to 12 November is a separate event",
+     "family": "local news"
+    }
+   ],
+   "published_station_values": [
+    {
+     "value_c": -2.0,
+     "place": "Coihueco (RAN station 107, FDF)",
+     "time": "2022-10-31 06:00 local",
+     "source": "RAN Agromet hourly data, https://www.agromet.cl/datos-historicos"
+    },
+    {
+     "value_c": -2.2,
+     "place": "Linares",
+     "time": "October 2022, one of three cold events (8-9, 21-22 and 31 October)",
+     "source": "DMC Boletin Agroclimatico Mensual, Octubre 2022, Vol. 44, p.8, https://climatologia.meteochile.gob.cl/publicaciones/boletinAgroclimatico/boletinAgroclimatico202210.pdf",
+     "reading": "The bulletin lists -2.2 C at Linares among the lowest values of the three October events; it does not say which day. The sentence begins \"En noviembre de 2022\", but it sits in the October analysis and mentions day 31, so October is meant."
+    }
+   ],
+   "time_zone": "America/Santiago",
+   "event_night_local_date": "2022-10-31",
+   "night_definition": "local 18:00 on D-1 to 10:00 on D, for D = event night -3 to +3 days",
+   "pins": {
+    "Coihueco": [
+     -36.6167,
+     -71.8333
+    ],
+    "Chillan (benchmark cl-chillan-nuble)": [
+     -36.6066,
+     -72.1034
+    ],
+    "Linares (benchmark cl-linares-maule)": [
+     -35.8467,
+     -71.5931
+    ],
+    "Longavi": [
+     -35.9667,
+     -71.6833
+    ]
+   },
+   "pin_cells": {
+    "Coihueco": [
+     107,
+     173
+    ],
+    "Chillan (benchmark cl-chillan-nuble)": [
+     107,
+     173
+    ],
+    "Linares (benchmark cl-linares-maule)": [
+     108,
+     173
+    ],
+    "Longavi": [
+     108,
+     173
+    ]
+   },
+   "grid_cells": [
+    {
+     "cell_index": [
+      106,
+      172
+     ],
+     "lat": -37.0,
+     "lon": -72.5,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 73.1,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 56.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 6.12,
+       "2022-10-28": 10.11,
+       "2022-10-29": 11.06,
+       "2022-10-30": 4.78,
+       "2022-10-31": 3.11,
+       "2022-11-01": 6.78,
+       "2022-11-02": 8.32,
+       "2022-11-03": 8.96
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.11,
+        "min_time_utc": "2022-10-28 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.06,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.78,
+        "min_time_utc": "2022-10-30 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.11,
+        "min_time_utc": "2022-10-31 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.78,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.32,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.96,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -72.5,
+      "power_point_lat": -37.0,
+      "elevation_m": 156.9
+     }
+    },
+    {
+     "cell_index": [
+      106,
+      173
+     ],
+     "lat": -37.0,
+     "lon": -71.875,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 42.8,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 48.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 6.71,
+       "2022-10-28": 7.26,
+       "2022-10-29": 9.08,
+       "2022-10-30": 0.01,
+       "2022-10-31": 3.34,
+       "2022-11-01": 8.53,
+       "2022-11-02": 10.19,
+       "2022-11-03": 9.6
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.26,
+        "min_time_utc": "2022-10-28 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.52,
+        "min_time_utc": "2022-10-29 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 0.01,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.34,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.53,
+        "min_time_utc": "2022-11-01 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.19,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.6,
+        "min_time_utc": "2022-11-03 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.875,
+      "power_point_lat": -37.0,
+      "elevation_m": 625.28
+     }
+    },
+    {
+     "cell_index": [
+      106,
+      174
+     ],
+     "lat": -37.0,
+     "lon": -71.25,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 67.2,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 87.7,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 0.7,
+       "2022-10-28": 0.84,
+       "2022-10-29": 2.93,
+       "2022-10-30": -7.06,
+       "2022-10-31": -2.89,
+       "2022-11-01": 2.31,
+       "2022-11-02": 4.22,
+       "2022-11-03": 5.12
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 0.84,
+        "min_time_utc": "2022-10-28 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.05,
+        "min_time_utc": "2022-10-29 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -7.06,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 11,
+        "hours_le_minus_1_c": 10,
+        "hours_le_minus_2.2_c": 9
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -2.89,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 10,
+        "hours_le_minus_1_c": 9,
+        "hours_le_minus_2.2_c": 6
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.31,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.22,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.12,
+        "min_time_utc": "2022-11-03 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.25,
+      "power_point_lat": -37.0,
+      "elevation_m": 1624.49
+     }
+    },
+    {
+     "cell_index": [
+      107,
+      172
+     ],
+     "lat": -36.5,
+     "lon": -72.5,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 60.9,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 37.4,
+       "is_pin_cell": false
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 109.1,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 94.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 5.31,
+       "2022-10-28": 9.32,
+       "2022-10-29": 10.76,
+       "2022-10-30": 4.19,
+       "2022-10-31": 2.27,
+       "2022-11-01": 3.71,
+       "2022-11-02": 6.41,
+       "2022-11-03": 7.4
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.32,
+        "min_time_utc": "2022-10-28 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.76,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.19,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.27,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.71,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.41,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.4,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -72.5,
+      "power_point_lat": -36.5,
+      "elevation_m": 200.47
+     }
+    },
+    {
+     "cell_index": [
+      107,
+      173
+     ],
+     "lat": -36.5,
+     "lon": -71.875,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 13.5,
+       "is_pin_cell": true
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 23.6,
+       "is_pin_cell": true
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 76.9,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 61.7,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 7.8,
+       "2022-10-28": 7.78,
+       "2022-10-29": 10.61,
+       "2022-10-30": 2.24,
+       "2022-10-31": 4.56,
+       "2022-11-01": 10.08,
+       "2022-11-02": 9.22,
+       "2022-11-03": 11.28
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.78,
+        "min_time_utc": "2022-10-28 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.61,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.24,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.56,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.08,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.22,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.28,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.875,
+      "power_point_lat": -36.5,
+      "elevation_m": 355.46
+     }
+    },
+    {
+     "cell_index": [
+      107,
+      174
+     ],
+     "lat": -36.5,
+     "lon": -71.25,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 53.7,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 77.1,
+       "is_pin_cell": false
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 78.9,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 70.9,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 3.12,
+       "2022-10-28": 1.96,
+       "2022-10-29": 5.73,
+       "2022-10-30": -6.15,
+       "2022-10-31": -0.74,
+       "2022-11-01": 5.72,
+       "2022-11-02": 5.4,
+       "2022-11-03": 6.35
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.96,
+        "min_time_utc": "2022-10-28 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.73,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -6.15,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 7,
+        "hours_le_minus_1_c": 7,
+        "hours_le_minus_2.2_c": 5
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.74,
+        "min_time_utc": "2022-10-31 06:00:00",
+        "hours_le_0_c": 6,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.72,
+        "min_time_utc": "2022-11-01 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.4,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.35,
+        "min_time_utc": "2022-11-03 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.25,
+      "power_point_lat": -36.5,
+      "elevation_m": 1428.15
+     }
+    },
+    {
+     "cell_index": [
+      108,
+      172
+     ],
+     "lat": -36.0,
+     "lon": -72.5,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 90.9,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 76.2,
+       "is_pin_cell": false
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 83.4,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 73.6,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 6.58,
+       "2022-10-28": 8.59,
+       "2022-10-29": 10.19,
+       "2022-10-30": 3.95,
+       "2022-10-31": 3.12,
+       "2022-11-01": 6.58,
+       "2022-11-02": 6.35,
+       "2022-11-03": 8.59
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.59,
+        "min_time_utc": "2022-10-28 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.19,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.95,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.12,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.58,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.35,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.59,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -72.5,
+      "power_point_lat": -36.0,
+      "elevation_m": 243.32
+     }
+    },
+    {
+     "cell_index": [
+      108,
+      173
+     ],
+     "lat": -36.0,
+     "lon": -71.875,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 68.7,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 70.5,
+       "is_pin_cell": false
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 30.6,
+       "is_pin_cell": true
+      },
+      "Longavi": {
+       "distance_km": 17.6,
+       "is_pin_cell": true
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 8.39,
+       "2022-10-28": 9.21,
+       "2022-10-29": 11.42,
+       "2022-10-30": 3.69,
+       "2022-10-31": 5.07,
+       "2022-11-01": 9.59,
+       "2022-11-02": 9.15,
+       "2022-11-03": 10.11
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.21,
+        "min_time_utc": "2022-10-28 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.42,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.69,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.07,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.59,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.15,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.11,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.875,
+      "power_point_lat": -36.0,
+      "elevation_m": 217.6
+     }
+    },
+    {
+     "cell_index": [
+      108,
+      174
+     ],
+     "lat": -36.0,
+     "lon": -71.25,
+     "pins": {
+      "Coihueco": {
+       "distance_km": 86.2,
+       "is_pin_cell": false
+      },
+      "Chillan (benchmark cl-chillan-nuble)": {
+       "distance_km": 102.0,
+       "is_pin_cell": false
+      },
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 35.3,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 39.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 5.99,
+       "2022-10-28": 4.99,
+       "2022-10-29": 8.03,
+       "2022-10-30": -1.57,
+       "2022-10-31": 3.08,
+       "2022-11-01": 8.69,
+       "2022-11-02": 6.89,
+       "2022-11-03": 8.51
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.99,
+        "min_time_utc": "2022-10-28 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.03,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -1.57,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 3,
+        "hours_le_minus_1_c": 1,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.08,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.69,
+        "min_time_utc": "2022-11-01 06:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.89,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.51,
+        "min_time_utc": "2022-11-03 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.25,
+      "power_point_lat": -36.0,
+      "elevation_m": 1090.47
+     }
+    },
+    {
+     "cell_index": [
+      109,
+      172
+     ],
+     "lat": -35.5,
+     "lon": -72.5,
+     "pins": {
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 90.5,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 90.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 9.01,
+       "2022-10-28": 10.65,
+       "2022-10-29": 11.76,
+       "2022-10-30": 6.24,
+       "2022-10-31": 7.1,
+       "2022-11-01": 9.8,
+       "2022-11-02": 8.86,
+       "2022-11-03": 9.58
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.65,
+        "min_time_utc": "2022-10-28 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.76,
+        "min_time_utc": "2022-10-29 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.24,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.1,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.8,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.86,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.58,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -72.5,
+      "power_point_lat": -35.5,
+      "elevation_m": 127.21
+     }
+    },
+    {
+     "cell_index": [
+      109,
+      173
+     ],
+     "lat": -35.5,
+     "lon": -71.875,
+     "pins": {
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 46.2,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 54.7,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 8.19,
+       "2022-10-28": 8.78,
+       "2022-10-29": 10.6,
+       "2022-10-30": 4.4,
+       "2022-10-31": 5.64,
+       "2022-11-01": 8.03,
+       "2022-11-02": 8.07,
+       "2022-11-03": 8.98
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.78,
+        "min_time_utc": "2022-10-28 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.6,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.4,
+        "min_time_utc": "2022-10-30 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.64,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.03,
+        "min_time_utc": "2022-11-01 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.07,
+        "min_time_utc": "2022-11-02 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.98,
+        "min_time_utc": "2022-11-03 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.875,
+      "power_point_lat": -35.5,
+      "elevation_m": 228.04
+     }
+    },
+    {
+     "cell_index": [
+      109,
+      174
+     ],
+     "lat": -35.5,
+     "lon": -71.25,
+     "pins": {
+      "Linares (benchmark cl-linares-maule)": {
+       "distance_km": 49.5,
+       "is_pin_cell": false
+      },
+      "Longavi": {
+       "distance_km": 65.0,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-27": 8.4,
+       "2022-10-28": 7.35,
+       "2022-10-29": 10.21,
+       "2022-10-30": 3.66,
+       "2022-10-31": 6.45,
+       "2022-11-01": 12.11,
+       "2022-11-02": 10.26,
+       "2022-11-03": 11.65
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-28",
+        "window_utc": [
+         "2022-10-27 21:00:00",
+         "2022-10-28 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.35,
+        "min_time_utc": "2022-10-28 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-29",
+        "window_utc": [
+         "2022-10-28 21:00:00",
+         "2022-10-29 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.21,
+        "min_time_utc": "2022-10-29 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-30",
+        "window_utc": [
+         "2022-10-29 21:00:00",
+         "2022-10-30 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.66,
+        "min_time_utc": "2022-10-30 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-31",
+        "window_utc": [
+         "2022-10-30 21:00:00",
+         "2022-10-31 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.45,
+        "min_time_utc": "2022-10-31 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-01",
+        "window_utc": [
+         "2022-10-31 21:00:00",
+         "2022-11-01 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.11,
+        "min_time_utc": "2022-11-01 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-02",
+        "window_utc": [
+         "2022-11-01 21:00:00",
+         "2022-11-02 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.26,
+        "min_time_utc": "2022-11-02 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-11-03",
+        "window_utc": [
+         "2022-11-02 21:00:00",
+         "2022-11-03 13:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.65,
+        "min_time_utc": "2022-11-03 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -71.25,
+      "power_point_lat": -35.5,
+      "elevation_m": 732.77
+     }
+    }
+   ],
+   "stations": [],
+   "model_stage": {
+    "Coihueco": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-06-12",
+     "flowering": [
+      "2022-08-21",
+      "2022-10-20"
+     ],
+     "fruit": [
+      "2022-10-21",
+      "2022-11-22"
+     ],
+     "harvest": [
+      "2022-11-23",
+      "2023-01-01"
+     ],
+     "stage_on_event_day": "fruit",
+     "hourly_source_distance_km": 13.5
+    },
+    "Chillan (benchmark cl-chillan-nuble)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-06-12",
+     "flowering": [
+      "2022-08-21",
+      "2022-10-20"
+     ],
+     "fruit": [
+      "2022-10-21",
+      "2022-11-22"
+     ],
+     "harvest": [
+      "2022-11-23",
+      "2023-01-01"
+     ],
+     "stage_on_event_day": "fruit",
+     "hourly_source_distance_km": 23.6
+    },
+    "Linares (benchmark cl-linares-maule)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-08-22",
+     "flowering": [
+      "2022-09-15",
+      "2022-11-01"
+     ],
+     "fruit": [
+      "2022-11-02",
+      "2022-11-26"
+     ],
+     "harvest": [
+      "2022-11-27",
+      "2023-01-05"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 30.6
+    },
+    "Longavi": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-08-22",
+     "flowering": [
+      "2022-09-15",
+      "2022-11-01"
+     ],
+     "fruit": [
+      "2022-11-02",
+      "2022-11-26"
+     ],
+     "harvest": [
+      "2022-11-27",
+      "2023-01-05"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 17.6
+    }
+   },
+   "outcome": {
+    "station_hazard": "yes: published values of -2.0 C at Coihueco (RAN station 107, 06:00 local on 31 October) and -2.2 C at Linares (DMC October 2022 bulletin, day not named)",
+    "grid_hazard_pin_cells": "no: local-night minimum 4.56 C (Chillan and Coihueco cell) and 5.07 C (Linares and Longavi cell) on the night ending 31 October",
+    "grid_hazard_neighbourhood": "yes only in the two Andean cells (1,428 m and 1,624 m): -0.74 C and -2.89 C on the night ending 31 October; these are not orchard cells",
+    "magnitude_diff_c": "Coihueco published minimum minus its pin-cell local-night minimum on the event night: -6.56 C",
+    "normal_bias_comparison": "withheld: needs the station series (see withheld_station_data)",
+    "timing_offset_days": "grid cold one night early: the pin cells were coldest on the night ending 30 October (2.24 C and 3.69 C), the stations on the night ending 31 October",
+    "mechanism": "radiative, as described in the trade reports; the station wind check is withheld",
+    "stage_agreement": "yes at the Nuble pins (model: fruit, reported fruit set); adjacent at the Maule pins (model: last day of flowering on 1 November)"
+   },
+   "verdict": "The published station values confirm the frost on the night of 30 to 31 October 2022. Not represented in the pin cells, so the app would not flag it even with the right date. This is the expected behaviour of a daily 55 km grid on a radiative frost night, not a location or species error. Old case status: inconclusive because of the window.",
+   "withheld_station_data": {
+    "stations": 15,
+    "networks": [
+     "RAN Agromet (agromet.cl), 10 stations",
+     "INIA agrometeorology network (agrometeorologia.cl), 5 stations"
+    ],
+    "reason": "The RAN Agromet XML endpoint answered only with a browser user agent, and the INIA series came through the site data-request form. Both access routes are outside the project access rules without approval, so the station series and every value derived from them are withheld here.",
+    "private_copy": "server reports/event_checks_v2/ (full JSON, Markdown, script and raw files)"
+   }
+  },
+  {
+   "case_id": "nz-2022-10-07-frost",
+   "protocol_version": "astra-ibo-evidence-review-5.5",
+   "registry_event_id": "nz-waikato-2022-10-frost",
+   "registration": {
+    "registered_before_v2_computation": true,
+    "hazard": "radiative frost after a polar outbreak (advective cold 5-7 October, then a clear calm night)",
+    "reported_stage": "open flowers (\"when the flowers were the most open\")",
+    "crop_and_system": "rabbiteye and highbush in the Waikato, open field and tunnels",
+    "date_precision_in_ibo": "month (October 2022)",
+    "corroborated_date_and_place": "morning of 7 October 2022, Waikato orchards, -5 C reported by Blueberries New Zealand",
+    "expected": {
+     "station_hazard": "yes at Hamilton AWS",
+     "grid_hazard_pin_cells": "no in the coastal pin cell (-38.0, 175.0)",
+     "grid_hazard_neighbourhood": "near 0 C in the inland cell, below 0 C in the higher cell to the south-east",
+     "timing_offset_days": "0",
+     "stage_agreement": "yes (modelled flowering)"
+    },
+    "honesty_note": "The Hamilton AWS minimum and the daily values of the coastal and inland cells were published in the 2026-10-11 review before this check. These expectations are therefore not blind."
+   },
+   "claims": [
+    {
+     "source": "IBO Global State of the Blueberry Industry Report 2023",
+     "locator": "PDF p.67 (New Zealand)",
+     "statement": "polar blast in October 2022 damaged rabbiteye; helicopters used; Waikato about 40% of the crop",
+     "family": "industry report"
+    },
+    {
+     "source": "Te Awamutu News, citing Blueberries New Zealand",
+     "url": "https://www.teawamutunews.nz/2022/10/how-tunnel-vision-paid-off/",
+     "statement": "-5 C in orchards on 7 October 2022 when the flowers were the most open",
+     "family": "local news"
+    }
+   ],
+   "published_station_values": [
+    {
+     "value_c": -2.9,
+     "place": "Hamilton AWS",
+     "time": "absolute monthly minimum, dated 7 October 2022",
+     "source": "NIWA Climate Statistics, October 2022, https://niwa.co.nz/sites/default/files/Climate%20Statistics%20-%20October%202022.pdf"
+    },
+    {
+     "value_c": -2.0,
+     "place": "Hamilton, Ruakura 2 E",
+     "time": "absolute monthly minimum, dated 7 October 2022",
+     "source": "same NIWA table"
+    },
+    {
+     "value_c": -2.5,
+     "place": "Te Kuiti EWS",
+     "time": "absolute monthly minimum, dated 7 October 2022",
+     "source": "same NIWA table"
+    },
+    {
+     "value_c": null,
+     "place": "New Zealand",
+     "time": "5-7 October 2022",
+     "source": "NIWA Climate Summary for October 2022, https://niwa.co.nz/climate-and-weather/monthly/climate-summary-october-2022",
+     "reading": "Polar fronts crossed the country on 5-7 October; many record or near-record low daily maxima and minima. No Waikato station appears in the low-minimum record table."
+    }
+   ],
+   "time_zone": "Pacific/Auckland",
+   "event_night_local_date": "2022-10-07",
+   "night_definition": "local 18:00 on D-1 to 10:00 on D, for D = event night -3 to +3 days",
+   "pins": {
+    "Hamilton": [
+     -37.787,
+     175.279
+    ],
+    "Ohaupo (benchmark nz-waikato-ohaupo)": [
+     -37.9236,
+     175.3067
+    ]
+   },
+   "pin_cells": {
+    "Hamilton": [
+     104,
+     568
+    ],
+    "Ohaupo (benchmark nz-waikato-ohaupo)": [
+     104,
+     568
+    ]
+   },
+   "grid_cells": [
+    {
+     "cell_index": [
+      103,
+      567
+     ],
+     "lat": -38.5,
+     "lon": 174.375,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 112.0,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 103.6,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": false,
+     "daily": {
+      "status": "unsupported_location",
+      "reason": "This point is in the sea or more than 5 km from land in our coastline map. Move the pin onto land."
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.55,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.2,
+        "min_time_utc": "2022-10-04 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.25,
+        "min_time_utc": "2022-10-05 20:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.98,
+        "min_time_utc": "2022-10-06 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.63,
+        "min_time_utc": "2022-10-07 16:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.39,
+        "min_time_utc": "2022-10-08 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.84,
+        "min_time_utc": "2022-10-09 16:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 174.375,
+      "power_point_lat": -38.5,
+      "elevation_m": 51.23
+     }
+    },
+    {
+     "cell_index": [
+      103,
+      568
+     ],
+     "lat": -38.5,
+     "lon": 175.0,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 83.0,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 69.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 5.99,
+       "2022-10-04": 8.43,
+       "2022-10-05": 4.98,
+       "2022-10-06": 2.77,
+       "2022-10-07": 4.28,
+       "2022-10-08": 7.21,
+       "2022-10-09": 7.57,
+       "2022-10-10": 9.65
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.99,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.43,
+        "min_time_utc": "2022-10-04 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.98,
+        "min_time_utc": "2022-10-05 19:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.77,
+        "min_time_utc": "2022-10-06 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.28,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.21,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.57,
+        "min_time_utc": "2022-10-09 15:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.0,
+      "power_point_lat": -38.5,
+      "elevation_m": 224.93
+     }
+    },
+    {
+     "cell_index": [
+      103,
+      569
+     ],
+     "lat": -38.5,
+     "lon": 175.625,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 84.9,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 69.9,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 4.36,
+       "2022-10-04": 5.92,
+       "2022-10-05": 3.63,
+       "2022-10-06": -0.94,
+       "2022-10-07": 1.81,
+       "2022-10-08": 4.43,
+       "2022-10-09": 5.18,
+       "2022-10-10": 7.55
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.36,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.92,
+        "min_time_utc": "2022-10-04 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.63,
+        "min_time_utc": "2022-10-05 19:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.94,
+        "min_time_utc": "2022-10-06 17:00:00",
+        "hours_le_0_c": 7,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.81,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.43,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.18,
+        "min_time_utc": "2022-10-09 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.625,
+      "power_point_lat": -38.5,
+      "elevation_m": 415.59
+     }
+    },
+    {
+     "cell_index": [
+      104,
+      567
+     ],
+     "lat": -38.0,
+     "lon": 174.375,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 82.8,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 82.1,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": false,
+     "daily": {
+      "status": "unsupported_location",
+      "reason": "This point is in the sea or more than 5 km from land in our coastline map. Move the pin onto land."
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.26,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.85,
+        "min_time_utc": "2022-10-04 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.49,
+        "min_time_utc": "2022-10-05 21:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.92,
+        "min_time_utc": "2022-10-06 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.99,
+        "min_time_utc": "2022-10-07 15:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.73,
+        "min_time_utc": "2022-10-08 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.65,
+        "min_time_utc": "2022-10-09 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 174.375,
+      "power_point_lat": -38.0,
+      "elevation_m": 25.72
+     }
+    },
+    {
+     "cell_index": [
+      104,
+      568
+     ],
+     "lat": -38.0,
+     "lon": 175.0,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 34.1,
+       "is_pin_cell": true
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 28.2,
+       "is_pin_cell": true
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 8.97,
+       "2022-10-04": 10.09,
+       "2022-10-05": 7.82,
+       "2022-10-06": 5.15,
+       "2022-10-07": 6.46,
+       "2022-10-08": 8.28,
+       "2022-10-09": 10.08,
+       "2022-10-10": 10.37
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.97,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.09,
+        "min_time_utc": "2022-10-04 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.82,
+        "min_time_utc": "2022-10-05 21:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.15,
+        "min_time_utc": "2022-10-06 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.46,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.28,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.08,
+        "min_time_utc": "2022-10-09 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.0,
+      "power_point_lat": -38.0,
+      "elevation_m": 108.3
+     }
+    },
+    {
+     "cell_index": [
+      104,
+      569
+     ],
+     "lat": -38.0,
+     "lon": 175.625,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 38.5,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 29.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 7.46,
+       "2022-10-04": 8.39,
+       "2022-10-05": 6.17,
+       "2022-10-06": 0.06,
+       "2022-10-07": 3.93,
+       "2022-10-08": 5.68,
+       "2022-10-09": 7.55,
+       "2022-10-10": 8.16
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.46,
+        "min_time_utc": "2022-10-03 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.39,
+        "min_time_utc": "2022-10-04 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.17,
+        "min_time_utc": "2022-10-05 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 0.06,
+        "min_time_utc": "2022-10-06 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.93,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.68,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.55,
+        "min_time_utc": "2022-10-09 15:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.625,
+      "power_point_lat": -38.0,
+      "elevation_m": 224.62
+     }
+    },
+    {
+     "cell_index": [
+      105,
+      567
+     ],
+     "lat": -37.5,
+     "lon": 174.375,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 85.8,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 94.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": false,
+     "daily": {
+      "status": "unsupported_location",
+      "reason": "This point is in the sea or more than 5 km from land in our coastline map. Move the pin onto land."
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.33,
+        "min_time_utc": "2022-10-03 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.19,
+        "min_time_utc": "2022-10-04 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.22,
+        "min_time_utc": "2022-10-05 21:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.05,
+        "min_time_utc": "2022-10-06 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.79,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.78,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.02,
+        "min_time_utc": "2022-10-09 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 174.375,
+      "power_point_lat": -37.5,
+      "elevation_m": 16.04
+     }
+    },
+    {
+     "cell_index": [
+      105,
+      568
+     ],
+     "lat": -37.5,
+     "lon": 175.0,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 40.3,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 54.3,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 11.26,
+       "2022-10-04": 11.17,
+       "2022-10-05": 9.32,
+       "2022-10-06": 6.13,
+       "2022-10-07": 7.66,
+       "2022-10-08": 9.01,
+       "2022-10-09": 11.64,
+       "2022-10-10": 10.75
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.26,
+        "min_time_utc": "2022-10-03 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.17,
+        "min_time_utc": "2022-10-04 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.32,
+        "min_time_utc": "2022-10-05 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.13,
+        "min_time_utc": "2022-10-06 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.66,
+        "min_time_utc": "2022-10-07 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.01,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.64,
+        "min_time_utc": "2022-10-09 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.0,
+      "power_point_lat": -37.5,
+      "elevation_m": 57.15
+     }
+    },
+    {
+     "cell_index": [
+      105,
+      569
+     ],
+     "lat": -37.5,
+     "lon": 175.625,
+     "pins": {
+      "Hamilton": {
+       "distance_km": 44.1,
+       "is_pin_cell": false
+      },
+      "Ohaupo (benchmark nz-waikato-ohaupo)": {
+       "distance_km": 54.8,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-10-03": 10.26,
+       "2022-10-04": 10.07,
+       "2022-10-05": 7.82,
+       "2022-10-06": 2.56,
+       "2022-10-07": 6.46,
+       "2022-10-08": 7.99,
+       "2022-10-09": 10.56,
+       "2022-10-10": 9.33
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-10-04",
+        "window_utc": [
+         "2022-10-03 05:00:00",
+         "2022-10-03 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.26,
+        "min_time_utc": "2022-10-03 18:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-05",
+        "window_utc": [
+         "2022-10-04 05:00:00",
+         "2022-10-04 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.07,
+        "min_time_utc": "2022-10-04 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-06",
+        "window_utc": [
+         "2022-10-05 05:00:00",
+         "2022-10-05 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.82,
+        "min_time_utc": "2022-10-05 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-07",
+        "window_utc": [
+         "2022-10-06 05:00:00",
+         "2022-10-06 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.56,
+        "min_time_utc": "2022-10-06 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-08",
+        "window_utc": [
+         "2022-10-07 05:00:00",
+         "2022-10-07 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.46,
+        "min_time_utc": "2022-10-07 16:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-09",
+        "window_utc": [
+         "2022-10-08 05:00:00",
+         "2022-10-08 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.99,
+        "min_time_utc": "2022-10-08 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-10-10",
+        "window_utc": [
+         "2022-10-09 05:00:00",
+         "2022-10-09 21:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.56,
+        "min_time_utc": "2022-10-09 17:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": 175.625,
+      "power_point_lat": -37.5,
+      "elevation_m": 111.26
+     }
+    }
+   ],
+   "stations": [
+    {
+     "id": "NZM00093173",
+     "name": "HAMILTON AWS",
+     "lat": -37.85,
+     "lon": 175.3333,
+     "elevation_m": 53.0,
+     "network": "NOAA GHCNh (hourly)",
+     "file": "GHCNh_NZM00093173_2022.psv",
+     "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2022/psv/GHCNh_NZM00093173_2022.psv",
+     "licence": "NOAA NCEI public data (US government work, no restrictions on use)",
+     "pin": "Hamilton",
+     "distance_to_pin_km": 8.5,
+     "nights": [
+      {
+       "night": "2022-10-04",
+       "window_utc": [
+        "2022-10-03 05:00:00",
+        "2022-10-03 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 10.0,
+       "min_time_utc": "2022-10-03 18:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 3.6
+      },
+      {
+       "night": "2022-10-05",
+       "window_utc": [
+        "2022-10-04 05:00:00",
+        "2022-10-04 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 10.1,
+       "min_time_utc": "2022-10-04 14:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 3.1
+      },
+      {
+       "night": "2022-10-06",
+       "window_utc": [
+        "2022-10-05 05:00:00",
+        "2022-10-05 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 5.9,
+       "min_time_utc": "2022-10-05 17:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 5.1
+      },
+      {
+       "night": "2022-10-07",
+       "window_utc": [
+        "2022-10-06 05:00:00",
+        "2022-10-06 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": -2.8,
+       "min_time_utc": "2022-10-06 18:00:00",
+       "hours_le_0_c": 7,
+       "hours_le_minus_1_c": 3,
+       "hours_le_minus_2.2_c": 1,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-10-08",
+       "window_utc": [
+        "2022-10-07 05:00:00",
+        "2022-10-07 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 1.2,
+       "min_time_utc": "2022-10-07 18:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-10-09",
+       "window_utc": [
+        "2022-10-08 05:00:00",
+        "2022-10-08 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 4.1,
+       "min_time_utc": "2022-10-08 17:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      },
+      {
+       "night": "2022-10-10",
+       "window_utc": [
+        "2022-10-09 05:00:00",
+        "2022-10-09 21:00:00"
+       ],
+       "n_obs": 17,
+       "min_c": 11.2,
+       "min_time_utc": "2022-10-09 16:00:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.6
+      }
+     ],
+     "compared_cell_index": [
+      104,
+      569
+     ],
+     "sha256": "563fa8284a458395f7804c009c2c548d4a57dd89af18cba08ad21fc46864b13f",
+     "rows_dropped_qc": 0,
+     "station_minus_own_cell_month_2022": {
+      "all_nights": {
+       "n": 31,
+       "median": 0.38,
+       "p10": -2.73,
+       "p90": 2.11
+      },
+      "calm_nights_wind_median_le_2_m_s": {
+       "n": 9,
+       "median": -0.78,
+       "p10": -3.04,
+       "p90": 1.6
+      },
+      "event_night": {
+       "night": "2022-10-07",
+       "diff_c": -2.86,
+       "wind_median_m_s": 1.5
+      }
+     }
+    }
+   ],
+   "model_stage": {
+    "Hamilton": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-09-12",
+     "flowering": [
+      "2022-09-27",
+      "2022-11-07"
+     ],
+     "fruit": [
+      "2022-11-08",
+      "2022-12-12"
+     ],
+     "harvest": [
+      "2022-12-13",
+      "2023-01-31"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 34.1
+    },
+    "Ohaupo (benchmark nz-waikato-ohaupo)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2022-09-12",
+     "flowering": [
+      "2022-09-27",
+      "2022-11-07"
+     ],
+     "fruit": [
+      "2022-11-08",
+      "2022-12-12"
+     ],
+     "harvest": [
+      "2022-12-13",
+      "2023-01-31"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 28.2
+    }
+   },
+   "outcome": {
+    "station_hazard": "yes: Hamilton AWS -2.8 C hourly (-2.9 C NIWA absolute minimum), 7 hours at or below 0 C, 1 hour at or below -2.2 C",
+    "grid_hazard_pin_cells": "no: the pin cell for Hamilton and Ohaupo (-38.0, 175.0) is coastal and reached 5.15 C",
+    "grid_hazard_neighbourhood": "borderline in the inland cell (-38.0, 175.625): 0.06 C; yes in the cell to the south-east (-38.5, 175.625, 416 m): -0.94 C with 7 hours at or below 0 C",
+    "magnitude_diff_c": "station minus pin cell -7.95; station minus the station's own (inland) cell -2.86",
+    "normal_bias_comparison": "October 2022 calm-night station-minus-own-cell median -0.78 C, 10th percentile -3.04 C. The event-night gap against the own cell (-2.86) is at the edge of the normal calm-night range. Against the coastal pin cell it is far outside.",
+    "timing_offset_days": "0: the night ending 7 October was the coldest of the 7 nights in every land cell",
+    "mechanism": "radiative after an advective outbreak: station wind median 1.5 m/s on the frost night against 3 to 5 m/s on the preceding nights",
+    "stage_agreement": "yes (model flowering 27 September to 7 November; reported open flowers)"
+   },
+   "verdict": "Frost confirmed at the station on the morning of 7 October 2022. Missed because the nearest-cell rule picks a coastal cell; the inland neighbour reaches about 0 C, within the normal calm-night bias. A neighbourhood or land-weighted cell choice would bring the grid within about 3 C. Old case status: inconclusive because of the cell."
+  },
+  {
+   "case_id": "us-se-2022-03-13-freeze",
+   "protocol_version": "astra-ibo-evidence-review-5.5",
+   "registry_event_id": "us-se-freeze-2022-03",
+   "registration": {
+    "registered_before_v2_computation": true,
+    "hazard": "advective (windborne) freeze, followed by a calmer second night",
+    "reported_stage": "not stated in the cited IBO text; early-season blooms and young fruit implied by the loss description",
+    "crop_and_system": "southern highbush and rabbiteye, Georgia and North Carolina, open field",
+    "date_precision_in_ibo": "day (night of 12 March 2022)",
+    "corroborated_date_and_place": "IBO text gives the night of 12 March; no second family was added in this check",
+    "expected": {
+     "station_hazard": "yes at all four stations",
+     "grid_hazard_pin_cells": "yes in all four pin cells",
+     "grid_hazard_neighbourhood": "yes",
+     "timing_offset_days": "0",
+     "stage_agreement": "not testable from the IBO text"
+    },
+    "honesty_note": "The daily pin-cell values were in the 2026-10-05 check, so these expectations are not blind."
+   },
+   "claims": [
+    {
+     "source": "IBO Global State of the Blueberry Industry Report 2023",
+     "locator": "PDF p.45 (United States)",
+     "statement": "freeze on the night of 12 March 2022 wiped out almost half of the industry in Georgia and North Carolina; about 15 million lb lost",
+     "family": "industry report"
+    }
+   ],
+   "published_station_values": [],
+   "time_zone": "America/New_York",
+   "event_night_local_date": "2022-03-13",
+   "night_definition": "local 18:00 on D-1 to 10:00 on D, for D = event night -3 to +3 days",
+   "pins": {
+    "Alma (benchmark us-ga-alma)": [
+     31.5396,
+     -82.4624
+    ],
+    "Homerville (benchmark us-ga-homerville)": [
+     31.0366,
+     -82.7471
+    ],
+    "Elizabethtown (benchmark us-nc-elizabethtown)": [
+     34.6293,
+     -78.6053
+    ],
+    "Burgaw (benchmark us-nc-burgaw)": [
+     34.5527,
+     -77.9261
+    ]
+   },
+   "pin_cells": {
+    "Alma (benchmark us-ga-alma)": [
+     243,
+     156
+    ],
+    "Homerville (benchmark us-ga-homerville)": [
+     242,
+     156
+    ],
+    "Elizabethtown (benchmark us-nc-elizabethtown)": [
+     249,
+     162
+    ],
+    "Burgaw (benchmark us-nc-burgaw)": [
+     249,
+     163
+    ]
+   },
+   "grid_cells": [
+    {
+     "cell_index": [
+      241,
+      155
+     ],
+     "lat": 30.5,
+     "lon": -83.125,
+     "pins": {
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 69.7,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.83,
+       "2022-03-10": 17.57,
+       "2022-03-11": 17.46,
+       "2022-03-12": 6.93,
+       "2022-03-13": -2.61,
+       "2022-03-14": 2.77,
+       "2022-03-15": 11.94,
+       "2022-03-16": 16.81
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.57,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.46,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.09,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -2.61,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 6,
+        "hours_le_minus_1_c": 3,
+        "hours_le_minus_2.2_c": 2
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.77,
+        "min_time_utc": "2022-03-14 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.94,
+        "min_time_utc": "2022-03-15 06:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.81,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -83.125,
+      "power_point_lat": 30.5,
+      "elevation_m": 40.42
+     }
+    },
+    {
+     "cell_index": [
+      241,
+      156
+     ],
+     "lat": 30.5,
+     "lon": -82.5,
+     "pins": {
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 64.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.92,
+       "2022-03-10": 17.5,
+       "2022-03-11": 17.2,
+       "2022-03-12": 7.32,
+       "2022-03-13": -2.2,
+       "2022-03-14": 3.53,
+       "2022-03-15": 11.34,
+       "2022-03-16": 17.15
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.5,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.2,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.48,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -2.2,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 5,
+        "hours_le_minus_1_c": 3,
+        "hours_le_minus_2.2_c": 1
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.53,
+        "min_time_utc": "2022-03-14 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.34,
+        "min_time_utc": "2022-03-15 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.15,
+        "min_time_utc": "2022-03-16 02:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -82.5,
+      "power_point_lat": 30.5,
+      "elevation_m": 37.18
+     }
+    },
+    {
+     "cell_index": [
+      241,
+      157
+     ],
+     "lat": 30.5,
+     "lon": -81.875,
+     "pins": {
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 102.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 18.7,
+       "2022-03-10": 17.52,
+       "2022-03-11": 17.1,
+       "2022-03-12": 7.61,
+       "2022-03-13": -1.42,
+       "2022-03-14": 5.07,
+       "2022-03-15": 12.15,
+       "2022-03-16": 17.13
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.52,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.1,
+        "min_time_utc": "2022-03-11 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.55,
+        "min_time_utc": "2022-03-12 15:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -1.42,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 3,
+        "hours_le_minus_1_c": 2,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.07,
+        "min_time_utc": "2022-03-14 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.15,
+        "min_time_utc": "2022-03-15 03:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.13,
+        "min_time_utc": "2022-03-16 00:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -81.875,
+      "power_point_lat": 30.5,
+      "elevation_m": 19.11
+     }
+    },
+    {
+     "cell_index": [
+      242,
+      155
+     ],
+     "lat": 31.0,
+     "lon": -83.125,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 87.0,
+       "is_pin_cell": false
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 36.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.59,
+       "2022-03-10": 15.79,
+       "2022-03-11": 15.7,
+       "2022-03-12": 6.1,
+       "2022-03-13": -3.09,
+       "2022-03-14": 1.69,
+       "2022-03-15": 10.82,
+       "2022-03-16": 16.13
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.79,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.7,
+        "min_time_utc": "2022-03-11 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.44,
+        "min_time_utc": "2022-03-12 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -3.09,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 7,
+        "hours_le_minus_1_c": 5,
+        "hours_le_minus_2.2_c": 3
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.69,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.82,
+        "min_time_utc": "2022-03-15 06:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.13,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -83.125,
+      "power_point_lat": 31.0,
+      "elevation_m": 61.07
+     }
+    },
+    {
+     "cell_index": [
+      242,
+      156
+     ],
+     "lat": 31.0,
+     "lon": -82.5,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 60.1,
+       "is_pin_cell": false
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 23.9,
+       "is_pin_cell": true
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.65,
+       "2022-03-10": 16.87,
+       "2022-03-11": 15.72,
+       "2022-03-12": 6.53,
+       "2022-03-13": -2.53,
+       "2022-03-14": 2.25,
+       "2022-03-15": 10.41,
+       "2022-03-16": 16.03
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.87,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.72,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.49,
+        "min_time_utc": "2022-03-12 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -2.53,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 6,
+        "hours_le_minus_1_c": 3,
+        "hours_le_minus_2.2_c": 2
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.25,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.41,
+        "min_time_utc": "2022-03-15 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.03,
+        "min_time_utc": "2022-03-16 02:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -82.5,
+      "power_point_lat": 31.0,
+      "elevation_m": 45.49
+     }
+    },
+    {
+     "cell_index": [
+      242,
+      157
+     ],
+     "lat": 31.0,
+     "lon": -81.875,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 82.0,
+       "is_pin_cell": false
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 83.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 18.35,
+       "2022-03-10": 17.32,
+       "2022-03-11": 15.7,
+       "2022-03-12": 7.17,
+       "2022-03-13": -1.52,
+       "2022-03-14": 3.61,
+       "2022-03-15": 10.99,
+       "2022-03-16": 16.1
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 17.32,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.7,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.86,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -1.52,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 4,
+        "hours_le_minus_1_c": 2,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.61,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.99,
+        "min_time_utc": "2022-03-15 03:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.1,
+        "min_time_utc": "2022-03-16 01:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -81.875,
+      "power_point_lat": 31.0,
+      "elevation_m": 18.44
+     }
+    },
+    {
+     "cell_index": [
+      243,
+      155
+     ],
+     "lat": 31.5,
+     "lon": -83.125,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 63.0,
+       "is_pin_cell": false
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 62.8,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.36,
+       "2022-03-10": 13.47,
+       "2022-03-11": 14.23,
+       "2022-03-12": 4.97,
+       "2022-03-13": -3.72,
+       "2022-03-14": 1.34,
+       "2022-03-15": 10.02,
+       "2022-03-16": 14.96
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.47,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.23,
+        "min_time_utc": "2022-03-11 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.98,
+        "min_time_utc": "2022-03-12 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -3.72,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 8,
+        "hours_le_minus_1_c": 6,
+        "hours_le_minus_2.2_c": 4
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.34,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.02,
+        "min_time_utc": "2022-03-15 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.96,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -83.125,
+      "power_point_lat": 31.5,
+      "elevation_m": 82.1
+     }
+    },
+    {
+     "cell_index": [
+      243,
+      156
+     ],
+     "lat": 31.5,
+     "lon": -82.5,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 5.7,
+       "is_pin_cell": true
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 56.6,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.15,
+       "2022-03-10": 13.83,
+       "2022-03-11": 14.58,
+       "2022-03-12": 5.38,
+       "2022-03-13": -3.12,
+       "2022-03-14": 1.75,
+       "2022-03-15": 10.05,
+       "2022-03-16": 15.12
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.83,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.58,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.62,
+        "min_time_utc": "2022-03-12 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -3.12,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 7,
+        "hours_le_minus_1_c": 5,
+        "hours_le_minus_2.2_c": 3
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.75,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.05,
+        "min_time_utc": "2022-03-15 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.12,
+        "min_time_utc": "2022-03-16 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -82.5,
+      "power_point_lat": 31.5,
+      "elevation_m": 57.59
+     }
+    },
+    {
+     "cell_index": [
+      243,
+      157
+     ],
+     "lat": 31.5,
+     "lon": -81.875,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 55.9,
+       "is_pin_cell": false
+      },
+      "Homerville (benchmark us-ga-homerville)": {
+       "distance_km": 97.6,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.83,
+       "2022-03-10": 15.55,
+       "2022-03-11": 14.6,
+       "2022-03-12": 5.96,
+       "2022-03-13": -2.5,
+       "2022-03-14": 2.25,
+       "2022-03-15": 9.83,
+       "2022-03-16": 15.17
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.55,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.6,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.01,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -2.5,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 6,
+        "hours_le_minus_1_c": 4,
+        "hours_le_minus_2.2_c": 2
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.25,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.83,
+        "min_time_utc": "2022-03-15 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.17,
+        "min_time_utc": "2022-03-16 02:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -81.875,
+      "power_point_lat": 31.5,
+      "elevation_m": 27.32
+     }
+    },
+    {
+     "cell_index": [
+      244,
+      155
+     ],
+     "lat": 32.0,
+     "lon": -83.125,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 80.9,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.04,
+       "2022-03-10": 12.39,
+       "2022-03-11": 12.51,
+       "2022-03-12": 3.94,
+       "2022-03-13": -4.33,
+       "2022-03-14": 1.29,
+       "2022-03-15": 9.0,
+       "2022-03-16": 14.33
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.39,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.51,
+        "min_time_utc": "2022-03-11 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.82,
+        "min_time_utc": "2022-03-12 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -4.33,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 9,
+        "hours_le_minus_1_c": 8,
+        "hours_le_minus_2.2_c": 5
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.29,
+        "min_time_utc": "2022-03-14 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.0,
+        "min_time_utc": "2022-03-15 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.33,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -83.125,
+      "power_point_lat": 32.0,
+      "elevation_m": 83.61
+     }
+    },
+    {
+     "cell_index": [
+      244,
+      156
+     ],
+     "lat": 32.0,
+     "lon": -82.5,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 51.3,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 16.93,
+       "2022-03-10": 12.81,
+       "2022-03-11": 13.65,
+       "2022-03-12": 4.32,
+       "2022-03-13": -3.68,
+       "2022-03-14": 1.82,
+       "2022-03-15": 9.58,
+       "2022-03-16": 14.84
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.81,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.65,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.93,
+        "min_time_utc": "2022-03-12 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -3.68,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 8,
+        "hours_le_minus_1_c": 7,
+        "hours_le_minus_2.2_c": 4
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 1.82,
+        "min_time_utc": "2022-03-14 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.58,
+        "min_time_utc": "2022-03-15 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.84,
+        "min_time_utc": "2022-03-16 02:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -82.5,
+      "power_point_lat": 32.0,
+      "elevation_m": 61.36
+     }
+    },
+    {
+     "cell_index": [
+      244,
+      157
+     ],
+     "lat": 32.0,
+     "lon": -81.875,
+     "pins": {
+      "Alma (benchmark us-ga-alma)": {
+       "distance_km": 75.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 17.22,
+       "2022-03-10": 13.34,
+       "2022-03-11": 13.94,
+       "2022-03-12": 5.12,
+       "2022-03-13": -2.96,
+       "2022-03-14": 2.42,
+       "2022-03-15": 9.69,
+       "2022-03-16": 14.94
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.34,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.94,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.32,
+        "min_time_utc": "2022-03-12 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -2.96,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 7,
+        "hours_le_minus_1_c": 5,
+        "hours_le_minus_2.2_c": 3
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.42,
+        "min_time_utc": "2022-03-14 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.69,
+        "min_time_utc": "2022-03-15 06:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.94,
+        "min_time_utc": "2022-03-16 01:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -81.875,
+      "power_point_lat": 32.0,
+      "elevation_m": 40.98
+     }
+    },
+    {
+     "cell_index": [
+      248,
+      161
+     ],
+     "lat": 34.0,
+     "lon": -79.375,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 99.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 13.04,
+       "2022-03-10": 9.34,
+       "2022-03-11": 6.69,
+       "2022-03-12": 4.22,
+       "2022-03-13": -4.63,
+       "2022-03-14": 0.87,
+       "2022-03-15": 5.63,
+       "2022-03-16": 12.73
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.34,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.69,
+        "min_time_utc": "2022-03-11 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.36,
+        "min_time_utc": "2022-03-12 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -4.63,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 10,
+        "hours_le_minus_1_c": 9,
+        "hours_le_minus_2.2_c": 7
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 0.87,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.63,
+        "min_time_utc": "2022-03-15 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.73,
+        "min_time_utc": "2022-03-16 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -79.375,
+      "power_point_lat": 34.0,
+      "elevation_m": 20.77
+     }
+    },
+    {
+     "cell_index": [
+      248,
+      162
+     ],
+     "lat": 34.0,
+     "lon": -78.75,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 71.2,
+       "is_pin_cell": false
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 97.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 13.72,
+       "2022-03-10": 9.62,
+       "2022-03-11": 7.62,
+       "2022-03-12": 5.54,
+       "2022-03-13": -3.14,
+       "2022-03-14": 2.7,
+       "2022-03-15": 7.62,
+       "2022-03-16": 13.66
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.62,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.62,
+        "min_time_utc": "2022-03-11 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.53,
+        "min_time_utc": "2022-03-12 01:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -3.14,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 8,
+        "hours_le_minus_1_c": 6,
+        "hours_le_minus_2.2_c": 4
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 2.7,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.62,
+        "min_time_utc": "2022-03-15 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.66,
+        "min_time_utc": "2022-03-16 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.75,
+      "power_point_lat": 34.0,
+      "elevation_m": 13.13
+     }
+    },
+    {
+     "cell_index": [
+      248,
+      163
+     ],
+     "lat": 34.0,
+     "lon": -78.125,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 82.7,
+       "is_pin_cell": false
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 64.1,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 14.27,
+       "2022-03-10": 10.04,
+       "2022-03-11": 8.1,
+       "2022-03-12": 6.69,
+       "2022-03-13": -1.14,
+       "2022-03-14": 3.32,
+       "2022-03-15": 8.65,
+       "2022-03-16": 13.78
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.04,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.1,
+        "min_time_utc": "2022-03-11 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.46,
+        "min_time_utc": "2022-03-12 01:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -1.14,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 5,
+        "hours_le_minus_1_c": 2,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.32,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.65,
+        "min_time_utc": "2022-03-15 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.78,
+        "min_time_utc": "2022-03-16 03:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.125,
+      "power_point_lat": 34.0,
+      "elevation_m": 7.52
+     }
+    },
+    {
+     "cell_index": [
+      248,
+      164
+     ],
+     "lat": 34.0,
+     "lon": -77.5,
+     "pins": {
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 72.9,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": false,
+     "daily": {
+      "status": "unsupported_location",
+      "reason": "This point is in the sea or more than 5 km from land in our coastline map. Move the pin onto land."
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.35,
+        "min_time_utc": "2022-03-10 13:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 12.16,
+        "min_time_utc": "2022-03-11 08:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 15.99,
+        "min_time_utc": "2022-03-12 02:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": 3.43,
+        "min_time_utc": "2022-03-13 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.9,
+        "min_time_utc": "2022-03-13 22:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.25,
+        "min_time_utc": "2022-03-14 22:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 16.93,
+        "min_time_utc": "2022-03-15 23:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -77.5,
+      "power_point_lat": 34.0,
+      "elevation_m": 0.64
+     }
+    },
+    {
+     "cell_index": [
+      249,
+      161
+     ],
+     "lat": 34.5,
+     "lon": -79.375,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 71.9,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 10.78,
+       "2022-03-10": 8.37,
+       "2022-03-11": 5.69,
+       "2022-03-12": 2.86,
+       "2022-03-13": -5.48,
+       "2022-03-14": 0.21,
+       "2022-03-15": 4.74,
+       "2022-03-16": 11.11
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.37,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.69,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.94,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -5.48,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 11,
+        "hours_le_minus_1_c": 10,
+        "hours_le_minus_2.2_c": 9
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 0.21,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.74,
+        "min_time_utc": "2022-03-15 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.11,
+        "min_time_utc": "2022-03-16 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -79.375,
+      "power_point_lat": 34.5,
+      "elevation_m": 43.93
+     }
+    },
+    {
+     "cell_index": [
+      249,
+      162
+     ],
+     "lat": 34.5,
+     "lon": -78.75,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 19.6,
+       "is_pin_cell": true
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 75.7,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 10.42,
+       "2022-03-10": 8.29,
+       "2022-03-11": 5.92,
+       "2022-03-12": 3.98,
+       "2022-03-13": -5.47,
+       "2022-03-14": -0.12,
+       "2022-03-15": 5.37,
+       "2022-03-16": 11.29
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.29,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.92,
+        "min_time_utc": "2022-03-11 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.76,
+        "min_time_utc": "2022-03-12 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -5.47,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 11,
+        "hours_le_minus_1_c": 9,
+        "hours_le_minus_2.2_c": 7
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.12,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 2,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.37,
+        "min_time_utc": "2022-03-15 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.29,
+        "min_time_utc": "2022-03-16 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.75,
+      "power_point_lat": 34.5,
+      "elevation_m": 30.04
+     }
+    },
+    {
+     "cell_index": [
+      249,
+      163
+     ],
+     "lat": 34.5,
+     "lon": -78.125,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 46.3,
+       "is_pin_cell": false
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 19.1,
+       "is_pin_cell": true
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 10.41,
+       "2022-03-10": 7.97,
+       "2022-03-11": 6.41,
+       "2022-03-12": 4.32,
+       "2022-03-13": -5.24,
+       "2022-03-14": -0.87,
+       "2022-03-15": 5.24,
+       "2022-03-16": 11.46
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.97,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.41,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.03,
+        "min_time_utc": "2022-03-12 05:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -5.24,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 10,
+        "hours_le_minus_1_c": 9,
+        "hours_le_minus_2.2_c": 6
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.87,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 5,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.24,
+        "min_time_utc": "2022-03-15 03:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.46,
+        "min_time_utc": "2022-03-16 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.125,
+      "power_point_lat": 34.5,
+      "elevation_m": 14.49
+     }
+    },
+    {
+     "cell_index": [
+      249,
+      164
+     ],
+     "lat": 34.5,
+     "lon": -77.5,
+     "pins": {
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 39.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 12.81,
+       "2022-03-10": 9.57,
+       "2022-03-11": 8.09,
+       "2022-03-12": 6.11,
+       "2022-03-13": -1.41,
+       "2022-03-14": 5.2,
+       "2022-03-15": 10.73,
+       "2022-03-16": 14.53
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.57,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 8.09,
+        "min_time_utc": "2022-03-11 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 13.15,
+        "min_time_utc": "2022-03-12 03:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -1.41,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 5,
+        "hours_le_minus_1_c": 3,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.2,
+        "min_time_utc": "2022-03-14 09:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.73,
+        "min_time_utc": "2022-03-15 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 14.53,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -77.5,
+      "power_point_lat": 34.5,
+      "elevation_m": 7.27
+     }
+    },
+    {
+     "cell_index": [
+      250,
+      161
+     ],
+     "lat": 35.0,
+     "lon": -79.375,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 81.5,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 8.46,
+       "2022-03-10": 7.58,
+       "2022-03-11": 5.2,
+       "2022-03-12": 1.23,
+       "2022-03-13": -6.03,
+       "2022-03-14": -0.67,
+       "2022-03-15": 3.33,
+       "2022-03-16": 9.78
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.58,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.2,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.07,
+        "min_time_utc": "2022-03-12 14:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -6.03,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 13,
+        "hours_le_minus_1_c": 12,
+        "hours_le_minus_2.2_c": 10
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.67,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 4,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.33,
+        "min_time_utc": "2022-03-15 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.78,
+        "min_time_utc": "2022-03-16 10:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -79.375,
+      "power_point_lat": 35.0,
+      "elevation_m": 91.93
+     }
+    },
+    {
+     "cell_index": [
+      250,
+      162
+     ],
+     "lat": 35.0,
+     "lon": -78.75,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 43.3,
+       "is_pin_cell": false
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 90.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 8.2,
+       "2022-03-10": 7.55,
+       "2022-03-11": 5.25,
+       "2022-03-12": 2.36,
+       "2022-03-13": -6.04,
+       "2022-03-14": -0.78,
+       "2022-03-15": 3.55,
+       "2022-03-16": 9.7
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.55,
+        "min_time_utc": "2022-03-10 12:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.25,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.52,
+        "min_time_utc": "2022-03-12 15:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -6.04,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 12,
+        "hours_le_minus_1_c": 11,
+        "hours_le_minus_2.2_c": 9
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.78,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 4,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 3.55,
+        "min_time_utc": "2022-03-15 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 9.7,
+        "min_time_utc": "2022-03-16 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.75,
+      "power_point_lat": 35.0,
+      "elevation_m": 49.52
+     }
+    },
+    {
+     "cell_index": [
+      250,
+      163
+     ],
+     "lat": 35.0,
+     "lon": -78.125,
+     "pins": {
+      "Elizabethtown (benchmark us-nc-elizabethtown)": {
+       "distance_km": 60.2,
+       "is_pin_cell": false
+      },
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 53.0,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 8.48,
+       "2022-03-10": 7.46,
+       "2022-03-11": 5.22,
+       "2022-03-12": 2.95,
+       "2022-03-13": -6.18,
+       "2022-03-14": -1.15,
+       "2022-03-15": 4.49,
+       "2022-03-16": 10.44
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.46,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.22,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.54,
+        "min_time_utc": "2022-03-12 00:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -6.18,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 11,
+        "hours_le_minus_1_c": 10,
+        "hours_le_minus_2.2_c": 9
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -1.15,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 5,
+        "hours_le_minus_1_c": 1,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 4.49,
+        "min_time_utc": "2022-03-15 06:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 10.44,
+        "min_time_utc": "2022-03-16 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -78.125,
+      "power_point_lat": 35.0,
+      "elevation_m": 34.9
+     }
+    },
+    {
+     "cell_index": [
+      250,
+      164
+     ],
+     "lat": 35.0,
+     "lon": -77.5,
+     "pins": {
+      "Burgaw (benchmark us-nc-burgaw)": {
+       "distance_km": 63.2,
+       "is_pin_cell": false
+      }
+     },
+     "cell_center_on_land": true,
+     "daily": {
+      "profile": "power-native-daily-utc-v1",
+      "tmin_c_by_utc_day": {
+       "2022-03-09": 9.21,
+       "2022-03-10": 7.45,
+       "2022-03-11": 5.63,
+       "2022-03-12": 3.64,
+       "2022-03-13": -5.06,
+       "2022-03-14": -0.21,
+       "2022-03-15": 6.22,
+       "2022-03-16": 11.75
+      }
+     },
+     "hourly": {
+      "source_version": "POWER Version 10.0.0",
+      "nights": [
+       {
+        "night": "2022-03-10",
+        "window_utc": [
+         "2022-03-09 23:00:00",
+         "2022-03-10 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 7.45,
+        "min_time_utc": "2022-03-10 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-11",
+        "window_utc": [
+         "2022-03-10 23:00:00",
+         "2022-03-11 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 5.63,
+        "min_time_utc": "2022-03-11 11:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-12",
+        "window_utc": [
+         "2022-03-11 23:00:00",
+         "2022-03-12 15:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.42,
+        "min_time_utc": "2022-03-12 00:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-13",
+        "window_utc": [
+         "2022-03-12 23:00:00",
+         "2022-03-13 14:00:00"
+        ],
+        "n_obs": 16,
+        "min_c": -5.06,
+        "min_time_utc": "2022-03-13 10:00:00",
+        "hours_le_0_c": 12,
+        "hours_le_minus_1_c": 10,
+        "hours_le_minus_2.2_c": 8
+       },
+       {
+        "night": "2022-03-14",
+        "window_utc": [
+         "2022-03-13 22:00:00",
+         "2022-03-14 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": -0.21,
+        "min_time_utc": "2022-03-14 10:00:00",
+        "hours_le_0_c": 2,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-15",
+        "window_utc": [
+         "2022-03-14 22:00:00",
+         "2022-03-15 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 6.22,
+        "min_time_utc": "2022-03-15 04:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       },
+       {
+        "night": "2022-03-16",
+        "window_utc": [
+         "2022-03-15 22:00:00",
+         "2022-03-16 14:00:00"
+        ],
+        "n_obs": 17,
+        "min_c": 11.75,
+        "min_time_utc": "2022-03-16 07:00:00",
+        "hours_le_0_c": 0,
+        "hours_le_minus_1_c": 0,
+        "hours_le_minus_2.2_c": 0
+       }
+      ]
+     },
+     "power_elevation": {
+      "power_point_lon": -77.5,
+      "power_point_lat": 35.0,
+      "elevation_m": 17.58
+     }
+    }
+   ],
+   "stations": [
+    {
+     "id": "USW00013870",
+     "name": "ALMA BACON CO AP",
+     "lat": 31.54,
+     "lon": -82.5072,
+     "elevation_m": 58.2,
+     "network": "NOAA GHCNh (hourly)",
+     "file": "GHCNh_USW00013870_2022.psv",
+     "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2022/psv/GHCNh_USW00013870_2022.psv",
+     "licence": "NOAA NCEI public data (US government work, no restrictions on use)",
+     "pin": "Alma (benchmark us-ga-alma)",
+     "distance_to_pin_km": 4.2,
+     "nights": [
+      {
+       "night": "2022-03-10",
+       "window_utc": [
+        "2022-03-09 23:00:00",
+        "2022-03-10 15:00:00"
+       ],
+       "n_obs": 36,
+       "min_c": 16.0,
+       "min_time_utc": "2022-03-10 09:51:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      },
+      {
+       "night": "2022-03-11",
+       "window_utc": [
+        "2022-03-10 23:00:00",
+        "2022-03-11 15:00:00"
+       ],
+       "n_obs": 34,
+       "min_c": 15.0,
+       "min_time_utc": "2022-03-11 04:19:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-03-12",
+       "window_utc": [
+        "2022-03-11 23:00:00",
+        "2022-03-12 15:00:00"
+       ],
+       "n_obs": 35,
+       "min_c": 8.9,
+       "min_time_utc": "2022-03-12 14:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 4.6
+      },
+      {
+       "night": "2022-03-13",
+       "window_utc": [
+        "2022-03-12 23:00:00",
+        "2022-03-13 14:00:00"
+       ],
+       "n_obs": 15,
+       "min_c": -2.8,
+       "min_time_utc": "2022-03-13 07:53:00",
+       "hours_le_0_c": 8,
+       "hours_le_minus_1_c": 7,
+       "hours_le_minus_2.2_c": 6,
+       "wind_median_m_s": 2.1
+      },
+      {
+       "night": "2022-03-14",
+       "window_utc": [
+        "2022-03-13 22:00:00",
+        "2022-03-14 14:00:00"
+       ],
+       "n_obs": 16,
+       "min_c": -0.6,
+       "min_time_utc": "2022-03-14 07:53:00",
+       "hours_le_0_c": 6,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-15",
+       "window_utc": [
+        "2022-03-14 22:00:00",
+        "2022-03-15 14:00:00"
+       ],
+       "n_obs": 16,
+       "min_c": 8.9,
+       "min_time_utc": "2022-03-15 07:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-03-16",
+       "window_utc": [
+        "2022-03-15 22:00:00",
+        "2022-03-16 14:00:00"
+       ],
+       "n_obs": 25,
+       "min_c": 15.0,
+       "min_time_utc": "2022-03-16 07:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.6
+      }
+     ],
+     "compared_cell_index": [
+      243,
+      156
+     ],
+     "sha256": "e021070d50807c2e9b9364a4a5a96fca4e75a544a565d1c2ed73c3470f35e308",
+     "rows_dropped_qc": 29,
+     "station_minus_own_cell_month_2022": {
+      "all_nights": {
+       "n": 31,
+       "median": -0.46,
+       "p10": -2.51,
+       "p90": 1.09
+      },
+      "calm_nights_wind_median_le_2_m_s": {
+       "n": 17,
+       "median": -1.6,
+       "p10": -2.61,
+       "p90": -0.19
+      },
+      "event_night": {
+       "night": "2022-03-13",
+       "diff_c": 0.32,
+       "wind_median_m_s": 2.1
+      }
+     }
+    },
+    {
+     "id": "USW00000128",
+     "name": "HOMERVILLE AP",
+     "lat": 31.0561,
+     "lon": -82.7669,
+     "elevation_m": 57.3,
+     "network": "NOAA GHCNh (hourly)",
+     "file": "GHCNh_USW00000128_2022.psv",
+     "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2022/psv/GHCNh_USW00000128_2022.psv",
+     "licence": "NOAA NCEI public data (US government work, no restrictions on use)",
+     "pin": "Homerville (benchmark us-ga-homerville)",
+     "distance_to_pin_km": 2.9,
+     "nights": [
+      {
+       "night": "2022-03-10",
+       "window_utc": [
+        "2022-03-09 23:00:00",
+        "2022-03-10 15:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 16.1,
+       "min_time_utc": "2022-03-10 11:30:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.8
+      },
+      {
+       "night": "2022-03-11",
+       "window_utc": [
+        "2022-03-10 23:00:00",
+        "2022-03-11 15:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 14.4,
+       "min_time_utc": "2022-03-11 04:10:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-12",
+       "window_utc": [
+        "2022-03-11 23:00:00",
+        "2022-03-12 15:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 10.1,
+       "min_time_utc": "2022-03-12 14:50:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 4.6
+      },
+      {
+       "night": "2022-03-13",
+       "window_utc": [
+        "2022-03-12 23:00:00",
+        "2022-03-13 14:00:00"
+       ],
+       "n_obs": 45,
+       "min_c": -1.6,
+       "min_time_utc": "2022-03-13 11:50:00",
+       "hours_le_0_c": 6,
+       "hours_le_minus_1_c": 4,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      },
+      {
+       "night": "2022-03-14",
+       "window_utc": [
+        "2022-03-13 22:00:00",
+        "2022-03-14 14:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 1.9,
+       "min_time_utc": "2022-03-14 09:10:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-15",
+       "window_utc": [
+        "2022-03-14 22:00:00",
+        "2022-03-15 14:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 10.0,
+       "min_time_utc": "2022-03-15 07:10:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-03-16",
+       "window_utc": [
+        "2022-03-15 22:00:00",
+        "2022-03-16 14:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 15.6,
+       "min_time_utc": "2022-03-16 04:50:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      }
+     ],
+     "compared_cell_index": [
+      242,
+      156
+     ],
+     "sha256": "4192b760604c4d867db9c18cea163e4c4d8e2adede65dfa39d88e7fd1495b63d",
+     "rows_dropped_qc": 1,
+     "station_minus_own_cell_month_2022": {
+      "all_nights": {
+       "n": 31,
+       "median": -0.43,
+       "p10": -2.69,
+       "p90": 1.31
+      },
+      "calm_nights_wind_median_le_2_m_s": {
+       "n": 17,
+       "median": -0.77,
+       "p10": -2.92,
+       "p90": -0.23
+      },
+      "event_night": {
+       "night": "2022-03-13",
+       "diff_c": 0.93,
+       "wind_median_m_s": 2.1
+      }
+     }
+    },
+    {
+     "id": "USW00003705",
+     "name": "ELIZABETHTOWN AP",
+     "lat": 34.6017,
+     "lon": -78.5781,
+     "elevation_m": 40.5,
+     "network": "NOAA GHCNh (hourly)",
+     "file": "GHCNh_USW00003705_2022.psv",
+     "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2022/psv/GHCNh_USW00003705_2022.psv",
+     "licence": "NOAA NCEI public data (US government work, no restrictions on use)",
+     "pin": "Elizabethtown (benchmark us-nc-elizabethtown)",
+     "distance_to_pin_km": 4.0,
+     "nights": [
+      {
+       "night": "2022-03-10",
+       "window_utc": [
+        "2022-03-09 23:00:00",
+        "2022-03-10 15:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 6.9,
+       "min_time_utc": "2022-03-10 14:35:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 3.1
+      },
+      {
+       "night": "2022-03-11",
+       "window_utc": [
+        "2022-03-10 23:00:00",
+        "2022-03-11 15:00:00"
+       ],
+       "n_obs": 47,
+       "min_c": 7.4,
+       "min_time_utc": "2022-03-11 00:35:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      },
+      {
+       "night": "2022-03-12",
+       "window_utc": [
+        "2022-03-11 23:00:00",
+        "2022-03-12 15:00:00"
+       ],
+       "n_obs": 47,
+       "min_c": 11.5,
+       "min_time_utc": "2022-03-12 00:35:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 4.6
+      },
+      {
+       "night": "2022-03-13",
+       "window_utc": [
+        "2022-03-12 23:00:00",
+        "2022-03-13 14:00:00"
+       ],
+       "n_obs": 44,
+       "min_c": -4.5,
+       "min_time_utc": "2022-03-13 11:55:00",
+       "hours_le_0_c": 11,
+       "hours_le_minus_1_c": 9,
+       "hours_le_minus_2.2_c": 7,
+       "wind_median_m_s": 3.6
+      },
+      {
+       "night": "2022-03-14",
+       "window_utc": [
+        "2022-03-13 22:00:00",
+        "2022-03-14 14:00:00"
+       ],
+       "n_obs": 46,
+       "min_c": 1.6,
+       "min_time_utc": "2022-03-14 11:55:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 3.1
+      },
+      {
+       "night": "2022-03-15",
+       "window_utc": [
+        "2022-03-14 22:00:00",
+        "2022-03-15 14:00:00"
+       ],
+       "n_obs": 48,
+       "min_c": 2.9,
+       "min_time_utc": "2022-03-15 11:35:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-16",
+       "window_utc": [
+        "2022-03-15 22:00:00",
+        "2022-03-16 14:00:00"
+       ],
+       "n_obs": 47,
+       "min_c": 10.7,
+       "min_time_utc": "2022-03-16 09:15:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 1.5
+      }
+     ],
+     "compared_cell_index": [
+      249,
+      162
+     ],
+     "sha256": "a43f6c379caedbd93385bf6ebb60d30869308e4aa9ed1d9d84e2f02d59f45c18",
+     "rows_dropped_qc": 0,
+     "station_minus_own_cell_month_2022": {
+      "all_nights": {
+       "n": 31,
+       "median": 0.32,
+       "p10": -2.01,
+       "p90": 1.72
+      },
+      "calm_nights_wind_median_le_2_m_s": {
+       "n": 7,
+       "median": -1.35,
+       "p10": -2.19,
+       "p90": 0.24
+      },
+      "event_night": {
+       "night": "2022-03-13",
+       "diff_c": 0.97,
+       "wind_median_m_s": 3.6
+      }
+     }
+    },
+    {
+     "id": "USW00013748",
+     "name": "WILMINGTON INTL AP",
+     "lat": 34.2667,
+     "lon": -77.9,
+     "elevation_m": 7.0,
+     "network": "NOAA GHCNh (hourly)",
+     "file": "GHCNh_USW00013748_2022.psv",
+     "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2022/psv/GHCNh_USW00013748_2022.psv",
+     "licence": "NOAA NCEI public data (US government work, no restrictions on use)",
+     "pin": "Burgaw (benchmark us-nc-burgaw)",
+     "distance_to_pin_km": 31.9,
+     "nights": [
+      {
+       "night": "2022-03-10",
+       "window_utc": [
+        "2022-03-09 23:00:00",
+        "2022-03-10 15:00:00"
+       ],
+       "n_obs": 28,
+       "min_c": 8.3,
+       "min_time_utc": "2022-03-10 14:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 4.6
+      },
+      {
+       "night": "2022-03-11",
+       "window_utc": [
+        "2022-03-10 23:00:00",
+        "2022-03-11 15:00:00"
+       ],
+       "n_obs": 26,
+       "min_c": 8.3,
+       "min_time_utc": "2022-03-11 05:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      },
+      {
+       "night": "2022-03-12",
+       "window_utc": [
+        "2022-03-11 23:00:00",
+        "2022-03-12 15:00:00"
+       ],
+       "n_obs": 40,
+       "min_c": 12.2,
+       "min_time_utc": "2022-03-11 23:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 4.35
+      },
+      {
+       "night": "2022-03-13",
+       "window_utc": [
+        "2022-03-12 23:00:00",
+        "2022-03-13 14:00:00"
+       ],
+       "n_obs": 20,
+       "min_c": -2.8,
+       "min_time_utc": "2022-03-13 10:53:00",
+       "hours_le_0_c": 9,
+       "hours_le_minus_1_c": 7,
+       "hours_le_minus_2.2_c": 6,
+       "wind_median_m_s": 5.1
+      },
+      {
+       "night": "2022-03-14",
+       "window_utc": [
+        "2022-03-13 22:00:00",
+        "2022-03-14 14:00:00"
+       ],
+       "n_obs": 22,
+       "min_c": 0.6,
+       "min_time_utc": "2022-03-14 06:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-15",
+       "window_utc": [
+        "2022-03-14 22:00:00",
+        "2022-03-15 14:00:00"
+       ],
+       "n_obs": 21,
+       "min_c": 4.4,
+       "min_time_utc": "2022-03-15 07:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 0.0
+      },
+      {
+       "night": "2022-03-16",
+       "window_utc": [
+        "2022-03-15 22:00:00",
+        "2022-03-16 14:00:00"
+       ],
+       "n_obs": 21,
+       "min_c": 13.9,
+       "min_time_utc": "2022-03-16 10:53:00",
+       "hours_le_0_c": 0,
+       "hours_le_minus_1_c": 0,
+       "hours_le_minus_2.2_c": 0,
+       "wind_median_m_s": 2.1
+      }
+     ],
+     "compared_cell_index": [
+      249,
+      163
+     ],
+     "sha256": "67e47be0e4b4fa0179e81585d08798b642aef778407e739bc8b13f0c63863ca8",
+     "rows_dropped_qc": 8,
+     "station_minus_own_cell_month_2022": {
+      "all_nights": {
+       "n": 31,
+       "median": 1.53,
+       "p10": -0.84,
+       "p90": 3.13
+      },
+      "calm_nights_wind_median_le_2_m_s": {
+       "n": 7,
+       "median": -0.44,
+       "p10": -1.89,
+       "p90": 1.72
+      },
+      "event_night": {
+       "night": "2022-03-13",
+       "diff_c": 2.44,
+       "wind_median_m_s": 5.1
+      }
+     }
+    }
+   ],
+   "model_stage": {
+    "Alma (benchmark us-ga-alma)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2021-12-18",
+     "flowering": [
+      "2021-12-31",
+      "2022-03-03"
+     ],
+     "fruit": [
+      "2022-03-04",
+      "2022-04-05"
+     ],
+     "harvest": [
+      "2022-04-06",
+      "2022-05-17"
+     ],
+     "stage_on_event_day": "fruit",
+     "hourly_source_distance_km": 5.7
+    },
+    "Homerville (benchmark us-ga-homerville)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2021-12-17",
+     "flowering": [
+      "2021-12-29",
+      "2022-02-25"
+     ],
+     "fruit": [
+      "2022-02-26",
+      "2022-03-30"
+     ],
+     "harvest": [
+      "2022-03-31",
+      "2022-05-12"
+     ],
+     "stage_on_event_day": "fruit",
+     "hourly_source_distance_km": 23.9
+    },
+    "Elizabethtown (benchmark us-nc-elizabethtown)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2021-12-29",
+     "flowering": [
+      "2022-02-11",
+      "2022-03-31"
+     ],
+     "fruit": [
+      "2022-04-01",
+      "2022-04-30"
+     ],
+     "harvest": [
+      "2022-05-01",
+      "2022-06-06"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 19.6
+    },
+    "Burgaw (benchmark us-nc-burgaw)": {
+     "profile": "stage_thermal_v3",
+     "winter_year": 2022,
+     "status": "complete",
+     "budbreak_date": "2021-12-28",
+     "flowering": [
+      "2022-02-03",
+      "2022-03-27"
+     ],
+     "fruit": [
+      "2022-03-28",
+      "2022-05-01"
+     ],
+     "harvest": [
+      "2022-05-02",
+      "2022-06-07"
+     ],
+     "stage_on_event_day": "flowering",
+     "hourly_source_distance_km": 19.1
+    }
+   },
+   "outcome": {
+    "station_hazard": "yes at all four: Alma -2.8, Homerville -1.6, Elizabethtown -4.5, Wilmington (31.9 km from Burgaw) -2.8 C",
+    "grid_hazard_pin_cells": "yes at all four: -3.12, -2.53, -5.47, -5.24 C",
+    "grid_hazard_neighbourhood": "yes in every land cell of both neighbourhoods (-1.1 to -6.2 C); only the sea cell east of Burgaw stayed above 0 C",
+    "magnitude_diff_c": "station minus own cell on the event night: +0.32, +0.93, +0.97 and +2.44 C (grid colder than stations)",
+    "normal_bias_comparison": "Inside the March 2022 all-night range at every station (10th to 90th percentile about -2.7 to +3.1 C).",
+    "timing_offset_days": "0",
+    "mechanism": "advective: station wind medians 2.1 to 5.1 m/s on the freeze night; a calmer second night (14 March) followed, with Alma at -0.6 C",
+    "stage_agreement": "not testable; model stage on 13 March was fruit at the Georgia pins and flowering at the North Carolina pins"
+   },
+   "verdict": "Freeze confirmed at stations and represented in the grid on the right night. Consistent with the 2026-10-05 result. One weather episode, not four independent events."
+  }
+ ]
+}

@@ -1,18 +1,35 @@
 import unittest
 import hashlib
+import http.client
 import io
 import json
+import os
 import tempfile
+import threading
+import time
+from datetime import datetime
+from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 import numpy as np
 import pandas as pd
 import zarr
 import location_api as api
+import production
 from location_api import summarize, avg, production_block
 from hourly_archive import ArchiveGap
 from pilot import GROUPS, NAMES
 from postprocess import LandMask, extract, km_distance
+
+Q='/api/analysis?latitude=29.4112&longitude=-82.1437'
+
+
+def isolated(test):
+    """Point the result cache and access log of `api` at a temporary folder for one test."""
+    directory=tempfile.TemporaryDirectory();test.addCleanup(directory.cleanup);root=Path(directory.name)
+    for name,value in (('CACHE',api.ResultCache(root/'cache')),('ACCESS',api.AccessLog(root/'access.jsonl'))):
+        patcher=patch.object(api,name,value);patcher.start();test.addCleanup(patcher.stop)
+    return root
 
 
 def land_root(directory):
@@ -66,7 +83,11 @@ class LocationTests(unittest.TestCase):
         hourly=pd.DataFrame({'tmean_c':5.,'dewpoint_mean_c':2.},index=pd.date_range('2010-01-01','2026-01-01',freq='h',inclusive='left'))
         padded=pd.DataFrame({'tmean_c':17.,'tmin_c':-2.2,'tmax_c':36.,'precip_mm':2.,'rh_mean_pct':80.,
             'shortwave_mj_m2_day':18.,'precip_suspect_extreme':False},index=pd.date_range('2010-01-01','2025-12-31')).rename_axis('time').reset_index()
-        block=production_block(hourly,padded,29.,-82.)
+        with patch.object(production,'analyse',wraps=production.analyse) as counted:
+            block=production_block(hourly,padded,29.,-82.)
+        self.assertEqual(counted.call_count,len(api.PROFILES)-1)  # sensitivity reuses the primary result
+        self.assertEqual(block['sensitivity'][block['profile']]['flowering_freeze_frequency'],
+                         block['risks']['by_id']['flowering_freeze']['frequency'])
         self.assertEqual(block['status'],'available')
         self.assertEqual(block['scope'],'open_ground')
         self.assertEqual(block['status_counts'],{'complete':15})
@@ -162,9 +183,11 @@ class AnalyzeTests(unittest.TestCase):
 
 
 class RespondTests(unittest.TestCase):
+    def setUp(self):
+        self.root=isolated(self)
     def call(self,query,**kw):
         with patch.object(api,'analyze',**(kw or {'side_effect':lambda lat,lon:{'lat':lat,'lon':lon}})):
-            status,payload=api.respond('/api/analysis?'+query)
+            status,payload,_=api.respond('/api/analysis?'+query)
         return status,json.loads(payload)
     def test_accepted_spellings(self):
         for query,expected in [('latitude=29,41&longitude=-82.14',(29.41,-82.14)),('latitude=%2029.41%20&longitude=%2B5',(29.41,5.)),
@@ -192,7 +215,7 @@ class RespondTests(unittest.TestCase):
         self.assertEqual(failed,(500,{'error':'The archive could not analyse this point. No substitute result was generated.','code':'analysis_failed'}))
         self.assertEqual(nan,failed)
         self.assertIn('RuntimeError: boom',stderr.getvalue());self.assertNotIn('29.4112',stderr.getvalue())
-        self.assertFalse(api.BUSY.locked())
+        self.assertFalse(api.BUSY.locked());self.assertIsNone(api.BUSY_SINCE)
     def test_unsupported_location_is_422(self):
         self.assertEqual(self.call('latitude=0&longitude=-140',return_value={'error':'sea','status':'unsupported_location'}),
                          (422,{'error':'sea','status':'unsupported_location'}))
@@ -200,7 +223,142 @@ class RespondTests(unittest.TestCase):
         self.assertEqual(json.loads(api.respond('/api/health')[1])['status'],'ready')
         with api.BUSY:
             self.assertEqual(json.loads(api.respond('/api/health')[1])['status'],'busy')
-            self.assertEqual(api.respond('/api/analysis?latitude=1&longitude=1')[0],503)
+            status,_,log=api.respond('/api/analysis?latitude=1&longitude=1')
+            self.assertEqual((status,log),(503,{'cache':'miss','busy_rejected':True}))
+    def test_health_fields_and_busy_clock(self):
+        health=json.loads(api.respond('/api/health')[1])
+        self.assertEqual(health,{'status':'ready','mode':'private-read-only-prototype','method':api.METHOD,
+                                 'busy_since':None,'busy_seconds':None,'cache':{'entries':0,'hits':0,'misses':0}})
+        started,release=threading.Event(),threading.Event()
+        def slow(lat,lon):
+            started.set();release.wait(10);return {'lat':lat}
+        with patch.object(api,'analyze',side_effect=slow):
+            worker=threading.Thread(target=api.respond,args=(Q,));worker.start()
+            self.assertTrue(started.wait(10))
+            busy=json.loads(api.respond('/api/health')[1])
+            release.set();worker.join(10)
+        self.assertEqual(busy['status'],'busy')
+        self.assertEqual(datetime.fromisoformat(busy['busy_since']).utcoffset().total_seconds(),0)
+        self.assertIsInstance(busy['busy_seconds'],float);self.assertGreaterEqual(busy['busy_seconds'],0)
+        self.assertEqual(busy['cache'],{'entries':0,'hits':0,'misses':1})
+        after=json.loads(api.respond('/api/health')[1])
+        self.assertEqual((after['status'],after['busy_since'],after['busy_seconds']),('ready',None,None))
+        self.assertEqual(after['cache']['entries'],1)
+
+
+class CacheTests(unittest.TestCase):
+    def setUp(self):
+        self.root=isolated(self)
+    def test_hit_is_byte_identical_to_a_fresh_result(self):
+        result={'site':{'name':'Selected location'},'value':1.25,'unicode':'Ñuble'}
+        with patch.object(api,'analyze',return_value=result) as analyze:
+            fresh=api.respond(Q);hit=api.respond(Q)
+        analyze.assert_called_once()
+        self.assertEqual((fresh[0],fresh[2]['cache'],hit[0],hit[2]['cache']),(200,'miss',200,'hit'))
+        self.assertEqual(hit[1],fresh[1])
+        # Another process reads the stored file; an uncached recomputation gives the same bytes again.
+        disk=api.ResultCache(self.root/'cache')
+        with patch.object(api,'CACHE',disk), patch.object(api,'analyze',side_effect=AssertionError('not cached')):
+            self.assertEqual(api.respond(Q)[1],fresh[1])
+        self.assertEqual(disk.stats(),{'entries':1,'hits':1,'misses':0})
+        with patch.object(api,'CACHE',api.ResultCache(self.root/'other')), patch.object(api,'analyze',return_value=result):
+            self.assertEqual(api.respond(Q)[1],fresh[1])
+        self.assertEqual([path.name for path in (self.root/'cache').iterdir()],[api.cache_key(29.4112,-82.1437)+'.json'])
+    def test_only_successful_analyses_are_stored(self):
+        for kw in ({'return_value':{'error':'sea','status':'unsupported_location'}},{'side_effect':RuntimeError('boom')},
+                   {'return_value':{'x':float('nan')}}):
+            with patch.object(api,'analyze',**kw), patch('sys.stderr',io.StringIO()):
+                self.assertNotEqual(api.respond(Q)[0],200)
+        api.respond('/api/analysis?latitude=91&longitude=0');api.respond('/api/health')
+        self.assertFalse((self.root/'cache').exists())
+        self.assertEqual(api.CACHE.stats()['entries'],0)
+    def test_key_covers_method_profile_code_and_coordinates(self):
+        base=api.cache_key(29.4112,-82.1437)
+        self.assertEqual(api.CODE_ID,api.code_identity())
+        self.assertNotEqual(base,api.cache_key(29.4112,-82.1438))
+        for name,value in (('METHOD','location-evidence-test'),('PRODUCTION_PROFILE','stage_risks_v2'),('CODE_ID','0'*64)):
+            with patch.object(api,name,value):
+                self.assertNotEqual(api.cache_key(29.4112,-82.1437),base,name)
+    def test_memory_lru_and_files_are_bounded(self):
+        cache=api.ResultCache(self.root/'bounded',size=2,files=3)
+        for i in range(5):
+            cache.put(f'k{i}',b'{"i":%d}'%i)
+            os.utime(self.root/f'bounded/k{i}.json',(1000+i,1000+i))  # Deterministic ages for the mtime prune.
+        self.assertEqual(list(cache.memory),['k3','k4'])
+        self.assertEqual(sorted(path.name for path in (self.root/'bounded').iterdir()),['k2.json','k3.json','k4.json'])
+        self.assertEqual(cache.get('k2'),b'{"i":2}')  # From disk, then remembered.
+        self.assertEqual(list(cache.memory),['k4','k2'])
+        self.assertIsNone(cache.get('k0'))
+        self.assertEqual((cache.hits,cache.misses),(1,1))
+
+
+class ServerTests(unittest.TestCase):
+    """A real Handler on an ephemeral loopback port."""
+    def setUp(self):
+        self.root=isolated(self)
+        patcher=patch.object(api,'analyze',side_effect=lambda lat,lon:{'lat':lat,'lon':lon})
+        self.analyze=patcher.start();self.addCleanup(patcher.stop)
+        self.server=ThreadingHTTPServer(('127.0.0.1',0),api.Handler)
+        threading.Thread(target=self.server.serve_forever,daemon=True).start()
+        self.addCleanup(self.server.server_close);self.addCleanup(self.server.shutdown)
+    def lines(self):
+        path=self.root/'access.jsonl'
+        return path.read_text().splitlines() if path.exists() else []
+    def get(self,path,headers=None):
+        """GET with exact headers (Host defaults to the API address; None omits it); waits for the access-log line."""
+        headers={'Host':'127.0.0.1:8787',**(headers or {})};logged=len(self.lines())
+        connection=http.client.HTTPConnection(*self.server.server_address,timeout=10)
+        try:
+            connection.putrequest('GET',path,skip_host=True,skip_accept_encoding=True)
+            for name,value in headers.items():
+                if value is not None:connection.putheader(name,value)
+            connection.endheaders();response=connection.getresponse();body=json.loads(response.read())
+        finally:connection.close()
+        deadline=time.monotonic()+5
+        while len(self.lines())==logged and time.monotonic()<deadline:time.sleep(.01)
+        return response.status,body
+    def test_host_must_name_the_loopback_api(self):
+        for host in ('127.0.0.1:8787','localhost:8787','LOCALHOST:8787'):
+            self.assertEqual(self.get('/api/health',{'Host':host})[0],200,host)
+        for host in ('evil.example:8787','127.0.0.1:5173','127.0.0.1','localhost',None):
+            self.assertEqual(self.get(Q,{'Host':host}),(403,api.FORBIDDEN_HOST),host)
+        self.analyze.assert_not_called()
+    def test_cross_site_requests_are_refused_before_analysis(self):
+        for headers in ({'Sec-Fetch-Site':'cross-site'},{'Sec-Fetch-Site':'same-site'},{'Origin':'http://evil.example'},
+                        {'Origin':'null'},{'Origin':'http://localhost:5173','Sec-Fetch-Site':'cross-site'}):
+            self.assertEqual(self.get(Q,headers),(403,{'error':'Cross-site API request refused','code':'forbidden_origin'}),headers)
+        self.analyze.assert_not_called()
+        for headers in ({'Sec-Fetch-Site':'same-origin'},{'Sec-Fetch-Site':'none'},{'Origin':'http://localhost:5173'},
+                        {'Origin':'http://127.0.0.1:5173'},{'Origin':'http://127.0.0.1:8787'},{'Origin':'http://localhost:8787'},{}):
+            self.assertEqual(self.get('/api/health',headers)[0],200,headers)
+        self.assertEqual(self.get(Q,{'Origin':'http://127.0.0.1:5173','Sec-Fetch-Site':'same-origin'})[0],200)
+    def test_health_over_http(self):
+        status,health=self.get('/api/health')
+        self.assertEqual((status,sorted(health)),(200,['busy_seconds','busy_since','cache','method','mode','status']))
+        self.assertEqual(health['method'],api.METHOD)
+    def test_access_log_has_fields_but_no_coordinates(self):
+        self.get(Q);self.get(Q);self.get('/api/29.4112/-82.1437');self.get(Q,{'Origin':'http://evil.example'})
+        self.get('/api/analysis?latitude=29.4112&longitude=181')
+        with api.BUSY:self.get('/api/analysis?latitude=29.4112&longitude=-82.1438')
+        text=(self.root/'access.jsonl').read_text()
+        for fragment in ('29.4112','82.1437','82.1438','latitude','longitude','?'):
+            self.assertNotIn(fragment,text)
+        records=[json.loads(line) for line in text.splitlines()]
+        self.assertTrue(all(sorted(r)==['busy_rejected','cache','duration_ms','path','status','ts'] for r in records))
+        self.assertEqual([(r['path'],r['status'],r['cache'],r['busy_rejected']) for r in records],
+                         [('/api/analysis',200,'miss',False),('/api/analysis',200,'hit',False),('other',404,None,False),
+                          ('/api/analysis',403,None,False),('/api/analysis',400,None,False),('/api/analysis',503,'miss',True)])
+        self.assertTrue(all(datetime.fromisoformat(r['ts']).utcoffset().total_seconds()==0 for r in records))
+
+
+class AccessLogTests(unittest.TestCase):
+    def test_rotates_at_the_limit_and_keeps_a_fixed_number_of_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'access.jsonl';log=api.AccessLog(path,limit=300,keep=2)
+            for i in range(40):log.write(path='/api/health',status=200,duration_ms=1.,busy_rejected=False,cache=None)
+            self.assertEqual(sorted(p.name for p in Path(directory).iterdir()),['access.jsonl','access.jsonl.1','access.jsonl.2'])
+            self.assertTrue(all(p.stat().st_size<=300 for p in Path(directory).iterdir()))
+            self.assertEqual(api.AccessLog(path).limit,10*2**20)
 
 
 if __name__=='__main__':unittest.main()

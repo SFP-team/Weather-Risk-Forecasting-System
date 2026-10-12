@@ -2,6 +2,8 @@
 
 **Update, 2026-10-11:** the current roadmap is in [docs/research/2026-10-11/source_expansion_and_improvement_plan.md](research/2026-10-11/source_expansion_and_improvement_plan.md). It reviews the work done between 22 September and 5 October and adds a verified source inventory for every region. It orders the next work into five phases: stabilise and correct, ground truth, phenology calibration, evidence platform, and team access. The phases below remain the earlier plan.
 
+**Update, 2026-10-12:** most of Phase A of that roadmap is done: a supervised API service with a watchdog, a result cache, Host and Origin checks, the approved scan accounting, corrected event checks and the registry corrections. Phase B started with scheduled evidence jobs for RMA, Storm Events, GHCNh stations and station truth, plus ODEPA, Comext and SENAMHI. The planting rule, the risk-gate refinements, the cool-climate constants and bias correction still wait for decisions. See `HANDOVER.md`.
+
 Date: 2026-09-21. Basis: eight parallel research scouts (Paul's new R file, code audit, crop-modelling second opinion, validation data, genotype layer, management layer, weather inputs, product/deployment), full reports in `docs/research/2026-09-21/`, plus Paul's River Valley review (`docs/weather/SUPERVISOR_REVIEW_RIVER_VALLEY.md`). Effort figures are builder-days for one person working with AI coding assistance at about six productive hours a day; overlaps between scouts have been removed. Calendar time is longer than builder-days because every phase ends with a supervisor review.
 
 Implementation update, 2026-09-22: the user authorized recurrence gating, disease-weather ranking, the four exposure families, one researched planting window and dashboard updates. These now run as `stage_risks_v2`; see [verified methods and sources](weather/production/README.md). Regional establishment guidance replaces the uncited budbreak planting offsets. Chill portions, new phenology constants, management/genotype models and hosted deployment were not part of this change. The user subsequently authorized GitHub publication.
@@ -65,7 +67,7 @@ The authorized land-only T2M/dewpoint cache for 2010–2025 is complete. On 2026
 | # | Work | Days |
 |---|---|---|
 | 3.1 | **Implemented and verified 2026-09-22:** `hourly_for()` reads previously unindexed land cells through the checksummed cache adapter. Existing normalized cells remain a fast path. No new per-cell Parquet cache was needed at measured 0.62–2.04 s analysis latency. | Done |
-| 3.2 | Durable jobs and result cache (SQLite, worker thread, `POST /analyses` → 202) replacing the single lock | 3.5 |
+| 3.2 | Durable jobs and result cache (SQLite, worker thread, `POST /analyses` → 202) replacing the single lock. **Partly done 2026-10-12:** a disk-backed result cache, a supervised service and a busy-lock watchdog; the queue and asynchronous jobs remain. | 3.5 |
 | 3.3 | Elevation delta warning (DEM lookup vs cell mean), Tmax-only lapse toggle | 2 |
 | 3.4 | Coverage check: pins in ocean-labelled blocks return an explicit `no_hourly_block` state; land-mask edge review on the panel coasts | 1 |
 

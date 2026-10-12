@@ -1,6 +1,6 @@
 # Weather app: project status and user guide
 
-Status date: 5 October 2026.
+Status date: 12 October 2026.
 
 This guide describes the current code and saved results. It does not describe a future version.
 
@@ -57,7 +57,7 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 
 The current local app is different from the older hosted app.
 
-At the last requested service operation, the local UI, tunnel, and private API were stopped. This guide does not restart them.
+On 12 October 2026 the private API became a supervised server service. After the checks for this update, the API, the tunnel, and the local UI were stopped again. The UI runbook gives the start commands.
 
 ### What the app does not provide
 
@@ -88,7 +88,10 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 2 October | Some islands failed the whole request when hourly data were absent. | Supported daily weather can now remain visible while crop analysis is unavailable. Input and coastal-location handling also improved. |
 | 5 October | Regional report findings were separate research files. | A Regional evidence tab now shows reviewed claims with sources and limits. |
 | 5 October | Empty scan results showed bare "Unavailable" dates and misleading "None recurring" text. | Overview and Season views now explain why a window is absent. |
-| 5 October | Cool-climate settings and scan-accounting changes required approval. | The user reported Paul's approval. The approval is recorded. These changes are not implemented yet. |
+| 5 October | Cool-climate settings and scan-accounting changes required approval. | The user reported Paul's approval. The approval is recorded. |
+| 12 October | The scan counted stalled cycles as freezes and dropped cycles that missed the stage horizon. | Each scanned cycle now has one of four outcomes. Freezes count complete cycles only. Stalled cycles form a separate "Cycles do not complete" result. Section 7.5 explains this. |
+| 12 October | The private API ran in a terminal session without supervision. | The API is a supervised server service. It restarts after a crash, a watchdog checks its health, it keeps finished results, and it refuses requests from other sites. |
+| 12 October | Regional evidence came only from reports. | Scheduled server jobs collect public records: US crop-insurance losses, US storm events, hourly weather stations, the Chilean orchard census and exports, EU imports, and Peruvian crop bulletins. The app does not show these records yet. |
 
 Some earlier statements were corrected during review.
 
@@ -214,6 +217,10 @@ For a chill-triggered calendar, it uses each winter's own modelled crop stages.
 For a primary managed-cycle scan, it summarizes selected start-date scenarios.
 
 The lower winter-risk cards and the scan can therefore show different results. Check which calculation each section describes.
+
+In a scan, "Cycle failure" means that 50% or more of the cycles from a start date do not complete. Freeze rows count only complete cycles.
+
+Sometimes the winter calendar does not apply because some winters do not reach the chill requirement. A line under Top risks then gives the number of those winters, for example "Chill shortfall: 6 of 15 winters (40%) below the 100-hour requirement".
 
 The ranking measures frequency, not damage severity. A frequent rain event can rank above a less frequent but destructive freeze.
 
@@ -382,7 +389,7 @@ The scan does not prove that pruning or another treatment can cause budbreak on 
 
 A start needs enough complete evidence for all required measures, normally at least 12 cycles.
 
-The current rule excludes starts with recurring bud-freeze, flowering-freeze, or fruit-frost classifications at the 50% threshold.
+The rule excludes a start if bud freeze, flowering freeze, fruit frost, or cycle failure recurs in 50% or more of its cycles.
 
 Among the remaining starts, the scan retains weather trade-offs and close alternatives. It does not calculate one weighted suitability score.
 
@@ -394,20 +401,29 @@ For example, August through December does not mean every plant bears fruit conti
 
 The scan can appear at a cold deciduous location because its winter calendar failed. That label does not establish an evergreen production system there.
 
-### 7.5 Known scan-accounting problem
+### 7.5 Scan accounting (corrected 12 October 2026)
 
-Current code handles two failure types differently:
+Paul approved this correction. Each start date and year now has exactly one outcome:
 
-- A computed cycle with flowering over 66 days, or first harvest over 150 days after flowering starts, counts as stalled.
-- A cycle that cannot reach a stage before the search limit has no stage result. The scan does not add it to the stalled count.
+| Outcome | Meaning |
+|---|---|
+| Complete | All stage dates occur within the limits below. |
+| Stalled slow | Flowering takes more than 66 days, or first harvest comes more than 150 days after flowering starts. |
+| Stalled at the horizon | A stage does not reach its heat requirement within the 300-day stage horizon. |
+| Weather incomplete | The archive has a gap or ends before the cycle ends. These cycles are not counted. |
 
-The scan also adds existing stalled cases to the freeze-related exclusion families.
+- Bud freeze, flowering freeze, and fruit frost count events in complete cycles only.
+- "Cycles not completed" is the share of stalled cycles among complete and stalled cycles.
+- The table column "Complete / stalled cycles" also shows the slow, horizon, and incomplete-weather counts.
 
-Therefore, those scan frequencies are not always counts of observed threshold-crossing freezes alone.
+The scan strip uses two names for blocked starts:
 
-Paul approved correction of this accounting. The correction is not implemented in the current app.
+- **Cycles do not complete:** cycle failure recurs. This name has priority.
+- **Recurring freeze exposure:** a freeze family recurs in complete cycles.
 
-Until then, inspect the complete and stalled counts. Do not interpret the scan's "Recurring crop loss" label as measured crop damage.
+The words describe weather exposure and model limits, not measured crop damage.
+
+The change did not alter the favourable starts at any of the 30 saved locations where the scan is the main result. At comparison sites, Grand Junction, Michigan went from one favourable start to eight, and Odemira and Pelotas each gained one. HTML reports saved before this change keep the old label "Recurring crop loss".
 
 ## 8. Minimum data requirements
 
@@ -579,21 +595,15 @@ These results concern this grid cell under the current model. They do not prove 
 
 The screenshot said "None recurring" when no favourable start existed. That was misleading.
 
-The updated Overview shows a reason for the absent window. Top risks shows "Not assessed" in this case.
+The 5 October update showed a reason for the absent window and "Not assessed" under Top risks. Its title, "No complete crop cycle", could also appear when a few cycles completed but too few qualified.
 
-The underlying weather and crop parameters were not changed by that display fix.
+### The current display
 
-### A wording limit that remains
+A live check on 12 October 2026 used the same coordinate. The Production window card shows "No favourable start". The text below it says: "At 24 of 24 start dates, 50% or more of cycles do not complete. Most of these cycles stalled because a crop stage did not reach its heat requirement within the 300-day stage horizon."
 
-The current title "No complete crop cycle" can also appear when a few cycles complete but too few qualify.
+Top risks shows "Cycle failure, 24 starts, 100%". Naantali, Finland gives the same result with 85 to 100%.
 
-For example, the earlier Naantali check found at most two complete cycles for a start date. The required minimum is 12.
-
-Read the explanation below the title. Do not treat the title alone as proof that zero cycles completed.
-
-The general empty-window explanation can also combine different heat-search failures. Budbreak uses a 450-day search, while later stages use 300-day searches.
-
-The exact per-winter status is more precise than a short summary label. These wording limits remain in the current code.
+These results concern this grid cell under the current model. The crop constants describe a low-chill southern highbush.
 
 ## 11. Missing results and error messages
 
@@ -638,6 +648,9 @@ A failed calendar does not remove the value of the available daily weather histo
 | Library or map reference failed | A browser resource could not load or its identity did not match. | Reload or investigate the resource. Do not substitute a nearby region's claims. |
 | Old location remains on screen | A new pin is selected but not analysed, or a new request failed. | Check the displayed assessment name and draft-location notice. |
 | Request cancelled | The browser stopped waiting for that request. | The server can still be busy briefly. |
+| The analysis took longer than the local proxy allows (HTTP 504) | The local proxy stopped waiting after 95 seconds. The server can still be working. | Wait a minute, then analyse again. A finished result is kept, so the repeat is fast. |
+| Request refused (HTTP 403) | The request did not come from the local app or the server itself. | Open the app at http://127.0.0.1:5173/. Do not open the API from another website. |
+| Private archive connected · busy | The server is running an analysis. | Saved locations still work. A new analysis starts when the current one ends. |
 
 Do not restart completed weather downloads to fix a UI connection error.
 
@@ -688,14 +701,12 @@ Repeated industry accounts are not independent field validation. An empty report
 
 ## 13. Known limits and approved work
 
-### 13.1 Approved, but not implemented
+### 13.1 Approved work
 
 Paul's approval covers progress on these two items:
 
-1. Correct scan accounting for missing weather, thermal non-completion, and freeze exposure.
-2. Research and implement justified cool-climate crop settings.
-
-The app still uses the previous rules. No new coefficients were introduced by the approval.
+1. Correct scan accounting for missing weather, thermal non-completion, and freeze exposure. **Done on 12 October 2026** (section 7.5).
+2. Research and implement justified cool-climate crop settings. **Not implemented.** The approval did not set new coefficients.
 
 The intended blueberry type must be explicit. Northern highbush, half-high, lowbush, southern highbush, and rabbiteye are not one interchangeable model.
 
@@ -736,12 +747,13 @@ This guide distinguishes software checks from scientific validation.
 
 ### Existing recorded checks
 
-- The last recorded full server suite passed 140 tests on 2 October 2026.
+- On 12 October 2026, 241 server tests passed in a staging copy of the deployed code, and 34 browser-code tests passed locally.
+- With the old crop settings, the new code reproduced the 18 earlier saved assessments exactly. Only the planting text and a land-mask label differ.
+- Browser checks on 12 October covered six saved locations and two live coordinates. They found no page errors, no blocked map resources, and no page overflow at 390 px.
 - Earlier browser checks covered saved and live locations, errors, mobile layouts, and exports.
 - The regional-evidence change preserved the weather results in all 71 saved assessments.
-- The no-window explanation was checked on the reported pin, Naantali, Lynden, Arcadia, Waldo, and a modified freeze-case payload.
-- A 53-site benchmark compares the model with published regional production information.
-- Limited station comparisons found weather-grid bias and missed cold events.
+- A 53-site benchmark compares the model with published regional production information. Its scores did not change on 12 October.
+- Limited station comparisons found weather-grid bias and missed cold events. The 12 October event checks found the Chile frost of 31 October 2022 at stations but not in the pin's grid cells. The Waikato frost of 7 October 2022 was missed because the pin's cell is coastal.
 
 These checks do not establish cultivar prediction accuracy.
 
@@ -749,13 +761,7 @@ A correct screen can display a scientifically uncertain model result.
 
 ### Checks for this guide
 
-The current code, project records, and saved JSON results were inspected.
-
-A local script read all 71 saved assessments. Each had an applicable winter calendar or a selected managed-cycle window.
-
-The script also checked the Waldo and Burgaw risk counts and the regional-library record counts.
-
-The UI and private API were not started. The weather model was not changed. Earlier live-pin results are identified as earlier evidence.
+The 12 October statements come from the regenerated saved assessments, the server tests, and live browser checks of the supervised API.
 
 This is a simplified-English guide, not a certified ASD-STE100 compliance report.
 

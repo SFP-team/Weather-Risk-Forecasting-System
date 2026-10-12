@@ -1,0 +1,9 @@
+# Health check for blueberry-ui-api; restarts it only when it is active but unhealthy or stuck. Never starts it.
+[Unit]
+Description=Watchdog for the blueberry weather API
+
+[Service]
+Type=oneshot
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/media/fpt/fpt2/Weather_Claude/env/bin/python /media/fpt/fpt2/Weather_Claude/ops/bin/api_watchdog.py
+Nice=10

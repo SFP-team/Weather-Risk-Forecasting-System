@@ -1,5 +1,6 @@
 {
   "date": "2026-09-24",
+  "note": "Added 2026-10-12. This audits the v2 snapshots (profile stage_risks_v2, fixed stage offsets) committed on 2026-09-24. The current snapshots use stage_thermal_v3, which sets stage dates from degree-days and a 100 h chill requirement, so this audit is not reproducible from them. See docs/weather/production/README.md.",
   "scope": "Read-only audit of the 18 committed dist/snapshots/*.json payloads; no archive download or scientific model change",
   "method": "For each season with budbreak_date, flowering and harvest, subtract ISO dates and count distinct elapsed-day offsets",
   "sites": 18,

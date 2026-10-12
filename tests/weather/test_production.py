@@ -1,11 +1,14 @@
+import json
 import math
 import unittest
+from unittest.mock import patch
 import numpy as np
 import pandas as pd
-from production import (analyse, bee_flight_hours, chill_clock, chill_portions, classification, CYCLE_STARTS, Days,
-                        empty_row, infection_risk, longest_run, managed_cycles, months_between, profile, reach, risks,
-                        season, SCAN_MEASURES, select_favourable, stage_dates, stage_metrics, window, winter_months,
-                        warm_midwinter_daily, wilson, PROFILES)
+import production
+from production import (analyse, bee_flight_hours, calendar, chill_clock, chill_portions, classification, CYCLE_STARTS,
+                        Days, empty_row, infection_risk, leap_days, longest_run, managed_cycles, metric_catalog,
+                        months_between, profile, reach, risks, season, SCAN_MEASURES, select_favourable, sensitivity,
+                        stage_dates, stage_metrics, window, winter_months, warm_midwinter_daily, wilson, PROFILES)
 
 
 def synthetic(hourly_temp=5., tmin=-2.2, tmax=36., rain=10., rh=90.):
@@ -253,6 +256,71 @@ class AnalyseTests(unittest.TestCase):
         self.assertEqual(len(a['seasons']), 2)
         self.assertEqual(a['classification']['valid_years'], 1)
 
+    def test_sensitivity_reuses_the_primary_result(self):
+        hourly, daily = synthetic()
+        names = ['legacy_paul_v1', 'stage_risks_v2']
+        fresh = sensitivity(hourly, daily, 29.8, names)
+        primary = analyse(hourly, daily, 29.8, 'stage_risks_v2')
+        with patch('production.analyse', wraps=production.analyse) as counted:
+            reused = sensitivity(hourly, daily, 29.8, names, primary=primary, primary_profile='stage_risks_v2')
+        self.assertEqual(counted.call_count, 1)
+        self.assertEqual(json.dumps(reused), json.dumps(fresh))
+
+
+class DefinitionTextTests(unittest.TestCase):
+    """Quoted thresholds come from the profile; legacy profiles keep the exact earlier wording."""
+    LEGACY = {
+        'fruit_frost': 'At least one fruit-development day with Tmin <=0 C. Generic exposure, not a berry injury threshold.',
+        'pollination_weather': 'No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.',
+        'warm_midwinter': 'No risk event or loss threshold defined. Count hours >21 C within the fixed midwinter window, independently of chill success. This operational proxy is not measured chill negation.'}
+    CATALOG = {
+        'warm_midwinter_hours': 'T >21 C, 15 Nov to 15 Feb north, 15 May to 15 Aug south, inclusive UTC dates. Operational proxy, not measured chill negation.',
+        'flowering_pollination_unfavourable_days': 'Tmax <15 C OR rain >=1 mm. Operational cold/wet proxy, not literal bee inactivity; the cutoffs are not validated by UF IN1237.',
+        'flowering_cold_dry_days': 'Tmax <15 C AND rain <1 mm. Supervisor hypothesis comparison only, not an established pollination or loss index.',
+        'fruit_frost_days': 'Daily Tmin <=0 C. Generic exposure threshold, not stage-specific injury.'}
+
+    @staticmethod
+    def rows():
+        out = []
+        for i in range(3):
+            row = empty_row(2011 + i, 'north', pd.Timestamp('2010-11-01'), pd.Timestamp('2011-05-01'))
+            row.update(chill_hours=320, freeze_hours=0, freeze_risk_months=0, winter_month_tmin_lowest_c=9.,
+                       winter_month_tmean_lowest_c=14.)
+            out.append(row)
+        return out
+
+    def test_legacy_text_is_unchanged(self):
+        result = risks(self.rows(), profile('legacy_paul_v1'))
+        for key, text in self.LEGACY.items():
+            self.assertEqual(result['by_id'][key]['event_definition'], text, key)
+        self.assertEqual(result['note'], 'Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; '
+                         'equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. '
+                         'Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity '
+                         'score; compare counts and totals. Dry spells, pollination weather and warm winter remain descriptive exposures.')
+        for name in PROFILES:
+            notes = {m['key']: m['note'] for m in metric_catalog(profile(name))}
+            self.assertEqual({key: notes[key] for key in self.CATALOG}, self.CATALOG, name)
+            self.assertFalse(any('{' in note for note in notes.values()), name)
+
+    def test_quoted_thresholds_follow_the_profile(self):
+        p = {**profile('legacy_paul_v1'), 'frost_threshold_c': -1., 'pollination_cold_tmax_c': 12.5,
+             'pollination_wet_mm': 2., 'warm_midwinter_threshold_c': 20.}
+        by_id = risks(self.rows(), p)['by_id']
+        self.assertIn('Tmin <=-1 C.', by_id['fruit_frost']['event_definition'])
+        self.assertIn('Tmax <12.5 C OR rain >=2 mm', by_id['pollination_weather']['event_definition'])
+        self.assertIn('hours >20 C', by_id['warm_midwinter']['event_definition'])
+        notes = {m['key']: m['note'] for m in metric_catalog(p)}
+        self.assertTrue(notes['flowering_cold_dry_days'].startswith('Tmax <12.5 C AND rain <2 mm.'))
+        self.assertTrue(notes['fruit_frost_days'].startswith('Daily Tmin <=-1 C.'))
+
+    def test_v3_note_describes_the_hourly_disease_window(self):
+        result = risks(self.rows(), profile('stage_thermal_v3'))
+        self.assertIn('Disease weather is one family: days at high hourly infection risk from flowering start to harvest end.',
+                      result['note'])
+        self.assertNotIn('three complete stage windows', result['note'])
+        self.assertIn('complete hourly infection weather from flowering start to harvest end',
+                      result['by_id']['disease_weather']['reason'])
+
 
 class StageExposureTests(unittest.TestCase):
     def setUp(self):
@@ -280,6 +348,8 @@ class StageExposureTests(unittest.TestCase):
         self.assertEqual(metrics['fruit_frost_days'], 2)
         self.assertEqual(metrics['fruit_heat_days'], 2)
         self.assertEqual(metrics['fruit_severe_heat_days'], 1)
+        self.p = {**self.p, 'frost_threshold_c': -1.}
+        self.assertEqual(self.calc()['metrics']['fruit_frost_days'], 0)  # 0 and -0.01 C are above a -1 C threshold
 
     def test_pollination_or_is_not_cold_and_dry(self):
         for day, tmax, rain in [('2019-11-30', 5., 5.), ('2019-12-01', 15., 0.),
@@ -450,6 +520,9 @@ class ManagedCycleTests(unittest.TestCase):
         self.assertEqual(march['dates']['harvest_start'], '05-13')
         december = next(s for s in scan['starts'] if s['budbreak'] == '12-15')
         self.assertEqual(december['events']['harvest_heavy_rain']['valid_years'], 14)
+        # The 2025 cycle runs past the archive end: weather incomplete, so it is in no numerator or denominator.
+        self.assertEqual(december['outcomes'], {'complete': 14, 'stalled_slow': 0, 'stalled_horizon': 0, 'weather_incomplete': 1})
+        self.assertEqual(december['events']['cycle_failure'], {'years_with_event': 0, 'valid_years': 14, 'frequency': 0.})
 
     def test_uniform_weather_is_unconstrained(self):
         scan = self.scan(flat_daily())
@@ -496,15 +569,40 @@ class ManagedCycleTests(unittest.TestCase):
         daily.loc['2015-06-01', 'precip_mm'] = 12.
         self.assertTrue(self.scan(daily)['favourable']['unconstrained'])
 
-    def test_cycles_stalled_by_cold_count_as_crop_loss(self):
+    def test_each_cycle_has_one_outcome_and_freezes_ignore_stalls(self):
         daily = flat_daily()
-        daily.loc[daily.index.month.isin([12, 1, 2]), 'tmean_c'] = 5.
+        daily.loc['2012-03-01':'2013-02-01', 'tmean_c'] = 5.  # no heat within the 300-day stage horizon
+        daily.loc['2014-03-12':'2014-06-30', ['tmean_c', 'tmin_c']] = [5., -5.]  # flowering lasts 140 days, with frost
+        daily.loc['2015-03-05', 'tmean_c'] = np.nan  # gap before flowering starts
+        daily.loc['2016-03-12', 'tmin_c'] = -3.  # one flowering freeze in a complete cycle
+        march = next(s for s in self.scan(daily)['starts'] if s['budbreak'] == '03-01')
+        self.assertEqual(march['outcomes'], {'complete': 12, 'stalled_slow': 1, 'stalled_horizon': 1, 'weather_incomplete': 1})
+        self.assertEqual((march['cycles'], march['stalled_cycles']), (12, 2))
+        # Freeze families count complete cycles only: the frost inside the stalled 2014 cycle is not a freeze.
+        self.assertEqual(march['events']['flowering_freeze'], {'years_with_event': 1, 'valid_years': 12, 'frequency': 1 / 12})
+        self.assertEqual(march['events']['fruit_frost']['years_with_event'], 0)
+        # Cycle failure: stalled over complete plus stalled; the 2015 gap is in neither count.
+        self.assertEqual(march['events']['cycle_failure'], {'years_with_event': 2, 'valid_years': 14, 'frequency': 2 / 14})
+        self.assertEqual(march['measures']['cycle_failure'], 2 / 14)
+        self.assertTrue(march['rankable'])
+        self.assertEqual(march['recurring_crop_loss'], [])  # below the 50% gate, so the start stays a candidate
+
+    def test_recurring_cycle_failure_blocks_a_start_without_counting_as_freeze(self):
+        daily = flat_daily()
+        daily.loc[daily.index.month.isin([12, 1, 2]), ['tmean_c', 'tmin_c']] = [5., -5.]
         scan = self.scan(daily)
         november = next(s for s in scan['starts'] if s['budbreak'] == '11-15')
-        self.assertEqual(november['stalled_cycles'], 14)
-        self.assertEqual(november['events']['flowering_freeze']['frequency'], 1.)
-        self.assertEqual(november['recurring_crop_loss'], ['bud_freeze', 'flowering_freeze', 'fruit_frost'])
+        self.assertEqual(november['outcomes'], {'complete': 0, 'stalled_slow': 14, 'stalled_horizon': 0, 'weather_incomplete': 1})
+        self.assertEqual((november['cycles'], november['stalled_cycles']), (0, 14))
+        self.assertEqual(november['events']['flowering_freeze'], {'years_with_event': 0, 'valid_years': 0, 'frequency': None})
+        self.assertEqual(november['events']['cycle_failure']['frequency'], 1.)
+        self.assertEqual(november['recurring_crop_loss'], ['cycle_failure'])
+        self.assertFalse(november['rankable'])
         self.assertNotIn('11-15', scan['favourable']['budbreak'])
+        tolerance = {m['key']: m['tolerance'] for m in scan['measures']}
+        self.assertEqual(tolerance['cycle_failure'], tolerance['fruit_frost'])
+        self.assertNotIn('stalled by cold', ' '.join(m['definition'] for m in scan['measures']))
+        self.assertIn('one of four outcomes', scan['rule'])
 
     def test_selection_survives_non_transitive_near_ties(self):
         keys = [key for key, _ in SCAN_MEASURES]
@@ -631,6 +729,41 @@ class BudAndBeeTests(unittest.TestCase):
         self.assertIsNone(freeze('2020-01-07', -9., profile('stage_risks_v2')))
 
 
+class LeapDayTests(unittest.TestCase):
+    def test_leap_days_counts_29_february_after_the_start(self):
+        winter = pd.Timestamp('2019-11-01')  # 2020-02-29 is 120 days later
+        self.assertEqual((leap_days(winter, 119), leap_days(winter, 120), leap_days(pd.Timestamp('2018-11-01'), 365)), (0, 1, 0))
+
+    def test_calendar_median_lands_on_the_anchor_date_only_when_corrected(self):
+        rows = []
+        for year in (2019, 2020, 2024):  # one ordinary and two leap winters, each with harvest starting 15 March
+            start = pd.Timestamp(f'{year - 1}-11-01')
+            row = empty_row(year, 'north', start, pd.Timestamp(f'{year}-05-01'))
+            row['offset_days']['harvest_start'] = (pd.Timestamp(f'{year}-03-15') - start).days
+            rows.append(row)
+        legacy, corrected = calendar(rows, 'north'), calendar(rows, 'north', leap_corrected=True)
+        self.assertEqual((legacy['harvest_start']['median'], legacy['harvest_start']['median_date']), (135., '03-16'))
+        self.assertEqual((corrected['harvest_start']['median'], corrected['harvest_start']['median_date']), (134., '03-15'))
+        self.assertEqual(corrected['harvest_start']['n'], 3)
+
+    def test_scan_dates_match_leap_year_calendars_under_the_v3_flag(self):
+        days = Days(flat_daily())
+        unflagged = {k: v for k, v in profile('stage_thermal_v3').items() if k != 'leap_day_offsets'}
+        # 73 days after 1 January is 14 March in a leap year and 15 March otherwise.
+        for p, expected in ((profile('stage_thermal_v3'), '03-14'), (unflagged, '03-15')):
+            january = managed_cycles(days, p, (2012, 2016, 2020))['starts'][0]
+            self.assertEqual((january['budbreak'], january['dates']['harvest_start']), ('01-01', expected))
+
+    def test_flag_is_v3_only_and_validated(self):
+        self.assertEqual([name for name, p in PROFILES.items() if 'leap_day_offsets' in p], ['stage_thermal_v3'])
+        self.assertEqual(analyse(*synthetic(), 29.8, 'stage_risks_v2', years=range(2020, 2021))['calendar']['anchor'],
+                         'season start (1 Nov north, 1 Apr south)')
+        PROFILES['_leap'] = {**PROFILES['stage_thermal_v3'], 'leap_day_offsets': 'shifted'}
+        try:
+            with self.assertRaisesRegex(ValueError, 'leap-day'):
+                profile('_leap')
+        finally:
+            del PROFILES['_leap']
 
 
 class HelperTests(unittest.TestCase):

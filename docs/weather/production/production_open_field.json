@@ -23,7 +23,9 @@
     "stage_thermal_v3 replaces the daily disease proxy with hourly wetness: UF Blueberry Advisory System anthracnose and Strawberry Advisory System Botrytis indices from grid temperature and dewpoint.",
     "Where the chill-triggered calendar does not apply (tropics, evergreen or unknown majority, or fewer than 12 calendar winters), a managed-cycle scan of 24 cycle-start dates gives favourable flowering and harvest months instead of no window.",
     "stage_thermal_v3 checks the bud stage (budbreak to the day before flowering) for freezes at NC State critical temperatures: -6.7 C until half the heat to flowering, then -3.9 C. Bud-stage freeze is a ranked risk family and a crop-loss measure in the managed-cycle scan.",
-    "stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures."
+    "stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures.",
+    "The managed-cycle scan gives every start and year one of four outcomes: complete, stalled slow, stalled at the stage horizon, or weather incomplete. Freeze families count complete cycles only; stalled cycles form a separate crop-loss family, cycle failure, instead of counting as freezes. Weather-incomplete cycles are left out of every count.",
+    "stage_thermal_v3 median dates leave 29 February out of day offsets, so winters that cross a leap day no longer shift them one day late."
   ],
   "limitations": [
     "Constants encode a UF-type low-chill southern highbush under open field + ground; they are provisional assumptions, not measured genotype parameters. Northern-highbush and rabbiteye regions are modelled as if planted with this type.",
@@ -39,7 +41,7 @@
     "Stage thermal requirements are a Waldo translation checked against published spans, not a fit to observed phenology; the literature benchmark compares months with regional practice, not field observations.",
     "No cultivar ranking, no soil scoring, no tunnel or pot effects, no forecast, no independent phenology validation yet."
   ],
-  "code_sha256": "504c6bb07ee39b82fe20a65fda64900aa3eff88878c69ecb1f433337dd61f9c2",
+  "code_sha256": "5df27f0e527d17bf91fba9730bac60942ffd9d1e8cff5d12ab91f108e8a5a046",
   "sites": {
     "Waldo": {
       "latitude": 29.795286,
@@ -49,13 +51,13 @@
         "assumptions": [
           "Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.",
           "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
-          "Remove first-growing-season flowers before fruit set to favor establishment (UF/IFAS)."
+          "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
         ],
         "limitations": [
           "Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.",
           "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
           "No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.",
-          "This is home-garden extension guidance, not a calibrated commercial or evergreen-specific planting schedule."
+          "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule."
         ],
         "status": "available",
         "label": "Mid-December to mid-February",
@@ -71,6 +73,10 @@
           {
             "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
             "url": "https://ask.ifas.ufl.edu/publication/MG359"
+          },
+          {
+            "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
+            "url": "https://journals.flvc.org/edis/article/view/140453"
           }
         ],
         "reason": null
@@ -146,7 +152,8 @@
             9,
             16
           ],
-          "pollination_gap_days": 4
+          "pollination_gap_days": 4,
+          "leap_day_offsets": "corrected"
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -541,7 +548,7 @@
           }
         },
         "calendar": {
-          "anchor": "season start (1 Nov north, 1 Apr south)",
+          "anchor": "season start (1 Nov north, 1 Apr south); 29 February not counted",
           "chill": {
             "n": 15,
             "mean": 54.93333333333333,
@@ -570,37 +577,37 @@
           },
           "flowering_start": {
             "n": 15,
-            "mean": 95.06666666666666,
-            "sd": 16.96831781656065,
+            "mean": 95.0,
+            "sd": 16.86501027063344,
             "median": 98.0,
             "p10": 73.0,
             "p90": 115.0,
             "min": 60.0,
-            "max": 120.0,
+            "max": 119.0,
             "median_date": "02-07",
             "p10_date": "01-13",
             "p90_date": "02-24"
           },
           "flowering_end": {
             "n": 15,
-            "mean": 129.2,
-            "sd": 10.981803130633876,
+            "mean": 128.93333333333334,
+            "sd": 10.859272973998284,
             "median": 128.0,
             "p10": 115.4,
-            "p90": 144.0,
+            "p90": 143.4,
             "min": 113.0,
             "max": 148.0,
             "median_date": "03-09",
             "p10_date": "02-24",
-            "p90_date": "03-25"
+            "p90_date": "03-24"
           },
           "harvest_start": {
             "n": 15,
-            "mean": 158.2,
-            "sd": 9.979979959899719,
+            "mean": 157.93333333333334,
+            "sd": 9.953223933312596,
             "median": 154.0,
             "p10": 147.8,
-            "p90": 170.4,
+            "p90": 169.8,
             "min": 144.0,
             "max": 177.0,
             "median_date": "04-04",
@@ -609,11 +616,11 @@
           },
           "harvest_end": {
             "n": 15,
-            "mean": 196.26666666666668,
-            "sd": 9.145386554875373,
+            "mean": 196.0,
+            "sd": 9.149551120917666,
             "median": 192.0,
             "p10": 186.8,
-            "p90": 207.0,
+            "p90": 206.6,
             "min": 183.0,
             "max": 213.0,
             "median_date": "05-12",
@@ -1948,7 +1955,7 @@
               "max": 3.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family: days at high hourly infection risk from flowering start to harvest end. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -3083,7 +3090,7 @@
           "chill_requirement_applies": true
         },
         "managed_cycle": {
-          "method": "managed-cycle-scan-v3",
+          "method": "managed-cycle-scan-v4",
           "policy": {
             "min_frequency": 0.5,
             "min_valid_years": 12
@@ -3093,10 +3100,16 @@
               "budbreak": "01-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "01-18",
                 "flowering_end": "02-26",
-                "harvest_start": "04-01",
+                "harvest_start": "03-31",
                 "harvest_end": "05-09"
               },
               "flowering_months": [
@@ -3104,6 +3117,7 @@
                 2
               ],
               "harvest_months": [
+                3,
                 4,
                 5
               ],
@@ -3122,6 +3136,11 @@
                   "years_with_event": 3,
                   "valid_years": 15,
                   "frequency": 0.2
+                },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
@@ -3148,6 +3167,7 @@
                 "bud_freeze": 0.13333333333333333,
                 "flowering_freeze": 0.4,
                 "fruit_frost": 0.2,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.006896551724137931,
                 "harvest_heavy_rain": 0.07758973662399148,
                 "disease_weather": 0.15971480620253667,
@@ -3164,10 +3184,16 @@
               "budbreak": "01-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-02",
                 "flowering_end": "03-06",
-                "harvest_start": "04-06",
+                "harvest_start": "04-05",
                 "harvest_end": "05-14"
               },
               "flowering_months": [
@@ -3194,6 +3220,11 @@
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3219,6 +3250,7 @@
                 "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.016565313520061953,
                 "harvest_heavy_rain": 0.08280602137246017,
                 "disease_weather": 0.174940870618484,
@@ -3235,11 +3267,17 @@
               "budbreak": "02-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-13",
-                "flowering_end": "03-15",
+                "flowering_end": "03-14",
                 "harvest_start": "04-12",
-                "harvest_end": "05-19"
+                "harvest_end": "05-18"
               },
               "flowering_months": [
                 2,
@@ -3264,6 +3302,11 @@
                   "years_with_event": 2,
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
+                },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
@@ -3290,6 +3333,7 @@
                 "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.06033187049129077,
                 "harvest_heavy_rain": 0.0747610782784082,
                 "disease_weather": 0.1891929191232066,
@@ -3306,11 +3350,17 @@
               "budbreak": "02-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-25",
                 "flowering_end": "03-25",
                 "harvest_start": "04-19",
-                "harvest_end": "05-24"
+                "harvest_end": "05-23"
               },
               "flowering_months": [
                 2,
@@ -3332,6 +3382,11 @@
                   "frequency": 0.0
                 },
                 "fruit_frost": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
+                "cycle_failure": {
                   "years_with_event": 0,
                   "valid_years": 15,
                   "frequency": 0.0
@@ -3361,6 +3416,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.09022124252559036,
                 "harvest_heavy_rain": 0.08032474603682034,
                 "disease_weather": 0.19900857382476175,
@@ -3377,6 +3433,12 @@
               "budbreak": "03-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-11",
                 "flowering_end": "04-03",
@@ -3407,6 +3469,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -3432,6 +3499,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.10379021461630157,
                 "harvest_heavy_rain": 0.08159871976048445,
                 "disease_weather": 0.21950233775308864,
@@ -3448,6 +3516,12 @@
               "budbreak": "03-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-23",
                 "flowering_end": "04-14",
@@ -3478,6 +3552,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 4,
                   "valid_years": 15,
@@ -3503,6 +3582,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.18268474215842634,
                 "harvest_heavy_rain": 0.08835088140828178,
                 "disease_weather": 0.24598402411308876,
@@ -3519,6 +3599,12 @@
               "budbreak": "04-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-08",
                 "flowering_end": "04-28",
@@ -3548,6 +3634,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -3573,6 +3664,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.31816409711146554,
                 "harvest_heavy_rain": 0.10936393418391391,
                 "disease_weather": 0.31353295104391293,
@@ -3589,6 +3681,12 @@
               "budbreak": "04-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-21",
                 "flowering_end": "05-09",
@@ -3619,6 +3717,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 11,
                   "valid_years": 15,
@@ -3644,6 +3747,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.4311561174177273,
                 "harvest_heavy_rain": 0.13947830241072728,
                 "disease_weather": 0.3695141956012877,
@@ -3661,6 +3765,12 @@
               "budbreak": "05-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-07",
                 "flowering_end": "05-22",
@@ -3690,6 +3800,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 10,
                   "valid_years": 15,
@@ -3715,6 +3830,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5328706570347438,
                 "harvest_heavy_rain": 0.16072975103008472,
                 "disease_weather": 0.4776246554039693,
@@ -3732,6 +3848,12 @@
               "budbreak": "05-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-20",
                 "flowering_end": "06-04",
@@ -3762,6 +3884,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -3787,6 +3914,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5287037037037037,
                 "harvest_heavy_rain": 0.1539217938161208,
                 "disease_weather": 0.5797353521687406,
@@ -3803,6 +3931,12 @@
               "budbreak": "06-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-06",
                 "flowering_end": "06-20",
@@ -3832,6 +3966,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 9,
                   "valid_years": 15,
@@ -3857,6 +3996,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.6021895424836601,
                 "harvest_heavy_rain": 0.1547834895916097,
                 "disease_weather": 0.6871852623645486,
@@ -3874,6 +4014,12 @@
               "budbreak": "06-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-20",
                 "flowering_end": "07-04",
@@ -3904,6 +4050,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 8,
                   "valid_years": 15,
@@ -3929,6 +4080,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5489145658263307,
                 "harvest_heavy_rain": 0.1686006056111729,
                 "disease_weather": 0.7510943573258281,
@@ -3946,6 +4098,12 @@
               "budbreak": "07-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-06",
                 "flowering_end": "07-19",
@@ -3975,6 +4133,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -4000,6 +4163,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5629575163398693,
                 "harvest_heavy_rain": 0.15395752575813756,
                 "disease_weather": 0.8014845443218058,
@@ -4016,6 +4180,12 @@
               "budbreak": "07-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-20",
                 "flowering_end": "08-03",
@@ -4046,6 +4216,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 5,
                   "valid_years": 15,
@@ -4071,6 +4246,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5796241830065358,
                 "harvest_heavy_rain": 0.1486236791881953,
                 "disease_weather": 0.8117818718401588,
@@ -4087,6 +4263,12 @@
               "budbreak": "08-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-06",
                 "flowering_end": "08-20",
@@ -4116,6 +4298,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 5,
                   "valid_years": 15,
@@ -4141,6 +4328,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.42272875816993466,
                 "harvest_heavy_rain": 0.12245914745914746,
                 "disease_weather": 0.7995744775319538,
@@ -4157,6 +4345,12 @@
               "budbreak": "08-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-20",
                 "flowering_end": "09-03",
@@ -4187,6 +4381,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 3,
                   "valid_years": 15,
@@ -4212,6 +4411,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.24599243206054347,
                 "harvest_heavy_rain": 0.0743175565544376,
                 "disease_weather": 0.6894002212189457,
@@ -4228,6 +4428,12 @@
               "budbreak": "09-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "09-06",
                 "flowering_end": "09-21",
@@ -4257,6 +4463,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 2,
                   "valid_years": 15,
@@ -4282,6 +4493,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.10220241632006338,
                 "harvest_heavy_rain": 0.046853804024335706,
                 "disease_weather": 0.5199587261468601,
@@ -4298,6 +4510,12 @@
               "budbreak": "09-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "09-20",
                 "flowering_end": "10-07",
@@ -4330,6 +4548,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4355,6 +4578,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.023242630385487528,
                 "harvest_heavy_rain": 0.06262802029106788,
                 "disease_weather": 0.37586765330491856,
@@ -4371,6 +4595,12 @@
               "budbreak": "10-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-06",
                 "flowering_end": "10-27",
@@ -4402,6 +4632,11 @@
                   "valid_years": 14,
                   "frequency": 0.07142857142857142
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4427,6 +4662,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.07142857142857142,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06154748731419762,
                 "disease_weather": 0.26296969151322735,
@@ -4443,6 +4679,12 @@
               "budbreak": "10-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-22",
                 "flowering_end": "11-13",
@@ -4475,6 +4717,11 @@
                   "valid_years": 14,
                   "frequency": 0.5
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4500,6 +4747,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.07142857142857142,
                 "fruit_frost": 0.5,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06490918729034842,
                 "disease_weather": 0.2086040268754948,
@@ -4519,6 +4767,12 @@
               "budbreak": "11-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-09",
                 "flowering_end": "12-07",
@@ -4550,6 +4804,11 @@
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4575,6 +4834,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.07142857142857142,
                 "fruit_frost": 0.8571428571428571,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06764159056442227,
                 "disease_weather": 0.17788352530115498,
@@ -4594,6 +4854,12 @@
               "budbreak": "11-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-25",
                 "flowering_end": "12-31",
@@ -4625,6 +4891,11 @@
                   "valid_years": 14,
                   "frequency": 1.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4650,6 +4921,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.21428571428571427,
                 "fruit_frost": 1.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08147076112051475,
                 "disease_weather": 0.16816872788576878,
@@ -4669,6 +4941,12 @@
               "budbreak": "12-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-11",
                 "flowering_end": "01-25",
@@ -4699,6 +4977,11 @@
                   "valid_years": 14,
                   "frequency": 0.42857142857142855
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4724,6 +5007,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.6428571428571429,
                 "fruit_frost": 0.42857142857142855,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08541750901279242,
                 "disease_weather": 0.17288759832383876,
@@ -4743,10 +5027,16 @@
               "budbreak": "12-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-27",
                 "flowering_end": "02-09",
-                "harvest_start": "03-21",
+                "harvest_start": "03-19",
                 "harvest_end": "05-02"
               },
               "flowering_months": [
@@ -4775,6 +5065,11 @@
                   "valid_years": 14,
                   "frequency": 0.21428571428571427
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -4800,6 +5095,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.7142857142857143,
                 "fruit_frost": 0.21428571428571427,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.08345994941602967,
                 "disease_weather": 0.16890087909548068,
@@ -4843,6 +5139,7 @@
             "harvest_months": [
               1,
               2,
+              3,
               4,
               5,
               6,
@@ -4855,17 +5152,22 @@
           "measures": [
             {
               "key": "bud_freeze",
-              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "flowering_freeze",
-              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
+              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "fruit_frost",
-              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C, or stalled by cold",
+              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C",
+              "tolerance": 0.07142857142857142
+            },
+            {
+              "key": "cycle_failure",
+              "definition": "share of cycles that do not complete: flowering longer than 66 days, first harvest more than 150 days after flowering starts, or a stage requirement not reached within the stage horizon",
               "tolerance": 0.07142857142857142
             },
             {
@@ -4889,7 +5191,7 @@
               "tolerance": 0.05
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Every start and year has one of four outcomes: complete; stalled slow, when flowering lasts over 66 days or the first harvest comes over 150 days after flowering starts; stalled at the horizon, when a stage requirement is not reached within 300 days; or weather incomplete, when the archive has a gap or ends first. Weather-incomplete cycles are left out of every count. Bud freeze, flowering freeze and fruit frost count complete cycles only. Cycle failure is the share of complete and stalled cycles that stalled. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze, fruit frost or cycle failure recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (bud freeze, flowering freeze, fruit frost and cycle failure) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",
@@ -5109,8 +5411,9 @@
           "retrieved": "2026-09-08T01:33:30.382619+00:00",
           "license": "public domain",
           "note": "Cartographic mask; small islands and coastlines may be imperfect. Not a field boundary.",
-          "processing_version": "land-mask-v2",
-          "excluded_null_island_features": 1
+          "processing_version": "land-mask-v3",
+          "excluded_null_island_features": 1,
+          "coast_tolerance_km": 5.0
         },
         "land_geometry_repairs": 0,
         "limitations": [
@@ -5129,13 +5432,13 @@
         "assumptions": [
           "Open-field establishment in a prepared, well-drained acidic root zone with irrigation available.",
           "Bare-root or container-grown nursery plants; confirm cultivar and stock suitability locally.",
-          "Remove first-growing-season flowers before fruit set to favor establishment (UF/IFAS)."
+          "UF/IFAS HS1525 (2026) reports that newer UF southern highbush cultivars can produce a marketable crop within 12 months of planting."
         ],
         "limitations": [
           "Local soil workability, nursery availability, cultivar, plant condition and freeze protection still require confirmation.",
           "This is a one-time establishment window, not annual replanting or a first-year harvest forecast.",
           "No weather optimization, budbreak subtraction, or numerical tunnel/pot adjustment is applied.",
-          "This is home-garden extension guidance, not a calibrated commercial or evergreen-specific planting schedule."
+          "The displayed window comes from home-garden guidance (UF/IFAS CIR1192, now MG359). Commercial guidance differs: UF/IFAS HS1525 (2026) advises planting in the early-spring and fall root-growth periods. Neither is a calibrated evergreen-specific planting schedule."
         ],
         "status": "available",
         "label": "Mid-December to mid-February",
@@ -5151,6 +5454,10 @@
           {
             "title": "UF/IFAS: Blueberry Gardener's Guide (Planting and Establishment)",
             "url": "https://ask.ifas.ufl.edu/publication/MG359"
+          },
+          {
+            "title": "UF/IFAS HS1525: Establishing New Southern Highbush Blueberry Plantings in Florida (2026)",
+            "url": "https://journals.flvc.org/edis/article/view/140453"
           }
         ],
         "reason": null
@@ -5226,7 +5533,8 @@
             9,
             16
           ],
-          "pollination_gap_days": 4
+          "pollination_gap_days": 4,
+          "leap_day_offsets": "corrected"
         },
         "hemisphere": "north",
         "method": "open-field-production-v3",
@@ -5621,7 +5929,7 @@
           }
         },
         "calendar": {
-          "anchor": "season start (1 Nov north, 1 Apr south)",
+          "anchor": "season start (1 Nov north, 1 Apr south); 29 February not counted",
           "chill": {
             "n": 15,
             "mean": 58.8,
@@ -5650,55 +5958,55 @@
           },
           "flowering_start": {
             "n": 15,
-            "mean": 93.66666666666667,
-            "sd": 19.352617640097414,
+            "mean": 93.6,
+            "sd": 19.256909706091772,
             "median": 95.0,
             "p10": 65.4,
             "p90": 114.8,
             "min": 58.0,
-            "max": 120.0,
+            "max": 119.0,
             "median_date": "02-04",
             "p10_date": "01-05",
             "p90_date": "02-24"
           },
           "flowering_end": {
             "n": 15,
-            "mean": 125.8,
-            "sd": 12.773857231526762,
+            "mean": 125.53333333333333,
+            "sd": 12.614428624547745,
             "median": 128.0,
             "p10": 111.8,
             "p90": 141.2,
             "min": 106.0,
-            "max": 145.0,
+            "max": 144.0,
             "median_date": "03-09",
             "p10_date": "02-21",
             "p90_date": "03-22"
           },
           "harvest_start": {
             "n": 15,
-            "mean": 154.46666666666667,
-            "sd": 11.325487480310356,
-            "median": 157.0,
+            "mean": 154.2,
+            "sd": 11.251666543228163,
+            "median": 156.0,
             "p10": 141.0,
-            "p90": 168.0,
+            "p90": 167.4,
             "min": 137.0,
             "max": 172.0,
-            "median_date": "04-07",
+            "median_date": "04-06",
             "p10_date": "03-22",
-            "p90_date": "04-18"
+            "p90_date": "04-17"
           },
           "harvest_end": {
             "n": 15,
-            "mean": 192.53333333333333,
-            "sd": 9.796986903173464,
+            "mean": 192.26666666666668,
+            "sd": 9.735550954155208,
             "median": 193.0,
             "p10": 180.2,
-            "p90": 204.8,
+            "p90": 204.2,
             "min": 177.0,
             "max": 208.0,
             "median_date": "05-13",
             "p10_date": "04-30",
-            "p90_date": "05-25"
+            "p90_date": "05-24"
           }
         },
         "risks": {
@@ -7028,7 +7336,7 @@
               "max": 3.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family: days at high hourly infection risk from flowering start to harvest end. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -8163,7 +8471,7 @@
           "chill_requirement_applies": true
         },
         "managed_cycle": {
-          "method": "managed-cycle-scan-v3",
+          "method": "managed-cycle-scan-v4",
           "policy": {
             "min_frequency": 0.5,
             "min_valid_years": 12
@@ -8173,10 +8481,16 @@
               "budbreak": "01-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "01-14",
                 "flowering_end": "02-23",
-                "harvest_start": "03-26",
+                "harvest_start": "03-25",
                 "harvest_end": "05-05"
               },
               "flowering_months": [
@@ -8204,6 +8518,11 @@
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8229,6 +8548,7 @@
                 "bud_freeze": 0.13333333333333333,
                 "flowering_freeze": 0.3333333333333333,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.00985663082437276,
                 "harvest_heavy_rain": 0.07655999695556774,
                 "disease_weather": 0.1460265817245441,
@@ -8245,6 +8565,12 @@
               "budbreak": "01-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-01",
                 "flowering_end": "02-28",
@@ -8274,6 +8600,11 @@
                   "valid_years": 15,
                   "frequency": 0.2
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -8299,6 +8630,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.2,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.030705526357700273,
                 "harvest_heavy_rain": 0.07655184494080515,
                 "disease_weather": 0.15891102895691675,
@@ -8315,11 +8647,17 @@
               "budbreak": "02-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-11",
-                "flowering_end": "03-12",
+                "flowering_end": "03-11",
                 "harvest_start": "04-08",
-                "harvest_end": "05-15"
+                "harvest_end": "05-14"
               },
               "flowering_months": [
                 2,
@@ -8344,6 +8682,11 @@
                   "years_with_event": 2,
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
+                },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
                 },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
@@ -8370,6 +8713,7 @@
                 "bud_freeze": 0.06666666666666667,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.10085143864243788,
                 "harvest_heavy_rain": 0.08198405136787677,
                 "disease_weather": 0.1782586080542015,
@@ -8386,6 +8730,12 @@
               "budbreak": "02-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-24",
                 "flowering_end": "03-22",
@@ -8416,6 +8766,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -8441,6 +8796,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.14026535890304007,
                 "harvest_heavy_rain": 0.08098598513459193,
                 "disease_weather": 0.19003068177606183,
@@ -8457,6 +8813,12 @@
               "budbreak": "03-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-10",
                 "flowering_end": "04-01",
@@ -8487,6 +8849,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -8512,6 +8879,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.15014022209674385,
                 "harvest_heavy_rain": 0.07371680997067995,
                 "disease_weather": 0.20464949324186532,
@@ -8528,6 +8896,12 @@
               "budbreak": "03-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-23",
                 "flowering_end": "04-13",
@@ -8558,6 +8932,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 4,
                   "valid_years": 15,
@@ -8583,6 +8962,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.24147667147667148,
                 "harvest_heavy_rain": 0.08259080024971865,
                 "disease_weather": 0.23186405585293077,
@@ -8599,6 +8979,12 @@
               "budbreak": "04-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-07",
                 "flowering_end": "04-27",
@@ -8628,6 +9014,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 9,
                   "valid_years": 15,
@@ -8653,6 +9044,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.4086828181565023,
                 "harvest_heavy_rain": 0.10912259082350034,
                 "disease_weather": 0.30552089333020954,
@@ -8670,6 +9062,12 @@
               "budbreak": "04-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-21",
                 "flowering_end": "05-09",
@@ -8700,6 +9098,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 12,
                   "valid_years": 15,
@@ -8725,6 +9128,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5067331728012844,
                 "harvest_heavy_rain": 0.1422010968576597,
                 "disease_weather": 0.3636054979598008,
@@ -8742,6 +9146,12 @@
               "budbreak": "05-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-06",
                 "flowering_end": "05-22",
@@ -8771,6 +9181,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 10,
                   "valid_years": 15,
@@ -8796,6 +9211,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5948672743951382,
                 "harvest_heavy_rain": 0.16547647137191077,
                 "disease_weather": 0.4807684061487698,
@@ -8813,6 +9229,12 @@
               "budbreak": "05-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-20",
                 "flowering_end": "06-04",
@@ -8843,6 +9265,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -8868,6 +9295,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5396634560256852,
                 "harvest_heavy_rain": 0.17497605832144209,
                 "disease_weather": 0.5839092512248133,
@@ -8884,6 +9312,12 @@
               "budbreak": "06-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-06",
                 "flowering_end": "06-20",
@@ -8913,6 +9347,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 10,
                   "valid_years": 15,
@@ -8938,6 +9377,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.6324455337690632,
                 "harvest_heavy_rain": 0.1702222045659198,
                 "disease_weather": 0.6961755506942442,
@@ -8955,6 +9395,12 @@
               "budbreak": "06-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-20",
                 "flowering_end": "07-04",
@@ -8985,6 +9431,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -9010,6 +9461,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.5713398692810457,
                 "harvest_heavy_rain": 0.16056111729081693,
                 "disease_weather": 0.7536923587338691,
@@ -9026,6 +9478,12 @@
               "budbreak": "07-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-06",
                 "flowering_end": "07-19",
@@ -9055,6 +9513,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 7,
                   "valid_years": 15,
@@ -9080,6 +9543,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.6200980392156862,
                 "harvest_heavy_rain": 0.1285629094055123,
                 "disease_weather": 0.8056919164624541,
@@ -9096,6 +9560,12 @@
               "budbreak": "07-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-20",
                 "flowering_end": "08-03",
@@ -9126,6 +9596,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 8,
                   "valid_years": 15,
@@ -9151,6 +9626,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.6465359477124184,
                 "harvest_heavy_rain": 0.1362189982002846,
                 "disease_weather": 0.8285817960486567,
@@ -9168,6 +9644,12 @@
               "budbreak": "08-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-06",
                 "flowering_end": "08-20",
@@ -9197,6 +9679,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 6,
                   "valid_years": 15,
@@ -9222,6 +9709,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.4956154684095861,
                 "harvest_heavy_rain": 0.13172923209687917,
                 "disease_weather": 0.8420321211551746,
@@ -9238,6 +9726,12 @@
               "budbreak": "08-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-20",
                 "flowering_end": "09-03",
@@ -9268,6 +9762,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 4,
                   "valid_years": 15,
@@ -9293,6 +9792,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.31167755991285406,
                 "harvest_heavy_rain": 0.08106386162022401,
                 "disease_weather": 0.7440179841076546,
@@ -9309,6 +9809,12 @@
               "budbreak": "09-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "09-06",
                 "flowering_end": "09-21",
@@ -9338,6 +9844,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -9363,6 +9874,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.11262407355286612,
                 "harvest_heavy_rain": 0.04286307973067059,
                 "disease_weather": 0.5769794228349387,
@@ -9379,6 +9891,12 @@
               "budbreak": "09-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "09-20",
                 "flowering_end": "10-06",
@@ -9410,6 +9928,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -9435,6 +9958,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.038840155945419105,
                 "harvest_heavy_rain": 0.05302283491565899,
                 "disease_weather": 0.4273753290869748,
@@ -9451,6 +9975,12 @@
               "budbreak": "10-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-06",
                 "flowering_end": "10-26",
@@ -9482,6 +10012,11 @@
                   "valid_years": 14,
                   "frequency": 0.07142857142857142
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -9507,6 +10042,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.07142857142857142,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0027472527472527475,
                 "harvest_heavy_rain": 0.052658031545098904,
                 "disease_weather": 0.2973551331270356,
@@ -9523,6 +10059,12 @@
               "budbreak": "10-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-21",
                 "flowering_end": "11-12",
@@ -9555,6 +10097,11 @@
                   "valid_years": 14,
                   "frequency": 0.2857142857142857
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -9580,6 +10127,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.2857142857142857,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.05943536842390119,
                 "disease_weather": 0.22510132424659315,
@@ -9596,6 +10144,12 @@
               "budbreak": "11-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-08",
                 "flowering_end": "12-05",
@@ -9627,6 +10181,11 @@
                   "valid_years": 14,
                   "frequency": 0.7142857142857143
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -9652,6 +10211,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.7142857142857143,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.055685527502870355,
                 "disease_weather": 0.1874369333204914,
@@ -9671,6 +10231,12 @@
               "budbreak": "11-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-25",
                 "flowering_end": "12-27",
@@ -9702,6 +10268,11 @@
                   "valid_years": 14,
                   "frequency": 0.8571428571428571
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -9727,6 +10298,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.14285714285714285,
                 "fruit_frost": 0.8571428571428571,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.06752645564377269,
                 "disease_weather": 0.1681857355189619,
@@ -9746,10 +10318,16 @@
               "budbreak": "12-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-11",
                 "flowering_end": "01-14",
-                "harvest_start": "03-01",
+                "harvest_start": "02-28",
                 "harvest_end": "04-20"
               },
               "flowering_months": [
@@ -9757,6 +10335,7 @@
                 12
               ],
               "harvest_months": [
+                2,
                 3,
                 4
               ],
@@ -9775,6 +10354,11 @@
                   "years_with_event": 10,
                   "valid_years": 14,
                   "frequency": 0.7142857142857143
+                },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
                 },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
@@ -9801,6 +10385,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.5,
                 "fruit_frost": 0.7142857142857143,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.0811960607572921,
                 "disease_weather": 0.1670674396526594,
@@ -9822,10 +10407,16 @@
               "budbreak": "12-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-25",
                 "flowering_end": "02-05",
-                "harvest_start": "03-15",
+                "harvest_start": "03-14",
                 "harvest_end": "04-26"
               },
               "flowering_months": [
@@ -9853,6 +10444,11 @@
                   "valid_years": 14,
                   "frequency": 0.2857142857142857
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -9878,6 +10474,7 @@
                 "bud_freeze": 0.07142857142857142,
                 "flowering_freeze": 0.5714285714285714,
                 "fruit_frost": 0.2857142857142857,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.07527211681699317,
                 "disease_weather": 0.16104166285364552,
@@ -9934,17 +10531,22 @@
           "measures": [
             {
               "key": "bud_freeze",
-              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "flowering_freeze",
-              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
+              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "fruit_frost",
-              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C, or stalled by cold",
+              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C",
+              "tolerance": 0.07142857142857142
+            },
+            {
+              "key": "cycle_failure",
+              "definition": "share of cycles that do not complete: flowering longer than 66 days, first harvest more than 150 days after flowering starts, or a stage requirement not reached within the stage horizon",
               "tolerance": 0.07142857142857142
             },
             {
@@ -9968,7 +10570,7 @@
               "tolerance": 0.05263157894736842
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Every start and year has one of four outcomes: complete; stalled slow, when flowering lasts over 66 days or the first harvest comes over 150 days after flowering starts; stalled at the horizon, when a stage requirement is not reached within 300 days; or weather incomplete, when the archive has a gap or ends first. Weather-incomplete cycles are left out of every count. Bud freeze, flowering freeze and fruit frost count complete cycles only. Cycle failure is the share of complete and stalled cycles that stalled. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze, fruit frost or cycle failure recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (bud freeze, flowering freeze, fruit frost and cycle failure) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",
@@ -10066,7 +10668,7 @@
           "majority_multi_feature": "Deciduous",
           "mean_based_multi_feature": "Deciduous",
           "flowering_start_median": "02-04",
-          "harvest_start_median": "04-07",
+          "harvest_start_median": "04-06",
           "flowering_freeze_frequency": 0.2
         }
       },
@@ -10188,8 +10790,9 @@
           "retrieved": "2026-09-08T01:33:30.382619+00:00",
           "license": "public domain",
           "note": "Cartographic mask; small islands and coastlines may be imperfect. Not a field boundary.",
-          "processing_version": "land-mask-v2",
-          "excluded_null_island_features": 1
+          "processing_version": "land-mask-v3",
+          "excluded_null_island_features": 1,
+          "coast_tolerance_km": 5.0
         },
         "land_geometry_repairs": 0,
         "limitations": [
@@ -10305,7 +10908,8 @@
             9,
             16
           ],
-          "pollination_gap_days": 4
+          "pollination_gap_days": 4,
+          "leap_day_offsets": "corrected"
         },
         "hemisphere": "south",
         "method": "open-field-production-v3",
@@ -10701,7 +11305,7 @@
           }
         },
         "calendar": {
-          "anchor": "season start (1 Nov north, 1 Apr south)",
+          "anchor": "season start (1 Nov north, 1 Apr south); 29 February not counted",
           "chill": {
             "n": 13,
             "mean": 101.53846153846153,
@@ -12108,7 +12712,7 @@
               "max": 2.0
             }
           },
-          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
+          "note": "Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. Disease weather is one family: days at high hourly infection risk from flowering start to harvest end. Frequent heavy rain is not a severity score; compare counts and totals. Dry spells and warm winter remain descriptive exposures."
         },
         "seasons": [
           {
@@ -13229,7 +13833,7 @@
           "chill_requirement_applies": true
         },
         "managed_cycle": {
-          "method": "managed-cycle-scan-v3",
+          "method": "managed-cycle-scan-v4",
           "policy": {
             "min_frequency": 0.5,
             "min_valid_years": 12
@@ -13239,6 +13843,12 @@
               "budbreak": "01-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "01-07",
                 "flowering_end": "01-27",
@@ -13269,6 +13879,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -13294,6 +13909,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.09804713804713804,
                 "harvest_heavy_rain": 0.10181874673974355,
                 "disease_weather": 0.5601398175159847,
@@ -13310,11 +13926,17 @@
               "budbreak": "01-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "01-21",
                 "flowering_end": "02-10",
                 "harvest_start": "03-04",
-                "harvest_end": "04-19"
+                "harvest_end": "04-18"
               },
               "flowering_months": [
                 1,
@@ -13336,6 +13958,11 @@
                   "frequency": 0.0
                 },
                 "fruit_frost": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
+                "cycle_failure": {
                   "years_with_event": 0,
                   "valid_years": 15,
                   "frequency": 0.0
@@ -13365,6 +13992,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.11197780353386762,
                 "harvest_heavy_rain": 0.08598044691800474,
                 "disease_weather": 0.5003111116701304,
@@ -13381,6 +14009,12 @@
               "budbreak": "02-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-07",
                 "flowering_end": "02-26",
@@ -13411,6 +14045,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -13436,6 +14075,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.06737801354506161,
                 "harvest_heavy_rain": 0.07069497157580022,
                 "disease_weather": 0.4061074336685639,
@@ -13452,6 +14092,12 @@
               "budbreak": "02-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "02-21",
                 "flowering_end": "03-13",
@@ -13483,6 +14129,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 15,
@@ -13508,6 +14159,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.021080368906455864,
                 "harvest_heavy_rain": 0.09441659745950956,
                 "disease_weather": 0.3150651691729245,
@@ -13524,6 +14176,12 @@
               "budbreak": "03-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-07",
                 "flowering_end": "03-28",
@@ -13555,6 +14213,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13580,6 +14243,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.006060606060606061,
                 "harvest_heavy_rain": 0.10604216864924182,
                 "disease_weather": 0.22805635246444186,
@@ -13596,6 +14260,12 @@
               "budbreak": "03-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "03-21",
                 "flowering_end": "04-12",
@@ -13628,6 +14298,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13653,6 +14328,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.1205890742591138,
                 "disease_weather": 0.16333573446843516,
@@ -13669,6 +14345,12 @@
               "budbreak": "04-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-08",
                 "flowering_end": "05-04",
@@ -13701,6 +14383,11 @@
                   "valid_years": 15,
                   "frequency": 0.2
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13726,6 +14413,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.2,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.103776140410143,
                 "disease_weather": 0.12182571135035965,
@@ -13742,6 +14430,12 @@
               "budbreak": "04-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "04-23",
                 "flowering_end": "05-23",
@@ -13773,6 +14467,11 @@
                   "valid_years": 15,
                   "frequency": 0.3333333333333333
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13798,6 +14497,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.3333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.11427691198879499,
                 "disease_weather": 0.1084185373971315,
@@ -13814,6 +14514,12 @@
               "budbreak": "05-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-10",
                 "flowering_end": "06-15",
@@ -13845,6 +14551,11 @@
                   "valid_years": 15,
                   "frequency": 0.4666666666666667
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13870,6 +14581,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.13333333333333333,
                 "fruit_frost": 0.4666666666666667,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.1157268880262043,
                 "disease_weather": 0.11925991536142114,
@@ -13886,6 +14598,12 @@
               "budbreak": "05-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "05-25",
                 "flowering_end": "07-05",
@@ -13918,6 +14636,11 @@
                   "valid_years": 15,
                   "frequency": 0.4
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -13943,6 +14666,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.2,
                 "fruit_frost": 0.4,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.12901691854435257,
                 "disease_weather": 0.13744638120439626,
@@ -13959,6 +14683,12 @@
               "budbreak": "06-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-13",
                 "flowering_end": "07-25",
@@ -13990,6 +14720,11 @@
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14015,6 +14750,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.26666666666666666,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0,
                 "harvest_heavy_rain": 0.15122602710934183,
                 "disease_weather": 0.14808766891414663,
@@ -14031,6 +14767,12 @@
               "budbreak": "06-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "06-27",
                 "flowering_end": "08-09",
@@ -14063,6 +14805,11 @@
                   "valid_years": 15,
                   "frequency": 0.13333333333333333
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14088,6 +14835,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.2,
                 "fruit_frost": 0.13333333333333333,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.0022988505747126436,
                 "harvest_heavy_rain": 0.15741781482996425,
                 "disease_weather": 0.16003646384570883,
@@ -14104,6 +14852,12 @@
               "budbreak": "07-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-14",
                 "flowering_end": "08-25",
@@ -14135,6 +14889,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14160,6 +14919,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.06666666666666667,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.004170739654610622,
                 "harvest_heavy_rain": 0.16816606979220283,
                 "disease_weather": 0.18007039192795737,
@@ -14176,6 +14936,12 @@
               "budbreak": "07-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "07-27",
                 "flowering_end": "09-03",
@@ -14207,6 +14973,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14232,6 +15003,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.010766592510196515,
                 "harvest_heavy_rain": 0.15947288469825352,
                 "disease_weather": 0.20329267246607843,
@@ -14248,6 +15020,12 @@
               "budbreak": "08-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-13",
                 "flowering_end": "09-14",
@@ -14278,6 +15056,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14303,6 +15086,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.023416651462628477,
                 "harvest_heavy_rain": 0.14564178449681162,
                 "disease_weather": 0.22352424133723586,
@@ -14319,6 +15103,12 @@
               "budbreak": "08-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "08-26",
                 "flowering_end": "09-24",
@@ -14350,6 +15140,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14375,6 +15170,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.020066748066748064,
                 "harvest_heavy_rain": 0.13729888642971855,
                 "disease_weather": 0.25216170382445624,
@@ -14391,6 +15187,12 @@
               "budbreak": "09-01",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "09-10",
                 "flowering_end": "10-08",
@@ -14421,6 +15223,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14446,6 +15253,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.010564102564102564,
                 "harvest_heavy_rain": 0.134034159363796,
                 "disease_weather": 0.2979576217283667,
@@ -14462,6 +15270,12 @@
               "budbreak": "09-15",
               "cycles": 15,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 15,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 0
+              },
               "dates": {
                 "flowering_start": "09-24",
                 "flowering_end": "10-19",
@@ -14492,6 +15306,11 @@
                   "valid_years": 15,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 15,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 15,
@@ -14517,6 +15336,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.008266237251744498,
                 "harvest_heavy_rain": 0.1456649957539745,
                 "disease_weather": 0.3407597868823506,
@@ -14533,6 +15353,12 @@
               "budbreak": "10-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-09",
                 "flowering_end": "11-02",
@@ -14564,6 +15390,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -14589,6 +15420,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.01664649360301534,
                 "harvest_heavy_rain": 0.15383942915187715,
                 "disease_weather": 0.3991800845865026,
@@ -14605,6 +15437,12 @@
               "budbreak": "10-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "10-23",
                 "flowering_end": "11-16",
@@ -14635,6 +15473,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -14660,6 +15503,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.020833333333333332,
                 "harvest_heavy_rain": 0.15330703055961964,
                 "disease_weather": 0.42697113574600865,
@@ -14676,6 +15520,12 @@
               "budbreak": "11-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-09",
                 "flowering_end": "11-30",
@@ -14706,6 +15556,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 0,
                   "valid_years": 14,
@@ -14731,6 +15586,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.05716489841203799,
                 "harvest_heavy_rain": 0.14139241667000016,
                 "disease_weather": 0.4656529290810781,
@@ -14747,6 +15603,12 @@
               "budbreak": "11-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "11-22",
                 "flowering_end": "12-13",
@@ -14777,6 +15639,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 14,
@@ -14802,6 +15669,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.09274891774891773,
                 "harvest_heavy_rain": 0.11848612183875126,
                 "disease_weather": 0.5013739851078196,
@@ -14818,6 +15686,12 @@
               "budbreak": "12-01",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-07",
                 "flowering_end": "12-27",
@@ -14847,6 +15721,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 14,
@@ -14872,6 +15751,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.06234742700908114,
                 "harvest_heavy_rain": 0.09505272150440662,
                 "disease_weather": 0.5417621938909487,
@@ -14888,6 +15768,12 @@
               "budbreak": "12-15",
               "cycles": 14,
               "stalled_cycles": 0,
+              "outcomes": {
+                "complete": 14,
+                "stalled_slow": 0,
+                "stalled_horizon": 0,
+                "weather_incomplete": 1
+              },
               "dates": {
                 "flowering_start": "12-21",
                 "flowering_end": "01-09",
@@ -14918,6 +15804,11 @@
                   "valid_years": 14,
                   "frequency": 0.0
                 },
+                "cycle_failure": {
+                  "years_with_event": 0,
+                  "valid_years": 14,
+                  "frequency": 0.0
+                },
                 "fruit_severe_heat": {
                   "years_with_event": 1,
                   "valid_years": 14,
@@ -14943,6 +15834,7 @@
                 "bud_freeze": 0.0,
                 "flowering_freeze": 0.0,
                 "fruit_frost": 0.0,
+                "cycle_failure": 0.0,
                 "fruit_heat": 0.05718318948132612,
                 "harvest_heavy_rain": 0.10408743383380772,
                 "disease_weather": 0.5648045438129281,
@@ -14996,17 +15888,22 @@
           "measures": [
             {
               "key": "bud_freeze",
-              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold",
+              "definition": "share of cycles with a bud-stage day at or below the stage critical temperature",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "flowering_freeze",
-              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold",
+              "definition": "share of cycles with a flowering day at or below the damaging freeze threshold",
               "tolerance": 0.07142857142857142
             },
             {
               "key": "fruit_frost",
-              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C, or stalled by cold",
+              "definition": "share of cycles with a fruit-development day with Tmin at or below 0 C",
+              "tolerance": 0.07142857142857142
+            },
+            {
+              "key": "cycle_failure",
+              "definition": "share of cycles that do not complete: flowering longer than 66 days, first harvest more than 150 days after flowering starts, or a stage requirement not reached within the stage horizon",
               "tolerance": 0.07142857142857142
             },
             {
@@ -15030,7 +15927,7 @@
               "tolerance": 0.0392156862745098
             }
           ],
-          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Cycles whose flowering lasts over 66 days or whose first harvest comes over 150 days after flowering starts have stalled; they count as failed cycles for bud freeze, flowering freeze and fruit frost. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze or fruit frost recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
+          "rule": "Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile stage clock. Every start and year has one of four outcomes: complete; stalled slow, when flowering lasts over 66 days or the first harvest comes over 150 days after flowering starts; stalled at the horizon, when a stage requirement is not reached within 300 days; or weather incomplete, when the archive has a gap or ends first. Weather-incomplete cycles are left out of every count. Bud freeze, flowering freeze and fruit frost count complete cycles only. Cycle failure is the share of complete and stalled cycles that stalled. Starts need at least 12 complete cycles. A start where bud freeze, flowering freeze, fruit frost or cycle failure recurs in at least 50% of cycles is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good on every measure and better on one) plus starts within one affected cycle (bud freeze, flowering freeze, fruit frost and cycle failure) or one affected day per cycle (fruit heat, harvest heavy rain, disease weather and days without bee flight) of a front start on every measure.",
           "limitations": [
             "Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.",
             "Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.",
@@ -15253,8 +16150,9 @@
           "retrieved": "2026-09-08T01:33:30.382619+00:00",
           "license": "public domain",
           "note": "Cartographic mask; small islands and coastlines may be imperfect. Not a field boundary.",
-          "processing_version": "land-mask-v2",
-          "excluded_null_island_features": 1
+          "processing_version": "land-mask-v3",
+          "excluded_null_island_features": 1,
+          "coast_tolerance_km": 5.0
         },
         "land_geometry_repairs": 0,
         "limitations": [

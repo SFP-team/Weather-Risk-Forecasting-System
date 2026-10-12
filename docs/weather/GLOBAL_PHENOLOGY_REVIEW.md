@@ -22,6 +22,8 @@ A targeted review cannot establish a calibrated calendar for every place on Eart
 
 ## 1. What the current program actually calculates
 
+> **Note added 2026-10-12.** This section describes the v2 model as it stood on 2026-09-24. The current primary profile, `stage_thermal_v3` (method `open-field-production-v3`), replaced the fixed offsets below. It uses degree-day stage requirements after budbreak and a 100 h chill requirement instead of 50 h. The table and the offset audit below are a record of v2 only. For the current model, see [the production README](production/README.md).
+
 In `pipelines/weather/production.py`, `stage_risks_v2` inherits the following phenology from `legacy_paul_v1`:
 
 | Component | Current implementation | Consequence |

@@ -1,0 +1,98 @@
+{
+ "version": 1,
+ "note": "Sources used by implemented evidence jobs. Ids come from docs/research/2026-10-11/source_catalog.json. allowed_use is private_research or public_display_ok.",
+ "sources": [
+  {
+   "id": "usda-rma-cause-of-loss",
+   "name": "USDA RMA Summary of Business with Month of Loss (Cause of Loss files)",
+   "publisher": "USDA Risk Management Agency",
+   "url": "https://www.rma.usda.gov/tools-reports/summary-of-business/cause-loss",
+   "data_url": "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/cause_of_loss/",
+   "licence_or_terms": "US federal government work (public domain); terms not stated on page",
+   "allowed_use": "public_display_ok",
+   "cadence": "files revised irregularly (2022 to 2026 files replaced on 2026-10-05); checked monthly",
+   "languages": ["en"],
+   "job_ids": ["rma-col"]
+  },
+  {
+   "id": "us-rma-sob-state-county-crop",
+   "name": "Summary of Business, State/County/Crop with Coverage Level and Type/Practice/Unit Structure files (sobcov, sobtpu)",
+   "publisher": "USDA Risk Management Agency (RMA)",
+   "url": "https://www.rma.usda.gov/tools-reports/summary-of-business/state-county-crop-summary-business",
+   "data_url": "https://pubfs-rma.fpac.usda.gov/pub/Web_Data_Files/Summary_of_Business/state_county_crop/",
+   "licence_or_terms": "US federal government work (public domain); terms not found",
+   "allowed_use": "public_display_ok",
+   "cadence": "weekly per catalogue; checked monthly",
+   "languages": ["en"],
+   "job_ids": ["rma-sobtpu"]
+  },
+  {
+   "id": "noaa-storm-events",
+   "name": "NOAA Storm Events Database",
+   "publisher": "NOAA National Centers for Environmental Information",
+   "url": "https://www.ncei.noaa.gov/access/storm-events-database/",
+   "data_url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+   "licence_or_terms": "US federal government work (public domain); terms not stated on page",
+   "allowed_use": "public_display_ok",
+   "cadence": "monthly",
+   "languages": ["en"],
+   "job_ids": ["storm-events"]
+  },
+  {
+   "id": "noaa-ghcnh",
+   "name": "Global Historical Climatology Network hourly (GHCNh)",
+   "publisher": "NOAA NCEI",
+   "url": "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly",
+   "licence_or_terms": "CC0-1.0 (NOAA metadata Use Constraints: produced by NOAA, not subject to US copyright, rights waived worldwide under CC0 1.0). Cite as Menne et al. 2023, GHCNh, doi:10.25921/jp3d-3v19. No warranty (NCEI distribution liability).",
+   "allowed_use": "public_display_ok",
+   "cadence": "daily (NCEI updates; pulled monthly)",
+   "languages": ["en"],
+   "job_ids": ["ghcnh-stations", "station-truth"]
+  },
+  {
+   "id": "cl-odepa-catastro-fruticola",
+   "name": "Catastro frutícola CIREN-ODEPA (open data, block level)",
+   "publisher": "ODEPA and CIREN",
+   "url": "https://datos.odepa.gob.cl/dataset/catastro-fruticola",
+   "licence_or_terms": "Creative Commons Attribution (CKAN licence cc-by); cite ODEPA-CIREN",
+   "allowed_use": "public_display_ok",
+   "cadence": "yearly survey files, checked quarterly",
+   "languages": ["es"],
+   "job_ids": ["odepa-catastro"]
+  },
+  {
+   "id": "cl-odepa-comercio-exterior",
+   "name": "ODEPA Comercio Exterior open data (monthly exports by product, region of origin and destination)",
+   "publisher": "ODEPA, with Servicio Nacional de Aduanas data",
+   "url": "https://datos.odepa.gob.cl/dataset/comercio-exterior",
+   "licence_or_terms": "Creative Commons Attribution (CKAN licence cc-by); cite ODEPA and Aduanas",
+   "allowed_use": "public_display_ok",
+   "cadence": "monthly",
+   "languages": ["es"],
+   "job_ids": ["odepa-exports"]
+  },
+  {
+   "id": "eu-eurostat-comext-ds045409",
+   "name": "Eurostat Comext DS-045409 (EU trade since 1988 by CN8), monthly imports of CN 0810 40 50 by partner",
+   "publisher": "Eurostat",
+   "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409",
+   "licence_or_terms": "Eurostat copyright notice: reuse authorised provided the source is acknowledged",
+   "allowed_use": "public_display_ok",
+   "cadence": "monthly",
+   "languages": ["en"],
+   "notes": "CN 0810 40 50 covers fresh Vaccinium corymbosum (highbush blueberry) and Vaccinium macrocarpon (American cranberry) together; the line is not blueberry-only.",
+   "job_ids": ["comext-blueberry"]
+  },
+  {
+   "id": "pe-senamhi-agromet-arandano",
+   "name": "Pronóstico Agrometeorológico: Cultivo de Arándano (dekadal bulletin)",
+   "publisher": "SENAMHI, Subdirección de Agrometeorología",
+   "url": "https://www.senamhi.gob.pe/main.php?dp=la-libertad&p=boletines",
+   "licence_or_terms": "terms not found",
+   "allowed_use": "private_research",
+   "cadence": "dekadal bulletin, checked weekly",
+   "languages": ["es"],
+   "job_ids": ["senamhi-arandano"]
+  }
+ ]
+}

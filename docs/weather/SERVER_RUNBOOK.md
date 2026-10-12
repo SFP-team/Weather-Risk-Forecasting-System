@@ -76,6 +76,25 @@ The worker holds `state/worker.lock` while running. **Completed 2026-09-22 01:12
 
 The private API now reads this cache through `hourly_archive.py` for unindexed land cells. Deploy it alongside `location_api.py`; restart only `blueberry-ui-api`. The reader opens `jobs.sqlite` with `mode=ro`, verifies cached object hashes, and never instantiates the downloader. Six new synthetic archive regressions and real global-point checks passed on 2026-09-22; no acquisition counters changed. Existing indexed series remain the optimized path. API readiness does not imply scientific validation or soil/planting coverage.
 
+### Services and scheduled jobs (2026-10-12)
+
+All long-running and scheduled work for this project now uses systemd user units for the `fpt` account; lingering is on, so units run without a login session.
+
+- **Do not use the crontab for this project.** It is shared with another user's entry.
+- **Do not start project work in tmux.** It failed on 5 October when the root disk was full.
+- **Check before acting:**
+
+  ```sh
+  systemctl --user list-units 'blueberry*' --all
+  systemctl --user list-timers 'blueberry*' --all
+  ```
+
+- **Private API.** The `blueberry-ui-api.service` and `blueberry-ui-api-watchdog.timer` units are described in `docs/UI_RUNBOOK.md`. Unit files are in `ops/api/`; scripts are in `ops/bin/`.
+- **Evidence ingestion jobs.** `blueberry-evidence@<job>.service` with one `blueberry-evidence-<job>.timer` per job, run from `code/` as `../env/bin/python -m evidence run <job>`. Guards, storage layout and commands are in `docs/evidence/JOBS_RUNBOOK.md`.
+- **Shared account.** The `fpt` account also runs other projects' user units (`ceres-*`, `weed-*`). This project's units all start with `blueberry-`; never edit, stop or restart any other unit.
+- **Files written.** The jobs write only under `data/evidence/`, `state/evidence/`, `logs/evidence/` and `tmp/evidence/`, and stop before writing if a disk guard fails.
+- **Interactive tmux.** If you still use tmux for other work, set `TMUX_TMPDIR=/media/fpt/fpt2/Weather_Claude/tmp/tmux` first, so a full root disk cannot block it.
+
 ## Important files
 
 | Path relative to the remote project | Meaning |

@@ -5,7 +5,7 @@
     "stage_risks_v2",
     "stage_thermal_v3"
   ],
-  "registry_sha256": "3b1d5a9183f4883d1aad7b5d04573cec05f770eb57f143a289dc39d7078ebe67",
+  "registry_sha256": "fd81e8c4538c5f5d24874866a5ce481fc28ac4fe04459b0880b728c598371e81",
   "code_sha256": "db4007dc4f3ee8d1a49255d0fea30ac052469b44a7893e4f914c2627bb87170d",
   "caveats": [
     "Published months describe regional practice across cultivars, management and years; the model uses one 0.5 x 0.625 degree grid cell with one UF-type low-chill southern-highbush parameter set.",
@@ -1846,7 +1846,7 @@
             "budbreak": "01-25",
             "flowering_start": "02-04",
             "flowering_end": "03-09",
-            "harvest_start": "04-07",
+            "harvest_start": "04-06",
             "harvest_end": "05-13"
           },
           "windows": {
@@ -3042,7 +3042,7 @@
             "flowering_start": "02-03",
             "flowering_end": "03-19",
             "harvest_start": "04-21",
-            "harvest_end": "05-30"
+            "harvest_end": "05-29"
           },
           "windows": {
             "bloom": [
@@ -3609,8 +3609,8 @@
           "calendar": {
             "budbreak": "01-06",
             "flowering_start": "02-19",
-            "flowering_end": "04-04",
-            "harvest_start": "05-04",
+            "flowering_end": "04-03",
+            "harvest_start": "05-03",
             "harvest_end": "06-09"
           },
           "windows": {
@@ -3911,9 +3911,9 @@
           "calendar": {
             "budbreak": "01-06",
             "flowering_start": "02-15",
-            "flowering_end": "04-10",
+            "flowering_end": "04-09",
             "harvest_start": "05-06",
-            "harvest_end": "06-13"
+            "harvest_end": "06-12"
           },
           "windows": {
             "bloom": [
@@ -4199,8 +4199,8 @@
             "budbreak": "01-04",
             "flowering_start": "02-11",
             "flowering_end": "04-07",
-            "harvest_start": "05-06",
-            "harvest_end": "06-12"
+            "harvest_start": "05-05",
+            "harvest_end": "06-11"
           },
           "windows": {
             "bloom": [
@@ -4736,7 +4736,7 @@
             "flowering_start": "04-30",
             "flowering_end": "05-29",
             "harvest_start": "06-23",
-            "harvest_end": "07-28"
+            "harvest_end": "07-27"
           },
           "windows": {
             "bloom": [
@@ -5020,7 +5020,7 @@
             "flowering_start": "06-01",
             "flowering_end": "06-26",
             "harvest_start": "07-21",
-            "harvest_end": "08-29"
+            "harvest_end": "08-28"
           },
           "windows": {
             "bloom": [
@@ -6059,12 +6059,18 @@
           "url": "https://biblioteca.inia.cl/server/api/core/bitstreams/48a0d50e-e9cc-4d17-959e-b5e768865926/content",
           "access": "SNIP",
           "supports": "Floral differentiation from late August to bloom; abnormally cold Oct-Nov harms flowering and set. Snippet only; the site returns HTTP 403 when opened."
+        },
+        {
+          "title": "Manual T\u00e9cnico Productivo y Especificaciones Tecnol\u00f3gicas para el Ar\u00e1ndano (Proyecto Generaci\u00f3n de Soportes Digitales, Regi\u00f3n del Maule, 2014)",
+          "url": "https://portalberries.com/wp-content/uploads/2025/04/Manual-Especificaciones-Tecnica-Economica.pdf",
+          "access": "FT",
+          "supports": "2012-13 season, own field data: at the Linares farm O'Neal bloomed in the first days of September and Brigitta bloom began in the first days of October (p. 10-11). Table 4 gives days from 1 July to bloom at Linares: 65 for O'Neal and 94 for Brigitta."
         }
       ],
-      "notes": "Bloom months are left empty: no FT or ABS source gives them. The 1 Nov frost damage and the INIA snippet point to a Sep-Oct bloom [INFERENCE/SNIP]. The national peak is mid-Dec to late Jan (Retamales 2014) or Jan-Feb (FAS 2021/22 exports), so Dec-Jan is used for Maule.",
+      "notes": "Bloom months stay empty until Paul approves benchmark month changes. Proposed: Sep-Oct, from one dated season (2012-13) at a Linares farm (Maule manual, 2014): O'Neal from early September, Brigitta from early October. Other cultivars and years are not covered. The national peak is mid-Dec to late Jan (Retamales 2014) or Jan-Feb (FAS 2021/22 exports), so Dec-Jan is used for Maule. Found via docs/research/2026-10-11/regions/chile-argentina-uruguay.md.",
       "verification": {
         "status": "corrected",
-        "notes": "Removed bloom months Sep-Oct, which rested on a snippet and an inference. Removed the 'do not pick above 30 C' heat risk, which no opened source supports. The frost article does not say fruit was already set, so that wording was dropped. Harvest and peak confirmed in full text."
+        "notes": "Removed bloom months Sep-Oct, which rested on a snippet and an inference. Removed the 'do not pick above 30 C' heat risk, which no opened source supports. The frost article does not say fruit was already set, so that wording was dropped. Harvest and peak confirmed in full text. Review of 2026-10-11: the Maule manual full text (2012-13 Linares observations), opened 2026-10-12, supports Sep-Oct bloom; the months are proposed, not applied, pending Paul's approval."
       },
       "group": "Peru, Chile and Mexico",
       "status": "assessed",
@@ -6857,7 +6863,7 @@
             "flowering_start": "10-25",
             "flowering_end": "12-17",
             "harvest_start": "01-24",
-            "harvest_end": "04-04"
+            "harvest_end": "04-03"
           },
           "windows": {
             "bloom": [
@@ -9914,7 +9920,7 @@
             "budbreak": "02-18",
             "flowering_start": "03-08",
             "flowering_end": "04-17",
-            "harvest_start": "05-20",
+            "harvest_start": "05-19",
             "harvest_end": "07-04"
           },
           "windows": {
@@ -10111,7 +10117,7 @@
           "clock_reasons": [],
           "calendar": {
             "budbreak": "02-25",
-            "flowering_start": "03-24",
+            "flowering_start": "03-23",
             "flowering_end": "05-11",
             "harvest_start": "06-12",
             "harvest_end": "07-21"
@@ -10528,11 +10534,11 @@
             "Only 2/15 winters produce a chill-triggered calendar."
           ],
           "calendar": {
-            "budbreak": "03-04",
-            "flowering_start": "03-13",
-            "flowering_end": "04-10",
+            "budbreak": "03-03",
+            "flowering_start": "03-12",
+            "flowering_end": "04-09",
             "harvest_start": "05-08",
-            "harvest_end": "06-12"
+            "harvest_end": "06-11"
           },
           "windows": {
             "bloom": [
@@ -11610,12 +11616,24 @@
           "url": "https://www.examiner.com.au/story/4092028/costa-confirms-blueberry-rust-detection/",
           "access": "SNIP",
           "supports": "Costa operates a commercial blueberry farm at Sulphur Creek"
+        },
+        {
+          "title": "Hort Innovation Australian Horticulture Statistics Handbook 2023/24, blueberry chapter (Berries Australia copy)",
+          "url": "https://berries.net.au/wp-content/uploads/2025/03/BB-ahsh-hort-stats-fruit-23-24.pdf",
+          "access": "IND",
+          "supports": "Tasmania harvest availability High in January, February and March, Medium in April."
+        },
+        {
+          "title": "Weather_Claude research note docs/research/2026-10-11/regions/australia-new-zealand.md (Tasmania peak conflict)",
+          "url": "docs/research/2026-10-11/regions/australia-new-zealand.md",
+          "access": "FT",
+          "supports": "The 2012 fact sheet (Feb-early March ripening) and FGT 16 Jan 2025 (volume peak early Jan-mid Feb) are not a true conflict. Recommends peak Jan-Feb with March as a shoulder."
         }
       ],
-      "notes": "Peak disagreement: the industry body says early Jan-mid Feb, the government fact sheet says Feb-early March. February is common to both. Tunnels are used alongside soil-grown open field. Costa's Sulphur Creek site grows some evergreen plants (SNIP). Planting months were not found.",
+      "notes": "Peak is Jan-Feb with March as a shoulder month. There is no shoulder field, so March stays in harvest_months only. Dated claims: the NRE fact sheet (April 2012) says most commercial varieties ripen in February to early March; Fruit Growers Tasmania (16 Jan 2025) gives peak volumes from early January to mid February; the Hort Innovation Handbook 2023/24 shows High from January to March. Tunnels are used alongside soil-grown open field. Costa's Sulphur Creek site grows some evergreen plants (SNIP). Planting months were not found.",
       "verification": {
         "status": "verified",
-        "notes": "The fact sheet and the Fruit Growers Tasmania release were both read in full, and all months are confirmed. The Sulphur Creek locality was checked (SNIP). The note on evergreen plants at Sulphur Creek is new. FGT is recoded IND."
+        "notes": "The fact sheet and the Fruit Growers Tasmania release were both read in full, and all months are confirmed. The Sulphur Creek locality was checked (SNIP). The note on evergreen plants at Sulphur Creek is new. FGT is recoded IND. Review of 2026-10-11: peak kept at Jan-Feb with March recorded as a shoulder in the notes, per docs/research/2026-10-11/regions/australia-new-zealand.md. The Handbook 2023/24 grid was added as a source."
       },
       "group": "Rest of world",
       "status": "assessed",
@@ -12454,7 +12472,7 @@
           "calendar": {
             "budbreak": "04-21",
             "flowering_start": "05-02",
-            "flowering_end": "05-28",
+            "flowering_end": "05-27",
             "harvest_start": "06-20",
             "harvest_end": "07-24"
           },
@@ -12669,9 +12687,9 @@
           "clock_reasons": [],
           "calendar": {
             "budbreak": "05-11",
-            "flowering_start": "05-22",
+            "flowering_start": "05-21",
             "flowering_end": "06-15",
-            "harvest_start": "07-09",
+            "harvest_start": "07-08",
             "harvest_end": "08-11"
           },
           "windows": {
@@ -12900,10 +12918,10 @@
           "clock_reasons": [],
           "calendar": {
             "budbreak": "05-12",
-            "flowering_start": "05-25",
-            "flowering_end": "06-21",
+            "flowering_start": "05-24",
+            "flowering_end": "06-20",
             "harvest_start": "07-20",
-            "harvest_end": "09-03"
+            "harvest_end": "09-02"
           },
           "windows": {
             "bloom": [
@@ -13155,10 +13173,10 @@
           "clock_reasons": [],
           "calendar": {
             "budbreak": "05-10",
-            "flowering_start": "05-24",
+            "flowering_start": "05-23",
             "flowering_end": "06-22",
             "harvest_start": "07-23",
-            "harvest_end": "09-16"
+            "harvest_end": "09-15"
           },
           "windows": {
             "bloom": [
@@ -13295,12 +13313,24 @@
           "url": "https://en.wikipedia.org/wiki/Marondera",
           "access": "FT",
           "supports": "highveld plateau, Cwb climate; dry winter May-Sept; occasional night frost"
+        },
+        {
+          "title": "Eurostat Comext DS-045409, monthly EU imports from Zimbabwe, CN 08104050, quantity in 100 kg (queried 2026-10-12)",
+          "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&reporter=EU&partner=ZW&product=08104050&flow=1&indicators=QUANTITY_IN_100KG&freq=M&sinceTimePeriod=2023-01&untilTimePeriod=2025-12",
+          "access": "FT",
+          "supports": "EU arrivals in tonnes. 2023: Aug 33, Sep 384, Oct 568, Nov 298. 2024: Aug 208, Sep 976, Oct 1,898, Nov 295. 2025: Jul 79, Aug 192, Sep 1,046, Oct 1,625, Nov 681. Arrivals peak in October and then September every year. Arrival month is not harvest month."
+        },
+        {
+          "title": "Weather_Claude research note docs/research/2026-10-11/regions/africa.md (Zimbabwe peak)",
+          "url": "docs/research/2026-10-11/regions/africa.md",
+          "access": "FT",
+          "supports": "GAIN's June/July peak is about South African imports, not harvest. EU arrivals from Comext peak in Sep-Oct. The Herald reports shipments peak around September. Recommends an Aug-Sep harvest peak [inference]."
         }
       ],
-      "notes": "Peak conflict: IBO says August, while USDA GAIN says June/July (from SA import timing), so the peak is set to Jul-Aug. The first late-March volumes are minor and excluded; harvest can extend into November in late years (2023). Evergreen pruning is about end September (IND). Elevation 1,688 m is from a search snippet (Wikidata/Wikipedia) and was not opened. Bloom and planting months were not found.",
+      "notes": "Peak stays Jul-Aug until Paul approves benchmark month changes; Aug-Sep is proposed. EU arrivals (Comext, CN 08104050) peak in October and then September in 2023, 2024 and 2025. Sea freight takes several weeks, so the harvest peak is earlier than the arrival peak [INFERENCE]. IBO also gives an August peak. The GAIN June/July peak describes South African import timing, not harvest. The first late-March volumes are minor and excluded; harvest can extend into November in late years (2023). Evergreen pruning is about end September (IND). Elevation 1,688 m is from a search snippet (Wikidata/Wikipedia) and was not opened. Bloom and planting months were not found.",
       "verification": {
         "status": "corrected",
-        "notes": "Coordinates were corrected to the Wikipedia town-centre values (snippet) and elevation to 1,688 m (snippet); the draft's 1,630 m was unsourced. The IBO abstract was re-read and recoded IND. GAIN's conflicting June/July peak was added, so the peak is set to Jul-Aug. The draft's claim that the IBO text calls Zimbabwe varieties 'evergreen, allowing scheduled harvests' actually refers to Uganda/Kenya, so the system confidence was lowered. The Mashonaland East snippet was dropped."
+        "notes": "Coordinates were corrected to the Wikipedia town-centre values (snippet) and elevation to 1,688 m (snippet); the draft's 1,630 m was unsourced. The IBO abstract was re-read and recoded IND. GAIN's conflicting June/July peak was added, so the peak is set to Jul-Aug. The draft's claim that the IBO text calls Zimbabwe varieties 'evergreen, allowing scheduled harvests' actually refers to Uganda/Kenya, so the system confidence was lowered. The Mashonaland East snippet was dropped. Review of 2026-10-11: a change of the peak from Jul-Aug to Aug-Sep is proposed, not applied. Monthly EU imports from Zimbabwe for 2023-2025 were pulled from the Comext API on 2026-10-12 (query URL in sources). Arrivals peak in October each year, with September second. With a shipping lag this fits an Aug-Sep harvest peak, as derived in docs/research/2026-10-11/regions/africa.md. Arrival month is not harvest month, so the peak remains an inference."
       },
       "group": "Rest of world",
       "status": "assessed",

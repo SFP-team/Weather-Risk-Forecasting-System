@@ -33,9 +33,9 @@
   "Latin America": [
    "Removed mx-san-quintin-bc: no FT or ABS source gives bloom or harvest months for San Quintín / Vicente Guerrero. Searches returned only production totals (3,425 t in 2019; 329 ha and 4,714 t in a later year, SADER via press) and a national SIAP curve. Baja California remains unrepresented.",
    "Papanduva / Planalto Norte (SC): no source with harvest or bloom months was found. ND+ (2025) documents growing production at Campo Alegre in the Planalto Norte without months. The only SC harvest statement (Nov-Jan) is regional press from Caçador, applied to Lages at low confidence. estado.sc.gov.br 'Panorama Agrícola' failed to load; the Epagri 2025 article returned 403.",
-   "Chile: no FT or ABS source gives bloom months by region. INIA library PDFs (flowering chapter, Maule pots bulletin) return 403, CIREN's Maule guide was unreachable, scielo.cl returns 403, and the UACh manual's phenology figure is an image. Bloom months were emptied for all Chilean sites; inferred windows are Sep-Oct for the south-central zone and Oct-Nov for the south. Planting months for Maule, Ñuble and Biobío not found.",
+   "Chile: one dated season (2012-13) in the Maule manual (2014) supports Sep-Oct bloom at Linares (Maule). Those months are proposed, not applied, because benchmark month changes that alter scoring await Paul's approval (2026-10-12). No dated primary source gives bloom months for Coquimbo, Ñuble, Biobío or Los Lagos; INIA library PDFs return 403, CIREN's Maule guide was unreachable, scielo.cl returns 403, and the UACh manual's phenology figure is an image. Inferred windows are Sep-Oct for the south-central zone and Oct-Nov for the south. Planting months for Maule, Ñuble and Biobío not found.",
    "Peru: bloom months and pruning dates for Olmos and Ica are not in any FT or ABS source. The only north-coast pruning dates are the Chao trial (early March) and an industry interview (15 Jan to early Feb). Ica bloom and peak months not found.",
-   "Mexico: Jalisco and Sinaloa bloom and pruning months not found in published sources. The Michoacán calendar comes from one practitioner (industry). SIAP stopped publishing blueberry data after 2022, and the FAS 2025 state-share chart is illegible in the extracted text.",
+   "Mexico: Jalisco and Sinaloa bloom and pruning months not found in published sources. The Michoacán calendar comes from one practitioner (industry). SIAP municipal blueberry data run to 2025 (open CSV 2003-2025, per docs/research/2026-10-11/regions/peru-mexico.md, https://nube.agricultura.gob.mx/datosAbiertos/Agricola.php); FAS 2024 said SIAP stopped after 2022, which is superseded. The FAS 2025 state-share chart is illegible in the extracted text.",
    "Argentina: Tucumán piedmont bloom months are inferred from a July 2024 frost report (small fruit plus ongoing bloom). The EEAOC RA25 and EEAOC Publicación Especial 30 PDFs return 403, and the INTA Concordia chapter PDF fetch aborted (abstract only). Piedmont pruning months not found. Production-system labels for Tucumán (semi_evergreen) and Concordia (deciduous) are partly inferential.",
    "Brazil: Vacaria bloom months are snippet-only (ResearchGate 403), and Vacaria-specific harvest and peak are not documented (the Nov-Apr span is Embrapa's national statement). A Paraná lowland dataset (IAPAR Cerro Azul, 659 m, 24°53'S: RE/SHB bloom Jul-Sep, harvest Nov-Jan, FT in Rev. Bras. Frutic. e-520) exists and could be added as a new low-chill site. Minas Gerais highland phenology not found.",
    "Colombia: only one primary trial (28 weeks, Jun-Dec 2014). Jan-May bloom and harvest are extrapolated. No peak months, and no Boyacá or Antioquia site documented.",
@@ -50,12 +50,12 @@
    "Morocco: no ONSSA/ministry or INRA calendar with bloom or peak months; Larache Jan-Feb bloom rests only on a SNIP page; Souss end-of-season month is inferred from the national window; no Souss-specific production-system evidence.",
    "South Africa: Steyn et al. 2023 full text not read (ScienceDirect 403; abstract via AGRIS only); no bloom months for Limpopo; Tzaneen and Marondera elevations and Marondera coordinates are SNIP-level; site-specific protection shares are not available (national GAIN 2020 shares used).",
    "Coffs Harbour: the evergreen pruning month and a bloom peak are not documented in the FT sources; the Jul-Oct peak is a single season (2020) of cooperative data; Wright 1993 (Corindi, Acta Hortic. 346) not read.",
-   "Tasmania: industry (Jan-mid Feb) and government (Feb-early Mar) peak statements differ; Costa Sulphur Creek evergreen plantings are SNIP only.",
+   "Tasmania: industry (Jan-mid Feb, 2025) and government (Feb-early Mar, 2012) peak statements differ in date and scope; the peak is set to Jan-Feb with March as a shoulder (no shoulder field). Costa Sulphur Creek evergreen plantings are SNIP only.",
    "Waikato: planting months not found; no Plant & Food Research document retrieved; rabbiteye April harvest is SNIP only.",
    "China: bloom months not found in FT sources for Mengzi, Qingdao or Dandong; Mengzi evergreen pruning timing not documented; Li Yadong reviews not read; no volume statistics for Mengzi peak months.",
    "Poland: no Instytut Ogrodnictwa document with Lubelskie month calendar; planting months only described as spring/autumn.",
    "Germany: planting months not found; bloom from secondary FT sources (de.wikipedia, Saxony leaflet), not an LWK Niedersachsen document.",
-   "Zimbabwe: bloom, planting and pruning months not found; evergreen classification is inferred from IND cultivar descriptions; IBO (Aug) and USDA GAIN (Jun/Jul) peaks conflict.",
+   "Zimbabwe: bloom, planting and pruning months not found; evergreen classification is inferred from IND cultivar descriptions. An Aug-Sep peak is proposed from Comext EU arrival months (peak October) minus a shipping lag, but not applied until Paul approves benchmark month changes; no grower harvest-volume series by month was found.",
    "Access coding: industry-association and company pages (Freshuelva, Berries Australia, Fruit Growers Tasmania, IBO, FreshPlaza/Hortidaily exporter interviews, FMC, BerryWorld) are marked IND even when read in full."
   ]
  },
@@ -1839,12 +1839,18 @@
      "url": "https://biblioteca.inia.cl/server/api/core/bitstreams/48a0d50e-e9cc-4d17-959e-b5e768865926/content",
      "access": "SNIP",
      "supports": "Floral differentiation from late August to bloom; abnormally cold Oct-Nov harms flowering and set. Snippet only; the site returns HTTP 403 when opened."
+    },
+    {
+     "title": "Manual Técnico Productivo y Especificaciones Tecnológicas para el Arándano (Proyecto Generación de Soportes Digitales, Región del Maule, 2014)",
+     "url": "https://portalberries.com/wp-content/uploads/2025/04/Manual-Especificaciones-Tecnica-Economica.pdf",
+     "access": "FT",
+     "supports": "2012-13 season, own field data: at the Linares farm O'Neal bloomed in the first days of September and Brigitta bloom began in the first days of October (p. 10-11). Table 4 gives days from 1 July to bloom at Linares: 65 for O'Neal and 94 for Brigitta."
     }
    ],
-   "notes": "Bloom months are left empty: no FT or ABS source gives them. The 1 Nov frost damage and the INIA snippet point to a Sep-Oct bloom [INFERENCE/SNIP]. The national peak is mid-Dec to late Jan (Retamales 2014) or Jan-Feb (FAS 2021/22 exports), so Dec-Jan is used for Maule.",
+   "notes": "Bloom months stay empty until Paul approves benchmark month changes. Proposed: Sep-Oct, from one dated season (2012-13) at a Linares farm (Maule manual, 2014): O'Neal from early September, Brigitta from early October. Other cultivars and years are not covered. The national peak is mid-Dec to late Jan (Retamales 2014) or Jan-Feb (FAS 2021/22 exports), so Dec-Jan is used for Maule. Found via docs/research/2026-10-11/regions/chile-argentina-uruguay.md.",
    "verification": {
     "status": "corrected",
-    "notes": "Removed bloom months Sep-Oct, which rested on a snippet and an inference. Removed the 'do not pick above 30 C' heat risk, which no opened source supports. The frost article does not say fruit was already set, so that wording was dropped. Harvest and peak confirmed in full text."
+    "notes": "Removed bloom months Sep-Oct, which rested on a snippet and an inference. Removed the 'do not pick above 30 C' heat risk, which no opened source supports. The frost article does not say fruit was already set, so that wording was dropped. Harvest and peak confirmed in full text. Review of 2026-10-11: the Maule manual full text (2012-13 Linares observations), opened 2026-10-12, supports Sep-Oct bloom; the months are proposed, not applied, pending Paul's approval."
    },
    "group": "Peru, Chile and Mexico"
   },
@@ -3467,12 +3473,24 @@
      "url": "https://www.examiner.com.au/story/4092028/costa-confirms-blueberry-rust-detection/",
      "access": "SNIP",
      "supports": "Costa operates a commercial blueberry farm at Sulphur Creek"
+    },
+    {
+     "title": "Hort Innovation Australian Horticulture Statistics Handbook 2023/24, blueberry chapter (Berries Australia copy)",
+     "url": "https://berries.net.au/wp-content/uploads/2025/03/BB-ahsh-hort-stats-fruit-23-24.pdf",
+     "access": "IND",
+     "supports": "Tasmania harvest availability High in January, February and March, Medium in April."
+    },
+    {
+     "title": "Weather_Claude research note docs/research/2026-10-11/regions/australia-new-zealand.md (Tasmania peak conflict)",
+     "url": "docs/research/2026-10-11/regions/australia-new-zealand.md",
+     "access": "FT",
+     "supports": "The 2012 fact sheet (Feb-early March ripening) and FGT 16 Jan 2025 (volume peak early Jan-mid Feb) are not a true conflict. Recommends peak Jan-Feb with March as a shoulder."
     }
    ],
-   "notes": "Peak disagreement: the industry body says early Jan-mid Feb, the government fact sheet says Feb-early March. February is common to both. Tunnels are used alongside soil-grown open field. Costa's Sulphur Creek site grows some evergreen plants (SNIP). Planting months were not found.",
+   "notes": "Peak is Jan-Feb with March as a shoulder month. There is no shoulder field, so March stays in harvest_months only. Dated claims: the NRE fact sheet (April 2012) says most commercial varieties ripen in February to early March; Fruit Growers Tasmania (16 Jan 2025) gives peak volumes from early January to mid February; the Hort Innovation Handbook 2023/24 shows High from January to March. Tunnels are used alongside soil-grown open field. Costa's Sulphur Creek site grows some evergreen plants (SNIP). Planting months were not found.",
    "verification": {
     "status": "verified",
-    "notes": "The fact sheet and the Fruit Growers Tasmania release were both read in full, and all months are confirmed. The Sulphur Creek locality was checked (SNIP). The note on evergreen plants at Sulphur Creek is new. FGT is recoded IND."
+    "notes": "The fact sheet and the Fruit Growers Tasmania release were both read in full, and all months are confirmed. The Sulphur Creek locality was checked (SNIP). The note on evergreen plants at Sulphur Creek is new. FGT is recoded IND. Review of 2026-10-11: peak kept at Jan-Feb with March recorded as a shoulder in the notes, per docs/research/2026-10-11/regions/australia-new-zealand.md. The Handbook 2023/24 grid was added as a source."
    },
    "group": "Rest of world"
   },
@@ -3926,12 +3944,24 @@
      "url": "https://en.wikipedia.org/wiki/Marondera",
      "access": "FT",
      "supports": "highveld plateau, Cwb climate; dry winter May-Sept; occasional night frost"
+    },
+    {
+     "title": "Eurostat Comext DS-045409, monthly EU imports from Zimbabwe, CN 08104050, quantity in 100 kg (queried 2026-10-12)",
+     "url": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&reporter=EU&partner=ZW&product=08104050&flow=1&indicators=QUANTITY_IN_100KG&freq=M&sinceTimePeriod=2023-01&untilTimePeriod=2025-12",
+     "access": "FT",
+     "supports": "EU arrivals in tonnes. 2023: Aug 33, Sep 384, Oct 568, Nov 298. 2024: Aug 208, Sep 976, Oct 1,898, Nov 295. 2025: Jul 79, Aug 192, Sep 1,046, Oct 1,625, Nov 681. Arrivals peak in October and then September every year. Arrival month is not harvest month."
+    },
+    {
+     "title": "Weather_Claude research note docs/research/2026-10-11/regions/africa.md (Zimbabwe peak)",
+     "url": "docs/research/2026-10-11/regions/africa.md",
+     "access": "FT",
+     "supports": "GAIN's June/July peak is about South African imports, not harvest. EU arrivals from Comext peak in Sep-Oct. The Herald reports shipments peak around September. Recommends an Aug-Sep harvest peak [inference]."
     }
    ],
-   "notes": "Peak conflict: IBO says August, while USDA GAIN says June/July (from SA import timing), so the peak is set to Jul-Aug. The first late-March volumes are minor and excluded; harvest can extend into November in late years (2023). Evergreen pruning is about end September (IND). Elevation 1,688 m is from a search snippet (Wikidata/Wikipedia) and was not opened. Bloom and planting months were not found.",
+   "notes": "Peak stays Jul-Aug until Paul approves benchmark month changes; Aug-Sep is proposed. EU arrivals (Comext, CN 08104050) peak in October and then September in 2023, 2024 and 2025. Sea freight takes several weeks, so the harvest peak is earlier than the arrival peak [INFERENCE]. IBO also gives an August peak. The GAIN June/July peak describes South African import timing, not harvest. The first late-March volumes are minor and excluded; harvest can extend into November in late years (2023). Evergreen pruning is about end September (IND). Elevation 1,688 m is from a search snippet (Wikidata/Wikipedia) and was not opened. Bloom and planting months were not found.",
    "verification": {
     "status": "corrected",
-    "notes": "Coordinates were corrected to the Wikipedia town-centre values (snippet) and elevation to 1,688 m (snippet); the draft's 1,630 m was unsourced. The IBO abstract was re-read and recoded IND. GAIN's conflicting June/July peak was added, so the peak is set to Jul-Aug. The draft's claim that the IBO text calls Zimbabwe varieties 'evergreen, allowing scheduled harvests' actually refers to Uganda/Kenya, so the system confidence was lowered. The Mashonaland East snippet was dropped."
+    "notes": "Coordinates were corrected to the Wikipedia town-centre values (snippet) and elevation to 1,688 m (snippet); the draft's 1,630 m was unsourced. The IBO abstract was re-read and recoded IND. GAIN's conflicting June/July peak was added, so the peak is set to Jul-Aug. The draft's claim that the IBO text calls Zimbabwe varieties 'evergreen, allowing scheduled harvests' actually refers to Uganda/Kenya, so the system confidence was lowered. The Mashonaland East snippet was dropped. Review of 2026-10-11: a change of the peak from Jul-Aug to Aug-Sep is proposed, not applied. Monthly EU imports from Zimbabwe for 2023-2025 were pulled from the Comext API on 2026-10-12 (query URL in sources). Arrivals peak in October each year, with September second. With a shipping lag this fits an Aug-Sep harvest peak, as derived in docs/research/2026-10-11/regions/africa.md. Arrival month is not harvest month, so the peak remains an inference."
    },
    "group": "Rest of world"
   }

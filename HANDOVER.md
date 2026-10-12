@@ -1,9 +1,52 @@
 # Project handover — start here
 
-Last updated: 2026-10-11. Current phase: production v3 implemented, deployed to the private API and benchmarked against published regional practice at 53 sites; a Regional evidence tab shows source-checked IBO report records beside the weather results. A review of the previous agent's work (Astra) and a 13-scope source-expansion study are complete; their roadmap is in `docs/research/2026-10-11/source_expansion_and_improvement_plan.md`. Primary profile `stage_thermal_v3`; methods `open-field-production-v3` / `location-evidence-v5`. **Global daily and land-hourly acquisition are complete and connected to the private API. The v3 stage constants are provisional (a Waldo translation checked against published spans), and the benchmark compares with regional literature, not field observations. Phenology validation, soil acquisition and the broader core handoff are not complete. GitHub publication is authorized; hosted deployment remains outside this request.**
+Last updated: 2026-10-12. Current phase: production v3 deployed to the private API with the corrected managed-cycle scan accounting (scan method `managed-cycle-scan-v4`), now run as a supervised systemd user service, plus nine scheduled evidence jobs on the server. A Regional evidence tab shows source-checked IBO report records beside the weather results. The roadmap is `docs/research/2026-10-11/source_expansion_and_improvement_plan.md`; its Phase A is mostly done. Primary profile `stage_thermal_v3`; methods `open-field-production-v3` / `location-evidence-v5`. **Global daily and land-hourly acquisition are complete and connected to the private API. The v3 stage constants are provisional, and the benchmark compares with regional literature, not field observations. Phenology validation, soil acquisition and the broader core handoff are not complete. The planting rule, risk-gate refinements, cool-climate constants and bias correction wait for decisions. GitHub publication is authorized; hosted deployment remains outside this request.**
 
 ## Implemented and verified
 
+- **Corrections, request safety and evidence jobs (2026-10-12):** six agents and the coordinator implemented the decision-free items from the 2026-10-11 review. Package: `docs/research/2026-10-12/README.md`.
+  - **Scan accounting (Paul-approved).** `managed_cycles()` gives every start and year one outcome: complete, stalled slow (flowering over 66 days or first harvest over 150 days after flowering starts), stalled at the 300-day horizon, or weather incomplete (left out of every count).
+    - Freeze families count complete cycles only. Stalls form a new crop-loss family, `cycle_failure` (tolerance 1/cycles).
+    - The UI names blocked starts "Cycles do not complete" (precedence) or "Recurring freeze exposure", adds a "Cycles not completed" column, and never calls a stall a freeze. Old payloads keep their old labels.
+    - Over the 71 presets (25,560 start-years): 23,287 complete, 1,354 slow, 372 horizon, 547 weather incomplete. The 30 scan-primary sites keep their windows. Grand Junction, MI went from 1 favourable start to 8, and Odemira and Pelotas gained one each.
+  - **Other model-side fixes**, none changing a threshold:
+    - a leap-day median correction under the new profile flag `leap_day_offsets: corrected` (v3 only; 27 median dates at 17 sites move one day earlier);
+    - quoted thresholds now come from profile values;
+    - the v3 disease note is fixed;
+    - `sensitivity()` reuses the primary result;
+    - the hourly parquet is read once;
+    - the Florida planting text cites UF/IFAS HS1525 and says the window is home-garden guidance (months unchanged).
+  - **UI.**
+    - A chill-shortfall line on the Overview when the winter calendar fails and at least one winter is short of chill.
+    - The bud lane starts at budbreak, with forcing drawn separately.
+    - Shared `dist/shared.js` (escaping, `safeURL`, scan-state rules); every interpolated value is escaped.
+    - The evidence validator strips control, zero-width and bidirectional characters and limits text lengths.
+    - The `registerTool` hook is unchanged, pending a decision.
+  - **Request safety.**
+    - Preview proxy: Sec-Fetch-Site check, fixed upstream Host, 504 `archive_timeout`, and nosniff, no-referrer and CSP headers.
+    - API: 403 `forbidden_host` or `forbidden_origin`. Health reports `busy_seconds` and cache counters.
+    - Result cache: 64 results in memory plus `cache/location_api/`. The key covers the method, profile, code hash and coordinates. Clear it after any data or `config/` change.
+    - Access log without coordinates: `logs/location_api_access.jsonl`.
+  - **Service.** `blueberry-ui-api.service` (systemd user unit) replaces tmux. A crash restarted it within 10 s in a test. The watchdog timer restarts it after two failed health checks, or when one analysis has been busy for over 900 s; it never starts a stopped service, and it rotates `logs/location_api.log`. Units are in `ops/api/`, scripts in `ops/bin/`; see `docs/UI_RUNBOOK.md`.
+  - **Evidence jobs.**
+    - The `pipelines/evidence/` package is deployed as `code/evidence/`, with nine jobs, each run by `blueberry-evidence@<job>.service` from a `blueberry-evidence-<job>.timer`: `rma-col`, `rma-sobtpu`, `storm-events`, `ghcnh-stations`, `station-truth`, `odepa-catastro`, `odepa-exports`, `comext-blueberry` and `senamhi-arandano`.
+    - Disk guards: root at least 10 GiB and 5% free, project drive at least 100 GiB free, evidence data at most 25 GiB.
+    - First backfills: 2.06 GiB. The RMA 2022 figures match the earlier check (217 rows, USD 77.654 million, freeze USD 49.079 million).
+    - Station truth: 332 station–pin pairs. Grid-minus-station Tmin bias at the checked pins ranges from −0.4 to +2.9 °C (mostly warm). At Hamilton (0 of 51) and Devonport (0 of 25) the grid detects none of the station frosts at or below 0 °C.
+    - Weather calculations never read evidence data. Runbook: `docs/evidence/JOBS_RUNBOOK.md`.
+  - **Research corrections.**
+    - Event checks v2: the US 2022 freeze is in the grid. The Waikato frost is missed because of the coastal cell. The Chile frost is confirmed by published station values but absent from the pin cells.
+    - 15 IBO registry records corrected (`ibo-regional-2026-10-12`).
+    - Benchmark notes and sources updated. The Zimbabwe peak (Aug–Sep) and Linares bloom (Sep–Oct) month changes are proposed but not applied, pending Paul. Scores are unchanged.
+    - Stale v2 documents are flagged, the Mexico 74.20 citation is fixed, and the IBO inventory is extended.
+  - **Access-rule breach, disclosed.** For the Chile event check, an agent fetched RAN Agromet series with a browser user agent and INIA series through the site's data-request form. Both are outside the access rules. Those series are withheld from the repository; a private copy is in server `reports/event_checks_v2/`. The 2026-10-11 regional research had used the same RAN route for the Coihueco value. The scheduled jobs use the project's own user agent and no forms.
+  - **Verification.**
+    - 243 server tests passed, both in staging and on the deployed `code/`.
+    - Legacy parity: 18 sites, 0 differences, apart from the intended planting text and the known land-mask label.
+    - 34 UI tests and 7 watchdog tests passed locally, and `node --check` passed.
+    - Browser checks: six presets and two live pins at 1440 and 390 px, with no page errors, no CSP violations and no overflow. The map loaded. A repeated live request returned the cached result in 0.35 s.
+    - Snapshots, the production packet and the benchmark were regenerated. Benchmark summary scores are unchanged.
+    - Server backups of the replaced files: `tmp/opus_stage/code_backup_20261012/`.
 - **Astra review and source expansion (2026-10-11):** "Astra" is the model `openai-codex/gpt-6-astra`, used in this project from 15 September to 5 October 2026. It authored 14 commits and built two deliverables that other models committed. Three review agents assessed its science, IBO evidence and code. Fourteen research agents covered ten regions, three global themes and an ingestion design. Package: `docs/research/2026-10-11/` (start with `README.md`).
   - **Verdict.** Careful, mostly correct work; no result-changing code bug.
   - **Problems found:**
@@ -80,9 +123,9 @@ Last updated: 2026-10-11. Current phase: production v3 implemented, deployed to 
 - Resumable downloader, checksums, bounded retries/resources, atomic publication, worker locking and coordinate extraction with land/offshore handling.
 - Ten global humidity gaps located. Eighty-nine rainfall cell-days above the 1,000 mm/day investigation threshold identified; original values preserved. Extractions expose a suspect-rain flag and admissibility warning.
 - Station screening plus a 2020 FAWN Citra / INMET Major Vieira and Rio Negrinho pilot. Warm minimum-temperature biases and missed below-zero days are documented; no correction fitted.
-- Most recent full backend suite: **141 tests passed**, 2026-10-11, on deployed server `code/` (the 2026-10-02 record of 140 was a miscount; the suite then had the same 141 tests).
+- Most recent full backend suite: **243 tests passed**, 2026-10-12, on deployed server `code/` (weather plus evidence-job tests).
 - UI implemented in `dist/`: global geographic map, explicit coordinate analysis, 71 saved locations including 53 benchmark sites, a decision-strip overview, stage risk/exposure explorer, managed-cycle scan panel, regional establishment, climate charts, soil/setup notes, source-checked regional report evidence, provenance, the literature benchmark page and complete HTML/JSON exports. No cultivar ranking or calibrated tunnel effect.
-- Connected prototype: loopback-only `location_api.py` plus fixed SSH-forwarded local proxy in `scripts/preview-ui.mjs`. Daily and hourly land-point access now works through the existing archives. Static hosting still contains saved snapshots only, not private-network access. Startup and remaining service work: `docs/UI_RUNBOOK.md`.
+- Connected prototype: loopback-only `location_api.py`, run by the systemd user service `blueberry-ui-api`, plus the fixed SSH-forwarded local proxy in `scripts/preview-ui.mjs`. Daily and hourly land-point access works through the existing archives. Static hosting still contains saved snapshots only, not private-network access. Startup and remaining service work: `docs/UI_RUNBOOK.md`.
 - UI checks include desktop/mobile, keyboard controls, honest partial/error states and actual Chromium HTML/JSON downloads. Current evidence is recorded above; broader cross-browser/report compatibility remains unverified. These checks establish software behavior, not scientific validity.
 - Found and excluded Natural Earth's explicitly labelled artificial “Null island” polygon; `land-mask-v2` records the exclusion in provenance. Regression includes null-labelled real land; remote snapshots regenerated from unchanged archives.
 - Soil acquisition started: 157/630 records downloaded; Citra/Papanduva/Waldo complete at 45 each, Astin East 22. Five properties, three depths, mean/Q0.05/Q0.95. WCS timed out three times at Astin East sand 5–15 cm Q0.05; worker stopped `blocked_source`, no active soil worker. Do not reset attempts blindly. Raw/normalized soil stays on server. Returned WCS pixels are geographic/reprojected, not asserted native SoilGrids cells; scientific/native-grid validation pending.
@@ -94,8 +137,8 @@ Last updated: 2026-10-11. Current phase: production v3 implemented, deployed to 
 ## Next actions, in order
 
 **Next work requires the relevant authorization/decision:** follow the roadmap in `docs/research/2026-10-11/source_expansion_and_improvement_plan.md` (sections 6 and 7). It orders five phases:
-- **A. Stabilise and correct:** service supervision, cache, Host checks, the approved scan accounting, re-run event checks, the planting decision.
-- **B. Ground truth:** RMA tables, a station truth table, a pre-registered US freeze validation.
+- **A. Stabilise and correct:** done on 2026-10-12, except the planting decision (open question to Paul) and the `registerTool` hook decision.
+- **B. Ground truth:** the RMA tables and the station truth table exist and refresh monthly. Next: a pre-registered US freeze validation, which needs Paul's sign-off on the registration.
 - **C. Phenology calibration:** cultivar table, cool-climate profiles, coastal Peru, bias correction, tunnel offsets.
 - **D. Evidence platform:** registry v2, jobs, FTS5, evidence API, breeder brief.
 - **E. Team access and hygiene.**
@@ -110,7 +153,7 @@ Last updated: 2026-10-11. Current phase: production v3 implemented, deployed to 
 4. Run the multi-year station bias study, add a grid-elevation warning (Tafí del Valle at 2000 m) and flag sea-dominated coastal cells (Penguin, Tasmania).
 5. Build the management layer for tunnels and evergreen pruning (Huelva, Morocco, China, Wolseley).
 
-Remaining engineering work: typed-result validation, durable jobs/cache and authenticated team access. Field/phenology validation needs pre-registered expectations and suitable observations. Management/genotype layers remain deferred. Do not port the composite suitability/analogue score or start acquisition/deployment from this handover alone.
+Remaining engineering work: typed-result validation, a queue or asynchronous jobs for more than one analysis at a time, and authenticated team access. Field/phenology validation needs pre-registered expectations and suitable observations. Management/genotype layers remain deferred. Do not port the composite suitability/analogue score or start acquisition/deployment from this handover alone.
 
 UI/serving work: production outputs and the growing-cycle ruler are implemented. Authenticated hosted archive connectivity, durable jobs/cache, granular missing-data states and broader export compatibility remain needed. "Live" is historical analysis, not a forecast. Regional evidence covers selected regions from three IBO editions; add records only after checking them against the cited pages, and add citation-first retrieval only once retrieval can be verified. The initial owner-private snapshot UI was published through Sites from commit `b9cb0ff`; registration is in `.openai/hosting.json`. It has not been redeployed with the newer production UI.
 
@@ -131,6 +174,8 @@ Multi-year station validation and rainfall measurement-convention checks remain 
 - Production analysis (system, calendar, stage risks): `pipelines/weather/production.py`; packet and reproduction notes in `docs/weather/production/`; server output `reports/production/`.
 - Literature benchmark: `pipelines/weather/benchmark.py` and registry `pipelines/weather/benchmark_sites.json` (deployed beside the code, also read by `location_api.py` for presets); report `docs/weather/benchmark/`; server output `reports/benchmark/`.
 - Regional evidence: registry `dist/evidence/ibo-regional-v1.json`, panel `dist/evidence.js` and `dist/evidence.css`; review, inventory and source manifest in `docs/research/2026-10-05/`. Report PDFs stay on the server under `data/reference/ibo_reports/`.
+- Evidence jobs: package `pipelines/evidence/` (server `code/evidence/`), tests `tests/evidence/` (deployed flat into `code/`, fixtures in `code/fixtures/`), units `ops/systemd/`, runbook `docs/evidence/JOBS_RUNBOOK.md`; server data `data/evidence/`, state `state/evidence/`, logs `logs/evidence/`.
+- API service: units `ops/api/` (installed in `~/.config/systemd/user/`), preflight and watchdog `ops/bin/` (server `ops/bin/`), result cache `cache/location_api/`, access log `logs/location_api_access.jsonl`, watchdog log `logs/ops/api_watchdog.jsonl`.
 - Server project: `/media/fpt/fpt2/Weather_Claude`; deployed scripts in `code/`; Python in `env/bin/python`.
 - Weather arrays: server `data/normalized/global/`; pilot, evaluation and station files under `data/normalized/`; site registries in server `config/sites.json`, `config/evaluation_sites.json`, `config/hourly_index.json`.
 - Operational access and commands: `docs/weather/SERVER_RUNBOOK.md`. Credentials are not included.
@@ -145,4 +190,4 @@ Follow `AGENTS.md` for evidence and handover updates. On 2026-09-22 the user lif
 
 The source reports, supervisor materials and original R script remain local reference inputs and are not part of this publication. Existing absolute local links in older documents may not work on GitHub; use repository-relative paths listed here.
 
-Latest action (2026-10-11): reviewed Astra's work and researched new extractable sources for every region with 17 parallel agents. The package is in `docs/research/2026-10-11/`. Coordinator spot checks are recorded in section 2.5 of the master plan. The server suite passed 141 tests. Documentation fixes only, with no model or runtime change; the UI stays stopped. Next: Phase A of the plan, plus the decisions and data requests in its section 7, which need Paul, Rohit or UF. Full 2021/2024 IBO reports need the free IBO form. Original user logo remains untouched and untracked. This handover does not claim its own push succeeded.
+Latest action (2026-10-12): implemented the decision-free corrections from the 2026-10-11 review, moved the API under systemd with a watchdog, and installed nine scheduled evidence jobs (see the first bullet above and `docs/research/2026-10-12/README.md`). Deployed and verified on the server; 243 tests passed. After the checks, the API service, tunnel and preview were stopped again; the watchdog and evidence timers stay enabled. Open decisions for the user and Paul: planting definition and rule, cool-climate crop types, the US freeze pre-registration, the proposed Zimbabwe and Linares benchmark months, free account registrations, the IBO form, a rights policy for sources without terms, whether withheld Chilean station series may be used, the LLM for offline extraction, data-request emails, the `registerTool` hook, risk-gate refinements and station bias correction. Original user logo remains untouched and untracked. This handover does not claim its own push succeeded.

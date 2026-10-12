@@ -1,6 +1,6 @@
 # Climate workspace UI
 
-Updated 2026-10-05 for the Regional evidence tab, which shows source-checked IBO report records beside the weather results. The production v3 payload, Overview decision strip, managed-cycle scan panel, 71 saved locations and literature benchmark page are unchanged. This is a historical research workspace, not a cultivar recommendation or weather forecast. The vanilla-JavaScript frontend uses the lab logo, system fonts, white/gray surfaces, black type, restrained blue pill controls and 28px shadowless cards/map. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
+Updated 2026-10-12 for the corrected managed-cycle scan accounting, request safety in the preview proxy and API, the supervised API service and scheduled evidence jobs. The Regional evidence tab (2026-10-05) shows source-checked IBO report records beside the weather results. This is a historical research workspace, not a cultivar recommendation or weather forecast. The vanilla-JavaScript frontend uses the lab logo, system fonts, white/gray surfaces, black type, restrained blue pill controls and 28px shadowless cards/map. The current design contract is in `UI_IMPLEMENTATION_PLAN.md`.
 
 For a plain-language explanation of the current app, read the [user guide](APP_USER_GUIDE.md). It includes calendar requirements, missing-result meanings, and the reported Near Yakima example.
 
@@ -21,7 +21,7 @@ For a plain-language explanation of the current app, read the [user guide](APP_U
 
 ## Regional evidence
 
-- **Library.** `dist/evidence/ibo-regional-v1.json` (version `ibo-regional-2026-10-05`) holds 91 records checked against the complete IBO 2023, 2025 and 2026 reports: 39 events, 42 practice records and 10 constraints, across 51 geographic scopes (33 regions, 18 countries) in 23 countries. A statement that several editions repeat stays one record with several citations (172 in total), so repeat mentions never look like separate events. Coverage is limited to selected benchmark regions. A missing record does not mean an event did not happen, and it does not mean low risk. The PDFs stay on the server; `dist/` holds paraphrases, page citations, reuse terms and PDF hashes.
+- **Library.** `dist/evidence/ibo-regional-v1.json` (version `ibo-regional-2026-10-12`) holds 91 records checked against the complete IBO 2023, 2025 and 2026 reports: 39 events, 42 practice records and 10 constraints, across 51 geographic scopes (33 regions, 18 countries) in 23 countries. A statement that several editions repeat stays one record with several citations (174 in total), so repeat mentions never look like separate events. The 2026-10-12 review corrected 15 records against the server's report text (listed in `docs/research/2026-10-12/README.md`). The validator now strips control, zero-width and bidirectional characters and enforces text length limits. Coverage is limited to selected benchmark regions. A missing record does not mean an event did not happen, and it does not mean low risk. The PDFs stay on the server; `dist/` holds paraphrases, page citations, reuse terms and PDF hashes.
 - **View.** `dist/evidence.js` renders the tab and `dist/evidence.css` styles it. Filters cover harvest, management, weather and resources. Each card states the report scope, period, crop context, evidence type and limitations, and links to the cited pages. Records dated after the weather baseline (2025-12-31 for the presets) carry an "Outside" or "Partly outside weather baseline" tag. Report statements are context. They are not observations at the pin, loss probabilities or model inputs.
 - **Matching.** Country records match the pin's containing country. Regional records also need the containing region polygon. `PlaceNames.lookup()` now returns that polygon's `region_id` and the SHA-256 of the uncompressed `places-v1.json.gz` bundle. The registry's `geography_reference` lists polygon IDs for the 33 regional scopes and the hash of the bundle they belong to. If the hashes differ, the panel shows no records rather than falling back to names. Names alone failed in testing, because the reference labels both Washington state and Washington, DC "Washington". After replacing the geography bundle, review the crosswalk and update its hash.
 - **States.** Evidence follows the committed assessment, not the draft pin, and a slow library or place lookup cannot attach one place's reports to another place's result. Loading, missing library, mismatched geography, unresolved boundary and no curated records each show their own message. None of them changes the weather results.
@@ -54,6 +54,13 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 - **Production analysis (updated 2026-09-28):** `location-evidence-v5` attaches `open-field-production-v3`, primary profile `stage_thermal_v3`. Stages after budbreak follow degree-days, disease weather uses the hourly infection model, and `chill_clock` states whether the chill-triggered calendar applies, with reasons. Headlines still require at least 12 valid winters and ≥50% recurrence. "Transitional" is shown as "No two-thirds majority" with per-class counts, and the calendar is then marked tentative. Choosing a tunnel or pot setup changes notes, not outdoor numbers. Method details: [production README](weather/production/README.md).
 - **Managed-cycle scan (2026-09-28):** where the chill clock does not apply, the Season view opens with the scan panel and the decision strip reports favourable flowering and harvest months as a management scenario. Elsewhere the panel follows the cycle view as "If managed as an evergreen cycle". The 24-cell strip marks favourable starts, recurring crop loss, not-rankable starts and stalled cycles. The table lists per-start dates, measures and recurring risks.
 - **No-window explanations (2026-10-05):** when the scan has no favourable start, the Production window card and the scan panel name the cause instead of printing Unavailable. There are three causes. The site may be too cool to finish a cycle: a stage misses its heat requirement within the 300-day stage horizon in at least half the winters. Bud, flowering or fruit freeze may recur at every assessable start. Or too few cycles complete. Top risks then reads "Not assessed", or lists the recurring freeze families with their start counts, never "None recurring". Scan-primary windows also quote the `chill_clock` reason. Verified live on 2026-10-05: a Cascade Range pin at 46.738, −121.456 (weather cell 46.5, −121.25) and Naantali, Finland show "No complete crop cycle". Lynden, WA keeps May–Jun flowering and Jul–Sep harvest and now states "Only 11/15 winters produce a chill-triggered calendar". Arcadia gains its reason text and Waldo is unchanged. A modified copy of the payload covered the freeze branch. No page errors and no overflow at 390 px.
+- **Scan accounting (2026-10-12):**
+  - Payloads from `managed-cycle-scan-v4` carry per-start `outcomes` (complete, stalled slow, stalled at the horizon, weather incomplete) and a `cycle_failure` family.
+  - The strip and table name blocked starts "Cycles do not complete", which takes precedence, or "Recurring freeze exposure". The table adds a "Cycles not completed" column and shows the slow, horizon and incomplete-weather counts under "Complete / stalled cycles".
+  - The Production window text and Top risks say when cycles stall rather than calling a stall a freeze. Older payloads without `outcomes` keep the old "Recurring crop loss" wording.
+  - Top risks adds a chill-shortfall line when the winter calendar does not apply and at least one winter falls short of the requirement.
+  - The bud lane starts at budbreak, matching the bud-freeze window; forcing after chill is a thin, unmeasured bar.
+  - Verified 2026-10-12 against the regenerated presets: Burgaw, Waldo, Arcadia, Mengzi (both new states), Penguin and Barben, plus live Naantali and the Cascade Range pin. The live pins read "No favourable start", with "Cycle failure" at 24 of 24 starts. There were no page errors, no CSP violations and no overflow at 1440 or 390 px; the map loaded under the CSP.
 - **Literature benchmark:** Methods & data links to `benchmark.html`, the 53-site comparison of modelled and published system, bloom and harvest months. It is regional literature, not field validation of these grid cells.
 - **Regional evidence (2026-10-05):** a separate tab lists source-checked IBO report records for the pin's country and region, apart from the calculated risks. See Regional evidence above.
 - **Growing-cycle ruler (2026-09-15):** `dist/cycle.js` renders six aligned time lanes using the existing production result, with no UI library or new weather calculations. Select a stage button or lane for exposure details; native buttons also support keyboard activation. Choose a winter to see its modelled dates and exposures instead of aggregate frequencies. Small screens scroll the scale horizontally while controls and details reflow. The system hypothesis remains visible; the original tables are under an expandable details section.
@@ -75,12 +82,22 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 
 ## Start connected mode
 
-Use the access arrangements in `weather/SERVER_RUNBOOK.md`; no password or API secret belongs in commands committed here. On the server, check `tmux list-sessions` first and reuse an existing `blueberry-ui-api` session. Start one only if absent:
+Use the access arrangements in `weather/SERVER_RUNBOOK.md`; no password or API secret belongs in commands committed here.
+
+Since 2026-10-12 the API runs as a systemd user service, not a tmux session. Systemd restarts it after a crash (tested: a killed process restarted within 10 seconds). A watchdog timer checks it every 5 minutes. The watchdog restarts the service when health fails twice in a row, or when one analysis holds the busy lock for more than 15 minutes. It never starts a stopped service. On the server:
 
 ```sh
-cd /media/fpt/fpt2/Weather_Claude/code
-tmux new-session -d -s blueberry-ui-api '../env/bin/python -u location_api.py >> ../logs/location_api.log 2>&1'
+systemctl --user start blueberry-ui-api      # start
+systemctl --user status blueberry-ui-api     # state, PID, last restarts
+curl -s http://127.0.0.1:8787/api/health     # ready or busy
+systemctl --user stop blueberry-ui-api       # stop (the watchdog leaves it stopped)
 ```
+
+Unit files are in `ops/api/` (installed to `~/.config/systemd/user/`). The preflight and watchdog scripts are in `ops/bin/` (deployed to the project's `ops/bin/`).
+
+- **Output.** The service writes to `logs/location_api.log`; the watchdog rotates it at 20 MiB and keeps 5 copies. Watchdog decisions go to `logs/ops/api_watchdog.jsonl`.
+- **Disk.** Temporary files go to `tmp/api` on the project drive, so a full root disk no longer blocks the API.
+- **Retired.** Do not start the old `blueberry-ui-api` tmux session as well.
 
 From the local checkout root, retain these two processes in separate terminals:
 
@@ -93,11 +110,32 @@ ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 \
 node scripts/preview-ui.mjs
 ```
 
-Open `http://127.0.0.1:5173/`. The connection strip indicates whether the private API is available. Stop the two local processes with Ctrl-C after use. Do not bind either service to a public interface. The local proxy accepts GET only, checks Host/Origin, and forwards only to its fixed loopback destination. That is a development boundary, not production authentication.
+Open `http://127.0.0.1:5173/`. The connection strip shows whether the private API is available, and adds "busy" while it runs an analysis. Stop the two local processes with Ctrl-C after use. Do not bind either service to a public interface. `PREVIEW_PORT` selects another local port for the preview.
+
+Request safety (2026-10-12). This is a development boundary, not production authentication.
+
+- **Preview proxy** (`scripts/preview-ui.mjs`):
+  - accepts GET only, and checks Host, Origin and, on `/api/`, `Sec-Fetch-Site`;
+  - forwards only to its fixed loopback destination, with `Host: 127.0.0.1:8787`, and no Origin, cookies or other client headers;
+  - after 95 seconds it answers 504 `archive_timeout`, and the page explains that the server may still be finishing. A connection failure gives 503 `archive_unavailable`;
+  - every response carries `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer` and a Content Security Policy. The policy allows scripts and styles from the page only, the MapLibre blob worker, and OpenFreeMap tiles, fonts and sprites;
+  - inline styles are allowed only for `benchmark.html`.
+- **API** (`location_api.py`):
+  - answers 403 `forbidden_host` unless the Host is `127.0.0.1:8787` or `localhost:8787`;
+  - answers 403 `forbidden_origin` for a cross-site `Sec-Fetch-Site` or an Origin other than the preview or the API itself.
+- **Health.** `/api/health` reports `status` (`ready` or `busy`), `method`, `busy_since`, `busy_seconds` and cache counters.
+- **Result cache.**
+  - Successful analyses are cached: 64 in memory, and up to 2,000 JSON files in `cache/location_api/`.
+  - The cache key covers the API method, the primary profile, a hash of the code files that shape a result, and the coordinates. A code deployment therefore never serves an old result.
+  - Data are not in the key. After any archive, land-mask, soil or `config/` change, delete `cache/location_api/*.json` and restart the service.
+  - `--snapshots` never uses the cache.
+- **Access log.** Every request adds one line without coordinates to `logs/location_api_access.jsonl`: path, status, duration, cache hit or miss, and busy refusal. The log rotates at 10 MiB and keeps 5 copies.
+
+To keep the API always on, run `systemctl --user enable blueberry-ui-api` once. It then starts at boot through user lingering, which is already on for the account. As of 2026-10-12 it is installed and tested, but neither enabled nor running, because the last request was to stop the UI.
 
 ## Reproduce summaries and tests
 
-Develop code under `pipelines/weather/` and copy reviewed changes explicitly into the server's `code/`, as in the server runbook. Stop/restart only this API's own session after a code change; do not disturb acquisition or unrelated server jobs.
+Develop code under `pipelines/weather/` and copy reviewed changes explicitly into the server's `code/`, as in the server runbook. After a code change, restart only this API (`systemctl --user restart blueberry-ui-api`); do not disturb acquisition or unrelated server jobs.
 
 On the server:
 
@@ -113,13 +151,18 @@ cd /media/fpt/fpt2/Weather_Claude/code
 The generator writes `reports/ui_snapshots.json` for the three references, the panel and the 53 benchmark sites in `benchmark_sites.json`. Copy it locally and run `python3 scripts/split_snapshots.py <file>` to produce `dist/snapshots.json` and `dist/snapshots/*.json`; review the public fields before committing. Never copy the raw archive into `dist/`. JavaScript checks:
 
 ```sh
+node --check dist/shared.js
 node --check dist/app.js
 node --check dist/cycle.js
 node --check dist/map.js
 node --check dist/places.js
 node --check dist/evidence.js
 node --check scripts/preview-ui.mjs
+node --test tests/ui/        # proxy safety, shared helpers and the evidence validator against the shipped library
+python3 -m unittest tests/ops/test_api_watchdog.py
 ```
+
+`dist/shared.js` holds the helpers that `app.js`, `cycle.js` and `evidence.js` share: HTML escaping, the https-only link check `safeURL`, the text cleaner used by the evidence validator, and the managed-cycle state rules. Every value placed into the page as HTML goes through `escapeHTML` or a number formatter. Every external link goes through `safeURL`, so a link is either https without credentials or plain text.
 
 ## Scientific and engineering boundaries
 
@@ -128,7 +171,7 @@ node --check scripts/preview-ui.mjs
 - Changing the growing system changes assumptions and soil interpretation, not ambient weather numbers. No calibrated tunnel transformations, severity score, soil suitability verdict or cultivar ranking exists.
 - Soil estimates remain geographic WCS samples with native-grid/field validation pending. Soil acquisition remains source-blocked at 157/630 records; this UI does not retry it.
 - Land support is cartographic, not parcel suitability. The source-labelled artificial “Null island” feature is excluded by `land-mask-v2`; small coasts/islands can remain unresolved.
-- Missing hourly availability, incomplete winters and per-metric gaps are distinct in the calculations; durable per-section jobs/cache and a broader geographic adapter are still pending. Establishment guidance does not validate field suitability; the stage calendar remains assumption-based. The earlier standalone stage-scenario report is historical.
-- Production work still requires authenticated archive connectivity, persisted jobs/cache, restart/concurrency tests, fuller per-section states, broader cross-browser report compatibility testing and a security review. No public data-host port was opened.
+- Missing hourly availability, incomplete winters and per-metric gaps are distinct in the calculations; a broader geographic adapter is still pending. Establishment guidance does not validate field suitability; the stage calendar remains assumption-based. The earlier standalone stage-scenario report is historical.
+- Since 2026-10-12 the API runs under systemd with crash restart and a watchdog, and it caches successful results on disk. Production work still requires authenticated archive connectivity, a queue for more than one analysis at a time, fuller per-section states, broader cross-browser report compatibility testing and a security review. No public data-host port was opened.
 
 The current design and interaction contract is in `UI_IMPLEMENTATION_PLAN.md`. The runtime remains the static frontend and standard-library Python HTTP adapter over the existing science code; durable jobs and authenticated hosted access are future work.

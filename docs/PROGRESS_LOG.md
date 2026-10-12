@@ -1,5 +1,35 @@
 # Project progress log
 
+## 2026-10-12: Corrections, request safety, supervised API and scheduled evidence jobs
+
+- **Scan accounting (Paul-approved).**
+  - Every scanned cycle is now complete, stalled slow, stalled at the horizon, or weather incomplete.
+  - Freezes count complete cycles only, and stalls form a separate `cycle_failure` family. The UI shows "Cycles do not complete" or "Recurring freeze exposure".
+  - The 30 scan-primary presets keep their windows. Grand Junction, MI gains seven favourable starts, and Odemira and Pelotas gain one each.
+- **Other corrections.**
+  - Leap-day median fix (v3 only).
+  - Thresholds quoted from profile values, and the v3 disease note fixed.
+  - Florida planting text now cites UF/IFAS HS1525.
+  - Overview chill-shortfall line; the bud lane starts at budbreak.
+  - Escaped HTML everywhere and a shared https-only link check.
+  - A hardened evidence validator.
+- **Request safety and service.**
+  - Host, Origin and Sec-Fetch-Site checks on the proxy and the API, plus a 504 timeout code and CSP, nosniff and no-referrer headers.
+  - A result cache and an access log without coordinates.
+  - The API runs as a systemd user service with crash restart and a 5-minute watchdog.
+- **Evidence jobs.** Nine jobs are on systemd timers: RMA cause of loss, RMA summary of business, NOAA Storm Events, GHCNh stations, station truth, ODEPA census, ODEPA exports, Eurostat Comext and SENAMHI. The first backfills total 2.06 GiB, and the RMA 2022 check matches.
+- **Research.**
+  - Event checks v2: the US freeze is represented, the Waikato frost is missed through the coastal cell, and the Chile frost is absent from the pin cells.
+  - 15 IBO records corrected.
+  - Benchmark notes updated. Two scoring month changes are proposed for Paul's approval.
+  - Stale v2 documents flagged and the Mexico citation fixed.
+- **Disclosed breach.** An agent used a browser user agent for RAN Agromet and the INIA data-request form for Chilean station series. Those series are withheld from the repository pending the user's decision.
+- **Verification.**
+  - 243 server tests passed. Legacy parity held at 18 of 18 sites with 0 differences.
+  - 34 UI tests and 7 watchdog tests passed.
+  - Browser checks of 6 presets and 2 live pins at 1440 and 390 px found no errors.
+  - Benchmark scores are unchanged.
+
 ## 2026-10-11: Review of Astra's work and source expansion for every region
 
 - **Astra's work reviewed.** "Astra" is the model `openai-codex/gpt-6-astra`. It worked here from 15 September to 5 October 2026: 14 commits, plus the cycle ruler and the Regional evidence tab, which other models committed. Three review agents covered science, IBO evidence and code.

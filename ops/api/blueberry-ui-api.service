@@ -1,0 +1,24 @@
+# Private, loopback-only weather API as a systemd user service (replaces the tmux session).
+# Install: copy to ~/.config/systemd/user/, then `systemctl --user daemon-reload`.
+# Start or stop: `systemctl --user start|stop blueberry-ui-api`. Enable at boot only if the team wants it always on.
+[Unit]
+Description=Blueberry weather API (loopback 127.0.0.1:8787, read-only archives)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/media/fpt/fpt2/Weather_Claude/code
+Environment=TMPDIR=/media/fpt/fpt2/Weather_Claude/tmp/api
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/media/fpt/fpt2/Weather_Claude/env/bin/python /media/fpt/fpt2/Weather_Claude/ops/bin/preflight.py
+ExecStart=/media/fpt/fpt2/Weather_Claude/env/bin/python -u location_api.py
+StandardOutput=append:/media/fpt/fpt2/Weather_Claude/logs/location_api.log
+StandardError=append:/media/fpt/fpt2/Weather_Claude/logs/location_api.log
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+Nice=5
+
+[Install]
+WantedBy=default.target

@@ -142,6 +142,7 @@ main { max-width: 1600px; margin: auto; padding: 0 max(clamp(16px, 3.33vw, 48px)
 .summary-card p { font-size: 13px; color: var(--muted); }
 .summary-card .summary-fact { margin-top: 4px; color: var(--ink); }
 .summary-card .summary-fact + p:not(.summary-fact) { margin-top: 12px; }
+.summary-card .summary-context { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); }
 .summary-dates { display: grid; gap: 12px; margin: 18px 0 14px; }
 .summary-dates dt { font-size: 11px; color: var(--muted); }
 .summary-dates dd { margin: 2px 0 0; font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.25; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }

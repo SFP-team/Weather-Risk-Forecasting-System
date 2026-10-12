@@ -1,0 +1,11 @@
+[Unit]
+Description=Monthly blueberry evidence job storm-events
+
+[Timer]
+OnCalendar=*-*-01 04:30:00
+RandomizedDelaySec=1h
+Persistent=true
+Unit=blueberry-evidence@storm-events.service
+
+[Install]
+WantedBy=timers.target

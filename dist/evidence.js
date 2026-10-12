@@ -43,15 +43,10 @@ window.RegionalEvidence = (() => {
     const date = new Date(Date.UTC(y, m - 1, d));
     return date.getUTCFullYear() === y && date.getUTCMonth() === m - 1 && date.getUTCDate() === d;
   };
-  const safeURL = value => {
-    if (typeof value !== 'string') return null;
-    try {
-      const url = new URL(value);
-      return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
-    } catch {
-      return null;
-    }
-  };
+  const safeURL = Shared.safeURL;
+  // Record text limits, in code points. Longer text fails validation rather than being cut.
+  const limits = {title: 240, summary: 1500, crop_context: 600, limitation: 600, period_label: 200, locator: 300};
+  const within = (value, max) => isText(value) && [...value].length <= max;
   const plain = value => JSON.parse(JSON.stringify(value));
   const freeze = value => {
     if (value && typeof value === 'object') {
@@ -61,10 +56,13 @@ window.RegionalEvidence = (() => {
     return value;
   };
 
-  function validate(data) {
+  function validate(raw) {
     const fail = where => { throw new Error(`Regional evidence library is malformed (${where}).`); };
-    const textList = (list, where, allowEmpty) => {
-      if (!Array.isArray(list) || (!allowEmpty && !list.length) || !list.every(isText)) fail(where);
+    if (!isObject(raw)) fail('schema_version');
+    // Every string is cleaned before any check, so hidden characters never reach the page or later text tooling.
+    const data = JSON.parse(JSON.stringify(raw), (key, value) => Shared.cleanText(value));
+    const textList = (list, where, allowEmpty, max = Infinity) => {
+      if (!Array.isArray(list) || (!allowEmpty && !list.length) || !list.every(item => within(item, max))) fail(where);
     };
     const pageList = (list, where, allowEmpty, max) => {
       if (!Array.isArray(list) || (!allowEmpty && !list.length) || !list.every(isPage)) fail(where);
@@ -115,14 +113,13 @@ window.RegionalEvidence = (() => {
       if (!isObject(record) || !isText(record.id) || records.has(record.id)) fail(`${where}.id`);
       if (!kinds.includes(record.kind)) fail(`${where}.kind`);
       if (!topics.includes(record.topic)) fail(`${where}.topic`);
-      for (const key of ['title', 'summary', 'crop_context', 'review_status', 'source_family']) {
-        if (!isText(record[key])) fail(`${where}.${key}`);
-      }
+      for (const key of ['review_status', 'source_family']) if (!isText(record[key])) fail(`${where}.${key}`);
+      for (const key of ['title', 'summary', 'crop_context']) if (!within(record[key], limits[key])) fail(`${where}.${key}`);
       if (!evidenceTypes.includes(record.evidence_type)) fail(`${where}.evidence_type`);
       if (!Array.isArray(record.geography_ids) || !record.geography_ids.length
         || !record.geography_ids.every(id => geographies.has(id))) fail(`${where}.geography_ids`);
       const period = record.period;
-      if (!isObject(period) || !isText(period.label) || !precisions.includes(period.precision)) fail(`${where}.period`);
+      if (!isObject(period) || !within(period.label, limits.period_label) || !precisions.includes(period.precision)) fail(`${where}.period`);
       for (const key of ['start', 'end']) {
         if (period[key] !== null && !isoDate(period[key])) fail(`${where}.period.${key}`);
       }
@@ -137,12 +134,12 @@ window.RegionalEvidence = (() => {
         if (!isObject(citation) || !sources.has(citation.source_id)) fail(`${at}.source_id`);
         pageList(citation.printed_pages, `${at}.printed_pages`, true);
         pageList(citation.pdf_pages, `${at}.pdf_pages`, false, sources.get(citation.source_id).pdf_pages);
-        if (!isText(citation.locator)) fail(`${at}.locator`);
+        if (!within(citation.locator, limits.locator)) fail(`${at}.locator`);
       });
-      textList(record.limitations, `${where}.limitations`, true);
+      textList(record.limitations, `${where}.limitations`, true, limits.limitation);
       records.add(record.id);
     });
-    return freeze(plain(data));
+    return freeze(data);
   }
 
   function load() {
@@ -610,5 +607,5 @@ window.RegionalEvidence = (() => {
     return root;
   }
 
-  return Object.freeze({load, select, render});
+  return Object.freeze({load, select, render, validate});
 })();

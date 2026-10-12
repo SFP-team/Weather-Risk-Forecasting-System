@@ -250,6 +250,9 @@
     },
     {
       "benchmark_id": "cl-linares-maule",
+      "status": "inconclusive_window_or_cell",
+      "superseded_by": "docs/research/2026-10-12/event_checks_v2.json#cl-2022-10-31-frost",
+      "status_note": "Added 2026-10-12. The 1-30 November UTC window missed the frost of the night of 30 to 31 October 2022. Kept for the record; use v2.",
       "requested_coordinate": [
         -35.8467,
         -71.5931
@@ -310,6 +313,9 @@
     },
     {
       "benchmark_id": "cl-chillan-nuble",
+      "status": "inconclusive_window_or_cell",
+      "superseded_by": "docs/research/2026-10-12/event_checks_v2.json#cl-2022-10-31-frost",
+      "status_note": "Added 2026-10-12. The 1-30 November UTC window missed the frost of the night of 30 to 31 October 2022. Kept for the record; use v2.",
       "requested_coordinate": [
         -36.6066,
         -72.1034
@@ -370,6 +376,9 @@
     },
     {
       "benchmark_id": "nz-waikato-ohaupo",
+      "status": "inconclusive_window_or_cell",
+      "superseded_by": "docs/research/2026-10-12/event_checks_v2.json#nz-2022-10-07-frost",
+      "status_note": "Added 2026-10-12. The nearest-cell rule picked a coastal cell (-38.0, 175.0) for a pin almost midway between two cells. Kept for the record; use v2.",
       "requested_coordinate": [
         -37.9236,
         175.3067

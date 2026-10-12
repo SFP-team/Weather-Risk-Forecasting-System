@@ -98,7 +98,7 @@ These are changes in reported values, not biological changes in the past:
 | Observation | 2022 edition | 2023 edition | Source |
 |---|---:|---:|---|
 | Global cultivated production, 2021 | 1,789.59 thousand tonnes | 1,769.53 thousand tonnes | 2022 p.23; 2023 PDF p.15, printed p.29 |
-| Mexico production, 2021/22 | 84.70 thousand tonnes | 74.20 thousand tonnes | Country tables, 2022 p.84; 2023 PDF p.51 |
+| Mexico production, 2021/22 | 84.70 thousand tonnes | 74.20 thousand tonnes | Country tables, 2022 p.84; 2023 PDF p.48 (printed p.95, Mexico/Central America production table) and PDF p.18 (printed p.35, global top 10 table) |
 | Georgia US planted area, 2021 | 9,712 ha | 7,810 ha | US state tables, 2022 and 2023 editions |
 
 The global revision is -20,060 tonnes, about -1.12%. Mexico changes by -10,500 tonnes, about -12.40%. The global values and arithmetic were checked directly during this review. Preserve all vintages and choose one explicitly for an analysis; never append each report's latest column into a supposedly consistent historical series.
@@ -134,16 +134,16 @@ The four US cells agree with a freeze episode. They are not four independent eve
 **Correction (2026-10-11).** The Chile and Waikato rows above are inconclusive. Their windows and cells were badly chosen, so they do not show that the grid misses the events.
 
 - **Chile.** The frost happened on the night of 30 to 31 October 2022, before the November window.
-  - Stations: Coihueco −2.0 °C and Linares −2.2 °C on 31 October (RAN Agromet; DMC October 2022 bulletin).
+  - Stations: Coihueco −2.0 °C on 31 October (RAN Agromet). The DMC October 2022 bulletin lists −2.2 °C at Linares among the month's lowest values without naming the day. See `docs/research/2026-10-12/event_checks_v2.md`.
   - Stored daily minimum at the Chillán cell, which contains Coihueco: +2.24 °C on 30 October UTC and +4.56 °C on 31 October UTC.
   - The Andean cell to the east: −6.15 °C on 30 October UTC.
 - **Waikato.** Ohaupo lies almost midway between two cells, and the check used the coastal one: +5.15 °C on 6 October UTC.
   - The inland cell: +0.06 °C.
   - Hamilton Airport: −2.9 °C on 7 October local time, the lowest October minimum since 1946 (NIWA).
 
-The coordinator re-read these grid values on the server on 11 October 2026. Station minima are 6 to 8 °C below the containing cells, so daily grid Tmin catches the timing but not the size of radiation frosts. Repeat both checks with the station protocol in `docs/research/2026-10-11/review/astra_ibo_evidence_review.md` (section 5.5).
+The coordinator re-read these grid values on the server on 11 October 2026. Station minima are 6 to 8 °C below the containing cells, so daily grid Tmin catches the timing but not the size of radiation frosts. The station-protocol repeat (`docs/research/2026-10-11/review/astra_ibo_evidence_review.md`, section 5.5) is in `docs/research/2026-10-12/event_checks_v2.md`.
 
-The same review could not find the Mexico 2021/22 value of 74.20 thousand t on 2023 PDF p.51 in the text layer; it appears on pp.18 and 48. Check p.51 visually.
+Citation correction (2026-10-12): the Mexico 2021/22 value of 74.20 thousand t is printed on 2023 PDF p.48 (printed p.95) and PDF p.18 (printed p.35), not on PDF p.51. A rendered image of PDF p.51 (printed pp.100-101) shows only 2022/23 production of 75.87 thousand t with growth of 1.67 thousand t (2.25%). That implies 74.20 for 2021/22 but does not print it. The table above now cites pp.48 and 18.
 
 This demonstrates a useful workflow: reports identify cases worth investigating; stored weather tests a specific part of the claim. It does not establish detection accuracy, loss accuracy or future forecast skill. No application test suite was run for this research request.
 

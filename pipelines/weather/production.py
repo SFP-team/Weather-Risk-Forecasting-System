@@ -12,6 +12,7 @@ import hashlib
 import html
 import json
 import math
+from calendar import isleap
 from pathlib import Path
 
 import numpy as np
@@ -125,6 +126,8 @@ PROFILES['stage_thermal_v3'] = {
     'bee_flight_threshold_c': 12.8,
     'bee_flight_local_hours': [9, 16],
     'pollination_gap_days': 4,
+    # Median dates count 29 February out of day offsets so leap winters do not shift them a day late.
+    'leap_day_offsets': 'corrected',
 }
 
 CHANGES = [
@@ -146,6 +149,8 @@ CHANGES = [
     'Where the chill-triggered calendar does not apply (tropics, evergreen or unknown majority, or fewer than 12 calendar winters), a managed-cycle scan of 24 cycle-start dates gives favourable flowering and harvest months instead of no window.',
     'stage_thermal_v3 checks the bud stage (budbreak to the day before flowering) for freezes at NC State critical temperatures: -6.7 C until half the heat to flowering, then -3.9 C. Bud-stage freeze is a ranked risk family and a crop-loss measure in the managed-cycle scan.',
     'stage_thermal_v3 counts honey bee flight hours during flowering (09:00-17:00 local solar time at or above 12.8 C). A pollination gap, at least 4 consecutive flowering days without a flight hour, defines the pollination risk family; the older cold-or-wet day counts remain as descriptive exposures.',
+    'The managed-cycle scan gives every start and year one of four outcomes: complete, stalled slow, stalled at the stage horizon, or weather incomplete. Freeze families count complete cycles only; stalled cycles form a separate crop-loss family, cycle failure, instead of counting as freezes. Weather-incomplete cycles are left out of every count.',
+    'stage_thermal_v3 median dates leave 29 February out of day offsets, so winters that cross a leap day no longer shift them one day late.',
 ]
 
 LIMITATIONS = [
@@ -169,21 +174,21 @@ METRIC_CATALOG = [
         ('chill_hours', 'chill', 'Chill accumulation', 'hours', 'Profile-defined chill rule and six-month window; not chill portions.'),
         ('chill_portions', 'chill', 'Dynamic Model chill portions', 'portions', 'Fishman-Erez Dynamic Model with chillR constants over the same six-month window as chill hours. Reported for comparison; the chill requirement and classification still use chill hours.'),
         ('freeze_hours', 'chill', 'Winter freezing exposure', 'hours', 'Hourly temperature at or below the profile frost threshold during the chill window.'),
-        ('warm_midwinter_hours', 'chill', 'Warm midwinter exposure', 'hours', 'T >21 C, 15 Nov to 15 Feb north, 15 May to 15 Aug south, inclusive UTC dates. Operational proxy, not measured chill negation.'),
+        ('warm_midwinter_hours', 'chill', 'Warm midwinter exposure', 'hours', 'T >{warm} C, 15 Nov to 15 Feb north, 15 May to 15 Aug south, inclusive UTC dates. Operational proxy, not measured chill negation.'),
         ('flower_tmin_min_c', 'flower', 'Lowest flowering temperature', '°C', 'Minimum daily Tmin within the modelled flowering window.'),
         ('flower_freeze_days', 'flower', 'Flowering freeze exposure', 'days', 'Daily Tmin <=-2.2 C under the legacy profile assumption; not an injury probability.'),
         ('flowering_rain_mm', 'flower', 'Flowering rainfall', 'mm', 'Total rain within flowering; suspect rainfall is excluded by declining the metric.'),
         ('flowering_heavy_rain_days', 'flower', 'Flowering heavy rain', 'days', 'Daily rain >=10 mm; operational exposure threshold.'),
         ('flowering_disease_days', 'flower', 'Flowering disease weather', 'days', 'Tmean 15–28 C inclusive, RH >=85%, rain >=0.1 mm. Provisional daily proxy, not infection or the Blueberry Advisory System.'),
         ('flowering_vpd_mean_kpa', 'flower', 'Flowering mean VPD', 'kPa', 'Calculated from daily mean temperature and RH, not hourly plant water stress.'),
-        ('flowering_pollination_unfavourable_days', 'flower', 'Pollination-unfavourable weather', 'days', 'Tmax <15 C OR rain >=1 mm. Operational cold/wet proxy, not literal bee inactivity; the cutoffs are not validated by UF IN1237.'),
-        ('flowering_cold_dry_days', 'flower', 'Cold-and-dry flowering weather', 'days', 'Tmax <15 C AND rain <1 mm. Supervisor hypothesis comparison only, not an established pollination or loss index.'),
+        ('flowering_pollination_unfavourable_days', 'flower', 'Pollination-unfavourable weather', 'days', 'Tmax <{cold} C OR rain >={wet} mm. Operational cold/wet proxy, not literal bee inactivity; the cutoffs are not validated by UF IN1237.'),
+        ('flowering_cold_dry_days', 'flower', 'Cold-and-dry flowering weather', 'days', 'Tmax <{cold} C AND rain <{wet} mm. Supervisor hypothesis comparison only, not an established pollination or loss index.'),
         ('flowering_max_dry_days', 'flower', 'Longest flowering dry spell', 'days', 'Consecutive rain <1 mm, clipped to flowering. Not drought or soil water balance.'),
         ('fruit_heat_days', 'fruit', 'Fruit-development heat exposure', 'days', 'Daily Tmax >=32 C under the legacy assumption.'),
         ('fruit_severe_heat_days', 'fruit', 'Fruit-development severe heat exposure', 'days', 'Daily Tmax >=35 C under the legacy assumption, not fruit temperature or measured injury.'),
         ('fruit_vpd_mean_kpa', 'fruit', 'Fruit-development mean VPD', 'kPa', 'Calculated from daily mean temperature and RH, not hourly plant water stress.'),
         ('fruit_disease_days', 'fruit', 'Fruit-development disease weather', 'days', 'Tmean 15–28 C inclusive, RH >=85%, rain >=0.1 mm. Provisional daily proxy, not infection or the Blueberry Advisory System.'),
-        ('fruit_frost_days', 'fruit', 'Fruit-stage frost exposure', 'days', 'Daily Tmin <=0 C. Generic exposure threshold, not stage-specific injury.'),
+        ('fruit_frost_days', 'fruit', 'Fruit-stage frost exposure', 'days', 'Daily Tmin <={frost} C. Generic exposure threshold, not stage-specific injury.'),
         ('fruit_max_dry_days', 'fruit', 'Longest fruit-development dry spell', 'days', 'Consecutive rain <1 mm, clipped to fruit development. Not drought or soil water balance.'),
         ('harvest_rain_mm', 'harvest', 'Harvest rainfall', 'mm', 'Total rain within the modelled harvest window.'),
         ('harvest_heavy_rain_days', 'harvest', 'Harvest heavy rain', 'days', 'Daily rain >=10 mm; operational exposure threshold.'),
@@ -202,7 +207,7 @@ METRIC_CATALOG = [
         ('flowering_no_flight_days', 'flower', 'Days without honey bee flight', 'days', 'Flowering days with no daytime hour at or above 12.8 C. Bee-flight profiles only.'),
         ('flowering_longest_no_flight_run', 'flower', 'Longest run without honey bee flight', 'days', 'Longest run of consecutive flowering days with no daytime hour at or above 12.8 C. Blueberry flowers stay receptive for about 3 to 5 days (UF/IFAS IN1237). Bee-flight profiles only.'),
     )
-]
+]  # Notes with {warm}, {cold}, {wet} or {frost} quote profile thresholds; metric_catalog(p) fills them in.
 ROW_METRICS = ('chill_hours', 'chill_portions', 'freeze_hours', 'warm_midwinter_hours')
 STAGE_METRICS = tuple(m['key'] for m in METRIC_CATALOG if m['key'] not in ROW_METRICS)
 OFFSETS = ('chill', 'budbreak', 'flowering_start', 'flowering_end', 'harvest_start', 'harvest_end')
@@ -217,6 +222,22 @@ CLASSES = ('Evergreen', 'Semi-evergreen', 'Deciduous')
 THERMAL_STAGES = ('flowering_start_gdd', 'flowering_end_gdd', 'harvest_start_gdd', 'harvest_end_gdd')
 
 
+def pollination_proxy(p):
+    """Cold-day Tmax and wet-day rain cutoffs of the cold-or-wet pollination proxy; profiles before v2 use the defaults."""
+    return p.get('pollination_cold_tmax_c', 15.0), p.get('pollination_wet_mm', 1.0)
+
+
+def warm_midwinter_threshold(p):
+    return p.get('warm_midwinter_threshold_c', 21.0)
+
+
+def metric_catalog(p):
+    """METRIC_CATALOG with this profile's thresholds in the notes, formatted as the fixed text was (21.0 -> '21')."""
+    cold, wet = pollination_proxy(p)
+    values = {'warm': warm_midwinter_threshold(p), 'cold': cold, 'wet': wet, 'frost': p['frost_threshold_c']}
+    return [{**m, 'note': m['note'].format(**{k: f'{v:g}' for k, v in values.items()})} for m in METRIC_CATALOG]
+
+
 def profile(name):
     p = PROFILES[name]
     if p['chill_requirement_hours'] <= 0:
@@ -226,6 +247,8 @@ def profile(name):
     clock = p.get('stage_clock', 'days')
     if clock not in ('days', 'thermal'):
         raise ValueError('Unknown stage clock')
+    if p.get('leap_day_offsets') not in (None, 'corrected'):
+        raise ValueError('Unknown leap-day offset rule')
     if clock == 'thermal':
         req = [p.get(k) for k in THERMAL_STAGES]
         if not all(isinstance(v, (int, float)) and v > 0 for v in req) or req[0] >= req[1] or req[2] >= req[3]:
@@ -501,8 +524,8 @@ def stage_metrics(days, p, flowering, fruit, harvest, production_start, bud=None
         m['flowering_max_dry_days'] = longest_run(wet < 1)
     flower_max = get('tmax', *flowering)
     if wet is not None and flower_max is not None:
-        cold_day = flower_max < p.get('pollination_cold_tmax_c', 15.0)
-        wet_day = wet >= p.get('pollination_wet_mm', 1.0)
+        cold, rainy = pollination_proxy(p)
+        cold_day, wet_day = flower_max < cold, wet >= rainy
         m['flowering_pollination_unfavourable_days'] = int((cold_day | wet_day).sum())
         m['flowering_cold_dry_days'] = int((cold_day & ~wet_day).sum())
     m['flowering_disease_days'] = disease(*flowering)
@@ -515,7 +538,7 @@ def stage_metrics(days, p, flowering, fruit, harvest, production_start, bud=None
     m['fruit_disease_days'] = disease(*fruit)
     fruit_cold = get('tmin', *fruit)
     if fruit_cold is not None:
-        m['fruit_frost_days'] = int((fruit_cold <= 0.0).sum())
+        m['fruit_frost_days'] = int((fruit_cold <= p['frost_threshold_c']).sum())
     m['fruit_max_dry_days'] = dry(*fruit)
     wet = get('rain', *harvest)
     if wet is not None:
@@ -644,7 +667,7 @@ def season(hourly, daily, lat, year, p, days=None):
     if midwinter is None:
         row['issues']['warm_midwinter_hours'] = 'missing/nonfinite hourly temperature in fixed midwinter window'
     else:
-        row['warm_midwinter_hours'] = int((midwinter > p.get('warm_midwinter_threshold_c', 21.0)).sum())
+        row['warm_midwinter_hours'] = int((midwinter > warm_midwinter_threshold(p)).sum())
 
     winter = complete(temperatures, start, end, 'h')
     if winter is None:
@@ -752,12 +775,25 @@ def stats(values):
             'min': float(a.min()), 'max': float(a.max())}
 
 
-def calendar(rows, hemi):
-    """Offsets from the season anchor across years, reconstructed on the same anchor (fixes the R -31 day shift)."""
+def leap_days(first, offset):
+    """Number of 29 February dates in the `offset` days after `first`."""
+    last = first + pd.Timedelta(days=offset)
+    return sum(first < pd.Timestamp(year, 2, 29) <= last for year in range(first.year, last.year + 1) if isleap(year))
+
+
+def calendar(rows, hemi, leap_corrected=False):
+    """Offsets from the season anchor across years, reconstructed on the same anchor (fixes the R -31 day shift).
+
+    The anchors span no 29 February. `leap_corrected` drops 29 February from each offset before the statistics, so
+    leap winters do not shift dates a day late; legacy profiles keep raw day counts."""
     anchor = pd.Timestamp('2001-04-01') if hemi == 'south' else pd.Timestamp('2000-11-01')  # both non-leap spans
-    out = {'anchor': 'season start (1 Nov north, 1 Apr south)'}
+    out = {'anchor': 'season start (1 Nov north, 1 Apr south)' + ('; 29 February not counted' if leap_corrected else '')}
+
+    def offset(r, key):
+        v = r['offset_days'][key]
+        return v - leap_days(pd.Timestamp(r['season_start']), v) if leap_corrected else v
     for key in OFFSETS:
-        values = [r['offset_days'][key] for r in rows if r['offset_days'][key] is not None]
+        values = [offset(r, key) for r in rows if r['offset_days'][key] is not None]
         s = stats(values)
         if s['n']:
             for q in ('median', 'p10', 'p90'):
@@ -835,6 +871,7 @@ def risks(rows, p, classes=None, clock=None):
                      'url': 'https://content.ces.ncsu.edu/blueberry-freeze-damage-and-protection-measures'}]
     winter_source = [{'title': 'UF/IFAS: Protecting blueberries from freezes in Florida',
                       'url': 'https://ask.ifas.ufl.edu/publication/HS216'}]
+    cold, rainy = pollination_proxy(p)
     # One entry per family. Additional fields describe exposure, not extra headline risks.
     definitions = [
         ('chill_shortfall', 'Winters below the assumed chill requirement', 'chill', ('chill_hours',),
@@ -857,7 +894,7 @@ def risks(rows, p, classes=None, clock=None):
          f"At least one day across flowering, fruit development and harvest with Tmean {p['disease_temp_min_c']}–{p['disease_temp_max_c']} C inclusive, RH >={p['disease_rh_threshold']}% and rain >={p['disease_rain_threshold_mm']} mm. All three windows must be complete. This daily proxy is provisional, not infection or BAS; UF PP366 requires wetness-duration information.",
          [{'title': 'UF/IFAS: Blueberry Advisory System', 'url': 'https://ask.ifas.ufl.edu/publication/PP366'}]),
         ('fruit_frost', 'Fruit-stage frost exposure', 'fruit', ('fruit_frost_days',),
-         'At least one fruit-development day with Tmin <=0 C. Generic exposure, not a berry injury threshold.', frost_source),
+         f"At least one fruit-development day with Tmin <={p['frost_threshold_c']:g} C. Generic exposure, not a berry injury threshold.", frost_source),
         ('pollination_weather', 'Pollination gap', 'flower',
          ('flowering_longest_no_flight_run', 'flowering_no_flight_days', 'flowering_bee_flight_hours_mean',
           'flowering_pollination_unfavourable_days', 'flowering_cold_dry_days'),
@@ -871,11 +908,11 @@ def risks(rows, p, classes=None, clock=None):
         if p.get('bee_flight_model') else
         ('pollination_weather', 'Pollination-unfavourable weather', 'flower',
          ('flowering_pollination_unfavourable_days', 'flowering_cold_dry_days'),
-         'No risk event or loss threshold defined. Count Tmax <15 C OR rain >=1 mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.',
+         f'No risk event or loss threshold defined. Count Tmax <{cold:g} C OR rain >={rainy:g} mm days as an operational cold/wet proxy, not bee inactivity. Cold-and-dry days are a separate supervisor hypothesis comparison. UF IN1237 supports weather sensitivity, not these numerical cutoffs.',
          [{'title': 'UF/IFAS: Pollination best practices in southern highbush blueberry in Florida',
            'url': 'https://ask.ifas.ufl.edu/publication/IN1237'}]),
         ('warm_midwinter', 'Warm midwinter exposure', 'chill', ('warm_midwinter_hours',),
-         'No risk event or loss threshold defined. Count hours >21 C within the fixed midwinter window, independently of chill success. This operational proxy is not measured chill negation.', winter_source),
+         f'No risk event or loss threshold defined. Count hours >{warm_midwinter_threshold(p):g} C within the fixed midwinter window, independently of chill success. This operational proxy is not measured chill negation.', winter_source),
         ('flowering_dry_spell', 'Flowering dry-spell exposure', 'flower', ('flowering_max_dry_days',),
          'No risk event or loss threshold defined. Longest consecutive rain <1 mm run, clipped to flowering; not soil water deficit.', []),
         ('fruit_dry_spell', 'Fruit-development dry-spell exposure', 'fruit', ('fruit_max_dry_days',),
@@ -907,7 +944,9 @@ def risks(rows, p, classes=None, clock=None):
             eligibility = 'insufficient_data'
             reason = f"Only {n}/{len(rows)} complete winters; at least {policy['min_valid_years']} are required."
             if name == 'disease_weather':
-                reason += ' Every included winter requires complete flowering, fruit and harvest disease weather.'
+                reason += (' Every included winter requires complete hourly infection weather from flowering start to harvest end.'
+                           if p.get('infection_model') else
+                           ' Every included winter requires complete flowering, fruit and harvest disease weather.')
             elif name != 'chill_shortfall':
                 reason += ' Missing crop dates or weather are excluded, never counted as zero.'
         elif frequency < policy['min_frequency']:
@@ -934,10 +973,11 @@ def risks(rows, p, classes=None, clock=None):
         assessment['rank'] = rank
     descriptive = ('Dry spells and warm winter remain descriptive exposures.' if p.get('bee_flight_model') else
                    'Dry spells, pollination weather and warm winter remain descriptive exposures.')
+    disease = ('Disease weather is one family: days at high hourly infection risk from flowering start to harvest end. '
+               if p.get('infection_model') else 'Disease weather is one family with three complete stage windows. ')
     note = ('Each winter uses its own stage dates. Ranked entries alone meet both reporting gates; '
             'equal frequencies share a competition rank and keep declared order. Missing windows are not safe years. '
-            'Disease weather is one family with three complete stage windows. Frequent heavy rain is not a severity score; '
-            'compare counts and totals. ' + descriptive)
+            + disease + 'Frequent heavy rain is not a severity score; compare counts and totals. ' + descriptive)
     if unsupported:
         note += ' ' + calendar_reason + ' Crop-stage exposures and derived event frequencies are hypothetical only.'
     return {'policy': policy, 'by_id': by_id, 'ranked': ranked,
@@ -946,18 +986,29 @@ def risks(rows, p, classes=None, clock=None):
 
 
 CYCLE_STARTS = tuple(f'{month:02d}-{day:02d}' for month in range(1, 13) for day in (1, 15))
+# Longest published flowering season (66 d, Campa & Ferreira 2018, Asturias) and a flowering-to-first-harvest
+# interval beyond published maxima (116 d cool-spring rabbiteye, Pelotas; ~120 d Peru): a scanned cycle exceeding
+# either has stalled through a cold season and is not a production cycle.
+SCAN_MAX_FLOWERING_DAYS = 66
+SCAN_MAX_FRUIT_DAYS = 150
+# Every scanned (start, year) cycle has exactly one outcome; weather-incomplete cycles are left out of every count.
+CYCLE_OUTCOMES = ('complete', 'stalled_slow', 'stalled_horizon', 'weather_incomplete')
 CYCLE_EVENTS = (('bud_freeze', 'bud_freeze_days'), ('flowering_freeze', 'flower_freeze_days'),
-                ('fruit_frost', 'fruit_frost_days'), ('fruit_severe_heat', 'fruit_severe_heat_days'),
-                ('harvest_heavy_rain', 'harvest_heavy_rain_days'), ('disease_weather', None),
-                ('pollination_weather', 'flowering_longest_no_flight_run'))
-# Freeze families are crop loss: a start where one recurs is not favourable, and stalled cycles count against them.
-CROP_LOSS = ('bud_freeze', 'flowering_freeze', 'fruit_frost')
-# Scan dimensions. Freezes are crop-loss events, so they count cycles with any event; recurring weather is
-# counted as the share of stage days affected, so faster (shorter) cycles do not look safer by construction.
+                ('fruit_frost', 'fruit_frost_days'), ('cycle_failure', None),
+                ('fruit_severe_heat', 'fruit_severe_heat_days'), ('harvest_heavy_rain', 'harvest_heavy_rain_days'),
+                ('disease_weather', None), ('pollination_weather', 'flowering_longest_no_flight_run'))
+# Crop-loss families: a start where one recurs is not favourable. Freezes count threshold crossings in complete
+# cycles only; stalled cycles form cycle_failure, so a stall is never reported as a freeze.
+CROP_LOSS = ('bud_freeze', 'flowering_freeze', 'fruit_frost', 'cycle_failure')
+# Scan dimensions. Crop-loss families count cycles with any event; recurring weather is counted as the share of
+# stage days affected, so faster (shorter) cycles do not look safer by construction. {frost} is the profile value.
 SCAN_MEASURES = (
-    ('bud_freeze', 'share of cycles with a bud-stage day at or below the stage critical temperature, or stalled by cold'),
-    ('flowering_freeze', 'share of cycles with a flowering day at or below the damaging freeze threshold, or stalled by cold'),
-    ('fruit_frost', 'share of cycles with a fruit-development day with Tmin at or below 0 C, or stalled by cold'),
+    ('bud_freeze', 'share of cycles with a bud-stage day at or below the stage critical temperature'),
+    ('flowering_freeze', 'share of cycles with a flowering day at or below the damaging freeze threshold'),
+    ('fruit_frost', 'share of cycles with a fruit-development day with Tmin at or below {frost} C'),
+    ('cycle_failure', f'share of cycles that do not complete: flowering longer than {SCAN_MAX_FLOWERING_DAYS} days, first '
+                      f'harvest more than {SCAN_MAX_FRUIT_DAYS} days after flowering starts, or a stage requirement not '
+                      'reached within the stage horizon'),
     ('fruit_heat', 'share of fruit-development days with Tmax at or above the heat threshold'),
     ('harvest_heavy_rain', 'share of harvest days with heavy rain'),
     ('disease_weather', 'share of flowering-to-harvest days at moderate or higher infection risk (hourly model) or meeting the daily disease rule (legacy profiles)'),
@@ -985,13 +1036,6 @@ def months_between(first, last):
     return sorted({day.month for day in pd.date_range(a, b)})
 
 
-# Longest published flowering season (66 d, Campa & Ferreira 2018, Asturias) and a flowering-to-first-harvest
-# interval beyond published maxima (116 d cool-spring rabbiteye, Pelotas; ~120 d Peru): a scanned cycle exceeding
-# either has stalled through a cold season and is not a production cycle.
-SCAN_MAX_FLOWERING_DAYS = 66
-SCAN_MAX_FRUIT_DAYS = 150
-
-
 def select_favourable(candidates, tolerance):
     """Strict Pareto front on the measures named in `tolerance` (acyclic, never empty when candidates exist), plus
     near-ties: candidates within `tolerance` of a front member on every measure. Lower is better on every measure."""
@@ -1007,35 +1051,42 @@ def managed_cycles(days, p, years):
     """Scenario scan: start the fruiting cycle (budbreak) on fixed dates and follow the profile stage clock.
 
     Assumes management (pruning, defoliation, dormancy breaking) can start a cycle on each date; flower-bud
-    induction, chill and market timing are not modelled. Stalled cycles count as failed cycles for the crop-loss
-    (freeze) families. Starts where a crop-loss family recurs in at least the policy share of cycles are not
-    favourable; the rest are selected by select_favourable() on the profile's scan measures. No cross-family weights.
+    induction, chill and market timing are not modelled. Each (start, year) cycle has one CYCLE_OUTCOMES entry:
+    freeze families count complete cycles only, stalled cycles form the cycle_failure family, and weather-incomplete
+    cycles are left out of every count. Starts where a crop-loss family recurs in at least the policy share of cycles
+    are not favourable; the rest are selected by select_favourable() on the profile's scan measures. No cross-family
+    weights.
     """
     d = pd.Timedelta
     policy = {'min_frequency': p.get('risk_min_frequency', 0.5), 'min_valid_years': p.get('risk_min_valid_years', 12)}
     disease_keys = INFECTION_METRICS[1:] if p.get('infection_model') else DISEASE_METRICS
+    leap = p.get('leap_day_offsets') == 'corrected'
     cycle_events, scan_measures = scan_parts(p)
     loss_names = [name for name, _ in cycle_events if name in CROP_LOSS]
     share_keys = [name for name, _ in scan_measures if name not in CROP_LOSS]
     starts, lengths = [], {k: [] for k in share_keys}
     for start in CYCLE_STARTS:
-        rows, offsets, stalled = [], {key: [] for key in OFFSETS[2:]}, 0
+        rows, offsets, outcomes = [], {key: [] for key in OFFSETS[2:]}, dict.fromkeys(CYCLE_OUTCOMES, 0)
         shares = {k: [] for k in share_keys}
         for year in years:
             bud = pd.Timestamp(f'{year}-{start}')
-            stages, _ = stage_dates(days, bud, p)
-            if stages is not None and ((stages[0][1] - stages[0][0]).days > SCAN_MAX_FLOWERING_DAYS
-                                       or (stages[1][0] - stages[0][0]).days > SCAN_MAX_FRUIT_DAYS):
-                stages, stalled = None, stalled + 1
+            stages, why = stage_dates(days, bud, p)
             if stages is None:
-                rows.append({'metrics': {k: None for k in STAGE_METRICS}})
+                # 'missing' covers gaps and the archive end: unknown weather is neither a stall nor a safe cycle.
+                outcomes['stalled_horizon' if why[0] == 'horizon' else 'weather_incomplete'] += 1
                 continue
+            if ((stages[0][1] - stages[0][0]).days > SCAN_MAX_FLOWERING_DAYS
+                    or (stages[1][0] - stages[0][0]).days > SCAN_MAX_FRUIT_DAYS):
+                outcomes['stalled_slow'] += 1
+                continue
+            outcomes['complete'] += 1
             flowering, harvest = stages
             fruit = (flowering[1] + d(days=1), harvest[0] - d(days=1))
             m = stage_metrics(days, p, flowering, fruit, harvest, bud, bud)
             rows.append({'metrics': m})
             for key, day in zip(OFFSETS[2:], (*flowering, *harvest)):
-                offsets[key].append((day - bud).days)
+                offset = (day - bud).days
+                offsets[key].append(offset - leap_days(bud, offset) if leap else offset)
             length = {'fruit_heat': (harvest[0] - flowering[1]).days - 1,
                       'harvest_heavy_rain': (harvest[1] - harvest[0]).days + 1,
                       'disease_weather': (harvest[1] - flowering[0]).days + 1,
@@ -1047,16 +1098,17 @@ def managed_cycles(days, p, years):
                 if counts[key] is not None and length[key] > 0:
                     shares[key].append(counts[key] / length[key])
                     lengths[key].append(length[key])
+        failed = outcomes['stalled_slow'] + outcomes['stalled_horizon']
         events = {}
         for name, key in cycle_events:
-            values = event_values(rows, name, key, p)
-            k = int(sum(v >= event_threshold(name, p) for v in values))
-            # A stalled cycle ran into prolonged cold: count it as a failed cycle for the crop-loss families.
-            extra = stalled if name in CROP_LOSS else 0
-            events[name] = {'years_with_event': k + extra, 'valid_years': len(values) + extra,
-                            'frequency': (k + extra) / (len(values) + extra) if values or extra else None}
-        # Stalled cycles are evidence for the crop-loss families, so a start that stalls most years is reported as
-        # recurring crop loss rather than silently dropped; the recurring-weather shares need complete cycles.
+            if name == 'cycle_failure':
+                k, n = failed, outcomes['complete'] + failed
+            else:
+                values = event_values(rows, name, key, p)
+                k, n = int(sum(v >= event_threshold(name, p) for v in values)), len(values)
+            events[name] = {'years_with_event': k, 'valid_years': n, 'frequency': k / n if n else None}
+        # A start whose cycles mostly stall lacks freeze evidence but has cycle_failure evidence, so it is reported as
+        # recurring cycle failure rather than silently dropped; the recurring-weather shares need complete cycles.
         evidence = {name: e['valid_years'] >= policy['min_valid_years'] for name, e in events.items()}
         rankable = all(evidence.values()) and all(len(v) >= policy['min_valid_years'] for v in shares.values())
         recurring = [name for name, e in events.items() if evidence[name] and e['frequency'] >= policy['min_frequency']]
@@ -1065,7 +1117,8 @@ def managed_cycles(days, p, years):
         dates = {key: month_day(start, np.median(v)) if v else None for key, v in offsets.items()}
         crop_loss = [name for name in loss_names if name in recurring]
         starts.append({
-            'budbreak': start, 'cycles': len(offsets['harvest_end']), 'stalled_cycles': stalled, 'dates': dates,
+            'budbreak': start, 'cycles': outcomes['complete'], 'stalled_cycles': failed, 'outcomes': outcomes,
+            'dates': dates,
             'flowering_months': months_between(dates['flowering_start'], dates['flowering_end']) if offsets['flowering_end'] else [],
             'harvest_months': months_between(dates['harvest_start'], dates['harvest_end']) if offsets['harvest_end'] else [],
             'events': events, 'measures': measures, 'rankable': rankable, 'recurring_crop_loss': crop_loss,
@@ -1085,17 +1138,25 @@ def managed_cycles(days, p, years):
         names = list(names)
         return names[0] if len(names) == 1 else ', '.join(names[:-1]) + f' {last} ' + names[-1]
     loss_text = spoken((name.replace('_', ' ') for name in loss_names), 'and')
+    freeze_text = spoken((name.replace('_', ' ') for name in loss_names if name != 'cycle_failure'), 'and')
     share_text = spoken(({'pollination': 'days without bee flight'}.get(k, k.replace('_', ' ')) for k in share_keys), 'and')
-    return {'method': 'managed-cycle-scan-v3', 'policy': policy, 'starts': starts, 'favourable': favourable,
-            'measures': [{'key': k, 'definition': text, 'tolerance': tolerance[k]} for k, text in scan_measures],
+    frost = f"{p['frost_threshold_c']:g}"
+    return {'method': 'managed-cycle-scan-v4', 'policy': policy, 'starts': starts, 'favourable': favourable,
+            'measures': [{'key': k, 'definition': text.format(frost=frost), 'tolerance': tolerance[k]}
+                         for k, text in scan_measures],
             'rule': ('Each start date is a management scenario for budbreak of the fruiting cycle; stages follow the profile '
-                     f'stage clock. Cycles whose flowering lasts over {SCAN_MAX_FLOWERING_DAYS} days or whose first harvest '
-                     f'comes over {SCAN_MAX_FRUIT_DAYS} days after flowering starts have stalled; they count as failed cycles '
-                     f"for {loss_text}. Starts need at least {policy['min_valid_years']} complete cycles. "
+                     'stage clock. Every start and year has one of four outcomes: complete; stalled slow, when flowering '
+                     f'lasts over {SCAN_MAX_FLOWERING_DAYS} days or the first harvest comes over {SCAN_MAX_FRUIT_DAYS} days '
+                     'after flowering starts; stalled at the horizon, when a stage requirement is not reached within '
+                     f"{p['stage_horizon_days']} days; or weather incomplete, when the archive has a gap or ends first. "
+                     'Weather-incomplete cycles are left out of every count. '
+                     f'{freeze_text[0].upper() + freeze_text[1:]} count complete cycles only. Cycle failure is the share '
+                     'of complete and stalled cycles that stalled. '
+                     f"Starts need at least {policy['min_valid_years']} complete cycles. "
                      f"A start where {spoken((name.replace('_', ' ') for name in loss_names), 'or')} recurs in at least {policy['min_frequency']:.0%} of cycles "
                      'is not favourable. Favourable starts are the Pareto front of the rest (no other start is at least as good '
-                     'on every measure and better on one) plus starts within one affected cycle (freezes) or one affected day '
-                     f'per cycle ({share_text}) of a front start on every measure.'),
+                     f'on every measure and better on one) plus starts within one affected cycle ({loss_text}) or one '
+                     f'affected day per cycle ({share_text}) of a front start on every measure.'),
             'limitations': [
                 'Management feasibility is assumed: pruning, defoliation, dormancy-breaking agents or cover must be able to start the cycle on the chosen date.',
                 'Flower-bud induction (short days, shoot maturity), chill and cultivar differences are not modelled; a favourable weather window is not proof that plants will flower then.',
@@ -1147,9 +1208,9 @@ def analyse(hourly, daily, lat, profile_name, years=range(2011, 2026), dewpoint=
               'chill_portions': stats(valid(rows, 'chill_portions', None)),
               'freeze_hours': stats(valid(rows, 'freeze_hours', None)),
               'warm_midwinter_hours': stats(valid(rows, 'warm_midwinter_hours', None)),
-              'metric_catalog': METRIC_CATALOG,
+              'metric_catalog': metric_catalog(p),
               'classification': classes,
-              'calendar': calendar(rows, hemi),
+              'calendar': calendar(rows, hemi, p.get('leap_day_offsets') == 'corrected'),
               'risks': risks(rows, p, classes, clock),
               'seasons': rows}
     if clock is not None:
@@ -1188,10 +1249,13 @@ def thermal_reference(hourly, daily, lat, base, upper=None, years=range(2011, 20
                   'values': [round(x, 1) for x in v]} for key, v in values.items()}
 
 
-def sensitivity(hourly, daily, lat, names, dewpoint=None, lon=None):
+def sensitivity(hourly, daily, lat, names, dewpoint=None, lon=None, primary=None, primary_profile=None):
+    """Headline outputs for each profile in `names`. `primary` is an analyse() result already computed for
+    `primary_profile` with the same inputs; it is reused instead of running that profile again."""
     out = {}
     for name in names:
-        a = analyse(hourly, daily, lat, name, dewpoint=dewpoint, lon=lon)
+        a = (primary if primary is not None and name == primary_profile else
+             analyse(hourly, daily, lat, name, dewpoint=dewpoint, lon=lon))
         c = a['classification']
         out[name] = {'chill_definition': a['assumptions']['chill_definition'],
                      'chill_requirement_hours': a['assumptions']['chill_requirement_hours'],
@@ -1340,11 +1404,13 @@ def run(root=ROOT, names=('Waldo', 'Citra', 'Papanduva'), primary=PRIMARY_PROFIL
     for name in names:
         site, daily, hourly, provenance, hourly_sha = site_inputs(root, name, land)
         weather = dict(dewpoint=hourly.dewpoint_mean_c, lon=site['lon'])
+        analysis = analyse(hourly.tmean_c, daily, site['lat'], primary, **weather)
         report['sites'][name] = {
             'latitude': site['lat'], 'longitude': site['lon'],
             'planting': planting_window(site),
-            'analysis': analyse(hourly.tmean_c, daily, site['lat'], primary, **weather),
-            'sensitivity': sensitivity(hourly.tmean_c, daily, site['lat'], list(PROFILES), **weather),
+            'analysis': analysis,
+            'sensitivity': sensitivity(hourly.tmean_c, daily, site['lat'], list(PROFILES), **weather,
+                                       primary=analysis, primary_profile=primary),
             'daily_provenance': provenance, 'hourly_sha256': hourly_sha}
     out = root / 'reports/production'
     out.mkdir(parents=True, exist_ok=True)

@@ -240,6 +240,56 @@
       ]
     }
   ],
+  "updated_2026_10_12": "Added related IBO presentation sources (available, not read) and third-party copies seen and rejected, from docs/research/2026-10-11/review/astra_ibo_evidence_review.md section 4.",
+  "related_sources": [
+    {
+      "id": "ibo-summit-sa-2025-presentations",
+      "kind": "conference_presentations",
+      "status": "available_unread",
+      "full_text_read": false,
+      "landing_url": "https://www.internationalblueberry.org/ibo-summit-sa-presentations/",
+      "example_urls": [
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/10/10.15-Colin-Fain-IBO-Global-Production-Report.pdf",
+        "https://www.internationalblueberry.org/wp-content/uploads/2025/10/11.30-Stephen-Taylor-Global-Production.pdf"
+      ],
+      "note": "IBO Summit, Cape Town, 25-27 September 2025. 15 PDFs, including the IBO global production report and talks on South Africa, climate and machine harvesting. Seen on 2026-10-11; not downloaded or read for the registry.",
+      "rights": "Page footer says Copyright 2025 IBO; the IBO terms page says 'In progress'. Decks are third-party authored with no reuse licence stated. Citation only."
+    },
+    {
+      "id": "morocco-berry-conference-2025-presentations",
+      "kind": "conference_presentations",
+      "status": "available_unread",
+      "full_text_read": false,
+      "landing_url": "https://www.internationalblueberry.org/morocco-berry-conference-2025-presentations/",
+      "note": "Agadir, November 2025. 11 PDFs, including Lisa DeVetter and an IBO presentation. Link list opened on 2026-10-11; decks not read.",
+      "rights": "No licence stated. Citation only."
+    },
+    {
+      "id": "ibo-summit-2023-brazelton-fain-deck",
+      "kind": "conference_presentation",
+      "status": "available_unread",
+      "full_text_read": false,
+      "source_url": "https://www.internationalblueberry.org/assets/uploads/2023/09/Cort-Brazelton-Colin-Fain_State-of-the-Global-Blueberry-Industry.pdf",
+      "note": "State of the global blueberry industry slides, IBO Summit 2023 (Poland). The 2023 presentations page now returns 404; Wayback holds captures from 2023-08 to 2024-12. Opened in part on 2026-10-11; not read for the registry.",
+      "rights": "No licence stated. Citation only."
+    }
+  ],
+  "rejected_copies": [
+    {
+      "id": "scribd-ibo-2024",
+      "edition": 2024,
+      "url": "https://www.scribd.com/document/868719668/report-2024",
+      "status": "rejected",
+      "reason": "Third-party upload (121 pages) marked 'All Rights Reserved'. Not an IBO channel; do not import. The 2024 report is behind IBO's free lead form; filling it is a human decision."
+    },
+    {
+      "id": "scribd-ibo-2025",
+      "edition": 2025,
+      "url": "https://www.scribd.com/document/994478343/Ibo-Report-2025",
+      "status": "rejected",
+      "reason": "Third-party upload marked 'All Rights Reserved'. Not an IBO channel; do not import. The 2025 report is already held from the FlippingBook copy (ibo-2025)."
+    }
+  ],
   "search_limits": [
     "Registration forms and member/paid access not bypassed. No accounts created, purchases or contacts sent.",
     "Older series was not reliably annual. 2011/2013/2015/2017 publication labels can refer to 2010/2012/2014/2016 data editions.",

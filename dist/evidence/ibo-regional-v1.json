@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
- "version": "ibo-regional-2026-10-05",
- "reviewed_on": "2026-10-05",
+ "version": "ibo-regional-2026-10-12",
+ "reviewed_on": "2026-10-12",
  "scope_note": "Curated, source-checked paraphrases from the complete IBO global reports for 2023, 2025 and 2026, whose reuse-with-attribution terms were verified. Statements describe reported regional practice, events and constraints; they are not field observations, model output, forecasts or recommendations for this location. Reported losses are industry estimates. Repeated mentions across editions share one source family and are not independent confirmation.",
  "coverage_note": "Partial coverage: only selected benchmark regions and countries are included, and only statements checked against the cited pages. Absence of a record is not evidence that an event did not occur or that a practice is not used. The 2021, 2022 and 2024 editions and other sources are not included.",
  "geography_reference": {
@@ -936,9 +936,11 @@
     {
      "source_id": "ibo-2025",
      "printed_pages": [
+      103,
       104
      ],
      "pdf_pages": [
+      52,
       53
      ],
      "locator": "USA report team narrative: Georgia"
@@ -1223,9 +1225,9 @@
    ],
    "period": {
     "label": "Late February to early March 2022",
-    "start": "2022-02-01",
-    "end": "2022-03-31",
-    "precision": "month"
+    "start": "2022-02-21",
+    "end": "2022-03-10",
+    "precision": "season"
    },
    "crop_context": "Commercial blueberries; later crop affected; cultivars not named.",
    "evidence_type": "industry_narrative",
@@ -1246,7 +1248,8 @@
    ],
    "limitations": [
     "Geographic scope is Madera County and northward, not all of California.",
-    "Percentages are industry estimates against forecast and acreage, not farm-measured losses."
+    "Percentages are industry estimates against forecast and acreage, not farm-measured losses.",
+    "The source says late February to early March 2022; the stored start and end dates approximate those words and are not exact event dates."
    ]
   },
   {
@@ -1283,7 +1286,8 @@
    ],
    "limitations": [
     "Compound event; the report does not separate the contribution of each weather episode.",
-    "10-60% is a regional range from interviews, not a field measurement."
+    "10-60% is a regional range from interviews, not a field measurement.",
+    "The source calls it a \"dieback pollination problem\"; the summary shortens this to a pollination problem."
    ]
   },
   {
@@ -1915,6 +1919,16 @@
       30
      ],
      "locator": "Peru report team narrative"
+    },
+    {
+     "source_id": "ibo-2023",
+     "printed_pages": [
+      61
+     ],
+     "pdf_pages": [
+      31
+     ],
+     "locator": "Peru report team narrative: Chavimochic and Olmos irrigation projects"
     }
    ],
    "limitations": [
@@ -2003,7 +2017,8 @@
    ],
    "limitations": [
     "Regional industry report, not an observation at this map point or farm.",
-    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation.",
+    "IBO 2025 p.72 gives Lambayeque 27% of Peru's hectares, against 29% in IBO 2023."
    ]
   },
   {
@@ -2059,7 +2074,7 @@
     "end": "2022-11-30",
     "precision": "month"
    },
-   "crop_context": "Mostly northern highbush; cultivars not specified for the losses.",
+   "crop_context": "Commercial blueberries; cultivars not specified for the losses.",
    "evidence_type": "association_report",
    "review_status": "source_checked",
    "source_family": "ibo-global-reports",
@@ -2089,7 +2104,8 @@
    "limitations": [
     "Grower losses are described qualitatively; no area or volume denominator is given.",
     "Production decline also reflects cultivar removal and crop switching.",
-    "Regional industry report, not an observation at this map point or farm."
+    "Regional industry report, not an observation at this map point or farm.",
+    "IBO 2023 merges frost and hail into one account. Outside sources date the frost to 31 October to 1 November 2022 and the hail to 10-12 November 2022 (El Tipografo, https://eltipografo.cl/2022/11/arandanos-lluvia-y-granizo-de-noviembre-tuvo-minimo-efecto-sobre-la-produccion; Portal Fruticola, https://www.portalfruticola.com/noticias/2022/11/09/chilecomo-se-han-afectado-los-arandanos-de-nuble-por-las-heladas/). Those dates are not in the IBO text."
    ]
   },
   {
@@ -2102,10 +2118,10 @@
     "CL"
    ],
    "period": {
-    "label": "Spring 2022 to December 2022",
-    "start": null,
-    "end": null,
-    "precision": "season"
+    "label": "December 2022, after a cool spring",
+    "start": "2022-12-01",
+    "end": "2022-12-31",
+    "precision": "month"
    },
    "crop_context": "Commercial blueberries; cultivars not specified.",
    "evidence_type": "association_report",
@@ -3108,9 +3124,9 @@
    ],
    "period": {
     "label": "Late January to March 2023",
-    "start": "2023-01-01",
+    "start": "2023-01-21",
     "end": "2023-03-31",
-    "precision": "month"
+    "precision": "season"
    },
    "crop_context": "Southern highbush under tunnels.",
    "evidence_type": "industry_narrative",
@@ -3131,7 +3147,8 @@
    ],
    "limitations": [
     "Regional industry report, not an observation at this map point or farm.",
-    "Temperatures are descriptive, not station data."
+    "Temperatures are descriptive, not station data.",
+    "The source says late January to March 2023; the stored start and end dates approximate those words and are not exact event dates."
    ]
   },
   {
@@ -3940,7 +3957,7 @@
     "end": null,
     "precision": "reported_practice"
    },
-   "crop_context": "Northern highbush; Duke predominant.",
+   "crop_context": "Cultivars not stated for Serbia; the Duke reference in the cited passage is about Romania.",
    "evidence_type": "industry_narrative",
    "review_status": "source_checked",
    "source_family": "ibo-global-reports",
@@ -3959,10 +3976,12 @@
     {
      "source_id": "ibo-2026",
      "printed_pages": [
-      231
+      231,
+      232
      ],
      "pdf_pages": [
-      231
+      231,
+      232
      ],
      "locator": "Serbia narrative"
     }
@@ -4017,7 +4036,8 @@
    "limitations": [
     "Percentages are interview estimates for extreme versus other farms.",
     "Regional industry report, not an observation at this map point or farm.",
-    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation."
+    "Later IBO editions share authors and contributor networks; repeated mentions are not independent confirmation.",
+    "The editions disagree on the season: IBO 2025 places the frost in July and August (winter), while IBO 2026 calls it spring frosts."
    ]
   },
   {
@@ -4031,8 +4051,8 @@
    ],
    "period": {
     "label": "Winter to early spring 2024",
-    "start": null,
-    "end": null,
+    "start": "2024-06-01",
+    "end": "2024-09-10",
     "precision": "season"
    },
    "crop_context": "Southern highbush; netted and substrate systems.",
@@ -4054,7 +4074,8 @@
    ],
    "limitations": [
     "The frost affected one large farm; floods affected several farms; no area or loss figures.",
-    "Regional industry report, not an observation at this map point or farm."
+    "Regional industry report, not an observation at this map point or farm.",
+    "The source says a very wet winter and an unusual frost in late August to early September 2024; the wind event is not dated; the stored start and end dates approximate those words and are not exact event dates."
    ]
   },
   {
@@ -4237,6 +4258,16 @@
       128
      ],
      "locator": "South Africa report team narrative"
+    },
+    {
+     "source_id": "ibo-2025",
+     "printed_pages": [
+      253
+     ],
+     "pdf_pages": [
+      127
+     ],
+     "locator": "South Africa report team narrative: the north as about 40% of the industry"
     }
    ],
    "limitations": [
@@ -4632,7 +4663,7 @@
    "kind": "practice",
    "topic": "harvest",
    "title": "Western Australia: pruning spreads harvest from March to January",
-   "summary": "IBO 2025 reports Western Australian growers (Gingin to Manjimup) using pruning and farm methods to fill gaps, with harvest from March to January of the following year. IBO 2023 describes the area as dry and Mediterranean with fewer pests.",
+   "summary": "IBO 2025 reports the farms of one Western Australia-based breeder, between Gingin and Manjimup, using pruning and farm methods to fill gaps, with harvest from March to January of the following year. IBO 2023 describes the area as dry and Mediterranean with fewer pests.",
    "geography_ids": [
     "AU-WA"
    ],
@@ -4670,7 +4701,8 @@
     }
    ],
    "limitations": [
-    "Regional industry report, not an observation at this map point or farm."
+    "Regional industry report, not an observation at this map point or farm.",
+    "IBO 2025 describes one breeder's farms, not all Western Australian growers."
    ]
   },
   {
@@ -4731,9 +4763,9 @@
    ],
    "period": {
     "label": "Late January to February 2023",
-    "start": "2023-01-01",
+    "start": "2023-01-21",
     "end": "2023-02-28",
-    "precision": "month"
+    "precision": "season"
    },
    "crop_context": "Blueberries including tunnelled production.",
    "evidence_type": "industry_narrative",
@@ -4753,7 +4785,8 @@
     }
    ],
    "limitations": [
-    "15% refers to growers' survey statements about the whole season, not this event alone."
+    "15% refers to growers' survey statements about the whole season, not this event alone.",
+    "The source says floods in late January to early February 2023 and Cyclone Gabrielle in February; the stored start and end dates approximate those words and are not exact event dates."
    ]
   },
   {
@@ -4801,7 +4834,8 @@
    ],
    "limitations": [
     "Regional industry report, not an observation at this map point or farm.",
-    "Irrigation access determined impact."
+    "Irrigation access determined impact.",
+    "Conflict between sources: the BBNZ summary on IBO 2025 p.159 calls 2024/25 a season of relative calm climatic conditions without major weather impacts, while the report team narrative on p.160 describes the heat and dry losses."
    ]
   },
   {

@@ -1,0 +1,15 @@
+[Unit]
+Description=Blueberry evidence job %i
+ConditionPathIsMountPoint=/media/fpt/fpt2
+
+[Service]
+Type=oneshot
+WorkingDirectory=/media/fpt/fpt2/Weather_Claude/code
+Environment=TMPDIR=/media/fpt/fpt2/Weather_Claude/tmp/evidence
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/media/fpt/fpt2/Weather_Claude/env/bin/python -m evidence run %i
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=4h
+StandardOutput=append:/media/fpt/fpt2/Weather_Claude/logs/evidence/%i.stdout.log
+StandardError=append:/media/fpt/fpt2/Weather_Claude/logs/evidence/%i.stdout.log
