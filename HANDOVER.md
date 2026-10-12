@@ -27,7 +27,7 @@ Last updated: 2026-10-12. Current phase: production v3 deployed to the private A
     - API: 403 `forbidden_host` or `forbidden_origin`. Health reports `busy_seconds` and cache counters.
     - Result cache: 64 results in memory plus `cache/location_api/`. The key covers the method, profile, code hash and coordinates. Clear it after any data or `config/` change.
     - Access log without coordinates: `logs/location_api_access.jsonl`.
-  - **Service.** `blueberry-ui-api.service` (systemd user unit) replaces tmux. A crash restarted it within 10 s in a test. The watchdog timer restarts it after two failed health checks, or when one analysis has been busy for over 900 s; it never starts a stopped service, and it rotates `logs/location_api.log`. Units are in `ops/api/`, scripts in `ops/bin/`; see `docs/UI_RUNBOOK.md`.
+  - **Service.** `blueberry-ui-api.service` (systemd user unit) replaces tmux. In a test, a killed process was running again 16 s later (restart delay 10 s). The watchdog timer restarts it after two failed health checks, or when one analysis has been busy for over 900 s; it never starts a stopped service, and it rotates `logs/location_api.log`. Units are in `ops/api/`, scripts in `ops/bin/`; see `docs/UI_RUNBOOK.md`.
   - **Evidence jobs.**
     - The `pipelines/evidence/` package is deployed as `code/evidence/`, with nine jobs, each run by `blueberry-evidence@<job>.service` from a `blueberry-evidence-<job>.timer`: `rma-col`, `rma-sobtpu`, `storm-events`, `ghcnh-stations`, `station-truth`, `odepa-catastro`, `odepa-exports`, `comext-blueberry` and `senamhi-arandano`.
     - Disk guards: root at least 10 GiB and 5% free, project drive at least 100 GiB free, evidence data at most 25 GiB.

@@ -84,7 +84,7 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 
 Use the access arrangements in `weather/SERVER_RUNBOOK.md`; no password or API secret belongs in commands committed here.
 
-Since 2026-10-12 the API runs as a systemd user service, not a tmux session. Systemd restarts it after a crash (tested: a killed process restarted within 10 seconds). A watchdog timer checks it every 5 minutes. The watchdog restarts the service when health fails twice in a row, or when one analysis holds the busy lock for more than 15 minutes. It never starts a stopped service. On the server:
+Since 2026-10-12 the API runs as a systemd user service, not a tmux session. Systemd restarts it after a crash, with a 10-second delay; in a test, a killed process was running again 16 seconds later. A watchdog timer checks it every 5 minutes. The watchdog restarts the service when health fails twice in a row, or when one analysis holds the busy lock for more than 15 minutes. It never starts a stopped service. On the server:
 
 ```sh
 systemctl --user start blueberry-ui-api      # start
