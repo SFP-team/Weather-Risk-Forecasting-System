@@ -94,6 +94,7 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 12 October | The scan counted stalled cycles as freezes and dropped cycles that missed the stage horizon. | Each scanned cycle now has one of four outcomes. Freezes count complete cycles only. Stalled cycles form a separate "Cycles do not complete" result. Section 7.5 explains this. |
 | 12 October | The private API ran in a terminal session without supervision. | The API is a supervised server service. It restarts after a crash, a watchdog checks its health, it keeps finished results, and it refuses requests from other sites. |
 | 12 October | Regional evidence came only from reports. | Scheduled server jobs collect public records: US crop-insurance losses, US storm events, hourly weather stations, the Chilean orchard census and exports, EU imports, and Peruvian crop bulletins. The app does not show these records yet. |
+| 13 October | Place search knew only about 7,300 larger towns, so towns such as Jaíba, Brazil could not be found. | Search covers about 5.2 million towns and villages worldwide from GeoNames. Section 4 explains how it works. |
 
 Some earlier statements were corrected during review.
 
@@ -152,6 +153,18 @@ A regional freeze report does not prove that your selected field froze. A region
 Moving the pin does not immediately replace the old assessment. The app displays a notice until you run the new analysis.
 
 A saved location uses a saved result. A new coordinate uses the private API, which is the server program that calculates results.
+
+### Searching for a place
+
+The search box finds about 5.2 million towns and villages in every country, plus regions, countries and saved locations. The town list comes from GeoNames, a free world gazetteer, and is held on the tool's own server. What you type is not sent to any other company and is not logged.
+
+- Accents and capital letters do not matter: "Jaiba" finds Jaíba.
+- You can type the start of each word. "alma g" lists Alma, Georgia first.
+- Each result shows its county or municipality, region and country. Check these before you select a place with a common name.
+- Local and other-language names work, for example "Lisboa" or "北京".
+- Street addresses and farm names cannot be found. Search for the nearest village, then move the pin on the map.
+
+When you select a town, the app uses the town's coordinates and keeps its name on the place card. If the app cannot reach its server, the search lists only about 7,300 larger towns and says so. The map and coordinate entry always work.
 
 ### The nearby place name
 

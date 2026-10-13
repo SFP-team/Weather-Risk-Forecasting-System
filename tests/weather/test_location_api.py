@@ -18,6 +18,7 @@ import location_api as api
 import production
 from location_api import summarize, avg, production_block
 from hourly_archive import ArchiveGap
+from test_place_index import geonames_fixture
 from pilot import GROUPS, NAMES
 from postprocess import LandMask, extract, km_distance
 
@@ -349,6 +350,36 @@ class ServerTests(unittest.TestCase):
                          [('/api/analysis',200,'miss',False),('/api/analysis',200,'hit',False),('other',404,None,False),
                           ('/api/analysis',403,None,False),('/api/analysis',400,None,False),('/api/analysis',503,'miss',True)])
         self.assertTrue(all(datetime.fromisoformat(r['ts']).utcoffset().total_seconds()==0 for r in records))
+    def test_place_queries_are_not_logged(self):
+        with patch.object(api,'PLACES',geonames_fixture(self.root)):
+            self.assertEqual(self.get('/api/places?q=Jaiba')[0],200)
+        text=(self.root/'access.jsonl').read_text()
+        self.assertNotIn('aiba',text)
+        self.assertEqual(json.loads(text.splitlines()[-1])['path'],'/api/places')
+
+
+class PlaceRouteTests(unittest.TestCase):
+    def setUp(self):
+        self.root=isolated(self)
+        patcher=patch.object(api,'PLACES',geonames_fixture(self.root));patcher.start();self.addCleanup(patcher.stop)
+    def call(self,target):
+        status,payload,_=api.respond(target)
+        return status,json.loads(payload)
+    def test_search_answers_during_an_analysis_with_attribution(self):
+        with api.BUSY:
+            status,body=self.call('/api/places?q=Jaiba')
+        self.assertEqual(status,200)
+        self.assertEqual([(r['name'],r['region'],r['country']) for r in body['results']],[('Jaíba','Minas Gerais','Brazil')])
+        self.assertEqual((body['source']['name'],body['source']['license'],body['source']['data_date']),('GeoNames','CC BY 4.0','2026-10-01'))
+    def test_bad_queries_are_refused_with_the_reason(self):
+        limit='limit must be a whole number from 1 to 25.'
+        for target,message in [('/api/places','Missing q. Type a place name.'),('/api/places?q=%20,.','Type a place name.'),
+                               ('/api/places?q=a&q=b','Give q only once.'),('/api/places?q='+'x'*101,'The place name is longer than 100 characters.'),
+                               ('/api/places?q=alma&limit=0',limit),('/api/places?q=alma&limit=26',limit),('/api/places?q=alma&limit=x',limit)]:
+            self.assertEqual(self.call(target),(400,{'error':message}),target)
+    def test_missing_index_is_503_not_an_empty_result(self):
+        with patch.object(api,'PLACES',self.root/'absent.sqlite'):
+            self.assertEqual(self.call('/api/places?q=Jaiba'),(503,api.PLACE_UNAVAILABLE))
 
 
 class AccessLogTests(unittest.TestCase):

@@ -6,9 +6,9 @@ For a plain-language explanation of the current app, read the [user guide](APP_U
 
 ## Map-first workflow
 
-- Search places by name, region or country using the local Natural Earth reference. Results include geographic context; saved sites appear in their own group and browse list. Matching ignores accents/case and supports country aliases and multiple terms. Arrow keys, Enter and Escape operate results. Smaller villages and street addresses may be absent; coordinates remain available. Search needs no archive connection and sends no geocoder queries.
+- Search places by name, region or country. Towns and villages come from a GeoNames index of 5,170,300 current populated places on the archive server (`/api/places`); regions and countries, with their map outlines, come from the local Natural Earth reference. Results include county, region and country; saved sites appear in their own group and browse list. Matching ignores accents and case, reads every word as a word prefix and accepts alternate and local-script names, so `Jaiba`, `alma g` and `北京` all work. Arrow keys, Enter and Escape operate results. Street addresses and farm names are not searchable; coordinates and the map remain available. Without the archive connection the search falls back to the 7,295 larger Natural Earth towns and says so. No third-party geocoder receives queries.
 - A settlement selects its reference coordinates. A region/country frames its principal polygon extent, not every overseas territory; choose a point before analyzing. Analyze stays disabled until a valid point is selected. Browsing an area never invents region-wide weather or changes the previous report.
-- The map supports wheel/pinch zoom, click/drag selection, keyboard pan/zoom, Enter or Use map center, and world reset. Scrolling outside it scrolls the page. **Analyze is explicit**; search and map movement do not call the archive.
+- The map supports wheel/pinch zoom, click/drag selection, keyboard pan/zoom, Enter or Use map center, and world reset. Scrolling outside it scrolls the page. **Analyze is explicit**; map movement never calls the archive, and search asks only the place index, never for weather.
 - The draft pin is separate from the committed assessment. A new selection displays a notice naming the previous result. Cancel aborts the browser request and prevents late responses replacing a newer selection; it does not claim to stop server computation.
 - Six keyboard-operable tabs organize the assessment: Overview, Season & exposures, Climate history, Soil & setup, Regional evidence, Methods & data. Overview opens with a four-part decision strip in the supervisor's reading order: production system, production window, top risks, planting window. Recurring-risk cards, descriptive exposure families, the planting window panel and a one-line regional evidence summary follow. The planting panel shows the window calculated from modelled budbreak, a "Published season · <region>" box for registered Florida, Georgia and Santa Catarina saved locations, and a "Rule, assumptions and limits" fold. Definitions, uncertainty and excluded reasons expand on demand.
 - Stage colours mean stage identity, not severity. Selected-winter cards compare with historical means; exact values, missingness and sources remain expandable. For profiles that require an applicable calendar, the production bar starts at budbreak, matching the backend metrics.
@@ -126,6 +126,7 @@ Request safety (2026-10-12). This is a development boundary, not production auth
 - **API** (`location_api.py`):
   - answers 403 `forbidden_host` unless the Host is `127.0.0.1:8787` or `localhost:8787`;
   - answers 403 `forbidden_origin` for a cross-site `Sec-Fetch-Site` or an Origin other than the preview or the API itself.
+- **Place search.** `/api/places?q=…&limit=…` (limit 1 to 25, default 15) reads `data/reference/geonames/places.sqlite` read-only and never waits for a running analysis. A missing or repeated `q`, a name over 100 characters or a bad limit gives 400 with the reason; a missing index gives 503 `place_index_unavailable`. The access log records the path only, never the typed text. Answers carry GeoNames attribution (CC BY 4.0) and the data date.
 - **Health.** `/api/health` reports `status` (`ready` or `busy`), `method`, `busy_since`, `busy_seconds` and cache counters.
 - **Result cache.**
   - Successful analyses are cached: 64 in memory, and up to 2,000 JSON files in `cache/location_api/`.
@@ -134,7 +135,18 @@ Request safety (2026-10-12). This is a development boundary, not production auth
   - `--snapshots` never uses the cache.
 - **Access log.** Every request adds one line without coordinates to `logs/location_api_access.jsonl`: path, status, duration, cache hit or miss, and busy refusal. The log rotates at 10 MiB and keeps 5 copies.
 
-To keep the API always on, run `systemctl --user enable blueberry-ui-api` once. It then starts at boot through user lingering, which is already on for the account. As of 2026-10-12 it is installed and tested, but neither enabled nor running, because the last request was to stop the UI.
+Place index (2026-10-13). `pipelines/weather/place_index.py` builds one SQLite file from a GeoNames dump: all populated places except abandoned, destroyed and historical ones (5,170,300 of 5,231,990), with a full-text index of names, alternate names, county, region and country. Rows are numbered by prominence, population raised to a floor for administrative seats without one, so each query reads at most 400 candidates; real queries take 0.1 to 7 ms. Results rank by match quality minus prominence: an exact name wins unless a prefix match is about 100 times larger, so `new york` gives New York City first while `alma` gives Alma, Quebec before Almaty. Entries that the list could not tell apart are merged. The dump of 2026-10-13 (data to 2026-10-12) and its `SHA256SUMS` are in `data/reference/geonames/20261013/`; the 1.03 GB index took 200 s to build. To refresh:
+
+```sh
+D=data/reference/geonames/$(date -u +%Y%m%d); mkdir -p $D
+for f in allCountries.zip admin1CodesASCII.txt admin2Codes.txt countryInfo.txt readme.txt; do curl -sSf -o $D/$f https://download.geonames.org/export/dump/$f; done
+(cd $D && sha256sum * > SHA256SUMS)
+TMPDIR=tmp env/bin/python code/place_index.py build $D data/reference/geonames/places.sqlite   # replaces the file atomically
+```
+
+No restart is needed: each request opens the file afresh.
+
+To keep the API always on, run `systemctl --user enable blueberry-ui-api` once. It then starts at boot through user lingering, which is already on for the account. As of 2026-10-13 it is running at the user's request but not enabled at boot, so it does not restart after a server reboot.
 
 ## Reproduce summaries and tests
 

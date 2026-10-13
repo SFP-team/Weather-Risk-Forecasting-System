@@ -12,6 +12,7 @@
 | SoilGrids pilot | New acquisition: five properties × three depths × three statistics for up to 14 sites | `data/raw/soilgrids/`, `data/normalized/soilgrids/` | Read current `state/soil_pilot.json`; static estimates and returned WCS grid, not measured field soil |
 | Climate/seasonal analyses | Papanduva/Citra/Waldo report, Paul-method sensitivity, 50/100-hour scenarios | `reports/climate_evidence/`, `reports/stage_scenarios/`, `reports/method_reconciliation.json` | Provisional stage assumptions, not cultivar predictions |
 | Data-quality evidence | Coverage, anomalies, extraction checks, station comparisons, new soil audit | `reports/` | Acquisition checks are not scientific sign-off |
+| GeoNames place names | Dump of 2026-10-13 (CC BY 4.0) and a 1.03 GB search index of 5,170,300 current populated places, served at `/api/places` | `data/reference/geonames/20261013/`, `data/reference/geonames/places.sqlite` | Names and points only: no street addresses or farm names; population often missing; some places listed twice. Refresh steps in `docs/UI_RUNBOOK.md` |
 
 ## Variables and join rules
 

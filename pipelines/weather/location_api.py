@@ -24,6 +24,7 @@ from postprocess import LandMask, extract
 from production import analyse, sensitivity, warm_midwinter_daily, PRIMARY_PROFILE, PROFILES, CHANGES, LIMITATIONS
 from planting import planting_window
 from hourly_archive import ArchiveGap, hourly_from_cache
+from place_index import connect as place_connect, fold as place_fold, info as place_info, search as place_search, MAX_LIMIT as PLACE_LIMIT
 
 METHOD='location-evidence-v5'
 PRODUCTION_PROFILE=PRIMARY_PROFILE
@@ -40,7 +41,10 @@ ALLOWED_HOSTS=('127.0.0.1:8787','localhost:8787')
 ALLOWED_ORIGINS=('http://127.0.0.1:5173','http://localhost:5173','http://127.0.0.1:8787','http://localhost:8787')
 FORBIDDEN_HOST={'error':'Request refused','code':'forbidden_host'}
 FORBIDDEN_ORIGIN={'error':'Cross-site API request refused','code':'forbidden_origin'}
-ROUTES=('/api/health','/api/analysis')
+ROUTES=('/api/health','/api/analysis','/api/places')
+PLACES=ROOT/'data/reference/geonames/places.sqlite'
+PLACE_UNAVAILABLE={'error':'The place index is not installed on this server. Saved locations, the map and coordinates still work.','code':'place_index_unavailable'}
+PLACE_FAILED={'error':'Place search failed on the server. Saved locations, the map and coordinates still work.','code':'place_search_failed'}
 
 
 def code_identity(directory=Path(__file__).parent):
@@ -263,6 +267,27 @@ def health():
         'busy_seconds':round(time.monotonic()-since[1],3) if since else None,'cache':CACHE.stats()}
 
 
+def places(query):
+    """(status, body) for /api/places?q=…&limit=…. Never takes BUSY: place search answers while an analysis runs.
+    The query text is not logged anywhere; the access log records the path only."""
+    values=query.get('q')
+    if not values:raise ValueError('Missing q. Type a place name.')
+    if len(values)>1:raise ValueError('Give q only once.')
+    if len(values[0])>100:raise ValueError('The place name is longer than 100 characters.')
+    if not place_fold(values[0]):raise ValueError('Type a place name.')
+    limit=query.get('limit',['15'])
+    if len(limit)!=1 or not limit[0].isdigit() or not 1<=int(limit[0])<=PLACE_LIMIT:raise ValueError(f'limit must be a whole number from 1 to {PLACE_LIMIT}.')
+    try:
+        with contextlib.closing(place_connect(PLACES)) as db:
+            source=place_info(db)
+            return 200,{'results':place_search(db,values[0],int(limit[0])),
+                'source':{**source['source'],'data_date':source['data_date'],'places':source['places']}}
+    except FileNotFoundError:return 503,PLACE_UNAVAILABLE
+    except Exception:
+        print(traceback.format_exc(),file=sys.stderr,flush=True)  # Traceback only; the query is never logged.
+        return 500,PLACE_FAILED
+
+
 def respond(target):
     """HTTP status, serialized JSON and access-log fields for one GET; serialization failures become 500 JSON, not dropped connections.
 
@@ -270,6 +295,9 @@ def respond(target):
     global BUSY_SINCE
     parsed=urlsplit(target);log={'cache':None,'busy_rejected':False}
     if parsed.path=='/api/health':return (*reply(200,health()),log)
+    if parsed.path=='/api/places':
+        try:return (*reply(*places(parse_qs(parsed.query,keep_blank_values=True))),log)
+        except ValueError as exc:return (*reply(400,{'error':str(exc)}),log)
     if parsed.path!='/api/analysis':return (*reply(404,{'error':'Not found'}),log)
     query=parse_qs(parsed.query,keep_blank_values=True)
     try:lat,lon=coordinate(query,'latitude',90),coordinate(query,'longitude',180)

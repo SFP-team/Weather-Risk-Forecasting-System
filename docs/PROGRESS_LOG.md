@@ -1,5 +1,14 @@
 # Project progress log
 
+## 2026-10-13: Worldwide town and village search
+
+- **Problem.** Searching "Jaiba" found nothing. The search covered only Natural Earth's 7,295 larger towns, and Jaíba, Minas Gerais, about 35,000 people, is not one of them. The nearest listed towns are Janaúba, 64 km away, and Januária, 76 km.
+- **Why the full list.** On our 32 benchmark towns, GeoNames' 15,000-person tier found 14 and its 500-person tier 29. Only the full list of 5.2 million populated places found all 32.
+- **Built.** `place_index.py` builds a 1.03 GB SQLite full-text index of 5,170,300 current populated places from the 2026-10-13 GeoNames dump, CC BY 4.0. The API serves it at `/api/places` in 0.1 to 7 ms per query, without logging what is typed. The page takes towns from the server and regions and countries from Natural Earth, and falls back to the local list with a clear message. A searched name now labels the place card and the assessment.
+- **Ranking.** An exact name wins unless a prefix match is about 100 times larger, so "new york" gives New York City and "jai" gives Jaipur. Later words can name the region, so "alma g" gives Alma, Georgia. Entries the list could not tell apart are merged.
+- **Verification.** 262 server tests passed, 11 of them new. Deployed with matching hashes, and only the API was restarted. Browser checks covered Jaíba from search to live analysis, other small towns, the fallback, rapid typing and phone width.
+- **Open.** Street addresses and farm names would need a self-hosted OpenStreetMap geocoder or a paid service. That decision belongs to the commercial launch.
+
 ## 2026-10-12: Chill requirement 50 hours and the IBO 2024 report
 
 - **Chill requirement.** At the user's request `stage_thermal_v3` now needs 50 chill hours, not 100, the same as the legacy profiles. Nothing else in the model changed, and the 100-hour profiles stay as sensitivity comparisons.
