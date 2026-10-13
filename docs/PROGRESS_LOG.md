@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-10-13: Supervisor direction on growing setups and soil; breeder guide fix
+
+- **Direction (relayed by the user, not implemented).** The base stays open field + ground, and users pick tunnel + ground, tunnel + pots or open field + pots. A setup changes risk factors, the production system and possibly the planting window. In-ground setups get soil warnings for pH, organic matter and salinity, with amendment advice. Thresholds are to be set with a UF extension specialist.
+- **Checked against existing evidence.** The 2026-09-21 management review supports rain protection and higher daytime heat under tunnels. It also reports harvest 2 to 5 weeks earlier and no frost protection from unheated Georgia tunnels. Pots add root-zone heat and irrigation dependence.
+- **Soil sources for a commercial product.** SoilGrids and ISRIC's global salinity map are CC BY 4.0. SoilGrids' 1 km pH layer is about 79 MB per depth and holds means only. HWSD v2 is CC BY-NC-SA, so it cannot be used commercially. FAO's GSASmap states no licence and lacks Eurasia and the Near East/North Africa.
+- **Breeder guide fix.** The two planting settings added on 2026-10-12 reused P47 and P48, which already belonged to bud-stage freeze and bee-flight hour. The page saves comments by number, so in a browser test a bud-stage comment came back as the planting comment after reload. They are now P50 and P51, and the same test keeps both comments. The guide has 67 comment boxes, P1 to P51, with no duplicates.
+
 ## 2026-10-13: Worldwide town and village search
 
 - **Problem.** Searching "Jaiba" found nothing. The search covered only Natural Earth's 7,295 larger towns, and Jaíba, Minas Gerais, about 35,000 people, is not one of them. The nearest listed towns are Janaúba, 64 km away, and Januária, 76 km.
