@@ -8,6 +8,7 @@
 - **Ranking.** An exact name wins unless a prefix match is about 100 times larger, so "new york" gives New York City and "jai" gives Jaipur. Later words can name the region, so "alma g" gives Alma, Georgia. Entries the list could not tell apart are merged.
 - **Verification.** 262 server tests passed, 11 of them new. Deployed with matching hashes, and only the API was restarted. Browser checks covered Jaíba from search to live analysis, other small towns, the fallback, rapid typing and phone width.
 - **Open.** Street addresses and farm names would need a self-hosted OpenStreetMap geocoder or a paid service. That decision belongs to the commercial launch.
+- **Tunnel.** The local SSH tunnel to the API died with exit code 255 after 44 minutes, when the server stopped answering keepalives during a network drop; the server and API stayed up. The tunnel now runs in a reconnect loop, documented in `docs/UI_RUNBOOK.md`. In a test, killing its SSH process left the API back 6 seconds later.
 
 ## 2026-10-12: Chill requirement 50 hours and the IBO 2024 report
 

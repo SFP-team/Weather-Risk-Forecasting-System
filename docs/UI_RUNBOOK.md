@@ -105,9 +105,14 @@ Unit files are in `ops/api/` (installed to `~/.config/systemd/user/`). The prefl
 From the local checkout root, retain these two processes in separate terminals:
 
 ```sh
-ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 \
-  -L 127.0.0.1:8787:127.0.0.1:8787 fpt@10.248.22.167
+while true; do
+  ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o ConnectTimeout=10 \
+    -L 127.0.0.1:8787:127.0.0.1:8787 fpt@10.248.22.167
+  echo "$(date '+%F %T') tunnel exited with code $?; reconnecting in 5 s"; sleep 5
+done
 ```
+
+SSH exits with code 255 ("server not responding") after about a minute without keepalive replies, as when the network or VPN drops; on 2026-10-13 a plain tunnel died this way after 44 minutes. The loop reconnects 5 seconds after any exit; in a test, killing the SSH process gave the page a 503 "archive unavailable" and the API was back 6 seconds later. To stop the loop, press Ctrl-C until the prompt returns, or close its terminal.
 
 ```sh
 node scripts/preview-ui.mjs
