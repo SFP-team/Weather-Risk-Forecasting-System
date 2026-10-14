@@ -1,8 +1,10 @@
 # Open-field production packet
 
-Updated 2026-10-12. `production_open_field.html` and `.json` hold the Waldo, Citra and Papanduva calculations and provenance. `thermal_reference.json` holds the Waldo derivation of the stage thermal constants. The literature benchmark is in `../benchmark/`. The dashboard in `dist/` has 71 presets: 18 pilot and panel sites plus 53 benchmark sites. Code lives in `pipelines/weather/production.py`, `benchmark.py`, `planting.py` and `location_api.py`.
+Updated 2026-10-14. `production_open_field.html` and `.json` hold the Waldo, Citra and Papanduva calculations and provenance. `thermal_reference.json` holds the Waldo derivation of the stage thermal constants. The literature benchmark is in `../benchmark/`. Since 2026-10-14 the dashboard in `dist/` ships no saved results; the 71 registered sites (18 pilot and panel sites plus 53 benchmark sites) can be rerun on the server with `location_api.py --snapshots`. Code lives in `pipelines/weather/production.py`, `benchmark.py`, `planting.py` and `location_api.py`.
 
 For breeders and other non-programmers, `model_formulas_for_breeder_review.html` explains every formula and setting in plain language. It works through one Waldo winter (2016–17) day by day and has comment boxes, a notes download and a print layout for sending suggestions back. Its day-by-day values and lookup tables were recomputed with the production code and reproduce the model's dates exactly. Regenerate it if a formula or constant changes.
+
+`formula_sheet.html` is the short reference: every formula and threshold of the live model on one page, each with its file and line, plus a map of the repository and server folders.
 
 Method `open-field-production-v3`, API `location-evidence-v5`, primary profile `stage_thermal_v3`. Baseline winters are 2011–2025 from the existing NASA POWER archive. **These are provisional weather-exposure calculations, not validated phenology, disease incidence, crop-loss probabilities or cultivar advice.**
 

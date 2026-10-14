@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-14: Formula sheet
+
+- **Request.** The user asked for a brief HTML sheet of all the formulas the model uses, such as the budbreak calculation, and of all the folders.
+- **Written.** `docs/weather/production/formula_sheet.html`: chill, the thermal clock, classification, calendar applicability, stage exposures, the infection and bee-flight models, risk ranking, the managed-cycle scan, the planting window and Climate history measures, each with file and line on `main`, then maps of the repository and server folders. Year-round planner rules are marked as test-branch only.
+- **Checks.** Values come from a read-only extraction of the code, with the core rules re-read directly; one wording error about wet periods was corrected before commit. The page rendered in a browser without overflow. It is linked from the production README and the user guide.
+
 ## 2026-10-14: Location panel cut to search only
 
 - **Request.** The user called the panel's search note noise and asked to remove it, the saved locations and the latitude and longitude fields, so that people choose places by search, and to push the change to the servers.

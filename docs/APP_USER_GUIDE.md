@@ -889,6 +889,7 @@ Use these files for more detail:
 - [UI design contract](UI_IMPLEMENTATION_PLAN.md): intended interface behaviour.
 - [Production methods](weather/production/README.md): formulas, parameter sources, and model limits.
 - [Breeder formula review](weather/production/model_formulas_for_breeder_review.html): detailed formula explanation and review notes.
+- [Formula sheet](weather/production/formula_sheet.html): every formula and threshold on one page, with file, line and a folder map.
 - [Global phenology review](weather/GLOBAL_PHENOLOGY_REVIEW.md): evidence for crop-specific modelling and observed-stage definitions.
 - [Literature benchmark](weather/benchmark/benchmark.html): comparison with published regional practice, not farm-level accuracy.
 - [IBO integration review](research/2026-10-05/ibo_integration_review.md): report coverage, interpretation, and integration decisions.

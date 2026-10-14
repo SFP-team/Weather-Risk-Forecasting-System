@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueberry weather model: formula sheet</title>
+<style>
+:root { --ink: #1d1d1f; --muted: #5f6368; --line: #d9d9de; --soft: #f5f5f7; --warn: #8a5a00; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: #fff; }
+main { max-width: 1040px; margin: 0 auto; padding: 32px 24px 48px; }
+h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -.01em; }
+h2 { font-size: 17px; margin: 28px 0 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+p { margin: 6px 0; }
+.meta, .note { color: var(--muted); font-size: 13px; }
+.chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 14px 0; padding: 12px 14px; background: var(--soft); border-radius: 12px; font-size: 13px; }
+.chain span { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+.chain i { color: var(--muted); font-style: normal; }
+table { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; background: var(--soft); }
+td.w { white-space: nowrap; color: var(--muted); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+code { font: 12.5px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--soft); padding: 1px 5px; border-radius: 5px; }
+.branch { border-left: 4px solid var(--warn); padding-left: 14px; }
+.tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--warn); border: 1px solid var(--warn); border-radius: 999px; padding: 0 8px; margin-left: 6px; vertical-align: 2px; }
+@media print { main { padding: 0; max-width: none; } h2 { break-after: avoid; } tr { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Blueberry weather model: formula sheet</h1>
+<p class="meta">Live model on <code>main</code>, 14 October 2026. Primary profile <code>stage_thermal_v3</code>; methods <code>open-field-production-v3</code> and <code>location-evidence-v5</code>. Weather 2011 to 2025, UTC days, °C, mm.</p>
+<p class="meta">"Where" gives file and line on <code>main</code> at commit 7755a36. P = <code>pipelines/weather/production.py</code>, PL = <code>planting.py</code>, LA = <code>location_api.py</code>, ER = <code>evidence_report.py</code>. A window with a missing value gives "unavailable", never 0. All constants live in <code>PROFILES</code> (P:30 to 139).</p>
+
+<div class="chain" aria-label="Calculation chain">
+<span>Hourly air temperature</span><i>→</i><span>chill hours</span><i>→</i><span>chill date (50 h)</span><i>→</i><span>+150 GDD: budbreak</span><i>→</i><span>+85 / +375 GDD: bloom</span><i>→</i><span>+633 / +1,242 GDD from bloom start: harvest</span><i>→</i><span>weather in each stage, risks, planting window</span>
+</div>
+
+<h2>1. Chill</h2>
+<table>
+<tr><th>Item</th><th>Rule</th><th>Where</th></tr>
+<tr><td>Chill hour</td><td><code>T &lt; 7.2</code>; hours below 0 count too. Sensitivity profiles <code>bounded_uf_*</code> use <code>0 ≤ T ≤ 7.2</code>.</td><td class="w">P:316</td></tr>
+<tr><td>Chill window</td><td>North (lat ≥ 0): 1 Nov to 30 Apr. South: 1 Apr to 30 Sep. Every hour must be present, or the winter is "incomplete chill".</td><td class="w">P:278, P:282</td></tr>
+<tr><td>Chill date</td><td>First hour when <code>Σ chill hours ≥ 50</code>, taken as that day. Never reached: "chill not met", no crop dates that winter.</td><td class="w">P:705</td></tr>
+<tr><td>Freezing hours</td><td>Hours with <code>T ≤ 0</code> in the chill window (used by the classification).</td><td class="w">P:702</td></tr>
+<tr><td>Chill portions</td><td>Dynamic Model (E0 4153.5, E1 12888.8, A0 139500, A1 2.567e18, slope 1.6, 277 K). Reported only; nothing uses it.</td><td class="w">P:352</td></tr>
+</table>
+<p class="note">The chill requirement must stay above 0: <code>profile()</code> refuses 0 (P:253), because budbreak would then count from a fixed calendar date.</p>
+
+<h2>2. Budbreak, bloom and harvest (thermal clock)</h2>
+<p>Daily growing degree-days: <code>GDD = max(min(Tmean, cap) − 7, 0)</code>. A stage starts on the first day the running sum reaches its requirement (P:469 <code>reach()</code>).</p>
+<table>
+<tr><th>Event</th><th>Heat needed</th><th>Counted from</th><th>Cap</th><th>Search limit</th><th>Where</th></tr>
+<tr><td>Budbreak</td><td>150 GDD</td><td>chill date (that day included)</td><td>none</td><td>450 days from the chill window start</td><td class="w">P:714</td></tr>
+<tr><td>Bloom start</td><td>85 GDD</td><td>day after budbreak</td><td>30 °C</td><td>300 days</td><td class="w">P:493</td></tr>
+<tr><td>Bloom end</td><td>375 GDD</td><td>day after budbreak</td><td>30 °C</td><td>300 days</td><td class="w">P:493</td></tr>
+<tr><td>Harvest start</td><td>633 GDD</td><td>day after bloom start</td><td>30 °C</td><td>300 days</td><td class="w">P:493</td></tr>
+<tr><td>Harvest end</td><td>1,242 GDD</td><td>day after bloom start</td><td>30 °C</td><td>300 days</td><td class="w">P:493</td></tr>
+</table>
+<ul class="note">
+<li>Fruit development = day after bloom end to day before harvest start (P:735).</li>
+<li>Limit reached: "heat requirement not met". A missing day: "incomplete" (P:469).</li>
+<li>Typical dates = median day offset from the window start over the winters, with 29 February left out; spread = 10th to 90th percentile (P:806, P:812).</li>
+<li>Sensitivity profiles use fixed days instead: bloom 14 to 35 days after budbreak, harvest 70 to 110 days after bloom start (P:496).</li>
+</ul>
+
+<h2>3. Production system class</h2>
+<table>
+<tr><th>Rule</th><th>Definition</th><th>Where</th></tr>
+<tr><td>Chill-only</td><td>&lt; 100 h Evergreen; &lt; 300 h Semi-evergreen; otherwise Deciduous.</td><td class="w">P:756</td></tr>
+<tr><td>Multi-feature (main card)</td><td>≥ 300 h Deciduous. Evergreen only if all hold: &lt; 100 h, coldest winter-month mean Tmin &gt; 7.2, coldest winter-month mean Tmean &gt; 12.8, freezing hours ≤ 1, and no month in the chill window with mean Tmin ≤ 0. Otherwise Semi-evergreen. Winter months: Jan to Mar north, Jul to Sep south.</td><td class="w">P:766, P:605, P:619</td></tr>
+<tr><td>Site class</td><td>The class held by at least two-thirds of valid winters; otherwise "Transitional".</td><td class="w">P:860</td></tr>
+</table>
+
+<h2>4. When the winter calendar is the main result</h2>
+<p>All three must hold, otherwise the managed-cycle scan (section 8) is the main result: <code>|lat| ≥ 23.44</code>; class known and not Evergreen; at least 12 of 15 winters reach harvest (P:1205). The chill requirement itself applies, and chill shortfall is counted, when the site is outside the tropics and its class is known and not Evergreen.</p>
+
+<h2>5. Weather in each stage (per winter)</h2>
+<table>
+<tr><th>Measure</th><th>Rule</th><th>Stage window</th><th>Where</th></tr>
+<tr><td>Bud-stage freeze</td><td>Day with <code>Tmin ≤ −6.7</code> until half the heat to bloom (42.5 GDD, cap 30), then <code>Tmin ≤ −3.9</code></td><td>budbreak to day before bloom</td><td class="w">P:585</td></tr>
+<tr><td>Flowering freeze</td><td><code>Tmin ≤ −2.2</code></td><td>bloom</td><td class="w">P:535</td></tr>
+<tr><td>Fruit frost</td><td><code>Tmin ≤ 0</code></td><td>fruit</td><td class="w">P:558</td></tr>
+<tr><td>Heat / severe heat</td><td><code>Tmax ≥ 32</code> / <code>Tmax ≥ 35</code></td><td>fruit</td><td class="w">P:552</td></tr>
+<tr><td>Heavy rain</td><td><code>rain ≥ 10 mm</code></td><td>bloom, harvest</td><td class="w">P:539, P:562</td></tr>
+<tr><td>Dry spell</td><td>Longest run of days with <code>rain &lt; 1 mm</code></td><td>bloom, fruit, budbreak to harvest end</td><td class="w">P:543, P:561, P:568</td></tr>
+<tr><td>Cold or wet bloom day</td><td><code>Tmax &lt; 15</code> or <code>rain ≥ 1</code> (older proxy, shown for comparison)</td><td>bloom</td><td class="w">P:544</td></tr>
+<tr><td>Daily disease proxy</td><td><code>15 ≤ Tmean ≤ 28</code> and <code>RH ≥ 85</code> and <code>rain ≥ 0.1</code></td><td>bloom, fruit, harvest</td><td class="w">P:520</td></tr>
+<tr><td>VPD</td><td><code>es = 0.6108·exp(17.27·T/(T+237.3))</code>; <code>VPD = max(es·(1 − RH/100), 0)</code> from daily Tmean and RH</td><td>bloom, fruit, harvest</td><td class="w">P:325</td></tr>
+<tr><td>Warm midwinter hours</td><td>Hours with <code>T &gt; 21</code>; context only</td><td>15 Nov to 15 Feb north, 15 May to 15 Aug south</td><td class="w">P:289, P:687</td></tr>
+<tr><td>Season heat and sun</td><td><code>Σ max(Tmean − 7, 0)</code> with no cap; mean daily shortwave</td><td>budbreak to harvest end</td><td class="w">P:569</td></tr>
+</table>
+<p class="note">Rain flagged as suspect, below 0 or above 1,000 mm is dropped; RH outside 0 to 100 is dropped (P:330, P:337).</p>
+
+<h2>6. Disease infection model (hourly)</h2>
+<table>
+<tr><th>Step</th><th>Formula</th><th>Where</th></tr>
+<tr><td>Humidity from dewpoint</td><td><code>RH = 100·exp(17.625·Td/(243.04+Td) − 17.625·T/(243.04+T))</code></td><td class="w">P:387</td></tr>
+<tr><td>Wet period</td><td>Wet hour: <code>RH ≥ 90</code>. A period ends when 4 or more dry hours pass. W = wet hours, T̄ = their mean temperature.</td><td class="w">P:391</td></tr>
+<tr><td>Anthracnose index</td><td><code>Wa = min(W, 51)</code>, <code>Ta = max(T̄, 10)</code>; <code>f = −3.7 + 0.33·Wa − 0.069·Wa·Ta + 0.005·Wa·Ta² − 9.3e−5·Wa·Ta³</code>; index <code>1/(1+e^−f)</code> if <code>7 ≤ T̄ ≤ 35</code>, else 0</td><td class="w">P:397</td></tr>
+<tr><td>Botrytis index</td><td><code>Wb = min(W, 32)</code>; <code>f = −4.268 − 0.0901·Wb + 0.0294·Wb·T̄ − 2.35e−5·Wb·T̄³</code>; index <code>1/(1+e^−f)</code></td><td class="w">P:398</td></tr>
+<tr><td>Day value</td><td>Maximum over periods ending that local solar day (UTC + round(lon/15) h); fewer than 24 valid hours: unavailable</td><td class="w">P:388</td></tr>
+<tr><td>Thresholds</td><td>High-risk day: anthracnose ≥ 0.50 from bloom start to harvest end, or Botrytis ≥ 0.70 during bloom. Moderate: ≥ 0.15 and ≥ 0.50.</td><td class="w">P:574</td></tr>
+</table>
+
+<h2>7. Bee flight and risk ranking</h2>
+<table>
+<tr><th>Item</th><th>Rule</th><th>Where</th></tr>
+<tr><td>Bee flight hour</td><td>Local solar hour 09:00 to 17:00 with <code>T ≥ 12.8</code>; a day needs all 8 hours</td><td class="w">P:412</td></tr>
+<tr><td>Pollination gap</td><td>At least 4 bloom days in a row with no flight hour</td><td class="w">P:881</td></tr>
+<tr><td>Event winter</td><td>At least 1 qualifying day in the stage. Chill shortfall: chill &lt; 50 h. Disease: at least 1 high-risk day.</td><td class="w">P:971</td></tr>
+<tr><td>Frequency</td><td><code>k / n</code>: event winters / winters with a valid value</td><td class="w">P:973</td></tr>
+<tr><td>Ranked risk</td><td><code>n ≥ 12</code> and <code>k/n ≥ 0.5</code>; sorted by frequency, ties share a rank. Warm midwinter and dry spells are never ranked.</td><td class="w">P:886</td></tr>
+<tr><td>95% interval (Wilson)</td><td><code>z = 1.959964</code>, <code>p = k/n</code>; centre <code>(p + z²/2n)/(1 + z²/n)</code>; half-width <code>z·√(p(1−p)/n + z²/4n²)/(1 + z²/n)</code></td><td class="w">P:778</td></tr>
+</table>
+
+<h2>8. Managed-cycle scan (evergreen and tropical sites)</h2>
+<ul>
+<li>Budbreak is forced on the 1st and 15th of every month (24 starts) in each year 2011 to 2025; bloom and harvest follow the same GDD clock (P:1026, P:1088).</li>
+<li>Each start-year is complete; stalled slow (bloom longer than 66 days, or first harvest more than 150 days after bloom start); stalled at the 300-day limit; or weather incomplete, which is left out (P:1030).</li>
+<li>Crop-loss families: bud freeze, flowering freeze, fruit frost, cycle failure (stalled ÷ (complete + stalled)). A start where any recurs in at least 50% of cycles is not favourable; a start needs 12 cycles (P:1040).</li>
+<li>Other weather is a share of stage days: heat days ÷ fruit days, heavy-rain days ÷ harvest days, moderate infection days ÷ bloom-start-to-harvest-end days, no-flight days ÷ bloom days (P:1043).</li>
+<li>Favourable starts = those no other start beats on every measure, plus starts within one affected cycle or one affected day per cycle of them (P:1077).</li>
+</ul>
+
+<h2>9. Planting window and climate history</h2>
+<table>
+<tr><th>Item</th><th>Rule</th><th>Where</th></tr>
+<tr><td>Planting window</td><td>From <code>budbreak − 105 d</code> to <code>budbreak − 30 d</code> (75 days). Typical from the median budbreak; spread from 10th-percentile budbreak − 105 to 90th-percentile − 30. Only where the winter calendar applies.</td><td class="w">P:741, PL:89</td></tr>
+<tr><td>Published season</td><td>Registered sites only: Florida 15 Dec to 15 Feb, Georgia 1 Dec to 28 Feb, Santa Catarina 1 Jun to 31 Aug</td><td class="w">PL:14, PL:77</td></tr>
+<tr><td>Reference chill (Climate history tab)</td><td>Hours with <code>0 ≤ T ≤ 7.2</code>, 1 Nov to end of Feb north, 1 May to 31 Aug south. Not the model's chill.</td><td class="w">ER:21, LA:167</td></tr>
+<tr><td>Annual measures</td><td>Cold days <code>Tmin &lt; 0</code>; hot days <code>Tmax ≥ 35</code>; rain total; longest run of <code>rain &lt; 1 mm</code> within the year; mean shortwave. Monthly averages need all 15 years.</td><td class="w">LA:167, ER:26</td></tr>
+<tr><td>No hourly data</td><td>Days with <code>Tmax &gt; 21</code> in the midwinter window instead of warm hours; no crop dates</td><td class="w">P:296</td></tr>
+</table>
+
+<div class="branch">
+<h2>10. Year-round planner <span class="tag">Test branch only</span></h2>
+<p class="note">On branch <code>evergreen-analyses</code> and the test copy at port 8790; not on <code>main</code> or the live app.</p>
+<ul>
+<li>Weekly hazards: <code>week = min(⌊(day of year − 1)/7⌋, 51)</code>; per week, years with at least one frost (<code>Tmin ≤ 0</code>), hard freeze (<code>≤ −2.2</code>), hot (<code>Tmax ≥ 32</code>), severe heat (<code>≥ 35</code>), heavy rain (<code>≥ 10 mm</code>) or disease day (section 5 proxy). A week counts only if every day has data. <code>hazard_calendar()</code> in production.py.</li>
+<li>El Niño / La Niña month: NOAA ONI <code>≥ +0.5</code> / <code>≤ −0.5</code> for at least 5 overlapping 3-month seasons in a row, stored at the centre month. <code>scripts/build_enso.py</code>.</li>
+<li>Warm year: month mean Tmean minus that month's 2011 to 2025 average. Market planner: starts ranked by no recurring crop loss, then the share of years whose first pick falls in the chosen months. <code>dist/yearround.js</code>.</li>
+</ul>
+</div>
+
+<h2>11. Folders</h2>
+<p><strong>Repository</strong> (GitHub <code>SFP-team/Weather-Risk-Forecasting-System</code>)</p>
+<table>
+<tr><th>Folder</th><th>Holds</th></tr>
+<tr><td><code>pipelines/weather/</code></td><td>Model and server code: <code>production.py</code> (all formulas above), <code>planting.py</code>, <code>location_api.py</code> (the API), <code>hourly_archive.py</code> and <code>postprocess.py</code> (read the weather archive), <code>place_index.py</code> (town search), <code>benchmark.py</code> with <code>benchmark_sites.json</code> (53-site comparison), finished downloaders and pilot tools</td></tr>
+<tr><td><code>pipelines/evidence/</code></td><td>Scheduled evidence jobs: one adapter per public source</td></tr>
+<tr><td><code>dist/</code></td><td>The web app: page, scripts, styles, IBO evidence library, Natural Earth places, MapLibre</td></tr>
+<tr><td><code>scripts/</code></td><td>Web server and proxy (<code>preview-ui.mjs</code>) and build tools</td></tr>
+<tr><td><code>tests/</code></td><td><code>weather/</code> model and API tests, <code>ui/</code> app tests, <code>ops/</code>, <code>evidence/</code></td></tr>
+<tr><td><code>docs/</code></td><td>User guide, runbooks, progress log, dated <code>research/</code> reports, <code>weather/</code> science notes (<code>production/</code> holds this sheet and the breeder review)</td></tr>
+<tr><td><code>ops/</code></td><td>Service files for the API, web app, watchdog, test copy and evidence timers</td></tr>
+</table>
+<p><strong>Server</strong> <code>/media/fpt/fpt2/Weather_Claude/</code> (not in Git)</p>
+<table>
+<tr><th>Folder</th><th>Holds</th></tr>
+<tr><td><code>code/</code>, <code>ui/</code></td><td>Running copies of <code>pipelines/weather/</code> and <code>dist/</code> (live app on port 8789, API on 8787)</td></tr>
+<tr><td><code>test/</code></td><td>Branch test copy: code, ui, cache, logs (ports 8790 and 8791)</td></tr>
+<tr><td><code>data/raw/</code></td><td>NASA POWER archives (<code>zarr/met_daily</code>, <code>met_hourly</code>, <code>solar_daily</code>) and soil downloads, 56 GB</td></tr>
+<tr><td><code>data/normalized/</code></td><td>Processed global daily weather, pilot sites, stations and soil, 18 GB</td></tr>
+<tr><td><code>data/reference/</code>, <code>data/evidence/</code></td><td>GeoNames index, IBO reports, land mask (1.8 GB); evidence job data (2.1 GB)</td></tr>
+<tr><td><code>config/</code></td><td>Site lists and the hourly archive index</td></tr>
+<tr><td><code>cache/</code>, <code>reports/</code>, <code>logs/</code>, <code>state/</code></td><td>Saved analysis results; generated reports; service and job logs; download state</td></tr>
+<tr><td><code>env/</code>, <code>tools/</code>, <code>ops/</code>, <code>tmp/</code></td><td>Python environment; Node 24; installed service helpers; scratch space</td></tr>
+</table>
+<p class="note">The thresholds are working assumptions for a low-chill southern highbush, not validated cultivar values. Exposure counts are not crop-loss probabilities.</p>
+</main>
+</body>
+</html>
