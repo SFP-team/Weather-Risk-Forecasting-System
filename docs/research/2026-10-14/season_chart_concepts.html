@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Season chart: five ways to redraw it</title>
+<style>
+:root{--ink:#1f2328;--muted:#5f6670;--line:#d9dde3;--bg:#fbfaf7;--accent:#3d4b9b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 20px 64px}
+h1{font-size:27px;margin:0 0 6px}
+h2{font-size:21px;margin:40px 0 2px}
+h3{font-size:13px;margin:16px 0 4px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+p{margin:6px 0}
+.lede{color:var(--muted);max-width:860px}
+.switch{display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0;margin:10px 0 0;border-bottom:1px solid var(--line)}
+.switch span{color:var(--muted);font-size:14px;margin-right:4px}
+button{font:inherit;cursor:pointer}
+.switch button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px}
+.switch button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px;margin:12px 0}
+.figure{overflow-x:auto}
+.figure svg{width:100%;min-width:860px;height:auto;display:block}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:1px 10px;margin-left:8px;vertical-align:3px;background:#eef0f7;color:var(--accent)}
+.tag.rec{background:#e5f2e8;color:#1d6a33}
+.question{font-size:16px;margin:2px 0 6px}
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 26px;font-size:14px}
+.read p{margin:2px 0 8px}
+.story{font-size:16px;margin:2px 0 10px;max-width:960px}
+.controls{font-size:13px;color:var(--muted);margin:0 0 6px}
+.controls button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:1px 10px;margin-left:6px}
+.controls button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+th,td{border-top:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+li{margin:5px 0}
+.small{font-size:13px;color:var(--muted)}
+svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media print{.switch{position:static}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main>
+<h1>Season chart: five ways to redraw it</h1>
+<p class="lede">Sketches for discussion with the breeding team, 14 October 2026. Every drawing below comes from the app's own saved results: 15 winters (2011 to 2025) from the version 3 model, with the same dates and risk counts the app shows. Nothing here changes the model or the app. Choose a site to redraw all five.</p>
+<div class="switch" role="group" aria-label="Site"><span>Site:</span>
+  <button type="button" data-site="waldo" aria-pressed="true">Waldo, Florida</button>
+  <button type="button" data-site="alma" aria-pressed="false">Alma, Georgia</button>
+  <button type="button" data-site="pelotas" aria-pressed="false">Pelotas, Brazil</button>
+</div>
+
+<h2>Why the current chart is hard to read</h2>
+<ol>
+  <li><b>Four kinds of thing look the same.</b> Its seven rows hold a fixed weather window (Winter chill, the 1 Nov to 30 Apr counting window), five plant stages, a grower action (Planting) and a summary (Production window, which repeats budbreak to end of harvest). All are drawn as the same bars.</li>
+  <li><b>Five marks, no legend on the chart.</b> A solid bar (median start to median end), a dashed box (10th-percentile start to 90th-percentile end), black pins (median dates for chill met and budbreak), a thin hollow bar (heat building up after chill) and the long chill bar. Their meanings sit in tooltips.</li>
+  <li><b>The bars are not real years.</b> The solid bar joins the median start to the median end. The dashed box joins an early start to a late end, so an uncertain date looks like a long stage. Readers tend to treat values inside a bar as more likely than values outside it (Correll and Gleicher, 2014).</li>
+  <li><b>Chill seems to last until April.</b> The 50-hour requirement is met in late November or December, but the bar runs to 30 April, as if chill continued through bloom and harvest.</li>
+  <li><b>The chain is hidden.</b> Each stage starts when the previous one ends, driven by heat after chill, yet the rows look independent.</li>
+  <li><b>Colour carries no meaning, and risks sit elsewhere.</b> The chart has to say "colours identify stages, not severity", and the weather risks, the reason breeders look, are in separate cards.</li>
+</ol>
+
+<h2>1. Season ribbon <span class="tag rec">Recommended first view</span></h2>
+<p class="question">Question it answers: what is the bush doing on any date, and how much does that change between winters?</p>
+<div class="card"><p class="story" id="story"></p><div class="figure" id="fig-ribbon"></div></div>
+<div class="read">
+  <div><h3>How to read it</h3><p>The band is the 15 winters. On any date, its height is split by how many winters were in each stage. Where one colour fills the band, timing hardly varies; a slanted edge means that date moves between winters. Colours follow the bush: grey-blue dormant, green buds, pink flowers, green berries, blue ripe berries.</p></div>
+  <div><h3>Around it</h3><p>Ticks give the middle winter's date, with the range for the middle 80% of winters. Above: the model's planting rule, shaded by how many winters each day falls in the rule, and the months growers and extension guides report (hatched). Below: each weather risk sits under the stage it threatens; each square is one winter, filled when it happened.</p></div>
+  <div><h3>What it fixes</h3><p>One band instead of seven rows. Real winters instead of percentile boxes. Risks on the stage they hit. The model beside what growers report: at Waldo the planting rule gives September to December while Florida guides say December to February. Data: all of it is already in the app's results.</p></div>
+</div>
+
+<h2>2. Every winter <span class="tag">Evidence view</span></h2>
+<p class="question">Question it answers: what actually happened in each winter?</p>
+<div class="card"><div class="controls">Order rows by <button type="button" data-sort="year" aria-pressed="true">winter</button><button type="button" data-sort="budbreak" aria-pressed="false">budbreak date</button></div><div class="figure" id="fig-winters"></div></div>
+<div class="read">
+  <div><h3>How to read it</h3><p>One row per winter, like a field notebook. A mark sits on the stage where the weather event happened that winter. On the right, that winter's total chill. Ordering by budbreak lines up the warm and cold winters.</p></div>
+  <div><h3>What it fixes</h3><p>There is nothing statistical to decode. Odd years stand out, and a breeder can ask what happened in a given winter and check it against their own notes.</p></div>
+  <div><h3>Limit</h3><p>A mark says an event happened during that stage, not on which day. Exact frost and rain dates need one more field from the API.</p></div>
+</div>
+
+<h2>3. Two clocks <span class="tag">How the dates are calculated</span></h2>
+<p class="question">Question it answers: why do the stages fall on these dates?</p>
+<div class="card"><div class="figure" id="fig-clocks"></div></div>
+<div class="read">
+  <div><h3>How to read it</h3><p>Left: each winter's total chill against the model's requirement. Right: once the requirement is met, the bush counts heat (degree-days above 7 °C). Each line is one winter; a stage starts where its line crosses that stage's threshold. A steep line is a warm spring.</p></div>
+  <div><h3>What it fixes</h3><p>It shows the mechanism, so the dates stop looking arbitrary. The thresholds carry their numbers from the breeder guide (P6, P10, P12 to P15), so a breeder can see what changing one would do.</p></div>
+  <div><h3>Limit</h3><p>Lines are drawn straight between the model's own threshold dates. The real daily curves need the API to return the daily heat sum.</p></div>
+</div>
+
+<h2>4. Season wheel <span class="tag">For comparing sites</span></h2>
+<p class="question">Question it answers: what does this site's year look like, and how does it compare with another site?</p>
+<div class="card"><div class="figure" id="fig-wheel"></div></div>
+<div class="read">
+  <div><h3>How to read it</h3><p>The year as a clock with midwinter at the top, so northern and southern sites line up. Middle ring: model stages, solid for the median dates and pale for the middle 80% of winters. Outer hatched ring: what growers report. Inner rings: planting, model rule and guides. Red dots: weather risks, larger when more frequent.</p></div>
+  <div><h3>Where it fits</h3><p>Site fingerprints side by side, for example on the benchmark page or when choosing trial sites. It loops naturally across the new year.</p></div>
+  <div><h3>Limit</h3><p>Not for reading exact dates: people judge angles and arcs less accurately than positions on a line (Cleveland and McGill, 1984).</p></div>
+</div>
+
+<h2>5. Same chart, fewer puzzles <span class="tag">Smallest change</span></h2>
+<p class="question">If the team wants the current layout, these fixes remove most of the questions.</p>
+<div class="card"><div class="figure" id="fig-fixed"></div></div>
+<div class="read">
+  <div><h3>Changes</h3><p>A legend on the chart. Rows grouped as weather, plant and grower. Chill drawn solid only until the requirement is met. Stages joined in a chain. The production window becomes a bracket instead of a row. Published months hatched behind the model.</p></div>
+  <div><h3>Wording</h3><p>"Analysis window" becomes "typical winter". Stage names describe the bush ("Berries growing"), and every range says what it covers ("middle 80% of winters").</p></div>
+  <div><h3>Data</h3><p>All available now; a front-end change only.</p></div>
+</div>
+
+<h2>More ideas, not drawn</h2>
+<table>
+  <thead><tr><th>Idea</th><th>What it shows</th><th>Needs</th></tr></thead>
+  <tbody>
+    <tr><td>Replay the winters</td><td>The ribbon plays each winter in turn, about a second each. Animated outcomes help people judge variability better than error bars (Hullman, Resnick and Adar, 2015).</td><td>Data already in the app</td></tr>
+    <tr><td>Try a cultivar</td><td>Sliders for the chill requirement and heat thresholds; the ribbon, the planting rule and "too little chill" update. Breeders think in cultivar chill types.</td><td>Results for several requirement levels from the API</td></tr>
+    <tr><td>Two sites on one chart</td><td>A candidate site under a known trial site, same axis.</td><td>Data already in the app</td></tr>
+    <tr><td>Weather-risk calendar</td><td>Weeks across, hazards down, shaded by how often each hazard occurs that week, with the stages on top. Shows when the frost or rain season overlaps bloom, whatever the model's dates.</td><td>Weekly hazard counts from the API</td></tr>
+    <tr><td>Exact event dates</td><td>Frost nights and heavy-rain days as dots on the "Every winter" rows.</td><td>Event dates from the API</td></tr>
+    <tr><td>Linked stage</td><td>Click Flowering and the climate charts highlight flowering in every winter.</td><td>Data already in the app</td></tr>
+    <tr><td>Season story</td><td>The sentence above the ribbon, generated from the numbers, also printed on reports.</td><td>Data already in the app</td></tr>
+    <tr><td>This season so far</td><td>Chill and heat to date against past winters.</td><td>Current-season weather; outside the current scope</td></tr>
+    <tr><td>Regional map</td><td>Harvest timing or freeze frequency shaded across a region.</td><td>Many grid-cell runs</td></tr>
+  </tbody>
+</table>
+
+<h2>Suggested order</h2>
+<ol>
+  <li>Make the season ribbon (1) the default chart, with the season sentence above it.</li>
+  <li>Put "Every winter" (2) behind a switch, and the two clocks (3) behind "How the dates are calculated".</li>
+  <li>Use the wheel (4) only for comparing sites.</li>
+  <li>If the team wants a change this week, apply the fixes in (5) first; they need no new data.</li>
+</ol>
+<p>Questions for the scientists: Does the ribbon match how you think about the season? Should published calendars sit on the main chart? Are the bush colours and icons clear? After seeing the two clocks, which threshold would you change first?</p>
+
+<h2>Evidence behind the design choices</h2>
+<ul class="small">
+  <li>Correll, M. and Gleicher, M. (2014). Error bars considered harmful: exploring alternate encodings for mean and error. IEEE Transactions on Visualization and Computer Graphics 20(12). Readers judge values inside a bar as more likely; gradient and violin displays reduce this.</li>
+  <li>Kay, M., Kola, T., Hullman, J. and Munson, S. (2016). When (ish) is my bus? User-centered visualizations of uncertainty in everyday, mobile predictive systems. CHI 2016. Fernandes, M. et al. (2018). Uncertainty displays using quantile dotplots or CDFs improve transit decision-making. CHI 2018. One dot per outcome helps people judge uncertainty and decide.</li>
+  <li>Hullman, J., Resnick, P. and Adar, E. (2015). Hypothetical outcome plots outperform error bars and violin plots for inferences about reliability of variable ordering. PLOS ONE 10(11).</li>
+  <li>Gigerenzer, G. and Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: frequency formats. Psychological Review 102(4). Counts such as "4 of 15 winters" are understood better than percentages.</li>
+  <li>Cleveland, W. S. and McGill, R. (1984). Graphical perception. Journal of the American Statistical Association 79(387). Position on a common scale is read most accurately; angle and area less so.</li>
+  <li>Tufte, E. R. (1990). Envisioning Information. Small multiples: the same small chart repeated, one per case.</li>
+</ul>
+<p class="small">Data: saved results in <code>dist/snapshots/</code> (us-fl-waldo, us-ga-alma, br-pelotas-rs) and published months from <code>docs/weather/benchmark/benchmark.json</code>. Model method open-field-production-v3, profile stage_thermal_v3.</p>
+</main>
+
+<script>
+'use strict';
+const SITES = {"waldo":{"name":"Waldo, Florida","full":"Waldo, Alachua County (supervisor's base site)","hemisphere":"north","chillReq":50,"gdd":{"budbreak":150,"flowerStart":85,"flowerEnd":375,"harvestStart":633,"harvestEnd":1242},"chillMean":420,"portionsMean":31,"calendar":{"chill":{"p10":26.2,"median":41,"p90":52.2},"budbreak":{"p10":44.4,"median":66,"p90":82.8},"flowering_start":{"p10":56,"median":82,"p90":100.8},"flowering_end":{"p10":101.2,"median":115,"p90":135.8},"harvest_start":{"p10":139.8,"median":148,"p90":165},"harvest_end":{"p10":181.4,"median":190,"p90":202},"planting_start":{"p10":-61,"median":-39,"p90":-22},"planting_end":{"p10":14,"median":36,"p90":53}},"seasons":[{"y":2011,"start":"2010-11-01","status":"complete","ch":764,"o":{"chill":31,"budbreak":86,"flowering_start":106,"flowering_end":137,"harvest_start":162,"harvest_end":198,"planting_start":-19,"planting_end":56},"bf":0,"ff":0,"xf":0,"sh":0,"hr":2},{"y":2012,"start":"2011-11-01","status":"complete","ch":260,"o":{"chill":47,"budbreak":68,"flowering_start":82,"flowering_end":114,"harvest_start":142,"harvest_end":182,"planting_start":-37,"planting_end":38},"bf":0,"ff":1,"xf":0,"sh":0,"hr":4},{"y":2013,"start":"2012-11-01","status":"complete","ch":452,"o":{"chill":25,"budbreak":40,"flowering_start":54,"flowering_end":92,"harvest_start":142,"harvest_end":191,"planting_start":-65,"planting_end":10},"bf":0,"ff":0,"xf":4,"sh":0,"hr":9},{"y":2014,"start":"2013-11-01","status":"complete","ch":491,"o":{"chill":46,"budbreak":69,"flowering_start":93,"flowering_end":134,"harvest_start":167,"harvest_end":206,"planting_start":-36,"planting_end":39},"bf":0,"ff":0,"xf":0,"sh":0,"hr":5},{"y":2015,"start":"2014-11-01","status":"complete","ch":584,"o":{"chill":18,"budbreak":37,"flowering_start":53,"flowering_end":113,"harvest_start":143,"harvest_end":185,"planting_start":-68,"planting_end":7},"bf":0,"ff":2,"xf":0,"sh":0,"hr":1},{"y":2016,"start":"2015-11-01","status":"complete","ch":365,"o":{"chill":65,"budbreak":94,"flowering_start":113,"flowering_end":141,"harvest_start":168,"harvest_end":205,"planting_start":-11,"planting_end":64},"bf":0,"ff":0,"xf":0,"sh":0,"hr":5},{"y":2017,"start":"2016-11-01","status":"complete","ch":220,"o":{"chill":51,"budbreak":65,"flowering_start":77,"flowering_end":110,"harvest_start":143,"harvest_end":182,"planting_start":-40,"planting_end":35},"bf":0,"ff":0,"xf":1,"sh":0,"hr":2},{"y":2018,"start":"2017-11-01","status":"complete","ch":571,"o":{"chill":41,"budbreak":71,"flowering_start":92,"flowering_end":118,"harvest_start":157,"harvest_end":199,"planting_start":-34,"planting_end":41},"bf":0,"ff":0,"xf":0,"sh":0,"hr":8},{"y":2019,"start":"2018-11-01","status":"complete","ch":387,"o":{"chill":28,"budbreak":52,"flowering_start":61,"flowering_end":106,"harvest_start":139,"harvest_end":184,"planting_start":-53,"planting_end":22},"bf":0,"ff":0,"xf":0,"sh":0,"hr":3},{"y":2020,"start":"2019-11-01","status":"complete","ch":293,"o":{"chill":34,"budbreak":51,"flowering_start":59,"flowering_end":98,"harvest_start":135,"harvest_end":172,"planting_start":-54,"planting_end":21},"bf":0,"ff":0,"xf":0,"sh":0,"hr":3},{"y":2021,"start":"2020-11-01","status":"complete","ch":444,"o":{"chill":37,"budbreak":62,"flowering_start":82,"flowering_end":118,"harvest_start":148,"harvest_end":190,"planting_start":-43,"planting_end":32},"bf":0,"ff":0,"xf":0,"sh":0,"hr":5},{"y":2022,"start":"2021-11-01","status":"complete","ch":302,"o":{"chill":51,"budbreak":67,"flowering_start":85,"flowering_end":122,"harvest_start":151,"harvest_end":191,"planting_start":-38,"planting_end":37},"bf":0,"ff":1,"xf":1,"sh":0,"hr":3},{"y":2023,"start":"2022-11-01","status":"complete","ch":276,"o":{"chill":53,"budbreak":78,"flowering_start":90,"flowering_end":115,"harvest_start":144,"harvest_end":183,"planting_start":-27,"planting_end":48},"bf":0,"ff":0,"xf":0,"sh":0,"hr":2},{"y":2024,"start":"2023-11-01","status":"complete","ch":372,"o":{"chill":41,"budbreak":66,"flowering_start":85,"flowering_end":123,"harvest_start":153,"harvest_end":192,"planting_start":-39,"planting_end":36},"bf":0,"ff":0,"xf":0,"sh":0,"hr":2},{"y":2025,"start":"2024-11-01","status":"complete","ch":524,"o":{"chill":31,"budbreak":54,"flowering_start":66,"flowering_end":114,"harvest_start":148,"harvest_end":185,"planting_start":-51,"planting_end":24},"bf":0,"ff":2,"xf":0,"sh":0,"hr":2}],"risks":[{"id":"chill_shortfall","label":"Winters below the assumed chill requirement","stage":"chill","k":0,"n":15,"ranked":false},{"id":"bud_freeze","label":"Bud-stage freeze exposure","stage":"buds","k":0,"n":15,"ranked":false},{"id":"flowering_freeze","label":"Flowering freeze exposure","stage":"flower","k":4,"n":15,"ranked":false},{"id":"fruit_severe_heat","label":"Fruit-development severe heat exposure","stage":"fruit","k":0,"n":15,"ranked":false},{"id":"harvest_heavy_rain","label":"Harvest heavy-rain exposure","stage":"harvest","k":15,"n":15,"ranked":true},{"id":"disease_weather","label":"Disease-favourable weather","stage":"whole","k":12,"n":15,"ranked":true},{"id":"fruit_frost","label":"Fruit-stage frost exposure","stage":"fruit","k":3,"n":15,"ranked":false},{"id":"pollination_weather","label":"Pollination gap","stage":"flower","k":0,"n":15,"ranked":false},{"id":"warm_midwinter","label":"Warm midwinter exposure","stage":"chill","k":null,"n":15,"ranked":false},{"id":"flowering_dry_spell","label":"Flowering dry-spell exposure","stage":"flower","k":null,"n":15,"ranked":false},{"id":"fruit_dry_spell","label":"Fruit-development dry-spell exposure","stage":"fruit","k":null,"n":15,"ranked":false}],"published":{"bloom":[2,3],"harvest":[4,5],"planting":[12,1,2],"system":"deciduous"}},"alma":{"name":"Alma, Georgia","full":"Alma, Bacon County","hemisphere":"north","chillReq":50,"gdd":{"budbreak":150,"flowerStart":85,"flowerEnd":375,"harvestStart":633,"harvestEnd":1242},"chillMean":801,"portionsMean":50.2,"calendar":{"chill":{"p10":12.4,"median":23,"p90":32.8},"budbreak":{"p10":37.8,"median":51,"p90":72.8},"flowering_start":{"p10":58.4,"median":69,"p90":98.2},"flowering_end":{"p10":110.6,"median":131,"p90":140.6},"harvest_start":{"p10":147,"median":168,"p90":172.6},"harvest_end":{"p10":190.2,"median":204,"p90":212.8},"planting_start":{"p10":-67,"median":-54,"p90":-32},"planting_end":{"p10":8,"median":21,"p90":43}},"seasons":[{"y":2011,"start":"2010-11-01","status":"complete","ch":1193,"o":{"chill":12,"budbreak":29,"flowering_start":92,"flowering_end":140,"harvest_start":169,"harvest_end":204,"planting_start":-76,"planting_end":-1},"bf":7,"ff":1,"xf":0,"sh":0,"hr":2},{"y":2012,"start":"2011-11-01","status":"complete","ch":572,"o":{"chill":23,"budbreak":51,"flowering_start":69,"flowering_end":115,"harvest_start":148,"harvest_end":190,"planting_start":-54,"planting_end":21},"bf":1,"ff":3,"xf":0,"sh":0,"hr":2},{"y":2013,"start":"2012-11-01","status":"complete","ch":848,"o":{"chill":22,"budbreak":44,"flowering_start":67,"flowering_end":116,"harvest_start":169,"harvest_end":214,"planting_start":-61,"planting_end":14},"bf":0,"ff":2,"xf":5,"sh":0,"hr":4},{"y":2014,"start":"2013-11-01","status":"complete","ch":1058,"o":{"chill":26,"budbreak":51,"flowering_start":92,"flowering_end":148,"harvest_start":179,"harvest_end":218,"planting_start":-54,"planting_end":21},"bf":4,"ff":3,"xf":0,"sh":0,"hr":4},{"y":2015,"start":"2014-11-01","status":"complete","ch":1087,"o":{"chill":13,"budbreak":50,"flowering_start":64,"flowering_end":140,"harvest_start":169,"harvest_end":208,"planting_start":-55,"planting_end":20},"bf":0,"ff":9,"xf":0,"sh":0,"hr":4},{"y":2016,"start":"2015-11-01","status":"complete","ch":708,"o":{"chill":34,"budbreak":53,"flowering_start":59,"flowering_end":132,"harvest_start":164,"harvest_end":206,"planting_start":-52,"planting_end":23},"bf":0,"ff":9,"xf":0,"sh":0,"hr":5},{"y":2017,"start":"2016-11-01","status":"complete","ch":534,"o":{"chill":31,"budbreak":55,"flowering_start":72,"flowering_end":113,"harvest_start":152,"harvest_end":192,"planting_start":-50,"planting_end":25},"bf":2,"ff":0,"xf":2,"sh":0,"hr":3},{"y":2018,"start":"2017-11-01","status":"complete","ch":887,"o":{"chill":37,"budbreak":88,"flowering_start":104,"flowering_end":138,"harvest_start":173,"harvest_end":210,"planting_start":-17,"planting_end":58},"bf":0,"ff":0,"xf":0,"sh":0,"hr":7},{"y":2019,"start":"2018-11-01","status":"complete","ch":733,"o":{"chill":21,"budbreak":58,"flowering_start":68,"flowering_end":122,"harvest_start":162,"harvest_end":201,"planting_start":-47,"planting_end":28},"bf":0,"ff":3,"xf":2,"sh":0,"hr":2},{"y":2020,"start":"2019-11-01","status":"complete","ch":683,"o":{"chill":12,"budbreak":42,"flowering_start":58,"flowering_end":109,"harvest_start":148,"harvest_end":196,"planting_start":-63,"planting_end":12},"bf":0,"ff":2,"xf":2,"sh":0,"hr":6},{"y":2021,"start":"2020-11-01","status":"complete","ch":801,"o":{"chill":31,"budbreak":68,"flowering_start":99,"flowering_end":141,"harvest_start":172,"harvest_end":211,"planting_start":-37,"planting_end":38},"bf":0,"ff":0,"xf":0,"sh":0,"hr":2},{"y":2022,"start":"2021-11-01","status":"complete","ch":758,"o":{"chill":14,"budbreak":39,"flowering_start":48,"flowering_end":114,"harvest_start":149,"harvest_end":192,"planting_start":-66,"planting_end":9},"bf":0,"ff":3,"xf":1,"sh":0,"hr":1},{"y":2023,"start":"2022-11-01","status":"complete","ch":589,"o":{"chill":20,"budbreak":37,"flowering_start":60,"flowering_end":107,"harvest_start":144,"harvest_end":189,"planting_start":-68,"planting_end":7},"bf":3,"ff":1,"xf":1,"sh":0,"hr":4},{"y":2024,"start":"2023-11-01","status":"complete","ch":728,"o":{"chill":29,"budbreak":66,"flowering_start":88,"flowering_end":135,"harvest_start":169,"harvest_end":206,"planting_start":-39,"planting_end":36},"bf":0,"ff":0,"xf":0,"sh":0,"hr":5},{"y":2025,"start":"2024-11-01","status":"complete","ch":835,"o":{"chill":29,"budbreak":76,"flowering_start":97,"flowering_end":137,"harvest_start":168,"harvest_end":203,"planting_start":-29,"planting_end":46},"bf":1,"ff":1,"xf":0,"sh":0,"hr":3}],"risks":[{"id":"chill_shortfall","label":"Winters below the assumed chill requirement","stage":"chill","k":0,"n":15,"ranked":false},{"id":"bud_freeze","label":"Bud-stage freeze exposure","stage":"buds","k":6,"n":15,"ranked":false},{"id":"flowering_freeze","label":"Flowering freeze exposure","stage":"flower","k":11,"n":15,"ranked":true},{"id":"fruit_severe_heat","label":"Fruit-development severe heat exposure","stage":"fruit","k":0,"n":15,"ranked":false},{"id":"harvest_heavy_rain","label":"Harvest heavy-rain exposure","stage":"harvest","k":15,"n":15,"ranked":true},{"id":"disease_weather","label":"Disease-favourable weather","stage":"whole","k":14,"n":15,"ranked":true},{"id":"fruit_frost","label":"Fruit-stage frost exposure","stage":"fruit","k":6,"n":15,"ranked":false},{"id":"pollination_weather","label":"Pollination gap","stage":"flower","k":3,"n":15,"ranked":false},{"id":"warm_midwinter","label":"Warm midwinter exposure","stage":"chill","k":null,"n":15,"ranked":false},{"id":"flowering_dry_spell","label":"Flowering dry-spell exposure","stage":"flower","k":null,"n":15,"ranked":false},{"id":"fruit_dry_spell","label":"Fruit-development dry-spell exposure","stage":"fruit","k":null,"n":15,"ranked":false}],"published":{"bloom":[2,3],"harvest":[4,5,6,7],"planting":[12,1,2],"system":"deciduous"}},"pelotas":{"name":"Pelotas, Brazil","full":"Pelotas (Estação Experimental Cascata, Embrapa Clima Temperado)","hemisphere":"south","chillReq":50,"gdd":{"budbreak":150,"flowerStart":85,"flowerEnd":375,"harvestStart":633,"harvestEnd":1242},"chillMean":452,"portionsMean":50.4,"calendar":{"chill":{"p10":49.8,"median":66,"p90":79.4},"budbreak":{"p10":72.2,"median":98,"p90":110.2},"flowering_start":{"p10":89.2,"median":116,"p90":131.2},"flowering_end":{"p10":150.8,"median":159,"p90":176.6},"harvest_start":{"p10":191,"median":200,"p90":212.6},"harvest_end":{"p10":242.2,"median":253,"p90":260},"planting_start":{"p10":-33,"median":-7,"p90":5},"planting_end":{"p10":42,"median":68,"p90":80}},"seasons":[{"y":2011,"start":"2011-04-01","status":"complete","ch":543,"o":{"chill":72,"budbreak":106,"flowering_start":130,"flowering_end":179,"harvest_start":215,"harvest_end":262,"planting_start":1,"planting_end":76},"bf":0,"ff":0,"xf":0,"sh":0,"hr":1},{"y":2012,"start":"2012-04-01","status":"complete","ch":492,"o":{"chill":65,"budbreak":91,"flowering_start":122,"flowering_end":154,"harvest_start":191,"harvest_end":241,"planting_start":-14,"planting_end":61},"bf":0,"ff":0,"xf":0,"sh":0,"hr":4},{"y":2013,"start":"2013-04-01","status":"complete","ch":622,"o":{"chill":47,"budbreak":71,"flowering_start":91,"flowering_end":159,"harvest_start":199,"harvest_end":251,"planting_start":-34,"planting_end":41},"bf":0,"ff":0,"xf":0,"sh":0,"hr":9},{"y":2014,"start":"2014-04-01","status":"complete","ch":406,"o":{"chill":62,"budbreak":92,"flowering_start":106,"flowering_end":157,"harvest_start":198,"harvest_end":246,"planting_start":-13,"planting_end":62},"bf":0,"ff":0,"xf":0,"sh":0,"hr":7},{"y":2015,"start":"2015-04-01","status":"complete","ch":245,"o":{"chill":75,"budbreak":109,"flowering_start":122,"flowering_end":152,"harvest_start":200,"harvest_end":255,"planting_start":4,"planting_end":79},"bf":0,"ff":0,"xf":1,"sh":0,"hr":8},{"y":2016,"start":"2016-04-01","status":"complete","ch":577,"o":{"chill":31,"budbreak":57,"flowering_start":88,"flowering_end":142,"harvest_start":193,"harvest_end":248,"planting_start":-48,"planting_end":27},"bf":0,"ff":0,"xf":0,"sh":0,"hr":9},{"y":2017,"start":"2017-04-01","status":"complete","ch":230,"o":{"chill":81,"budbreak":101,"flowering_start":116,"flowering_end":152,"harvest_start":187,"harvest_end":244,"planting_start":-4,"planting_end":71},"bf":0,"ff":0,"xf":0,"sh":0,"hr":8},{"y":2018,"start":"2018-04-01","status":"complete","ch":452,"o":{"chill":67,"budbreak":104,"flowering_start":119,"flowering_end":171,"harvest_start":206,"harvest_end":254,"planting_start":-1,"planting_end":74},"bf":0,"ff":0,"xf":0,"sh":0,"hr":3},{"y":2019,"start":"2019-04-01","status":"complete","ch":455,"o":{"chill":92,"budbreak":126,"flowering_start":146,"flowering_end":185,"harvest_start":217,"harvest_end":263,"planting_start":21,"planting_end":96},"bf":0,"ff":0,"xf":0,"sh":0,"hr":4},{"y":2020,"start":"2020-04-01","status":"complete","ch":466,"o":{"chill":75,"budbreak":108,"flowering_start":122,"flowering_end":166,"harvest_start":206,"harvest_end":256,"planting_start":3,"planting_end":78},"bf":0,"ff":0,"xf":0,"sh":0,"hr":6},{"y":2021,"start":"2021-04-01","status":"complete","ch":401,"o":{"chill":60,"budbreak":84,"flowering_start":103,"flowering_end":153,"harvest_start":194,"harvest_end":245,"planting_start":-21,"planting_end":54},"bf":0,"ff":0,"xf":0,"sh":0,"hr":4},{"y":2022,"start":"2022-04-01","status":"complete","ch":516,"o":{"chill":60,"budbreak":97,"flowering_start":112,"flowering_end":161,"harvest_start":207,"harvest_end":253,"planting_start":-8,"planting_end":67},"bf":0,"ff":0,"xf":0,"sh":0,"hr":3},{"y":2023,"start":"2023-04-01","status":"complete","ch":315,"o":{"chill":77,"budbreak":98,"flowering_start":116,"flowering_end":161,"harvest_start":203,"harvest_end":253,"planting_start":-7,"planting_end":68},"bf":0,"ff":0,"xf":0,"sh":0,"hr":9},{"y":2024,"start":"2024-04-01","status":"complete","ch":503,"o":{"chill":54,"budbreak":74,"flowering_start":83,"flowering_end":150,"harvest_start":191,"harvest_end":240,"planting_start":-31,"planting_end":44},"bf":0,"ff":1,"xf":0,"sh":0,"hr":7},{"y":2025,"start":"2025-04-01","status":"complete","ch":557,"o":{"chill":66,"budbreak":111,"flowering_start":132,"flowering_end":173,"harvest_start":209,"harvest_end":257,"planting_start":6,"planting_end":81},"bf":0,"ff":0,"xf":0,"sh":0,"hr":5}],"risks":[{"id":"chill_shortfall","label":"Winters below the assumed chill requirement","stage":"chill","k":0,"n":15,"ranked":false},{"id":"bud_freeze","label":"Bud-stage freeze exposure","stage":"buds","k":0,"n":15,"ranked":false},{"id":"flowering_freeze","label":"Flowering freeze exposure","stage":"flower","k":1,"n":15,"ranked":false},{"id":"fruit_severe_heat","label":"Fruit-development severe heat exposure","stage":"fruit","k":0,"n":15,"ranked":false},{"id":"harvest_heavy_rain","label":"Harvest heavy-rain exposure","stage":"harvest","k":15,"n":15,"ranked":true},{"id":"disease_weather","label":"Disease-favourable weather","stage":"whole","k":15,"n":15,"ranked":true},{"id":"fruit_frost","label":"Fruit-stage frost exposure","stage":"fruit","k":1,"n":15,"ranked":false},{"id":"pollination_weather","label":"Pollination gap","stage":"flower","k":4,"n":15,"ranked":false},{"id":"warm_midwinter","label":"Warm midwinter exposure","stage":"chill","k":null,"n":15,"ranked":false},{"id":"flowering_dry_spell","label":"Flowering dry-spell exposure","stage":"flower","k":null,"n":15,"ranked":false},{"id":"fruit_dry_spell","label":"Fruit-development dry-spell exposure","stage":"fruit","k":null,"n":15,"ranked":false}],"published":{"bloom":[8,9,10],"harvest":[12,1],"planting":[6,7,8],"system":"deciduous"}}};
+const DAY = 86400000;
+const KEYS = ['chill', 'budbreak', 'flowering_start', 'flowering_end', 'harvest_start', 'harvest_end'];
+const STAGES = ['chill', 'warm', 'buds', 'flower', 'fruit', 'harvest'];
+const COLOR = {chill: '#a9b8c8', warm: '#d6ddcc', buds: '#a5ca80', flower: '#eaa6c1', fruit: '#5d9c61', harvest: '#3d4b9b',
+  after: '#eeece6', planting: '#a37b55', risk: '#b8352a'};
+const INK = {chill: '#1e2c3a', warm: '#2f3a26', buds: '#1f3517', flower: '#4b1b30', fruit: '#ffffff', harvest: '#ffffff'};
+const NAME = {chill: 'Collecting chill', warm: 'Warming up', buds: 'Buds opening', flower: 'Flowering', fruit: 'Berries growing', harvest: 'Harvest'};
+const EVENT = {chill: 'Chill met', budbreak: 'Budbreak', flowering_start: 'Bloom starts', flowering_end: 'Bloom ends',
+  harvest_start: 'Harvest starts', harvest_end: 'Harvest ends'};
+const RISK = {chill_shortfall: ['Too little chill', 'thermo'], warm_midwinter: ['Warm spells in winter', 'thermo'],
+  bud_freeze: ['Frost on opening buds', 'frost'], flowering_freeze: ['Freeze in bloom', 'frost'],
+  pollination_weather: ['Poor bee weather', 'bee'], flowering_dry_spell: ['Dry spell in bloom', 'dry'],
+  fruit_frost: ['Frost on young fruit', 'frost'], fruit_severe_heat: ['Heat of 35 °C or more', 'sun'],
+  fruit_dry_spell: ['Dry spell on fruit', 'dry'], harvest_heavy_rain: ['Heavy rain in harvest', 'rain'],
+  disease_weather: ['Disease weather', 'spore']};
+let siteKey = 'waldo', winterOrder = 'year';
+
+const fin = v => typeof v === 'number' && Number.isFinite(v);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
+const r1 = v => Math.round(v * 10) / 10;
+const anchor = s => s.hemisphere === 'south' ? Date.UTC(2001, 3, 1) : Date.UTC(2000, 10, 1);
+const dayOf = (s, off) => new Date(anchor(s) + Math.round(off) * DAY);
+const fmt = (s, off) => dayOf(s, off).toLocaleDateString('en-GB', {day: 'numeric', month: 'short', timeZone: 'UTC'});
+const complete = s => s.seasons.filter(w => w.status === 'complete' && w.o && KEYS.every(k => fin(w.o[k])));
+const winterLabel = (s, y) => s.hemisphere === 'south' ? String(y) : `${y - 1}–${String(y).slice(2)}`;
+const textWidth = (t, size = 12) => String(t).length * size * 0.56;
+const med = (s, k) => s.calendar[k]?.median;
+
+function stageOn(w, d) {
+  const o = w.o;
+  if (d <= o.chill) return 'chill';
+  if (d < o.budbreak) return 'warm';
+  if (d < o.flowering_start) return 'buds';
+  if (d <= o.flowering_end) return 'flower';
+  if (d < o.harvest_start) return 'fruit';
+  if (d <= o.harvest_end) return 'harvest';
+  return 'after';
+}
+const spans = o => [['chill', 0, o.chill], ['warm', o.chill + 1, o.budbreak - 1], ['buds', o.budbreak, o.flowering_start - 1],
+  ['flower', o.flowering_start, o.flowering_end], ['fruit', o.flowering_end + 1, o.harvest_start - 1],
+  ['harvest', o.harvest_start, o.harvest_end]].filter(([, a, b]) => b >= a);
+const medianOffsets = s => Object.fromEntries(KEYS.map(k => [k, med(s, k)]));
+// Stage centre on the typical (median) calendar; 'whole' spans bloom to end of harvest.
+function stageCentre(s, stage) {
+  if (stage === 'whole') return (med(s, 'flowering_start') + med(s, 'harvest_end')) / 2;
+  const span = spans(medianOffsets(s)).find(([k]) => k === (stage === 'flower' ? 'flower' : stage));
+  return span ? (span[1] + span[2] + 1) / 2 : null;
+}
+
+// Published months: the first occurrence on or after two months before the season anchor.
+function monthStart(s, m) {
+  const from = anchor(s) - 61 * DAY, y = new Date(from).getUTCFullYear();
+  let t = Date.UTC(y, m - 1, 1);
+  if (t < from) t = Date.UTC(y + 1, m - 1, 1);
+  return (t - anchor(s)) / DAY;
+}
+function monthEnd(s, m) {
+  const d = dayOf(s, monthStart(s, m));
+  return (Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1) - anchor(s)) / DAY;
+}
+function monthSpans(s, months) {
+  const out = [];
+  for (const span of months.map(m => [monthStart(s, m), monthEnd(s, m)]).sort((a, b) => a[0] - b[0])) {
+    const last = out[out.length - 1];
+    if (last && span[0] <= last[1]) last[1] = Math.max(last[1], span[1]); else out.push([...span]);
+  }
+  return out;
+}
+function monthText(s, months) {
+  if (!months.length) return '';
+  const sorted = [...months].sort((a, b) => monthStart(s, a) - monthStart(s, b));
+  const name = m => new Date(Date.UTC(2001, m - 1, 1)).toLocaleDateString('en-GB', {month: 'short', timeZone: 'UTC'});
+  return sorted.length === 1 ? name(sorted[0]) : `${name(sorted[0])}–${name(sorted[sorted.length - 1])}`;
+}
+
+function axis(s, context = true) {
+  const W = complete(s), pub = context ? [...s.published.planting, ...s.published.bloom, ...s.published.harvest] : [];
+  const lo = Math.min(0, ...(context ? W.map(w => w.o.planting_start).filter(fin) : []), ...pub.map(m => monthStart(s, m)));
+  const hi = Math.max(...W.map(w => w.o.harvest_end + 1), ...pub.map(m => monthEnd(s, m)));
+  const f = dayOf(s, lo), l = dayOf(s, hi - 1);
+  const start = Date.UTC(f.getUTCFullYear(), f.getUTCMonth(), 1), end = Date.UTC(l.getUTCFullYear(), l.getUTCMonth() + 1, 1);
+  const months = [];
+  for (let t = start; t < end;) {
+    const d = new Date(t);
+    months.push({off: (t - anchor(s)) / DAY, label: d.toLocaleDateString('en-GB', {month: 'short', timeZone: 'UTC'})});
+    t = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  }
+  return {d0: (start - anchor(s)) / DAY, d1: (end - anchor(s)) / DAY, months};
+}
+const scaleX = (ax, left, width) => d => left + (d - ax.d0) / (ax.d1 - ax.d0) * width;
+const grid = (ax, x, y0, y1, labelY) => ax.months.map(m => `<line x1="${x(m.off)}" x2="${x(m.off)}" y1="${y0}" y2="${y1}" stroke="#e6e8ec"/>` +
+  `<text x="${x(m.off) + 4}" y="${labelY}" font-size="12" fill="#5f6670">${m.label}</text>`).join('');
+const halo = (t, x, y, anchorText = 'start', size = 11, fill = '#1f2328', weight = 400) => `<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" ` +
+  `text-anchor="${anchorText}" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">${esc(t)}</text>`;
+const LINES = {chill: ['Collecting', 'chill'], warm: ['Warming', 'up'], buds: ['Buds', 'opening'], flower: ['Flowering'], fruit: ['Berries', 'growing'], harvest: ['Harvest']};
+// One row of boxes {want, w}, in order, each as close to its wanted x as possible; null when they do not fit.
+function row(items, xMin, xMax, gap) {
+  const pos = [];
+  let cursor = xMin;
+  for (const it of items) { const x0 = Math.max(it.want, cursor); pos.push(x0); cursor = x0 + it.w + gap; }
+  for (let i = pos.length - 1; i >= 0; i--) pos[i] = Math.min(pos[i], (i === pos.length - 1 ? xMax : pos[i + 1] - gap) - items[i].w);
+  return pos.length && pos[0] < xMin ? null : pos;
+}
+const laneTitle = (t, y, x = 12) => `<text x="${x}" y="${y}" font-size="12.5" font-weight="600" fill="#1f2328">${esc(t)}</text>`;
+const note = (t, x, y, anchorText = 'start', size = 11.5, fill = '#5f6670') => `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" text-anchor="${anchorText}">${esc(t)}</text>`;
+
+function patterns() {
+  const hatch = (id, color) => `<pattern id="${id}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">` +
+    `<rect width="6" height="6" fill="#fff"/><line x1="0" y1="0" x2="0" y2="6" stroke="${color}" stroke-width="2.4"/></pattern>`;
+  return `<defs>${hatch('h-plant', '#b8916b')}${hatch('h-flower', '#e391b2')}${hatch('h-harvest', '#7d88c8')}</defs>`;
+}
+
+function glyph(kind, x, y, r = 7, color = COLOR.risk) {
+  const rad = a => a * Math.PI / 180;
+  switch (kind) {
+    case 'frost': return `<g stroke="${color}" stroke-width="1.7" stroke-linecap="round">${[0, 60, 120].map(a =>
+      `<line x1="${x - Math.cos(rad(a)) * r}" y1="${y - Math.sin(rad(a)) * r}" x2="${x + Math.cos(rad(a)) * r}" y2="${y + Math.sin(rad(a)) * r}"/>`).join('')}</g>`;
+    case 'sun': return `<g stroke="${color}" stroke-width="1.5" stroke-linecap="round"><circle cx="${x}" cy="${y}" r="${r * 0.42}" fill="${color}"/>${[0, 45, 90, 135, 180, 225, 270, 315].map(a =>
+      `<line x1="${x + Math.cos(rad(a)) * r * 0.68}" y1="${y + Math.sin(rad(a)) * r * 0.68}" x2="${x + Math.cos(rad(a)) * r}" y2="${y + Math.sin(rad(a)) * r}"/>`).join('')}</g>`;
+    case 'rain': return `<path d="M${x},${y - r} C${x + r * 0.95},${y} ${x + r * 0.7},${y + r} ${x},${y + r} C${x - r * 0.7},${y + r} ${x - r * 0.95},${y} ${x},${y - r}Z" fill="${color}"/>`;
+    case 'spore': return `<g fill="${color}"><circle cx="${x - r * 0.45}" cy="${y - r * 0.3}" r="${r * 0.34}"/><circle cx="${x + r * 0.48}" cy="${y - r * 0.1}" r="${r * 0.27}"/><circle cx="${x - r * 0.02}" cy="${y + r * 0.48}" r="${r * 0.38}"/></g>`;
+    case 'bee': return `<g><ellipse cx="${x}" cy="${y}" rx="${r * 0.8}" ry="${r * 0.52}" fill="#e7b737" stroke="${color}" stroke-width="1"/>` +
+      `<line x1="${x - r * 0.15}" y1="${y - r * 0.5}" x2="${x - r * 0.15}" y2="${y + r * 0.5}" stroke="${color}" stroke-width="1.5"/><line x1="${x + r * 0.28}" y1="${y - r * 0.46}" x2="${x + r * 0.28}" y2="${y + r * 0.46}" stroke="${color}" stroke-width="1.5"/></g>`;
+    case 'dry': return `<path d="M${x - r},${y + r * 0.6} L${x - r * 0.3},${y - r * 0.25} L${x + r * 0.2},${y + r * 0.35} L${x + r},${y - r * 0.55}" stroke="${color}" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    default: return `<g stroke="${color}" stroke-width="1.7" fill="none"><line x1="${x}" y1="${y - r}" x2="${x}" y2="${y + r * 0.35}"/><circle cx="${x}" cy="${y + r * 0.62}" r="${r * 0.36}" fill="${color}"/></g>`;
+  }
+}
+
+function plantIcon(stage, x, y) {
+  const twig = `<line x1="${x - 9}" y1="${y + 9}" x2="${x + 9}" y2="${y + 9}" stroke="#7a6a58" stroke-width="2" stroke-linecap="round"/>`;
+  switch (stage) {
+    case 'chill': return `<g>${twig}<path d="M${x},${y - 8} C${x + 5},${y - 1} ${x + 5},${y + 6} ${x},${y + 8} C${x - 5},${y + 6} ${x - 5},${y - 1} ${x},${y - 8}Z" fill="#7f7264"/></g>`;
+    case 'warm': return `<g>${twig}<path d="M${x},${y - 10} C${x + 7},${y - 1} ${x + 7},${y + 6} ${x},${y + 8} C${x - 7},${y + 6} ${x - 7},${y - 1} ${x},${y - 10}Z" fill="#9c8a70"/><path d="M${x},${y - 10} C${x + 3},${y - 6} ${x + 3},${y - 3} ${x},${y - 2} C${x - 3},${y - 3} ${x - 3},${y - 6} ${x},${y - 10}Z" fill="#8fbf68"/></g>`;
+    case 'buds': return `<g>${twig}<path d="M${x},${y - 3} C${x + 4},${y + 1} ${x + 4},${y + 6} ${x},${y + 8} C${x - 4},${y + 6} ${x - 4},${y + 1} ${x},${y - 3}Z" fill="#8fbf68"/>` +
+      `<path d="M${x},${y - 1} C${x - 9},${y - 4} ${x - 11},${y - 11} ${x - 4},${y - 11} C${x - 2},${y - 8} ${x - 1},${y - 4} ${x},${y - 1}Z" fill="#5e9e44"/><path d="M${x},${y - 1} C${x + 9},${y - 4} ${x + 11},${y - 11} ${x + 4},${y - 11} C${x + 2},${y - 8} ${x + 1},${y - 4} ${x},${y - 1}Z" fill="#5e9e44"/></g>`;
+    case 'flower': return `<g><path d="M${x},${y - 11} L${x},${y - 6}" stroke="#5e9e44" stroke-width="1.6"/><path d="M${x - 6},${y - 6} C${x - 8},${y + 2} ${x - 5},${y + 8} ${x},${y + 8} C${x + 5},${y + 8} ${x + 8},${y + 2} ${x + 6},${y - 6}Z" fill="#fdf1f5" stroke="#d27c9f" stroke-width="1.3"/>` +
+      `<path d="M${x - 4},${y + 8} l1.4,2 l1.3,-2 l1.3,2 l1.3,-2 l1.3,2" fill="none" stroke="#d27c9f" stroke-width="1"/></g>`;
+    case 'fruit': return `<g fill="#7db56d" stroke="#4b8743" stroke-width="1"><circle cx="${x - 5}" cy="${y + 3}" r="5"/><circle cx="${x + 5}" cy="${y + 4}" r="5"/><circle cx="${x}" cy="${y - 4}" r="5"/></g>`;
+    default: return `<g><g fill="#3d4b9b" stroke="#283271" stroke-width="1"><circle cx="${x - 5}" cy="${y + 3}" r="5.5"/><circle cx="${x + 5}" cy="${y + 4}" r="5.5"/><circle cx="${x}" cy="${y - 4}" r="5.5"/></g>` +
+      `<g fill="#a7b0e6"><circle cx="${x - 5}" cy="${y + 3}" r="1.3"/><circle cx="${x + 5}" cy="${y + 4}" r="1.3"/><circle cx="${x}" cy="${y - 4}" r="1.3"/></g></g>`;
+  }
+}
+
+// Greedy row packing for labels or badges: items {x0, x1}; returns the row index for each, in input order.
+function pack(items, gap = 8, maxRows = 6) {
+  const ends = [];
+  return items.map(it => {
+    let row = ends.findIndex(e => it.x0 > e + gap);
+    if (row < 0) { row = ends.length < maxRows ? ends.length : ends.indexOf(Math.min(...ends)); }
+    ends[row] = it.x1;
+    return row;
+  });
+}
+
+function story(s) {
+  const n = complete(s).length, risks = s.risks.filter(r => r.k > 0).sort((a, b) => b.k / b.n - a.k / a.n);
+  const top = risks[0], second = risks[1];
+  const lowerFirst = t => t.charAt(0).toLowerCase() + t.slice(1);
+  const riskText = top ? ` The most frequent weather risk is ${lowerFirst(RISK[top.id][0])} (${top.k} of ${top.n} winters)${second ? `, then ${lowerFirst(RISK[second.id][0])} (${second.k} of ${second.n})` : ''}.` : '';
+  return `<b>${esc(s.name)}, typical winter (${n} winters):</b> the ${s.chillReq}-hour chill requirement is met by ${fmt(s, med(s, 'chill'))}, buds break around ${fmt(s, med(s, 'budbreak'))}, ` +
+    `flowers are open from ${fmt(s, med(s, 'flowering_start'))} to ${fmt(s, med(s, 'flowering_end'))}, and harvest runs from ${fmt(s, med(s, 'harvest_start'))} to ${fmt(s, med(s, 'harvest_end'))}.${esc(riskText)}`;
+}
+
+function badge(r, x0, y, w, h) {
+  const [label, kind] = RISK[r.id], stageColor = r.stage === 'whole' ? '#9aa2ad' : COLOR[r.stage];
+  const squares = Array.from({length: r.n}, (_, j) => `<rect x="${x0 + 30 + j * 8}" y="${y + 27}" width="6.5" height="6.5" rx="1.2" fill="${j < r.k ? COLOR.risk : '#fff'}" stroke="${j < r.k ? COLOR.risk : '#c9ced6'}"/>`).join('');
+  return `<g><rect x="${x0}" y="${y}" width="${w}" height="${h}" rx="8" fill="#fff" stroke="${r.ranked ? COLOR.risk : '#d9dde3'}" stroke-width="${r.ranked ? 1.8 : 1}"/>` +
+    `<rect x="${x0}" y="${y}" width="6" height="${h}" rx="3" fill="${stageColor}"/>${glyph(kind, x0 + 18, y + 16)}` +
+    `<text x="${x0 + 30}" y="${y + 20}" font-size="12.5" font-weight="600" fill="#1f2328">${esc(label)}</text>${squares}` +
+    `<text x="${x0 + 34 + r.n * 8}" y="${y + 34}" font-size="11.5" fill="#5f6670">${r.k} of ${r.n}</text>` +
+    (r.ranked ? `<rect x="${x0 + w - 64}" y="${y - 8}" width="58" height="15" rx="7.5" fill="${COLOR.risk}"/>` +
+      `<text x="${x0 + w - 35}" y="${y + 3}" font-size="9.5" font-weight="700" fill="#fff" text-anchor="middle">TOP RISK</text>` : '') + '</g>';
+}
+
+// Badges sit as close as possible under the stage they threaten: one row when they fit, otherwise two.
+function riskBadges(s, x, xMin, xMax, y0) {
+  const w = 200, h = 46, gap = 12;
+  const items = s.risks.filter(r => r.k > 0 && RISK[r.id]).map(r => ({r, w, want: x(stageCentre(s, r.stage)) - w / 2})).sort((a, b) => a.want - b.want);
+  const rows = row(items, xMin, xMax, gap) ? [items] : [items.filter((_, i) => i % 2 === 0), items.filter((_, i) => i % 2 === 1)];
+  const out = rows.map((list, ri) => {
+    const pos = row(list, xMin, xMax, gap) ?? list.map((_, i) => xMin + i * (w + gap));
+    return list.map((it, i) => badge(it.r, pos[i], y0 + 10 + ri * (h + 16), w, h)).join('');
+  }).join('');
+  const absent = s.risks.filter(r => r.k === 0 && RISK[r.id]).map(r => RISK[r.id][0].charAt(0).toLowerCase() + RISK[r.id][0].slice(1));
+  const yAbsent = y0 + 10 + rows.length * (h + 16) + 8;
+  return {svg: out + (absent.length ? note(`Not seen in these winters: ${absent.join(', ')}.`, xMin, yAbsent) : ''), bottom: yAbsent + 8};
+}
+
+function ribbon(s) {
+  const W = complete(s), n = W.length, ax = axis(s), L = 150, R = 22, width = 1060, inner = width - L - R, x = scaleX(ax, L, inner);
+  const m = medianOffsets(s), stageSpans = spans(m), hRib = 66, out = [patterns()];
+  // Stage names sit above the band, in tiers when neighbours would collide.
+  const labels = stageSpans.map(([k, a, b]) => {
+    const cx = (x(a) + x(b + 1)) / 2, w = Math.max(28, ...LINES[k].map(t => textWidth(t, 11.5))) + 8;
+    return {k, cx, x0: cx - w / 2, x1: cx + w / 2};
+  });
+  const tiers = pack(labels, 4, 3), yRib = 96 + (Math.max(...tiers) + 1) * 50;
+  out.push(grid(ax, x, 22, yRib + hRib, 14));
+  // Planting: guides (hatched) and the model's rule, shaded by how many winters each day falls in it.
+  out.push(laneTitle('Planting', 37), note('guides / model rule', 12, 50, 'start', 10.5));
+  for (const [a, b] of monthSpans(s, s.published.planting)) out.push(`<rect x="${x(a)}" y="25" width="${x(b) - x(a)}" height="13" fill="url(#h-plant)" stroke="#b8916b"/>`);
+  if (s.published.planting.length) out.push(halo(`Guides: plant ${monthText(s, s.published.planting)}`, x(monthSpans(s, s.published.planting)[0][0]) + 4, 35, 'start', 11, '#6b4f33', 600));
+  for (let d = ax.d0; d < ax.d1; d++) {
+    const k = W.filter(w => fin(w.o.planting_start) && w.o.planting_start <= d && d <= w.o.planting_end).length;
+    if (k) out.push(`<rect x="${x(d)}" y="42" width="${x(d + 1) - x(d) + 0.4}" height="13" fill="${COLOR.planting}" fill-opacity="${r1(0.12 + 0.88 * k / n)}"/>`);
+  }
+  const ps = med(s, 'planting_start'), pe = med(s, 'planting_end'), lastPlant = Math.max(...W.map(w => w.o.planting_end).filter(fin));
+  if (fin(ps)) out.push(halo(`Model rule: ${fmt(s, ps)} to ${fmt(s, pe)} (105 to 30 days before budbreak)`, x(lastPlant + 1) + 6, 52, 'start', 11, '#6b4f33', 600));
+  // What growers report for bloom and harvest.
+  out.push(laneTitle('Growers report', 74));
+  for (const [key, pat, stroke, word] of [['bloom', 'h-flower', '#e391b2', 'Bloom'], ['harvest', 'h-harvest', '#7d88c8', 'Harvest']]) {
+    for (const [a, b] of monthSpans(s, s.published[key])) out.push(`<rect x="${x(a)}" y="63" width="${x(b) - x(a)}" height="13" fill="url(#${pat})" stroke="${stroke}"/>` +
+      halo(`${word} ${monthText(s, s.published[key])}`, x(a) + 4, 73, 'start', 11, '#1f2328', 600));
+  }
+  if (!s.published.bloom.length && !s.published.harvest.length) out.push(note('No published bloom or harvest months for this site', L, 74));
+  // The bush band: on each day, the share of winters in each stage.
+  const order = [...STAGES, 'after'], first = Math.max(0, ax.d0), days = [];
+  for (let d = first; d < ax.d1; d++) days.push(d);
+  const counts = days.map(d => { const c = Object.fromEntries(order.map(k => [k, 0])); for (const w of W) c[stageOn(w, d)]++; return c; });
+  let cum = days.map(() => 0);
+  for (const k of order) {
+    const next = cum.map((c, i) => c + counts[i][k]);
+    if (next.some((c, i) => c !== cum[i])) {
+      const top = cum.map(c => yRib + c / n * hRib), bot = next.map(c => yRib + c / n * hRib);
+      let p = `M${x(first)},${top[0]}`;
+      for (let i = 0; i < top.length; i++) { p += `H${x(first + i + 1)}`; if (i + 1 < top.length) p += `V${top[i + 1]}`; }
+      p += `V${bot[bot.length - 1]}`;
+      for (let i = bot.length - 1; i >= 0; i--) { p += `H${x(first + i)}`; if (i > 0) p += `V${bot[i - 1]}`; }
+      out.push(`<path d="${p}Z" fill="${COLOR[k]}"/>`);
+    }
+    cum = next;
+  }
+  out.push(`<rect x="${x(first)}" y="${yRib}" width="${x(ax.d1) - x(first)}" height="${hRib}" fill="none" stroke="#c8ccd2"/>`);
+  if (ax.d0 < 0 && x(0) - x(ax.d0) > 70) out.push(note(`Before ${fmt(s, 0)}:`, (x(ax.d0) + x(0)) / 2, yRib + hRib / 2 - 3, 'middle', 11) + note('not modelled', (x(ax.d0) + x(0)) / 2, yRib + hRib / 2 + 11, 'middle', 11));
+  out.push(laneTitle('What the bush', yRib + 26), laneTitle('is doing', yRib + 42), note(`${n} winters`, 12, yRib + 58, 'start', 10.5));
+  labels.forEach((lb, i) => {
+    const top = yRib - 6 - (tiers[i] + 1) * 50, lines = LINES[lb.k];
+    out.push(plantIcon(lb.k, lb.cx, top + 13) + lines.map((t, j) => `<text x="${lb.cx}" y="${top + 37 + j * 12}" font-size="11.5" font-weight="600" fill="#1f2328" text-anchor="middle">${t}</text>`).join('') +
+      `<line x1="${lb.cx}" x2="${lb.cx}" y1="${top + 30 + lines.length * 12}" y2="${yRib}" stroke="#8b929c"/>`);
+  });
+  // Risk markers sit on the stage they threaten; the badges below give the counts.
+  let previous = -Infinity;
+  s.risks.filter(r => r.k > 0 && RISK[r.id]).map(r => ({r, cx: x(stageCentre(s, r.stage))})).sort((a, b) => a.cx - b.cx).forEach(mk => {
+    const mx = Math.max(mk.cx, previous + 23), my = yRib + hRib - 15;
+    previous = mx;
+    out.push(`<circle cx="${mx}" cy="${my}" r="10" fill="#fff" stroke="${COLOR.risk}" stroke-width="1.4"/>${glyph(RISK[mk.r.id][1], mx, my, 6)}`);
+  });
+  // Transition ticks: the middle winter's date and the range for the middle 80% of winters.
+  const yB = yRib + hRib;
+  const ticks = KEYS.map(k => {
+    const c = s.calendar[k], cx = x(c.median), t1 = `${EVENT[k]} ${fmt(s, c.median)}`, t2 = `${fmt(s, c.p10)} to ${fmt(s, c.p90)}`;
+    const w = Math.max(textWidth(t1, 12), textWidth(t2, 11)) + 6;
+    return {k, cx, t1, t2, x0: cx - w / 2, x1: cx + w / 2};
+  });
+  const tickRows = pack(ticks, 6, 3);
+  ticks.forEach((t, i) => {
+    const y = yB + 24 + tickRows[i] * 32;
+    out.push(`<path d="M${t.cx - 4},${yB + 8} L${t.cx},${yB + 2} L${t.cx + 4},${yB + 8}Z" fill="#2b2f36"/>` +
+      (tickRows[i] ? `<line x1="${t.cx}" x2="${t.cx}" y1="${yB + 8}" y2="${y - 12}" stroke="#2b2f36" stroke-dasharray="2 2"/>` : '') +
+      `<text x="${t.cx}" y="${y}" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">${esc(t.t1)}</text>` +
+      `<text x="${t.cx}" y="${y + 13}" font-size="11" fill="#5f6670" text-anchor="middle">${esc(t.t2)}</text>`);
+  });
+  const yRisk = yB + 24 + (Math.max(...tickRows) + 1) * 32 + 6;
+  out.push(laneTitle('Weather risks', yRisk + 32), note('each square is a winter', 12, yRisk + 46, 'start', 10.5));
+  const badges = riskBadges(s, x, L, L + inner, yRisk);
+  out.push(badges.svg);
+  return `<svg viewBox="0 0 ${width} ${badges.bottom + 8}" role="img" aria-label="Season ribbon for ${esc(s.name)}">${out.join('')}</svg>`;
+}
+
+function winters(s) {
+  const W = complete(s), ax = axis(s, false), L = 120, chillW = 150, width = 1060, inner = width - L - chillW - 30, x = scaleX(ax, L, inner);
+  const rowH = 24, top = 36, rows = [...s.seasons].sort((a, b) => winterOrder === 'year' ? a.y - b.y
+    : (fin(a.o?.budbreak) ? a.o.budbreak : 1e9) - (fin(b.o?.budbreak) ? b.o.budbreak : 1e9));
+  const maxCh = Math.max(...s.seasons.map(w => w.ch).filter(fin), s.chillReq);
+  const cx0 = L + inner + 30, cxScale = v => cx0 + v / maxCh * (chillW - 46);
+  const out = [grid(ax, x, top - 10, top + (rows.length + 1) * rowH + 6, 18)];
+  out.push(note('Chill hours', cx0, 14, 'start', 12) + note(`model needs ${s.chillReq}`, cx0, 28, 'start', 11, COLOR.risk));
+  out.push(`<line x1="${cxScale(s.chillReq)}" x2="${cxScale(s.chillReq)}" y1="${top - 4}" y2="${top + (rows.length + 1) * rowH}" stroke="${COLOR.risk}" stroke-dasharray="3 2"/>`);
+  const drawRow = (o, y, label, chill, flags, bold) => {
+    const parts = [`<text x="${L - 10}" y="${y + 12}" font-size="12" fill="#1f2328" text-anchor="end" font-weight="${bold ? 700 : 400}">${esc(label)}</text>`];
+    if (!o) { parts.push(note('No complete calendar this winter', L + 6, y + 12)); return parts.join(''); }
+    for (const [k, a, b] of spans(o)) parts.push(`<rect x="${x(a)}" y="${y + 3}" width="${Math.max(1, x(b + 1) - x(a))}" height="${bold ? 14 : 12}" fill="${COLOR[k]}"${bold ? ' stroke="#2b2f36" stroke-width="0.8"' : ''}/>`);
+    const mid = (k) => { const sp = spans(o).find(([kk]) => kk === k); return sp ? (x(sp[1]) + x(sp[2] + 1)) / 2 : null; };
+    if (flags) {
+      if (flags.bf > 0 && mid('buds') != null) parts.push(glyph('frost', mid('buds'), y + 9, 6, '#0f2a4a'));
+      if (flags.ff > 0) parts.push(glyph('frost', mid('flower'), y + 9, 6, '#0f2a4a'));
+      if (flags.xf > 0) parts.push(glyph('frost', mid('fruit') - (flags.sh > 0 ? 8 : 0), y + 9, 6, '#ffffff'));
+      if (flags.sh > 0) parts.push(glyph('sun', mid('fruit') + 8, y + 9, 6, '#ffd166'));
+      if (flags.hr > 0) parts.push(glyph('rain', mid('harvest') - 6, y + 9, 5.5, '#ffffff') + `<text x="${mid('harvest') + 2}" y="${y + 13.5}" font-size="10.5" fill="#ffffff" font-weight="700">${flags.hr}</text>`);
+    }
+    if (fin(chill)) parts.push(`<rect x="${cx0}" y="${y + 4}" width="${cxScale(chill) - cx0}" height="10" fill="${COLOR.chill}"/>` + note(`${Math.round(chill)}`, cxScale(chill) + 4, y + 13, 'start', 11, '#1f2328'));
+    return parts.join('');
+  };
+  rows.forEach((w, i) => out.push(drawRow(w.status === 'complete' ? w.o : null, top + i * rowH, winterLabel(s, w.y), w.ch, w, false)));
+  const yT = top + rows.length * rowH + 4;
+  out.push(`<line x1="${L}" x2="${L + inner}" y1="${yT - 2}" y2="${yT - 2}" stroke="#2b2f36" stroke-width="0.8"/>`);
+  out.push(drawRow(medianOffsets(s), yT + 2, 'Typical', s.chillMean, null, true));
+  const yL = yT + rowH + 26;
+  const legend = [[glyph('frost', 0, 0, 6, '#0f2a4a'), 'frost or freeze on that stage'], [glyph('sun', 0, 0, 6, '#c98a00'), 'heat of 35 °C or more on fruit'],
+    [glyph('rain', 0, 0, 5.5, '#3d4b9b'), 'heavy-rain days in harvest (number)']];
+  let lx = L;
+  legend.forEach(([g, t]) => { out.push(`<g transform="translate(${lx + 6},${yL - 4})">${g}</g>` + note(t, lx + 16, yL, 'start', 11.5)); lx += textWidth(t, 11.5) + 50; });
+  return `<svg viewBox="0 0 ${width} ${yL + 14}" role="img" aria-label="Every winter for ${esc(s.name)}">${out.join('')}</svg>`;
+}
+
+function clocks(s) {
+  const W = complete(s), g = s.gdd, width = 1060, height = 400;
+  const thresholds = [['budbreak', g.budbreak, 'Budbreak', 'P10', 'buds'], ['flowering_start', g.budbreak + g.flowerStart, 'Bloom starts', 'P12', 'flower'],
+    ['flowering_end', g.budbreak + g.flowerEnd, 'Bloom ends', 'P13', 'fruit'], ['harvest_start', g.budbreak + g.flowerStart + g.harvestStart, 'Harvest starts', 'P14', 'harvest'],
+    ['harvest_end', g.budbreak + g.flowerStart + g.harvestEnd, 'Harvest ends', 'P15', null]];
+  const yMax = Math.ceil(thresholds[4][1] / 250) * 250 + 100;
+  // Left: chill per winter against the requirement.
+  const cL = 40, cW = 200, cTop = 70, cH = 270, maxCh = Math.max(...s.seasons.map(w => w.ch).filter(fin), s.chillReq) * 1.08;
+  const cy = v => cTop + cH - v / maxCh * cH, out = [];
+  const chillWindow = s.hemisphere === 'south' ? '1 Apr to 30 Sep' : '1 Nov to 30 Apr';
+  out.push(laneTitle('Chill each winter', 22, cL - 28), note(`hours below 7.2 °C, ${chillWindow}`, cL - 28, 38, 'start', 11));
+  for (const v of [0, 250, 500, 750, 1000, 1500, 2000].filter(v => v <= maxCh)) out.push(`<line x1="${cL}" x2="${cL + cW}" y1="${cy(v)}" y2="${cy(v)}" stroke="#eceef1"/>` + note(v, cL - 6, cy(v) + 4, 'end', 10.5));
+  out.push(`<rect x="${cL}" y="${cy(s.chillReq)}" width="${cW}" height="${cTop + cH - cy(s.chillReq)}" fill="${COLOR.risk}" fill-opacity="0.08"/>` +
+    `<line x1="${cL}" x2="${cL + cW}" y1="${cy(s.chillReq)}" y2="${cy(s.chillReq)}" stroke="${COLOR.risk}" stroke-width="1.5"/>` +
+    note(`Model needs ${s.chillReq} h (P6)`, cL + cW, cy(s.chillReq) - 6, 'end', 11.5, COLOR.risk));
+  const sorted = s.seasons.filter(w => fin(w.ch)).sort((a, b) => a.ch - b.ch);
+  sorted.forEach((w, i) => out.push(`<circle cx="${cL + 22 + (i % 2) * 18 + (i % 3) * 9}" cy="${cy(w.ch)}" r="4.5" fill="${COLOR.chill}" stroke="#4d6075"><title>${winterLabel(s, w.y)}: ${Math.round(w.ch)} h</title></circle>`));
+  const lo = sorted[0]?.ch, hi = sorted[sorted.length - 1]?.ch;
+  out.push(note(`This site: ${Math.round(lo)} to ${Math.round(hi)} h`, cL + 92, cy((lo + hi) / 2) - 8, 'start', 11.5, '#1f2328'));
+  out.push(note('one dot per winter', cL + 92, cy((lo + hi) / 2) + 7, 'start', 11));
+  // Right: heat after chill.
+  const hL = 330, hW = width - hL - 150, hTop = 30, hH = 320;
+  const days0 = 0, days1 = Math.max(...W.map(w => w.o.harvest_end)) + 10, hx = d => hL + (d - days0) / (days1 - days0) * hW;
+  const hy = v => hTop + hH - v / yMax * hH;
+  out.push(laneTitle(`Heat after chill is met (°C·days above ${7} °C)`, hTop - 10, hL));
+  // Stage bands between thresholds.
+  const edges = [0, ...thresholds.map(t => t[1])], bandStage = ['warm', 'buds', 'flower', 'fruit', 'harvest'];
+  bandStage.forEach((k, i) => out.push(`<rect x="${hL}" y="${hy(edges[i + 1])}" width="${hW}" height="${hy(edges[i]) - hy(edges[i + 1])}" fill="${COLOR[k]}" fill-opacity="0.22"/>`));
+  // Month grid on the heat clock.
+  for (let t = Date.UTC(dayOf(s, 0).getUTCFullYear(), dayOf(s, 0).getUTCMonth(), 1); (t - anchor(s)) / DAY < days1;) {
+    const d = new Date(t), off = (t - anchor(s)) / DAY;
+    out.push(`<line x1="${hx(off)}" x2="${hx(off)}" y1="${hTop}" y2="${hTop + hH}" stroke="#e6e8ec"/>` + note(d.toLocaleDateString('en-GB', {month: 'short', timeZone: 'UTC'}), hx(off) + 4, hTop + hH + 16, 'start', 11.5));
+    t = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  }
+  thresholds.forEach(([, v, label, setting]) => out.push(`<line x1="${hL}" x2="${hL + hW}" y1="${hy(v)}" y2="${hy(v)}" stroke="#7b828c" stroke-dasharray="4 3"/>` +
+    `<text x="${hL + hW + 8}" y="${hy(v) + 4}" font-size="11.5" fill="#1f2328"><tspan font-weight="600">${label}</tspan> ${Math.round(v)} (${setting})</text>`));
+  for (const v of [0, 500, 1000, 1500].filter(v => v <= yMax)) out.push(note(v, hL - 6, hy(v) + 4, 'end', 10.5));
+  const line = o => [['chill', 0], ...thresholds.map(t => [t[0], t[1]])].map(([k, v]) => `${hx(o[k])},${hy(v)}`).join(' ');
+  W.forEach(w => out.push(`<polyline points="${line(w.o)}" fill="none" stroke="#596372" stroke-opacity="0.45" stroke-width="1.2"><title>${winterLabel(s, w.y)}</title></polyline>`));
+  W.forEach(w => thresholds.forEach(([k, v]) => out.push(`<circle cx="${hx(w.o[k])}" cy="${hy(v)}" r="2.6" fill="#2b2f36" fill-opacity="0.6"/>`)));
+  W.forEach(w => out.push(`<circle cx="${hx(w.o.chill)}" cy="${hy(0)}" r="3.2" fill="${COLOR.chill}" stroke="#4d6075"/>`));
+  out.push(`<polyline points="${line(medianOffsets(s))}" fill="none" stroke="#1f2328" stroke-width="2.6"/>`);
+  out.push(note(`Bold: typical winter. Grey: each of ${W.length} winters. Dots on the baseline: chill met.`, hL, height - 14, 'start', 11.5));
+  return `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Chill and heat clocks for ${esc(s.name)}">${out.join('')}</svg>`;
+}
+
+function wheel(s, cx, cy, R, small) {
+  const mid = s.hemisphere === 'south' ? 91 : 61;
+  const ang = off => (off - mid) / 365 * 2 * Math.PI - Math.PI / 2;
+  const pt = (r, a) => `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`;
+  const arc = (a0, a1, r0, r1, attrs) => {
+    if (!(a1 > a0)) return '';
+    const large = a1 - a0 > Math.PI ? 1 : 0;
+    return `<path d="M${pt(r1, a0)} A${r1},${r1} 0 ${large} 1 ${pt(r1, a1)} L${pt(r0, a1)} A${r0},${r0} 0 ${large} 0 ${pt(r0, a0)}Z" ${attrs}/>`;
+  };
+  const out = [`<circle cx="${cx}" cy="${cy}" r="${R}" fill="#fff" stroke="#d9dde3"/>`];
+  // Month spokes and labels.
+  for (let m = 0; m < 12; m++) {
+    const t = Date.UTC(s.hemisphere === 'south' ? 2001 : 2000, (s.hemisphere === 'south' ? 3 : 10) + m, 1), off = (t - anchor(s)) / DAY, a = ang(off);
+    out.push(`<line x1="${cx + R * 0.36 * Math.cos(a)}" y1="${cy + R * 0.36 * Math.sin(a)}" x2="${cx + R * Math.cos(a)}" y2="${cy + R * Math.sin(a)}" stroke="#eceef1"/>`);
+    const la = ang(off + 15), label = new Date(t).toLocaleDateString('en-GB', {month: small ? 'narrow' : 'short', timeZone: 'UTC'});
+    out.push(`<text x="${cx + R * 1.09 * Math.cos(la)}" y="${cy + R * 1.09 * Math.sin(la) + 4}" font-size="${small ? 9.5 : 12}" fill="#5f6670" text-anchor="middle">${label}</text>`);
+  }
+  // Outer ring: what growers report.
+  for (const [key, pat] of [['bloom', 'h-flower'], ['harvest', 'h-harvest']]) for (const [a, b] of monthSpans(s, s.published[key])) out.push(arc(ang(a), ang(b), R * 0.88, R * 0.97, `fill="url(#${pat})"`));
+  // Middle ring: model stages, pale for the middle 80% of winters, solid for the median.
+  const c = s.calendar, m = medianOffsets(s);
+  const pale = [['chill', 0, c.chill.p90], ['warm', c.chill.p10, c.budbreak.p90], ['buds', c.budbreak.p10, c.flowering_start.p90], ['flower', c.flowering_start.p10, c.flowering_end.p90],
+    ['fruit', c.flowering_end.p10, c.harvest_start.p90], ['harvest', c.harvest_start.p10, c.harvest_end.p90]];
+  pale.forEach(([k, a, b]) => out.push(arc(ang(a), ang(b + 1), R * 0.62, R * 0.84, `fill="${COLOR[k]}" fill-opacity="0.3"`)));
+  spans(m).forEach(([k, a, b]) => out.push(arc(ang(a), ang(b + 1), R * 0.66, R * 0.8, `fill="${COLOR[k]}"`)));
+  // Inner rings: planting rule (solid) and guides (hatched).
+  if (fin(c.planting_start?.median)) out.push(arc(ang(c.planting_start.median), ang(c.planting_end.median + 1), R * 0.5, R * 0.57, `fill="${COLOR.planting}"`));
+  for (const [a, b] of monthSpans(s, s.published.planting)) out.push(arc(ang(a), ang(b), R * 0.42, R * 0.48, 'fill="url(#h-plant)"'));
+  // Risk dots on the stage ring, nudged apart along the ring when they would overlap.
+  const ringR = R * 0.73, dots = s.risks.filter(r => r.k > 0 && RISK[r.id])
+    .map(r => ({r, a: ang(stageCentre(s, r.stage)), rr: (small ? 4 : 7) + Math.sqrt(r.k / r.n) * (small ? 5 : 9)})).sort((p, q) => p.a - q.a);
+  dots.forEach((d, i) => { if (i) { const p = dots[i - 1], min = (p.rr + d.rr + 2) / ringR; if (d.a - p.a < min) d.a = p.a + min; } });
+  dots.forEach(({r, a, rr}) => {
+    const px = cx + ringR * Math.cos(a), py = cy + ringR * Math.sin(a);
+    out.push(`<circle cx="${px}" cy="${py}" r="${rr}" fill="${COLOR.risk}" fill-opacity="0.88" stroke="#fff" stroke-width="1.5"><title>${RISK[r.id][0]}: ${r.k} of ${r.n} winters</title></circle>`);
+    if (!small) out.push(`<text x="${px}" y="${py + 3.5}" font-size="9.5" font-weight="700" fill="#fff" text-anchor="middle">${r.k}</text>`);
+  });
+  out.push(`<text x="${cx}" y="${cy - (small ? 2 : 10)}" font-size="${small ? 11 : 15}" font-weight="700" fill="#1f2328" text-anchor="middle">${esc(s.name.split(',')[0])}</text>`);
+  out.push(`<text x="${cx}" y="${cy + (small ? 11 : 10)}" font-size="${small ? 9.5 : 12}" fill="#5f6670" text-anchor="middle">${s.chillMean} chill h</text>`);
+  if (!small) out.push(`<text x="${cx}" y="${cy + 26}" font-size="11.5" fill="#5f6670" text-anchor="middle">midwinter at top</text>`);
+  return out.join('');
+}
+
+function wheels(s) {
+  const out = [patterns(), wheel(s, 280, 270, 215, false)];
+  out.push(laneTitle('Rings, outside to inside', 22, 560), ...[
+    ['h-flower', 'Growers report: bloom (pink) and harvest (blue), hatched'], [COLOR.flower, 'Model stages: solid for median dates, pale for the middle 80% of winters'],
+    [COLOR.planting, 'Planting: model rule (solid) and guides (hatched)'], [COLOR.risk, 'Red dots: weather risks; number = winters out of 15']].map(([fill, t], i) =>
+    `<rect x="560" y="${38 + i * 22}" width="14" height="12" rx="2" fill="${fill.startsWith('h-') ? `url(#${fill})` : fill}" stroke="#9aa2ad" stroke-width="0.6"/>` + note(t, 582, 48 + i * 22, 'start', 12, '#1f2328')));
+  out.push(laneTitle('The three sites side by side', 168, 560));
+  ORDER.forEach((k, i) => out.push(wheel(SITES[k], 632 + i * 150, 290, 62, true)));
+  out.push(note('Northern and southern sites line up because midwinter sits at the top of each.', 560, 400, 'start', 11.5));
+  return `<svg viewBox="0 0 1060 520" role="img" aria-label="Season wheel for ${esc(s.name)}">${out.join('')}</svg>`;
+}
+
+function fixed(s) {
+  const ax = axis(s), L = 210, width = 1060, inner = width - L - 24, x = scaleX(ax, L, inner), c = s.calendar, m = medianOffsets(s), out = [patterns()];
+  const rows = [], add = (group, title, sub, draw) => rows.push({group, title, sub, draw});
+  const winterEnd = s.hemisphere === 'south' ? 182 : 180;
+  add('Weather', 'Winter chill', `Requirement met ${fmt(s, m.chill)}`, y => `<line x1="${x(0)}" x2="${x(winterEnd)}" y1="${y + 11}" y2="${y + 11}" stroke="${COLOR.chill}" stroke-width="3" stroke-dasharray="5 4"/>` +
+    `<rect x="${x(0)}" y="${y + 4}" width="${x(m.chill + 1) - x(0)}" height="14" rx="3" fill="${COLOR.chill}"/>` +
+    `<path d="M${x(m.chill + 1)},${y - 2} v26" stroke="#1f2328" stroke-width="1.5"/><circle cx="${x(m.chill + 1)}" cy="${y - 2}" r="3" fill="#1f2328"/>` +
+    note(`${s.chillReq} h met`, x(m.chill + 1) + 6, y - 1, 'start', 11, '#1f2328') +
+    note(`counting continues to ${fmt(s, winterEnd)}: ${s.chillMean} h on average`, x(m.chill + 1) + 6, y + 31, 'start', 11));
+  const stageRow = (color, a, b, pa, pb) => y => `<rect x="${x(pa)}" y="${y}" width="${Math.max(2, x(pb + 1) - x(pa))}" height="22" rx="5" fill="${color}" fill-opacity="0.22"/>` +
+    `<rect x="${x(a)}" y="${y + 5}" width="${Math.max(2, x(b + 1) - x(a))}" height="12" rx="3" fill="${color}"/>`;
+  const st = spans(m), pal = {warm: [c.chill.p10, c.budbreak.p90], buds: [c.budbreak.p10, c.flowering_start.p90], flower: [c.flowering_start.p10, c.flowering_end.p90],
+    fruit: [c.flowering_end.p10, c.harvest_start.p90], harvest: [c.harvest_start.p10, c.harvest_end.p90]};
+  st.filter(([k]) => k !== 'chill').forEach(([k, a, b]) => {
+    const pub = k === 'flower' ? ['bloom', 'h-flower'] : k === 'harvest' ? ['harvest', 'h-harvest'] : null;
+    add('Plant (typical winter)', NAME[k], `${fmt(s, a)} to ${fmt(s, b)}`, y => (pub ? monthSpans(s, s.published[pub[0]]).map(([pa, pb]) => `<rect x="${x(pa)}" y="${y - 3}" width="${x(pb) - x(pa)}" height="28" fill="url(#${pub[1]})" opacity="0.55"/>`).join('') : '') +
+      stageRow(COLOR[k], a, b, pal[k][0], pal[k][1])(y));
+  });
+  if (fin(c.planting_start?.median)) add('Grower', 'Planting', `Rule ${fmt(s, c.planting_start.median)} to ${fmt(s, c.planting_end.median)}`, y =>
+    monthSpans(s, s.published.planting).map(([a, b]) => `<rect x="${x(a)}" y="${y - 3}" width="${x(b) - x(a)}" height="28" fill="url(#h-plant)" opacity="0.6"/>`).join('') +
+    stageRow(COLOR.planting, c.planting_start.median, c.planting_end.median, c.planting_start.p10, c.planting_end.p90)(y) +
+    (s.published.planting.length ? note(`hatched: guides say ${monthText(s, s.published.planting)}`, x(monthSpans(s, s.published.planting).slice(-1)[0][1]) + 6, y + 15, 'start', 11) : ''));
+  const top = 78, pitch = 46;
+  out.push(grid(ax, x, top - 30, top + rows.length * pitch + 24, 66));
+  // Legend on the chart.
+  const legend = [[`<rect width="26" height="10" rx="3" fill="#5d9c61"/>`, 'typical winter (median dates)'], [`<rect width="26" height="18" y="-4" rx="4" fill="#5d9c61" fill-opacity="0.22"/>`, 'middle 80% of winters'],
+    [`<rect width="26" height="14" y="-2" fill="url(#h-harvest)"/>`, 'what growers report'], [`<path d="M3,-6 v20" stroke="#1f2328" stroke-width="1.5"/><circle cx="3" cy="-6" r="3" fill="#1f2328"/>`, 'chill requirement met']];
+  let lx = L;
+  legend.forEach(([g, t]) => { out.push(`<g transform="translate(${lx},${20})">${g}</g>` + note(t, lx + 32, 29, 'start', 12, '#1f2328')); lx += textWidth(t, 12) + 64; });
+  let group = '';
+  rows.forEach((r, i) => {
+    const y = top + i * pitch + (rows.slice(0, i + 1).map(q => q.group).filter((g, j, arr) => arr.indexOf(g) === j).length - 1) * 18;
+    r.y = y;
+    if (r.group !== group) { group = r.group; out.push(`<text x="12" y="${y - 8}" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="#7b828c">${esc(group.toUpperCase())}</text>`); }
+    out.push(`<text x="12" y="${y + 12}" font-size="13" font-weight="600" fill="#1f2328">${esc(r.title)}</text>` + note(r.sub, 12, y + 27, 'start', 11.5) + r.draw(y));
+  });
+  // Chain: each stage hands over to the next.
+  const plantRows = rows.filter(r => r.group.startsWith('Plant'));
+  plantRows.slice(0, -1).forEach((r, i) => {
+    const k = st.filter(([kk]) => kk !== 'chill')[i], xe = x(k[2] + 1), nr = plantRows[i + 1];
+    out.push(`<path d="M${xe},${r.y + 17} V${nr.y + 5}" stroke="#2b2f36" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#chain)"/>`);
+  });
+  const firstPlant = plantRows[0], lastPlant = plantRows[plantRows.length - 1];
+  if (firstPlant) {
+    const yb = firstPlant.y - 10, xa = x(m.budbreak), xb = x(m.harvest_end + 1);
+    out.push(`<path d="M${xa},${yb + 6} V${yb} H${xb} V${yb + 6}" fill="none" stroke="#2b2f36"/>` + note(`Production window ${fmt(s, m.budbreak)} to ${fmt(s, m.harvest_end)}`, (xa + xb) / 2, yb - 4, 'middle', 11.5, '#1f2328'));
+  }
+  const bottom = rows.length ? rows[rows.length - 1].y + 44 : 120;
+  out.push(`<defs><marker id="chain" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto"><path d="M0,0 L3,5 L6,0" fill="none" stroke="#2b2f36"/></marker></defs>`);
+  return `<svg viewBox="0 0 ${width} ${bottom}" role="img" aria-label="Current chart with fixes for ${esc(s.name)}">${out.join('')}</svg>`;
+}
+
+const ORDER = ['waldo', 'alma', 'pelotas'];
+function render() {
+  const s = SITES[siteKey];
+  document.getElementById('story').innerHTML = story(s);
+  document.getElementById('fig-ribbon').innerHTML = ribbon(s);
+  document.getElementById('fig-winters').innerHTML = winters(s);
+  document.getElementById('fig-clocks').innerHTML = clocks(s);
+  document.getElementById('fig-wheel').innerHTML = wheels(s);
+  document.getElementById('fig-fixed').innerHTML = fixed(s);
+}
+document.querySelectorAll('[data-site]').forEach(b => b.addEventListener('click', () => {
+  siteKey = b.dataset.site;
+  document.querySelectorAll('[data-site]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  render();
+}));
+document.querySelectorAll('[data-sort]').forEach(b => b.addEventListener('click', () => {
+  winterOrder = b.dataset.sort;
+  document.querySelectorAll('[data-sort]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  document.getElementById('fig-winters').innerHTML = winters(SITES[siteKey]);
+}));
+render();
+</script>
+</body>
+</html>

@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-10-14: Season chart concepts
+
+- **Request.** Scientists found the "Crop stages & analysis windows" chart hard to read, and the user asked for a thorough brainstorm on a more intuitive design.
+- **Why it confuses.** Seven rows hold four kinds of thing drawn alike (a fixed chill-counting window, five stages, a grower action and a summary row). Five marks have no legend on the chart, the bars join median or percentile dates rather than real winters, the chill bar runs to 30 April although 50 hours are met in late November or December, and risks sit in separate cards.
+- **Drawn.** `docs/research/2026-10-14/season_chart_concepts.html`, self-contained and drawn from the saved results of Waldo, Alma and Pelotas: a season ribbon, one row per winter, chill and heat clocks, a season wheel, and the current chart with quick fixes, plus further ideas with their data needs. It recommends the ribbon as the default view, with the other views behind switches.
+- **Seen in the drawings.** At Waldo the model's bloom (median 22 Jan to 24 Feb) starts 10 days and ends 5 weeks before the February to March bloom growers report. At Pelotas the model's harvest (18 Oct to 10 Dec) runs 6 to 7 weeks ahead of the December to January harvest. At Alma all 8 winters with the earliest budbreak carry a frost mark on buds, flowers or young fruit, against 4 of the 7 latest.
+- **Checks.** All five drawings for all three sites and both row orders rendered in a browser with no page errors and no text outside the drawings; at phone width the page fits and drawings scroll sideways. Nothing in the app changed.
+
 ## 2026-10-14: The app on the UF network
 
 - **Request.** The user asked to run the app on the lab server at an address, like their other app on port 8788.
