@@ -1,5 +1,13 @@
 # Project progress log
 
+## 2026-10-14: The app on the UF network
+
+- **Request.** The user asked to run the app on the lab server at an address, like their other app on port 8788.
+- **Deployed on 13 October.** http://fpt-server.ad.ufl.edu:8789/ serves the app to the UF network and VPN, without a login. The systemd user service `blueberry-ui-web` runs the existing proxy with Node 24.21.0 LTS from `tools/node`, checked against the release checksums, because the system Node 12 is too old. The API stays on loopback. Both services start at boot; until now the API had been started by hand.
+- **Code.** The proxy accepts configured server names and still refuses other hosts and origins. Browsers withhold WebCrypto on plain-HTTP pages, which would have stopped place names and regional evidence loading; a script SHA-256 now takes its place there. The connection check runs on any HTTP address.
+- **Verification.** 36 UI tests passed, 2 of them new. Curl from the VPN covered the page by name and address, health, a Jaíba search, an `app.js` identical to the local file, and the 403, 405 and 404 refusals; port 8787 was unreachable from the network. The VPN then dropped. A browser on the server's name, mapped to a local copy of the same files, showed a plain-HTTP origin without WebCrypto, a geography digest matching the evidence library, Waldo's 3 regional records and no page errors. A live browser analysis through the server address is still to be checked.
+- **Tunnel loop.** The runbook loop logged exit code 0 every time, because `$(date …)` reset `$?`; it now saves the code first. The local preview and tunnel stopped at about 01:09 on 14 October and were restarted.
+
 ## 2026-10-13: Supervisor direction on growing setups and soil; breeder guide fix
 
 - **Direction (relayed by the user, not implemented).** The base stays open field + ground, and users pick tunnel + ground, tunnel + pots or open field + pots. A setup changes risk factors, the production system and possibly the planting window. In-ground setups get soil warnings for pH, organic matter and salinity, with amendment advice. Thresholds are to be set with a UF extension specialist.

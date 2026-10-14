@@ -1,0 +1,24 @@
+# The UI on the UF network as a systemd user service: dist/ files plus the fixed proxy to the loopback API.
+# Address: http://fpt-server.ad.ufl.edu:8789/ from the UF network or VPN. There is no login.
+# Install: copy to ~/.config/systemd/user/, then `systemctl --user daemon-reload && systemctl --user enable --now blueberry-ui-web`.
+[Unit]
+Description=Blueberry weather UI on the UF network (port 8789; static files and fixed proxy to 127.0.0.1:8787)
+After=network-online.target blueberry-ui-api.service
+Wants=blueberry-ui-api.service
+
+[Service]
+Type=simple
+WorkingDirectory=/media/fpt/fpt2/Weather_Claude/ui
+Environment=PREVIEW_PORT=8789
+Environment=PREVIEW_BIND=0.0.0.0
+Environment=PREVIEW_HOSTS=fpt-server.ad.ufl.edu,10.248.22.167
+ExecStart=/media/fpt/fpt2/Weather_Claude/tools/node/bin/node scripts/preview-ui.mjs
+StandardOutput=append:/media/fpt/fpt2/Weather_Claude/logs/ui_web.log
+StandardError=append:/media/fpt/fpt2/Weather_Claude/logs/ui_web.log
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=10
+Nice=5
+
+[Install]
+WantedBy=default.target

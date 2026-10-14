@@ -34,8 +34,7 @@ window.PlaceNames = (() => {
         }
         const data = JSON.parse(new TextDecoder().decode(bytes));
         // Evidence crosswalks use polygon IDs, which are meaningful only in this exact reference.
-        const digest = await crypto.subtle.digest('SHA-256', bytes);
-        const geographySha256 = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+        const geographySha256 = await Shared.sha256Hex(bytes);
         if (data.version !== 1 || !data.entities?.length || !data.areas?.length
           || !data.arcs?.length || !data.places?.length || !data.transform?.scale) {
           throw new Error('Geographic reference format is unsupported.');

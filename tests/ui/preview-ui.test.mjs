@@ -92,6 +92,21 @@ test('refuses a foreign Host header', async () => {
   assert.equal((await request(port, '/', {Host: `localhost:${port}`})).status, 200);
 });
 
+test('a server deployment accepts its configured name and still refuses others', async () => {
+  const named = createServer({root, upstreamPort, hosts: ['fpt-server.example']});
+  const namedPort = await listen(named);
+  try {
+    const own = `fpt-server.example:${namedPort}`;
+    assert.equal((await request(namedPort, '/', {Host: own, Origin: `http://${own}`})).status, 200);
+    assert.equal((await request(namedPort, '/', {Host: `evil.example:${namedPort}`})).status, 403);
+    assert.equal((await request(namedPort, '/', {Host: own, Origin: 'http://evil.example'})).status, 403);
+    // Without configuration the name is refused, so the local preview stays loopback-only.
+    assert.equal((await request(port, '/', {Host: `fpt-server.example:${port}`})).status, 403);
+  } finally {
+    await close(named);
+  }
+});
+
 test('refuses a foreign Origin and non-GET methods', async () => {
   assert.equal((await request(port, '/', {Origin: 'http://evil.example'})).status, 403);
   assert.equal((await request(port, '/', {}, 'POST')).status, 405);

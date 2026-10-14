@@ -1,5 +1,6 @@
-// Local-only static preview and fixed-destination proxy. Never accepts a target URL.
+// Static UI server and fixed-destination proxy. Never accepts a target URL. Loopback-only unless configured.
 // Run: node scripts/preview-ui.mjs   (PREVIEW_PORT overrides the default port 5173)
+// Server deployment: PREVIEW_BIND=0.0.0.0 PREVIEW_HOSTS=fpt-server.ad.ufl.edu,10.248.22.167 lists the names users may reach it by.
 import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -24,17 +25,19 @@ const json = (res, status, body) => {
 };
 
 // Static root resolves from this file, so the working directory does not matter. Tests pass a short upstreamTimeoutMs.
-export function createServer({root = DIST, upstreamPort = 8787, host = '127.0.0.1', upstreamTimeoutMs = 95000} = {}) {
+export function createServer({root = DIST, upstreamPort = 8787, host = '127.0.0.1', upstreamTimeoutMs = 95000, hosts = []} = {}) {
   const base = path.resolve(root);
   return http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
     res.setHeader('Content-Security-Policy', CSP);
-    // Host and Origin must name this listener, so DNS rebinding and other sites cannot drive it.
+    // Host and Origin must name this listener, so DNS rebinding and other sites cannot drive it. `hosts` adds names
+    // beyond loopback, such as the server's DNS name.
     const port = req.socket.localPort;
-    if (![`127.0.0.1:${port}`, `localhost:${port}`].includes(req.headers.host)) { res.writeHead(403); return res.end('Forbidden host'); }
+    const names = ['127.0.0.1', 'localhost', ...hosts].map(name => `${name}:${port}`);
+    if (!names.includes(req.headers.host)) { res.writeHead(403); return res.end('Forbidden host'); }
     if (req.method !== 'GET') { res.writeHead(405); return res.end(); }
-    if (req.headers.origin && ![`http://127.0.0.1:${port}`, `http://localhost:${port}`].includes(req.headers.origin)) { res.writeHead(403); return res.end(); }
+    if (req.headers.origin && !names.map(name => `http://${name}`).includes(req.headers.origin)) { res.writeHead(403); return res.end(); }
     if (req.url.startsWith('/api/')) {
       const site = req.headers['sec-fetch-site'];
       if (site && site !== 'same-origin' && site !== 'none') return json(res, 403, {error: 'Cross-site API request refused', code: 'forbidden_origin'});
@@ -74,5 +77,7 @@ export function createServer({root = DIST, upstreamPort = 8787, host = '127.0.0.
 
 if (process.argv[1] && path.resolve(process.argv[1]) === here) {
   const port = Number(process.env.PREVIEW_PORT ?? 5173);
-  createServer().listen(port, '127.0.0.1', () => console.log(`Local: http://127.0.0.1:${port}/`));
+  const bind = process.env.PREVIEW_BIND ?? '127.0.0.1';
+  const hosts = (process.env.PREVIEW_HOSTS ?? '').split(',').map(name => name.trim()).filter(Boolean);
+  createServer({hosts}).listen(port, bind, () => console.log(`Listening on ${bind}:${port} for ${['127.0.0.1', 'localhost', ...hosts].join(', ')}`));
 }

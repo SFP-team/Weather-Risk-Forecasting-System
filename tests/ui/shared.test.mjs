@@ -1,4 +1,5 @@
 // DOM-free checks for dist/shared.js, loaded the way the browser loads a classic script.
+import {createHash} from 'node:crypto';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -47,4 +48,12 @@ test('scanOutcomes sums outcomes and is null for older payloads', () => {
   assert.equal(Shared.scanOutcomes([o(1, 0, 0), {cycles: 3}]), null);
   assert.equal(Shared.scanOutcomes([]), null);
   assert.equal(Shared.scanOutcomes(undefined), null);
+});
+
+test('sha256Hex without WebCrypto matches the standard digest across padding boundaries', async () => {
+  // This context has no crypto.subtle, like a plain-HTTP page, so the script implementation runs.
+  for (const size of [0, 1, 3, 55, 56, 63, 64, 65, 119, 120, 1_000_003]) {
+    const bytes = new Uint8Array(size).map((_, i) => (i * 31 + size) & 255);
+    assert.equal(await Shared.sha256Hex(bytes), createHash('sha256').update(bytes).digest('hex'), `${size} bytes`);
+  }
 });

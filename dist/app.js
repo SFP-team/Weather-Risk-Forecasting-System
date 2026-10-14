@@ -517,8 +517,8 @@ function selectSaved(name){
 // A proxy without the archive, a tunnel page or a static host can answer with non-JSON.
 async function readJson(res){try{return await res.json()}catch(e){if(e.name==='AbortError')throw e;return null}}
 function archiveError(res,body){
-  if(body?.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Saved locations still work; reconnect the local archive tunnel to analyze other coordinates.'),{kind:'offline'});
-  if(body?.code==='archive_timeout')return Object.assign(Error('The analysis took longer than the local proxy allows. The archive may still be finishing it, so wait a minute before analyzing again. Saved locations still work.'),{kind:'timeout'});
+  if(body?.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Saved locations still work. Analyze other coordinates once the archive is back; if you run the app locally, reconnect the archive tunnel.'),{kind:'offline'});
+  if(body?.code==='archive_timeout')return Object.assign(Error('The analysis took longer than the proxy allows. The archive may still be finishing it, so wait a minute before analyzing again. Saved locations still work.'),{kind:'timeout'});
   if(!body||res.status===404&&!body.error)return Object.assign(Error('The page is being served without the archive connection. Start it with scripts/preview-ui.mjs.'),{kind:'offline'});
   if(res.status===503||res.status===429)return Object.assign(Error(body.error??'The archive is processing another analysis. Wait for it to finish, then analyze again.'),{kind:'busy'});
   if(res.status>=500)return Error(`${body.error??'The archive could not complete this analysis.'} Try a point a few km away.`);
@@ -875,7 +875,8 @@ async function initialize(){
 initialize();
 loadRegionalEvidence();
 $('connection').textContent='Saved locations · archive not connected';
-if(['127.0.0.1','localhost'].includes(location.hostname)){
+// Any HTTP(S) page can front the archive: the local preview or the server deployment. A static host answers 404 and stays not connected.
+if(location.protocol==='http:'||location.protocol==='https:'){
   // Health answers while an analysis runs, so busy still means connected.
   fetch('/api/health').then(readJson).then(r=>{
     if(r?.status==='ready')$('connection').textContent='Private archive connected';

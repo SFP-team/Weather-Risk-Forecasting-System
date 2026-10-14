@@ -47,7 +47,7 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 |---|---|---|
 | Daily weather archive | The planned global download is complete. | Data are grid estimates, not measurements at every farm. |
 | Hourly weather archive | The planned land-block download is complete. | Some islands and other unsupported cells have no installed hourly data. |
-| Weather analysis | Works for supported land coordinates through the private server. | The server and local connection must operate. |
+| Weather analysis | Works for supported land coordinates through the private server. | You need the UF network or VPN, and the server must be running. |
 | Saved locations | 71 saved assessments are available. | Saved assessments do not require a new server calculation. |
 | Crop calendar | Temperature-based version 3 is implemented. | Parameters describe a provisional low-chill southern-highbush scenario. |
 | Weather risks | Events, frequencies, and exclusions are displayed. | Exposure is not crop damage or expected yield loss. |
@@ -55,11 +55,11 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 | Soil | Some pilot-site records are available. | Collection stopped after source failures. Most arbitrary pins have no soil records. |
 | Planting window | The app calculates a nursery planting window from modelled budbreak wherever the chill-triggered calendar applies. Registered saved locations in Florida, Georgia and Santa Catarina also show a published season for comparison. | The rule's offsets are not validated. Locations without the chill-triggered calendar get no calculated window. |
 | Scientific validation | Regional literature comparisons and limited station checks exist. | Independent cultivar-by-site-by-year validation is not complete. |
-| Public deployment | The current code is on GitHub. | The older hosted app has not received the current changes. |
+| Deployment | Since 13 October 2026 the app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/. The code is on GitHub. | Only the UF network or VPN reaches it, there is no login, and the older hosted app has not received the current changes. |
 
-The current local app is different from the older hosted app.
+Open the app at http://fpt-server.ad.ufl.edu:8789/ from the UF network or VPN. It is a different app from the older hosted version.
 
-On 12 October 2026 the private API became a supervised server service. After the checks for this update, the API, the tunnel, and the local UI were stopped again. The UI runbook gives the start commands.
+The app and its private API run as server services. They restart after a crash and start again after a server reboot. Anyone who can reach the address can use the app, one analysis at a time. The UI runbook also explains how to run a local copy.
 
 ### What the app does not provide
 
@@ -95,6 +95,7 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 12 October | The private API ran in a terminal session without supervision. | The API is a supervised server service. It restarts after a crash, a watchdog checks its health, it keeps finished results, and it refuses requests from other sites. |
 | 12 October | Regional evidence came only from reports. | Scheduled server jobs collect public records: US crop-insurance losses, US storm events, hourly weather stations, the Chilean orchard census and exports, EU imports, and Peruvian crop bulletins. The app does not show these records yet. |
 | 13 October | Place search knew only about 7,300 larger towns, so towns such as Jaíba, Brazil could not be found. | Search covers about 5.2 million towns and villages worldwide from GeoNames. Section 4 explains how it works. |
+| 13 October | The app ran on one computer, through a tunnel to the server. | The app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/ for anyone on the UF network or VPN. |
 
 Some earlier statements were corrected during review.
 
@@ -678,8 +679,8 @@ A failed calendar does not remove the value of the available daily weather histo
 
 | Message or situation | Meaning | What to do |
 |---|---|---|
-| The page does not open | The local preview may be stopped. | Start it through the UI runbook. |
-| Archive disconnected or unavailable | The local proxy, SSH tunnel, or server API is unavailable. | Check those services. Saved assessments can still work if the page is served. |
+| The page does not open | Your computer is not on the UF network or VPN, or the server's web service is stopped. | Connect to the VPN and reload. If the page still fails, check `blueberry-ui-web` on the server; the UI runbook explains how. |
+| Archive disconnected or unavailable | The server API is not answering. For a local copy, the SSH tunnel may be down. | Check `blueberry-ui-api` on the server, and the tunnel for a local copy. Saved assessments still work while the page is served. |
 | Another analysis is running | The private API handles one calculation at a time. | Wait, then retry. |
 | Invalid coordinates, HTTP 400 | The request has invalid or missing input. | Correct latitude and longitude. |
 | Unsupported location, HTTP 422 | The land check does not accept the point. | Check the pin against mapped land. A coastal map error is possible. |
@@ -688,8 +689,8 @@ A failed calendar does not remove the value of the available daily weather histo
 | Library or map reference failed | A browser resource could not load or its identity did not match. | Reload or investigate the resource. Do not substitute a nearby region's claims. |
 | Old location remains on screen | A new pin is selected but not analysed, or a new request failed. | Check the displayed assessment name and draft-location notice. |
 | Request cancelled | The browser stopped waiting for that request. | The server can still be busy briefly. |
-| The analysis took longer than the local proxy allows (HTTP 504) | The local proxy stopped waiting after 95 seconds. The server can still be working. | Wait a minute, then analyse again. A finished result is kept, so the repeat is fast. |
-| Request refused (HTTP 403) | The request did not come from the local app or the server itself. | Open the app at http://127.0.0.1:5173/. Do not open the API from another website. |
+| The analysis took longer than the proxy allows (HTTP 504) | The app's proxy stopped waiting after 95 seconds. The server can still be working. | Wait a minute, then analyse again. A finished result is kept, so the repeat is fast. |
+| Request refused (HTTP 403) | The address or the calling page is not one the app accepts. | Open the app at http://fpt-server.ad.ufl.edu:8789/, or at http://127.0.0.1:5173/ for a local copy. Other addresses for the server are refused. Do not open the API from another website. |
 | Private archive connected · busy | The server is running an analysis. | Saved locations still work. A new analysis starts when the current one ends. |
 
 Do not restart completed weather downloads to fix a UI connection error.

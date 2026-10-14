@@ -77,11 +77,13 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 - **Verification (2026-09-22):** 18 presets rendered; 135 selected winter/stage views and 855 displayed values matched the payload; empty/evergreen states, keyboard activation and management-state retention passed. Actual HTML/JSON downloads retained planting, winter 2014, fruit stage, tunnel/pots and chosen chart labels. Desktop/mobile inspected; 320/390/768/1440 px had no page overflow. Live shared-cell and daily-only coordinates both passed after restarting only `blueberry-ui-api`. Backend suite: 96 passing; 39 production/API tests passed again after fixing missing analysis-version metadata.
 - **Verification (2026-09-28):** the UI agent checked Waldo, Arcadia, PF Berry and Georgia against the v3 payload, winter and stage retention across views, export names `blueberry-<site>-<analysis id>`, intercepted 503/502/HTML error bodies, cancel and a v4 refusal. `node --check` passed for `dist/app.js`, `dist/cycle.js` and `scripts/preview-ui.mjs`. After the final snapshot regeneration, Chao and Arcadia presets and a live Clinton, NC coordinate (7.8 s, `blueberry-ui-api` restarted only) rendered without page errors. All five views had no page overflow at 390 px, and the benchmark page fitted 390 px.
 
-## Two operating modes
+## Operating modes
 
-**Hosted snapshot UI:** `dist/` contains the updated static application and 71 saved presets. The existing owner-private Sites deployment has **not** been redeployed; its old content is not updated by local edits or a GitHub push. No public/private-network archive bridge has been deployed. The user authorized GitHub publication on 2026-09-22, not hosted redeployment.
+**Server UI (since 2026-10-13):** `http://fpt-server.ad.ufl.edu:8789/` from the UF network or VPN, described under "Server UI on the UF network" below. This is the connected app for users. There is no login.
 
-**Connected local UI:** the same frontend sends requests through the local Node proxy and an authenticated SSH forward to the loopback-only Python API. It has been exercised with a new London coordinate as well as the presets. This is a single-analysis-at-a-time prototype, not an authenticated multi-user service or a durable job queue.
+**Hosted snapshot UI:** `dist/` contains the updated static application and 71 saved presets. The existing owner-private Sites deployment has **not** been redeployed; its old content is not updated by local edits or a GitHub push. The user authorized GitHub publication on 2026-09-22, not hosted redeployment.
+
+**Connected local UI:** the same frontend sends requests through the local Node proxy and an authenticated SSH forward to the loopback-only Python API. Use it to test changes before updating the server. Like the server UI, it is a single-analysis-at-a-time prototype, not an authenticated multi-user service or a durable job queue.
 
 ## Start connected mode
 
@@ -102,28 +104,59 @@ Unit files are in `ops/api/` (installed to `~/.config/systemd/user/`). The prefl
 - **Disk.** Temporary files go to `tmp/api` on the project drive, so a full root disk no longer blocks the API.
 - **Retired.** Do not start the old `blueberry-ui-api` tmux session as well.
 
-From the local checkout root, retain these two processes in separate terminals:
+### Server UI on the UF network (2026-10-13)
+
+At the user's request the app runs on the lab server: `http://fpt-server.ad.ufl.edu:8789/`, or `http://10.248.22.167:8789/`, from the UF network or VPN. The systemd user service `blueberry-ui-web` runs `scripts/preview-ui.mjs` from the project's `ui/` folder. It serves `ui/dist/` and forwards `/api/` to the API on loopback port 8787, which the network cannot reach. Port 8788 belongs to another lab app.
+
+- **Settings.** `ops/api/blueberry-ui-web.service` sets `PREVIEW_PORT=8789`, `PREVIEW_BIND=0.0.0.0` and `PREVIEW_HOSTS=fpt-server.ad.ufl.edu,10.248.22.167`. Host and Origin must name 127.0.0.1, localhost or one of those names, with port 8789. Other names, including the server's second address 10.248.68.79, get 403.
+- **Node.** The system Node is version 12, too old for the proxy. Node 24.21.0, the newest LTS release on 2026-10-13, is in `tools/node`, a link to `tools/node-v24.21.0-linux-x64`, checked against the release's `SHASUMS256.txt`.
+- **Boot.** `blueberry-ui-web` and `blueberry-ui-api` are both enabled, and user lingering starts them without a login.
+- **Log.** `logs/ui_web.log` has start lines only; requests are not logged.
+- **Access.** There is no login: anyone who reaches the address can search places and run analyses, one at a time. Plain HTTP is not encrypted, and browsers withhold WebCrypto on such pages, so `Shared.sha256Hex` computes the geography digest in script.
+
+Install or change the unit, from the project root on the server:
+
+```sh
+cp ops/api/blueberry-ui-web.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now blueberry-ui-web
+systemctl --user status blueberry-ui-web
+```
+
+Update the files from the local checkout root after the checks in "Reproduce summaries and tests". The service reads each file on every request, so a `dist/` change needs no restart; restart `blueberry-ui-web` after changing `scripts/preview-ui.mjs`. A file removed from `dist/` must also be deleted from `ui/dist/`.
+
+```sh
+{ git ls-files -z dist; printf 'scripts/preview-ui.mjs\0'; } \
+  | rsync -a --from0 --files-from=- ./ fpt@10.248.22.167:/media/fpt/fpt2/Weather_Claude/ui/
+```
+
+Checked on 2026-10-13 from a Mac on the VPN: the page by name and address, health, a Jaíba place search, and an `app.js` identical to the local file. A foreign Host or Origin and a cross-site API call got 403, a POST 405 and path traversal 404, and port 8787 was unreachable. The Mac then lost the VPN, so a browser test mapped the server's name to a local copy of the same files. It loaded the page as a plain-HTTP origin without WebCrypto, and place names and regional evidence resolved. A live analysis in a browser through the server address has not been checked yet.
+
+### Local copy for development
+
+From the local checkout root, run these two processes in separate terminals:
 
 ```sh
 while true; do
   ssh -N -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -o ConnectTimeout=10 \
     -L 127.0.0.1:8787:127.0.0.1:8787 fpt@10.248.22.167
-  echo "$(date '+%F %T') tunnel exited with code $?; reconnecting in 5 s"; sleep 5
+  rc=$?
+  echo "$(date '+%F %T') tunnel exited with code $rc; reconnecting in 5 s"; sleep 5
 done
 ```
 
-SSH exits with code 255 ("server not responding") after about a minute without keepalive replies, as when the network or VPN drops; on 2026-10-13 a plain tunnel died this way after 44 minutes. The loop reconnects 5 seconds after any exit; in a test, killing the SSH process gave the page a 503 "archive unavailable" and the API was back 6 seconds later. To stop the loop, press Ctrl-C until the prompt returns, or close its terminal.
+SSH exits with code 255 ("server not responding") after about a minute without keepalive replies, as when the network or VPN drops; on 2026-10-13 a plain tunnel died this way after 44 minutes. The loop reconnects 5 seconds after any exit; in a test, killing the SSH process gave the page a 503 "archive unavailable" and the API was back 6 seconds later. The loop saves the exit code before calling `date`; the version committed on 2026-10-13 logged code 0 every time, because `$(date …)` resets `$?`. To stop the loop, press Ctrl-C until the prompt returns, or close its terminal.
 
 ```sh
 node scripts/preview-ui.mjs
 ```
 
-Open `http://127.0.0.1:5173/`. The connection strip shows whether the private API is available, and adds "busy" while it runs an analysis. Stop the two local processes with Ctrl-C after use. Do not bind either service to a public interface. `PREVIEW_PORT` selects another local port for the preview.
+Open `http://127.0.0.1:5173/`. The connection strip shows whether the private API is available, and adds "busy" while it runs an analysis. Stop the two local processes with Ctrl-C after use. The preview binds 127.0.0.1 unless `PREVIEW_BIND` is set, and only the server deployment sets it. `PREVIEW_PORT` selects another port.
 
 Request safety (2026-10-12). This is a development boundary, not production authentication.
 
 - **Preview proxy** (`scripts/preview-ui.mjs`):
-  - accepts GET only, and checks Host, Origin and, on `/api/`, `Sec-Fetch-Site`;
+  - accepts GET only, and checks Host, Origin and, on `/api/`, `Sec-Fetch-Site`. Host must be 127.0.0.1, localhost or a name in `PREVIEW_HOSTS`, with the listening port; an Origin, when sent, must be `http://` with one of those;
   - forwards only to its fixed loopback destination, with `Host: 127.0.0.1:8787`, and no Origin, cookies or other client headers;
   - after 95 seconds it answers 504 `archive_timeout`, and the page explains that the server may still be finishing. A connection failure gives 503 `archive_unavailable`;
   - every response carries `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer` and a Content Security Policy. The policy allows scripts and styles from the page only, the MapLibre blob worker, and OpenFreeMap tiles, fonts and sprites;
@@ -151,7 +184,7 @@ TMPDIR=tmp env/bin/python code/place_index.py build $D data/reference/geonames/p
 
 No restart is needed: each request opens the file afresh.
 
-To keep the API always on, run `systemctl --user enable blueberry-ui-api` once. It then starts at boot through user lingering, which is already on for the account. As of 2026-10-13 it is running at the user's request but not enabled at boot, so it does not restart after a server reboot.
+The API has been enabled at boot since 2026-10-13, because the UF-network UI depends on it. User lingering, already on for the account, starts it without a login; `systemctl --user disable blueberry-ui-api` reverses this.
 
 ## Reproduce summaries and tests
 
@@ -182,7 +215,7 @@ node --test tests/ui/        # proxy safety, shared helpers and the evidence val
 python3 -m unittest tests/ops/test_api_watchdog.py
 ```
 
-`dist/shared.js` holds the helpers that `app.js`, `cycle.js` and `evidence.js` share: HTML escaping, the https-only link check `safeURL`, the text cleaner used by the evidence validator, and the managed-cycle state rules. Every value placed into the page as HTML goes through `escapeHTML` or a number formatter. Every external link goes through `safeURL`, so a link is either https without credentials or plain text.
+`dist/shared.js` holds the helpers that `app.js`, `cycle.js`, `places.js` and `evidence.js` share: HTML escaping, the https-only link check `safeURL`, the text cleaner used by the evidence validator, the managed-cycle state rules, and `sha256Hex`, which uses WebCrypto where the browser offers it and a script SHA-256 on plain-HTTP pages. Every value placed into the page as HTML goes through `escapeHTML` or a number formatter. Every external link goes through `safeURL`, so a link is either https without credentials or plain text.
 
 ## Scientific and engineering boundaries
 
@@ -192,6 +225,6 @@ python3 -m unittest tests/ops/test_api_watchdog.py
 - Soil estimates remain geographic WCS samples with native-grid/field validation pending. Soil acquisition remains source-blocked at 157/630 records; this UI does not retry it.
 - Land support is cartographic, not parcel suitability. The source-labelled artificial “Null island” feature is excluded by `land-mask-v2`; small coasts/islands can remain unresolved.
 - Missing hourly availability, incomplete winters and per-metric gaps are distinct in the calculations; a broader geographic adapter is still pending. Establishment guidance does not validate field suitability; the stage calendar remains assumption-based. The earlier standalone stage-scenario report is historical.
-- Since 2026-10-12 the API runs under systemd with crash restart and a watchdog, and it caches successful results on disk. Production work still requires authenticated archive connectivity, a queue for more than one analysis at a time, fuller per-section states, broader cross-browser report compatibility testing and a security review. No public data-host port was opened.
+- Since 2026-10-12 the API runs under systemd with crash restart and a watchdog, and it caches successful results on disk. Production work still requires authenticated archive connectivity, a queue for more than one analysis at a time, fuller per-section states, broader cross-browser report compatibility testing and a security review. The server has only private UF addresses. Since 2026-10-13 the UI listens on its port 8789 for the UF network and VPN, without a login; the API stays on loopback.
 
 The current design and interaction contract is in `UI_IMPLEMENTATION_PLAN.md`. The runtime remains the static frontend and standard-library Python HTTP adapter over the existing science code; durable jobs and authenticated hosted access are future work.
