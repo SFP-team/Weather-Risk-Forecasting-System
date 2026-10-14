@@ -48,12 +48,11 @@ The app cannot yet tell you which cultivar will perform best at a farm.
 | Daily weather archive | The planned global download is complete. | Data are grid estimates, not measurements at every farm. |
 | Hourly weather archive | The planned land-block download is complete. | Some islands and other unsupported cells have no installed hourly data. |
 | Weather analysis | Works for supported land coordinates through the private server. | You need the UF network or VPN, and the server must be running. |
-| Saved locations | 71 saved assessments are available. | Saved assessments do not require a new server calculation. |
 | Crop calendar | Temperature-based version 3 is implemented. | Parameters describe a provisional low-chill southern-highbush scenario. |
 | Weather risks | Events, frequencies, and exclusions are displayed. | Exposure is not crop damage or expected yield loss. |
 | Regional evidence | 156 reviewed records from four IBO report editions are available. | Coverage is partial. Reports are not field observations at the pin. |
-| Soil | Some pilot-site records are available. | Collection stopped after source failures. Most arbitrary pins have no soil records. |
-| Planting window | The app calculates a nursery planting window from modelled budbreak wherever the chill-triggered calendar applies. Registered saved locations in Florida, Georgia and Santa Catarina also show a published season for comparison. | The rule's offsets are not validated. Locations without the chill-triggered calendar get no calculated window. |
+| Soil | Pilot records exist only at the exact Citra, Waldo and Papanduva points. | Collection stopped after source failures. A searched place has no soil records. |
+| Planting window | The app calculates a nursery planting window from modelled budbreak wherever the chill-triggered calendar applies. | The rule's offsets are not validated. Locations without the chill-triggered calendar get no calculated window. The published-season comparison needs a registered site, which the app no longer offers. |
 | Scientific validation | Regional literature comparisons and limited station checks exist. | Independent cultivar-by-site-by-year validation is not complete. |
 | Deployment | Since 13 October 2026 the app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/. The code is on GitHub. | Only the UF network or VPN reaches it, there is no login, and the older hosted app has not received the current changes. |
 
@@ -98,6 +97,7 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 13 October | The app ran on one computer, through a tunnel to the server. | The app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/ for anyone on the UF network or VPN. |
 | 14 October | The season chart was hard to read: seven rows of median bars and percentile boxes, with the risks on other cards. | Two new tabs. Season ribbon shows all winters in one band, with the weather risks under each stage and the months growers report. Every winter shows one row per winter. Section 6 explains them. |
 | 14 October (test branch) | Evergreen and tropical sites had no season view: the winter calendar does not apply there, and the start-date scan showed only typical dates. | A Year-round planner tab: one row per year for a chosen start date, weekly weather hazards, a market-window planner and warm years with El Niño months. Section 6.3 explains it. |
+| 14 October | The location panel held a long search note, 71 saved locations and latitude and longitude fields. | The panel has only the search box, the map and Analyze location. Every result comes from the server. A coordinate pair can still be typed or pasted into the search box. |
 
 Some earlier statements were corrected during review.
 
@@ -143,8 +143,8 @@ A regional freeze report does not prove that your selected field froze. A region
 ### Procedure: assess a location
 
 1. Open the app at http://fpt-server.ad.ufl.edu:8789/ from the UF network or VPN. The UI runbook also explains how to start a local copy.
-2. Search for a place, select a saved location, or enter coordinates.
-3. Check the pin coordinates. Do not use the nearby town name as proof of the exact location.
+2. Search for a place, or click the map.
+3. Check the place card: name, region and coordinates. Do not use the nearby town name as proof of the exact location.
 4. Select **Analyze location**.
 5. Check the result location and the data-availability labels.
 6. Read the Production window card before you interpret crop-stage risks.
@@ -155,11 +155,9 @@ A regional freeze report does not prove that your selected field froze. A region
 
 Moving the pin does not immediately replace the old assessment. The app displays a notice until you run the new analysis.
 
-A saved location uses a saved result. A new coordinate uses the private API, which is the server program that calculates results.
-
 ### Searching for a place
 
-The search box finds about 5.2 million towns and villages in every country, plus regions, countries and saved locations. The town list comes from GeoNames, a free world gazetteer, and is held on the tool's own server. What you type is not sent to any other company and is not logged.
+The search box finds about 5.2 million towns and villages in every country, plus regions and countries. The town list comes from GeoNames, a free world gazetteer, and is held on the tool's own server. What you type is not sent to any other company and is not logged.
 
 - Accents and capital letters do not matter: "Jaiba" finds Jaíba.
 - You can type the start of each word. "alma g" lists Alma, Georgia first.
@@ -167,7 +165,7 @@ The search box finds about 5.2 million towns and villages in every country, plus
 - Local and other-language names work, for example "Lisboa" or "北京".
 - Street addresses and farm names cannot be found. Search for the nearest village, then move the pin on the map.
 
-When you select a town, the app uses the town's coordinates and keeps its name on the place card. If the app cannot reach its server, the search lists only about 7,300 larger towns and says so. The map and coordinate entry always work.
+When you select a town, the app uses the town's coordinates and keeps its name on the place card. If the app cannot reach its server, the search lists only about 7,300 larger towns and says so. The map always works, and you can type or paste a coordinate pair such as 29.65, -82.32 into the search box.
 
 ### The nearby place name
 
@@ -255,7 +253,7 @@ Two examples:
 - Papanduva shows "9 Apr to 23 Jun". Typical budbreak is 23 Jul over 15 winters, and the spread runs from 18 Mar to 5 Jul.
 - Waldo shows 23 Sep to 7 Dec. Typical budbreak is 6 Jan over 15 winters, and the spread runs from 1 Sep to 24 Dec.
 
-Registered saved locations in Florida, Georgia and Santa Catarina also show a "Published season" box. It holds the regional home-garden guide for comparison. Papanduva's reads "Winter while dormant (approximately June–August)". Waldo's reads "Mid-December to mid-February". UF/IFAS commercial guidance, HS1525 from July 2026, advises planting during the early-spring and fall root-growth periods instead. The published season shows even where the calculated window does not apply.
+The published-season comparison box appears only for registered sites in Florida, Georgia and Santa Catarina. Since 14 October 2026 the app has no saved locations, and a searched place never matches a registered site, so the box no longer appears. It held the regional home-garden guide, for example "Mid-December to mid-February" at Waldo. UF/IFAS commercial guidance, HS1525 from July 2026, advises planting during the early-spring and fall root-growth periods instead.
 
 A dropped pin gets a calculated window from its own budbreak but never a published season. The app never infers a region from a place name or a shared weather cell. For example, a live pin near Clinton, NC showed 25 Sep to 9 Dec, with budbreak on 8 Jan.
 
@@ -510,9 +508,7 @@ There is no single minimum dataset for every output. A daily weather summary nee
 
 ### 8.1 What you enter now
 
-For an existing saved result, select the saved location.
-
-For a new result, enter a valid land coordinate and use the connected analysis service.
+Search for a place or click the map, then choose **Analyze location**. The connected analysis service calculates every result.
 
 You do not need to upload 15 years of weather. The server reads the installed archive.
 
@@ -530,7 +526,7 @@ The current interface does not ask for cultivar-specific stage settings. It uses
 | Honey bee temperature measure | Valid flowering dates, longitude, and complete required daytime hourly temperatures. |
 | Ranked winter risk | A defined event, applicable calculation, at least 12 valid winters, and event frequency of at least 50%. |
 | Selected managed-cycle window | At least one start passes the scan's complete-evidence, exclusion, and comparison rules. Daily-only fallback does not run production analysis. |
-| Planting window | An applicable chill-triggered calendar with modelled budbreak. A published season also needs a registered saved location in Florida, Georgia or Santa Catarina. |
+| Planting window | An applicable chill-triggered calendar with modelled budbreak. A published season also needs a registered site, which the app no longer offers. |
 | Soil section | Stored soil records for the selected coordinates. |
 | Regional evidence | A loaded report library and a supported country/region boundary match. A crop calendar is not required. |
 
@@ -721,18 +717,18 @@ A failed calendar does not remove the value of the available daily weather histo
 | Message or situation | Meaning | What to do |
 |---|---|---|
 | The page does not open | Your computer is not on the UF network or VPN, or the server's web service is stopped. | Connect to the VPN and reload. If the page still fails, check `blueberry-ui-web` on the server; the UI runbook explains how. |
-| Archive disconnected or unavailable | The server API is not answering. For a local copy, the SSH tunnel may be down. | Check `blueberry-ui-api` on the server, and the tunnel for a local copy. Saved assessments still work while the page is served. |
+| Archive disconnected or unavailable | The server API is not answering. For a local copy, the SSH tunnel may be down. | Check `blueberry-ui-api` on the server, and the tunnel for a local copy. |
 | Another analysis is running | The private API handles one calculation at a time. | Wait, then retry. |
-| Invalid coordinates, HTTP 400 | The request has invalid or missing input. | Correct latitude and longitude. |
+| Invalid coordinates, HTTP 400 | The request has invalid or missing input. | Choose the place again from the search or the map. |
 | Unsupported location, HTTP 422 | The land check does not accept the point. | Check the pin against mapped land. A coastal map error is possible. |
 | Analysis failed, HTTP 500 | The server could not complete the request. | Preserve the coordinate and error. Inspect server logs; do not infer a biological cause. |
-| Older analysis method | The interface and saved/server result versions do not match. | Update the matching software and result files together. |
+| Older analysis method | The interface and server result versions do not match. | Update the server and the interface together. |
 | Library or map reference failed | A browser resource could not load or its identity did not match. | Reload or investigate the resource. Do not substitute a nearby region's claims. |
 | Old location remains on screen | A new pin is selected but not analysed, or a new request failed. | Check the displayed assessment name and draft-location notice. |
 | Request cancelled | The browser stopped waiting for that request. | The server can still be busy briefly. |
 | The analysis took longer than the proxy allows (HTTP 504) | The app's proxy stopped waiting after 95 seconds. The server can still be working. | Wait a minute, then analyse again. A finished result is kept, so the repeat is fast. |
 | Request refused (HTTP 403) | The address or the calling page is not one the app accepts. | Open the app at http://fpt-server.ad.ufl.edu:8789/, or at http://127.0.0.1:5173/ for a local copy. Other addresses for the server are refused. Do not open the API from another website. |
-| Private archive connected · busy | The server is running an analysis. | Saved locations still work. A new analysis starts when the current one ends. |
+| Private archive connected · busy | The server is running an analysis. | Wait. A new analysis starts when the current one ends. |
 
 Do not restart completed weather downloads to fix a UI connection error.
 
@@ -742,7 +738,7 @@ Use the app to select questions and trials. Do not use it as an automatic cultiv
 
 ### Example: recurring flowering cold
 
-At the saved Burgaw location, the current winter calculation reports flowering-freeze exposure in 10 of 15 valid winters.
+At Burgaw, North Carolina, the current winter calculation reports flowering-freeze exposure in 11 of 15 valid winters.
 
 Regional reports also describe spring freezes and a shift away from early-blooming cultivars.
 
@@ -756,9 +752,9 @@ The scan can show weather trade-offs for shifted start dates. It cannot prove th
 
 ### Example: harvest rain
 
-The saved Waldo result has a typical harvest from 4 April to 12 May.
+The Waldo result has a typical harvest from 29 March to 10 May.
 
-It reports heavy rain during modelled harvest in 14 of 15 winters.
+It reports heavy rain during modelled harvest in 15 of 15 winters.
 
 This supports examination of rain-related fruit-quality problems in field trials.
 
@@ -878,7 +874,6 @@ This is a simplified-English guide, not a certified ASD-STE100 compliance report
 | Recurrence | How often a defined event occurs among valid periods. |
 | RH | Relative humidity, expressed as a percentage. |
 | Scenario | A result calculated under stated assumptions, not a claim that those assumptions occur at the field. |
-| Snapshot | A saved assessment that the browser can load without a new archive calculation. |
 | Source-checked | A statement was checked against its cited document. It was not necessarily checked against field observations. |
 | UTC | The common time reference used for most archive dates and hours. |
 | Valid winter | A winter with the inputs required for the specific calculation. Different measures can have different valid-year counts. |

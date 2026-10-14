@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
-let catalog={}, active=null, serial=0, pendingRequest=null, locationMap=null, currentView='overview';
-let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved assessment';
+let active=null, serial=0, pendingRequest=null, locationMap=null, currentView='overview';
+let draft={lat:NaN,lon:NaN};
 let draftPlace=null,activePlace=null,areaSelection=null;
 let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1,searchLoading=false,searchPickFirst=false,placeRequest=null;
 let regionalLibrary={status:'loading',registry:null},activeRegionalEvidence=null;
@@ -52,15 +52,16 @@ function parsePair(text){
 function coordinateHint(lat,lon,pair){
   $('coordinate-hint').hidden=!(Math.abs(lon)<=90&&(Math.abs(lat)>90&&Math.abs(lat)<=180||pair&&Math.abs(lat)>60));
 }
-function coordinateName(p){return validPoint(p)?`${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}`:'Enter valid coordinates'}
+function coordinateName(p){return validPoint(p)?`${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}`:''}
 function assessmentName(){return activePlace?.display_name??coordinateName(active.site)}
 function placeRegion(p){
   if(p.status==='pending')return 'Country and region pending';
-  if(p.status==='invalid')return 'Latitude −90 to 90; longitude −180 to 180';
+  if(p.status==='invalid')return '';
   if(p.status==='unavailable')return 'Country and region unavailable';
   return [p.region,p.country].filter(Boolean).join(' · ')||'No containing country or region in the reference data';
 }
 function nearestPlace(p){
+  if(p.status==='invalid')return '';
   if(p.status==='pending')return 'Looking up the nearest represented settlement.';
   if(!p.nearest)return 'Nearest represented settlement unavailable.';
   const distance=p.nearest.distance_km<0.1?'<0.1':fmt(p.nearest.distance_km,1);
@@ -69,7 +70,7 @@ function nearestPlace(p){
 function placeNote(p){
   if(p.status==='pending')return 'Place names are still resolving. Coordinate identity is retained.';
   if(p.status==='unavailable')return 'Place-name data unavailable. Coordinates and weather evidence remain usable.';
-  if(p.status==='invalid')return 'Enter valid coordinates to look up place names.';
+  if(p.status==='invalid')return 'No place selected.';
   return 'Approximate reference names, not a street address.';
 }
 function renderDraftPlace(){
@@ -80,14 +81,14 @@ function renderDraftPlace(){
     $('place-name').textContent=areaSelection.name;
     $('place-region').textContent=[areaSelection.region,areaSelection.country].filter(v=>v&&v!==areaSelection.name).join(' · ')||'Area view';
     $('place-coordinates').textContent='No analysis point selected';
-    $('place-nearest').textContent='Click the map, enter coordinates or select a saved location.';
+    $('place-nearest').textContent='Click a point on the map to analyze.';
     $('place-note').textContent='The map frames the principal polygon extent in the local reference. This is not a region-wide weather assessment.';
     $('place-source').textContent='Source: Natural Earth local reference';
     $('place-source').hidden=false;
-    $('selection-label').textContent='Choose a point before analyzing. An area is not a weather location.';
+    $('selection-label').textContent='Click a point in this area to analyze.';
     return;
   }
-  $('place-state').textContent=p.status==='pending'?'Finding place names…':p.status==='resolved'?'Reference names ready':p.status==='invalid'?'Coordinates incomplete':'Place-name data unavailable';
+  $('place-state').textContent=p.status==='pending'?'Finding place names…':p.status==='resolved'?'Reference names ready':p.status==='invalid'?'No place selected':'Place-name data unavailable';
   $('place-name').textContent=p.display_name;
   $('place-region').textContent=placeRegion(p);
   $('place-coordinates').textContent=coordinateName(p);
@@ -96,7 +97,7 @@ function renderDraftPlace(){
   const source=[p.name_source==='GeoNames'?'Name: GeoNames place search (CC BY 4.0)':'',p.source?`Region and country: ${p.source}`:''].filter(Boolean);
   $('place-source').textContent=source.length?source.join(' · '):'';
   $('place-source').hidden=!source.length;
-  $('selection-label').textContent=p.status==='invalid'?'Enter valid coordinates before analyzing':active&&samePoint(draft,active.site)?'Assessment loaded for these coordinates':p.saved_name?'Saved location · ready to analyze':'New selection · analyze to update evidence';
+  $('selection-label').textContent=p.status==='invalid'?'Choose a place to analyze':active&&samePoint(draft,active.site)?'Assessment shown below':'Ready to analyze';
   if(validPoint(p))locationMap?.setLabel(p.display_name);
 }
 function renderAssessmentPlace(){
@@ -186,7 +187,7 @@ function finishPlaceLookup(context,place){
   const available=Boolean(place?.source);
   context.status=available?'resolved':'unavailable';
   context.label=available?place.label:coordinateName(context);
-  context.display_name=context.saved_name||context.searched_name||context.label;
+  context.display_name=context.searched_name||context.label;
   context.region=available?place.region:null;
   context.country=available?place.country:null;
   context.region_id=available?place.region_id??null:null;
@@ -199,23 +200,23 @@ function finishPlaceLookup(context,place){
   updateDraftNotice();
 }
 // `searched` is {name, source} when the point came from the place search; its name labels the point until a new point replaces it.
-function placeContext(point,savedName=null,searched=null){
+function placeContext(point,searched=null){
   const valid=validPoint(point),label=coordinateName(point);
-  const context={lat:point.lat,lon:point.lon,saved_name:savedName,searched_name:searched?.name??null,name_source:searched?.source??null,
-    display_name:savedName||searched?.name||label,label,
+  const context={lat:point.lat,lon:point.lon,searched_name:searched?.name??null,name_source:searched?.source??null,
+    display_name:searched?.name||label||'Search for a place or click the map',label,
     status:valid?'pending':'invalid',region:null,country:null,region_id:null,geography_sha256:null,nearest:null,source:null,
-    note:valid?'Place names load separately from weather evidence. No coordinates are sent to a geocoder.':'Enter valid coordinates to look up place names.'};
+    note:valid?'Place names load separately from weather evidence. No coordinates are sent to a geocoder.':''};
   if(valid)Promise.resolve().then(()=>window.PlaceNames.lookup(point.lat,point.lon))
     .then(place=>finishPlaceLookup(context,place),()=>finishPlaceLookup(context,null));
   return context;
 }
 // Omitting `searched` keeps the current searched name while the point is unchanged, as when Analyze re-selects it.
-function setDraftPlace(savedName=null,searched){
+function setDraftPlace(searched){
   const same=draftPlace&&draftPlace.lat===draft.lat&&draftPlace.lon===draft.lon;
   const keep=searched===undefined&&same&&draftPlace.searched_name?{name:draftPlace.searched_name,source:draftPlace.name_source}:null;
-  const next=savedName?null:searched??keep;
-  if(!same||draftPlace.saved_name!==savedName||draftPlace.searched_name!==(next?.name??null)||draftPlace.name_source!==(next?.source??null))
-    draftPlace=placeContext(draft,savedName,next);
+  const next=searched??keep;
+  if(!same||draftPlace.searched_name!==(next?.name??null)||draftPlace.name_source!==(next?.source??null))
+    draftPlace=placeContext(draft,next);
   renderDraftPlace();
 }
 function card(title,value,unit,desc,values,index){const a=good(values);return `<article class="risk"><div class="risk-top"><h3>${title}</h3><span class="risk-index">0${index}</span></div><div class="metric">${fmt(value)}${value===null?'':`<small>${unit}</small>`}</div><p>${desc}</p><div class="detail">${a.length?`${a.length}/${values.length} valid years · range ${fmt(Math.min(...a))}–${fmt(Math.max(...a))}`:'Not acquired for this coordinate'}</div></article>`}
@@ -485,10 +486,9 @@ function renderOverview(){
 }
 function render(r,place){
   if(r.method_version!=='location-evidence-v5'||(r.production?.status==='available'&&r.production.method!=='open-field-production-v3'))
-    throw Error('This result uses an older analysis method. Update saved snapshots and the analysis service to location-evidence-v5 (open-field-production-v3). Old risk results are not displayed.');
+    throw Error('This result uses an older analysis method. Update the analysis service to location-evidence-v5 (open-field-production-v3). Old risk results are not displayed.');
   $('production-content').replaceChildren();
   active=r;activePlace=place;$('results').hidden=false;
-  $('result-origin').textContent=resultOrigin;
   $('coordinate-label').textContent=`${r.site.lat.toFixed(6)}, ${r.site.lon.toFixed(6)} · ${baselineYears(r)} · UTC`;
   const ann=r.annual,v=k=>ann.map(a=>a[k]),solar=v('solar'),longest=good(v('dry_spell'));
   $('risk-cards').innerHTML=card('Reference chill',median(v('chill_hours')),'hours','Median reference-winter chill · 0–7.2°C',v('chill_hours'),1)+card('Cold exposure',mean(v('cold_days')),'days/yr','Mean days with minimum temperature <0°C',v('cold_days'),2)+card('Rainfall',mean(v('rain_mm')),'mm/yr','Mean annual total, not harvest rainfall',v('rain_mm'),3)+card('Heat exposure',mean(v('hot_days')),'days/yr','Mean days with maximum temperature ≥35°C',v('hot_days'),4)+card('Dry weather',longest.length?Math.max(...longest):null,'days','Longest within-year dry run · rain <1 mm',v('dry_spell'),5)+card('Radiation',mean(solar),'MJ/m²/day','Mean annual daily shortwave energy',solar,6);
@@ -506,7 +506,7 @@ function updateDraftNotice(){
   const changed=active&&!samePoint(draft,active.site);
   $('draft-notice').hidden=!changed;
   if(changed){
-    const next=areaSelection?`Viewing ${areaSelection.name}. Choose an analysis point on the map, enter coordinates or select a saved location.`:validPoint(draft)?'A new location is selected. Choose Analyze location to replace the previous assessment.':'Enter valid coordinates or choose a point before analyzing.';
+    const next=areaSelection?`Viewing ${areaSelection.name}. Click a point on the map to analyze.`:validPoint(draft)?'A new location is selected. Choose Analyze location to replace the previous assessment.':'Choose a place before analyzing.';
     $('draft-notice').textContent=`${next} The assessment below still belongs to ${assessmentName()} (${active.site.lat.toFixed(4)}, ${active.site.lon.toFixed(4)}).`;
   }
 }
@@ -525,82 +525,62 @@ function cancelRequest(){
   $('status').textContent='Request cancelled. The previous assessment, if shown, is unchanged.';
   updateDraftNotice();
 }
-function selectLocation(lat,lon,name='Selected point',{recenter=true,searched=null}={}){
+function selectLocation(lat,lon,{recenter=true,searched=null}={}){
   cancelRequest();
   closeSearch();areaSelection=null;
-  const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
-  draft={lat,lon,name:saved?.site.name??name};$('latitude').value=lat;$('longitude').value=lon;
-  setDraftPlace(saved?.site.name,saved?null:searched);
+  draft={lat,lon};
+  setDraftPlace(searched);
   locationMap?.setSelection(lat,lon,{label:draftPlace.display_name,recenter});
-  document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
   $('error').hidden=true;$('coordinate-hint').hidden=true;setBusy(false);updateDraftNotice();
-  $('status').textContent=`${coordinateName(draft)} selected. Choose Analyze location to request evidence for this point.`;
+  $('status').textContent=`${searched?.name??'Point'} selected. Choose Analyze location.`;
 }
 function selectPair({lat,lon}){
-  selectLocation(lat,lon,'Entered coordinates');
+  selectLocation(lat,lon);
   coordinateHint(lat,lon,true);
-}
-function selectSaved(name){
-  const entry=catalog[name];if(!entry)return;
-  selectLocation(entry.site.lat,entry.site.lon,name);
-  $('status').textContent=`${name} selected. Choose Analyze location to open its saved evidence.`;
 }
 // A proxy without the archive, a tunnel page or a static host can answer with non-JSON.
 async function readJson(res){try{return await res.json()}catch(e){if(e.name==='AbortError')throw e;return null}}
 function archiveError(res,body){
-  if(body?.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Saved locations still work. Analyze other coordinates once the archive is back; if you run the app locally, reconnect the archive tunnel.'),{kind:'offline'});
-  if(body?.code==='archive_timeout')return Object.assign(Error('The analysis took longer than the proxy allows. The archive may still be finishing it, so wait a minute before analyzing again. Saved locations still work.'),{kind:'timeout'});
+  if(body?.code==='archive_unavailable')return Object.assign(Error('The private archive is unavailable. Try again once it is back; if you run the app locally, reconnect the archive tunnel.'),{kind:'offline'});
+  if(body?.code==='archive_timeout')return Object.assign(Error('The analysis took longer than the proxy allows. The archive may still be finishing it, so wait a minute before analyzing again.'),{kind:'timeout'});
   if(!body||res.status===404&&!body.error)return Object.assign(Error('The page is being served without the archive connection. Start it with scripts/preview-ui.mjs.'),{kind:'offline'});
   if(res.status===503||res.status===429)return Object.assign(Error(body.error??'The archive is processing another analysis. Wait for it to finish, then analyze again.'),{kind:'busy'});
   if(res.status>=500)return Error(`${body.error??'The archive could not complete this analysis.'} Try a point a few km away.`);
   return Error(body.error??'The archive could not return an assessment. No result was substituted.');
 }
 const sleep=(ms,signal)=>new Promise((done,fail)=>{const t=setTimeout(done,ms);signal.addEventListener('abort',()=>{clearTimeout(t);fail(signal.reason)},{once:true})});
-async function loadSaved(entry,signal){
-  if(entry.annual)return entry;
-  const res=await fetch(entry.file,{signal}),full=res.ok?await readJson(res):null;
-  if(!full?.site)throw Error('Saved evidence could not load. Check the local snapshot files or choose another saved location.');
-  catalog[full.site.name]={...full,group:entry.group};
-  return catalog[full.site.name];
-}
 async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
   if(!Number.isFinite(lat)||!Number.isFinite(lon)||Math.abs(lat)>90||Math.abs(lon)>180){
-    $('error').textContent='Enter a latitude from −90 to 90 and longitude from −180 to 180.';$('error').hidden=false;return;
+    $('error').textContent='Choose a place before analyzing.';$('error').hidden=false;return;
   }
   cancelRequest();
   const request=++serial,controller=new AbortController(),retryBusy=Date.now()-apiAbandonedAt<20000;pendingRequest=controller;
-  const saved=Object.values(catalog).find(r=>samePoint(r.site,{lat,lon}));
   areaSelection=null;
-  draft={lat,lon,name:saved?.site.name??'Selected point'};
-  setDraftPlace(saved?.site.name);
+  draft={lat,lon};
+  setDraftPlace();
   const requestedPlace=draftPlace;
   locationMap?.setSelection(lat,lon,{label:requestedPlace.display_name,recenter});
-  $('latitude').value=lat;$('longitude').value=lon;
   $('error').hidden=true;$('draft-notice').hidden=true;$('results').hidden=true;
-  $('status').textContent=saved?'Opening saved location evidence…':'Reading the private historical archive. No new weather download is requested.';
+  $('status').textContent='Reading the private historical archive. No new weather download is requested.';
   setBusy(true);
   // Longer than the proxy's 95 s limit, so its timeout explanation arrives before this abort.
   const timer=setTimeout(()=>{if(controller.api)apiAbandonedAt=Date.now();controller.abort()},100000);
   try{
     let result;
-    if(saved)result=await loadSaved(saved,controller.signal);
-    else{
-      controller.api=true;
-      for(let attempt=0;;attempt++){
-        const res=await fetch(`/api/analysis?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`,{signal:controller.signal});
-        const body=await readJson(res);
-        if(res.ok&&body&&!body.error){result=body;break}
-        const error=archiveError(res,body);
-        // The server may still be computing after a proxy timeout, so the next request should expect a short busy spell.
-        if(error.kind==='timeout')apiAbandonedAt=Date.now();
-        if(error.kind!=='busy'||!retryBusy||attempt>=BUSY_RETRY_SECONDS.length)throw error;
-        $('status').textContent='Finishing the previous request…';
-        await sleep(BUSY_RETRY_SECONDS[attempt]*1000,controller.signal);
-      }
+    controller.api=true;
+    for(let attempt=0;;attempt++){
+      const res=await fetch(`/api/analysis?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`,{signal:controller.signal});
+      const body=await readJson(res);
+      if(res.ok&&body&&!body.error){result=body;break}
+      const error=archiveError(res,body);
+      // The server may still be computing after a proxy timeout, so the next request should expect a short busy spell.
+      if(error.kind==='timeout')apiAbandonedAt=Date.now();
+      if(error.kind!=='busy'||!retryBusy||attempt>=BUSY_RETRY_SECONDS.length)throw error;
+      $('status').textContent='Finishing the previous request…';
+      await sleep(BUSY_RETRY_SECONDS[attempt]*1000,controller.signal);
     }
     if(request!==serial)return;
-    resultOrigin=saved?'Saved location assessment':'Connected archive assessment';
-    const resultPlace=result.site.lat===lat&&result.site.lon===lon?requestedPlace:placeContext(result.site,saved?.site.name);
+    const resultPlace=result.site.lat===lat&&result.site.lon===lon?requestedPlace:placeContext(result.site);
     render(result,resultPlace);
     if(focusResult){
       $('location-name').focus({preventScroll:true});
@@ -609,8 +589,8 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
     return {location:assessmentName(),status:'ready'};
   }catch(e){
     if(request===serial){
-      $('error').textContent=e.name==='AbortError'?'Analysis timed out. No result was substituted. Saved locations remain available.':e.message;
-      $('error').hidden=false;$('status').textContent=e.kind==='busy'?'The archive is busy with another analysis. No new assessment was returned.':e.kind==='timeout'?'The archive did not answer within the proxy time limit. No new assessment was returned.':'No new assessment returned for the selected coordinate.';
+      $('error').textContent=e.name==='AbortError'?'Analysis timed out. No result was substituted.':e.message;
+      $('error').hidden=false;$('status').textContent=e.kind==='busy'?'The archive is busy with another analysis. No new assessment was returned.':e.kind==='timeout'?'The archive did not answer within the proxy time limit. No new assessment was returned.':'No new assessment returned for the selected place.';
       $('results').hidden=!active;updateDraftNotice();
     }
   }finally{
@@ -618,24 +598,12 @@ async function analyze(lat,lon,{recenter=true,focusResult=true}={}){
     if(request===serial){pendingRequest=null;setBusy(false)}
   }
 }
-const PRESET_GROUPS=['Reference','Georgia','Central Florida','South Florida'];
-function presets(){
-  const entries=Object.values(catalog);
-  // Known groups first, then any other snapshots.json group in index order.
-  const found=[...new Set(entries.map(r=>r.group??'Reference'))];
-  const groups=[...PRESET_GROUPS.filter(g=>found.includes(g)),...found.filter(g=>!PRESET_GROUPS.includes(g))];
-  $('presets').innerHTML=groups.map(g=>{
-    const rows=entries.filter(r=>(r.group??'Reference')===g);
-    return `<div class="preset-group"><span class="preset-group-title">${esc(g)}</span>${rows.map(r=>`<button class="preset-option" type="button" data-site="${esc(r.site.name)}" aria-pressed="${draft.name===r.site.name}"><span>${esc(r.site.name)}</span><small>${esc(r.site.county??r.site.region??'Saved')}</small></button>`).join('')}</div>`;
-  }).join('')||'<p class="small">No saved locations are available. Search places or enter coordinates.</p>';
-  $('preset-count').textContent=`${entries.length} saved locations`;
-}
 function closeSearch(){
   searchSerial++;clearTimeout(searchTimer);placeRequest?.abort();placeRequest=null;searchResults=[];searchIndex=-1;searchLoading=false;searchPickFirst=false;
   $('search-results').hidden=true;$('search-results').replaceChildren();
   $('site-search').setAttribute('aria-expanded','false');
   $('site-search').removeAttribute('aria-activedescendant');
-  $('search-status').textContent=$('site-search').value.trim()?'Edit the search to look for another place.':'Type a town, village, region or country.';
+  $('search-status').textContent='';
 }
 function setSearchIndex(index){
   searchIndex=index;
@@ -650,30 +618,18 @@ function normalizeSearch(value){
   return String(value||'').normalize('NFD').replace(/\p{M}/gu,'')
     .toLowerCase().replace(/[.'’]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
 }
-function savedSearchResults(query){
-  const normalized=normalizeSearch(query),terms=normalized.split(' ');
-  if(!normalized)return [];
-  return Object.values(catalog).filter(({site})=>{
-    // Word prefixes, so 'Lima' does not match 'Clima'.
-    const words=normalizeSearch([site.name,site.region,site.county].filter(Boolean).join(' ')).split(' ');
-    return terms.every(term=>words.some(word=>word.startsWith(term)));
-  }).sort((a,b)=>{
-    const rank=site=>normalizeSearch(site.name)===normalized?0:normalizeSearch(site.name).startsWith(normalized)?1:2;
-    return rank(a.site)-rank(b.site)||a.site.name.localeCompare(b.site.name);
-  }).map(({site})=>({id:`saved:${site.name}`,type:'saved',name:site.name,county:site.county,region:site.region,country:site.country}));
-}
-// A typed coordinate pair comes first, then exact-name saved locations and places, other exact names, saved locations, then reference places and areas.
+// A typed coordinate pair comes first, then exact-name places, other exact names, then other places and areas.
 function searchResultList(query,places=[]){
   const pair=parsePair(query),normalized=normalizeSearch(query);
   const coordinates=pair&&!pair.error?[{id:'coordinates',type:'coordinates',name:coordinateName(pair),lat:pair.lat,lon:pair.lon}]:[];
-  const rank=result=>result.type==='coordinates'?-1:normalizeSearch(result.name)===normalized?(result.type==='saved'||result.type==='place'?0:1):result.type==='saved'?2:3;
-  return [...coordinates,...savedSearchResults(query),...places].map((result,i)=>[rank(result),i,result]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(row=>row[2]);
+  const rank=result=>result.type==='coordinates'?-1:normalizeSearch(result.name)===normalized?(result.type==='place'?0:1):2;
+  return [...coordinates,...places].map((result,i)=>[rank(result),i,result]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(row=>row[2]);
 }
 function renderSearchResults(results){
   const selectedId=searchResults[searchIndex]?.id;
   searchResults=[];searchIndex=-1;
   $('site-search').removeAttribute('aria-activedescendant');
-  const labels={coordinates:'Coordinates',saved:'Saved locations',place:'Places',region:'Regions',country:'Countries'};
+  const labels={coordinates:'Coordinates',place:'Places',region:'Regions',country:'Countries'};
   $('search-results').innerHTML=[...new Set(results.map(result=>result.type))].map(type=>{
     const label=labels[type];
     const rows=results.filter(result=>result.type===type);
@@ -681,14 +637,13 @@ function renderSearchResults(results){
     return `<div class="search-section" role="group" aria-label="${label}"><p class="search-section-title" aria-hidden="true">${label}</p>${rows.map(result=>{
       const index=searchResults.push(result)-1;
       const context=[result.county,result.region,result.country].filter(value=>value&&value!==result.name).join(' · ');
-      const action=type==='saved'?'Select saved location, then analyze':type==='place'||type==='coordinates'?'Select point, then analyze':'View area, choose analysis point';
-      return `<button id="search-option-${index}" class="search-option" type="button" role="option" tabindex="-1" aria-selected="false" data-search-index="${index}"><span>${esc(result.name)}</span><small>${esc(context?`${context} · ${action}`:action)}</small></button>`;
+      return `<button id="search-option-${index}" class="search-option" type="button" role="option" tabindex="-1" aria-selected="false" data-search-index="${index}"><span>${esc(result.name)}</span>${context?`<small>${esc(context)}</small>`:''}</button>`;
     }).join('')}</div>`;
   }).join('');
   $('search-results').hidden=!searchResults.length;
   $('site-search').setAttribute('aria-expanded',String(Boolean(searchResults.length)));
   if(selectedId)setSearchIndex(searchResults.findIndex(result=>result.id===selectedId));
-  $('search-status').textContent=searchResults.length?`${searchResults.length} results. Use arrow keys and Enter to select. No analysis runs until you choose Analyze location.`:'No saved locations or places match. Check the spelling, try a nearby town, region or country, or enter coordinates.';
+  $('search-status').textContent=searchResults.length?'':'No places match.';
 }
 // Towns and villages come from the GeoNames index on the archive server. The local Natural Earth reference supplies
 // regions and countries, with their map outlines, and all places when the server cannot be reached.
@@ -701,9 +656,9 @@ async function serverPlaces(query,signal){
 function searchPlaces(){
   closeSearch();
   const query=$('site-search').value.trim(),request=searchSerial;
-  if(!query){$('search-status').textContent='Type a town, village, region or country.';return}
+  if(!query)return;
   renderSearchResults(searchResultList(query));
-  $('search-status').textContent=searchResults.length?`${searchResults.length} saved matches available. Searching places…`:'Searching places…';
+  $('search-status').textContent='Searching…';
   searchLoading=true;
   searchTimer=setTimeout(async()=>{
     const controller=placeRequest=new AbortController();
@@ -715,10 +670,10 @@ function searchPlaces(){
     if(full)renderSearchResults(searchResultList(query,[...(reference??[]).filter(result=>result.type!=='place'),...full]));
     else if(reference){
       renderSearchResults(searchResultList(query,reference));
-      $('search-status').textContent=`${searchResults.length?`${searchResults.length} results from the local reference.`:'No saved locations or larger towns match.'} The full town and village search needs the archive connection, so only larger towns are listed. Use the map or coordinates for a smaller place.`;
+      $('search-status').textContent=searchResults.length?'The place server is unreachable, so only larger towns are listed.':'No larger town matches. The place server is unreachable, so only larger towns are searched.';
     }else{
       renderSearchResults(searchResultList(query));
-      $('search-status').textContent=searchResults.length?`Place search is unavailable. ${searchResults.length} saved matches remain selectable. Use arrow keys and Enter to select, or use the map or coordinates.`:'Place search is unavailable. No saved locations match. Use the map, coordinates or browse the saved locations below.';
+      $('search-status').textContent='Place search is unavailable. Click the map to choose a point.';
     }
     searchLoading=false;
     // Enter pressed before the reference search finished picks the best result now.
@@ -728,35 +683,22 @@ function searchPlaces(){
 function selectSearchResult(index){
   const result=searchResults[index];if(!result)return;
   closeSearch();$('site-search').value=result.name;
-  if(result.type==='coordinates'){
-    selectPair(result);
-    $('search-status').textContent='Coordinates selected. Analysis has not been requested.';
-    return;
-  }
-  if(result.type==='saved'){
-    selectSaved(result.name);
-    $('search-status').textContent='Saved location selected. Choose Analyze location to open its evidence.';
-    return;
-  }
+  if(result.type==='coordinates'){selectPair(result);return}
   if(result.type==='place'){
-    selectLocation(result.lat,result.lon,result.name,{searched:{name:result.name,source:result.source==='GeoNames'?'GeoNames':'Natural Earth'}});
-    $('status').textContent=`${result.name} selected at ${coordinateName(draft)}. Choose Analyze location to request evidence for this point.`;
-    $('search-status').textContent='Point selected. Analysis has not been requested.';
+    selectLocation(result.lat,result.lon,{searched:{name:result.name,source:result.source==='GeoNames'?'GeoNames':'Natural Earth'}});
     return;
   }
   cancelRequest();areaSelection=result;
-  draft={lat:NaN,lon:NaN,name:''};$('latitude').value='';$('longitude').value='';
+  draft={lat:NaN,lon:NaN};
   setDraftPlace();locationMap?.focusArea(result.bounds);
-  document.querySelectorAll('[data-site]').forEach(button=>button.setAttribute('aria-pressed','false'));
   $('error').hidden=true;$('coordinate-hint').hidden=true;setBusy(false);updateDraftNotice();
-  $('status').textContent=`Viewing ${result.name}. Choose an analysis point. No region-wide weather has been requested.`;
-  $('search-status').textContent='Area opened. The map frames its principal polygon extent. Click a point or enter coordinates before analyzing.';
+  $('status').textContent=`Viewing ${result.name}. Click a point on the map to analyze.`;
 }
 $('site-search').addEventListener('input',searchPlaces);
 $('site-search').addEventListener('focus',searchPlaces);
 $('site-search').addEventListener('keydown',event=>{
   if(event.key==='Escape'){
-    event.preventDefault();closeSearch();$('search-status').textContent='Search results closed. Edit the search to look again.';return;
+    event.preventDefault();closeSearch();return;
   }
   if(event.key==='Tab'){closeSearch();return}
   if(event.key==='Enter'&&searchIndex<0&&searchLoading){event.preventDefault();searchPickFirst=true;return}
@@ -770,7 +712,6 @@ $('site-search').addEventListener('paste',event=>{
   const text=event.clipboardData?.getData('text')??'',pair=parsePair(text);
   if(!pair||pair.error)return;
   event.preventDefault();$('site-search').value=text.trim();selectPair(pair);
-  $('search-status').textContent='Coordinates selected. Analysis has not been requested.';
 });
 $('search-results').addEventListener('mousedown',event=>event.preventDefault());
 $('search-results').addEventListener('click',event=>{
@@ -779,46 +720,10 @@ $('search-results').addEventListener('click',event=>{
 document.addEventListener('pointerdown',event=>{
   if(event.target!==$('site-search')&&!$('search-results').contains(event.target))closeSearch();
 });
-$('presets').addEventListener('click',e=>{const b=e.target.closest('[data-site]');if(b)selectSaved(b.dataset.site)});
-for(const [id,axis] of [['latitude','lat'],['longitude','lon']]){
-  const field=$(id);
-  // Typing stays silent; draft follows what the text means, including a pair typed into one field.
-  field.addEventListener('input',()=>{
-    cancelRequest();
-    areaSelection=null;
-    const pair=parseCoord(field.value,axis).error?parsePair(field.value):null;
-    const lat=parseCoord($('latitude').value,'lat'),lon=parseCoord($('longitude').value,'lon');
-    const point=pair&&!pair.error?pair:{lat:lat.error?NaN:lat.value,lon:lon.error?NaN:lon.value};
-    const saved=Object.values(catalog).find(r=>samePoint(r.site,point));
-    draft={...point,name:saved?.site.name??'Entered coordinates'};
-    setDraftPlace(saved?.site.name);
-    $('coordinate-hint').hidden=true;
-    if(validPoint(draft)){locationMap?.setSelection(draft.lat,draft.lon,{label:draftPlace.display_name,recenter:false});$('error').hidden=true}
-    document.querySelectorAll('[data-site]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.site===draft.name)));
-    setBusy(false);updateDraftNotice();
-  });
-  field.addEventListener('change',()=>commitCoordinate(id,axis));
-  field.addEventListener('keydown',event=>{if(event.key==='Enter')commitCoordinate(id,axis,true)});
-  field.addEventListener('paste',event=>{
-    const text=event.clipboardData?.getData('text')??'',pair=parseCoord(text,axis).error?parsePair(text):null;
-    if(pair&&!pair.error){event.preventDefault();selectPair(pair);return}
-    setTimeout(()=>commitCoordinate(id,axis));
-  });
-}
-// On commit a pair fills both fields; otherwise the error shows and the text is left as typed. `all` also reports the other field.
-function commitCoordinate(id,axis,all=false){
-  const text=$(id).value,one=parseCoord(text,axis),pair=one.error?parsePair(text):null;
-  if(pair&&!pair.error){selectPair(pair);return pair}
-  const lat=parseCoord($('latitude').value,'lat'),lon=parseCoord($('longitude').value,'lon');
-  const error=pair?.error??one.error??(all?lat.error??lon.error:undefined);
-  $('error').textContent=error??'';$('error').hidden=!error;
-  if(pair)coordinateHint(pair.lat,pair.lon,true);else coordinateHint(lat.value,lon.value,false);
-  return error||lat.error||lon.error?null:{lat:lat.value,lon:lon.value};
-}
-$('location-form').addEventListener('submit',e=>{e.preventDefault();const point=commitCoordinate('latitude','lat',true);if(point)analyze(point.lat,point.lon)});
+$('location-form').addEventListener('submit',e=>{e.preventDefault();if(validPoint(draft))analyze(draft.lat,draft.lon)});
 $('cancel-analysis').onclick=cancelRequest;
 $('change-location').onclick=()=>{
-  $('latitude').focus({preventScroll:true});
+  $('site-search').focus({preventScroll:true});
   document.querySelector('.explorer').scrollIntoView({block:'start',behavior:'instant'});
 };
 $('system').onchange=management;$('monthly-metric').onchange=charts;$('annual-metric').onchange=charts;
@@ -887,25 +792,14 @@ $('export').onclick=async()=>{
   }catch(e){$('error').textContent=e.message;$('error').hidden=false}
   finally{button.disabled=false}
 };
-async function initialize(){
-  const initialDraft=draft;
-  setDraftPlace();
-  try{
-    const res=await fetch('snapshots.json'),index=res.ok?await readJson(res):null;
-    if(!index?.sites)throw Error('Saved location index could not load.');
-    catalog=index.sites;presets();
-  }catch(e){$('error').textContent=e.message;$('error').hidden=false}
-  if(typeof LocationMap!=='undefined'){
-    locationMap=LocationMap.mount('location-map',{sites:Object.values(catalog),
-      onSelect:({lat,lon})=>selectLocation(lat,lon,'Map pin',{recenter:false}),onPreset:selectSaved});
-    if(validPoint(draft))locationMap.setSelection(draft.lat,draft.lon,{label:draftPlace.display_name,recenter:false});
-    else if(areaSelection)locationMap.focusArea(areaSelection.bounds);
-  }else $('location-map').innerHTML='<p class="notice">The map could not load. Coordinate entry and saved locations still work.</p>';
-  if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
+function initialize(){
+  setDraftPlace();setBusy(false);
+  if(typeof LocationMap!=='undefined')locationMap=LocationMap.mount('location-map',{onSelect:({lat,lon})=>selectLocation(lat,lon,{recenter:false})});
+  else $('location-map').innerHTML='<p class="notice">The map could not load. Search still works.</p>';
 }
 initialize();
 loadRegionalEvidence();loadSeasonCalendars();loadEnso();
-$('connection').textContent='Saved locations · archive not connected';
+$('connection').textContent='Archive not connected';
 // Any HTTP(S) page can front the archive: the local preview or the server deployment. A static host answers 404 and stays not connected.
 if(location.protocol==='http:'||location.protocol==='https:'){
   // Health answers while an analysis runs, so busy still means connected.

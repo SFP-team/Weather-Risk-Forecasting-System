@@ -40,12 +40,12 @@ window.LocationMap = (() => {
     };
   }
 
-  function mount(id, {sites = [], onSelect, onPreset} = {}) {
+  function mount(id, {onSelect} = {}) {
     const root = typeof id === 'string' ? document.getElementById(id) : id;
     if (!root) throw new Error('Location map container was not found.');
     root.classList.add('location-map');
     const canvas = textNode('div', 'location-map-canvas');
-    const help = textNode('p', 'location-map-help', 'Scroll or pinch to zoom. Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Drag the selected pin to move it. Then use Analyze location. Coordinate entry is always available. OpenFreeMap and its CDN receive your IP and viewed map area; place lookup stays in your browser. ');
+    const help = textNode('p', 'location-map-help', 'Scroll or pinch to zoom. Click to place a pin, or focus the map and use arrow keys to pan, + / − to zoom, and Enter to select the center. Drag the selected pin to move it. Then use Analyze location. OpenFreeMap and its CDN receive your IP and viewed map area; place lookup stays in your browser. ');
     help.id = `${root.id || 'location-map'}-help`;
     help.append(link('Map privacy', 'https://openfreemap.org/privacy/'));
     const toolbar = textNode('div', 'location-map-toolbar');
@@ -54,13 +54,8 @@ window.LocationMap = (() => {
     world.setAttribute('aria-label', 'Reset map to world view');
     const center = textNode('button', 'location-map-center', 'Use map center');
     center.type = 'button';
-    const legend = textNode('div', 'location-map-legend');
-    legend.append(
-      textNode('span', 'location-map-key location-map-key-saved', 'Saved analysis'),
-      textNode('span', 'location-map-key location-map-key-selected', 'Selected point')
-    );
-    toolbar.append(world, center, legend);
-    const caption = textNode('p', 'location-map-caption', 'Basemap is geographic context, not weather risk. Saved pins are saved analyses, not all supported areas. Labels prefer English, then romanized names where available. Boundaries are reference data, not a legal determination.');
+    toolbar.append(world, center);
+    const caption = textNode('p', 'location-map-caption', 'Basemap is geographic context, not weather risk. Labels prefer English, then romanized names where available. Boundaries are reference data, not a legal determination.');
     const evidence = textNode('p', 'location-map-evidence');
     evidence.hidden = true;
     const warning = textNode('p', 'location-map-warning');
@@ -127,16 +122,13 @@ window.LocationMap = (() => {
       toolbar.hidden = true;
       help.hidden = true;
       latitudeMessage = '';
-      warn('The interactive map could not load. Enter coordinates or choose a saved analysis in the location panel. Map availability does not indicate weather-data availability.');
+      warn('The interactive map could not load. Search for a place in the location panel. Map availability does not indicate weather-data availability.');
     };
-    const markerLabel = () => `${/\d°?, -?\d/.test(selection.label) ? selection.label : `${selection.label || 'Selected point'}: ${coordinateText(selection.lat, selection.lon)}`}. Drag to move, or use coordinate entry.`;
-    const makePin = (kind, label) => {
-      const element = textNode(kind === 'saved' ? 'button' : 'div', `location-map-pin location-map-pin-${kind}`);
-      if (kind === 'saved') element.type = 'button';
-      else {
-        element.tabIndex = 0;
-        element.setAttribute('role', 'img');
-      }
+    const markerLabel = () => `${/\d°?, -?\d/.test(selection.label) ? selection.label : `${selection.label || 'Selected point'}: ${coordinateText(selection.lat, selection.lon)}`}. Drag to move.`;
+    const makePin = label => {
+      const element = textNode('div', 'location-map-pin location-map-pin-selected');
+      element.tabIndex = 0;
+      element.setAttribute('role', 'img');
       const dot = textNode('span', 'location-map-pin-dot');
       dot.setAttribute('aria-hidden', 'true');
       const tooltip = textNode('span', 'location-map-pin-tooltip', label);
@@ -165,11 +157,11 @@ window.LocationMap = (() => {
       if (!map || failed) return;
       const outsideMap = Math.abs(lat) > mercatorLimit;
       latitudeMessage = outsideMap
-        ? `Selected coordinates ${coordinateText(lat, lon)} are beyond this flat map's latitude limit of ±85.05113°. The coordinates are unchanged; use coordinate entry for polar locations.` : '';
+        ? `Selected point ${coordinateText(lat, lon)} is beyond this flat map's latitude limit of ±85.05113°. The pin sits at the map edge; the analysis uses the exact point.` : '';
       updateWarning();
       if (!selected) {
         selected = new maplibregl.Marker({
-          element: makePin('selected', markerLabel()), draggable: true,
+          element: makePin(markerLabel()), draggable: true,
           anchor: 'center', offset: [0, -12 * Math.SQRT2], subpixelPositioning: true
         }).setLngLat([lon, Math.max(-mercatorLimit, Math.min(mercatorLimit, lat))]).addTo(map);
         selected.on('dragstart', clearEvidence);
@@ -271,13 +263,13 @@ window.LocationMap = (() => {
       });
       map.on('error', () => {
         resourceFailed = true;
-        warn('Some basemap tiles or labels could not load. You can still select coordinates or choose a saved analysis. This is not a weather-data limitation.');
+        warn('Some basemap tiles or labels could not load. Search and map clicks still work. This is not a weather-data limitation.');
       });
       map.on('dataloading', () => {
         if (!basemapInstalled || waitingTimer || failed) return;
         waitingTimer = setTimeout(() => {
           waitingTimer = null;
-          if (map && (!map.isStyleLoaded() || !map.areTilesLoaded())) warn('The basemap is taking longer to load. Coordinates and saved analyses still work. This is not a weather-data limitation.');
+          if (map && (!map.isStyleLoaded() || !map.areTilesLoaded())) warn('The basemap is taking longer to load. Search still works. This is not a weather-data limitation.');
         }, 12000);
       });
       map.on('idle', () => {
@@ -286,24 +278,10 @@ window.LocationMap = (() => {
         if (basemapInstalled && !resourceFailed) warn('');
       });
 
-      for (const entry of sites) {
-        const site = entry?.site;
-        if (!site || !coordinatesValid(site.lat, site.lon) || Math.abs(site.lat) > mercatorLimit) continue;
-        const name = String(site.name || 'Saved analysis');
-        const element = makePin('saved', `Select saved analysis: ${name}`);
-        new maplibregl.Marker({element, anchor: 'center', subpixelPositioning: true})
-          .setLngLat([site.lon, site.lat]).addTo(map);
-        element.addEventListener('click', event => {
-          event.stopPropagation();
-          setSelection(site.lat, site.lon, {label: name, recenter: false});
-          if (typeof onPreset === 'function') onPreset(name);
-        });
-      }
-
       if (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') {
-        warn('Basemap resources need an HTTP or HTTPS page. Coordinates and saved analyses still work; this is not a weather-data limitation.');
+        warn('Basemap resources need an HTTP or HTTPS page. This is not a weather-data limitation.');
       } else {
-        warn('Loading the basemap. Coordinates and saved analyses are already available.');
+        warn('Loading the basemap.');
         styleRequest = new AbortController();
         styleTimer = setTimeout(() => styleRequest.abort(), 12000);
         fetch(new URL('openfreemap-positron-en.json', assetBase), {signal: styleRequest.signal})
@@ -318,7 +296,7 @@ window.LocationMap = (() => {
             map.setStyle(style, {diff: false});
           })
           .catch(() => {
-            if (!failed) warn('The basemap style could not load. You can still select coordinates or choose a saved analysis. This is not a weather-data limitation.');
+            if (!failed) warn('The basemap style could not load. Search still works. This is not a weather-data limitation.');
           })
           .finally(() => clearTimeout(styleTimer));
       }

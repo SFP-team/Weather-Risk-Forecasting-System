@@ -1,11 +1,19 @@
 # Project progress log
 
+## 2026-10-14: Location panel cut to search only
+
+- **Request.** The user called the panel's search note noise and asked to remove it, the saved locations and the latitude and longitude fields, so that people choose places by search, and to push the change to the servers.
+- **Changed.** The panel holds the search box and Analyze location beside the map. Saved locations are gone from the list, search, map pins and page load, together with the 71 files in `dist/snapshots/`, their index and the split script; every result comes from the archive API. A coordinate pair can still be typed or pasted into the search box. The GeoNames CC BY 4.0 credit moved to the page footer. Analyze stays disabled until a place is chosen.
+- **Side effects.** Soil records and published planting seasons match only the exact coordinates of registered sites, so searched places show neither.
+- **Verification.** 42 UI tests passed. Local browser checks covered the empty start, a Gainesville search and live analysis, a region view, a no-match search, a typed coordinate pair, a map selection, 390 px and no page errors. Deployed to http://fpt-server.ad.ufl.edu:8789/ with matching file hashes; a browser there showed the new panel and completed the Gainesville analysis.
+
 ## 2026-10-14: Year-round planner for evergreen sites (branch `evergreen-analyses`, on test)
 
 - **Request.** After a briefing on evergreen and deciduous blueberry systems, the user asked for the four top evergreen analyses in a new branch, to run before merging.
 - **Built.** A Year-round planner tab with (1) one row per year for a chosen start date, beside grower months; (2) a weekly hazard calendar of frost, hard freeze, heat, severe heat, heavy rain and disease-favourable days; (3) start dates ranked for chosen harvest months; (4) monthly temperature anomaly by year with El Niño and La Niña months from NOAA's Oceanic Niño Index. The server now returns per-year results for each scan start and the weekly hazard counts; existing values are unchanged.
 - **Seen.** At Chao the first favourable start (15 June) harvests 11 August to 29 September, within the reported August to January, but blooms about two months after the reported April and May. Its warmest favourable flowering seasons were 2023 and 2015, both El Niño throughout.
-- **Verification.** 105 server tests in staging and 47 UI tests passed. The 71 regenerated snapshots differ from `main` only in the new fields. Chao, Arcadia and Waldo drew all four sections in a browser with no page errors, and a live analysis at the test address http://fpt-server.ad.ufl.edu:8790/ drew the tab. The live app on 8789 is unchanged.
+- **Verification.** 105 server tests in staging and 47 UI tests passed. The 71 regenerated snapshots differed from the previous ones only in the new fields. Chao, Arcadia and Waldo drew all four sections in a browser with no page errors, and a live analysis at the test address http://fpt-server.ad.ufl.edu:8790/ drew the tab. The live app on 8789 does not have the planner.
+- **Merged from `main`.** The branch now carries the search-only location panel, and its saved locations and snapshots are gone. 47 UI tests passed; at the test address a searched Virú, Peru analysed live and drew all four sections with no page errors.
 
 ## 2026-10-14: Season ribbon and Every winter tabs
 

@@ -55,9 +55,9 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 
 ## What works
 
-- Coordinate inputs, map-pin selection, 71 locally searchable saved locations and four growing-system choices. Saved groups are Reference, Georgia, Central Florida and South Florida, then the four benchmark groups: US transect; Peru, Chile and Mexico; other Latin America; rest of world. Presets load `dist/snapshots/<site>.json` on demand from the small `dist/snapshots.json` index; benchmark files are named by benchmark id.
+- Place search, map-pin selection and four growing-system choices. Search lists GeoNames towns and villages from the server, Natural Earth regions and countries, and a typed or pasted coordinate pair. Since 2026-10-14 the panel has no saved locations, coordinate fields or search help text, and every result comes from the archive API.
 - Six exposure cards, monthly and annual charts, annual data table, mapped soil profiles with uncertainty, qualitative management notes and source provenance.
-- Seventy-one derived location summaries cover 2011–2025; Citra, Waldo and Papanduva each have 45 soil records. These are point summaries, not bulk weather, raw rasters or supervisor source materials.
+- Soil records exist only at the exact Citra, Waldo and Papanduva pilot points (45 each). The API matches soil by exact coordinates, so a searched place shows none.
 - The private read-only API extracts daily and hourly records for supported land coordinates from existing archives. `hourly_archive.py` verifies each raw source object against a read-only SQLite checksum record. It does not create download clients, update acquisition state, fill missing chunks or persist duplicate global arrays.
 - HTML/JSON export controls use the displayed analysis and selected system. The JSON contains the analysis ID and source hashes. Reports do not fit a new model or generate new numbers.
 - **Production analysis (updated 2026-09-28):** `location-evidence-v5` attaches `open-field-production-v3`, primary profile `stage_thermal_v3`. Stages after budbreak follow degree-days, disease weather uses the hourly infection model, and `chill_clock` states whether the chill-triggered calendar applies, with reasons. Headlines still require at least 12 valid winters and ≥50% recurrence. "Transitional" is shown as "No two-thirds majority" with per-class counts, and the calendar is then marked tentative. Choosing a tunnel or pot setup changes notes, not outdoor numbers. Method details: [production README](weather/production/README.md).
@@ -78,7 +78,7 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 - **Hourly source identity:** existing indexed cells retain their stored-series identity and sharing-site name. Other supported cells report Global hourly archive, source coordinates, displacement, UTC period, row count and a checksum identity over source objects and cell/window. All pins in one native 0.5° × 0.625° cell share weather values, not parcel observations. Evergreen-majority calendars remain inapplicable under the existing model.
 - **Establishment window (2026-09-22):** a separate source-labelled regional panel, not a bearing-cycle lane. Florida: mid-December–mid-February; Georgia: winter, displayed approximately December–February; Santa Catarina: winter while dormant, displayed approximately June–August. The latter two are season conventions, not precise source-specified dates. Unknown-region pins decline rather than infer geography from a weather cell. Sources and conditions are in the panel and [method notes](weather/production/README.md).
 - **Daily-only fallback:** complete daily Tmax >21 °C counts for 15 Nov–15 Feb north / 15 May–15 Aug south, labelled **days**, never estimated hours. Chill-triggered stages stay unavailable. The API reads 2010 padding for the first northern winter.
-- Results older than `location-evidence-v5` / `open-field-production-v3` are refused with a refresh explanation. Regenerate snapshots and update the API together.
+- Results older than `location-evidence-v5` / `open-field-production-v3` are refused with a refresh explanation. Update the API and the UI together.
 - API errors are separated. The preview proxy marks its own tunnel-down reply with `code: 'archive_unavailable'` and the UI shows the archive as unavailable. Other 503 or 429 replies show the server's busy message. Non-JSON bodies are treated as an unavailable archive, not parsed.
 - **Verification (2026-09-22):** 18 presets rendered; 135 selected winter/stage views and 855 displayed values matched the payload; empty/evergreen states, keyboard activation and management-state retention passed. Actual HTML/JSON downloads retained planting, winter 2014, fruit stage, tunnel/pots and chosen chart labels. Desktop/mobile inspected; 320/390/768/1440 px had no page overflow. Live shared-cell and daily-only coordinates both passed after restarting only `blueberry-ui-api`. Backend suite: 96 passing; 39 production/API tests passed again after fixing missing analysis-version metadata.
 - **Verification (2026-09-28):** the UI agent checked Waldo, Arcadia, PF Berry and Georgia against the v3 payload, winter and stage retention across views, export names `blueberry-<site>-<analysis id>`, intercepted 503/502/HTML error bodies, cancel and a v4 refusal. `node --check` passed for `dist/app.js`, `dist/cycle.js` and `scripts/preview-ui.mjs`. After the final snapshot regeneration, Chao and Arcadia presets and a live Clinton, NC coordinate (7.8 s, `blueberry-ui-api` restarted only) rendered without page errors. All five views had no page overflow at 390 px, and the benchmark page fitted 390 px.
@@ -87,7 +87,7 @@ Hourly integration, 2026-09-22: 102 server tests passed. The reported 43.060861,
 
 **Server UI (since 2026-10-13):** `http://fpt-server.ad.ufl.edu:8789/` from the UF network or VPN, described under "Server UI on the UF network" below. This is the connected app for users. There is no login.
 
-**Hosted snapshot UI:** `dist/` contains the updated static application and 71 saved presets. The existing owner-private Sites deployment has **not** been redeployed; its old content is not updated by local edits or a GitHub push. The user authorized GitHub publication on 2026-09-22, not hosted redeployment.
+**Hosted snapshot UI:** ended on 2026-10-14, when the saved locations and their `dist/snapshots/` files were removed at the user's request; the app now needs the archive API. The owner-private Sites deployment still shows its old content and was not changed.
 
 **Connected local UI:** the same frontend sends requests through the local Node proxy and an authenticated SSH forward to the loopback-only Python API. Use it to test changes before updating the server. Like the server UI, it is a single-analysis-at-a-time prototype, not an authenticated multi-user service or a durable job queue.
 
@@ -151,7 +151,7 @@ rsync -a ops/api/blueberry-test-api.service ops/api/blueberry-test-web.service f
 ssh fpt@10.248.22.167 'systemctl --user daemon-reload && systemctl --user start blueberry-test-api blueberry-test-web'
 ```
 
-Saved locations come from the branch's `dist/snapshots/`. To regenerate them without touching the live `reports/ui_snapshots.json`, pass an output path: `python location_api.py --snapshots <path>`, then `python3 scripts/split_snapshots.py <path>` locally. After the merge or when the branch is dropped, stop both units with `systemctl --user stop blueberry-test-web blueberry-test-api`.
+To keep a branch's batch run from overwriting the live `reports/ui_snapshots.json`, pass an output path: `python location_api.py --snapshots <path>`. After the merge or when the branch is dropped, stop both units with `systemctl --user stop blueberry-test-web blueberry-test-api`.
 
 `dist/enso.json` holds NOAA's Oceanic Niño Index from 2010 for the Year-round planner. Rebuild it with `python3 scripts/build_enso.py`. A warm or cool run at the end of the series stays unlabelled until it lasts five seasons; the 2026 run, at +2.16 for July to September, is unlabelled for that reason.
 
@@ -224,7 +224,7 @@ cd /media/fpt/fpt2/Weather_Claude/code
 ../env/bin/python -m unittest discover -p "test_*.py"
 ```
 
-The generator writes `reports/ui_snapshots.json` for the three references, the panel and the 53 benchmark sites in `benchmark_sites.json`. Copy it locally and run `python3 scripts/split_snapshots.py <file>` to produce `dist/snapshots.json` and `dist/snapshots/*.json`; review the public fields before committing. Never copy the raw archive into `dist/`. JavaScript checks:
+The generator writes `reports/ui_snapshots.json` on the server for the three references, the panel and the 53 benchmark sites in `benchmark_sites.json`. The app no longer ships these results; use the file to compare model versions before and after a change. Never copy the raw archive into `dist/`. JavaScript checks:
 
 ```sh
 node --check dist/shared.js

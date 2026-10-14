@@ -46,10 +46,10 @@ main { max-width: 1600px; margin: auto; padding: 0 max(clamp(16px, 3.33vw, 48px)
 .panel-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .panel-heading h2 { font-size: 22px; letter-spacing: -.02em; }
 .step-number { font: 11px var(--mono); color: var(--muted); }
-.field-label, .coordinate-fields label, .setup-select { display: grid; gap: 8px; font-size: 12px; font-weight: 500; color: var(--ink); }
+.field-label, .setup-select { display: grid; gap: 8px; font-size: 12px; font-weight: 500; color: var(--ink); }
 .field-label { margin: 24px 0 8px; }
 #site-search { border-radius: 980px; padding-inline: 18px; }
-#search-help, #search-status { margin-top: 8px; overflow-wrap: anywhere; }
+#search-status, #coordinate-hint { margin-top: 8px; overflow-wrap: anywhere; }
 .search-results { max-height: min(320px, 45svh); overflow-y: auto; overscroll-behavior: contain; margin-top: 10px; padding: 6px; border: 1px solid var(--line); border-radius: 28px; background: var(--paper); scrollbar-width: thin; }
 .search-results:empty { display: none; }
 .search-section + .search-section { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
@@ -60,17 +60,6 @@ main { max-width: 1600px; margin: auto; padding: 0 max(clamp(16px, 3.33vw, 48px)
 .search-option:hover { background: var(--soft); border-color: transparent; }
 .search-option[aria-selected=true] { color: var(--ink); background: #edf5ff; border-color: var(--accent); }
 .search-option:focus-visible { outline-offset: -3px; }
-.preset-list { max-height: min(158px, 24svh); overflow: auto; margin: 10px 0 4px; padding: 4px; scrollbar-width: thin; }
-.preset-group { display: grid; gap: 2px; }
-.preset-group + .preset-group { margin-top: 10px; }
-.preset-group-title { padding: 4px 10px; font-size: 11px; font-weight: 500; color: var(--muted); }
-.preset-option { display: flex; align-items: center; justify-content: space-between; text-align: left; border-color: transparent; background: transparent; padding: 9px 12px; gap: 10px; min-height: 44px; font-size: 13px; overflow-wrap: anywhere; }
-.preset-option small { font-size: 11px; color: var(--muted); font-weight: 400; text-align: right; }
-.preset-option[aria-pressed=true] { background: var(--paper); border-color: var(--line); color: var(--accent); }
-.preset-option:focus-visible { outline-offset: -3px; }
-#preset-count { font-size: 11px; }
-.coordinate-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
-.coordinate-fields input { padding: 10px 12px; font-size: 16px; }
 .selection-label { min-height: 40px; padding: 10px 0; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
 .primary { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; min-height: 44px; background: var(--primary); border-color: var(--primary); color: #fff; }
 .primary:hover { background: #0066cc; border-color: #0066cc; color: #fff; }
@@ -256,7 +245,6 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
 @media (max-width: 900px) {
   .explorer { grid-template-columns: minmax(0, 1fr); }
   .location-panel { padding: 8px 8px 4px; }
-  .preset-list { max-height: min(120px, 24svh); }
   .result-head { flex-direction: column; }
   .actions { justify-content: flex-start; }
   .summary-card p { max-width: 70ch; }
@@ -308,7 +296,6 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
   .notice { padding: 20px; }
 }
 @media (max-width: 360px) {
-  .coordinate-fields { grid-template-columns: minmax(0, 1fr); }
   .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
   .setup-select { grid-column: 1 / -1; }
   .actions button { padding-inline: 10px; }
