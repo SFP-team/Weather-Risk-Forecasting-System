@@ -5,9 +5,9 @@
   <title>Blueberry Breeding Lab</title>
   <meta name="description" content="Historical climate, seasonal weather exposures and blueberry planting windows by location.">
   <link rel="icon" href="assets/blueberry-breeding-lab.png" type="image/png">
-  <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css">
+  <link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="map.css"><link rel="stylesheet" href="cycle.css"><link rel="stylesheet" href="season.css">
   <link rel="stylesheet" href="evidence.css">
-  <script src="vendor/maplibre-gl.js" defer></script><script src="shared.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="places.js" defer></script><script src="evidence.js" defer></script><script src="app.js" defer></script>
+  <script src="vendor/maplibre-gl.js" defer></script><script src="shared.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="season-views.js" defer></script><script src="places.js" defer></script><script src="evidence.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
@@ -48,6 +48,8 @@
     <p id="setup-note" class="small setup-note">Weather values describe open-field conditions. Growing setup changes notes, not the numbers.</p>
     <nav class="view-tabs" role="tablist" aria-label="Assessment views">
       <button role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-view="overview">Overview</button>
+      <button role="tab" id="tab-ribbon" aria-controls="panel-ribbon" aria-selected="false" tabindex="-1" data-view="ribbon">Season ribbon</button>
+      <button role="tab" id="tab-winters" aria-controls="panel-winters" aria-selected="false" tabindex="-1" data-view="winters">Every winter</button>
       <button role="tab" id="tab-season" aria-controls="panel-season" aria-selected="false" tabindex="-1" data-view="season">Season &amp; exposures</button>
       <button role="tab" id="tab-climate" aria-controls="panel-climate" aria-selected="false" tabindex="-1" data-view="climate">Climate history</button>
       <button role="tab" id="tab-site" aria-controls="panel-site" aria-selected="false" tabindex="-1" data-view="site">Soil &amp; setup</button>
@@ -61,6 +63,8 @@
       <section id="planting" aria-labelledby="planting-heading"><div class="section-title"><div><p class="eyebrow">Nursery planting, not the yearly crop cycle</p><h2 id="planting-heading">Planting window</h2></div><span class="badge" id="planting-badge"></span></div><div id="planting-content" class="planting-panel"></div></section>
       <section aria-labelledby="regional-overview-heading"><div class="section-title"><div><p class="eyebrow">Reports, not calculated risks</p><h2 id="regional-overview-heading">Regional evidence</h2></div><button type="button" data-open-view="regional">Explore regional reports</button></div><p id="regional-evidence-summary" class="small" role="status">Loading the reviewed report library.</p></section>
     </section>
+    <section id="panel-ribbon" class="view-panel" role="tabpanel" aria-labelledby="tab-ribbon" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Every winter at a glance, modelled from weather</p><h2>Season ribbon</h2></div><span class="badge">Modelled dates, not observations</span></div><div id="ribbon-content"></div></section>
+    <section id="panel-winters" class="view-panel" role="tabpanel" aria-labelledby="tab-winters" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">One row per winter, with the weather each stage met</p><h2>Every winter</h2></div><span class="badge">Modelled dates, not observations</span></div><div id="winters-content"></div></section>
     <section id="panel-season" class="view-panel" role="tabpanel" aria-labelledby="tab-season" tabindex="0" hidden><div id="production" class="production"><div class="section-title"><div><p class="eyebrow">Provisional bearing-plant calendar</p><h2>Season &amp; exposures</h2></div><span class="badge" id="production-badge"></span></div><div id="production-content"></div></div></section>
     <section id="panel-climate" class="view-panel" role="tabpanel" aria-labelledby="tab-climate" tabindex="0" hidden>
       <div class="section-title"><div><p class="eyebrow">Outside the crop calendar</p><h2>Annual climate summary</h2></div><span class="small">Calendar-year and reference-winter context</span></div><div id="risk-cards" class="risk-grid" aria-label="Six weather exposure factors"></div>

@@ -25,13 +25,15 @@ The connected private API reads daily weather and complete hourly series for sup
 |---|---|---|
 | Explore | Global map, saved-location filter, coordinates, explicit Analyze | Basemap attribution, input help, source-cell overlay and archive scope |
 | Overview | System hypothesis, assumed harvest, risk count; recurrence cards with k/n; four exposure families; one calculated planting window with any published season; regional evidence count | Event definitions, Wilson intervals, sources and excluded-assessment reasons |
+| Season ribbon | One band for all winters, split each day by stage; transition dates with their spread; planting rule beside published planting seasons; grower-reported bloom and harvest months; counted risks under their stage | How-to-read notes, published-calendar sources, risks not seen, exposure-only measures and links to Season & exposures and Methods & data |
+| Every winter | One row per winter with stage segments, frost, heat and heavy-rain marks and chill hours; order by winter or budbreak | Per-row tooltips with dates and event counts; notes on thresholds and labels |
 | Season & exposures | Winter selector, categorical stage colours, full-width timeline, selected-stage metric cards | Exact values, historical distribution, coverage, eligibility, full calendar and per-winter tables |
 | Climate history | Six annual/reference-winter cards and two selectable charts | Annual values and definitions; no confusion with crop-stage windows |
 | Soil & setup | Acquired records with property/depth uncertainty and selected setup notes | Missing soil, geographic-grid limitations, pot substrate and irrigation requirements |
 | Regional evidence | Report records for the containing country and region, filterable by harvest, management, weather and resources | Report scope, period, crop context, limitations, cited pages, attribution, reuse terms and PDF hashes |
 | Methods & data | Interpretation limits, source resolution, daily/hourly/soil coverage and all assessments | Analysis ID, method versions, source hashes, quality flags and provenance |
 
-The six assessment views use one tab panel at a time. Tab, arrow keys, Home and End operate the tabs. Stage selection uses native buttons. Details/summary controls provide progressive disclosure without a second data model.
+The eight assessment views use one tab panel at a time. Tab, arrow keys, Home and End operate the tabs. Stage selection uses native buttons. Details/summary controls provide progressive disclosure without a second data model.
 
 ## Metric presentation rules
 

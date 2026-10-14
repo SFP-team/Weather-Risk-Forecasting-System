@@ -5,6 +5,7 @@ let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved 
 let draftPlace=null,activePlace=null,areaSelection=null;
 let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1,searchLoading=false,searchPickFirst=false,placeRequest=null;
 let regionalLibrary={status:'loading',registry:null},activeRegionalEvidence=null;
+let seasonCalendars={status:'loading',sites:null};
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=Shared.escapeHTML;
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -105,6 +106,7 @@ function renderAssessmentPlace(){
   $('assessment-place-details').textContent=placeRegion(p);
   $('assessment-place-note').textContent=placeNote(p);
   $('summary').querySelector('[data-assessment-name]').textContent=name;
+  document.querySelectorAll('[data-season-name]').forEach(n=>{n.textContent=name});
   const cycleLabel=$('production-content').querySelector('.cycle-header .stamp');
   if(cycleLabel)cycleLabel.textContent=`${name} · Seasonal exposure`;
   $('place-evidence').innerHTML=`<h3>Place-name context</h3>${p.name_source==='GeoNames'?`<p>${esc(p.searched_name)} was chosen from the GeoNames place search (CC BY 4.0). Region and country come from the Natural Earth reference.</p>`:''}<p>${esc(nearestPlace(p))}</p><p>${esc(p.note)}</p>${p.source?`<p>Source: ${esc(p.source)}</p>`:''}<p>Place names are display context only. They do not change weather coordinates, source cells, the planting window or which published planting season is shown.</p>`;
@@ -141,6 +143,23 @@ function renderRegionalEvidence(){
   $('regional-evidence-summary').textContent=evidence.status==='available'?
     `${evidence.records.length} source-checked regional records. Reported practice and events are separate from the calculated weather risks; they are not observations at this pin.`:
     evidence.reason;
+}
+// Published grower calendars for the Season ribbon load once; both season tabs redraw when they arrive.
+async function loadSeasonCalendars(){
+  try{seasonCalendars={status:'available',sites:await SeasonViews.loadCalendars()}}
+  catch{seasonCalendars={status:'unavailable',sites:null}}
+  renderSeasonViews();
+}
+function renderSeasonViews(){
+  if(!active)return;
+  if(typeof SeasonViews==='undefined'){
+    for(const id of ['ribbon-content','winters-content'])$(id).innerHTML='<div class="soil-note">This view could not load. The other tabs still work; reload the page to try again.</div>';
+    return;
+  }
+  const p=active.production,ctx={name:assessmentName(),site:active.site,system:$('system').value,planting:active.planting,
+    applies:p?.status==='available'&&chillCalendarApplies(p),calendars:seasonCalendars};
+  SeasonViews.ribbon($('ribbon-content'),p,ctx);
+  SeasonViews.winters($('winters-content'),p,ctx);
 }
 async function loadRegionalEvidence(){
   try{
@@ -194,7 +213,7 @@ function management(){
   const s=systems[$('system').value];
   $('management-title').textContent=s[0];
   $('management').innerHTML=[1,3,5].map(i=>`<article><h3>${s[i]}</h3><p>${s[i+1]}</p></article>`).join('');
-  renderSoil();renderPlanting();renderProduction();renderOverview();
+  renderSoil();renderPlanting();renderProduction();renderSeasonViews();renderOverview();
 }
 function renderSoil(){if(!active)return;const soil=active.soil??[];$('soil-status').textContent=soil.length?`${soil.length}/45 mapped records`:'Not acquired';if(!soil.length){$('soil-content').innerHTML='<div class="soil-note">No soil snapshot is available at this coordinate. Weather results remain usable; soil suitability is not assessed.</div>';return}const rows=[];for(const p of ['phh2o','soc','sand','silt','clay'])for(const depth of ['0-5cm','5-15cm','15-30cm']){const r=soil.filter(x=>x.property===p&&x.depth===depth),v=s=>r.find(x=>x.statistic===s)?.value;rows.push(`<tr><td>${({phh2o:'pH in water',soc:'Organic carbon',sand:'Sand',silt:'Silt',clay:'Clay'})[p]}</td><td>${depth}</td><td>${fmt(v('mean'))} ${esc(r[0]?.unit??'')}</td><td>${fmt(v('Q0.05'))}–${fmt(v('Q0.95'))}</td></tr>`)}$('soil-content').innerHTML=($('system').value.endsWith('pots')?'<div class="soil-note">For pots, these native-soil estimates are site context only. Substrate, irrigation water and container drainage have not been assessed.</div>':'')+`<div class="table-scroll"><table><thead><tr><th>Property</th><th>Depth</th><th>Mean</th><th>5th–95th bounds</th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="small">ISRIC SoilGrids predictions, not field measurements. Bounds describe prediction uncertainty. WCS returned geographic-grid samples; native-grid parity and field drainage remain unverified.</p>`}
 const CLASSES=['Evergreen','Semi-evergreen','Deciduous'],STAGES=[['chill','Chill fulfilled'],['budbreak','Budbreak'],['flowering_start','Flowering start'],['flowering_end','Flowering end'],['harvest_start','Harvest start'],['harvest_end','Harvest end']];
@@ -837,7 +856,7 @@ $('export').onclick=async()=>{
     content.querySelector('#assessment-place-note').textContent='Place names were still resolving when this report was saved. Coordinate identity is retained.';
     content.querySelector('#place-evidence').textContent='Place names were pending at export. No settlement, country or region was assigned. Weather coordinates and the planting window are unchanged.';
   }
-  content.querySelectorAll('.actions,.view-tabs,.cycle-stage-controls,[data-open-view],[data-explore-stage]').forEach(n=>n.remove());
+  content.querySelectorAll('.actions,.view-tabs,.cycle-stage-controls,.season-controls,[data-open-view],[data-explore-stage]').forEach(n=>n.remove());
   content.querySelector('.cycle-panel')?.classList.add('is-snapshot');
   content.querySelectorAll('.view-panel').forEach(p=>{
     p.hidden=false;p.removeAttribute('role');p.removeAttribute('aria-labelledby');p.removeAttribute('tabindex');
@@ -849,7 +868,7 @@ $('export').onclick=async()=>{
   content.querySelectorAll('details').forEach(d=>d.open=true);
   button.disabled=true;
   try{
-    const styles=await Promise.all(['style.css','cycle.css','evidence.css'].map(async path=>{
+    const styles=await Promise.all(['style.css','cycle.css','evidence.css','season.css'].map(async path=>{
       const res=await fetch(path);if(!res.ok)throw Error('Report styles could not load. No incomplete report was saved.');return res.text();
     }));
     download(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(placeSnapshot.display_name)} | Blueberry assessment</title><style>${styles.join('\n')}</style></head><body class="export-document"><main><p class="stamp export-heading">Historical baseline ${esc(baselineYears(snapshot))} · ${esc(system)} · ${esc(snapshot.analysis_id??'saved-snapshot')}</p>${content.outerHTML}</main></body></html>`,'text/html',exportName(placeSnapshot,snapshot,'html'));
@@ -873,7 +892,7 @@ async function initialize(){
   if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
 }
 initialize();
-loadRegionalEvidence();
+loadRegionalEvidence();loadSeasonCalendars();
 $('connection').textContent='Saved locations · archive not connected';
 // Any HTTP(S) page can front the archive: the local preview or the server deployment. A static host answers 404 and stays not connected.
 if(location.protocol==='http:'||location.protocol==='https:'){

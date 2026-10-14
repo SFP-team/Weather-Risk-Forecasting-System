@@ -1,0 +1,19 @@
+/* Season ribbon and Every winter tabs. Chart colours are SVG attributes set in season-views.js. */
+.season-panel { min-width: 0; }
+.season-story { max-width: 72ch; margin: 0 0 20px; font-size: 15px; line-height: 1.6; }
+.season-setup { margin-bottom: 20px; }
+.season-scroll { width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; padding: 14px 10px 6px; border: 1px solid var(--line, #d6d6d6); border-radius: 28px; background: #fff; }
+.season-scroll:focus-visible { outline: 3px solid var(--accent, #0066cc); outline-offset: -3px; }
+.season-scroll svg { display: block; width: 100%; min-width: 880px; height: auto; }
+.season-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 16px; font-size: 12px; color: var(--muted, #707070); }
+.season-controls button { min-height: 44px; padding: 10px 16px; border: 1px solid var(--line, #d6d6d6); border-radius: 9999px; background: var(--paper, #fff); color: var(--ink, #1d1d1f); font: 500 13px/1.4 var(--font, system-ui, sans-serif); cursor: pointer; }
+.season-controls button[aria-pressed="true"] { border-color: var(--ink, #1d1d1f); outline: 1px solid var(--ink, #1d1d1f); outline-offset: -2px; }
+.season-controls button:focus-visible, .season-details summary:focus-visible { outline: 3px solid var(--accent, #0066cc); outline-offset: 3px; }
+.season-notes { display: grid; gap: 6px; max-width: 90ch; margin-top: 16px; font-size: 12px; line-height: 1.6; color: var(--muted, #707070); }
+.season-notes p + p { margin-top: 0; }
+.season-links { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 4px; }
+.season-links .text-button { text-decoration: none; }
+.season-details summary { min-height: 44px; padding: 12px 0; color: var(--accent, #0066cc); font: 500 13px/1.5 var(--font, system-ui, sans-serif); cursor: pointer; overflow-wrap: anywhere; }
+.season-details ul { margin: 0 0 8px; padding-left: 20px; font-size: 13px; color: var(--ink, #1d1d1f); }
+.season-details li + li { margin-top: 6px; }
+.season-sources a { color: var(--accent, #0066cc); overflow-wrap: anywhere; }

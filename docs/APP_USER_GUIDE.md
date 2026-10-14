@@ -15,7 +15,7 @@ For a presentation with pictures of every screen, open [How the blueberry weathe
 3. [The three types of information](#3-the-three-types-of-information)
 4. [How to use the app](#4-how-to-use-the-app)
 5. [The four Overview cards](#5-the-four-overview-cards)
-6. [The six tabs](#6-the-six-tabs)
+6. [The eight tabs](#6-the-eight-tabs)
 7. [How the calendar works](#7-how-the-calendar-works)
 8. [Minimum data requirements](#8-minimum-data-requirements)
 9. [How to read weather risks](#9-how-to-read-weather-risks)
@@ -96,6 +96,7 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 12 October | Regional evidence came only from reports. | Scheduled server jobs collect public records: US crop-insurance losses, US storm events, hourly weather stations, the Chilean orchard census and exports, EU imports, and Peruvian crop bulletins. The app does not show these records yet. |
 | 13 October | Place search knew only about 7,300 larger towns, so towns such as Jaíba, Brazil could not be found. | Search covers about 5.2 million towns and villages worldwide from GeoNames. Section 4 explains how it works. |
 | 13 October | The app ran on one computer, through a tunnel to the server. | The app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/ for anyone on the UF network or VPN. |
+| 14 October | The season chart was hard to read: seven rows of median bars and percentile boxes, with the risks on other cards. | Two new tabs. Season ribbon shows all winters in one band, with the weather risks under each stage and the months growers report. Every winter shows one row per winter. Section 6 explains them. |
 
 Some earlier statements were corrected during review.
 
@@ -140,13 +141,13 @@ A regional freeze report does not prove that your selected field froze. A region
 
 ### Procedure: assess a location
 
-1. Start the connected app through the documented preview service.
+1. Open the app at http://fpt-server.ad.ufl.edu:8789/ from the UF network or VPN. The UI runbook also explains how to start a local copy.
 2. Search for a place, select a saved location, or enter coordinates.
 3. Check the pin coordinates. Do not use the nearby town name as proof of the exact location.
 4. Select **Analyze location**.
 5. Check the result location and the data-availability labels.
 6. Read the Production window card before you interpret crop-stage risks.
-7. Open **Season & exposures** to inspect individual years and assumptions.
+7. Open **Season ribbon** for the season at a glance and **Every winter** for the individual winters. Open **Season & exposures** for exposure values and assumptions.
 8. Open **Methods & data** to check the source cell, coverage, and exclusion reasons.
 9. Read **Regional evidence** as separate context.
 10. Save the report if you need a record of the result.
@@ -274,18 +275,45 @@ Limits:
 
 In the literature benchmark, the rule covers 22% of published planting months over 17 southern-highbush sites, and 21% of its months are published. Its months usually start earlier than the published ones. In Florida and Georgia, guides publish December to February, while the rule gives September or October to December.
 
-## 6. The six tabs
+## 6. The eight tabs
 
 | Tab | Information shown | How to use it |
 |---|---|---|
 | Overview | System class, crop window, top risks, planting window, and additional weather measures. | Read this first. Then check the basis of each result. |
+| Season ribbon | All winters in one band: the share of winters in each stage on each date, key dates with their spread, the planting rule, published planting seasons and grower months, and the weather risks under each stage. | Start here to see when each stage happens and how much that changes between winters. |
+| Every winter | One row per winter with modelled stages, frost, heat and heavy-rain marks, and that winter's chill hours. | Find unusual winters and see in which winters an event happened. |
 | Season & exposures | Stage timeline, individual winters, weather measures by stage, and cycle-start scan. | Check when exposure occurs and which years support the result. |
 | Climate history | Annual and monthly weather summaries. | Examine weather independently of a successful crop calendar. |
 | Soil & setup | Available soil estimates and growing-setup notes. | Identify information that needs local soil and management checks. |
 | Regional evidence | Report statements, dates, crop context, sources, and limitations. | Compare regional experience with the model without treating either as field validation. |
 | Methods & data | Definitions, source cells, coverage, excluded risks, versions, and analysis identity. | Investigate a missing or unexpected result. |
 
-### 6.1 Season & exposures
+### 6.1 Season ribbon
+
+The ribbon shows all winters at once. The coloured band stands for every winter in the assessment, usually 15.
+
+- On each date, the band is split by how many winters were in each stage. The colours follow the bush: grey-blue for dormant buds collecting chill, pale green for warming up, green for buds opening, pink for flowers, dark green for berries growing, and blue for harvest.
+- Where one colour fills the band, the timing hardly changes between winters. A slanted edge shows how far that date moves between winters.
+- Grey hatching marks winters without a complete calendar, for example when the chill requirement was not met.
+- The ticks below the band give the middle winter's date for chill met, budbreak, bloom start and end, and harvest start and end. The dates under each tick cover the middle 80% of winters.
+- The Planting row shows the model's planting rule, shaded by how many winters each day falls inside it. Hatched months show the published planting season from extension guides, where one is known.
+- The Growers report row shows bloom and harvest months published for the literature benchmark. It appears at the 53 benchmark sites and at points within 10 km of one. The notes below the chart name the site and the distance.
+- The weather risks sit under the stage that they threaten. Each square is one winter. A filled square means that the event happened in that winter. A red border marks a top risk.
+
+The ribbon does not change any number. It draws the same dates and counts as Season & exposures. Where the chill-triggered calendar does not apply, the tab explains why and points to the managed-cycle scan.
+
+### 6.2 Every winter
+
+Each row is one winter. You can order the rows by year or by budbreak date.
+
+- Coloured segments show the modelled stages of that winter.
+- A star marks frost or freeze on that stage. A sun marks heat of 35 °C or more on young fruit. A drop gives the number of heavy-rain days in harvest. The marks use the same thresholds as the risk counts, so they add up to the counts on the ribbon.
+- The right-hand column shows the chill hours of that winter against the 50-hour requirement of the model.
+- The bottom row joins the median dates. It is not a real winter.
+
+Northern rows show both calendar years, for example 2016–17. The tables in Season & exposures use the second year.
+
+### 6.3 Season & exposures
 
 The timeline separates winter chill, bud development, flowering, fruit development, harvest, and whole-cycle context.
 
@@ -295,7 +323,7 @@ The typical timeline combines results across valid years. Select a winter to ins
 
 The displayed spread of dates shows variation between modelled years. It is not a confidence interval for the true flowering date.
 
-### 6.2 Climate history
+### 6.4 Climate history
 
 The six main measures are:
 
@@ -321,7 +349,7 @@ These values can differ without a software error. Their thresholds and periods d
 
 The production rule is inherited from the earlier workflow. It is not interchangeable with every published cultivar chill requirement.
 
-### 6.3 Soil & setup
+### 6.5 Soil & setup
 
 The available properties are soil pH, organic carbon, sand, silt, and clay.
 
@@ -335,7 +363,7 @@ Each property and depth has a mean estimate and two uncertainty estimates. Thus,
 
 The app does not calculate a soil suitability score. Local drainage, irrigation water, and root-zone conditions still need assessment.
 
-### 6.4 Regional evidence
+### 6.6 Regional evidence
 
 The library contains 156 records from the complete IBO 2023, 2024, 2025, and 2026 reports.
 
@@ -788,6 +816,7 @@ This guide distinguishes software checks from scientific validation.
 
 ### Existing recorded checks
 
+- On 14 October 2026, the Season ribbon and Every winter tabs were checked in a browser for all 71 saved locations. 50 locations draw both views, and 21 explain why no chill-triggered season exists. No text falls outside a chart, and the per-winter marks equal the risk counts. 42 browser-code tests passed. A live analysis through the UF-network address also worked.
 - On 12 October 2026, 241 server tests passed in a staging copy of the deployed code, and 34 browser-code tests passed locally.
 - With the old crop settings, the new code reproduced the 18 earlier saved assessments exactly. Only the planting text and a land-mask label differ.
 - On 12 October 2026, the planting window change passed 251 server tests in a staging copy, including 8 new planting tests. The older crop settings reproduced 18 saved sites with 0 differences. The live server returned 30 Sep to 14 Dec for an Alma coordinate. Browser checks at 1440 and 390 px covered Waldo, Alma, Papanduva, Burgaw, Arcadia, River Valley, a live Clinton pin and Waldo winter 2011, with no page errors and no page overflow. 34 browser-code tests passed. No weather, calendar or risk number changed in the 71 saved assessments.

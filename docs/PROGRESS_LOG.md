@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-10-14: Season ribbon and Every winter tabs
+
+- **Request.** The user chose concepts 1 and 2 of the season-chart sketches and asked for them as new tabs, keeping Season & exposures.
+- **Built.** `dist/season-views.js` and `dist/season.css` add two tabs after Overview. The Season ribbon shows one band for all winters, split each day by stage, with grey hatching for winters without a calendar, transition dates with their middle-80% range, the planting rule beside the published planting season, grower-reported bloom and harvest months, and counted risks under their stage. Every winter shows one row per winter with frost, heat and heavy-rain marks and that winter's chill hours. Neither changes a number; both explain sites where the chill-triggered calendar does not apply.
+- **Published months.** `scripts/build_benchmark_calendars.py` writes `dist/benchmark-calendars.json` from the benchmark registry. A site uses its own benchmark entry, otherwise the nearest benchmark site within 10 km, so the Waldo, Alma, Citra, Homerville, Arcadia and Sebring reference presets match their twins at 0 to 4 km. Months are placed within half a year of the matching model window; a fixed window had put a Michigan July-to-September harvest's September in the previous autumn.
+- **Verification.** 42 UI tests passed, 6 of them new. In the browser all 71 saved sites rendered (50 drawn, 21 explained), with no text outside a chart, no overlapping lane labels, one published band per run of months, and no page errors. The per-winter marks equal the risk counts at all 50 sites with a calendar. Spot checks covered a southern site, partial and missing calendars, a live pin, the growing-setup note, the HTML export, keyboard tabs and 390 px. Deployed to the server with identical files, and a browser at the UF address completed a live Jaíba analysis, which had been unchecked since the VPN dropped.
+
 ## 2026-10-14: Season chart concepts
 
 - **Request.** Scientists found the "Crop stages & analysis windows" chart hard to read, and the user asked for a thorough brainstorm on a more intuitive design.
