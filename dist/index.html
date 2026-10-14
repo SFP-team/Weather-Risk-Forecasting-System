@@ -10,40 +10,35 @@
   <script src="vendor/maplibre-gl.js" defer></script><script src="shared.js" defer></script><script src="map.js" defer></script><script src="cycle.js" defer></script><script src="season-views.js" defer></script><script src="places.js" defer></script><script src="evidence.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#location-form">Skip map and choose coordinates</a>
+<a class="skip-link" href="#site-search">Skip to location search</a>
 <header class="top"><a class="brand" href="./"><img class="lab-logo" src="assets/blueberry-breeding-lab.png" alt="Blueberry Breeding Lab"></a></header>
 <main>
   <h1 class="sr-only">Blueberry Breeding Lab · location climate and production analysis</h1>
   <section class="explorer" aria-label="Choose a location">
     <aside class="location-panel">
       <div class="panel-heading"><span class="step-number">01</span><h2>Select a location</h2></div>
-      <p class="small">Search for a place, place a pin or enter coordinates.</p>
+      <p class="small">Search for a place or click the map.</p>
       <label for="site-search" class="field-label">Search places</label>
-      <input id="site-search" type="search" placeholder="City, region or country" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-help search-status">
-      <p id="search-help" class="small">Search saved locations, about 5.2 million towns and villages, and regions and countries. Street addresses and farm names are not searchable. Regions and countries open an area; choose a point for analysis. What you type goes only to this tool's own server and is not logged. Town names: <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a>, CC BY 4.0.</p>
-      <div id="search-results" class="search-results" role="listbox" aria-label="Saved locations, places, regions and countries" hidden></div>
-      <p id="search-status" class="small" role="status" aria-live="polite">Type a town, village, region or country.</p>
-      <h3 class="field-label" id="saved-locations-heading">Saved locations</h3>
-      <div id="presets" class="preset-list" aria-labelledby="saved-locations-heading"></div><p id="preset-count" class="small" role="status"></p>
+      <input id="site-search" type="search" placeholder="City, region or country" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-status">
+      <div id="search-results" class="search-results" role="listbox" aria-label="Places, regions and countries" hidden></div>
+      <p id="search-status" class="small" role="status" aria-live="polite"></p>
+      <p id="coordinate-hint" class="small" role="status" hidden>Check the order: latitude first, then longitude.</p>
       <form id="location-form" novalidate>
-        <div class="coordinate-fields"><label>Latitude<input id="latitude" type="text" autocomplete="off" spellcheck="false" required value="-26.312389" aria-describedby="coordinate-help"></label><label>Longitude<input id="longitude" type="text" autocomplete="off" spellcheck="false" required value="-50.080639" aria-describedby="coordinate-help"></label></div>
-        <p id="coordinate-help" class="small">Decimal degrees, N/S/E/W or degrees-minutes-seconds. Paste a latitude, longitude pair into either field.</p>
-        <p id="coordinate-hint" class="small" role="status" hidden>Check the order: latitude first, then longitude.</p>
-        <p id="selection-label" class="selection-label">Papanduva · saved location</p>
+        <p id="selection-label" class="selection-label">Choose a place to analyze</p>
         <button class="primary" type="submit" id="analyze">Analyze location <span aria-hidden="true">→</span></button>
       </form>
     </aside>
     <div class="map-panel"><div id="location-map" aria-label="World map for location selection"></div><div class="coverage-note"><span class="coverage-dot" aria-hidden="true"></span><p><strong>Weather archive coverage.</strong> Daily and hourly weather are available for supported land points. Crop dates are provisional; soil and planting guidance have separate coverage. A map pin is not a field measurement.</p></div></div>
     <section class="selected-place" aria-labelledby="selected-place-heading">
-      <div class="selected-place-main" role="status" aria-live="polite" aria-atomic="true"><h3 id="selected-place-heading" class="eyebrow">Selected place</h3><p id="place-state" class="place-state">Finding place names…</p><p id="place-name" class="place-name">-26.312389, -50.080639</p><p id="place-region" class="small">Region and country pending</p><p id="place-coordinates" class="place-coordinates">-26.312389, -50.080639</p></div>
-      <div class="selected-place-detail"><p id="place-nearest" class="small">Looking up the nearest represented settlement.</p><p class="small">Approximate reference names, not a street address. Weather uses your exact coordinates.</p><details class="place-data"><summary>Place data &amp; limits</summary><p id="place-note" class="small">Place names load separately from weather evidence.</p><p id="place-source" class="small"></p></details></div>
+      <div class="selected-place-main" role="status" aria-live="polite" aria-atomic="true"><h3 id="selected-place-heading" class="eyebrow">Selected place</h3><p id="place-state" class="place-state">No place selected</p><p id="place-name" class="place-name">Search for a place or click the map</p><p id="place-region" class="small"></p><p id="place-coordinates" class="place-coordinates"></p></div>
+      <div class="selected-place-detail"><p id="place-nearest" class="small"></p><p class="small">Approximate reference names, not a street address. Weather uses the exact selected point.</p><details class="place-data"><summary>Place data &amp; limits</summary><p id="place-note" class="small">Place names load separately from weather evidence.</p><p id="place-source" class="small"></p></details></div>
     </section>
   </section>
-  <div class="request-bar"><p id="status" role="status" aria-live="polite">Loading saved evidence…</p><button id="cancel-analysis" type="button" hidden>Cancel request</button></div>
+  <div class="request-bar"><p id="status" role="status" aria-live="polite"></p><button id="cancel-analysis" type="button" hidden>Cancel request</button></div>
   <div id="error" class="notice error-notice" role="alert" hidden></div>
   <p id="draft-notice" class="notice" hidden></p>
   <div id="results" hidden>
-    <section class="result-head" aria-label="Assessment identity"><div><p class="eyebrow" id="result-origin">Saved assessment</p><h2 id="location-name" tabindex="-1"></h2><p id="assessment-place-details" class="small"></p><p id="coordinate-label" class="small"></p><p id="assessment-place-note" class="small"></p></div><div class="actions"><label class="setup-select">Growing setup<select id="system"><option value="open_ground">Open field + ground</option><option value="open_pots">Open field + pots</option><option value="tunnel_ground">Tunnel + ground</option><option value="tunnel_pots">Tunnel + pots</option></select></label><button id="change-location" type="button">Change location</button><button id="export" type="button">Save report</button><button id="export-json" type="button" aria-label="Download analysis JSON">JSON</button></div></section>
+    <section class="result-head" aria-label="Assessment identity"><div><p class="eyebrow" id="result-origin">Connected archive assessment</p><h2 id="location-name" tabindex="-1"></h2><p id="assessment-place-details" class="small"></p><p id="coordinate-label" class="small"></p><p id="assessment-place-note" class="small"></p></div><div class="actions"><label class="setup-select">Growing setup<select id="system"><option value="open_ground">Open field + ground</option><option value="open_pots">Open field + pots</option><option value="tunnel_ground">Tunnel + ground</option><option value="tunnel_pots">Tunnel + pots</option></select></label><button id="change-location" type="button">Change location</button><button id="export" type="button">Save report</button><button id="export-json" type="button" aria-label="Download analysis JSON">JSON</button></div></section>
     <div id="coverage-summary" class="coverage-summary" aria-label="Available evidence"></div>
     <p id="setup-note" class="small setup-note">Weather values describe open-field conditions. Growing setup changes notes, not the numbers.</p>
     <nav class="view-tabs" role="tablist" aria-label="Assessment views">
@@ -76,6 +71,6 @@
     <section id="panel-evidence" class="view-panel" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden><div class="section-title"><div><p class="eyebrow">Sources &amp; uncertainty</p><h2>Methods, coverage &amp; limits</h2></div></div><p id="connection" class="small" role="status">Checking archive connection</p><div id="summary" class="notice"></div><div id="place-evidence" class="place-evidence"></div><div class="availability" id="availability"></div><h3>All risk assessments</h3><div id="risk-evidence"></div><details><summary>Sources, quality checks and provenance</summary><div id="provenance"></div></details><p class="benchmark-link"><a href="benchmark.html">Model versus published regional practice</a></p></section>
   </div>
   <noscript><p class="notice">Climate analysis requires JavaScript. No analysis has been loaded.</p></noscript>
-  <footer class="site-footer"><span>Blueberry Breeding Lab / Climate analysis</span><span>NASA POWER · ISRIC SoilGrids · Unvalidated crop assumptions</span></footer>
+  <footer class="site-footer"><span>Blueberry Breeding Lab / Climate analysis</span><span>NASA POWER · ISRIC SoilGrids · <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a> place names, CC BY 4.0 · Unvalidated crop assumptions</span></footer>
 </main>
 </body></html>

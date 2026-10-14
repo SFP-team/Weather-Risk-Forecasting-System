@@ -188,10 +188,10 @@ On the server, from `/media/fpt/fpt2/Weather_Claude/code`:
 ../env/bin/python production.py                    # three-site packet -> reports/production/
 ../env/bin/python production.py thermal-reference  # Waldo constants -> reports/production/thermal_reference.json
 ../env/bin/python benchmark.py                     # 53-site benchmark -> reports/benchmark/
-../env/bin/python location_api.py --snapshots      # 71 presets -> reports/ui_snapshots.json
+../env/bin/python location_api.py --snapshots      # 71 registered sites -> reports/ui_snapshots.json, for before/after comparisons
 ```
 
-Split the snapshots locally with `python3 scripts/split_snapshots.py <file>`. No weather acquisition runs.
+No weather acquisition runs. Since 2026-10-14 the app does not ship these results.
 
 The location API caches successful (200) analyses: an in-memory LRU of 64 results and JSON files in `cache/location_api/`, pruned to the 2,000 most recently used. The key covers the API method, the primary profile, a hash of the code files that shape a result and the coordinates. It does not cover the weather archives or the site registries, so delete `cache/location_api/*.json` after any archive or `config/` update. `--snapshots` never uses the cache. `/api/health` reports `busy_since`, `busy_seconds` and cache counters, and every request adds one line without coordinates to `logs/location_api_access.jsonl` (rotated at 10 MiB, five older files kept). The API answers 403 unless the Host header is `127.0.0.1:8787` or `localhost:8787`, and refuses cross-site requests by `Origin` or `Sec-Fetch-Site`.
 

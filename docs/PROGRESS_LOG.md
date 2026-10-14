@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-10-14: Location panel cut to search only
+
+- **Request.** The user called the panel's search note noise and asked to remove it, the saved locations and the latitude and longitude fields, so that people choose places by search, and to push the change to the servers.
+- **Changed.** The panel holds the search box and Analyze location beside the map. Saved locations are gone from the list, search, map pins and page load, together with the 71 files in `dist/snapshots/`, their index and the split script; every result comes from the archive API. A coordinate pair can still be typed or pasted into the search box. The GeoNames CC BY 4.0 credit moved to the page footer. Analyze stays disabled until a place is chosen.
+- **Side effects.** Soil records and published planting seasons match only the exact coordinates of registered sites, so searched places show neither.
+- **Verification.** 42 UI tests passed. Local browser checks covered the empty start, a Gainesville search and live analysis, a region view, a no-match search, a typed coordinate pair, a map selection, 390 px and no page errors. Deployed to http://fpt-server.ad.ufl.edu:8789/ with matching file hashes; a browser there showed the new panel and completed the Gainesville analysis.
+
 ## 2026-10-14: Season ribbon and Every winter tabs
 
 - **Request.** The user chose concepts 1 and 2 of the season-chart sketches and asked for them as new tabs, keeping Season & exposures.

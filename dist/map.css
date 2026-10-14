@@ -97,11 +97,6 @@
   outline: 2px solid var(--ink, #1d1d1f);
   transform: rotate(-45deg);
 }
-.location-map-pin-saved:hover > .location-map-pin-dot,
-.location-map-pin-saved:focus-visible > .location-map-pin-dot {
-  background: var(--ink, #1d1d1f);
-  outline: 2px solid var(--ink, #1d1d1f);
-}
 .location-map-pin-tooltip {
   display: none;
   position: absolute;
@@ -148,20 +143,6 @@
   cursor: pointer;
 }
 .location-map .location-map-toolbar button:hover { border-color: var(--accent, #0066cc); background: var(--soft, #f5f5f7); }
-.location-map-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-left: auto; padding: 8px 0; font-size: 12px; }
-.location-map-key { display: inline-flex; align-items: center; gap: 8px; }
-.location-map-key::before {
-  content: '';
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  flex: 0 0 auto;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  background: var(--accent, #0066cc);
-  outline: 1px solid var(--accent, #0066cc);
-}
-.location-map-key-selected::before { border-radius: 50% 50% 50% 0; background: var(--ink, #1d1d1f); outline-color: var(--ink, #1d1d1f); transform: rotate(-45deg); }
 .location-map .location-map-caption,
 .location-map .location-map-help,
 .location-map .location-map-evidence,
@@ -183,7 +164,6 @@
 @media (max-width: 580px) {
   .location-map .location-map-canvas { height: clamp(240px, min(95vw, 60svh), 440px); min-height: 240px; }
   .location-map-toolbar { padding: 18px 18px 0; }
-  .location-map-legend { width: 100%; margin-left: 0; padding-bottom: 0; }
   .location-map .location-map-caption, .location-map .location-map-help { padding-inline: 18px; }
   .location-map .location-map-evidence, .location-map .location-map-warning { margin-inline: 18px; }
   .location-map .maplibregl-ctrl-attrib { max-width: calc(100% - 20px); }
