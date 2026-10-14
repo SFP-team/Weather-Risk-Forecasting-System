@@ -21,7 +21,7 @@ from discover import ROOT, write_json
 from evidence_report import complete, chill, dry_spell
 from evaluation_sites import cell_key
 from postprocess import LandMask, extract
-from production import analyse, sensitivity, warm_midwinter_daily, PRIMARY_PROFILE, PROFILES, CHANGES, LIMITATIONS
+from production import analyse, hazard_calendar, profile, sensitivity, warm_midwinter_daily, PRIMARY_PROFILE, PROFILES, CHANGES, LIMITATIONS
 from planting import planting_window
 from hourly_archive import ArchiveGap, hourly_from_cache
 from place_index import connect as place_connect, fold as place_fold, info as place_info, search as place_search, MAX_LIMIT as PLACE_LIMIT
@@ -37,8 +37,10 @@ ARCHIVE_GAP='The hourly archive has no downloaded data for this 0.5 x 0.625 degr
 NUMBER=re.compile(r'[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?',re.ASCII)
 FAILED={'error':'The archive could not analyse this point. No substitute result was generated.','code':'analysis_failed'}
 # Only the loopback API and the preview UI may call. A DNS-rebinding page reaches this port under its own host name.
-ALLOWED_HOSTS=('127.0.0.1:8787','localhost:8787')
-ALLOWED_ORIGINS=('http://127.0.0.1:5173','http://localhost:5173','http://127.0.0.1:8787','http://localhost:8787')
+# Port, cache and access log can be moved so a test copy runs beside the live service (LOCATION_API_PORT etc.).
+PORT=int(os.environ.get('LOCATION_API_PORT','8787'))
+ALLOWED_HOSTS=(f'127.0.0.1:{PORT}',f'localhost:{PORT}')
+ALLOWED_ORIGINS=('http://127.0.0.1:5173','http://localhost:5173',f'http://127.0.0.1:{PORT}',f'http://localhost:{PORT}')
 FORBIDDEN_HOST={'error':'Request refused','code':'forbidden_host'}
 FORBIDDEN_ORIGIN={'error':'Cross-site API request refused','code':'forbidden_origin'}
 ROUTES=('/api/health','/api/analysis','/api/places')
@@ -119,8 +121,8 @@ class AccessLog:
             print(traceback.format_exc(),file=sys.stderr,flush=True)
 
 
-CACHE=ResultCache(ROOT/'cache/location_api')
-ACCESS=AccessLog(ROOT/'logs/location_api_access.jsonl')
+CACHE=ResultCache(Path(os.environ.get('LOCATION_API_CACHE',ROOT/'cache/location_api')))
+ACCESS=AccessLog(Path(os.environ.get('LOCATION_API_ACCESS_LOG',ROOT/'logs/location_api_access.jsonl')))
 
 
 def avg(values):
@@ -228,6 +230,7 @@ def analyze(lat,lon):
     annual,monthly,climatology=summarize(frame.set_index('time'),None if hourly is None else hourly.tmean_c,lat)
     production=production_block(hourly,padded,lat,lon,gap)
     result={'site':site,'annual':annual,'monthly':monthly,'climatology':climatology,
+        'hazard_calendar':hazard_calendar(frame.set_index('time'),profile(PRODUCTION_PROFILE)),
         'soil':soil,'production':production,'hourly_source':hourly_source,
         'planting':planting_window(site,production),
         'method_version':METHOD,'provenance':provenance,'hourly_sha256':hourly_source['sha256'] if hourly_source else None,
@@ -346,10 +349,13 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__=='__main__':
     if '--snapshots' in sys.argv:
+        # An optional path after --snapshots keeps a test copy from overwriting the live reports/ui_snapshots.json.
+        after=sys.argv[sys.argv.index('--snapshots')+1:]
+        target=Path(after[0]) if after else ROOT/'reports/ui_snapshots.json'
         sites=[s for s in known_sites() if s['name'] in ('Papanduva','Citra','Waldo') or s.get('role')]
         snapshots={s['name']:analyze(s['lat'],s['lon']) for s in sites}
-        write_json(ROOT/'reports/ui_snapshots.json',{'sites':snapshots})
-        print(json.dumps({'snapshots':len(snapshots),'production_available':[n for n,r in snapshots.items() if r['production']['status']=='available']}))
+        write_json(target,{'sites':snapshots})
+        print(json.dumps({'snapshots':len(snapshots),'output':str(target),'production_available':[n for n,r in snapshots.items() if r['production']['status']=='available']}))
     else:
-        print('Private API: http://127.0.0.1:8787',flush=True)
-        ThreadingHTTPServer(('127.0.0.1',8787),Handler).serve_forever()
+        print(f'Private API: http://127.0.0.1:{PORT}',flush=True)
+        ThreadingHTTPServer(('127.0.0.1',PORT),Handler).serve_forever()

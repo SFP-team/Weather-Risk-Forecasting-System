@@ -5,7 +5,7 @@ let draft={lat:-26.312389,lon:-50.080639,name:'Papanduva'}, resultOrigin='Saved 
 let draftPlace=null,activePlace=null,areaSelection=null;
 let searchSerial=0,searchTimer=null,searchResults=[],searchIndex=-1,searchLoading=false,searchPickFirst=false,placeRequest=null;
 let regionalLibrary={status:'loading',registry:null},activeRegionalEvidence=null;
-let seasonCalendars={status:'loading',sites:null};
+let seasonCalendars={status:'loading',sites:null},ensoTable=null;
 const systems={open_ground:['Open field + ground','Ambient weather','Rain, cold and heat remain outdoor exposures.','Native or amended soil','Mapped soil is a screening layer. Drainage and field tests remain necessary.','Water supply','Dry spells do not account for irrigation or root-zone storage.'],open_pots:['Open field + pots','Fruit exposure remains','Pots do not stop rain reaching berries or remove cold exposure.','Managed substrate','Native-soil chemistry is not the pot root zone. Substrate pH, aeration and drainage must be specified.','Irrigation dependence','Small root-zone storage, water quality and root heating need assessment.'],tunnel_ground:['Tunnel + ground','Potential rain interception','An effective cover can reduce direct fruit wetting; no calibrated numerical reduction is applied.','Heat, light and cold','Ventilation and cover transmission matter. An unheated tunnel does not guarantee frost protection.','Ground constraints remain','Runoff, drainage and native or amended soil still need assessment.'],tunnel_pots:['Tunnel + pots','Cover + managed root zone','Potential rain interception and substrate control are separate effects, not universal protection.','Remaining exposures','Heat, humidity, light loss and cold remain conditional on the actual structure.','Water and drainage','Reliable irrigation, suitable water chemistry and freely draining containers are essential.']};
 const esc=Shared.escapeHTML;
 const good=a=>a.filter(v=>typeof v==='number'&&Number.isFinite(v));
@@ -160,6 +160,18 @@ function renderSeasonViews(){
     applies:p?.status==='available'&&chillCalendarApplies(p),calendars:seasonCalendars};
   SeasonViews.ribbon($('ribbon-content'),p,ctx);
   SeasonViews.winters($('winters-content'),p,ctx);
+  renderYearRound();
+}
+// El Nino months for the Year-round planner load once; without them the planner still draws, unmarked.
+async function loadEnso(){
+  try{ensoTable=await YearRound.loadEnso()}catch{ensoTable=null}
+  renderYearRound();
+}
+function renderYearRound(){
+  if(!active)return;
+  if(typeof YearRound==='undefined'){$('yearround-content').innerHTML='<div class="soil-note">This view could not load. The other tabs still work; reload the page to try again.</div>';return}
+  const published=seasonCalendars.status==='available'&&typeof SeasonViews!=='undefined'?SeasonViews.helpers.publishedCalendar(seasonCalendars.sites,active.site):null;
+  YearRound.render($('yearround-content'),active,{published,enso:ensoTable});
 }
 async function loadRegionalEvidence(){
   try{
@@ -892,7 +904,7 @@ async function initialize(){
   if(draft===initialDraft&&catalog.Papanduva)await analyze(draft.lat,draft.lon,{recenter:false,focusResult:false});
 }
 initialize();
-loadRegionalEvidence();loadSeasonCalendars();
+loadRegionalEvidence();loadSeasonCalendars();loadEnso();
 $('connection').textContent='Saved locations · archive not connected';
 // Any HTTP(S) page can front the archive: the local preview or the server deployment. A static host answers 404 and stays not connected.
 if(location.protocol==='http:'||location.protocol==='https:'){

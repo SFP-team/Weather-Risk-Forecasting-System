@@ -1038,6 +1038,8 @@ CYCLE_EVENTS = (('bud_freeze', 'bud_freeze_days'), ('flowering_freeze', 'flower_
 # Crop-loss families: a start where one recurs is not favourable. Freezes count threshold crossings in complete
 # cycles only; stalled cycles form cycle_failure, so a stall is never reported as a freeze.
 CROP_LOSS = ('bud_freeze', 'flowering_freeze', 'fruit_frost', 'cycle_failure')
+# Per-cycle event-day counts returned with each scanned year, for one-row-per-year views; a positive count is an event.
+CYCLE_MARKS = ('bud_freeze_days', 'flower_freeze_days', 'fruit_frost_days', 'fruit_severe_heat_days', 'harvest_heavy_rain_days')
 # Scan dimensions. Crop-loss families count cycles with any event; recurring weather is counted as the share of
 # stage days affected, so faster (shorter) cycles do not look safer by construction. {frost} is the profile value.
 SCAN_MEASURES = (
@@ -1105,26 +1107,34 @@ def managed_cycles(days, p, years):
     starts, lengths = [], {k: [] for k in share_keys}
     for start in CYCLE_STARTS:
         rows, offsets, outcomes = [], {key: [] for key in OFFSETS[2:]}, dict.fromkeys(CYCLE_OUTCOMES, 0)
+        per_year = []  # One record per year: its outcome and, for complete cycles, stage offsets and event-day counts.
         shares = {k: [] for k in share_keys}
         for year in years:
             bud = pd.Timestamp(f'{year}-{start}')
             stages, why = stage_dates(days, bud, p)
             if stages is None:
                 # 'missing' covers gaps and the archive end: unknown weather is neither a stall nor a safe cycle.
-                outcomes['stalled_horizon' if why[0] == 'horizon' else 'weather_incomplete'] += 1
+                outcome = 'stalled_horizon' if why[0] == 'horizon' else 'weather_incomplete'
+                outcomes[outcome] += 1
+                per_year.append({'year': year, 'outcome': outcome})
                 continue
             if ((stages[0][1] - stages[0][0]).days > SCAN_MAX_FLOWERING_DAYS
                     or (stages[1][0] - stages[0][0]).days > SCAN_MAX_FRUIT_DAYS):
                 outcomes['stalled_slow'] += 1
+                per_year.append({'year': year, 'outcome': 'stalled_slow'})
                 continue
             outcomes['complete'] += 1
             flowering, harvest = stages
             fruit = (flowering[1] + d(days=1), harvest[0] - d(days=1))
             m = stage_metrics(days, p, flowering, fruit, harvest, bud, bud)
             rows.append({'metrics': m})
+            cycle_offsets = {}
             for key, day in zip(OFFSETS[2:], (*flowering, *harvest)):
                 offset = (day - bud).days
-                offsets[key].append(offset - leap_days(bud, offset) if leap else offset)
+                cycle_offsets[key] = offset - leap_days(bud, offset) if leap else offset
+                offsets[key].append(cycle_offsets[key])
+            per_year.append({'year': year, 'outcome': 'complete', 'offset_days': cycle_offsets,
+                             'marks': {key: m[key] for key in CYCLE_MARKS}})
             length = {'fruit_heat': (harvest[0] - flowering[1]).days - 1,
                       'harvest_heavy_rain': (harvest[1] - harvest[0]).days + 1,
                       'disease_weather': (harvest[1] - flowering[0]).days + 1,
@@ -1160,7 +1170,7 @@ def managed_cycles(days, p, years):
             'flowering_months': months_between(dates['flowering_start'], dates['flowering_end']) if offsets['flowering_end'] else [],
             'harvest_months': months_between(dates['harvest_start'], dates['harvest_end']) if offsets['harvest_end'] else [],
             'events': events, 'measures': measures, 'rankable': rankable, 'recurring_crop_loss': crop_loss,
-            'recurring': recurring})
+            'recurring': recurring, 'years': per_year})
     candidates = [s for s in starts if s['rankable'] and not s['recurring_crop_loss']]
     cycles = min((min(e['valid_years'] for e in s['events'].values()) for s in candidates), default=1)
     tolerance = {name: (1 / cycles if name in CROP_LOSS else 1 / float(np.median(lengths[name])) if lengths[name] else 0.0)
@@ -1222,6 +1232,48 @@ def chill_clock(rows, classes, lat, p):
         reasons.append(f'Only {calendars}/{len(rows)} winters produce a chill-triggered calendar.')
     return {'applicable': not reasons, 'reasons': reasons,
             'chill_requirement_applies': not tropical and majority not in (None, 'Evergreen')}
+
+
+HAZARD_WEEKS = 52
+
+
+def hazard_calendar(daily, p, years=range(2011, 2026)):
+    """Year-round weekly weather hazards from daily data, independent of any crop calendar.
+
+    Week w covers days of year 7w+1 to 7w+7; the last week also takes the remaining one or two days. A (year, week)
+    counts only when every day has the values the hazard needs; it is an event when at least one day meets the
+    threshold. Thresholds are the profile's stage-risk values, so the calendar and the stage risks agree."""
+    years = list(years)
+    days = pd.date_range(f'{years[0]}-01-01', f'{years[-1]}-12-31', freq='D')
+    column = lambda name: daily[name].astype(float).reindex(days) if name in daily else pd.Series(np.nan, index=days)
+    tmin, tmax, tmean = column('tmin_c'), column('tmax_c'), column('tmean_c')
+    rain = clean_rain(daily).reindex(days) if 'precip_mm' in daily else pd.Series(np.nan, index=days)
+    rh = clean_rh(daily).reindex(days) if 'rh_mean_pct' in daily else pd.Series(np.nan, index=days)
+    disease_ok = tmean.notna() & rh.notna() & rain.notna()
+    hazards = (
+        ('frost', 'Frost', f"A day with Tmin at or below {p['frost_threshold_c']:g} °C", tmin <= p['frost_threshold_c'], tmin.notna()),
+        ('hard_freeze', 'Hard freeze', f"A day with Tmin at or below {p['damaging_flower_freeze_c']:g} °C, the flowering freeze threshold",
+         tmin <= p['damaging_flower_freeze_c'], tmin.notna()),
+        ('heat', 'Hot day', f"A day with Tmax at or above {p['heat_threshold_c']:g} °C", tmax >= p['heat_threshold_c'], tmax.notna()),
+        ('severe_heat', 'Severe heat', f"A day with Tmax at or above {p['severe_heat_threshold_c']:g} °C", tmax >= p['severe_heat_threshold_c'], tmax.notna()),
+        ('heavy_rain', 'Heavy rain', f"A day with at least {p['heavy_rain_mm']:g} mm of rain", rain >= p['heavy_rain_mm'], rain.notna()),
+        ('disease_day', 'Disease-favourable day',
+         f"A day with Tmean {p['disease_temp_min_c']:g} to {p['disease_temp_max_c']:g} °C, RH at least {p['disease_rh_threshold']:g}% "
+         f"and rain at least {p['disease_rain_threshold_mm']:g} mm (the daily disease proxy)",
+         (tmean >= p['disease_temp_min_c']) & (tmean <= p['disease_temp_max_c']) & (rh >= p['disease_rh_threshold'])
+         & (rain >= p['disease_rain_threshold_mm']), disease_ok))
+    year, week = days.year, np.minimum((days.dayofyear - 1) // 7, HAZARD_WEEKS - 1)
+    out = []
+    for key, label, definition, hit, ok in hazards:
+        cells = pd.DataFrame({'year': year, 'week': week, 'hit': (hit & ok).to_numpy(), 'ok': ok.to_numpy()})
+        cells = cells.groupby(['year', 'week']).agg(hit=('hit', 'any'), ok=('ok', 'all'))
+        valid = cells.ok.groupby(level='week').sum().reindex(range(HAZARD_WEEKS), fill_value=0)
+        events = (cells.ok & cells.hit).groupby(level='week').sum().reindex(range(HAZARD_WEEKS), fill_value=0)
+        out.append({'key': key, 'label': label, 'definition': definition,
+                    'years_with_event': [int(v) for v in events], 'valid_years': [int(v) for v in valid]})
+    return {'method': 'weekly-hazards-v1', 'years': [years[0], years[-1]], 'weeks': HAZARD_WEEKS,
+            'week_rule': 'Week 1 starts on 1 January; each week is 7 days and the last week also takes the year\'s final one or two days.',
+            'hazards': out}
 
 
 def analyse(hourly, daily, lat, profile_name, years=range(2011, 2026), dewpoint=None, lon=None):

@@ -1,0 +1,22 @@
+# Branch test copy of the UI on the UF network: http://fpt-server.ad.ufl.edu:8790/, proxying to the test API on 8791.
+# Deploy branch dist/ and scripts/preview-ui.mjs to test/ui, then: copy to ~/.config/systemd/user/,
+# `systemctl --user daemon-reload && systemctl --user start blueberry-test-web`. Not enabled at boot; no login.
+[Unit]
+Description=Blueberry weather UI, branch test copy (port 8790; proxy to 127.0.0.1:8791)
+After=network-online.target blueberry-test-api.service
+Wants=blueberry-test-api.service
+
+[Service]
+Type=simple
+WorkingDirectory=/media/fpt/fpt2/Weather_Claude/test/ui
+Environment=PREVIEW_PORT=8790
+Environment=PREVIEW_BIND=0.0.0.0
+Environment=PREVIEW_HOSTS=fpt-server.ad.ufl.edu,10.248.22.167
+Environment=PREVIEW_UPSTREAM_PORT=8791
+ExecStart=/media/fpt/fpt2/Weather_Claude/tools/node/bin/node scripts/preview-ui.mjs
+StandardOutput=append:/media/fpt/fpt2/Weather_Claude/test/logs/ui_web.log
+StandardError=append:/media/fpt/fpt2/Weather_Claude/test/logs/ui_web.log
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=10
+Nice=10

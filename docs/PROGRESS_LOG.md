@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-10-14: Year-round planner for evergreen sites (branch `evergreen-analyses`, on test)
+
+- **Request.** After a briefing on evergreen and deciduous blueberry systems, the user asked for the four top evergreen analyses in a new branch, to run before merging.
+- **Built.** A Year-round planner tab with (1) one row per year for a chosen start date, beside grower months; (2) a weekly hazard calendar of frost, hard freeze, heat, severe heat, heavy rain and disease-favourable days; (3) start dates ranked for chosen harvest months; (4) monthly temperature anomaly by year with El Niño and La Niña months from NOAA's Oceanic Niño Index. The server now returns per-year results for each scan start and the weekly hazard counts; existing values are unchanged.
+- **Seen.** At Chao the first favourable start (15 June) harvests 11 August to 29 September, within the reported August to January, but blooms about two months after the reported April and May. Its warmest favourable flowering seasons were 2023 and 2015, both El Niño throughout.
+- **Verification.** 105 server tests in staging and 47 UI tests passed. The 71 regenerated snapshots differ from `main` only in the new fields. Chao, Arcadia and Waldo drew all four sections in a browser with no page errors, and a live analysis at the test address http://fpt-server.ad.ufl.edu:8790/ drew the tab. The live app on 8789 is unchanged.
+
 ## 2026-10-14: Season ribbon and Every winter tabs
 
 - **Request.** The user chose concepts 1 and 2 of the season-chart sketches and asked for them as new tabs, keeping Season & exposures.

@@ -1,0 +1,23 @@
+# Branch test copy of the API (loopback 127.0.0.1:8791) beside the live 8787 service; own code, cache and logs.
+# Deploy branch code to test/code, then: copy to ~/.config/systemd/user/, `systemctl --user daemon-reload && systemctl --user start blueberry-test-api`.
+# Not enabled at boot. Stop it after the branch is merged or dropped.
+[Unit]
+Description=Blueberry weather API, branch test copy (loopback 127.0.0.1:8791, read-only archives)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/media/fpt/fpt2/Weather_Claude/test/code
+Environment=TMPDIR=/media/fpt/fpt2/Weather_Claude/test/tmp
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+Environment=LOCATION_API_PORT=8791
+Environment=LOCATION_API_CACHE=/media/fpt/fpt2/Weather_Claude/test/cache
+Environment=LOCATION_API_ACCESS_LOG=/media/fpt/fpt2/Weather_Claude/test/logs/location_api_access.jsonl
+ExecStart=/media/fpt/fpt2/Weather_Claude/env/bin/python -u location_api.py
+StandardOutput=append:/media/fpt/fpt2/Weather_Claude/test/logs/location_api.log
+StandardError=append:/media/fpt/fpt2/Weather_Claude/test/logs/location_api.log
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+Nice=10

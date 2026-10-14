@@ -8,8 +8,7 @@ import {fileURLToPath} from 'node:url';
 
 const here = fileURLToPath(import.meta.url);
 export const DIST = path.resolve(path.dirname(here), '..', 'dist');
-// The Python API accepts only its own loopback Host, whatever port a test stub listens on.
-const UPSTREAM_HOST_HEADER = '127.0.0.1:8787';
+// The Python API accepts only its own loopback Host (`apiPort`), whatever port a test stub listens on (`upstreamPort`).
 const MAP_HOST = 'https://tiles.openfreemap.org';
 const types = {'.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
   '.gz': 'application/gzip', '.png': 'image/png', '.svg': 'image/svg+xml', '.txt': 'text/plain; charset=utf-8'};
@@ -25,7 +24,7 @@ const json = (res, status, body) => {
 };
 
 // Static root resolves from this file, so the working directory does not matter. Tests pass a short upstreamTimeoutMs.
-export function createServer({root = DIST, upstreamPort = 8787, host = '127.0.0.1', upstreamTimeoutMs = 95000, hosts = []} = {}) {
+export function createServer({root = DIST, upstreamPort = 8787, apiPort = 8787, host = '127.0.0.1', upstreamTimeoutMs = 95000, hosts = []} = {}) {
   const base = path.resolve(root);
   return http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -44,7 +43,7 @@ export function createServer({root = DIST, upstreamPort = 8787, host = '127.0.0.
       // Only these headers go upstream: no Origin, cookies or client identity.
       let timedOut = false;
       const upstream = http.get({host, port: upstreamPort, path: req.url, timeout: upstreamTimeoutMs, agent: false,
-        headers: {Host: UPSTREAM_HOST_HEADER, Accept: 'application/json'}}, response => {
+        headers: {Host: `127.0.0.1:${apiPort}`, Accept: 'application/json'}}, response => {
         res.writeHead(response.statusCode, {'Content-Type': 'application/json', 'Cache-Control': 'no-store'});
         response.on('error', () => res.end());
         response.pipe(res);
@@ -79,5 +78,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === here) {
   const port = Number(process.env.PREVIEW_PORT ?? 5173);
   const bind = process.env.PREVIEW_BIND ?? '127.0.0.1';
   const hosts = (process.env.PREVIEW_HOSTS ?? '').split(',').map(name => name.trim()).filter(Boolean);
-  createServer({hosts}).listen(port, bind, () => console.log(`Listening on ${bind}:${port} for ${['127.0.0.1', 'localhost', ...hosts].join(', ')}`));
+  // PREVIEW_UPSTREAM_PORT points a test copy at its own API (LOCATION_API_PORT on the Python side).
+  const api = Number(process.env.PREVIEW_UPSTREAM_PORT ?? 8787);
+  createServer({hosts, upstreamPort: api, apiPort: api}).listen(port, bind, () => console.log(`Listening on ${bind}:${port} for ${['127.0.0.1', 'localhost', ...hosts].join(', ')}; API port ${api}`));
 }

@@ -15,7 +15,7 @@ For a presentation with pictures of every screen, open [How the blueberry weathe
 3. [The three types of information](#3-the-three-types-of-information)
 4. [How to use the app](#4-how-to-use-the-app)
 5. [The four Overview cards](#5-the-four-overview-cards)
-6. [The eight tabs](#6-the-eight-tabs)
+6. [The nine tabs](#6-the-nine-tabs)
 7. [How the calendar works](#7-how-the-calendar-works)
 8. [Minimum data requirements](#8-minimum-data-requirements)
 9. [How to read weather risks](#9-how-to-read-weather-risks)
@@ -97,6 +97,7 @@ Dates below refer to completed project work. They do not imply scientific valida
 | 13 October | Place search knew only about 7,300 larger towns, so towns such as Jaíba, Brazil could not be found. | Search covers about 5.2 million towns and villages worldwide from GeoNames. Section 4 explains how it works. |
 | 13 October | The app ran on one computer, through a tunnel to the server. | The app runs on the lab server at http://fpt-server.ad.ufl.edu:8789/ for anyone on the UF network or VPN. |
 | 14 October | The season chart was hard to read: seven rows of median bars and percentile boxes, with the risks on other cards. | Two new tabs. Season ribbon shows all winters in one band, with the weather risks under each stage and the months growers report. Every winter shows one row per winter. Section 6 explains them. |
+| 14 October (test branch) | Evergreen and tropical sites had no season view: the winter calendar does not apply there, and the start-date scan showed only typical dates. | A Year-round planner tab: one row per year for a chosen start date, weekly weather hazards, a market-window planner and warm years with El Niño months. Section 6.3 explains it. |
 
 Some earlier statements were corrected during review.
 
@@ -275,13 +276,14 @@ Limits:
 
 In the literature benchmark, the rule covers 22% of published planting months over 17 southern-highbush sites, and 21% of its months are published. Its months usually start earlier than the published ones. In Florida and Georgia, guides publish December to February, while the rule gives September or October to December.
 
-## 6. The eight tabs
+## 6. The nine tabs
 
 | Tab | Information shown | How to use it |
 |---|---|---|
 | Overview | System class, crop window, top risks, planting window, and additional weather measures. | Read this first. Then check the basis of each result. |
 | Season ribbon | All winters in one band: the share of winters in each stage on each date, key dates with their spread, the planting rule, published planting seasons and grower months, and the weather risks under each stage. | Start here to see when each stage happens and how much that changes between winters. |
 | Every winter | One row per winter with modelled stages, frost, heat and heavy-rain marks, and that winter's chill hours. | Find unusual winters and see in which winters an event happened. |
+| Year-round planner | For a chosen start date, one row per year with its stages and weather marks; weekly weather hazards across the year; start dates ranked for the harvest months you want; and monthly warm and cool years with El Niño and La Niña months. | Use it at evergreen and tropical sites, where pruning starts the season, and anywhere you want to compare start dates. |
 | Season & exposures | Stage timeline, individual winters, weather measures by stage, and cycle-start scan. | Check when exposure occurs and which years support the result. |
 | Climate history | Annual and monthly weather summaries. | Examine weather independently of a successful crop calendar. |
 | Soil & setup | Available soil estimates and growing-setup notes. | Identify information that needs local soil and management checks. |
@@ -313,7 +315,18 @@ Each row is one winter. You can order the rows by year or by budbreak date.
 
 Northern rows show both calendar years, for example 2016–17. The tables in Season & exposures use the second year.
 
-### 6.3 Season & exposures
+### 6.3 Year-round planner
+
+In evergreen and tropical systems the grower starts each crop by pruning, and sometimes by cutting water or nitrogen. The winter calendar does not apply there, so this tab asks: if a cycle starts on a given date, what weather does each stage meet, and does the harvest land in the months you want to sell? It works at every site with an hourly archive, not only evergreen ones.
+
+1. **Start a cycle on a chosen date.** Pick a budbreak date; the list marks the favourable starts of the scan. Each row is one year, with the same stage colours and marks as Every winter. Hatched rows stalled or had incomplete weather. Grower bloom and harvest months sit above the chart where a benchmark site is within 10 km. At Chao the first favourable start, 15 June, gives a typical harvest from 11 August to 29 September, inside the August to January that growers report, but bloom from 22 June to 15 July, about two months after the April and May that growers report.
+2. **Weather hazards through the year.** Six rows (frost, hard freeze, hot day, severe heat, heavy rain, disease-favourable day) and 52 weeks. Each cell is shaded by the share of years 2011 to 2025 with at least one such day that week, using the stage-risk thresholds. Hatched weeks have fewer than 12 years of complete data.
+3. **Plan for a market window.** Press the months you want to harvest; they start from the growers' harvest months where known. Start dates are ranked by: no recurring crop-loss risk, then the share of years whose first pick falls in those months, then fewer recurring weather problems. Prices, labour and water are not included.
+4. **Warm years and El Niño.** Each cell is that month's mean temperature minus the same month's average over 2011 to 2025. Black outlines mark El Niño months and dashed blue outlines La Niña months, from NOAA's Oceanic Niño Index. At Chao the warmest favourable flowering seasons were 2023 and 2015, both El Niño throughout.
+
+All dates are scenarios from the weather archive, not forecasts. The time from pruning to budbreak is not modelled, and the heat clock was set for low-chill bushes after winter, not checked against evergreen farm records.
+
+### 6.4 Season & exposures
 
 The timeline separates winter chill, bud development, flowering, fruit development, harvest, and whole-cycle context.
 
@@ -323,7 +336,7 @@ The typical timeline combines results across valid years. Select a winter to ins
 
 The displayed spread of dates shows variation between modelled years. It is not a confidence interval for the true flowering date.
 
-### 6.4 Climate history
+### 6.5 Climate history
 
 The six main measures are:
 
@@ -349,7 +362,7 @@ These values can differ without a software error. Their thresholds and periods d
 
 The production rule is inherited from the earlier workflow. It is not interchangeable with every published cultivar chill requirement.
 
-### 6.5 Soil & setup
+### 6.6 Soil & setup
 
 The available properties are soil pH, organic carbon, sand, silt, and clay.
 
@@ -363,7 +376,7 @@ Each property and depth has a mean estimate and two uncertainty estimates. Thus,
 
 The app does not calculate a soil suitability score. Local drainage, irrigation water, and root-zone conditions still need assessment.
 
-### 6.6 Regional evidence
+### 6.7 Regional evidence
 
 The library contains 156 records from the complete IBO 2023, 2024, 2025, and 2026 reports.
 

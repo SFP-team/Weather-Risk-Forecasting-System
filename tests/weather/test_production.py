@@ -529,6 +529,33 @@ class ManagedCycleTests(unittest.TestCase):
         self.assertTrue(scan['favourable']['unconstrained'])
         self.assertEqual(len(scan['favourable']['budbreak']), 24)
 
+    def test_each_start_lists_every_year_with_its_outcome(self):
+        daily = flat_daily()
+        daily.loc[daily.index.month.isin([7, 8, 9]), 'precip_mm'] = 12.
+        scan = self.scan(daily)
+        march = next(s for s in scan['starts'] if s['budbreak'] == '03-01')
+        self.assertEqual([y['year'] for y in march['years']], list(range(2011, 2026)))
+        first = march['years'][0]
+        self.assertEqual(first['outcome'], 'complete')
+        self.assertEqual(first['offset_days']['harvest_start'], (pd.Timestamp('2011-05-13') - pd.Timestamp('2011-03-01')).days)
+        self.assertGreater(first['marks']['harvest_heavy_rain_days'], 0)
+        december = next(s for s in scan['starts'] if s['budbreak'] == '12-15')
+        self.assertEqual(december['years'][-1], {'year': 2025, 'outcome': 'weather_incomplete'})
+
+    def test_hazard_calendar_counts_years_per_week_and_skips_gaps(self):
+        from production import hazard_calendar
+        daily = flat_daily()
+        daily.loc[(daily.index.month == 1) & (daily.index.day == 3), 'tmin_c'] = -1.  # week 1 frost every year
+        daily.loc[daily.index.dayofyear == 365, 'tmax_c'] = 40.  # year-end days fold into week 52
+        daily.loc['2015-02-10', 'tmin_c'] = np.nan  # one gap: week 6 of 2015 has no valid frost value
+        cal = hazard_calendar(daily, profile('stage_thermal_v3'))
+        h = {x['key']: x for x in cal['hazards']}
+        self.assertEqual(len(h['frost']['years_with_event']), 52)
+        self.assertEqual((h['frost']['years_with_event'][0], h['frost']['valid_years'][0]), (15, 15))
+        self.assertEqual((h['frost']['years_with_event'][5], h['frost']['valid_years'][5]), (0, 14))
+        self.assertEqual(h['severe_heat']['years_with_event'][51], 15)
+        self.assertEqual(sum(h['heavy_rain']['years_with_event']), 0)
+
     def test_chill_clock_declines_tropics_evergreen_and_sparse_calendars(self):
         rows = []
         for i in range(12):

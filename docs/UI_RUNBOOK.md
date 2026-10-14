@@ -138,6 +138,23 @@ Update the files from the local checkout root after the checks in "Reproduce sum
 
 Checked on 2026-10-13 from a Mac on the VPN: the page by name and address, health, a Jaíba place search, and an `app.js` identical to the local file. A foreign Host or Origin and a cross-site API call got 403, a POST 405 and path traversal 404, and port 8787 was unreachable. The Mac then lost the VPN, so a browser test mapped the server's name to a local copy of the same files. It loaded the page as a plain-HTTP origin without WebCrypto, and place names and regional evidence resolved. On 2026-10-14, with the VPN back, a browser at the address found Jaíba through the server's place search and completed its live analysis, with no page errors or CSP violations.
 
+### Branch test copy (port 8790)
+
+A branch can run beside the live app before it is merged. `ops/api/blueberry-test-api.service` runs the API from `test/code/` on loopback port 8791 with its own cache and access log (`LOCATION_API_PORT`, `LOCATION_API_CACHE`, `LOCATION_API_ACCESS_LOG`). `ops/api/blueberry-test-web.service` serves `test/ui/` at http://fpt-server.ad.ufl.edu:8790/ and forwards `/api/` to 8791 (`PREVIEW_UPSTREAM_PORT`). Neither starts at boot. Port 8788 belongs to another lab app; do not use it.
+
+```sh
+R=/media/fpt/fpt2/Weather_Claude
+ssh fpt@10.248.22.167 "mkdir -p $R/test/code $R/test/ui $R/test/cache $R/test/logs $R/test/tmp"
+rsync -a --exclude __pycache__ pipelines/weather/ fpt@10.248.22.167:$R/test/code/
+{ git ls-files -z dist; printf 'scripts/preview-ui.mjs\0'; } | rsync -a --from0 --files-from=- ./ fpt@10.248.22.167:$R/test/ui/
+rsync -a ops/api/blueberry-test-api.service ops/api/blueberry-test-web.service fpt@10.248.22.167:.config/systemd/user/
+ssh fpt@10.248.22.167 'systemctl --user daemon-reload && systemctl --user start blueberry-test-api blueberry-test-web'
+```
+
+Saved locations come from the branch's `dist/snapshots/`. To regenerate them without touching the live `reports/ui_snapshots.json`, pass an output path: `python location_api.py --snapshots <path>`, then `python3 scripts/split_snapshots.py <path>` locally. After the merge or when the branch is dropped, stop both units with `systemctl --user stop blueberry-test-web blueberry-test-api`.
+
+`dist/enso.json` holds NOAA's Oceanic Niño Index from 2010 for the Year-round planner. Rebuild it with `python3 scripts/build_enso.py`. A warm or cool run at the end of the series stays unlabelled until it lasts five seasons; the 2026 run, at +2.16 for July to September, is unlabelled for that reason.
+
 ### Local copy for development
 
 From the local checkout root, run these two processes in separate terminals:
