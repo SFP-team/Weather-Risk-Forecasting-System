@@ -1,5 +1,11 @@
 # Project progress log
 
+## 2026-10-15: Formula sheet rewritten for plant scientists
+
+- **Request.** The user asked to make the formula sheet understandable to a biological scientist with little coding background.
+- **Changed.** `docs/weather/production/formula_sheet.html` now explains each step in biological terms, gives each rule in plain words and maths with °F beside °C, works through Waldo's 2016–17 winter, and states where every number comes from and how certain it is. It ends with the questions where the scientist's input would help most. The code lines and folder maps moved to a collapsed appendix for programmers.
+- **Checks.** Facts come from the code and the breeder guide; the Arcadia favourable starts and the Wilson example were recomputed. Two statements were corrected before commit: what the app shows without hourly data, and when chill shortfall is counted. The page rendered without overflow at 1280 and 390 px.
+
 ## 2026-10-14: Formula sheet
 
 - **Request.** The user asked for a brief HTML sheet of all the formulas the model uses, such as the budbreak calculation, and of all the folders.
