@@ -6,6 +6,8 @@ For breeders and other non-programmers, `model_formulas_for_breeder_review.html`
 
 `formula_sheet.html` explains every formula and threshold in plain language for plant scientists: what each step means for the bush, the rule in words and maths with °F beside °C, a worked Waldo winter, and where each number comes from. A collapsed appendix gives the code line of each rule and the repository and server folders.
 
+`../../research/2026-10-18/evergreen_expert_review.html` is a review pack for an evergreen blueberry expert. It sets the current winter calendar and start-date scan against published months at the 23 evergreen, mixed and semi-evergreen benchmark sites, summarises the 2026-10-15 literature review, proposes an evergreen planner that starts from the pruning date, and asks the expert to check its starting values. Like the breeder guide, it has comment boxes, a notes download and a print layout.
+
 Method `open-field-production-v3`, API `location-evidence-v5`, primary profile `stage_thermal_v3`. Baseline winters are 2011–2025 from the existing NASA POWER archive. **These are provisional weather-exposure calculations, not validated phenology, disease incidence, crop-loss probabilities or cultivar advice.**
 
 ## Why v3 replaced v2

@@ -1,5 +1,12 @@
 # Project progress log
 
+## 2026-10-18: Evergreen expert review page
+
+- **Request.** The user has a meeting with an evergreen blueberry expert and asked for an HTML report the expert can read and comment on, covering how the tool calculates evergreen sites and how it calculates the other systems.
+- **Written.** `docs/research/2026-10-18/evergreen_expert_review.html` covers the winter calendar, the class rules, the stage weather checks and the start-date scan. It compares model and published months at the 23 evergreen, mixed and semi-evergreen benchmark sites and summarises the 2026-10-15 evergreen literature review. It then sets out the proposed evergreen planner with starting values P1 to P14 and pass marks, and asks 16 questions, four of them about the deciduous system, followed by a data request and sources. Its 41 comment boxes persist in the browser and export as a text file or a saved copy of the page. It is linked from the production README.
+- **Research and plan.** The page records the 2026-10-15 literature review, which ran five research reports and changed no code, and the evergreen planner plan, which the user has not approved: an induction calendar from day length and temperature, a crop cycle started from pruning, a fitted ripening rule and a pruning-date search against market windows.
+- **Checks.** Site rows were regenerated from the benchmark and the 11 DOIs checked against Crossref; other claims were re-checked against the research reports, the formula sheet and source pages. In a browser at 1280 and 390 px, the page showed no overflow, notes survived a reload, the notes download carried them, print styles applied, and there were no script errors.
+
 ## 2026-10-15: Formula sheet rewritten for plant scientists
 
 - **Request.** The user asked to make the formula sheet understandable to a biological scientist with little coding background.

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evergreen blueberry timing: review document</title>
+<style>
+:root { --ink: #1d1d1f; --muted: #5f6368; --line: #dcdce0; --soft: #f5f5f7; --rule: #eef4fb; --ruleb: #9bb7d9; --ex: #f2f7ee; --exb: #8fbf7f; --ask: #fff7e8; --askb: #e0a84a;
+  --chill: #a9b8c8; --bud: #a5ca80; --flower: #eaa6c1; --fruit: #5d9c61; --harvest: #3d4b9b; --prune: #a37b55; --induce: #c9b6e4; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: #fff; }
+main { max-width: 960px; margin: 0 auto; padding: 36px 24px 64px; }
+h1 { font-size: 28px; line-height: 1.25; margin: 0 0 6px; }
+h2 { font-size: 21px; line-height: 1.3; margin: 40px 0 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+h3 { font-size: 17px; margin: 24px 0 6px; }
+p { margin: 8px 0; }
+ul, ol { padding-left: 22px; margin: 6px 0; }
+li { margin: 4px 0; }
+a { color: #0b57d0; overflow-wrap: anywhere; }
+code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--soft); padding: 1px 5px; border-radius: 5px; }
+.muted { color: var(--muted); font-size: 14.5px; }
+.lead { font-size: 17px; }
+.box { border-radius: 0 12px 12px 0; padding: 12px 18px; margin: 12px 0; }
+.rule { background: var(--rule); border-left: 4px solid var(--ruleb); }
+.example { background: var(--ex); border-left: 4px solid var(--exb); font-size: 15px; }
+.ask { background: var(--ask); border-left: 4px solid var(--askb); }
+.box h4 { margin: 0 0 4px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 4px; }
+.toolbar button { min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid #0b57d0; background: #0b57d0; color: #fff; font: 600 14px/1.2 inherit; cursor: pointer; }
+.toolbar button.secondary { background: #fff; color: #0b57d0; }
+.status { color: var(--muted); font-size: 13.5px; }
+nav.toc { columns: 2; column-gap: 32px; font-size: 15px; margin: 14px 0; }
+nav.toc ol { margin: 0; }
+.note { min-height: 3.2em; margin: 8px 0 4px; padding: 8px 12px; border: 1px solid #c9ccd3; border-radius: 10px; background: #f7f7f9; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; }
+.note:focus { outline: 3px solid #f2b84b; outline-offset: 1px; background: #fff; }
+.note:empty::before { content: attr(data-placeholder); color: #8a8f98; }
+td .note { min-height: 2.6em; min-width: 9em; margin: 0; font-size: 13.5px; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 7px 9px; border-bottom: 1px solid var(--line); }
+th { background: var(--soft); font-weight: 600; }
+.tw { overflow-x: auto; }
+.num { white-space: nowrap; }
+.lanes { display: grid; gap: 14px; margin: 14px 0 6px; }
+.lane { display: grid; grid-template-columns: 150px 1fr; gap: 10px; align-items: center; }
+.lane > span { font-weight: 600; font-size: 14px; }
+.steps { display: flex; flex-wrap: wrap; gap: 6px; }
+.steps div { flex: 1 1 110px; border-radius: 10px; padding: 8px 10px; background: var(--soft); border-top: 6px solid var(--line); font-size: 13px; line-height: 1.4; }
+.steps b { display: block; font-size: 14px; }
+.q { margin: 18px 0; }
+.q p { margin: 0 0 4px; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.sources li { font-size: 14px; }
+@media (max-width: 720px) { nav.toc { columns: 1; } .lane { grid-template-columns: 1fr; } .fields { grid-template-columns: 1fr; } main { padding: 24px 16px 48px; } }
+@media print { .toolbar, .status, .noprint { display: none !important; } main { max-width: none; padding: 0; } h2, h3 { break-after: avoid; } .box, tr, .q, .lane { break-inside: avoid; } .note { background: #fff; min-height: 4.5em; } .note:empty::before { content: ''; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Evergreen blueberry timing: how our weather tool works now, and what we propose</h1>
+<p class="muted">Prepared on 18 October 2026 for a review meeting with an evergreen blueberry specialist.</p>
+<p class="muted" id="doc-version">Model open-field-production-v3, crop profile stage_thermal_v3. Site comparison from the benchmark run of 12 October 2026. Literature review of 15 October 2026.</p>
+
+<div class="box ask">
+<h4>How to use this page</h4>
+<ul>
+<li>Type your comments in the grey boxes. This browser keeps them while you work.</li>
+<li>When you finish, click <b>Download my notes</b> and email us the text file. Or click <b>Save a copy with my notes</b> and send that page back. Printing it and writing on paper works too.</li>
+<li>Your view helps most in three places. Tell us where our picture of evergreen production is wrong in sections 3 and 4, check the starting values in section 5, and answer questions Q1 to Q5 in section 6.</li>
+</ul>
+<div class="toolbar noprint"><button type="button" id="download-notes">Download my notes</button><button type="button" class="secondary" id="save-page">Save a copy with my notes</button><button type="button" class="secondary" id="print-page">Print</button><span class="status" id="save-status" role="status" aria-live="polite"></span></div>
+</div>
+
+<nav class="toc" aria-label="Contents"><ol>
+<li><a href="#s1">Summary</a></li>
+<li><a href="#s2">How the tool calculates a season today</a></li>
+<li><a href="#s3">Evergreen results against published calendars</a></li>
+<li><a href="#s4">What the literature says about evergreen timing</a></li>
+<li><a href="#s5">Proposed evergreen planner</a></li>
+<li><a href="#s6">Questions for you</a></li>
+<li><a href="#s7">Data that would help</a></li>
+<li><a href="#s8">Sources</a></li>
+</ol></nav>
+
+<h2 id="s1">1. Summary</h2>
+<p class="lead">For any place on land, the tool takes 15 years of weather, 2011 to 2025, and estimates when a generic low-chill southern highbush would bloom and be harvested. It then counts how often frost, heat, heavy rain, disease weather or poor bee weather hit each stage.</p>
+<ul>
+<li><b>Deciduous and semi-evergreen sites.</b> Winter chill starts the calendar. Our literature benchmark has 53 sites, 46 of them growing southern highbush, and 30 of those get this calendar. The middle of the modelled harvest falls inside the published harvest months at 26 of the 30. The middle of modelled bloom falls inside published bloom months at 14 of the 20 sites that publish them.</li>
+<li><b>Evergreen and tropical sites.</b> Winter does not start a calendar there. The tool instead tests 24 budbreak dates and keeps those with the least damaging weather. It ignores pruning, flower-bud formation and markets, and it ripens fruit too fast in warm places. It cannot yet tell an evergreen grower when to prune. We think this is the weakest part of the tool.</li>
+<li><b>Our proposal.</b> An evergreen planner that starts from the pruning date. It checks flower-bud formation against day length and temperature, ripens fruit with a recalibrated temperature response, scores weather risk, and finds the pruning dates that hit a chosen market window in most years.</li>
+<li><b>What we need from you.</b> Whether this matches how evergreen growers decide, better starting values, and any records of pruning, bloom and harvest dates we could calibrate against.</li>
+</ul>
+<div class="lanes" aria-label="How a season starts, today and as proposed">
+<div class="lane"><span>Deciduous, today</span><div class="steps">
+<div style="border-top-color: var(--chill)"><b>Chill</b>50 hours below 7.2 °C (45 °F) from 1 Nov</div>
+<div style="border-top-color: var(--bud)"><b>Budbreak</b>150 degree-days after chill is met</div>
+<div style="border-top-color: var(--flower)"><b>Bloom</b>85 to 375 degree-days after budbreak</div>
+<div style="border-top-color: var(--fruit)"><b>Fruit growth</b>end of bloom to start of harvest</div>
+<div style="border-top-color: var(--harvest)"><b>Harvest</b>633 to 1,242 degree-days after bloom starts</div>
+</div></div>
+<div class="lane"><span>Evergreen, proposed</span><div class="steps">
+<div style="border-top-color: var(--prune)"><b>Pruning</b>date chosen by the grower</div>
+<div style="border-top-color: var(--bud)"><b>Regrowth</b>budbreak about 15 days later; shoots grow, then stop</div>
+<div style="border-top-color: var(--induce)"><b>Bud formation</b>needs short days and cool temperatures</div>
+<div style="border-top-color: var(--flower)"><b>Bloom</b>after the buds develop</div>
+<div style="border-top-color: var(--harvest)"><b>Ripening</b>about 2 to 4 months, slower when cool</div>
+</div></div>
+</div>
+<p class="muted">Degree-days on this page are in °C above 7 °C (44.6 °F). Multiply by 1.8 for °F degree-days, so 150 °C-days is about 270 °F-days.</p>
+
+<h2 id="s2">2. How the tool calculates a season today</h2>
+<h3>2.1 Weather data</h3>
+<p>The weather comes from NASA POWER, which is built on the MERRA-2 reanalysis. Its grid is 0.5° by 0.625°, about 55 by 60 km in Florida and 55 by 70 km near the equator. The tool uses hourly air temperature and dewpoint, and daily minimum, maximum and mean temperature, rain, humidity, wind and solar radiation for 2011 to 2025.</p>
+<p>Every result describes open-field weather for a whole grid square. Tunnels, pots, valleys, coasts and frost pockets are not modelled. In earlier pilot checks the grid's minimum temperatures ran warmer than station records, so the tool probably undercounts chill and freezes.</p>
+
+<h3>2.2 Production-system class</h3>
+<div class="box rule">
+<ul>
+<li><b>Deciduous.</b> 300 chill hours or more in the winter.</li>
+<li><b>Evergreen.</b> Fewer than 100 chill hours. Every winter month, January to March in the north or July to September in the south, has an average daily minimum above 7.2 °C (45 °F) and an average daily mean above 12.8 °C (55 °F). No more than 1 hour reaches 0 °C (32 °F) or lower, and no month of the chill season has an average minimum at or below 0 °C.</li>
+<li><b>Semi-evergreen.</b> Everything else.</li>
+</ul>
+<p>A site takes the class held by at least two-thirds of its winters, 10 of 15. If no class reaches that, the site is Transitional.</p>
+</div>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 2.2, production-system class" data-note="C2.2" data-label="Comment on 2.2 Production-system class" data-placeholder="Do these limits separate evergreen, semi-evergreen and deciduous production the way you would?"></div>
+
+<h3>2.3 Deciduous and semi-evergreen sites: the winter calendar</h3>
+<div class="box rule">
+<ul>
+<li><b>Chill.</b> Every hour below 7.2 °C (45 °F) counts, including hours below freezing, from 1 November to 30 April. South of the equator the count runs from 1 April to 30 September. Chill is met at 50 hours.</li>
+<li><b>Budbreak.</b> From the chill date, each day adds its mean temperature minus 7 °C (44.6 °F), or nothing on colder days. Budbreak is the day the total reaches 150 degree-days.</li>
+<li><b>Bloom and harvest.</b> Bloom runs from 85 to 375 degree-days after budbreak. Harvest runs from 633 to 1,242 degree-days after bloom starts. For these stages a daily mean above 30 °C (86 °F) counts as 30 °C.</li>
+<li><b>Where it applies.</b> Sites more than 23.44° from the equator, whose class is known and is not Evergreen, and where at least 12 of 15 winters give a complete calendar. Everywhere else the start-date scan of section 2.5 runs.</li>
+</ul>
+</div>
+<div class="box example"><h4>Example</h4>Waldo, Florida, winter 2016 to 2017. Chill was met on 22 December, budbreak came on 5 January, bloom ran from 17 January to 19 February and harvest from 24 March to 2 May. Over 15 winters the typical Waldo season is budbreak on 6 January, bloom from 22 January to 24 February and harvest from 29 March to 10 May.</div>
+<p class="muted">Where the numbers come from. The 7.2 °C rule, the 50-hour requirement and the 150 degree-days come from our lab's earlier R workflow. None has been fitted to observed budbreak, and for 'Emerald' 100 to 400 chill hours have been published (Lyrene 2008). 85, 633 and 1,242 are the Waldo heat sums that matched the tool's earlier fixed-day calendar. The 290 degree-days from bloom start to bloom end match the 10% to 90% bloom span of 'Emerald' (293) and 'Jewel' (287) at Citra (Kovaleski et al. 2015). The planting window, 105 to 30 days before modelled budbreak, matches only 22% of published planting months at 17 benchmark sites.</p>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 2.3, the winter calendar" data-note="C2.3" data-label="Comment on 2.3 Winter calendar" data-placeholder="Anything you would change in the chill, budbreak, bloom or harvest rules?"></div>
+
+<h3>2.4 Weather checks in each stage</h3>
+<div class="tw"><table>
+<tr><th>Risk</th><th>Counted when</th><th>Stage</th></tr>
+<tr><td>Frost on opening buds</td><td>Minimum at or below −6.7 °C (20 °F). Once half the heat to bloom has built up, at or below −3.9 °C (25 °F). From NC State Extension critical temperatures.</td><td>Budbreak to the day before bloom</td></tr>
+<tr><td>Freeze in bloom</td><td>Minimum at or below −2.2 °C (28 °F)</td><td>Bloom</td></tr>
+<tr><td>Frost on young fruit</td><td>Minimum at or below 0 °C (32 °F)</td><td>Fruit growth</td></tr>
+<tr><td>Heat on fruit</td><td>Maximum at or above 35 °C (95 °F). Days at 32 °C (90 °F) or more are also counted.</td><td>Fruit growth</td></tr>
+<tr><td>Heavy rain</td><td>10 mm (0.4 in) or more in a day</td><td>Harvest</td></tr>
+<tr><td>Disease weather</td><td>A high-risk day. Anthracnose index 0.50 or more, or Botrytis index 0.70 or more during bloom, from the UF Blueberry Advisory System equations (Wilson et al. 1990) applied to wet periods with humidity of 90% or more.</td><td>Bloom to end of harvest</td></tr>
+<tr><td>Pollination gap</td><td>4 or more bloom days in a row with no hour at or above 12.8 °C (55 °F) between 09:00 and 17:00</td><td>Bloom</td></tr>
+</table></div>
+<p class="muted">The tool lists a risk as recurring when it happens in at least half of the winters with complete data, and only if at least 12 winters have complete data. A count of exposure is not a probability of crop loss.</p>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 2.4, weather checks" data-note="C2.4" data-label="Comment on 2.4 Weather checks" data-placeholder="Are these damage thresholds right for evergreen plants that never go dormant?"></div>
+
+<h3>2.5 Evergreen and tropical sites today: the start-date scan</h3>
+<div class="box rule">
+<ul>
+<li>The tool forces budbreak on the 1st and 15th of every month, 24 start dates, in each of the 15 years. Bloom and harvest follow the heat rules of section 2.3.</li>
+<li>A cycle stalls if bloom lasts more than 66 days or first harvest comes more than 150 days after bloom starts.</li>
+<li>A start date is ruled out if frost on buds, freeze in bloom, frost on young fruit or stalling happens in at least half of its cycles.</li>
+<li>The remaining start dates are compared on those four, plus heat on fruit, rain at harvest, disease weather and bloom days without bee flight. The best trade-offs are called favourable.</li>
+<li>The scan assumes management can start a cycle on any date. It does not model pruning, the delay from pruning to budbreak, flower-bud formation or markets.</li>
+</ul>
+</div>
+<div class="box example"><h4>Examples</h4>
+<p><b>Arcadia, Florida</b>, Evergreen in 13 of 15 winters. The favourable starts are 1 and 15 January, 1 and 15 February, 1 March and 15 September. Growers report bloom in December to February and harvest in March to May.</p>
+<p><b>Chao, Peru</b>, Evergreen in 15 of 15 winters. The favourable starts run from 15 June to 1 September. A 15 June start gives bloom from 22 June to 15 July and harvest from 11 August to 29 September. In a published Chao trial, growers pruned in early March, bloom started in April, and harvest ran from 1 August to 15 January.</p>
+</div>
+<p class="muted">A test version of the app, not yet public, adds a year-round planner with per-year cycles for a chosen start date, weekly weather hazards, a market-window search and El Niño months. We can show it during the meeting.</p>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 2.5, the start-date scan" data-note="C2.5" data-label="Comment on 2.5 Start-date scan" data-placeholder="Is testing start dates useful to evergreen growers at all, or misleading?"></div>
+
+<h2 id="s3">3. Evergreen results against published calendars</h2>
+<p>These are the 23 benchmark sites that growers or reports describe as evergreen, mixed or semi-evergreen. "Scan" means the start-date scan of section 2.5 gave the result, and its months are the union of the favourable start dates. "Winter" means the winter calendar of section 2.3 gave it. Agreement gives the share of published harvest months the model covers, then the share of model harvest months that are published.</p>
+<div class="tw"><table>
+<tr><th>Site</th><th>Reported system, cover</th><th>Day length (h)</th><th>Model class (winters)</th><th>Method</th><th>Bloom, reported / model</th><th>Harvest, reported / model</th><th>Agreement</th></tr>
+<tr><td>Homestead, FL</td><td>evergreen, cover not reported</td><td class="num">10.5–13.7</td><td>Evergreen 15/15</td><td>scan</td><td>Dec–Feb / Jan–Nov</td><td>Mar–May / all year</td><td class="num">100% / 25%</td></tr>
+<tr><td>Arcadia, FL</td><td>evergreen, open field</td><td class="num">10.4–13.9</td><td>Evergreen 13/15</td><td>scan</td><td>Dec–Feb / Jan–Mar, Sep–Oct</td><td>Mar–May / Mar–May, Oct–Dec</td><td class="num">100% / 50%</td></tr>
+<tr><td>Sebring, FL</td><td>evergreen, open field</td><td class="num">10.4–13.9</td><td>Semi-evergreen 10/15</td><td>winter</td><td>Dec–Feb / Feb</td><td>Mar–May / Mar–Apr</td><td class="num">67% / 100%</td></tr>
+<tr><td>Plant City, FL</td><td>mixed, open field</td><td class="num">10.4–13.9</td><td>Semi-evergreen 13/15</td><td>winter</td><td>Jan–Feb / Jan–Feb</td><td>Mar–May / Mar–Apr</td><td class="num">67% / 100%</td></tr>
+<tr><td>Groveland, FL</td><td>mixed, open field</td><td class="num">10.3–14.0</td><td>Semi-evergreen 13/15</td><td>winter</td><td>Jan–Feb / Jan–Feb</td><td>Mar–May / Mar–May</td><td class="num">100% / 100%</td></tr>
+<tr><td>Chao, Peru</td><td>evergreen, open field</td><td class="num">11.6–12.6</td><td>Evergreen 15/15</td><td>scan</td><td>Apr–May / Jun–Oct</td><td>Aug–Jan / Aug–Dec</td><td class="num">83% / 100%</td></tr>
+<tr><td>Olmos, Peru</td><td>evergreen, open field</td><td class="num">11.8–12.5</td><td>Evergreen 15/15</td><td>scan</td><td>not published / Sep–Nov</td><td>Jun–Jan / Oct–Jan</td><td class="num">50% / 100%</td></tr>
+<tr><td>Ica, Peru</td><td>evergreen, open field</td><td class="num">11.3–13.0</td><td>Evergreen 15/15</td><td>scan, no start ruled out</td><td>not published / all year</td><td>May–Dec / all year</td><td class="num">100% / 67%</td></tr>
+<tr><td>Zapotlán, Jalisco</td><td>evergreen, tunnels common</td><td class="num">10.9–13.3</td><td>Evergreen 15/15</td><td>scan</td><td>not published / Oct–Mar</td><td>Oct–Jun / Dec–May</td><td class="num">67% / 100%</td></tr>
+<tr><td>Los Reyes, Michoacán</td><td>evergreen, tunnels common</td><td class="num">10.9–13.3</td><td>Evergreen 15/15</td><td>scan</td><td>Oct–Nov / Oct–Mar</td><td>Jan–Jun / Dec–Apr</td><td class="num">67% / 80%</td></tr>
+<tr><td>El Fuerte, Sinaloa</td><td>evergreen, tunnels common</td><td class="num">10.5–13.8</td><td>Evergreen 14/15</td><td>scan</td><td>not published / Oct–Mar</td><td>Feb–May / Nov–May</td><td class="num">100% / 57%</td></tr>
+<tr><td>Famaillá, Tucumán</td><td>semi-evergreen, open field</td><td class="num">10.4–13.8</td><td>Deciduous 15/15</td><td>winter</td><td>Jun–Aug / Jul–Sep</td><td>Aug–Nov / Oct–Dec</td><td class="num">50% / 67%</td></tr>
+<tr><td>Guasca, Colombia, 2,700 m</td><td>evergreen, open field</td><td class="num">11.8–12.4</td><td>Evergreen 15/15</td><td>scan</td><td>all year / Aug–Oct</td><td>all year / Dec–Mar</td><td class="num">33% / 100%</td></tr>
+<tr><td>Piracicaba, Brazil</td><td>evergreen, tunnels common</td><td class="num">10.7–13.5</td><td>Evergreen 15/15</td><td>scan</td><td>Oct / Apr–Jul</td><td>Aug–Jan / Jun–Sep</td><td class="num">33% / 50%</td></tr>
+<tr><td>Moguer, Huelva, Spain</td><td>mixed, tunnels common</td><td class="num">9.6–14.7</td><td>Deciduous 15/15</td><td>winter</td><td>Jan–Feb / Feb–Apr</td><td>Jan–Jul / May–Jun</td><td class="num">29% / 100%</td></tr>
+<tr><td>Odemira, Portugal</td><td>mixed, tunnels common</td><td class="num">9.6–14.8</td><td>Semi-evergreen 11/15</td><td>winter</td><td>not published / Feb–Apr</td><td>Apr–Jun / May–Jun</td><td class="num">67% / 100%</td></tr>
+<tr><td>Larache, Morocco</td><td>mixed, tunnels common</td><td class="num">9.8–14.5</td><td>Evergreen 12/15</td><td>scan</td><td>not published / Nov–May</td><td>Nov–May / Jan–Jul</td><td class="num">71% / 71%</td></tr>
+<tr><td>Agadir, Morocco</td><td>mixed, tunnels common</td><td class="num">10.2–14.1</td><td>Evergreen 12/15</td><td>scan</td><td>not published / Oct–May</td><td>Dec–May / Nov–Jul</td><td class="num">100% / 67%</td></tr>
+<tr><td>Wolseley, South Africa</td><td>evergreen, mixed cover</td><td class="num">9.9–14.4</td><td>Deciduous 15/15</td><td>winter</td><td>Aug / Aug–Oct</td><td>Aug–Nov / Nov–Jan</td><td class="num">25% / 33%</td></tr>
+<tr><td>Tzaneen, South Africa</td><td>mixed, mixed cover</td><td class="num">10.7–13.6</td><td>Semi-evergreen 10/15</td><td>winter</td><td>not published / Jul–Aug</td><td>May–Sep / Sep–Nov</td><td class="num">20% / 33%</td></tr>
+<tr><td>Coffs Harbour, Australia</td><td>evergreen, mixed cover</td><td class="num">10.2–14.1</td><td>Evergreen 15/15</td><td>scan</td><td>Jun–Aug / Apr–Jul</td><td>Jun–Feb / Jun–Oct</td><td class="num">56% / 100%</td></tr>
+<tr><td>Mengzi, Yunnan, China</td><td>evergreen, tunnels common</td><td class="num">10.7–13.6</td><td>Deciduous 11/15</td><td>scan, inside the tropics</td><td>not published / Jan–Mar, Sep–Oct</td><td>Nov–May / Nov–May</td><td class="num">100% / 100%</td></tr>
+<tr><td>Marondera, Zimbabwe</td><td>evergreen, open field</td><td class="num">11.0–13.2</td><td>Semi-evergreen 12/15</td><td>scan, inside the tropics</td><td>not published / Mar–Aug</td><td>Apr–Oct / May–Oct</td><td class="num">86% / 100%</td></tr>
+</table></div>
+<p class="muted">Day length runs from sunrise to sunset and is computed from latitude. The scan gives the result at 16 southern highbush sites in the benchmark: the 15 above plus George, South Africa, which is reported as deciduous. Across those 16 the scan covers 78% of published harvest months, and 76% of its harvest months are published.</p>
+<h3>What we see</h3>
+<ul>
+<li><b>Florida evergreen sites.</b> The scan does not narrow harvest to the March to May window growers use. At Homestead it calls every month possible. Lyrene (1996) reports that south of 28°N in Florida, low-chill plants can flower and fruit on new growth for 4 to 8 months, so part of that spread may be real. Growers still aim for March to May.</li>
+<li><b>Peru.</b> Harvest months come out close, but modelled bloom at Chao is two months late, because the model ripens fruit far faster than growers see. The grid's April to August means at Chao are 19 to 21 °C (66 to 70 °F). At those temperatures 633 degree-days take about 46 days, while growers see about 4 months from April bloom to August harvest. At Ica the weather does not rule out a single start date.</li>
+<li><b>Highlands.</b> Growers at Guasca pick all year. The model picks only from December to March.</li>
+<li><b>Management and cover.</b> Wolseley, Moguer and Tzaneen are run as evergreen or mixed systems, partly under tunnels. Open-field climate classes them deciduous or semi-evergreen, so the winter calendar runs there and misses.</li>
+<li><b>El Niño 2023.</b> In our grid, monthly means from April to October 2023 ran up to 2.1 °C (3.8 °F) above the 2011 to 2025 average at Olmos, up to 1.8 °C (3.2 °F) at Chao and up to 1.1 °C (2.0 °F) at Ica. Reports describe a fall and winter 4 to 5 °C (7 to 9 °F) warmer than normal in the north, with failed flowering, while Ica held steady. The grid shows the same north-south pattern, only smaller. It averages a whole grid square, and monthly means hide night minima.</li>
+</ul>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 3, evergreen results" data-note="C3" data-label="Comment on 3 Evergreen results against published calendars" data-placeholder="Which reported calendars look wrong to you? Which model results would mislead a grower?"></div>
+
+<h2 id="s4">4. What the literature says about evergreen timing</h2>
+<p>From our literature review of 15 October 2026. Numbers are as published. Section 8 links every source.</p>
+<div class="tw"><table>
+<tr><th>Topic</th><th>What the evidence says</th><th>Sources</th></tr>
+<tr><td>Florida evergreen system</td><td>Plants do not go dormant and keep last year's leaves through harvest. Growers fertilize through fall and winter and hedge right after harvest, usually in early June. Many pause fertilizer for about 6 weeks from September to encourage flower buds, though no research has tested the pause. Flower buds form from late summer into fall. Bloom can start in December, harvest starts in early March, and the market window is about March to May. Hydrogen cyanamide is not used. Leaf loss in early fall reduces flower buds and yield.</td><td>UF/IFAS HS1362, HS1359, HS968; Phillips, Williamson and Munoz 2020</td></tr>
+<tr><td>Flower-bud formation</td><td>Short days, or rather long nights, drive it. In northern highbush, 8, 10 and 12 h days gave many flower buds, 14 h days far fewer and 16 h days almost none. In 'Misty', short days at 28 °C (82 °F) gave 77% fewer flower buds than at 21 °C (70 °F), 8.6 against 38.0 per plant. Four weeks of short days formed as many buds as eight, but bloom came later and was smaller. UGA Extension says fall temperatures above 29.1 °C (84.4 °F) inhibit it. Buds form only after shoot growth stops and become visible about 2 weeks later. At Citra, formation began in early August in 'Emerald' and in late September in 'Jewel'. 'Arcadia' formed buds only under short days and cool temperatures, while the everbearing selection FL16-64 formed them in every treatment.</td><td>Hall et al. 1963 in Retamales and Hancock 2018; Spann et al. 2004; UGA C1293; Pescie et al. 2011; Gómez Martínez 2010; Kovaleski et al. 2015; Benevenute et al. 2025</td></tr>
+<tr><td>Flowering on new growth</td><td>South of 28°N in Florida and at 30°S in eastern Australia, low-chill plants can flower and fruit on new growth for 4 to 8 months under cool nights and short, warm days. Longer days or warmer nights stop it.</td><td>Lyrene 1996</td></tr>
+<tr><td>Tropics</td><td>At Chao, day length stays between 11.6 and 12.6 h, so it barely limits flowering. Temperature and management decide. A Peruvian consultant reports that 8 to 12 h days and 10 to 21 °C (50 to 70 °F) favour flower induction and that heat above 21 °C inhibits it. In 'Ventura', minima of 17 °C (63 °F) or less promote it. Growers control vigour with tipping and the nitrogen to potassium balance. Drought can cut flower buds to zero.</td><td>IBO 2025, quoting S. Ochoa; ESAN 2024</td></tr>
+<tr><td>Pruning to first harvest</td><td>Coastal Peru 138 to 175 days, and 147 days in a Peruvian cultivar patent. Brasília 167 to 193 days in every season. Los Reyes, Michoacán, about 193 to 259 days. Atherton, Australia, about 5 months. 'MegaEarly' in northern South Africa and Zimbabwe about 5.5 to 6 months. A review gives 5 to 8 months for Mexico and Peru. Budbreak comes about 15 days after pruning.</td><td>Orga Porras, UNALM; Maticorena and Escobedo 2024; US plant patent PP36,340; Miranda et al. 2025; Gómez Martínez 2010; Fang et al. 2020; The Express 2021; Fruitnet 2025</td></tr>
+<tr><td>Does pruning move harvest?</td><td>In Villacurí, Ica, pruning 12 days earlier brought harvest 10 days earlier. In Los Reyes, pruning on 23 May and on 18 July gave first harvests about 10 days apart, in late January and early February, because the later pruning flowered sooner as the weather cooled. Our reading of the regional reports is that where days shorten and nights cool in autumn, as in Florida, Huelva, Morocco, northern South Africa and highland Michoacán, the season holds harvest in place. Near the equator, or with no-chill cultivars, pruning moves harvest almost day for day.</td><td>Orga Porras, UNALM; Gómez Martínez 2010, dates computed by us from the reported intervals; regional reports in section 8</td></tr>
+<tr><td>Bloom to first harvest</td><td>Brasília 51 days for warm-season flowers and 102 to 109 days for cool-season flowers. Los Reyes 84 to 129 days. Jayanca, Peru, about 74 days for 'Ventura'. Chao roughly 95 to 120 days for 'Biloxi'. Andean Ecuador 90 to 120 days. Florida about 60 days for 'Emerald', and 72 to 74 days from 50% bloom to 50% harvest for 'Arcadia' and 'Avanti' at Citra. Georgia 56 to 83 days, depending on cultivar. Atherton about 60 days in summer.</td><td>Miranda et al. 2025; Gómez Martínez 2010; Rodríguez Reyes 2023; INIAP 2025; UF plant patents; NeSmith 2012; The Express 2021</td></tr>
+<tr><td>Heat</td><td>Northern highbush pollen germinates best at 20 to 30 °C (68 to 86 °F), drops significantly above 35 °C (95 °F) and almost stops at 40 °C (104 °F). In rabbiteye, pollen germination fell from over 90% at 15 to 25 °C (59 to 77 °F) to 63% at 30 °C and 57% at 35 °C. MSU Extension warns when bloom meets highs above 32 °C (90 °F). In Ica, pruning in the hot months lets Lasiodiplodia wood fungi into the cuts, with damage that lasts several seasons. The advice there is to prune in November and December, take more risk in January, and not prune in February.</td><td>Walters and Isaacs 2023; Yang et al. 2019; MSU Extension; Redagrícola 2026, quoting W. Apaza</td></tr>
+<tr><td>El Niño 2023</td><td>A fall and winter 4 to 5 °C (7 to 9 °F) above average stressed 'Ventura' and 'Biloxi' and severely limited flowering in northern Peru from March to October. Exports were forecast to fall 43%. Northern yields fell 20 to 50% against projections, and those from Ica to Áncash 5 to 10%. In Ica, July minima were 11 to 12 °C (52 to 54 °F) against a normal 7 to 8 °C (45 to 46 °F). One Olmos farm fell from 25 to 15 t/ha.</td><td>USDA FAS PE2024-0002; ESAN 2024; Redagrícola 2025; IBO 2025</td></tr>
+<tr><td>Market windows</td><td>Florida growers aim for March and April, and prices stay high from late February to mid-May. Peru sells from August to January, with its volume peak in weeks 40 to 42. Mexico now starts harvest in February to avoid Peru, and US imports from Mexico peak from February to May. Morocco harvests from January to May, with Larache peaking in early April. Southern Africa aims to sell before Peru arrives in about week 40; in 2025 its prices fell from R135 to 150 to about R90 per kg when Peru arrived. Yunnan supplies China from November to February. Atherton targets the April to June gap.</td><td>UF/IFAS HS1245, HS742; IBO 2024; FreshPlaza 2025; USDA FAS MX2024-0003; USDA ERS; Blueberries Consulting 2026; IBO 2025 (Yunnan); The Express 2021</td></tr>
+<tr><td>Decision tools</td><td>We found no published tool that sets an evergreen pruning date from weather. UF gives no rule from pruning to bloom or harvest for Florida evergreen production.</td><td>Our literature review</td></tr>
+</table></div>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 4, literature" data-note="C4" data-label="Comment on 4 Literature on evergreen timing" data-placeholder="What is wrong, outdated or missing? Which sources would you trust most?"></div>
+
+<h2 id="s5">5. Proposed evergreen planner</h2>
+<p>This is a plan. We have not built it, and we would change it after this review.</p>
+<h3>5.1 Two kinds of evergreen site, read from the weather</h3>
+<p>For every day of every year, the planner would mark whether flower buds can form there: day length short enough and temperature low enough. That gives each site an induction calendar. We think the calendar's shape matters more than any single setting, because it changes what advice makes sense.</p>
+<ul>
+<li><b>Seasonal sites.</b> Buds can form in only one season, as in Florida. Pruning builds wood for that season. The advice is the latest post-harvest hedging date that still leaves mature shoots when the season starts, plus the natural bloom and harvest windows.</li>
+<li><b>Programmable sites.</b> Buds can form in most months, as on the Peruvian coast. The pruning date sets the harvest date. The advice is which pruning dates hit a chosen market window in most years.</li>
+</ul>
+<h3>5.2 The crop cycle, started from pruning</h3>
+<p>Pruning comes first, then budbreak about 15 days later. Shoots grow and stop. Flower buds form once enough inductive days have passed after growth stops. The buds develop and open, and fruit ripens at a rate set by a fitted temperature response. The planner would carry two cultivar classes. One needs short days and cool temperatures, like 'Arcadia'. The other is day-neutral or everbearing, like the UF selection FL16-64.</p>
+<h3>5.3 Starting values for you to check</h3>
+<p>Write a better value or a comment in the last column. Leave it empty to accept ours.</p>
+<div class="tw"><table>
+<tr><th>#</th><th>Setting</th><th>Starting value</th><th>Evidence</th><th>Your value or comment</th></tr>
+<tr><td>P1</td><td>Pruning to budbreak</td><td>15 days</td><td>Peruvian cultivar patent PP36,340, Chao. A Michoacán grower reports shoots about 2 weeks after pruning.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P1 Pruning to budbreak, starting value 15 days" data-note="P1" data-label="P1 Pruning to budbreak (starting value 15 days)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P2</td><td>When shoots can form buds</td><td>To be fitted. Induction counts only after shoot growth stops.</td><td>Buds become visible about 2 weeks after growth stops (Pescie et al. 2011; Gómez Martínez 2010). In Buenos Aires that came about 100 days after budbreak. Nitrogen, vigour and tipping shift it.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P2 When shoots can form buds" data-note="P2" data-label="P2 When shoots can form buds (to be fitted)" data-placeholder="How would you estimate when shoots stop growing?"></div></td></tr>
+<tr><td>P3</td><td>Inductive day length</td><td>12.5 h or less, sunrise to sunset</td><td>8, 10 and 12 h days inductive, 14 h far weaker, 16 h almost none (Hall et al. 1963). Always met near the equator.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P3 Inductive day length, starting value 12.5 hours or less" data-note="P3" data-label="P3 Inductive day length (starting value 12.5 h or less)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P4</td><td>Inductive temperature</td><td>Full rate when the daily mean is 21 °C (70 °F) or less, or the minimum is 17 °C (63 °F) or less. About a quarter of that rate at 28 °C (82 °F).</td><td>Spann et al. 2004; UGA C1293; IBO 2025 (Ochoa); ESAN 2024</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P4 Inductive temperature" data-note="P4" data-label="P4 Inductive temperature (starting value: full rate at mean 21 °C or less, or minimum 17 °C or less; a quarter at 28 °C)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P5</td><td>Inductive days needed</td><td>28 to 42 days, that is 4 to 6 weeks</td><td>4 weeks of short days formed as many buds as 8, but bloom was delayed and reduced (Spann et al. 2004). Full induction takes 5 to 6 weeks of shortening days (Retamales and Hancock 2018).</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P5 Inductive days needed, starting value 28 to 42 days" data-note="P5" data-label="P5 Inductive days needed (starting value 28 to 42 days)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P6</td><td>Bud development to bloom</td><td>To be fitted</td><td>The only Florida heat sum is 50% bloom at 225 degree-days for 'Emerald' and 302 for 'Jewel', counted from 1 January on plants sprayed with hydrogen cyanamide (Kovaleski et al. 2015). In the Chao patent, flowering starts 85 to 90 days after pruning.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P6 Bud development to bloom" data-note="P6" data-label="P6 Bud development to bloom (to be fitted)" data-placeholder="Any data or rule of thumb?"></div></td></tr>
+<tr><td>P7</td><td>Ripening, bloom to first harvest</td><td>To be fitted to the published 51 to 129 days. We would compare four rules: fixed days per cultivar class, degree-days with a fitted base and cap, a response that peaks at an optimum temperature, and one that adds solar radiation.</td><td>Section 4, bloom to first harvest. Today's rule gives about 46 days at Chao.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P7 Ripening, bloom to first harvest" data-note="P7" data-label="P7 Ripening, bloom to first harvest (to be fitted)" data-placeholder="What drives ripening speed in your experience?"></div></td></tr>
+<tr><td>P8</td><td>Heat in bloom</td><td>Count hours at or above 30 °C (86 °F); treat 35 °C (95 °F) or more as severe</td><td>Walters and Isaacs 2023; Yang et al. 2019; MSU Extension</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P8 Heat in bloom" data-note="P8" data-label="P8 Heat in bloom (starting value 30 °C, severe at 35 °C)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P9</td><td>Pruning in heat</td><td>Flag pruning dates followed by weeks with maxima above 30 °C (86 °F)</td><td>Redagrícola 2026 (Apaza, Ica)</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P9 Pruning in heat" data-note="P9" data-label="P9 Pruning in heat (starting value: maxima above 30 °C)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P10</td><td>Freeze on plants that are not dormant</td><td>−2.2 °C (28 °F) for open flowers, new shoots and leaves</td><td>HS968: open flowers often die at 28 °F in still, dry air and have survived 26 °F (−3.3 °C) in steady wind. New shoots and older leaves on evergreen plants die at the temperatures that kill open flowers.</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P10 Freeze on plants that are not dormant" data-note="P10" data-label="P10 Freeze on plants that are not dormant (starting value -2.2 °C)" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P11</td><td>Latest hedging date at seasonal sites</td><td>Warn when hedging falls after mid-July</td><td>HS1359: hedge soon after harvest, usually early June; waiting until mid to late summer may cut flower buds and yield. July pruning left 'Emerald' too little time to regrow (Kovaleski et al. 2015).</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P11 Latest hedging date" data-note="P11" data-label="P11 Latest hedging date at seasonal sites (starting value: warn after mid-July)" data-placeholder="What latest date would you give a Florida evergreen grower?"></div></td></tr>
+<tr><td>P12</td><td>Leaf loss in fall</td><td>Count leaf-disease weather from late August to bloom as a risk to flower buds</td><td>HS1362 and PP385: fall leaf loss reduces flower buds. In rabbiteye, stripping leaves on 20 August cut flower buds per shoot from 4.2 to 1.3; on 15 October it made no difference (Lyrene 1992).</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P12 Leaf loss in fall" data-note="P12" data-label="P12 Leaf loss in fall" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P13</td><td>Market presets</td><td>Florida Mar–Apr; Peru Aug–Jan; Mexico Feb–May; Morocco Jan–May; southern Africa before week 40; Yunnan Nov–Feb; Atherton Apr–Jun</td><td>Section 4, market windows</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P13 Market presets" data-note="P13" data-label="P13 Market presets" data-placeholder="Keep or change"></div></td></tr>
+<tr><td>P14</td><td>What counts as hitting the window</td><td>First pick inside the target weeks in at least 10 of 15 years</td><td>Our choice</td><td><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="P14 What counts as hitting the window" data-note="P14" data-label="P14 Hitting the window (starting value: first pick in the target weeks in 10 of 15 years)" data-placeholder="First pick or peak? How many years?"></div></td></tr>
+</table></div>
+
+<h3>5.4 What a grower would see</h3>
+<ul>
+<li>The site type, with the weeks when flower buds can form in most years.</li>
+<li>At programmable sites, for a market window the grower picks, the range of pruning dates whose first pick lands in the window in at least 10 of 15 years, with the typical bloom and first-pick dates.</li>
+<li>At seasonal sites, the latest hedging date that still leaves time for flower buds, and the natural bloom and harvest windows.</li>
+<li>For each pruning date, the years with poor flower-bud formation, such as the warm El Niño winter of 2023, and how often freeze or heat hit bloom, rain hit harvest and heat followed pruning.</li>
+</ul>
+
+<h3>5.5 How we would test it</h3>
+<ol>
+<li>Predict bloom and first harvest for the published pruning dates in section 4, leaving each site out of the fit in turn. Most predictions should land within 3 weeks.</li>
+<li>Across the 16 sites where the scan runs today, match or beat today's 78% and 76% harvest-month agreement, and put Chao's bloom in April and May.</li>
+<li>Flag poor flower-bud formation in 2023 at Olmos and Chao, but not at Ica.</li>
+<li>Give bloom in December to February and harvest in March to May at Arcadia and Sebring.</li>
+<li>Leave every deciduous result unchanged.</li>
+</ol>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Comment on section 5, the proposed planner" data-note="C5" data-label="Comment on 5 Proposed evergreen planner" data-placeholder="Would this help evergreen growers? What is missing or wrong in the design?"></div>
+
+<h2 id="s6">6. Questions for you</h2>
+<div class="fields">
+<div><b>Your name</b><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Reviewer name" data-note="reviewer" data-label="Reviewer name" data-placeholder="Name"></div></div>
+<div><b>Date</b><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Review date" data-note="review-date" data-label="Review date" data-placeholder="Date"></div></div>
+</div>
+<h3>Evergreen systems</h3>
+<div class="q"><p><b>Q1.</b> We propose two kinds of evergreen site. At seasonal sites, short days and cool nights time flowering and pruning builds wood for it. At programmable sites, the pruning date sets the harvest date. Does that match what you see? Where do Jalisco, Michoacán, Morocco and northern South Africa fit?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q1 Seasonal and programmable sites" data-note="Q1" data-label="Q1 Seasonal and programmable sites" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q2.</b> For Florida evergreen growers, which decision should the tool time first? We see four candidates: the post-harvest hedging date, the September fertilizer pause, freeze protection, and a forecast of when harvest starts.</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q2 Florida decisions to time" data-note="Q2" data-label="Q2 Florida decisions to time" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q3.</b> Are day length and temperature, P3 to P5, the right signals for flower-bud formation in evergreen plants? How do 'Arcadia', 'Avanti', 'Kestrel' and 'Optimus' differ?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q3 Signals for flower-bud formation" data-note="Q3" data-label="Q3 Signals for flower-bud formation" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q4.</b> Do the intervals in section 4, from pruning to budbreak, bloom and first harvest, match your experience? Do you know of trial records we could use?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q4 Intervals from pruning" data-note="Q4" data-label="Q4 Intervals from pruning" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q5.</b> What sets ripening speed besides temperature? Light, crop load, leaf area, cultivar? Why might Chao need about 4 months from April bloom to August harvest, when Brasília needs 51 days in its warm season?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q5 Ripening speed" data-note="Q5" data-label="Q5 Ripening speed" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q6.</b> Which temperatures during bloom and fruit set cause losses in evergreen southern highbush, and for how many hours?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q6 Heat during bloom and fruit set" data-note="Q6" data-label="Q6 Heat during bloom and fruit set" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q7.</b> Should the tool model a freeze that pushes evergreen plants into dormancy or strips their leaves? At what temperature, and for how long?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q7 Freeze-induced dormancy or leaf drop" data-note="Q7" data-label="Q7 Freeze-induced dormancy or leaf drop" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q8.</b> Should leaf-disease weather from late summer to bloom, such as rust and leaf spots, count as a risk to next year's flower buds?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q8 Leaf disease and flower buds" data-note="Q8" data-label="Q8 Leaf disease and next year's flower buds" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q9.</b> Which market windows should the planner offer as presets? Should hitting the window mean first pick or peak harvest?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q9 Market windows" data-note="Q9" data-label="Q9 Market windows" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q10.</b> Which cultivars in use are day-neutral or everbearing, and which need short days and cool temperatures?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q10 Cultivar classes" data-note="Q10" data-label="Q10 Cultivar classes" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q11.</b> How much do tunnels and pots change temperature and timing in evergreen production? Should the tool adjust the open-field weather for them?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q11 Tunnels and pots" data-note="Q11" data-label="Q11 Tunnels and pots" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q12.</b> What rule would you give for when to plant a new evergreen field?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q12 Planting a new evergreen field" data-note="Q12" data-label="Q12 Planting a new evergreen field" data-placeholder="Your answer"></div></div>
+<h3>Other systems</h3>
+<div class="q"><p><b>Q13.</b> At deciduous sites we count every hour below 7.2 °C (45 °F), including hours below freezing, and need 50 of them, then 150 degree-days to budbreak. UF/IFAS HS968 counts only hours from 0 to 7.2 °C (32 to 45 °F) and notes that plants holding leaves gather chill more slowly. Which chill rule fits low-chill southern highbush? Should the tool accept a hydrogen cyanamide date instead?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q13 Chill rule and budbreak trigger" data-note="Q13" data-label="Q13 Chill rule and budbreak trigger" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q14.</b> Open-field climate classes Sebring as semi-evergreen and Wolseley and Moguer as deciduous, though growers there run evergreen or mixed systems. It also classes George, South Africa, reported as deciduous, as Transitional. Should the class come from management, from climate, or from both?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q14 Classification by climate or management" data-note="Q14" data-label="Q14 Classification by climate or management" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q15.</b> Would you change any threshold in section 2.4, or the rule that a risk must happen in half of at least 12 winters to be listed? UF/IFAS HS1363 uses 21 °C (70 °F) for good bee foraging, while we count any hour at 12.8 °C (55 °F) or more as flight weather.</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q15 Risk thresholds and listing rule" data-note="Q15" data-label="Q15 Risk thresholds and listing rule" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Q16.</b> What important thing have we missed?</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Q16 What we missed" data-note="Q16" data-label="Q16 What we missed" data-placeholder="Your answer"></div></div>
+<div class="q"><p><b>Your top three changes</b>, most important first.</p><div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Top three changes" data-note="top3" data-label="Top three changes, most important first" data-placeholder="1.&#10;2.&#10;3."></div></div>
+
+<h2 id="s7">7. Data that would help</h2>
+<p>For any evergreen field, by cultivar, place, year and system (open field, tunnel or pots):</p>
+<ul>
+<li>pruning or hedging date and how hard it was, plus any leaf stripping, hydrogen cyanamide or fertilizer pause;</li>
+<li>dates of budbreak, 10% and 50% bloom, first pick, 50% harvest and last pick;</li>
+<li>freeze, heat or storm damage, with dates.</li>
+</ul>
+<p>Spreadsheets in any format are fine. We keep grower and breeder records private and do not publish them with the project code.</p>
+<div class="note" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" aria-label="Data you could share" data-note="data" data-label="Data you could share or point us to" data-placeholder="What could you share, or who should we ask?"></div>
+
+<h2 id="s8">8. Sources</h2>
+<h3>Extension</h3>
+<ul class="sources">
+<li>UF/IFAS HS1362, Evergreen Production System for Southern Highbush Blueberries in Florida, by Phillips, Williamson and Munoz. <a href="https://ask.ifas.ufl.edu/publication/HS1362">ask.ifas.ufl.edu/publication/HS1362</a></li>
+<li>UF/IFAS HS1359, Pruning Southern Highbush Blueberries in Florida. <a href="https://ask.ifas.ufl.edu/publication/HS1359">ask.ifas.ufl.edu/publication/HS1359</a></li>
+<li>UF/IFAS HS1363, Calendar for Southern Highbush Blueberry Management in Florida. <a href="https://ask.ifas.ufl.edu/publication/HS1363">ask.ifas.ufl.edu/publication/HS1363</a></li>
+<li>UF/IFAS HS968, Protecting Blueberries from Freezes in Florida. <a href="https://ask.ifas.ufl.edu/publication/HS216">ask.ifas.ufl.edu/publication/HS216</a></li>
+<li>UF/IFAS HS1245, Southern Highbush Blueberry Cultivars from the University of Florida. <a href="https://ask.ifas.ufl.edu/publication/HS1245">ask.ifas.ufl.edu/publication/HS1245</a></li>
+<li>UF/IFAS HS742, Florida's Commercial Blueberry Industry. <a href="https://ask.ifas.ufl.edu/publication/AC031">ask.ifas.ufl.edu/publication/AC031</a></li>
+<li>UF/IFAS PP385, Leaf Rust Disease of Southern Highbush Blueberry in Florida. <a href="https://ask.ifas.ufl.edu/publication/PP385">ask.ifas.ufl.edu/publication/PP385</a></li>
+<li>Phillips, Williamson and Munoz 2020, Maximize the Evergreen Approach to Growing Blueberries, Growing Produce. <a href="https://www.growingproduce.com/fruits/maximize-the-evergreen-approach-to-growing-blueberries/">growingproduce.com</a></li>
+<li>UGA Extension Circular 1293, Recognizing Flower and Vegetative Buds in Blueberries. <a href="https://fieldreport.caes.uga.edu/publications/C1293/recognizing-flower-and-vegetative-buds-in-blueberries-blueberry-phenology/">fieldreport.caes.uga.edu</a></li>
+<li>MSU Extension, Protecting blueberry bloom from extreme heat, as republished by HortiDaily. <a href="https://www.hortidaily.com/article/9623395/protecting-blueberry-bloom-from-extreme-heat-using-overhead-irrigation/">hortidaily.com</a></li>
+<li>INIAP 2025, Manual técnico del cultivo de arándano para Ecuador. <a href="https://repositorio.iniap.gob.ec/server/api/core/bitstreams/93d2e093-1934-4266-a46a-88bb2e7ded15/content">repositorio.iniap.gob.ec</a></li>
+</ul>
+<h3>Papers, books, theses and patents</h3>
+<ul class="sources">
+<li>Retamales and Hancock 2018, Blueberries, 2nd edition, CABI, which tabulates Hall et al. 1963. <a href="https://doi.org/10.1079/9781780647265.0000">doi.org/10.1079/9781780647265.0000</a></li>
+<li>Spann, Williamson and Darnell 2004, J. Amer. Soc. Hort. Sci. 129:294. <a href="https://doi.org/10.21273/JASHS.129.3.294">doi.org/10.21273/JASHS.129.3.294</a></li>
+<li>Kovaleski, Williamson, Olmstead and Darnell 2015, inflorescence bud initiation in 'Emerald' and 'Jewel', J. Amer. Soc. Hort. Sci. 140:38. <a href="https://doi.org/10.21273/jashs.140.1.38">doi.org/10.21273/jashs.140.1.38</a></li>
+<li>Kovaleski, Williamson, Casamali and Darnell 2015, timing and intensity of summer pruning, HortScience 50:68. <a href="https://doi.org/10.21273/hortsci.50.1.68">doi.org/10.21273/hortsci.50.1.68</a></li>
+<li>Benevenute, Roni, Sarkhosh, Munoz and Nunez 2025, photoperiod and temperature effects on an everbearing blueberry, Scientia Horticulturae 353:114463. <a href="https://doi.org/10.1016/j.scienta.2025.114463">doi.org/10.1016/j.scienta.2025.114463</a></li>
+<li>Pescie et al. 2011, flower-bud initiation in 'O'Neal' under field conditions in Buenos Aires. <a href="http://horticultureresearch.net/journal_pdf/20118-12.pdf">horticultureresearch.net</a></li>
+<li>Lyrene 1992, early defoliation reduces flower bud counts on rabbiteye blueberry, HortScience 27:783. <a href="https://doi.org/10.21273/hortsci.27.7.783">doi.org/10.21273/hortsci.27.7.783</a></li>
+<li>Lyrene 1996, primocane flowering in blueberry, HortScience 31:609. <a href="https://doi.org/10.21273/hortsci.31.4.609d">doi.org/10.21273/hortsci.31.4.609d</a></li>
+<li>NeSmith 2012, fruit development period of several southern highbush cultivars, Int. J. Fruit Sci. 12. <a href="https://doi.org/10.1080/15538362.2011.619430">doi.org/10.1080/15538362.2011.619430</a></li>
+<li>Walters and Isaacs 2023, pollen germination in northern highbush inhibited by extreme heat, HortScience 58. <a href="https://doi.org/10.21273/hortsci17075-23">doi.org/10.21273/hortsci17075-23</a></li>
+<li>Yang et al. 2019, high temperatures during flowering reduce fruit set in rabbiteye, J. Amer. Soc. Hort. Sci. 144:339. <a href="https://doi.org/10.21273/jashs04650-19">doi.org/10.21273/jashs04650-19</a></li>
+<li>Fang, Nunez, Silva, Phillips and Munoz 2020, review of southern highbush alternative production systems, Agronomy 10:1531. <a href="https://doi.org/10.3390/agronomy10101531">doi.org/10.3390/agronomy10101531</a></li>
+<li>Miranda et al. 2025, pruning type and timing of 'Biloxi' in central Brazil. <a href="https://dialnet.unirioja.es/descarga/articulo/10082757.pdf">dialnet.unirioja.es</a></li>
+<li>Maticorena and Escobedo 2024, five pruning types in 'Biloxi' at Chao, Ciencia Latina 8(3). <a href="https://ciencialatina.org/index.php/cienciala/article/view/11543">ciencialatina.org</a></li>
+<li>Gómez Martínez 2010, pruning of 'Biloxi' in Michoacán, MSc thesis, Universidad Autónoma Chapingo. <a href="https://repositorio.chapingo.edu.mx/items/f27c0711-e0d4-4a93-aaac-d1e7022307d6">repositorio.chapingo.edu.mx</a></li>
+<li>Orga Porras, agronomic management of 'Biloxi' in Villacurí, Ica, professional thesis, UNALM. <a href="https://repositorio.lamolina.edu.pe/items/53ec5317-d97a-4944-94de-0f9b3a5ab9a7">repositorio.lamolina.edu.pe</a></li>
+<li>Rodríguez Reyes 2023, 'Ventura' in Jayanca, Lambayeque, professional report, Universidad Nacional del Santa. <a href="https://repositorio.uns.edu.pe/bitstream/handle/20.500.14278/4306/52777.pdf?isAllowed=y&amp;sequence=1">repositorio.uns.edu.pe</a></li>
+<li>US plant patent PP36,340, Peruvian selection 'PE2103'. <a href="https://patents.google.com/patent/USPP36340P2/en">patents.google.com</a></li>
+</ul>
+<h3>Government and industry</h3>
+<ul class="sources">
+<li>USDA FAS GAIN PE2024-0002, Peru Blueberry Annual. <a href="https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry%20Annual_Lima_Peru_PE2024-0002.pdf">apps.fas.usda.gov</a></li>
+<li>USDA FAS GAIN MX2024-0003, Mexico Blueberry Annual. <a href="https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual+Voluntary+_Guadalajara_Mexico_MX2024-0003.pdf">apps.fas.usda.gov</a></li>
+<li>USDA ERS, Fresh Blueberry Supplies Expand, Amber Waves, December 2020. <a href="https://www.ers.usda.gov/amber-waves/2020/december/fresh-blueberry-supplies-expand-as-u-s-consumers-develop-a-taste-for-year-round-blueberries">ers.usda.gov</a></li>
+<li>IBO 2025, El delicado arte de inducir la floración en arándanos, quoting consultant S. Ochoa. <a href="https://www.internationalblueberry.org/2025/10/29/el-delicado-arte-de-inducir-la-floracion-en-arandanos/">internationalblueberry.org</a></li>
+<li>ESAN 2024, Arándano peruano: comportamiento de la variedad Ventura. <a href="https://www.esan.edu.pe/conexion-esan/arandano-peruano-comportamiento-de-la-variedad-ventura-para-este-ano">esan.edu.pe</a></li>
+<li>Redagrícola 2026, La poda marcará el ritmo productivo del arándano en Ica, quoting W. Apaza. <a href="https://redagricola.com/la-poda-marcara-el-ritmo-productivo-del-arandano-en-ica/">redagricola.com</a></li>
+<li>Redagrícola 2025, Ica night minima under El Niño. <a href="https://redagricola.com/recetas-que-tienen-impacto-en-el-presente-del-cultivo/">redagricola.com</a></li>
+<li>IBO 2024, Fall Creek on Peru's export weeks. <a href="https://www.internationalblueberry.org/2024/01/26/peruvian-blueberry-industry-turns-to-varietal-change-to-secure-2024-season">internationalblueberry.org</a></li>
+<li>FreshPlaza 2025, Peruvian growers shift toward Sekoya Pop, on the week 40 to 42 peak. <a href="https://www.freshplaza.com/north-america/article/9790991/peruvian-growers-shift-toward-sekoya-pop-plantings/">freshplaza.com</a></li>
+<li>Blueberries Consulting 2026, South African season and prices before and after Peru. <a href="https://blueberriesconsulting.com/en/temporada-de-arandanos-en-sudafrica-buen-inicio-en-el-norte-e-incertidumbre-en-el-cabo-occidental/">blueberriesconsulting.com</a></li>
+<li>Blueberries Consulting 2026, Morocco's season. <a href="https://blueberriesconsulting.com/en/marruecos-la-nueva-frontera-competitiva-del-arandano-mundial/">blueberriesconsulting.com</a></li>
+<li>IBO 2025, Early-season Yunnan blueberries hit market. <a href="https://www.internationalblueberry.org/2025/12/02/early-season-yunnan-blueberries-hit-market/">internationalblueberry.org</a></li>
+<li>The Express 2021, Atherton Tablelands grower interview. <a href="https://www.theexpressnewspaper.com.au/high-risk-high-reward-for-tableland-blueberries-2021-06-11">theexpressnewspaper.com.au</a></li>
+<li>Fruitnet 2025, 'MegaEarly' in South Africa and Zimbabwe. <a href="https://www.fruitnet.com/eurofruit/new-variety-boosts-south-africas-early-season-blueberry-business/266599.article">fruitnet.com</a></li>
+</ul>
+<p class="muted">Our 53-site benchmark of published calendars is <code>docs/weather/benchmark/benchmark.html</code> in the project repository, and every formula is written out in <code>docs/weather/production/formula_sheet.html</code>. We can send either on request.</p>
+</main>
+<script>
+(function () {
+  var KEY = 'blueberry-evergreen-expert-review-v1';
+  var notes = Array.prototype.slice.call(document.querySelectorAll('[data-note]'));
+  var status = document.getElementById('save-status');
+  function say(text) { if (status) status.textContent = text; }
+  function collect() {
+    var data = {};
+    notes.forEach(function (n) { var v = n.innerText.trim(); if (v) data[n.getAttribute('data-note')] = v; });
+    return data;
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    var restored = 0;
+    notes.forEach(function (n) {
+      var v = saved[n.getAttribute('data-note')];
+      if (v && !n.innerText.trim()) { n.innerText = v; restored++; }
+    });
+    if (restored) say(restored + ' earlier note' + (restored === 1 ? '' : 's') + ' restored from this browser.');
+  } catch (err) { say('This browser cannot keep notes. Use Download my notes before closing.'); }
+  document.addEventListener('input', function (event) {
+    if (!event.target.hasAttribute || !event.target.hasAttribute('data-note')) return;
+    try { localStorage.setItem(KEY, JSON.stringify(collect())); say('Notes kept in this browser. Download them when you finish.'); }
+    catch (err) { say('This browser cannot keep notes. Use Download my notes before closing.'); }
+  });
+  notes.forEach(function (n) {
+    n.addEventListener('paste', function (event) {
+      var data = event.clipboardData || window.clipboardData;
+      if (!data) return;
+      event.preventDefault();
+      document.execCommand('insertText', false, data.getData('text/plain'));
+    });
+  });
+  function download(name, type, text) {
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([text], { type: type }));
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(link.href); link.remove(); }, 0);
+  }
+  function notesText() {
+    var lines = ['Evergreen blueberry timing: review notes', document.getElementById('doc-version').textContent.trim(), ''];
+    var count = 0;
+    notes.forEach(function (n) {
+      var v = n.innerText.trim();
+      if (!v) return;
+      count++;
+      lines.push(n.getAttribute('data-label'));
+      lines.push(v);
+      lines.push('');
+    });
+    if (!count) lines.push('(No notes written yet.)');
+    return lines.join('\n');
+  }
+  window.reviewNotesText = notesText;
+  document.getElementById('download-notes').addEventListener('click', function () {
+    download('evergreen-review-notes.txt', 'text/plain;charset=utf-8', notesText());
+    say('Notes downloaded as evergreen-review-notes.txt.');
+  });
+  document.getElementById('save-page').addEventListener('click', function () {
+    notes.forEach(function (n) { n.textContent = n.innerText; });
+    var page = '<!doctype html>\n' + document.documentElement.outerHTML;
+    download('evergreen-review-with-notes.html', 'text/html;charset=utf-8', page);
+    say('Page saved with your notes as evergreen-review-with-notes.html.');
+  });
+  document.getElementById('print-page').addEventListener('click', function () { window.print(); });
+})();
+</script>
+</body>
+</html>
